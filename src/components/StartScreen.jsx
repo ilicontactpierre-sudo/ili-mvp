@@ -28,9 +28,24 @@ function StartScreen({ title, author, soundsToPreload = [], onStart }) {
           loop: Boolean(sound.loop),
         })
 
+        let isSettled = false
+        const settle = () => {
+          if (isSettled) {
+            return
+          }
+          isSettled = true
+          window.clearTimeout(fallbackTimer)
+          resolve()
+        }
+
+        const fallbackTimer = window.setTimeout(() => {
+          settle()
+        }, 8000)
+
         howlMap.set(sound.id, howl)
-        howl.once('load', resolve)
-        howl.once('loaderror', resolve)
+        howl.once('load', settle)
+        howl.once('loaderror', settle)
+        howl.load()
       })
     })
 

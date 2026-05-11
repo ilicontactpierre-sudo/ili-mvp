@@ -3,13 +3,40 @@
   "title": "La Parure",
   "author": "Guy de Maupassant",
   "published": true,
-  "sounds": [],
+  "sounds": [
+    { "id": "ambiance_salon", "url": "https://res.cloudinary.com/dsskyojxb/video/upload/v1778506563/12_LISE_-_Oiseaux_enz7jr.mp3", "loop": true },
+    { "id": "son_ponctuel", "url": "https://res.cloudinary.com/dsskyojxb/video/upload/v1778506504/11_CONTINES_-_Sweep_eqnvoh.mp3", "loop": false }
+  ],
   "segments": [
-    { "id": 1, "text": "C'était une de ces jolies filles, nées, comme par une erreur du destin, dans une famille d'employés.", "audioEvents": [] },
+    {
+      "id": 1,
+      "text": "C'était une de ces jolies filles, nées, comme par une erreur du destin, dans une famille d'employés.",
+      "audioEvents": [
+        { "action": "fadeIn", "soundId": "ambiance_salon", "volume": 0.4, "duration": 2000 }
+      ]
+    },
     { "id": 2, "text": "Elle n'avait pas de dot.", "audioEvents": [] },
-    { "id": 3, "text": "Pas de ressources. Aucun moyen d'être connue, comprise, aimée, épousée par un homme riche et distingué.", "audioEvents": [] },
-    { "id": 4, "text": "Elle se laissa marier avec un petit commis du ministère de l'Instruction publique.", "audioEvents": [] },
-    { "id": 5, "text": "Elle fut simple, ne pouvant être parée, mais malheureuse comme une déclassée.", "audioEvents": [] },
+    {
+      "id": 3,
+      "text": "Pas de ressources. Aucun moyen d'être connue, comprise, aimée, épousée par un homme riche et distingué.",
+      "audioEvents": [
+        { "action": "play", "soundId": "son_ponctuel", "volume": 0.7, "delay": 500 }
+      ]
+    },
+    {
+      "id": 4,
+      "text": "Elle se laissa marier avec un petit commis du ministère de l'Instruction publique.",
+      "audioEvents": [
+        { "action": "fadeOut", "soundId": "ambiance_salon", "duration": 1500 }
+      ]
+    },
+    {
+      "id": 5,
+      "text": "Elle fut simple, ne pouvant être parée, mais malheureuse comme une déclassée.",
+      "audioEvents": [
+        { "action": "fadeIn", "soundId": "ambiance_salon", "volume": 0.25, "duration": 3000 }
+      ]
+    },
     { "id": 6, "text": "Car les femmes n'ont point de caste ni de race, leur beauté, leur grâce et leur charme leur servant de naissance et de famille.", "audioEvents": [] },
     { "id": 7, "text": "Leur finesse native, leur instinct d'élégance, leur souplesse d'esprit, sont leur seule hiérarchie.", "audioEvents": [] },
     { "id": 8, "text": "Et font des filles du peuple les égales des grandes dames.", "audioEvents": [] }

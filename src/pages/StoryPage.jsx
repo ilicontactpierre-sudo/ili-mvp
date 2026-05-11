@@ -1,7 +1,9 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
+import EndScreen from '../components/EndScreen.jsx'
 import StartScreen from '../components/StartScreen.jsx'
 import StoryReader from '../components/StoryReader.jsx'
+import AudioEngine from '../engine/AudioEngine.js'
 
 const fullScreenStyle = {
   minHeight: '100vh',
@@ -22,7 +24,9 @@ function StoryPage() {
   const [errorType, setErrorType] = useState('')
   const touchStartY = useRef(null)
   const preloadedSoundsRef = useRef(new Map())
+  const audioEngineRef = useRef(null)
   const ignoreAdvanceUntilRef = useRef(0)
+  const feedbackFormUrl = 'https://forms.gle/ili-feedback'
   const segments = story?.segments ?? []
   const lastIndex = Math.max(segments.length - 1, 0)
 
@@ -62,6 +66,8 @@ function StoryPage() {
       setCurrentIndex(0)
       setIsFinished(false)
       setIsStarted(false)
+      audioEngineRef.current?.stopAll()
+      audioEngineRef.current = null
       preloadedSoundsRef.current = new Map()
 
       try {
@@ -97,6 +103,28 @@ function StoryPage() {
       isCancelled = true
     }
   }, [storyId])
+
+  useEffect(() => {
+    return () => {
+      audioEngineRef.current?.stopAll()
+    }
+  }, [])
+
+  useEffect(() => {
+    if (!isStarted || !audioEngineRef.current || !segments[currentIndex]) {
+      return
+    }
+
+    audioEngineRef.current.executeEvents(segments[currentIndex].audioEvents ?? [])
+  }, [currentIndex, isStarted, segments])
+
+  useEffect(() => {
+    if (!isFinished) {
+      return
+    }
+
+    audioEngineRef.current?.stopAll(1500)
+  }, [isFinished])
 
   useEffect(() => {
     function handleKeyDown(event) {
@@ -198,7 +226,17 @@ function StoryPage() {
   }
 
   if (isFinished) {
-    return <main style={fullScreenStyle}>Fin de l'histoire</main>
+    return (
+      <EndScreen
+        title={story?.title ?? ''}
+        author={story?.author ?? ''}
+        formUrl={feedbackFormUrl}
+        onRestart={() => {
+          setCurrentIndex(0)
+          setIsFinished(false)
+        }}
+      />
+    )
   }
 
   if (!isStarted) {
@@ -209,6 +247,7 @@ function StoryPage() {
         soundsToPreload={story?.sounds ?? []}
         onStart={(preloadedHowlMap) => {
           preloadedSoundsRef.current = preloadedHowlMap
+          audioEngineRef.current = new AudioEngine(preloadedHowlMap)
           ignoreAdvanceUntilRef.current = Date.now() + 600
           touchStartY.current = null
           setIsStarted(true)
