@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
+import StartScreen from '../components/StartScreen.jsx'
 import StoryReader from '../components/StoryReader.jsx'
 
 const fullScreenStyle = {
@@ -14,16 +15,19 @@ const fullScreenStyle = {
 function StoryPage() {
   const { storyId } = useParams()
   const [story, setStory] = useState(null)
+  const [isStarted, setIsStarted] = useState(false)
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isFinished, setIsFinished] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
   const [errorType, setErrorType] = useState('')
   const touchStartY = useRef(null)
+  const preloadedSoundsRef = useRef(new Map())
+  const ignoreAdvanceUntilRef = useRef(0)
   const segments = story?.segments ?? []
   const lastIndex = Math.max(segments.length - 1, 0)
 
   const goToNext = useCallback(() => {
-    if (!segments.length || isFinished) {
+    if (!isStarted || !segments.length || isFinished) {
       return
     }
 
@@ -34,10 +38,10 @@ function StoryPage() {
       }
       return prevIndex + 1
     })
-  }, [isFinished, lastIndex, segments.length])
+  }, [isFinished, isStarted, lastIndex, segments.length])
 
   const goToPrevious = useCallback(() => {
-    if (!segments.length) {
+    if (!isStarted || !segments.length) {
       return
     }
 
@@ -47,7 +51,7 @@ function StoryPage() {
     }
 
     setCurrentIndex((prevIndex) => Math.max(0, prevIndex - 1))
-  }, [isFinished, segments.length])
+  }, [isFinished, isStarted, segments.length])
 
   useEffect(() => {
     let isCancelled = false
@@ -57,6 +61,8 @@ function StoryPage() {
       setErrorType('')
       setCurrentIndex(0)
       setIsFinished(false)
+      setIsStarted(false)
+      preloadedSoundsRef.current = new Map()
 
       try {
         const response = await fetch(`/stories/${storyId}.json`)
@@ -113,6 +119,10 @@ function StoryPage() {
   }, [goToNext, goToPrevious])
 
   function handleScreenClick(event) {
+    if (Date.now() < ignoreAdvanceUntilRef.current) {
+      return
+    }
+
     if (event.target.closest('a, button, input, textarea, select, summary, [role="button"]')) {
       return
     }
@@ -120,10 +130,19 @@ function StoryPage() {
   }
 
   function handleTouchStart(event) {
+    if (Date.now() < ignoreAdvanceUntilRef.current) {
+      return
+    }
+
     touchStartY.current = event.changedTouches[0]?.clientY ?? null
   }
 
   function handleTouchEnd(event) {
+    if (Date.now() < ignoreAdvanceUntilRef.current) {
+      touchStartY.current = null
+      return
+    }
+
     if (touchStartY.current === null) {
       return
     }
@@ -180,6 +199,22 @@ function StoryPage() {
 
   if (isFinished) {
     return <main style={fullScreenStyle}>Fin de l'histoire</main>
+  }
+
+  if (!isStarted) {
+    return (
+      <StartScreen
+        title={story?.title ?? ''}
+        author={story?.author ?? ''}
+        soundsToPreload={story?.sounds ?? []}
+        onStart={(preloadedHowlMap) => {
+          preloadedSoundsRef.current = preloadedHowlMap
+          ignoreAdvanceUntilRef.current = Date.now() + 600
+          touchStartY.current = null
+          setIsStarted(true)
+        }}
+      />
+    )
   }
 
   return (
