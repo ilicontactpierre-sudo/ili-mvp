@@ -1,0 +1,17 @@
+{
+  "id": "test-histoire",
+  "title": "La Parure",
+  "author": "Guy de Maupassant",
+  "published": true,
+  "sounds": [],
+  "segments": [
+    { "id": 1, "text": "C'était une de ces jolies filles, nées, comme par une erreur du destin, dans une famille d'employés.", "audioEvents": [] },
+    { "id": 2, "text": "Elle n'avait pas de dot.", "audioEvents": [] },
+    { "id": 3, "text": "Pas de ressources. Aucun moyen d'être connue, comprise, aimée, épousée par un homme riche et distingué.", "audioEvents": [] },
+    { "id": 4, "text": "Elle se laissa marier avec un petit commis du ministère de l'Instruction publique.", "audioEvents": [] },
+    { "id": 5, "text": "Elle fut simple, ne pouvant être parée, mais malheureuse comme une déclassée.", "audioEvents": [] },
+    { "id": 6, "text": "Car les femmes n'ont point de caste ni de race, leur beauté, leur grâce et leur charme leur servant de naissance et de famille.", "audioEvents": [] },
+    { "id": 7, "text": "Leur finesse native, leur instinct d'élégance, leur souplesse d'esprit, sont leur seule hiérarchie.", "audioEvents": [] },
+    { "id": 8, "text": "Et font des filles du peuple les égales des grandes dames.", "audioEvents": [] }
+  ]
+}

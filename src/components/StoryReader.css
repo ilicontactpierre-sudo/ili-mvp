@@ -1,0 +1,48 @@
+.story-reader {
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+}
+
+.story-reader__track {
+  width: 100%;
+  transform: translate3d(0, var(--track-translate-y, 0px), 0);
+  transition: transform var(--transition-speed) cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.story-reader__segment {
+  width: min(100%, var(--segment-max-width));
+  margin: 0 auto;
+  padding: 0 1.25rem;
+  margin-bottom: clamp(1.4rem, 3vh, 2.2rem);
+  text-align: left;
+  font-family: var(--font-primary);
+  font-size: var(--font-size-focus);
+  line-height: 1.7;
+  letter-spacing: 0.01em;
+  pointer-events: none;
+  transform-origin: center center;
+  transition:
+    opacity var(--transition-speed) cubic-bezier(0.25, 0.46, 0.45, 0.94),
+    filter var(--transition-speed) cubic-bezier(0.25, 0.46, 0.45, 0.94),
+    transform var(--transition-speed) cubic-bezier(0.25, 0.46, 0.45, 0.94),
+    color var(--transition-speed) cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.story-reader__segment:last-child {
+  margin-bottom: 0;
+}
+
+.story-reader__segment--focus {
+  color: var(--color-text-focus);
+  opacity: 1;
+  transform: scale(1);
+  filter: blur(0);
+}
+
+.story-reader__segment--blur {
+  color: var(--color-text-blur);
+  opacity: 0.65;
+  transform: scale(0.94);
+  filter: blur(var(--blur-amount));
+}

@@ -1,0 +1,32 @@
+@import url('https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&display=swap');
+
+:root {
+  --color-bg: #0d0d0f;
+  --color-text-focus: #ffffff;
+  --color-text-blur: rgba(255, 255, 255, 0.4);
+  --font-primary: 'Lora', Georgia, 'Times New Roman', serif;
+  --font-size-focus: clamp(2rem, 5.8vw, 2.65rem);
+  --font-size-blur: clamp(1.85rem, 5.3vw, 2.35rem);
+  --blur-amount: 1.8px;
+  --transition-speed: 400ms;
+  --segment-max-width: 680px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-text-focus);
+  font-family: var(--font-primary);
+  height: 100vh;
+  overflow: hidden;
+  line-height: 1.42;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
