@@ -15,7 +15,7 @@ export const FILTER_INTENSITY = ['Douce', 'Moyenne', 'Forte']
 // Dimensions de la timeline
 export const SEGMENT_HEIGHT = 40
 export const COLUMN_COUNT = 6
-export const COLUMN_WIDTH = 80
+export const COLUMN_WIDTH = 42 // Environ 2 fois plus serré (était 80)
 
 // Structure par défaut d'un soundTrack
 export const DEFAULT_SOUNDTRACK = {

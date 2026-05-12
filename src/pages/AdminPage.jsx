@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect, useMemo, useCallback } from 'react'
 import { segmentText } from '../utils/segmentAlgorithm'
 import { Howl } from 'howler'
-import AudioTimeline from '../components/admin/AudioTimeline'
+import UnifiedSegmentsTimeline from '../components/admin/UnifiedSegmentsTimeline'
 
 function AdminPage() {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
@@ -594,104 +594,89 @@ function AdminPage() {
             </div>
           </div>
 
-          <button
-            onClick={handleCutText}
-            disabled={isCutting || !storyText.trim()}
-            style={{
-              padding: '0.75rem 1.5rem',
-              fontSize: '1rem',
-              backgroundColor: '#28a745',
-              color: 'white',
-              border: 'none',
-              borderRadius: '4px',
-              cursor: 'pointer',
-              marginTop: '1rem'
-            }}
-          >
-            {isCutting ? "Découpage en cours..." : "Découper le texte"}
-          </button>
+          <div style={{ display: 'flex', gap: '0.5rem', marginTop: '1rem' }}>
+            <button
+              onClick={handleCutText}
+              disabled={isCutting || !storyText.trim()}
+              style={{
+                padding: '0.75rem 1.5rem',
+                fontSize: '1rem',
+                backgroundColor: storyText.trim() && !isCutting ? '#28a745' : '#ccc',
+                color: 'white',
+                border: 'none',
+                borderRadius: '4px',
+                cursor: storyText.trim() && !isCutting ? 'pointer' : 'not-allowed',
+                flex: 1
+              }}
+            >
+              {isCutting ? "Découpage en cours..." : "Découper le texte"}
+            </button>
+            
+            {/* Boutons Undo/Redo */}
+            <div style={{ display: 'flex', gap: '0.25rem' }}>
+              <button
+                onClick={handleUndo}
+                disabled={historyIndex <= 0}
+                style={{
+                  padding: '0.75rem 1rem',
+                  fontSize: '1rem',
+                  backgroundColor: historyIndex > 0 ? '#6c757d' : '#ccc',
+                  color: 'white',
+                  border: 'none',
+                  borderRadius: '4px',
+                  cursor: historyIndex > 0 ? 'pointer' : 'not-allowed',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}
+                title="Annuler (Cmd+Z)"
+              >
+                ↩
+              </button>
+              <button
+                onClick={handleRedo}
+                disabled={historyIndex >= history.length - 1}
+                style={{
+                  padding: '0.75rem 1rem',
+                  fontSize: '1rem',
+                  backgroundColor: historyIndex < history.length - 1 ? '#6c757d' : '#ccc',
+                  color: 'white',
+                  border: 'none',
+                  borderRadius: '4px',
+                  cursor: historyIndex < history.length - 1 ? 'pointer' : 'not-allowed',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}
+                title="Rétablir (Cmd+Shift+Z)"
+              >
+                ↪
+              </button>
+            </div>
+          </div>
           {cutError && (
-            <p style={{ color: 'red', margin: '0', fontSize: '0.875rem' }}>
+            <p style={{ color: 'red', margin: '0.5rem 0 0 0', fontSize: '0.875rem' }}>
               Erreur: {cutError}
             </p>
           )}
 
           {segments.length > 0 && (
             <>
-              {/* Timeline Audio */}
+              {/* Timeline Audio unifiée avec éditeur de segments */}
               <div style={{ 
                 marginTop: '2rem', 
                 borderTop: '1px solid #eee', 
                 paddingTop: '1.5rem'
               }}>
-                <div style={{ height: '500px', marginBottom: '2rem' }}>
-                  <AudioTimeline
+                <div style={{ height: '600px', marginBottom: '2rem' }}>
+                  <UnifiedSegmentsTimeline
                     segments={segments}
                     soundTracks={soundTracks}
                     soundLibrary={soundLibrary}
+                    onSegmentsChange={setSegments}
                     onSoundTracksChange={setSoundTracks}
                     onSaveToHistory={() => saveToHistory(segments)}
                   />
-                </div>
-              </div>
-
-              {/* Éditeur de segments */}
-              <div style={{ borderTop: '1px solid #eee', paddingTop: '1.5rem' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
-                  <h3 style={{ margin: '0', fontSize: '1.5rem', color: '#333' }}>
-                    Segments découpés ({segments.length} segments)
-                  </h3>
-                  <div style={{ display: 'flex', gap: '0.5rem' }}>
-                    <button
-                      onClick={handleUndo}
-                      disabled={historyIndex <= 0}
-                      style={{
-                        padding: '0.5rem 1rem',
-                        fontSize: '0.875rem',
-                        backgroundColor: historyIndex <= 0 ? '#ccc' : '#6c757d',
-                        color: 'white',
-                        border: 'none',
-                        borderRadius: '4px',
-                        cursor: historyIndex <= 0 ? 'not-allowed' : 'pointer'
-                      }}
-                      title="Annuler (Ctrl+Z)"
-                    >
-                      ↩ Annuler
-                    </button>
-                    <button
-                      onClick={handleRedo}
-                      disabled={historyIndex >= history.length - 1}
-                      style={{
-                        padding: '0.5rem 1rem',
-                        fontSize: '0.875rem',
-                        backgroundColor: historyIndex >= history.length - 1 ? '#ccc' : '#6c757d',
-                        color: 'white',
-                        border: 'none',
-                        borderRadius: '4px',
-                        cursor: historyIndex >= history.length - 1 ? 'not-allowed' : 'pointer'
-                      }}
-                      title="Rétablir (Ctrl+Y)"
-                    >
-                      ↪ Rétablir
-                    </button>
-                  </div>
-                </div>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                  {segments.map((segment, index) => (
-                    <SegmentCard
-                      key={index}
-                      index={index}
-                      segment={segment}
-                      segments={segments}
-                      setSegments={setSegments}
-                      handleSegmentChange={handleSegmentChange}
-                      handleAddSegment={handleAddSegment}
-                      handleCutSegment={handleCutSegment}
-                      handleMergeSegments={handleMergeSegments}
-                      handleDeleteSegment={handleDeleteSegment}
-                      onAddSound={(idx) => setShowSoundPicker(idx)}
-                    />
-                  ))}
                 </div>
               </div>
             </>

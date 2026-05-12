@@ -85,19 +85,47 @@ function SoundBlock({
     ${darkerColor} 12px
   )` : 'none'
 
-  // Gestion du drag (déplacement vertical pour changer de colonne)
+  // Gestion du drag (déplacement pour changer de colonne ET de ligne)
+  // Le drag ne se déclenche qu'après un petit délai pour ne pas interférer avec le clic
   const handleMouseDown = useCallback((e) => {
     if (e.button !== 0) return
-    if (e.target.dataset.fadeHandle) return // Laisser gérer les poignées de fade
+    if (e.target.dataset.fadeHandle) return
+    if (e.target.dataset.resizeHandle) return
     e.stopPropagation()
     
+    // Sélectionner le bloc (pour le drag, pas pour éditer)
     onSelect(soundTrack.id)
-    setIsDragging(true)
-    setDragStart({
-      y: e.clientY,
-      column: soundTrack.column
-    })
-  }, [onSelect, soundTrack.id, soundTrack.column])
+    
+    // Démarrer le drag après un court délai pour différencier clic et drag
+    const startX = e.clientX
+    const startY = e.clientY
+    let hasMoved = false
+    
+    const onMouseMove = (moveEvent) => {
+      const dx = Math.abs(moveEvent.clientX - startX)
+      const dy = Math.abs(moveEvent.clientY - startY)
+      if (dx > 3 || dy > 3) {
+        hasMoved = true
+        setIsDragging(true)
+        setDragStart({
+          y: moveEvent.clientY,
+          column: soundTrack.column,
+          startSegmentIndex: startSegmentIndex
+        })
+      }
+    }
+    
+    const onMouseUp = () => {
+      window.removeEventListener('mousemove', onMouseMove)
+      window.removeEventListener('mouseup', onMouseUp)
+      if (!hasMoved) {
+        setIsDragging(false)
+      }
+    }
+    
+    window.addEventListener('mousemove', onMouseMove)
+    window.addEventListener('mouseup', onMouseUp)
+  }, [onSelect, soundTrack.id, soundTrack.column, startSegmentIndex])
 
   // Gestion du resize (étirement haut/bas)
   const handleResizeMouseDown = useCallback((e, direction) => {
@@ -132,18 +160,42 @@ function SoundBlock({
     if (!isDragging && !isResizing && !isAdjustingFade) return
 
     const handleMouseMove = (e) => {
-      // Drag pour changer de colonne
+      // Drag pour changer de colonne ET de ligne
       if (isDragging) {
         const deltaY = e.clientY - dragStart.y
+        const segmentDelta = Math.round(deltaY / SEGMENT_HEIGHT)
         const columnDelta = Math.round(deltaY / SEGMENT_HEIGHT)
+        
+        // Calculer la nouvelle position de ligne (début du son)
+        const newStartIndex = Math.max(0, Math.min(segments.length - 1, dragStart.startSegmentIndex + segmentDelta))
+        
+        // Calculer la nouvelle colonne
+        // On utilise le mouvement horizontal pour la colonne, ou le vertical si petit déplacement
         const newColumn = Math.max(0, Math.min(5, dragStart.column + columnDelta))
         
+        // Mettre à jour la colonne si changement
         if (newColumn !== dragStart.column) {
           onColumnChange(soundTrack.id, newColumn)
-          setDragStart({
+          setDragStart(prev => ({
+            ...prev,
             y: e.clientY,
             column: newColumn
-          })
+          }))
+        }
+        
+        // Mettre à jour la position verticale (ligne) si changement
+        if (newStartIndex !== dragStart.startSegmentIndex) {
+          const newStartSegmentId = segments[newStartIndex]?.id || segments[newStartIndex]?._id
+          const currentEndIndex = endSegmentIndex !== -1 ? endSegmentIndex : startSegmentIndex
+          const newEndIndex = Math.min(segments.length - 1, newStartIndex + (currentEndIndex - dragStart.startSegmentIndex))
+          const newEndSegmentId = segments[newEndIndex]?.id || segments[newEndIndex]?._id
+          
+          onResize(soundTrack.id, newStartSegmentId, newEndSegmentId)
+          setDragStart(prev => ({
+            ...prev,
+            y: e.clientY,
+            startSegmentIndex: newStartIndex
+          }))
         }
       }
       
@@ -154,7 +206,7 @@ function SoundBlock({
         
         if (isResizing === 'bottom') {
           const newEndIndex = Math.max(
-            resizeStart.startSegment,
+            resizeStart.startSegment + 1, // Au moins 1 segment
             Math.min(segments.length - 1, resizeStart.endSegment + segmentDelta)
           )
           const newEndSegmentId = segments[newEndIndex]?.id || segments[newEndIndex]?._id
@@ -162,8 +214,7 @@ function SoundBlock({
         } else if (isResizing === 'top') {
           const newStartIndex = Math.max(
             0,
-            Math.min(resizeStart.endSegment !== -1 ? resizeStart.endSegment : resizeStart.startSegment, 
-                    resizeStart.startSegment + segmentDelta)
+            Math.min(resizeStart.endSegment - 1, resizeStart.startSegment + segmentDelta)
           )
           const newStartSegmentId = segments[newStartIndex]?.id || segments[newStartIndex]?._id
           onResize(soundTrack.id, newStartSegmentId, null)
@@ -205,7 +256,7 @@ function SoundBlock({
       window.removeEventListener('mousemove', handleMouseMove)
       window.removeEventListener('mouseup', handleMouseUp)
     }
-  }, [isDragging, isResizing, isAdjustingFade, dragStart, resizeStart, soundTrack.id, segments, onColumnChange, onResize, onUpdate])
+  }, [isDragging, isResizing, isAdjustingFade, dragStart, resizeStart, soundTrack.id, segments, startSegmentIndex, endSegmentIndex, onColumnChange, onResize, onUpdate])
 
   // Motif de fond pour loop
   const backgroundStyle = soundTrack.loop ? { background: loopPattern } : {}
@@ -255,14 +306,16 @@ function SoundBlock({
     >
       {/* Poignée de resize en haut */}
       <div
+        data-resize-handle="true"
         style={{
           position: 'absolute',
           top: 0,
           left: 0,
           right: 0,
-          height: '6px',
+          height: '8px',
           cursor: 'ns-resize',
-          backgroundColor: isResizing === 'top' ? 'rgba(0,0,0,0.3)' : 'transparent'
+          backgroundColor: isResizing === 'top' || (isHovered && blockHeight > SEGMENT_HEIGHT) ? 'rgba(0,0,0,0.15)' : 'transparent',
+          transition: 'background-color 0.15s ease'
         }}
         onMouseDown={(e) => handleResizeMouseDown(e, 'top')}
       />
@@ -363,14 +416,16 @@ function SoundBlock({
       
       {/* Handle de resize en bas */}
       <div
+        data-resize-handle="true"
         style={{
           position: 'absolute',
           bottom: 0,
           left: 0,
           right: 0,
-          height: '6px',
+          height: '8px',
           cursor: 'ns-resize',
-          backgroundColor: isResizing === 'bottom' ? 'rgba(0,0,0,0.3)' : 'transparent'
+          backgroundColor: isResizing === 'bottom' || (isHovered && blockHeight > SEGMENT_HEIGHT) ? 'rgba(0,0,0,0.15)' : 'transparent',
+          transition: 'background-color 0.15s ease'
         }}
         onMouseDown={(e) => handleResizeMouseDown(e, 'bottom')}
       />

@@ -16,6 +16,7 @@ function SoundBlockPanel({
   sound, 
   segments,
   onSave, 
+  onRealTimeUpdate,
   onClose,
   onDelete
 }) {
@@ -69,14 +70,24 @@ function SoundBlockPanel({
   }, [onClose])
 
   const handleChange = useCallback((field, value) => {
-    setEditedTrack(prev => ({
-      ...prev,
-      [field]: value
-    }))
-  }, [])
+    setEditedTrack(prev => {
+      const updated = {
+        ...prev,
+        [field]: value
+      }
+      // Sauvegarde en temps réel
+      if (onRealTimeUpdate) {
+        onRealTimeUpdate(updated)
+      }
+      return updated
+    })
+  }, [onRealTimeUpdate])
 
-  const handleSave = useCallback(() => {
-    onSave(editedTrack)
+  const handleClose = useCallback(() => {
+    // Sauvegarde finale si nécessaire
+    if (onSave) {
+      onSave(editedTrack)
+    }
     onClose()
   }, [editedTrack, onSave, onClose])
 
@@ -326,42 +337,85 @@ function SoundBlockPanel({
           </div>
         </div>
 
-        {/* Segment de début */}
-        <div>
-          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.25rem' }}>
-            <label style={{ fontSize: '0.75rem', color: '#888' }}>Début</label>
-            <span style={{ fontSize: '0.75rem', color: color }}>{startSegmentIndex + 1}</span>
+        {/* Segments début et fin sur la même ligne */}
+        <div style={{ display: 'flex', gap: '1rem', alignItems: 'flex-end' }}>
+          {/* Segment de début */}
+          <div style={{ flex: 1 }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.25rem' }}>
+              <label style={{ fontSize: '0.75rem', color: '#888' }}>N° début</label>
+            </div>
+            <input
+              type="number"
+              min="1"
+              max={segments.length}
+              value={startSegmentIndex >= 0 ? startSegmentIndex + 1 : ''}
+              onChange={(e) => {
+                const value = e.target.value
+                if (value === '') return // Laisser vide pendant l'édition
+                const numValue = parseInt(value)
+                if (!isNaN(numValue) && numValue >= 1 && numValue <= segments.length) {
+                  const newIndex = numValue - 1
+                  const currentEndIndex = endSegmentIndex !== -1 ? endSegmentIndex : startSegmentIndex
+                  if (newIndex < currentEndIndex) {
+                    handleChange('startSegmentId', segments[newIndex]?.id || segments[newIndex]?._id)
+                  } else {
+                    handleChange('startSegmentId', segments[newIndex]?.id || segments[newIndex]?._id)
+                    if (newIndex >= currentEndIndex) {
+                      const newEndIndex = Math.min(newIndex + 1, segments.length - 1)
+                      handleChange('endSegmentId', segments[newEndIndex]?.id || segments[newEndIndex]?._id)
+                    }
+                  }
+                }
+              }}
+              style={{ 
+                width: '100%', 
+                padding: '0.25rem 0.5rem', 
+                fontSize: '0.85rem',
+                border: `1px solid ${color}60`,
+                borderRadius: '4px',
+                backgroundColor: 'rgba(255,255,255,0.1)',
+                color: '#fff',
+                textAlign: 'center'
+              }}
+            />
           </div>
-          <input
-            type="range"
-            min="0"
-            max={segments.length - 1}
-            value={startSegmentIndex}
-            onChange={(e) => {
-              const newIndex = parseInt(e.target.value)
-              handleChange('startSegmentId', segments[newIndex]?.id || segments[newIndex]?._id)
-            }}
-            style={{ width: '100%', accentColor: color }}
-          />
-        </div>
 
-        {/* Segment de fin */}
-        <div>
-          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.25rem' }}>
-            <label style={{ fontSize: '0.75rem', color: '#888' }}>Fin</label>
-            <span style={{ fontSize: '0.75rem', color: color }}>{endSegmentIndex !== -1 ? endSegmentIndex + 1 : startSegmentIndex + 1}</span>
+          {/* Segment de fin */}
+          <div style={{ flex: 1 }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.25rem' }}>
+              <label style={{ fontSize: '0.75rem', color: '#888' }}>N° fin</label>
+            </div>
+            <input
+              type="number"
+              min="2"
+              max={segments.length}
+              value={endSegmentIndex >= 0 ? endSegmentIndex + 1 : (startSegmentIndex >= 0 ? startSegmentIndex + 1 : '')}
+              onChange={(e) => {
+                const value = e.target.value
+                if (value === '') return // Laisser vide pendant l'édition
+                const numValue = parseInt(value)
+                if (!isNaN(numValue) && numValue >= 2 && numValue <= segments.length) {
+                  const newIndex = numValue - 1
+                  if (newIndex > startSegmentIndex) {
+                    handleChange('endSegmentId', segments[newIndex]?.id || segments[newIndex]?._id)
+                  }
+                }
+              }}
+              style={{ 
+                width: '100%', 
+                padding: '0.25rem 0.5rem', 
+                fontSize: '0.85rem',
+                border: `1px solid ${color}60`,
+                borderRadius: '4px',
+                backgroundColor: 'rgba(255,255,255,0.1)',
+                color: '#fff',
+                textAlign: 'center'
+              }}
+            />
           </div>
-          <input
-            type="range"
-            min={startSegmentIndex}
-            max={segments.length - 1}
-            value={endSegmentIndex !== -1 ? endSegmentIndex : startSegmentIndex}
-            onChange={(e) => {
-              const newIndex = parseInt(e.target.value)
-              handleChange('endSegmentId', segments[newIndex]?.id || segments[newIndex]?._id)
-            }}
-            style={{ width: '100%', accentColor: color }}
-          />
+        </div>
+        <div style={{ fontSize: '0.65rem', color: '#666', marginTop: '0.25rem' }}>
+          N° fin doit être supérieur à N° début ({startSegmentIndex >= 0 ? startSegmentIndex + 1 : '-'})
         </div>
 
         {/* Colonne */}
@@ -460,20 +514,20 @@ function SoundBlockPanel({
         ) : (
           <>
             <button
-              onClick={handleSave}
+              onClick={handleClose}
               style={{
                 flex: 1,
                 padding: '0.5rem',
-                backgroundColor: color,
-                color: '#000',
-                border: 'none',
+                backgroundColor: 'rgba(255,255,255,0.1)',
+                color: '#fff',
+                border: `1px solid ${color}60`,
                 borderRadius: '6px',
                 cursor: 'pointer',
                 fontSize: '0.85rem',
-                fontWeight: 'bold'
+                fontWeight: '500'
               }}
             >
-              Enregistrer
+              Fermer
             </button>
             <button
               onClick={handleDelete}

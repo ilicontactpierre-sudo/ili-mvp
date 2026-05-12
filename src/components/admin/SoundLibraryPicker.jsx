@@ -8,6 +8,9 @@ const FILTER_INTENSITY = ['Douce', 'Moyenne', 'Forte']
 function SoundLibraryPicker({ 
   soundLibrary, 
   segments,
+  segmentIndex,
+  segmentId,
+  column,
   onAddSound, 
   onClose 
 }) {
@@ -101,14 +104,14 @@ function SoundLibraryPicker({
   }
 
   // Gérer l'ajout d'un son
-  const handleAddSound = (sound, segmentIndex, column) => {
-    const startSegment = segments[segmentIndex]
-    if (!startSegment) return
+  const handleAddSound = (sound, segmentId, column) => {
+    // Fallback: si pas de segmentId, utiliser l'index pour créer un ID stable
+    const effectiveSegmentId = segmentId || (segments[segmentIndex]?.id) || (segments[segmentIndex]?._id) || `segment_${segmentIndex}`
 
     onAddSound({
       soundId: sound.id,
-      startSegmentId: startSegment.id || startSegment._id,
-      endSegmentId: startSegment.id || startSegment._id, // Par défaut, même segment
+      startSegmentId: effectiveSegmentId,
+      endSegmentId: effectiveSegmentId, // Par défaut, même segment
       column: column || 0,
       volume: 0.5,
       fadeIn: 0,
@@ -360,7 +363,7 @@ function SoundLibraryPicker({
 
                   {/* Bouton ajouter */}
                   <button
-                    onClick={() => handleAddSound(sound, 0, 0)}
+                    onClick={() => handleAddSound(sound, segmentId, column)}
                     style={{
                       padding: '0.4rem 0.8rem',
                       fontSize: '0.8rem',
