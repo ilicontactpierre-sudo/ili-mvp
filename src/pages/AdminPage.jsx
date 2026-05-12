@@ -1,6 +1,7 @@
-import { useState, useRef, useEffect, useMemo } from 'react'
+import { useState, useRef, useEffect, useMemo, useCallback } from 'react'
 import { segmentText } from '../utils/segmentAlgorithm'
 import { Howl } from 'howler'
+import AudioTimeline from '../components/admin/AudioTimeline'
 
 function AdminPage() {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
@@ -21,6 +22,9 @@ function AdminPage() {
   const [history, setHistory] = useState([])
   const [historyIndex, setHistoryIndex] = useState(-1)
   const MAX_HISTORY = 50
+
+  // SoundTracks - nouveau modèle de données pour la timeline audio
+  const [soundTracks, setSoundTracks] = useState([])
 
   // Bibliothèque sonore
   const [soundLibrary, setSoundLibrary] = useState([])
@@ -613,64 +617,84 @@ function AdminPage() {
           )}
 
           {segments.length > 0 && (
-            <div style={{ marginTop: '2rem', borderTop: '1px solid #eee', paddingTop: '1.5rem' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
-                <h3 style={{ margin: '0', fontSize: '1.5rem', color: '#333' }}>
-                  Segments découpés ({segments.length} segments)
-                </h3>
-                <div style={{ display: 'flex', gap: '0.5rem' }}>
-                  <button
-                    onClick={handleUndo}
-                    disabled={historyIndex <= 0}
-                    style={{
-                      padding: '0.5rem 1rem',
-                      fontSize: '0.875rem',
-                      backgroundColor: historyIndex <= 0 ? '#ccc' : '#6c757d',
-                      color: 'white',
-                      border: 'none',
-                      borderRadius: '4px',
-                      cursor: historyIndex <= 0 ? 'not-allowed' : 'pointer'
-                    }}
-                    title="Annuler (Ctrl+Z)"
-                  >
-                    ↩ Annuler
-                  </button>
-                  <button
-                    onClick={handleRedo}
-                    disabled={historyIndex >= history.length - 1}
-                    style={{
-                      padding: '0.5rem 1rem',
-                      fontSize: '0.875rem',
-                      backgroundColor: historyIndex >= history.length - 1 ? '#ccc' : '#6c757d',
-                      color: 'white',
-                      border: 'none',
-                      borderRadius: '4px',
-                      cursor: historyIndex >= history.length - 1 ? 'not-allowed' : 'pointer'
-                    }}
-                    title="Rétablir (Ctrl+Y)"
-                  >
-                    ↪ Rétablir
-                  </button>
+            <>
+              {/* Timeline Audio */}
+              <div style={{ 
+                marginTop: '2rem', 
+                borderTop: '1px solid #eee', 
+                paddingTop: '1.5rem'
+              }}>
+                <div style={{ height: '500px', marginBottom: '2rem' }}>
+                  <AudioTimeline
+                    segments={segments}
+                    soundTracks={soundTracks}
+                    soundLibrary={soundLibrary}
+                    onSoundTracksChange={setSoundTracks}
+                    onSaveToHistory={() => saveToHistory(segments)}
+                  />
                 </div>
               </div>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                {segments.map((segment, index) => (
-                  <SegmentCard
-                    key={index}
-                    index={index}
-                    segment={segment}
-                    segments={segments}
-                    setSegments={setSegments}
-                    handleSegmentChange={handleSegmentChange}
-                    handleAddSegment={handleAddSegment}
-                    handleCutSegment={handleCutSegment}
-                    handleMergeSegments={handleMergeSegments}
-                    handleDeleteSegment={handleDeleteSegment}
-                    onAddSound={(idx) => setShowSoundPicker(idx)}
-                  />
-                ))}
+
+              {/* Éditeur de segments */}
+              <div style={{ borderTop: '1px solid #eee', paddingTop: '1.5rem' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
+                  <h3 style={{ margin: '0', fontSize: '1.5rem', color: '#333' }}>
+                    Segments découpés ({segments.length} segments)
+                  </h3>
+                  <div style={{ display: 'flex', gap: '0.5rem' }}>
+                    <button
+                      onClick={handleUndo}
+                      disabled={historyIndex <= 0}
+                      style={{
+                        padding: '0.5rem 1rem',
+                        fontSize: '0.875rem',
+                        backgroundColor: historyIndex <= 0 ? '#ccc' : '#6c757d',
+                        color: 'white',
+                        border: 'none',
+                        borderRadius: '4px',
+                        cursor: historyIndex <= 0 ? 'not-allowed' : 'pointer'
+                      }}
+                      title="Annuler (Ctrl+Z)"
+                    >
+                      ↩ Annuler
+                    </button>
+                    <button
+                      onClick={handleRedo}
+                      disabled={historyIndex >= history.length - 1}
+                      style={{
+                        padding: '0.5rem 1rem',
+                        fontSize: '0.875rem',
+                        backgroundColor: historyIndex >= history.length - 1 ? '#ccc' : '#6c757d',
+                        color: 'white',
+                        border: 'none',
+                        borderRadius: '4px',
+                        cursor: historyIndex >= history.length - 1 ? 'not-allowed' : 'pointer'
+                      }}
+                      title="Rétablir (Ctrl+Y)"
+                    >
+                      ↪ Rétablir
+                    </button>
+                  </div>
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                  {segments.map((segment, index) => (
+                    <SegmentCard
+                      key={index}
+                      index={index}
+                      segment={segment}
+                      segments={segments}
+                      setSegments={setSegments}
+                      handleSegmentChange={handleSegmentChange}
+                      handleAddSegment={handleAddSegment}
+                      handleCutSegment={handleCutSegment}
+                      handleMergeSegments={handleMergeSegments}
+                      handleDeleteSegment={handleDeleteSegment}
+                      onAddSound={(idx) => setShowSoundPicker(idx)}
+                    />
+                  ))}
+                </div>
               </div>
-            </div>
+            </>
           )}
         </div>
       </div>
