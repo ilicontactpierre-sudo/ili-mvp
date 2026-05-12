@@ -26,7 +26,6 @@ function StoryPage() {
   const preloadedSoundsRef = useRef(new Map())
   const audioEngineRef = useRef(null)
   const ignoreAdvanceUntilRef = useRef(0)
-  const feedbackFormUrl = 'https://forms.gle/ili-feedback'
   const segments = story?.segments ?? []
   const lastIndex = Math.max(segments.length - 1, 0)
 
@@ -230,7 +229,7 @@ function StoryPage() {
       <EndScreen
         title={story?.title ?? ''}
         author={story?.author ?? ''}
-        formUrl={feedbackFormUrl}
+        formUrl={story?.formUrl}
         onRestart={() => {
           setCurrentIndex(0)
           setIsFinished(false)

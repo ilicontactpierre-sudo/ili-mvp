@@ -3,6 +3,7 @@
   "title": "La Parure",
   "author": "Guy de Maupassant",
   "published": true,
+  "formUrl": "https://forms.gle/qjgMJvq18QM7ELBH9",
   "sounds": [
     { "id": "ambiance_salon", "url": "https://res.cloudinary.com/dsskyojxb/video/upload/v1778506563/12_LISE_-_Oiseaux_enz7jr.mp3", "loop": true },
     { "id": "son_ponctuel", "url": "https://res.cloudinary.com/dsskyojxb/video/upload/v1778506504/11_CONTINES_-_Sweep_eqnvoh.mp3", "loop": false }

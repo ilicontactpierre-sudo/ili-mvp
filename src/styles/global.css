@@ -24,8 +24,8 @@ body {
   background: var(--color-bg);
   color: var(--color-text-focus);
   font-family: var(--font-primary);
-  height: 100vh;
-  overflow: hidden;
+  min-height: 100vh;
+  overflow: auto;
   line-height: 1.42;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
