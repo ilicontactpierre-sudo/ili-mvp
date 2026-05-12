@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback, useEffect } from 'react'
+import { useState, useRef, useMemo, useCallback, useEffect } from 'react'
 import SoundBlock from './SoundBlock'
 import SoundBlockPanel from './SoundBlockPanel'
 import SoundLibraryPicker from './SoundLibraryPicker'
@@ -34,9 +34,15 @@ function SegmentTimelineRow({
   onSoundUpdate,
   onAddSoundToCell,
   rowHeight,
+  rowHeights,
   dividerPosition,
   isDraggingDivider,
-  onDividerMouseDown
+  onDividerMouseDown,
+  isAnyBlockDragging,
+  dragTargetCell,
+  onDragStart,
+  onDragEnd,
+  onDragTargetChange
 }) {
   const containerRef = useRef(null)
   const textareaRef = useRef(null)
@@ -177,8 +183,23 @@ function SegmentTimelineRow({
   }
 
   // Trouver les sons qui commencent à ce segment
+  const getSegmentIndexFromId = useCallback((segmentId) => {
+    // D'abord, chercher par id ou _id
+    const idx = segments.findIndex(s => s.id === segmentId || s._id === segmentId)
+    if (idx !== -1) return idx
+    
+    // Fallback: si segmentId est au format "segment_N", utiliser N comme index
+    const match = segmentId?.match(/^segment_(\d+)$/)
+    if (match) {
+      const index = parseInt(match[1], 10)
+      if (index >= 0 && index < segments.length) return index
+    }
+    
+    return -1
+  }, [segments])
+
   const rowSoundTracks = soundTracks.filter(track => {
-    const startIdx = segments.findIndex(s => s.id === track.startSegmentId || s._id === track.startSegmentId)
+    const startIdx = getSegmentIndexFromId(track.startSegmentId)
     return startIdx === index
   })
 
@@ -379,19 +400,30 @@ function SegmentTimelineRow({
 
       {/* Partie Timeline (droite) */}
       <div
+        data-timeline-container="true"
         style={{
           flex: '0 0 auto',
           width: `${100 - dividerPosition}%`,
           display: 'flex',
           position: 'relative',
-          overflow: 'hidden'
+          overflow: 'visible',
+          minWidth: `${COLUMN_COUNT * COLUMN_WIDTH}px`
         }}
       >
         {/* Grille de la timeline */}
         {Array.from({ length: COLUMN_COUNT }).map((_, colIndex) => {
-          // Vérifier s'il y a un son qui commence dans cette case
-          const soundInCell = rowSoundTracks.find(track => track.column === colIndex)
-          const hasSound = !!soundInCell
+          // Vérifier s'il y a un son qui occupe cette cellule (commence ou s'étend sur ce segment)
+          const hasSound = soundTracks.some(track => {
+            const startIdx = getSegmentIndexFromId(track.startSegmentId)
+            const endIdx = getSegmentIndexFromId(track.endSegmentId)
+            const trackEnd = endIdx !== -1 ? endIdx : startIdx
+            return track.column === colIndex && startIdx <= index && trackEnd >= index
+          })
+          
+          // Vérifier si c'est la case cible du drag
+          const isDragTarget = isAnyBlockDragging && 
+                               dragTargetCell.segmentIndex === index && 
+                               dragTargetCell.column === colIndex
           
           return (
             <div
@@ -401,13 +433,30 @@ function SegmentTimelineRow({
                 flexShrink: 0,
                 height: '100%',
                 borderRight: colIndex < COLUMN_COUNT - 1 ? '1px solid #f0f0f0' : 'none',
-                backgroundColor: hasSound ? 'transparent' : 'rgba(76, 175, 80, 0.03)',
+                backgroundColor: isDragTarget 
+                  ? 'rgba(33, 150, 243, 0.2)' 
+                  : hasSound ? 'transparent' : 'rgba(76, 175, 80, 0.03)',
                 cursor: hasSound ? 'default' : 'pointer',
-                position: 'relative'
+                position: 'relative',
+                transition: 'background-color 0.1s ease'
               }}
               onDoubleClick={() => !hasSound && onAddSoundToCell(index, colIndex)}
               title={!hasSound ? 'Double-cliquez pour ajouter un son' : ''}
-            />
+            >
+              {isDragTarget && (
+                <div style={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  border: '2px dashed #2196F3',
+                  borderRadius: '4px',
+                  pointerEvents: 'none',
+                  boxSizing: 'border-box'
+                }} />
+              )}
+            </div>
           )
         })}
 
@@ -418,12 +467,17 @@ function SegmentTimelineRow({
             soundTrack={track}
             segments={segments}
             soundLibrary={soundLibrary}
+            rowHeights={rowHeights}
             isSelected={track.id === selectedSoundId || track.id === editingSoundTrack?.id}
             onSelect={onSoundSelect}
             onDoubleClick={onSoundDoubleClick}
             onColumnChange={onSoundColumnChange}
             onResize={onSoundResize}
             onUpdate={onSoundUpdate}
+            onDragStart={onDragStart}
+            onDragEnd={onDragEnd}
+            onDragTargetChange={onDragTargetChange}
+            currentSegmentIndex={index}
           />
         ))}
       </div>
@@ -510,6 +564,8 @@ function UnifiedSegmentsTimeline({
   const [isDraggingDivider, setIsDraggingDivider] = useState(false)
   const [editingSegmentIndex, setEditingSegmentIndex] = useState(null)
   const [editTexts, setEditTexts] = useState({})
+  const [isAnyBlockDragging, setIsAnyBlockDragging] = useState(false)
+  const [dragTargetCell, setDragTargetCell] = useState({ segmentIndex: -1, column: -1 })
   
   const containerRef = useRef(null)
   const scrollContainerRef = useRef(null)
@@ -712,6 +768,19 @@ function UnifiedSegmentsTimeline({
     setSelectedSoundId(soundId)
   }
 
+  const handleSoundDragStart = useCallback(() => {
+    setIsAnyBlockDragging(true)
+  }, [])
+
+  const handleSoundDragEnd = useCallback(() => {
+    setIsAnyBlockDragging(false)
+    setDragTargetCell({ segmentIndex: -1, column: -1 })
+  }, [])
+
+  const handleDragTargetChange = useCallback((segmentIndex, column) => {
+    setDragTargetCell({ segmentIndex, column })
+  }, [])
+
   const handleDoubleClickSound = (soundTrack) => {
     setEditingSoundTrack(soundTrack)
   }
@@ -725,6 +794,7 @@ function UnifiedSegmentsTimeline({
   }, [soundTracks, onSoundTracksChange, onSaveToHistory])
 
   const handleResizeSound = useCallback((soundId, newStartSegmentId, newEndSegmentId) => {
+    console.log('handleResizeSound called:', { soundId, newStartSegmentId, newEndSegmentId })
     const updatedTracks = soundTracks.map(track => {
       if (track.id !== soundId) return track
       return {
@@ -733,6 +803,7 @@ function UnifiedSegmentsTimeline({
         ...(newEndSegmentId && { endSegmentId: newEndSegmentId })
       }
     })
+    console.log('Updated tracks:', updatedTracks)
     onSoundTracksChange(updatedTracks)
     if (onSaveToHistory) onSaveToHistory()
   }, [soundTracks, onSoundTracksChange, onSaveToHistory])
@@ -793,8 +864,7 @@ function UnifiedSegmentsTimeline({
     setShowSoundPicker({ segmentIndex, segmentId, column: freeColumn })
   }, [segments, soundTracks])
 
-  const selectedSoundTrack = editingSoundTrack || 
-    (selectedSoundId ? soundTracks.find(t => t.id === selectedSoundId) : null)
+  const selectedSoundTrack = editingSoundTrack
   const selectedSound = selectedSoundTrack ? 
     soundLibrary.find(s => s.id === selectedSoundTrack.soundId) : null
 
@@ -804,12 +874,15 @@ function UnifiedSegmentsTimeline({
   }
 
   // Calculer la hauteur totale basée sur le contenu des segments
-  const totalHeight = segments.reduce((sum, segment, index) => {
-    const text = segment.text || segment || ''
-    const lines = Math.ceil(text.length / 60) // Approx 60 chars per line
-    const rowHeight = Math.max(SEGMENT_HEIGHT, lines * 20)
-    return sum + rowHeight + 8 // +8 for separator
-  }, 0)
+  const rowHeights = useMemo(() => {
+    return segments.map(segment => {
+      const text = segment.text || segment || ''
+      const lines = Math.ceil(text.length / 60) // Approx 60 chars per line
+      return Math.max(SEGMENT_HEIGHT, lines * 20)
+    })
+  }, [segments])
+
+  const totalHeight = rowHeights.reduce((sum, rowHeight) => sum + rowHeight + 8, 0)
 
   return (
     <div 
@@ -931,6 +1004,7 @@ function UnifiedSegmentsTimeline({
       {/* Contenu scrollable unifié */}
       <div 
         ref={scrollContainerRef}
+        data-timeline-root="true"
         style={{
           flex: 1,
           overflowY: 'auto',
@@ -942,6 +1016,8 @@ function UnifiedSegmentsTimeline({
             <SegmentTimelineRow
               segment={segment}
               index={index}
+              rowHeight={rowHeights[index]}
+              rowHeights={rowHeights}
               isSelected={selectedSegmentIndex === index}
               onSelect={handleSelectSegment}
               onEdit={handleStartEdit}
@@ -970,6 +1046,11 @@ function UnifiedSegmentsTimeline({
               dividerPosition={dividerPosition}
               isDraggingDivider={isDraggingDivider}
               onDividerMouseDown={() => setIsDraggingDivider(true)}
+              isAnyBlockDragging={isAnyBlockDragging}
+              dragTargetCell={dragTargetCell}
+              onDragStart={handleSoundDragStart}
+              onDragEnd={handleSoundDragEnd}
+              onDragTargetChange={handleDragTargetChange}
             />
             
             {index < segments.length - 1 && (
@@ -1032,10 +1113,8 @@ function UnifiedSegmentsTimeline({
           onAddSound={(soundData) => {
             console.log('onAddSound called with soundData:', soundData)
             console.log('showSoundPicker was:', showSoundPicker)
-            const freeColumn = showSoundPicker.column !== undefined ? showSoundPicker.column : 0
             const newTrack = {
               id: `st_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
-              column: freeColumn,
               ...soundData
             }
             const updatedTracks = [...soundTracks, newTrack]

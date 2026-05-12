@@ -42,7 +42,7 @@ git commit -m "checkpoint: <description>"
 2. Creer le tag:
 
 ```bash
-git tag -a ili-checkpoint-2026-05-12-Avant-étape-19 -m "ILi checkpoint: Avant étape 19"
+git tag -a ili-checkpoint-2026-05-12-Avant-étape-19-avantKimiProblème -m "ILi checkpoint: Avant étape 19 avant Kimi Problème"
 ```
 
 3. Pousser commit + tag:

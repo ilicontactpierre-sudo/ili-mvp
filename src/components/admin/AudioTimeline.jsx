@@ -14,8 +14,8 @@ function AudioTimeline({
   const [selectedSoundId, setSelectedSoundId] = useState(null)
   const [editingSoundTrack, setEditingSoundTrack] = useState(null)
   const [showSoundPicker, setShowSoundPicker] = useState(false)
+  const [pickerTargetPosition, setPickerTargetPosition] = useState({ segmentIndex: 0, column: 0 })
   
-  const timelineRef = useRef(null)
   const segmentsRef = useRef(null)
   const scrollContainerRef = useRef(null)
 
@@ -31,6 +31,28 @@ function AudioTimeline({
       segmentsRef.current.scrollTop = e.target.scrollTop
     }
   }, [])
+
+  // Gérer le double-clic sur une cellule vide de la timeline
+  const handleTimelineDoubleClick = useCallback((e) => {
+    // Ne pas traiter si on a cliqué sur un SoundBlock
+    if (e.target.closest('[data-sound-block]')) return
+    
+    const rect = e.currentTarget.getBoundingClientRect()
+    const x = e.clientX - rect.left + e.currentTarget.scrollLeft
+    const y = e.clientY - rect.top + e.currentTarget.scrollTop
+    
+    // Calculer la colonne cliquée
+    const column = Math.floor(x / COLUMN_WIDTH)
+    if (column < 0 || column >= COLUMN_COUNT) return
+    
+    // Calculer le segment cliqué
+    const segmentIndex = Math.floor(y / SEGMENT_HEIGHT)
+    if (segmentIndex < 0 || segmentIndex >= segments.length) return
+    
+    // Ouvrir le sélecteur de sons avec la position cible
+    setPickerTargetPosition({ segmentIndex, column })
+    setShowSoundPicker(true)
+  }, [segments.length, segments])
 
   // Sélectionner un son
   const handleSelectSound = (soundId) => {
@@ -106,7 +128,14 @@ function AudioTimeline({
   }, [soundTracks, segments])
 
   // Ajouter un nouveau son
-  const handleAddSound = useCallback((soundData, targetSegmentIndex = 0) => {
+  const handleAddSound = useCallback((soundData) => {
+    // Déduire l'index du segment à partir du startSegmentId
+    let targetSegmentIndex = 0
+    if (soundData.startSegmentId) {
+      const idx = segments.findIndex(s => s.id === soundData.startSegmentId || s._id === soundData.startSegmentId)
+      if (idx !== -1) targetSegmentIndex = idx
+    }
+    
     // Trouver la première colonne libre
     const freeColumn = findFirstFreeColumn(targetSegmentIndex)
     
@@ -247,7 +276,10 @@ function AudioTimeline({
             Timeline Audio
           </div>
           <button
-            onClick={() => setShowSoundPicker(true)}
+            onClick={() => {
+              setPickerTargetPosition({ segmentIndex: 0, column: 0 })
+              setShowSoundPicker(true)
+            }}
             disabled={segments.length === 0}
             style={{
               padding: '0.4rem 0.8rem',
@@ -305,6 +337,7 @@ function AudioTimeline({
           }}
         >
           <div 
+            onDoubleClick={handleTimelineDoubleClick}
             style={{
               position: 'relative',
               height: `${totalHeight}px`,
@@ -410,6 +443,8 @@ function AudioTimeline({
         <SoundLibraryPicker
           soundLibrary={soundLibrary}
           segments={segments}
+          segmentIndex={pickerTargetPosition.segmentIndex}
+          column={pickerTargetPosition.column}
           onAddSound={handleAddSound}
           onClose={() => setShowSoundPicker(false)}
         />

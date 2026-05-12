@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect, useCallback } from 'react'
-import { CATEGORY_COLORS, SEGMENT_HEIGHT, COLUMN_WIDTH } from './constants'
+import { CATEGORY_COLORS, SEGMENT_HEIGHT, COLUMN_WIDTH, COLUMN_COUNT } from './constants'
 
 // Fonction pour obtenir une variante plus foncée d'une couleur
 function getDarkerColor(color) {
@@ -19,23 +19,37 @@ function SoundBlock({
   soundTrack, 
   segments, 
   soundLibrary,
+  rowHeights,
   isSelected, 
   onSelect, 
   onDoubleClick,
   onMove, 
   onResize,
   onColumnChange,
-  onUpdate
+  onUpdate,
+  onDragStart,
+  onDragEnd,
+  onDragTargetChange,
+  currentSegmentIndex
 }) {
   const [isDragging, setIsDragging] = useState(false)
   const [isResizing, setIsResizing] = useState(null) // 'top' or 'bottom'
   const [isAdjustingFade, setIsAdjustingFade] = useState(null) // 'fadeIn' or 'fadeOut'
   const [fadeHandlePos, setFadeHandlePos] = useState({ fadeIn: 0, fadeOut: 0 })
-  const [dragStart, setDragStart] = useState({ y: 0, column: 0 })
+  const [dragStart, setDragStart] = useState({ x: 0, y: 0, column: 0, startSegmentIndex: 0, startBlockTop: 0, startBlockLeft: 0, timelineTop: 0 })
+  const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 })
+  const [snapOffset, setSnapOffset] = useState({ x: 0, y: 0 })
+  const [targetCell, setTargetCell] = useState({ segmentIndex: -1, column: -1 })
   const [resizeStart, setResizeStart] = useState({ y: 0, startSegment: null, endSegment: null })
   const [isHovered, setIsHovered] = useState(false)
   const blockRef = useRef(null)
   const fadeStartRef = useRef(null)
+  const targetCellRef = useRef({ segmentIndex: -1, column: -1 })
+  
+  // Garder targetCellRef à jour
+  useEffect(() => {
+    targetCellRef.current = targetCell
+  }, [targetCell])
 
   // Trouver le son dans la bibliothèque
   const sound = soundLibrary.find(s => s.id === soundTrack.soundId)
@@ -57,7 +71,18 @@ function SoundBlock({
 
   // Calculer la position verticale (en fonction des segments)
   const getSegmentIndex = useCallback((segmentId) => {
-    return segments.findIndex(s => s.id === segmentId || s._id === segmentId)
+    // D'abord, chercher par id ou _id
+    const idx = segments.findIndex(s => s.id === segmentId || s._id === segmentId)
+    if (idx !== -1) return idx
+    
+    // Fallback: si segmentId est au format "segment_N", utiliser N comme index
+    const match = segmentId?.match(/^segment_(\d+)$/)
+    if (match) {
+      const index = parseInt(match[1], 10)
+      if (index >= 0 && index < segments.length) return index
+    }
+    
+    return -1
   }, [segments])
 
   const startSegmentIndex = getSegmentIndex(soundTrack.startSegmentId)
@@ -65,9 +90,14 @@ function SoundBlock({
   
   if (startSegmentIndex === -1) return null
 
+  const actualEndIndex = endSegmentIndex !== -1 ? endSegmentIndex : startSegmentIndex
+  const segmentRange = rowHeights ? rowHeights.slice(startSegmentIndex, actualEndIndex + 1) : []
+  const rowHeightSum = segmentRange.length > 0 ? segmentRange.reduce((sum, h) => sum + h, 0) : ((actualEndIndex - startSegmentIndex + 1) * SEGMENT_HEIGHT)
+  const separatorHeight = segmentRange.length > 1 ? (segmentRange.length - 1) * 8 : 0
+
   // Position et dimensions
-  const top = startSegmentIndex * SEGMENT_HEIGHT
-  const blockHeight = ((endSegmentIndex !== -1 ? endSegmentIndex : startSegmentIndex) - startSegmentIndex + 1) * SEGMENT_HEIGHT
+  const top = 0
+  const blockHeight = rowHeightSum + separatorHeight
   const left = soundTrack.column * COLUMN_WIDTH
   const width = COLUMN_WIDTH - 5
 
@@ -96,22 +126,38 @@ function SoundBlock({
     // Sélectionner le bloc (pour le drag, pas pour éditer)
     onSelect(soundTrack.id)
     
-    // Démarrer le drag après un court délai pour différencier clic et drag
     const startX = e.clientX
     const startY = e.clientY
+    const blockRect = blockRef.current?.getBoundingClientRect()
+    const timelineRoot = blockRef.current?.closest('[data-timeline-root]')
+    const timelineRect = timelineRoot ? timelineRoot.getBoundingClientRect() : null
+    const timelineTop = timelineRect ? timelineRect.top : 0
+    const timelineScrollTop = timelineRoot ? timelineRoot.scrollTop : 0
+    const startBlockTop = blockRect ? blockRect.top : 0
+    const startBlockLeft = blockRect ? blockRect.left : 0
     let hasMoved = false
     
+    setDragStart({
+      x: startX,
+      y: startY,
+      column: soundTrack.column,
+      startSegmentIndex,
+      startBlockTop,
+      startBlockLeft,
+      timelineTop,
+      timelineScrollTop
+    })
+
     const onMouseMove = (moveEvent) => {
-      const dx = Math.abs(moveEvent.clientX - startX)
-      const dy = Math.abs(moveEvent.clientY - startY)
-      if (dx > 3 || dy > 3) {
+      const dx = moveEvent.clientX - startX
+      const dy = moveEvent.clientY - startY
+      const absDx = Math.abs(dx)
+      const absDy = Math.abs(dy)
+      if (absDx > 3 || absDy > 3) {
         hasMoved = true
         setIsDragging(true)
-        setDragStart({
-          y: moveEvent.clientY,
-          column: soundTrack.column,
-          startSegmentIndex: startSegmentIndex
-        })
+        setDragOffset({ x: dx, y: dy })
+        if (onDragStart) onDragStart()
       }
     }
     
@@ -120,6 +166,8 @@ function SoundBlock({
       window.removeEventListener('mouseup', onMouseUp)
       if (!hasMoved) {
         setIsDragging(false)
+      } else {
+        if (onDragEnd) onDragEnd()
       }
     }
     
@@ -162,40 +210,81 @@ function SoundBlock({
     const handleMouseMove = (e) => {
       // Drag pour changer de colonne ET de ligne
       if (isDragging) {
+        const deltaX = e.clientX - dragStart.x
         const deltaY = e.clientY - dragStart.y
-        const segmentDelta = Math.round(deltaY / SEGMENT_HEIGHT)
-        const columnDelta = Math.round(deltaY / SEGMENT_HEIGHT)
+        setDragOffset({ x: deltaX, y: deltaY })
         
-        // Calculer la nouvelle position de ligne (début du son)
-        const newStartIndex = Math.max(0, Math.min(segments.length - 1, dragStart.startSegmentIndex + segmentDelta))
+        // Obtenir le conteneur scrollable pour avoir la position de scroll actuelle
+        const timelineRoot = blockRef.current?.closest('[data-timeline-root]')
+        const currentScrollTop = timelineRoot ? timelineRoot.scrollTop : 0
+        // Calculer la position Y relative au contenu scrollable de la timeline
+        // On utilise la position du bloc dans le conteneur + le delta de drag
+        const blockRect = blockRef.current?.getBoundingClientRect()
+        const timelineRect = timelineRoot?.getBoundingClientRect()
         
-        // Calculer la nouvelle colonne
-        // On utilise le mouvement horizontal pour la colonne, ou le vertical si petit déplacement
-        const newColumn = Math.max(0, Math.min(5, dragStart.column + columnDelta))
-        
-        // Mettre à jour la colonne si changement
-        if (newColumn !== dragStart.column) {
-          onColumnChange(soundTrack.id, newColumn)
-          setDragStart(prev => ({
-            ...prev,
-            y: e.clientY,
-            column: newColumn
-          }))
-        }
-        
-        // Mettre à jour la position verticale (ligne) si changement
-        if (newStartIndex !== dragStart.startSegmentIndex) {
-          const newStartSegmentId = segments[newStartIndex]?.id || segments[newStartIndex]?._id
-          const currentEndIndex = endSegmentIndex !== -1 ? endSegmentIndex : startSegmentIndex
-          const newEndIndex = Math.min(segments.length - 1, newStartIndex + (currentEndIndex - dragStart.startSegmentIndex))
-          const newEndSegmentId = segments[newEndIndex]?.id || segments[newEndIndex]?._id
+        if (blockRect && timelineRect && rowHeights) {
+          // Position du centre du bloc par rapport au contenu scrollable
+          // getBoundingClientRect() retourne la position visuelle (inclut le transform)
+          const relativeBlockY = blockRect.top - timelineRect.top + currentScrollTop + blockRect.height / 2
           
-          onResize(soundTrack.id, newStartSegmentId, newEndSegmentId)
-          setDragStart(prev => ({
-            ...prev,
-            y: e.clientY,
-            startSegmentIndex: newStartIndex
-          }))
+          // Pour X, on calcule la colonne cible en fonction du delta X depuis le début du drag
+          // C'est plus fiable car indépendant de la position du conteneur
+          const newColumn = Math.max(0, Math.min(COLUMN_COUNT - 1, 
+            Math.round(dragStart.column + deltaX / COLUMN_WIDTH)))
+          
+          // Trouver la ligne cible
+          let accumulated = 0
+          let newStartIndex = 0
+          let targetRowCenter = 0
+          for (let i = 0; i < rowHeights.length; i++) {
+            const rowHeight = rowHeights[i]
+            const rowTotal = rowHeight + 8
+            const rowCenter = accumulated + rowHeight / 2
+            if (relativeBlockY < accumulated + rowTotal) {
+              newStartIndex = i
+              targetRowCenter = rowCenter
+              break
+            }
+            accumulated += rowTotal
+          }
+
+          // Trouver la colonne cible
+          const targetColCenter = newColumn * COLUMN_WIDTH + COLUMN_WIDTH / 2
+          
+          // Calculer l'écart par rapport au centre de la case cible (pour Y seulement)
+          const distToRowCenter = Math.abs(relativeBlockY - targetRowCenter)
+          
+          // Seuils de snap (en pixels)
+          const snapThresholdY = rowHeights[newStartIndex] * 0.4
+          const snapThresholdX = COLUMN_WIDTH * 0.4
+          
+          // Calculer le snap offset pour un effet d'aimant (Y seulement)
+          const newSnapY = (targetRowCenter - relativeBlockY) * 0.3
+          
+          setSnapOffset({ x: 0, y: newSnapY })
+          setTargetCell({ segmentIndex: newStartIndex, column: newColumn })
+          
+          // Notifier le parent de la case cible
+          if (onDragTargetChange) {
+            onDragTargetChange(newStartIndex, newColumn)
+          }
+          
+          // Debug
+          console.log('Drag:', { relativeBlockY, newStartIndex, newColumn, dragStartIndex: dragStart.startSegmentIndex, dragStartColumn: dragStart.column })
+
+          // Note: onColumnChange est appelé seulement au mouseup, pas pendant le drag
+          // pour éviter que le bloc ne se re-rende et ne "saute"
+
+          if (newStartIndex !== dragStart.startSegmentIndex) {
+            const currentEndIndex = endSegmentIndex !== -1 ? endSegmentIndex : startSegmentIndex
+            const offset = currentEndIndex - dragStart.startSegmentIndex
+            const newEndIndex = Math.min(segments.length - 1, newStartIndex + offset)
+            // Utiliser le format segment_N comme ID car les segments sont des chaînes
+            const newStartSegmentId = `segment_${newStartIndex}`
+            const newEndSegmentId = `segment_${newEndIndex}`
+            console.log('Calling onResize with:', { soundTrackId: soundTrack.id, newStartSegmentId, newEndSegmentId, newStartIndex, newEndIndex })
+            onResize(soundTrack.id, newStartSegmentId, newEndSegmentId)
+          }
         }
       }
       
@@ -243,7 +332,30 @@ function SoundBlock({
     }
 
     const handleMouseUp = () => {
+      // Utiliser targetCellRef.current pour avoir la valeur la plus récente
+      const currentTargetCell = targetCellRef.current
+      if (isDragging) {
+        // Appliquer les changements de colonne au moment du relâchement
+        if (currentTargetCell.column !== dragStart.column && currentTargetCell.column >= 0) {
+          onColumnChange(soundTrack.id, currentTargetCell.column)
+        }
+        // Appliquer les changements de ligne (segment) au moment du relâchement
+        // Utiliser dragStart.startSegmentIndex si targetCell.segmentIndex est invalide
+        const targetSegmentIndex = currentTargetCell.segmentIndex >= 0 ? currentTargetCell.segmentIndex : dragStart.startSegmentIndex
+        if (targetSegmentIndex !== dragStart.startSegmentIndex) {
+          const newStartSegmentId = `segment_${targetSegmentIndex}`
+          const currentEndIndex = endSegmentIndex !== -1 ? endSegmentIndex : startSegmentIndex
+          const offset = currentEndIndex - dragStart.startSegmentIndex
+          const newEndIndex = Math.min(segments.length - 1, targetSegmentIndex + offset)
+          const newEndSegmentId = `segment_${newEndIndex}`
+          onResize(soundTrack.id, newStartSegmentId, newEndSegmentId)
+        }
+        if (onDragEnd) onDragEnd()
+      }
       setIsDragging(false)
+      setDragOffset({ x: 0, y: 0 })
+      setSnapOffset({ x: 0, y: 0 })
+      setTargetCell({ segmentIndex: -1, column: -1 })
       setIsResizing(null)
       setIsAdjustingFade(null)
       fadeStartRef.current = null
@@ -277,6 +389,7 @@ function SoundBlock({
   return (
     <div
       ref={blockRef}
+      data-sound-block="true"
       style={{
         position: 'absolute',
         top: `${top}px`,
@@ -297,7 +410,10 @@ function SoundBlock({
         userSelect: 'none',
         transition: isDragging || isResizing || isAdjustingFade ? 'none' : 'all 0.15s ease',
         boxShadow: isSelected ? '0 0 0 2px #333, 0 4px 8px rgba(0,0,0,0.2)' : '0 2px 4px rgba(0,0,0,0.1)',
-        zIndex: isSelected ? 10 : 1
+        zIndex: isDragging ? 1000 : (isSelected ? 10 : 1),
+        transform: isDragging ? `translate(${dragOffset.x}px, ${dragOffset.y}px)` : 'none',
+        opacity: isDragging ? 0.85 : 1,
+        pointerEvents: 'auto'
       }}
       onMouseDown={handleMouseDown}
       onDoubleClick={() => onDoubleClick && onDoubleClick(soundTrack)}
