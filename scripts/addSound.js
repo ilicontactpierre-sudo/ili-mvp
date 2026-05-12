@@ -146,8 +146,18 @@ async function main() {
     console.log('')
   }
 
-  // 4. Déployer sur Vercel
-  const deploy = await question('🚀 Déployer sur Vercel maintenant ? (y/n) : ')
+  // 4. Déployer sur Vercel (seulement si un dépôt distant est configuré)
+  let hasRemote = false
+  try {
+    execSync('git remote -v', { stdio: 'ignore' })
+    hasRemote = true
+  } catch {
+    console.log('⚠️  Aucun dépôt Git distant configuré.')
+    console.log('   Pour déployer sur Vercel, configure d\'abord un remote (GitHub/GitLab).')
+    console.log('   Exemple : git remote add origin https://github.com/ton-user/ton-repo.git\n')
+  }
+
+  const deploy = hasRemote ? await question('🚀 Déployer sur Vercel maintenant ? (y/n) : ') : null
   if (isYes(deploy)) {
     console.log('')
     
