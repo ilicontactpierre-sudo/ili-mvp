@@ -403,21 +403,28 @@ function SoundBlock({
       // Ajustement des fades
       if (isAdjustingFade && fadeStartRef.current) {
         const deltaY = e.clientY - fadeStartRef.current.y
+        // px → ms : on se base sur la hauteur réelle du bloc
         const blockH = fadeStartRef.current.blockHeight
-        const msPerSegment = 5000 // estimation
-        const msPerPixel = (segments.length * msPerSegment) / (segments.length * SEGMENT_HEIGHT)
-        
+        const totalDurationMs = segments.length * 5000
+        const msPerPixel = totalDurationMs / (blockH > 0 ? blockH : 1)
+        const maxFadeMs = blockH * 0.8 * msPerPixel
+
         if (isAdjustingFade === 'fadeIn') {
-          // Tirer vers le bas augmente fadeIn
-          const fadeDelta = Math.max(0, deltaY * msPerPixel)
-          const newFadeIn = Math.min(fadeDelta, blockH * 0.8 * msPerPixel)
+          // Vers le bas = augmente le fadeIn, on part de la valeur initiale
+          const newFadeIn = Math.max(0, Math.min(
+            fadeStartRef.current.fadeIn + deltaY * msPerPixel,
+            maxFadeMs
+          ))
           onUpdate(soundTrack.id, { fadeIn: Math.round(newFadeIn) })
         } else if (isAdjustingFade === 'fadeOut') {
-          // Tirer vers le haut augmente fadeOut
-          const fadeDelta = Math.max(0, -deltaY * msPerPixel)
-          const newFadeOut = Math.min(fadeDelta, blockH * 0.8 * msPerPixel)
+          // Vers le haut = augmente le fadeOut, on part de la valeur initiale
+          const newFadeOut = Math.max(0, Math.min(
+            fadeStartRef.current.fadeOut + (-deltaY) * msPerPixel,
+            maxFadeMs
+          ))
           onUpdate(soundTrack.id, { fadeOut: Math.round(newFadeOut) })
         }
+}
       }
     }
 
