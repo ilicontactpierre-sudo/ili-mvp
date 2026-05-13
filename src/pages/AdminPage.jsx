@@ -2,6 +2,10 @@ import { useState, useRef, useEffect, useMemo, useCallback } from 'react'
 import { segmentText } from '../utils/segmentAlgorithm'
 import { Howl } from 'howler'
 import UnifiedSegmentsTimeline from '../components/admin/UnifiedSegmentsTimeline'
+import DraftManager from '../components/admin/DraftManager'
+import StoryLoader from '../components/admin/StoryLoader'
+import StoryPreviewModal from '../components/admin/StoryPreviewModal'
+import PublishPanel from '../components/admin/PublishPanel'
 
 function AdminPage() {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
@@ -41,6 +45,9 @@ function AdminPage() {
   const FILTER_CATEGORIES = ['Ambiance', 'Musique', 'SFX', 'Dialogue']
   const FILTER_MOOD = ['Calme', 'Tension', 'Mélancolie', 'Joie', 'Mystère', 'Action']
   const FILTER_INTENSITY = ['Douce', 'Moyenne', 'Forte']
+
+  // État pour l'aperçu
+  const [isPreviewOpen, setIsPreviewOpen] = useState(false)
 
   // Charger la bibliothèque sonore au montage
   useEffect(() => {
@@ -312,6 +319,92 @@ function AdminPage() {
     }
   };
 
+  // Restaurer un snapshot (depuis DraftManager ou StoryLoader)
+  const handleRestoreSnapshot = (snapshot) => {
+    setStoryTitle(snapshot.title || '')
+    setStoryAuthor(snapshot.author || '')
+    setStorySlug(snapshot.slug || '')
+    setSegments(snapshot.segments || [])
+    setSoundTracks(snapshot.soundTracks || [])
+    // Scroll vers l'éditeur
+    window.scrollTo({ top: 400, behavior: 'smooth' })
+  }
+
+  // Charger une histoire depuis StoryLoader
+  const handleLoadStory = (storyData) => {
+    setStoryTitle(storyData.title || '')
+    setStoryAuthor(storyData.author || '')
+    setStorySlug(storyData.slug || '')
+    setSegments(storyData.segments || [])
+    setSoundTracks(storyData.soundTracks || [])
+    
+    // Afficher une confirmation
+    alert('Histoire chargée dans l\'éditeur.\n\nLes modifications non sauvegardées ont été remplacées.')
+    
+    // Scroll vers l'éditeur de segments
+    window.scrollTo({ top: 400, behavior: 'smooth' })
+  }
+
+  // Ouvrir l'aperçu depuis StoryLoader
+  const handlePreviewStory = (storyData) => {
+    // Construire les sons utilisés
+    const usedSoundIds = new Set(
+      (storyData.soundTracks || []).map(t => t.soundId)
+    )
+    const sounds = soundLibrary.filter(s => usedSoundIds.has(s.id))
+    
+    setIsPreviewOpen(true)
+    // Stocker les données d'aperçu dans un ref ou state temporaire
+    setPreviewStoryData({
+      ...storyData,
+      sounds
+    })
+  }
+
+  // Données pour l'aperçu
+  const [previewStoryData, setPreviewStoryData] = useState(null)
+
+  // Construire les données pour l'aperçu en temps réel
+  const getCurrentStoryData = () => {
+    const usedSoundIds = new Set(
+      soundTracks.filter(t => !t.muted).map(t => t.soundId)
+    )
+    const sounds = soundLibrary.filter(s => usedSoundIds.has(s.id))
+    
+    return {
+      title: storyTitle || 'Sans titre',
+      author: storyAuthor || 'Anonyme',
+      segments: segments.map((seg, i) => ({
+        ...seg,
+        text: typeof seg === 'string' ? seg : seg.text || '',
+        audioEvents: seg.audioEvents || []
+      })),
+      soundTracks: soundTracks,
+      sounds: sounds
+    }
+  }
+
+  // Réinitialiser pour une nouvelle histoire
+  const handleNewStory = () => {
+    setStoryTitle('')
+    setStoryAuthor('')
+    setStorySlug('')
+    setStoryText('')
+    setSegments([])
+    setSoundTracks([])
+    setHistory([])
+    setHistoryIndex(-1)
+    setCutError('')
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
+  // Sauvegarder le brouillon (pour PublishPanel)
+  const handleSaveDraft = () => {
+    // Déclenche une sauvegarde manuelle via le DraftManager
+    // On utilise un événement personnalisé pour communiquer avec DraftManager
+    window.dispatchEvent(new CustomEvent('ili-save-draft'))
+  }
+
   const SegmentCard = ({ index, segment, segments, setSegments, handleSegmentChange, handleAddSegment, handleCutSegment, handleMergeSegments, handleDeleteSegment, onAddSound }) => {
     const textareaRef = useRef(null);
     const [showCutModal, setShowCutModal] = useState(false);
@@ -365,7 +458,7 @@ function AdminPage() {
         </div>
         <textarea
           ref={textareaRef}
-          value={segment}
+          value={typeof segment === 'string' ? segment : segment.text || ''}
           onChange={handleTextareaChange}
           style={{
             width: '100%',
@@ -526,161 +619,201 @@ function AdminPage() {
     <div style={{
       display: 'flex',
       flexDirection: 'column',
-      alignItems: 'center',
-      padding: '2rem',
-      paddingBottom: '4rem',
       minHeight: '100vh'
     }}>
-      <h1 style={{ marginBottom: '1rem' }}>Admin ILi — [Dashboard à venir]</h1>
+      {/* 1. DraftManager (barre de statut sticky) */}
+      <DraftManager
+        title={storyTitle}
+        author={storyAuthor}
+        slug={storySlug}
+        segments={segments}
+        soundTracks={soundTracks}
+        onRestore={handleRestoreSnapshot}
+        onOpenPreview={() => setIsPreviewOpen(true)}
+      />
 
-      <div style={{ 
-        width: '100%', 
-        maxWidth: '800px',
+      {/* Contenu principal */}
+      <div style={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
         padding: '2rem',
-        border: '1px solid #eee',
-        borderRadius: '8px',
-        boxShadow: '0 4px 8px rgba(0,0,0,0.05)',
-        backgroundColor: '#fff',
-        marginBottom: '2rem'
+        paddingBottom: '4rem',
+        flex: 1
       }}>
-        <h2 style={{ marginBottom: '1.5rem', fontSize: '1.75rem', color: '#333' }}>Créer une nouvelle histoire</h2>
+        <div style={{ 
+          width: '100%', 
+          maxWidth: '800px'
+        }}>
+          {/* 2. StoryLoader (section collapsible) */}
+          <StoryLoader
+            onLoadStory={handleLoadStory}
+            onPreviewStory={handlePreviewStory}
+          />
 
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-          <input
-            type="text"
-            placeholder="Titre de l'histoire"
-            value={storyTitle}
-            onChange={(e) => setStoryTitle(e.target.value)}
-            style={{ padding: '0.75rem', fontSize: '1rem', border: '1px solid #ccc', borderRadius: '4px' }}
-          />
-          <input
-            type="text"
-            placeholder="Auteur de l'histoire"
-            value={storyAuthor}
-            onChange={(e) => setStoryAuthor(e.target.value)}
-            style={{ padding: '0.75rem', fontSize: '1rem', border: '1px solid #ccc', borderRadius: '4px' }}
-          />
-          <input
-            type="text"
-            placeholder="ID / Slug (ex: la-parure)"
-            value={storySlug}
-            onChange={(e) => setStorySlug(e.target.value.toLowerCase().replace(/ /g, '-').replace(/[^a-z0-9-]/g, ''))}
-            style={{ padding: '0.75rem', fontSize: '1rem', border: '1px solid #ccc', borderRadius: '4px' }}
-          />
-          <textarea
-            placeholder="Colle ton texte ici (10 lignes minimum)"
-            value={storyText}
-            onChange={(e) => setStoryText(e.target.value)}
-            rows="10"
-            style={{ padding: '0.75rem', fontSize: '1rem', border: '1px solid #ccc', borderRadius: '4px', minHeight: '200px' }}
-          ></textarea>
+          {/* 3. Section "Créer / Éditer" */}
+          <div style={{
+            padding: '2rem',
+            border: '1px solid #eee',
+            borderRadius: '8px',
+            boxShadow: '0 4px 8px rgba(0,0,0,0.05)',
+            backgroundColor: '#fff',
+            marginBottom: '2rem'
+          }}>
+            <h2 style={{ marginBottom: '1.5rem', fontSize: '1.75rem', color: '#333' }}>
+              Créer / Éditer une histoire
+            </h2>
 
-          <div style={{ marginTop: '0.5rem' }}>
-            <label htmlFor="granularity-slider" style={{ display: 'block', marginBottom: '0.5rem' }}>
-              Granularité : {granularity}/10
-            </label>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-              <span style={{ fontSize: '0.75rem', color: '#555', whiteSpace: 'nowrap' }}>1 = segments très courts et percutants</span>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
               <input
-                type="range"
-                id="granularity-slider"
-                min="1"
-                max="10"
-                value={granularity}
-                onChange={(e) => setGranularity(Number(e.target.value))}
-                style={{ flex: 1 }}
+                type="text"
+                placeholder="Titre de l'histoire"
+                value={storyTitle}
+                onChange={(e) => setStoryTitle(e.target.value)}
+                style={{ padding: '0.75rem', fontSize: '1rem', border: '1px solid #ccc', borderRadius: '4px' }}
               />
-              <span style={{ fontSize: '0.75rem', color: '#555', whiteSpace: 'nowrap' }}>10 = segments larges et respirés</span>
-            </div>
-          </div>
+              <input
+                type="text"
+                placeholder="Auteur de l'histoire"
+                value={storyAuthor}
+                onChange={(e) => setStoryAuthor(e.target.value)}
+                style={{ padding: '0.75rem', fontSize: '1rem', border: '1px solid #ccc', borderRadius: '4px' }}
+              />
+              <input
+                type="text"
+                placeholder="ID / Slug (ex: la-parure)"
+                value={storySlug}
+                onChange={(e) => setStorySlug(e.target.value.toLowerCase().replace(/ /g, '-').replace(/[^a-z0-9-]/g, ''))}
+                style={{ padding: '0.75rem', fontSize: '1rem', border: '1px solid #ccc', borderRadius: '4px' }}
+              />
+              <textarea
+                placeholder="Colle ton texte ici (10 lignes minimum)"
+                value={storyText}
+                onChange={(e) => setStoryText(e.target.value)}
+                rows="10"
+                style={{ padding: '0.75rem', fontSize: '1rem', border: '1px solid #ccc', borderRadius: '4px', minHeight: '200px' }}
+              ></textarea>
 
-          <div style={{ display: 'flex', gap: '0.5rem', marginTop: '1rem' }}>
-            <button
-              onClick={handleCutText}
-              disabled={isCutting || !storyText.trim()}
-              style={{
-                padding: '0.75rem 1.5rem',
-                fontSize: '1rem',
-                backgroundColor: storyText.trim() && !isCutting ? '#28a745' : '#ccc',
-                color: 'white',
-                border: 'none',
-                borderRadius: '4px',
-                cursor: storyText.trim() && !isCutting ? 'pointer' : 'not-allowed',
-                flex: 1
-              }}
-            >
-              {isCutting ? "Découpage en cours..." : "Découper le texte"}
-            </button>
-            
-            {/* Boutons Undo/Redo */}
-            <div style={{ display: 'flex', gap: '0.25rem' }}>
-              <button
-                onClick={handleUndo}
-                disabled={historyIndex <= 0}
-                style={{
-                  padding: '0.75rem 1rem',
-                  fontSize: '1rem',
-                  backgroundColor: historyIndex > 0 ? '#6c757d' : '#ccc',
-                  color: 'white',
-                  border: 'none',
-                  borderRadius: '4px',
-                  cursor: historyIndex > 0 ? 'pointer' : 'not-allowed',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center'
-                }}
-                title="Annuler (Cmd+Z)"
-              >
-                ↩
-              </button>
-              <button
-                onClick={handleRedo}
-                disabled={historyIndex >= history.length - 1}
-                style={{
-                  padding: '0.75rem 1rem',
-                  fontSize: '1rem',
-                  backgroundColor: historyIndex < history.length - 1 ? '#6c757d' : '#ccc',
-                  color: 'white',
-                  border: 'none',
-                  borderRadius: '4px',
-                  cursor: historyIndex < history.length - 1 ? 'pointer' : 'not-allowed',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center'
-                }}
-                title="Rétablir (Cmd+Shift+Z)"
-              >
-                ↪
-              </button>
-            </div>
-          </div>
-          {cutError && (
-            <p style={{ color: 'red', margin: '0.5rem 0 0 0', fontSize: '0.875rem' }}>
-              Erreur: {cutError}
-            </p>
-          )}
-
-          {segments.length > 0 && (
-            <>
-              {/* Timeline Audio unifiée avec éditeur de segments */}
-              <div style={{ 
-                marginTop: '2rem', 
-                borderTop: '1px solid #eee', 
-                paddingTop: '1.5rem'
-              }}>
-                <div style={{ height: '600px', marginBottom: '2rem' }}>
-                  <UnifiedSegmentsTimeline
-                    segments={segments}
-                    soundTracks={soundTracks}
-                    soundLibrary={soundLibrary}
-                    onSegmentsChange={setSegments}
-                    onSoundTracksChange={setSoundTracks}
-                    onSaveToHistory={() => saveToHistory(segments)}
+              <div style={{ marginTop: '0.5rem' }}>
+                <label htmlFor="granularity-slider" style={{ display: 'block', marginBottom: '0.5rem' }}>
+                  Granularité : {granularity}/10
+                </label>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                  <span style={{ fontSize: '0.75rem', color: '#555', whiteSpace: 'nowrap' }}>1 = segments très courts et percutants</span>
+                  <input
+                    type="range"
+                    id="granularity-slider"
+                    min="1"
+                    max="10"
+                    value={granularity}
+                    onChange={(e) => setGranularity(Number(e.target.value))}
+                    style={{ flex: 1 }}
                   />
+                  <span style={{ fontSize: '0.75rem', color: '#555', whiteSpace: 'nowrap' }}>10 = segments larges et respirés</span>
                 </div>
               </div>
-            </>
-          )}
+
+              <div style={{ display: 'flex', gap: '0.5rem', marginTop: '1rem' }}>
+                <button
+                  onClick={handleCutText}
+                  disabled={isCutting || !storyText.trim()}
+                  style={{
+                    padding: '0.75rem 1.5rem',
+                    fontSize: '1rem',
+                    backgroundColor: storyText.trim() && !isCutting ? '#28a745' : '#ccc',
+                    color: 'white',
+                    border: 'none',
+                    borderRadius: '4px',
+                    cursor: storyText.trim() && !isCutting ? 'pointer' : 'not-allowed',
+                    flex: 1
+                  }}
+                >
+                  {isCutting ? "Découpage en cours..." : "Découper le texte"}
+                </button>
+                
+                {/* Boutons Undo/Redo */}
+                <div style={{ display: 'flex', gap: '0.25rem' }}>
+                  <button
+                    onClick={handleUndo}
+                    disabled={historyIndex <= 0}
+                    style={{
+                      padding: '0.75rem 1rem',
+                      fontSize: '1rem',
+                      backgroundColor: historyIndex > 0 ? '#6c757d' : '#ccc',
+                      color: 'white',
+                      border: 'none',
+                      borderRadius: '4px',
+                      cursor: historyIndex > 0 ? 'pointer' : 'not-allowed',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center'
+                    }}
+                    title="Annuler (Cmd+Z)"
+                  >
+                    ↩
+                  </button>
+                  <button
+                    onClick={handleRedo}
+                    disabled={historyIndex >= history.length - 1}
+                    style={{
+                      padding: '0.75rem 1rem',
+                      fontSize: '1rem',
+                      backgroundColor: historyIndex < history.length - 1 ? '#6c757d' : '#ccc',
+                      color: 'white',
+                      border: 'none',
+                      borderRadius: '4px',
+                      cursor: historyIndex < history.length - 1 ? 'pointer' : 'not-allowed',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center'
+                    }}
+                    title="Rétablir (Cmd+Shift+Z)"
+                  >
+                    ↪
+                  </button>
+                </div>
+              </div>
+              {cutError && (
+                <p style={{ color: 'red', margin: '0.5rem 0 0 0', fontSize: '0.875rem' }}>
+                  Erreur: {cutError}
+                </p>
+              )}
+
+              {segments.length > 0 && (
+                <>
+                  {/* Timeline Audio unifiée avec éditeur de segments */}
+                  <div style={{ 
+                    marginTop: '2rem', 
+                    borderTop: '1px solid #eee', 
+                    paddingTop: '1.5rem'
+                  }}>
+                    <div style={{ height: '600px', marginBottom: '2rem' }}>
+                      <UnifiedSegmentsTimeline
+                        segments={segments}
+                        soundTracks={soundTracks}
+                        soundLibrary={soundLibrary}
+                        onSegmentsChange={setSegments}
+                        onSoundTracksChange={setSoundTracks}
+                        onSaveToHistory={() => saveToHistory(segments)}
+                      />
+                    </div>
+                  </div>
+                </>
+              )}
+            </div>
+          </div>
+
+          {/* 4. PublishPanel */}
+          <PublishPanel
+            title={storyTitle}
+            author={storyAuthor}
+            slug={storySlug}
+            segments={segments}
+            soundTracks={soundTracks}
+            soundLibrary={soundLibrary}
+            onNewStory={handleNewStory}
+            onSaveDraft={handleSaveDraft}
+          />
         </div>
       </div>
 
@@ -880,6 +1013,14 @@ function AdminPage() {
         </div>
       )}
 
+      {/* StoryPreviewModal */}
+      <StoryPreviewModal
+        isOpen={isPreviewOpen}
+        storyData={previewStoryData || getCurrentStoryData()}
+        onClose={() => setIsPreviewOpen(false)}
+      />
+
+      {/* Bouton de déconnexion */}
       <button
         onClick={handleLogout}
         style={{
@@ -890,7 +1031,10 @@ function AdminPage() {
           border: 'none',
           borderRadius: '4px',
           cursor: 'pointer',
-          marginTop: '1rem'
+          margin: '1rem 2rem',
+          alignSelf: 'flex-end',
+          maxWidth: '800px',
+          width: 'fit-content'
         }}
       >
         Se déconnecter

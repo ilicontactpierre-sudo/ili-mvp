@@ -1,7 +1,47 @@
 import { useLayoutEffect, useRef, useState } from 'react'
 import './StoryReader.css'
 
-function StoryReader({ segments = [], currentIndex = 0 }) {
+function StoryReader({ storyId, storyData, currentIndex = 0 }) {
+  // MODE 2 — données directes en props (nouveau)
+  // Quand storyData est fourni, ignore storyId et utilise ces données
+  const segments = storyData ? storyData.segments : []
+  const [loadedStory, setLoadedStory] = useState(null)
+
+  // MODE 1 — chargement depuis fichier (comportement actuel)
+  useLayoutEffect(() => {
+    if (storyData || !storyId) return
+
+    let isCancelled = false
+
+    async function loadStory() {
+      try {
+        const response = await fetch(`/stories/${storyId}.json`)
+        if (!response.ok) {
+          console.error(`Erreur chargement histoire: ${storyId}`)
+          return
+        }
+        const data = await response.json()
+        if (!isCancelled) {
+          setLoadedStory(data)
+        }
+      } catch (err) {
+        console.error('Erreur chargement histoire:', err)
+      }
+    }
+
+    loadStory()
+
+    return () => {
+      isCancelled = true
+    }
+  }, [storyId, storyData])
+
+  // Utilise les segments du fichier chargé en mode 1
+  const finalSegments = storyData
+    ? segments
+    : loadedStory
+      ? loadedStory.segments || []
+      : segments
   const segmentRefs = useRef([])
   const [translateY, setTranslateY] = useState(0)
 
@@ -26,7 +66,7 @@ function StoryReader({ segments = [], currentIndex = 0 }) {
       cancelAnimationFrame(rafId)
       window.removeEventListener('resize', computeTranslate)
     }
-  }, [segments, currentIndex])
+  }, [finalSegments, currentIndex])
 
   return (
     <main className="story-reader" aria-live="polite">
@@ -34,7 +74,7 @@ function StoryReader({ segments = [], currentIndex = 0 }) {
         className="story-reader__track"
         style={{ '--track-translate-y': `${translateY}px` }}
       >
-        {segments.map((segment, index) => {
+        {finalSegments.map((segment, index) => {
           const isFocused = index === currentIndex
 
           return (
