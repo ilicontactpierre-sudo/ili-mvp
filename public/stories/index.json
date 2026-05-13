@@ -33,5 +33,10 @@
     "id": "test-son-pour-claude",
     "title": "TEST SON POUR CLAUDE",
     "author": "TEST SON POUR CLAUDE"
+  },
+  {
+    "id": "test-bloc-son",
+    "title": "TEST BLOC SON",
+    "author": "TEST BLOC SON"
   }
 ]
