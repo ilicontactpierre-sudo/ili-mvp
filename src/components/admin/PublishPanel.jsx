@@ -60,7 +60,6 @@ function PublishPanel({
 
   // Convertir soundTracks en audioEvents pour le format publié
   const convertSoundTracksToAudioEvents = () => {
-    // Normaliser les segments en préservant leurs IDs originaux
     const segmentsWithAudio = segments.map((seg, index) => {
       if (typeof seg === 'string') {
         return { id: `seg_${index}`, text: seg, audioEvents: [] }
@@ -71,29 +70,28 @@ function PublishPanel({
       return { id: seg.id, text: seg.text || '', audioEvents: [] }
     })
 
-    // Pour chaque soundTrack, créer les audioEvents selon l'algorithme de référence
     soundTracks.forEach(track => {
       if (track.muted) return
 
-      // Trouver les index en comparant avec les IDs originaux des segments
-      let startIdx = segmentsWithAudio.findIndex(s => String(s.id) === String(track.startSegmentId))
-      // Fallback : si l'ID est au format "segment_N" ou "seg_N", utiliser l'index N
+      let startIdx = segmentsWithAudio.findIndex(
+        s => String(s.id) === String(track.startSegmentId)
+      )
       if (startIdx === -1) {
-        const match = String(track.startSegmentId).match(/^seg(?:ment)?_(\d+)$/)
-        if (match) startIdx = parseInt(match[1], 10)
+        const m = String(track.startSegmentId).match(/^seg(?:ment)?_(\d+)$/)
+        if (m) startIdx = parseInt(m[1], 10)
       }
+      if (startIdx === -1 || startIdx >= segmentsWithAudio.length) return
 
       let endIdx = track.endSegmentId != null
         ? segmentsWithAudio.findIndex(s => String(s.id) === String(track.endSegmentId))
         : startIdx
       if (endIdx === -1 && track.endSegmentId != null) {
-        const match = String(track.endSegmentId).match(/^seg(?:ment)?_(\d+)$/)
-        if (match) endIdx = parseInt(match[1], 10)
+        const m = String(track.endSegmentId).match(/^seg(?:ment)?_(\d+)$/)
+        if (m) endIdx = parseInt(m[1], 10)
       }
+      if (endIdx === -1) endIdx = startIdx
 
-      if (startIdx === -1) return
-
-      // Événement de début : fadeIn ou play
+      // Play ou FadeIn sur le segment de début
       if (track.fadeIn > 0) {
         segmentsWithAudio[startIdx].audioEvents.push({
           action: 'fadeIn',
@@ -113,16 +111,10 @@ function PublishPanel({
         })
       }
 
-      // Événement de fin : sur le segment SUIVANT la fin du bloc
-      const resolvedEndIdx = endIdx === -1 ? startIdx : endIdx
-      const stopIdx = resolvedEndIdx + 1
-
-      // N'ajouter un stop que s'il y a un segment suivant
-      // ET que le bloc a une fin explicite différente du début
-      if (
-        stopIdx < segmentsWithAudio.length &&
-        (resolvedEndIdx !== startIdx || track.endSegmentId != null)
-      ) {
+      // Stop ou FadeOut sur le segment APRÈS la fin du bloc
+      // Exemple : bloc sur seg 0→1 → stop sur seg 2
+      const stopIdx = endIdx + 1
+      if (stopIdx < segmentsWithAudio.length) {
         if (track.fadeOut > 0) {
           segmentsWithAudio[stopIdx].audioEvents.push({
             action: 'fadeOut',
@@ -136,6 +128,7 @@ function PublishPanel({
           })
         }
       }
+      // Si stopIdx >= longueur : pas de stop, le son joue jusqu'à la fin de l'histoire
     })
 
     return segmentsWithAudio
