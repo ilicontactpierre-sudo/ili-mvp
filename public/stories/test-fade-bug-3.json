@@ -13,7 +13,7 @@
   "segments": [
     {
       "id": "seg_0",
-      "text": "TEST FADE BUG 3TEST FADE BUG 3TEST FADE BUG 3TEST FADE BUG 3!",
+      "text": "TEST FADE BUG 3TEST FADE BUG 3TEST FADE BUG 3TEST FADE BUG 3TEST FADE BUG 3TEST FADE BUG 3TEST FADE BUG 3TEST FADE BUG 3TEST FADE BUG 3TEST FADE BUG 3TEST FADE BUG 3TEST FADE BUG 3TEST FADE BUG 3TEST FADE BUG 3TEST FADE BUG 3T",
       "audioEvents": [
         {
           "action": "play",
@@ -26,33 +26,28 @@
     },
     {
       "id": "seg_1",
-      "text": "TEST FADE BUG 3",
+      "text": "EST FADE BUG 3TEST FADE BUG 3TEST FADE BUG 3TEST FADE BUG 3TEST FADE BUG 3TEST FADE BUG 3TEST FADE BUG 3TEST FADE BUG 3T",
       "audioEvents": []
     },
     {
       "id": "seg_2",
-      "text": "TEST FADE BUG 3TEST FADE BUG 3! TEST FADE BUG 3TEST FADE BUG 3TEST FADE BUG 3TEST FADE BUG 3! TEST FADE BUG 3TEST FADE BUG 3!",
+      "text": "EST FADE BUG 3TEST FADE BUG 3TEST FADE BUG 3TEST FADE BUG 3TEST FADE BUG 3TEST FADE BUG 3TEST FADE BUG 3TEST FADE BU",
       "audioEvents": []
     },
     {
       "id": "seg_3",
-      "text": "TEST FADE BUG 3TEST FADE BUG 3TEST FADE BUG 3! TEST FADE BUG 3TEST FADE BUG 3!",
+      "text": "G 3TEST FADE BUG 3TEST FADE BUG 3TEST FADE BUG 3TEST FADE BUG 3TEST FADE BUG 3TES",
       "audioEvents": []
     },
     {
       "id": "seg_4",
-      "text": "TEST FADE BUG 3TEST FADE BUG 3TEST FADE BUG 3TEST FA",
-      "audioEvents": []
-    },
-    {
-      "id": "seg_5",
-      "text": "DE BUG 3TEST FADE BUG 3TEST FADE BUG 3TEST FADE BUG 3TEST FADE BUG 3TEST FADE BUG 3! TEST FADE BUG 3TEST FADE BUG 3",
+      "text": "T FADE BUG 3TEST FADE BUG 3TEST FADE BUG 3TEST FADE BUG 3",
       "audioEvents": []
     }
   ],
   "soundTracks": [
     {
-      "id": "st_1778696012593_g7x0yqqi5",
+      "id": "st_1778696159659_3ydhmj0w4",
       "soundId": "02_COMMISSARIAT_-_Tic-Tac_umaxtk",
       "startSegmentId": "segment_0",
       "endSegmentId": "segment_0",
