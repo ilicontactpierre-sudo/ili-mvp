@@ -10,6 +10,11 @@
       "loop": false
     },
     {
+      "id": "11_CONTINES_-_Sweep_eqnvoh",
+      "url": "/sounds/11_CONTINES_-_Sweep_eqnvoh.mp3",
+      "loop": false
+    },
+    {
       "id": "12_LISE_-_Oiseaux_enz7jr",
       "url": "/sounds/12_LISE_-_Oiseaux_enz7jr.mp3",
       "loop": false
@@ -24,6 +29,13 @@
           "action": "play",
           "soundId": "02_COMMISSARIAT_-_Tic-Tac_umaxtk",
           "volume": 1,
+          "delay": 0,
+          "loop": false
+        },
+        {
+          "action": "play",
+          "soundId": "11_CONTINES_-_Sweep_eqnvoh",
+          "volume": 0.5,
           "delay": 0,
           "loop": false
         }
