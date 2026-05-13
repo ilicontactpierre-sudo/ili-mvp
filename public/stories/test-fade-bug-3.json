@@ -23,7 +23,7 @@
         {
           "action": "fadeIn",
           "soundId": "02_COMMISSARIAT_-_Tic-Tac_umaxtk",
-          "volume": 0.5,
+          "volume": 1,
           "duration": 3944,
           "delay": 0,
           "loop": false
@@ -47,8 +47,8 @@
         {
           "action": "fadeIn",
           "soundId": "12_LISE_-_Oiseaux_enz7jr",
-          "volume": 0.5,
-          "duration": 6921,
+          "volume": 1,
+          "duration": 3400,
           "delay": 0,
           "loop": false
         }
@@ -61,7 +61,7 @@
         {
           "action": "fadeOut",
           "soundId": "12_LISE_-_Oiseaux_enz7jr",
-          "duration": 8192
+          "duration": 3700
         }
       ]
     },
@@ -78,7 +78,7 @@
       "startSegmentId": "segment_0",
       "endSegmentId": "seg_2",
       "column": 0,
-      "volume": 0.5,
+      "volume": 1,
       "fadeIn": 3944,
       "fadeOut": 3662,
       "delay": 0,
@@ -91,9 +91,9 @@
       "startSegmentId": "seg_2",
       "endSegmentId": "seg_3",
       "column": 2,
-      "volume": 0.5,
-      "fadeIn": 6921,
-      "fadeOut": 8192,
+      "volume": 1,
+      "fadeIn": 3400,
+      "fadeOut": 3700,
       "delay": 0,
       "loop": false,
       "muted": false
