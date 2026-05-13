@@ -54,7 +54,7 @@
           "action": "fadeIn",
           "soundId": "02_COMMISSARIAT_-_Tic-Tac_umaxtk",
           "volume": 0.5,
-          "duration": 4661,
+          "duration": 5740,
           "delay": 0,
           "loop": false
         }
@@ -80,7 +80,7 @@
       "endSegmentId": "seg_4",
       "column": 0,
       "volume": 0.5,
-      "fadeIn": 4661,
+      "fadeIn": 5740,
       "fadeOut": 4379,
       "delay": 0,
       "loop": false,
