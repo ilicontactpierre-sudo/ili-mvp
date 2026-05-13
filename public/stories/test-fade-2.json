@@ -33,26 +33,21 @@
     {
       "id": "seg_1",
       "text": "DE 2TEST FADE 2TEST FADE 2! TEST FADE 2TEST FADE 2TEST FADE 2TEST FADE 2TEST FADE 2TEST FADE 2TEST FADE 2TEST FADE 2!",
-      "audioEvents": []
-    },
-    {
-      "id": "seg_2",
-      "text": "TEST FADE 2TEST FADE 2TEST FADE 2TEST FADE 2TEST FADE 2! TEST FADE 2TEST FADE 2T",
       "audioEvents": [
-        {
-          "action": "fadeOut",
-          "soundId": "02_COMMISSARIAT_-_Tic-Tac_umaxtk",
-          "duration": 5000
-        },
         {
           "action": "fadeIn",
           "soundId": "12_LISE_-_Oiseaux_enz7jr",
           "volume": 1,
-          "duration": 3375,
+          "duration": 7250,
           "delay": 0,
           "loop": false
         }
       ]
+    },
+    {
+      "id": "seg_2",
+      "text": "TEST FADE 2TEST FADE 2TEST FADE 2TEST FADE 2TEST FADE 2! TEST FADE 2TEST FADE 2T",
+      "audioEvents": []
     },
     {
       "id": "seg_3",
@@ -80,7 +75,7 @@
       "column": 0,
       "volume": 1,
       "fadeIn": 4750,
-      "fadeOut": 5000,
+      "fadeOut": 0,
       "delay": 0,
       "loop": false,
       "muted": false
@@ -88,11 +83,11 @@
     {
       "id": "st_1778692671073_iku14v9de",
       "soundId": "12_LISE_-_Oiseaux_enz7jr",
-      "startSegmentId": "segment_2",
+      "startSegmentId": "seg_1",
       "endSegmentId": "seg_4",
       "column": 2,
       "volume": 1,
-      "fadeIn": 3375,
+      "fadeIn": 7250,
       "fadeOut": 4250,
       "delay": 0,
       "loop": false,
