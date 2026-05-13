@@ -35,6 +35,84 @@ function StoryLoader({ onLoadStory, onPreviewStory }) {
     }
   }
 
+  // Convertir audioEvents → soundTracks (algorithme de référence)
+  const convertAudioEventsToTracks = (normalizedSegments, soundLibrary) => {
+    const tracks = []
+    let trackIdCounter = 0
+
+    normalizedSegments.forEach(segment => {
+      if (!segment.audioEvents || segment.audioEvents.length === 0) return
+
+      // Passe 1 : traiter les events play/fadeIn pour créer ou étendre les tracks
+      segment.audioEvents.forEach(event => {
+        if (event.action === 'stop' || event.action === 'fadeOut') return
+
+        // Cherche un track existant pour ce son dont l'endSegmentId est le segment précédent
+        const segIdx = normalizedSegments.findIndex(s => String(s.id) === String(segment.id))
+        const prevSegId = segIdx > 0 ? normalizedSegments[segIdx - 1].id : null
+
+        const existingTrack = tracks.find(t =>
+          t.soundId === event.soundId &&
+          prevSegId != null &&
+          String(t.endSegmentId) === String(prevSegId)
+        )
+
+        if (existingTrack) {
+          // Étend le track existant à ce segment
+          existingTrack.endSegmentId = segment.id
+        } else {
+          // Crée un nouveau track
+          const soundInfo = soundLibrary ? soundLibrary.find(s => s.id === event.soundId) : null
+          const category = soundInfo?.categories?.[0] || 'autre'
+
+          // Calculer la colonne : première colonne libre parmi les tracks actifs sur ce segment
+          const activeTracksOnSegment = tracks.filter(t => {
+            const startIdx = normalizedSegments.findIndex(s => String(s.id) === String(t.startSegmentId))
+            const endIdx = normalizedSegments.findIndex(s => String(s.id) === String(t.endSegmentId))
+            const curIdx = normalizedSegments.findIndex(s => String(s.id) === String(segment.id))
+            return startIdx <= curIdx && curIdx <= endIdx
+          })
+
+          tracks.push({
+            id: `track_${trackIdCounter++}`,
+            soundId: event.soundId,
+            startSegmentId: segment.id,
+            endSegmentId: segment.id,
+            column: activeTracksOnSegment.length % 6,
+            volume: event.volume ?? 0.5,
+            fadeIn: event.action === 'fadeIn' ? (event.duration || 0) : 0,
+            fadeOut: 0,
+            loop: event.loop || false,
+            muted: false,
+            delay: event.delay || 0
+          })
+        }
+      })
+
+      // Passe 2 : appliquer les fadeOut/stop pour fermer les tracks
+      segment.audioEvents.forEach(event => {
+        if (event.action === 'fadeOut' || event.action === 'stop') {
+          const track = tracks.find(t =>
+            t.soundId === event.soundId &&
+            (() => {
+              const endIdx = normalizedSegments.findIndex(s => String(s.id) === String(t.endSegmentId))
+              const curIdx = normalizedSegments.findIndex(s => String(s.id) === String(segment.id))
+              return curIdx >= endIdx - 1
+            })()
+          )
+          if (track) {
+            track.endSegmentId = segment.id
+            if (event.action === 'fadeOut') {
+              track.fadeOut = event.duration || 0
+            }
+          }
+        }
+      })
+    })
+
+    return tracks
+  }
+
   // Charger une histoire dans l'éditeur
   const handleEdit = async (storyId) => {
     try {
@@ -44,18 +122,14 @@ function StoryLoader({ onLoadStory, onPreviewStory }) {
       }
       const data = await response.json()
 
-      // Conversion audioEvents -> soundTracks si nécessaire (ancien format)
-      let soundTracks = data.soundTracks || []
-      
       // Normaliser les segments : s'assurer qu'ils ont tous un champ text et id
       const normalizedSegments = (data.segments || []).map((seg, index) => {
         // Si le segment a déjà un champ text, on le garde
         if (seg && typeof seg.text === 'string') {
           return {
-            id: seg.id || `segment_${index}`,
+            id: seg.id ?? `seg_${index}`,
             text: seg.text,
-            audioEvents: seg.audioEvents || [],
-            ...seg
+            audioEvents: seg.audioEvents || []
           }
         }
         
@@ -63,48 +137,36 @@ function StoryLoader({ onLoadStory, onPreviewStory }) {
         if (seg && typeof seg === 'object') {
           const numericKeys = Object.keys(seg).filter(key => String(Number(key)) === key)
           if (numericKeys.length > 0) {
-            // Reconstruire le texte à partir des clés numériques
             const text = numericKeys
               .sort((a, b) => Number(a) - Number(b))
               .map(key => seg[key])
               .join('')
             return {
-              id: seg.id || `segment_${index}`,
+              id: seg.id ?? `seg_${index}`,
               text: text,
               audioEvents: seg.audioEvents || []
             }
           }
         }
         
-        // Segment déjà au bon format ou string
-        return typeof seg === 'string' 
-          ? { id: `segment_${index}`, text: seg, audioEvents: [] }
-          : { id: `segment_${index}`, text: '', audioEvents: [] }
+        return typeof seg === 'string'
+          ? { id: `seg_${index}`, text: seg, audioEvents: [] }
+          : { id: `seg_${index}`, text: '', audioEvents: [] }
       })
-      
-      if (normalizedSegments.length > 0) {
-        // Vérifier si les segments ont des audioEvents (ancien format)
+
+      // Construire la soundLibrary depuis data.sounds pour la conversion
+      const soundLibrary = data.sounds || []
+
+      // Déterminer les soundTracks :
+      // - Si le JSON a déjà des soundTracks (format éditeur), les utiliser
+      // - Sinon, convertir depuis audioEvents (format player)
+      let soundTracks = []
+      if (data.soundTracks && data.soundTracks.length > 0) {
+        soundTracks = data.soundTracks
+      } else {
         const hasAudioEvents = normalizedSegments.some(s => s.audioEvents && s.audioEvents.length > 0)
-        
-        if (hasAudioEvents && soundTracks.length === 0) {
-          // Convertir audioEvents en soundTracks
-          soundTracks = []
-          normalizedSegments.forEach((segment, segIndex) => {
-            if (segment.audioEvents) {
-              segment.audioEvents.forEach((ae, aeIndex) => {
-                soundTracks.push({
-                  id: `st_${segIndex}_${aeIndex}`,
-                  soundId: ae.soundId,
-                  startSegmentId: segment.id,
-                  endSegmentId: segment.id,
-                  startOffset: ae.delay || 0,
-                  volume: ae.volume || 0.5,
-                  loop: ae.loop || false,
-                  muted: ae.muted || false
-                })
-              })
-            }
-          })
+        if (hasAudioEvents) {
+          soundTracks = convertAudioEventsToTracks(normalizedSegments, soundLibrary)
         }
       }
 
@@ -116,7 +178,7 @@ function StoryLoader({ onLoadStory, onPreviewStory }) {
           slug: data.id || storyId,
           segments: normalizedSegments,
           soundTracks: soundTracks,
-          sounds: data.sounds || []
+          sounds: soundLibrary
         })
       }
 

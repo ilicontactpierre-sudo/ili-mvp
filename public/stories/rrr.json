@@ -6,30 +6,8 @@
   "sounds": [
     {
       "id": "02_COMMISSARIAT_-_Tic-Tac_umaxtk",
-      "filename": "02_COMMISSARIAT_-_Tic-Tac_umaxtk.mp3",
-      "relativePath": "02_COMMISSARIAT_-_Tic-Tac_umaxtk.mp3",
-      "label": "02 COMMISSARIAT Tic Tac Umaxtk",
-      "categories": [],
-      "tags": [
-        "horloge",
-        "tic-tac",
-        "mécanique",
-        "temps",
-        "suspense",
-        "tension",
-        "ambience",
-        "boucle",
-        "heure",
-        "minuterie",
-        "compte à rebours",
-        "suspense",
-        "anticipation"
-      ],
-      "mood": [],
-      "loop": false,
-      "duration": 0,
-      "intensity": "moyenne",
-      "tempo": "moyen"
+      "url": "/sounds/02_COMMISSARIAT_-_Tic-Tac_umaxtk.mp3",
+      "loop": false
     }
   ],
   "segments": [

@@ -6,32 +6,14 @@
   "sounds": [
     {
       "id": "11_CONTINES_-_Sweep_eqnvoh",
-      "filename": "11_CONTINES_-_Sweep_eqnvoh.mp3",
-      "relativePath": "11_CONTINES_-_Sweep_eqnvoh.mp3",
-      "label": "11 CONTINES Sweep Eqnvoh",
-      "categories": [],
-      "tags": [
-        "whoosh",
-        "vent",
-        "mouvement",
-        "transition",
-        "ambiance",
-        "suspense",
-        "tension",
-        "dynamique",
-        "anticipation"
-      ],
-      "mood": [],
-      "loop": false,
-      "duration": 0,
-      "intensity": "moyenne",
-      "tempo": "moyen"
+      "url": "/sounds/11_CONTINES_-_Sweep_eqnvoh.mp3",
+      "loop": false
     }
   ],
   "segments": [
     {
-      "0": "z",
-      "1": "z",
+      "id": "seg_0",
+      "text": "zz",
       "audioEvents": []
     }
   ]

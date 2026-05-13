@@ -60,76 +60,62 @@ function PublishPanel({
 
   // Convertir soundTracks en audioEvents pour le format publié
   const convertSoundTracksToAudioEvents = () => {
-    // Initialiser audioEvents pour chaque segment
-    // Gérer correctement les segments qui sont des strings (format par défaut)
+    // Normaliser les segments en préservant leurs IDs originaux
     const segmentsWithAudio = segments.map((seg, index) => {
       if (typeof seg === 'string') {
-        return {
-          id: `segment_${index}`,
-          text: seg,
-          audioEvents: []
-        }
+        return { id: `seg_${index}`, text: seg, audioEvents: [] }
       }
-      // Si c'est déjà un objet mais sans id, lui en donner un cohérent
       if (!seg.id) {
-        return {
-          ...seg,
-          id: `segment_${index}`,
-          audioEvents: seg.audioEvents || []
-        }
+        return { ...seg, id: `seg_${index}`, text: seg.text || '', audioEvents: [] }
       }
-      // Si c'est déjà un objet avec id, préserver les propriétés
-      return {
-        ...seg,
-        audioEvents: seg.audioEvents || []
-      }
+      return { id: seg.id, text: seg.text || '', audioEvents: [] }
     })
 
-    // Pour chaque soundTrack, créer les audioEvents correspondants
+    // Pour chaque soundTrack, créer les audioEvents selon l'algorithme de référence
     soundTracks.forEach(track => {
-      if (track.muted) return // Ignorer les sons mutés
+      if (track.muted) return
 
-      const sound = soundLibrary.find(s => s.id === track.soundId)
-      if (!sound) return
+      // Trouver les index en comparant avec les IDs originaux des segments
+      const startIdx = segmentsWithAudio.findIndex(s => String(s.id) === String(track.startSegmentId))
+      const endIdx = track.endSegmentId != null
+        ? segmentsWithAudio.findIndex(s => String(s.id) === String(track.endSegmentId))
+        : startIdx
 
-      // Trouver les segments de début et de fin (dans segmentsWithAudio qui a les IDs normalisés)
-      const startSegmentIndex = segmentsWithAudio.findIndex(s => s.id === track.startSegmentId)
-      const endSegmentIndex = track.endSegmentId
-        ? segmentsWithAudio.findIndex(s => s.id === track.endSegmentId)
-        : startSegmentIndex
+      if (startIdx === -1) return
 
-      if (startSegmentIndex === -1) return
-
-      // Créer un audioEvent pour le segment de début
-      if (segmentsWithAudio[startSegmentIndex]) {
-        segmentsWithAudio[startSegmentIndex].audioEvents.push({
+      // Événement de début : fadeIn ou play
+      if (track.fadeIn > 0) {
+        segmentsWithAudio[startIdx].audioEvents.push({
+          action: 'fadeIn',
           soundId: track.soundId,
+          volume: track.volume ?? 0.5,
+          duration: track.fadeIn,
+          delay: track.delay || 0,
+          loop: track.loop || false
+        })
+      } else {
+        segmentsWithAudio[startIdx].audioEvents.push({
           action: 'play',
-          volume: track.volume || 0.5,
-          loop: track.loop || false,
-          delay: track.startOffset || 0,
-          duration: track.duration || 0
+          soundId: track.soundId,
+          volume: track.volume ?? 0.5,
+          delay: track.delay || 0,
+          loop: track.loop || false
         })
       }
 
-      // Si le son s'étend sur plusieurs segments, ajouter des événements de continuation
-      if (endSegmentIndex > startSegmentIndex) {
-        for (let i = startSegmentIndex + 1; i <= endSegmentIndex; i++) {
-          if (segmentsWithAudio[i]) {
-            segmentsWithAudio[i].audioEvents.push({
-              soundId: track.soundId,
-              action: 'continue',
-              volume: track.volume || 0.5
-            })
-          }
-        }
-      }
-
-      // Ajouter un événement de stop au segment suivant si nécessaire
-      if (endSegmentIndex < segments.length - 1 && segmentsWithAudio[endSegmentIndex + 1]) {
-        segmentsWithAudio[endSegmentIndex + 1].audioEvents.push({
+      // Événement de fin : fadeOut ou stop (sur le segment de fin)
+      const resolvedEndIdx = endIdx === -1 ? startIdx : endIdx
+      if (track.fadeOut > 0) {
+        segmentsWithAudio[resolvedEndIdx].audioEvents.push({
+          action: 'fadeOut',
           soundId: track.soundId,
-          action: 'stop'
+          duration: track.fadeOut
+        })
+      } else if (resolvedEndIdx !== startIdx || track.endSegmentId != null) {
+        // Ajouter stop seulement si le son a une fin explicite
+        segmentsWithAudio[resolvedEndIdx].audioEvents.push({
+          action: 'stop',
+          soundId: track.soundId
         })
       }
     })
@@ -137,7 +123,7 @@ function PublishPanel({
     return segmentsWithAudio
   }
 
-  // Filtrer les sons utilisés (non mutés)
+  // Filtrer les sons utilisés (non mutés) — format {id, url, loop} uniquement
   const getUsedSounds = () => {
     const usedSoundIds = new Set(
       soundTracks
@@ -148,12 +134,14 @@ function PublishPanel({
       .filter(s => usedSoundIds.has(s.id))
       .map(s => ({
         id: s.id,
-        url: `/sounds/${s.filename}`,
+        // Préférer l'url directe si disponible, sinon construire depuis filename
+        url: s.url || (s.filename ? `/sounds/${s.filename}` : `/sounds/${s.id}.mp3`),
         loop: s.loop || false,
       }))
   }
 
   // Construire les données de l'histoire pour publication
+  // NE PAS inclure soundTracks dans le JSON publié
   const buildStoryData = () => {
     const segmentsWithAudio = convertSoundTracksToAudioEvents()
     const usedSounds = getUsedSounds()
@@ -164,8 +152,7 @@ function PublishPanel({
       author: author || 'Anonyme',
       published: true,
       sounds: usedSounds,
-      segments: segmentsWithAudio,
-      soundTracks: soundTracks || []
+      segments: segmentsWithAudio
     }
   }
 
