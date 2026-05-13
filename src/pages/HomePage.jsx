@@ -12,7 +12,9 @@ function HomePage() {
         const response = await fetch('/stories/index.json');
         if (!response.ok) throw new Error('Failed to fetch stories');
         const data = await response.json();
-        setStories(data);
+        // Gérer à la fois le format { stories: [...] } et le format tableau direct [...]
+        const storiesArray = Array.isArray(data) ? data : (Array.isArray(data.stories) ? data.stories : [])
+        setStories(storiesArray);
       } catch (error) {
         console.error('Error loading stories:', error);
         setStories([]);

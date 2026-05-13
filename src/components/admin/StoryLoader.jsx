@@ -23,7 +23,11 @@ function StoryLoader({ onLoadStory, onPreviewStory }) {
         throw new Error('Impossible de charger l\'index des histoires')
       }
       const data = await response.json()
-      setStories(data.stories || data || [])
+      console.log('Données brutes de index.json:', data)
+      // Gérer à la fois le format { stories: [...] } et le format tableau direct [...]
+      const storiesArray = Array.isArray(data) ? data : (Array.isArray(data.stories) ? data.stories : [])
+      console.log('Histoires extraites:', storiesArray)
+      setStories(storiesArray)
     } catch (err) {
       setError(err.message || 'Erreur de chargement')
     } finally {
