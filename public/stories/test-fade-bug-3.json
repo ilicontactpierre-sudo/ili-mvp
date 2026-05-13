@@ -22,30 +22,6 @@
       "audioEvents": [
         {
           "action": "fadeIn",
-          "soundId": "02_COMMISSARIAT_-_Tic-Tac_umaxtk",
-          "volume": 1,
-          "duration": 3944,
-          "delay": 0,
-          "loop": false
-        }
-      ]
-    },
-    {
-      "id": "seg_1",
-      "text": "EST FADE BUG 3TEST FADE BUG 3TEST FADE BUG 3TEST FADE BUG 3TEST FADE BUG 3TEST FADE BUG 3TEST FADE BUG 3TEST FADE BUG 3T",
-      "audioEvents": []
-    },
-    {
-      "id": "seg_2",
-      "text": "EST FADE BUG 3TEST FADE BUG 3TEST FADE BUG 3TEST FADE BUG 3TEST FADE BUG 3TEST FADE BUG 3TEST FADE BUG 3TEST FADE BU",
-      "audioEvents": [
-        {
-          "action": "fadeOut",
-          "soundId": "02_COMMISSARIAT_-_Tic-Tac_umaxtk",
-          "duration": 3662
-        },
-        {
-          "action": "fadeIn",
           "soundId": "12_LISE_-_Oiseaux_enz7jr",
           "volume": 1,
           "duration": 3400,
@@ -55,8 +31,8 @@
       ]
     },
     {
-      "id": "seg_3",
-      "text": "G 3TEST FADE BUG 3TEST FADE BUG 3TEST FADE BUG 3TEST FADE BUG 3TEST FADE BUG 3TES",
+      "id": "seg_1",
+      "text": "EST FADE BUG 3TEST FADE BUG 3TEST FADE BUG 3TEST FADE BUG 3TEST FADE BUG 3TEST FADE BUG 3TEST FADE BUG 3TEST FADE BUG 3T",
       "audioEvents": [
         {
           "action": "fadeOut",
@@ -66,17 +42,42 @@
       ]
     },
     {
+      "id": "seg_2",
+      "text": "EST FADE BUG 3TEST FADE BUG 3TEST FADE BUG 3TEST FADE BUG 3TEST FADE BUG 3TEST FADE BUG 3TEST FADE BUG 3TEST FADE BU",
+      "audioEvents": [
+        {
+          "action": "fadeIn",
+          "soundId": "02_COMMISSARIAT_-_Tic-Tac_umaxtk",
+          "volume": 1,
+          "duration": 3944,
+          "delay": 0,
+          "loop": false
+        }
+      ]
+    },
+    {
+      "id": "seg_3",
+      "text": "G 3TEST FADE BUG 3TEST FADE BUG 3TEST FADE BUG 3TEST FADE BUG 3TEST FADE BUG 3TES",
+      "audioEvents": []
+    },
+    {
       "id": "seg_4",
       "text": "T FADE BUG 3TEST FADE BUG 3TEST FADE BUG 3TEST FADE BUG 3",
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "fadeOut",
+          "soundId": "02_COMMISSARIAT_-_Tic-Tac_umaxtk",
+          "duration": 3662
+        }
+      ]
     }
   ],
   "soundTracks": [
     {
       "id": "st_1778696159659_3ydhmj0w4",
       "soundId": "02_COMMISSARIAT_-_Tic-Tac_umaxtk",
-      "startSegmentId": "segment_0",
-      "endSegmentId": "seg_2",
+      "startSegmentId": "seg_2",
+      "endSegmentId": "seg_4",
       "column": 0,
       "volume": 1,
       "fadeIn": 3944,
@@ -88,8 +89,8 @@
     {
       "id": "st_1778697566926_u9612fsap",
       "soundId": "12_LISE_-_Oiseaux_enz7jr",
-      "startSegmentId": "seg_2",
-      "endSegmentId": "seg_3",
+      "startSegmentId": "seg_0",
+      "endSegmentId": "seg_1",
       "column": 2,
       "volume": 1,
       "fadeIn": 3400,
