@@ -163,6 +163,8 @@ function AdminPage() {
     e.preventDefault()
     if (password === import.meta.env.VITE_ADMIN_PASSWORD) {
       setIsAuthenticated(true)
+      // Stocker le mot de passe en sessionStorage pour la publication automatique
+      sessionStorage.setItem('ili_admin_password', password)
       setError('')
     } else {
       setError('Mot de passe incorrect')

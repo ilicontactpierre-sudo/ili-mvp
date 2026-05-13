@@ -5,6 +5,7 @@
   --color-text-focus: #ffffff;
   --color-text-blur: rgba(255, 255, 255, 0.4);
   --font-primary: 'Lora', Georgia, 'Times New Roman', serif;
+  --font-logo: 'Roboto', sans-serif;
   --font-size-focus: clamp(2rem, 5.8vw, 2.65rem);
   --font-size-blur: clamp(1.85rem, 5.3vw, 2.35rem);
   --blur-amount: 1.8px;
@@ -35,4 +36,200 @@ body {
 @keyframes blink {
   0%, 100% { opacity: 1; }
   50% { opacity: 0; }
+}
+
+/* ═══════════════════════════════════════════════════════ */
+/* HOME PAGE STYLES                                       */
+/* ═══════════════════════════════════════════════════════ */
+
+.home-page {
+  background: var(--color-bg);
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Logo Container */
+.logo-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 400ms ease-in-out;
+  z-index: 10;
+}
+
+.logo-container.logo-open {
+  transform: translateY(-35vh);
+}
+
+/* Logo "ILi" */
+.logo {
+  font-family: var(--font-logo);
+  font-weight: 300;
+  font-size: clamp(72px, 15vw, 120px);
+  color: var(--color-text-focus);
+  letter-spacing: 0.15em;
+  cursor: pointer;
+  user-select: none;
+  transition: opacity 200ms ease;
+  margin: 0;
+  line-height: 1;
+}
+
+.logo:hover {
+  opacity: 0.7;
+}
+
+.logo-container.logo-open .logo {
+  font-size: clamp(40px, 8vw, 64px);
+}
+
+/* Tagline "lecture immersive" */
+.logo-tagline {
+  font-family: var(--font-logo);
+  font-size: 11px;
+  font-weight: 300;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.3);
+  margin-top: 12px;
+  transition: opacity 400ms ease;
+  cursor: pointer;
+  user-select: none;
+}
+
+.logo:hover .logo-tagline {
+  opacity: 0.7;
+}
+
+.logo-container.logo-open .logo-tagline {
+  opacity: 0;
+}
+
+/* ═══════════════════════════════════════════════════════ */
+/* STORY MENU STYLES                                      */
+/* ═══════════════════════════════════════════════════════ */
+
+.story-menu-backdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 5;
+}
+
+.story-menu-container {
+  width: 90%;
+  max-width: 480px;
+  max-height: 60vh;
+  overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  margin-top: 40px;
+}
+
+.story-menu-container::-webkit-scrollbar {
+  display: none;
+}
+
+/* Story List */
+.story-list {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Story Card */
+.story-card {
+  padding: 20px 24px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  cursor: pointer;
+  transition: background 200ms ease, opacity 350ms ease-out, transform 350ms ease-out;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: story-card-enter 350ms ease-out forwards;
+  animation-delay: var(--delay, 0ms);
+}
+
+@keyframes story-card-enter {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.story-card:hover {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.story-card:last-child {
+  border-bottom: none;
+}
+
+/* Story Title */
+.story-title {
+  font-family: var(--font-primary);
+  font-size: 18px;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.9);
+  transition: color 200ms ease;
+}
+
+.story-card:hover .story-title {
+  color: rgba(255, 255, 255, 1);
+}
+
+/* Story Author */
+.story-author {
+  font-family: var(--font-logo);
+  font-size: 12px;
+  font-weight: 300;
+  letter-spacing: 0.1em;
+  color: rgba(255, 255, 255, 0.4);
+  margin-top: 6px;
+}
+
+/* Skeleton Loading */
+.story-card.skeleton {
+  pointer-events: none;
+  animation: skeleton-pulse 1.5s ease-in-out infinite;
+}
+
+.story-card.skeleton .skeleton-title,
+.story-card.skeleton .skeleton-author {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 4px;
+}
+
+.story-card.skeleton .skeleton-title {
+  height: 22px;
+  width: 70%;
+}
+
+.story-card.skeleton .skeleton-author {
+  height: 14px;
+  width: 40%;
+  margin-top: 6px;
+}
+
+@keyframes skeleton-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+/* Empty State */
+.empty-state {
+  text-align: center;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.3);
+  font-family: var(--font-logo);
+  padding: 40px 20px;
 }

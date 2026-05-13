@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import PublishAnimation from './PublishAnimation'
 
 function PublishPanel({
   title,
@@ -16,6 +17,19 @@ function PublishPanel({
   const [showInstructions, setShowInstructions] = useState(true)
   const [existingStories, setExistingStories] = useState([])
   const [showNewStoryConfirm, setShowNewStoryConfirm] = useState(false)
+  
+  // États pour la publication automatique
+  const [autoPublishStatus, setAutoPublishStatus] = useState('idle') // 'idle', 'publishing', 'success', 'error'
+  const [autoPublishError, setAutoPublishError] = useState(null)
+  const [isAutoUpdate, setIsAutoUpdate] = useState(false)
+  const [isLocalDev, setIsLocalDev] = useState(false)
+  const [showLocalMessage, setShowLocalMessage] = useState(false)
+
+  // Détecter si on est en local
+  useEffect(() => {
+    const hostname = window.location.hostname
+    setIsLocalDev(hostname === 'localhost' || hostname === '127.0.0.1')
+  }, [])
 
   // Charger l'index des histoires pour déterminer le statut de publication
   useEffect(() => {
@@ -114,25 +128,87 @@ function PublishPanel({
     return soundLibrary.filter(s => usedSoundIds.has(s.id))
   }
 
-  // Générer le JSON
-  const handleGenerateJson = () => {
+  // Construire les données de l'histoire pour publication
+  const buildStoryData = () => {
     const segmentsWithAudio = convertSoundTracksToAudioEvents()
     const usedSounds = getUsedSounds()
 
-    const storyJson = {
-      id: slug || 'sans-titre',
+    return {
+      id: slug,
       title: title || 'Sans titre',
       author: author || 'Anonyme',
       published: true,
       sounds: usedSounds,
       segments: segmentsWithAudio
     }
+  }
 
-    const jsonString = JSON.stringify(storyJson, null, 2)
+  // Générer le JSON
+  const handleGenerateJson = () => {
+    const storyData = buildStoryData()
+    const jsonString = JSON.stringify(storyData, null, 2)
     setGeneratedJson(jsonString)
 
     // Copier dans le presse-papiers
     copyToClipboard(jsonString)
+  }
+
+  // Publier automatiquement
+  const handleAutoPublish = async () => {
+    // Vérifier si on est en local
+    if (isLocalDev) {
+      setShowLocalMessage(true)
+      setTimeout(() => setShowLocalMessage(false), 5000)
+      return
+    }
+
+    // Vérifier les prérequis
+    if (!title || !slug || segments.length === 0) {
+      return
+    }
+
+    setAutoPublishStatus('publishing')
+    setAutoPublishError(null)
+
+    try {
+      // Récupérer le mot de passe
+      let adminPassword = sessionStorage.getItem('ili_admin_password')
+      if (!adminPassword) {
+        // Fallback sur la variable d'environnement (moins sécurisé)
+        adminPassword = import.meta.env.VITE_ADMIN_PASSWORD
+      }
+
+      const storyData = buildStoryData()
+
+      const response = await fetch('/api/publish', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          password: adminPassword,
+          slug: slug,
+          storyData: storyData
+        })
+      })
+
+      const data = await response.json()
+
+      if (response.ok) {
+        setIsAutoUpdate(data.isUpdate)
+        setAutoPublishStatus('success')
+      } else {
+        setAutoPublishError(data.error || 'Erreur inconnue')
+        setAutoPublishStatus('error')
+      }
+    } catch (err) {
+      setAutoPublishError(err.message || 'Erreur de connexion')
+      setAutoPublishStatus('error')
+    }
+  }
+
+  // Réinitialiser le statut de publication
+  const handleResetPublish = () => {
+    setAutoPublishStatus('idle')
+    setAutoPublishError(null)
   }
 
   // Copier dans le presse-papiers
@@ -421,6 +497,9 @@ function PublishPanel({
     }
   }
 
+  // Vérifier si le bouton de publication est désactivé
+  const isPublishDisabled = !title || !slug || segments.length === 0
+
   return (
     <div style={styles.container}>
       <h2 style={styles.title}>
@@ -439,18 +518,63 @@ function PublishPanel({
         </span>
       </div>
 
-      {/* Bouton générer */}
-      <button
-        onClick={handleGenerateJson}
-        disabled={!segments.length || !slug}
-        style={styles.button.primary}
-      >
-        ⬇ Générer le JSON
-      </button>
+      {/* Message pour développement local */}
+      {showLocalMessage && (
+        <div style={{
+          padding: '1rem',
+          backgroundColor: 'rgba(255,193,7,0.1)',
+          border: '1px solid rgba(255,193,7,0.3)',
+          borderRadius: '8px',
+          fontSize: '0.875rem',
+          color: 'rgba(255,193,7,0.9)',
+          marginBottom: '1rem'
+        }}>
+          La publication automatique nécessite le déploiement Vercel.
+          En local, utilise l'export JSON manuel ci-dessous.
+        </div>
+      )}
+
+      {/* Bouton Publier mon histoire */}
+      {autoPublishStatus === 'idle' ? (
+        <button
+          onClick={handleAutoPublish}
+          disabled={isPublishDisabled}
+          style={{
+            ...styles.button.primary,
+            backgroundColor: isPublishDisabled ? 'rgba(255,255,255,0.1)' : '#28a745',
+            fontSize: '1rem',
+            padding: '1rem 2rem'
+          }}
+        >
+          🚀 Publier mon histoire
+        </button>
+      ) : (
+        <PublishAnimation
+          status={autoPublishStatus}
+          errorMessage={autoPublishError}
+          isUpdate={isAutoUpdate}
+          onReset={handleResetPublish}
+        />
+      )}
+
+      {/* Export JSON manuel (action secondaire) */}
+      <div style={{ marginTop: '1.5rem' }}>
+        <button
+          onClick={handleGenerateJson}
+          disabled={!segments.length || !slug}
+          style={{
+            ...styles.button.secondary,
+            fontSize: '0.75rem',
+            padding: '0.5rem 1rem'
+          }}
+        >
+          📋 Générer le JSON (export manuel)
+        </button>
+      </div>
 
       {/* JSON généré */}
       {generatedJson && (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', marginTop: '0.75rem' }}>
           <textarea
             value={generatedJson}
             readOnly
