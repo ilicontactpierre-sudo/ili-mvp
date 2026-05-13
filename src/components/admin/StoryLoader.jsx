@@ -6,6 +6,8 @@ function StoryLoader({ onLoadStory, onPreviewStory }) {
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState('')
   const [selectedStory, setSelectedStory] = useState(null)
+  const [deletingStoryId, setDeletingStoryId] = useState(null)
+  const [deletePassword, setDeletePassword] = useState('')
 
   // Charger l'index des histoires quand on déplie la section
   const loadStoriesIndex = async () => {
@@ -232,6 +234,53 @@ function StoryLoader({ onLoadStory, onPreviewStory }) {
     }
   }
 
+  // Gestion de la suppression
+  const handleDeleteClick = (storyId) => {
+    setDeletingStoryId(storyId)
+    setDeletePassword('')
+  }
+
+  const handleDeleteConfirm = async () => {
+    if (!deletePassword.trim()) return
+
+    try {
+      const response = await fetch('/api/delete', {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          slug: deletingStoryId,
+          password: deletePassword,
+        }),
+      })
+
+      if (!response.ok) {
+        const error = await response.json()
+        throw new Error(error.error || 'Erreur lors de la suppression')
+      }
+
+      // Recharger la liste des histoires
+      const indexResponse = await fetch('/stories/index.json')
+      if (indexResponse.ok) {
+        const data = await indexResponse.json()
+        const storiesArray = Array.isArray(data) ? data : (Array.isArray(data.stories) ? data.stories : [])
+        setStories(storiesArray)
+      }
+
+      setDeletingStoryId(null)
+      setDeletePassword('')
+      alert('Histoire supprimée avec succès')
+    } catch (error) {
+      alert('Erreur lors de la suppression: ' + error.message)
+    }
+  }
+
+  const handleDeleteCancel = () => {
+    setDeletingStoryId(null)
+    setDeletePassword('')
+  }
+
   return (
     <div style={{
       backgroundColor: 'var(--color-bg-secondary)',
@@ -348,11 +397,132 @@ function StoryLoader({ onLoadStory, onPreviewStory }) {
                     >
                       ✏️ Modifier
                     </button>
+                    <button
+                      onClick={() => handleDeleteClick(story.id)}
+                      style={{
+                        padding: '0.375rem 0.75rem',
+                        backgroundColor: '#dc3545',
+                        color: 'white',
+                        border: 'none',
+                        borderRadius: '4px',
+                        cursor: 'pointer',
+                        fontSize: '0.8125rem'
+                      }}
+                    >
+                      🗑️ Supprimer
+                    </button>
                   </div>
                 </div>
               ))}
             </div>
           )}
+        </div>
+      )}
+
+      {/* Dialogue de confirmation de suppression */}
+      {deletingStoryId && (
+        <div style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          backgroundColor: 'rgba(0, 0, 0, 0.8)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          zIndex: 1000
+        }}>
+          <div style={{
+            backgroundColor: 'var(--color-bg)',
+            border: '1px solid var(--color-border)',
+            borderRadius: '8px',
+            padding: '2rem',
+            maxWidth: '400px',
+            width: '90%',
+            boxShadow: '0 4px 12px rgba(0, 0, 0, 0.5)'
+          }}>
+            <h3 style={{
+              margin: '0 0 1rem 0',
+              fontSize: '1.25rem',
+              fontWeight: 600,
+              color: 'var(--color-text)'
+            }}>
+              Confirmer la suppression
+            </h3>
+            <p style={{
+              margin: '0 0 1rem 0',
+              color: 'var(--color-text)',
+              lineHeight: 1.5
+            }}>
+              Êtes-vous sûr de vouloir supprimer cette histoire ?<br />
+              <strong>Cette action est irréversible.</strong>
+            </p>
+
+            <div style={{ marginBottom: '1.5rem' }}>
+              <label style={{
+                display: 'block',
+                marginBottom: '0.5rem',
+                fontSize: '0.875rem',
+                color: 'var(--color-text)',
+                fontWeight: 500
+              }}>
+                Mot de passe admin:
+              </label>
+              <input
+                type="password"
+                value={deletePassword}
+                onChange={(e) => setDeletePassword(e.target.value)}
+                placeholder="Entrez le mot de passe"
+                style={{
+                  width: '100%',
+                  padding: '0.75rem',
+                  backgroundColor: 'var(--color-bg-secondary)',
+                  border: '1px solid var(--color-border)',
+                  borderRadius: '4px',
+                  color: 'var(--color-text)',
+                  fontSize: '0.875rem',
+                  boxSizing: 'border-box'
+                }}
+              />
+            </div>
+
+            <div style={{
+              display: 'flex',
+              gap: '0.75rem',
+              justifyContent: 'flex-end'
+            }}>
+              <button
+                onClick={handleDeleteCancel}
+                style={{
+                  padding: '0.5rem 1rem',
+                  backgroundColor: 'var(--color-bg-accent)',
+                  color: 'var(--color-text)',
+                  border: '1px solid var(--color-border)',
+                  borderRadius: '4px',
+                  cursor: 'pointer',
+                  fontSize: '0.875rem'
+                }}
+              >
+                Annuler
+              </button>
+              <button
+                onClick={handleDeleteConfirm}
+                disabled={!deletePassword.trim()}
+                style={{
+                  padding: '0.5rem 1rem',
+                  backgroundColor: deletePassword.trim() ? '#dc3545' : '#6c757d',
+                  color: 'white',
+                  border: 'none',
+                  borderRadius: '4px',
+                  cursor: deletePassword.trim() ? 'pointer' : 'not-allowed',
+                  fontSize: '0.875rem'
+                }}
+              >
+                Supprimer
+              </button>
+            </div>
+          </div>
         </div>
       )}
     </div>

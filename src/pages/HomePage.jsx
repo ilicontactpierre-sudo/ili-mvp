@@ -26,8 +26,36 @@ function HomePage() {
     fetchStories();
   }, []);
 
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
+  const handleDeleteStory = async (storyId, password) => {
+    try {
+      const response = await fetch('/api/delete', {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          slug: storyId,
+          password: password,
+        }),
+      });
+
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.error || 'Erreur lors de la suppression');
+      }
+
+      // Refresh the stories list
+      const fetchResponse = await fetch('/stories/index.json');
+      if (fetchResponse.ok) {
+        const data = await fetchResponse.json();
+        const storiesArray = Array.isArray(data) ? data : (Array.isArray(data.stories) ? data.stories : []);
+        setStories(storiesArray);
+      }
+
+      alert('Histoire supprimée avec succès');
+    } catch (error) {
+      throw error;
+    }
   };
 
   return (
@@ -44,6 +72,7 @@ function HomePage() {
         stories={stories}
         isLoading={isLoading}
         onClose={() => setIsMenuOpen(false)}
+        onDeleteStory={handleDeleteStory}
       />
     </div>
   );

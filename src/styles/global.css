@@ -157,6 +157,9 @@ body {
   transform: translateY(20px);
   animation: story-card-enter 350ms ease-out forwards;
   animation-delay: var(--delay, 0ms);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 @keyframes story-card-enter {
@@ -172,6 +175,145 @@ body {
 
 .story-card:last-child {
   border-bottom: none;
+}
+
+.story-content {
+  flex: 1;
+}
+
+/* Delete Button */
+.delete-button {
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 16px;
+  cursor: pointer;
+  padding: 8px;
+  margin-left: 12px;
+  border-radius: 4px;
+  transition: all 200ms ease;
+  opacity: 0;
+  transform: scale(0.8);
+}
+
+.story-card:hover .delete-button {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.delete-button:hover {
+  color: rgba(255, 0, 0, 0.8);
+  background: rgba(255, 0, 0, 0.1);
+}
+
+/* Delete Confirmation Dialog */
+.delete-confirm-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+
+.delete-confirm-dialog {
+  background: rgba(20, 20, 20, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 24px;
+  max-width: 400px;
+  width: 90%;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+}
+
+.delete-confirm-dialog h3 {
+  font-family: var(--font-primary);
+  font-size: 20px;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.9);
+  margin: 0 0 16px 0;
+}
+
+.delete-confirm-dialog p {
+  font-family: var(--font-primary);
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0 0 8px 0;
+  line-height: 1.4;
+}
+
+.password-input {
+  margin: 20px 0;
+}
+
+.password-input label {
+  display: block;
+  font-family: var(--font-primary);
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 8px;
+}
+
+.password-input input {
+  width: 100%;
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  color: rgba(255, 255, 255, 0.9);
+  font-family: var(--font-primary);
+  font-size: 14px;
+}
+
+.password-input input:focus {
+  outline: none;
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.delete-confirm-buttons {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  margin-top: 24px;
+}
+
+.cancel-button,
+.confirm-button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  font-family: var(--font-primary);
+  font-size: 14px;
+  font-weight: 400;
+  cursor: pointer;
+  transition: all 200ms ease;
+}
+
+.cancel-button {
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.cancel-button:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.confirm-button {
+  background: rgba(255, 0, 0, 0.8);
+  color: white;
+}
+
+.confirm-button:hover:not(:disabled) {
+  background: rgba(255, 0, 0, 1);
+}
+
+.confirm-button:disabled {
+  background: rgba(100, 100, 100, 0.5);
+  cursor: not-allowed;
 }
 
 /* Story Title */
