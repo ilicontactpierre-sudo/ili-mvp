@@ -1,0 +1,40 @@
+{
+  "id": "test-bloc-son",
+  "title": "TEST BLOC SON",
+  "author": "TEST BLOC SON",
+  "published": true,
+  "sounds": [
+    {
+      "id": "02_COMMISSARIAT_-_Tic-Tac_umaxtk",
+      "url": "/sounds/02_COMMISSARIAT_-_Tic-Tac_umaxtk.mp3",
+      "loop": false
+    },
+    {
+      "id": "11_CONTINES_-_Sweep_eqnvoh",
+      "url": "/sounds/11_CONTINES_-_Sweep_eqnvoh.mp3",
+      "loop": false
+    }
+  ],
+  "segments": [
+    {
+      "id": "seg_0",
+      "text": "TEST BLOC SONTEST BLOC SONTEST BLOC SONTEST BLOC SONTEST BLOC SONTEST BLOC SONTEST BLOC SONTEST BLOC SONTEST BLOC SONTEST BLOC SONTEST BLOC SONTEST BLOC SON.",
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1",
+      "text": "TEST BLOC SON/TEST BLOC SONTEST BLOC SONTEST BLOC SON,TEST BLOC SONTEST BLOC SONTEST BLOC SONTEST BLOC SONTEST BLOC SON.",
+      "audioEvents": []
+    },
+    {
+      "id": "seg_2",
+      "text": "TEST BLOC SONTEST BLOC SONTEST BLOC SONTEST BLOC SONTEST BLOC SON,TEST BLOC SONT",
+      "audioEvents": []
+    },
+    {
+      "id": "seg_3",
+      "text": "EST BLOC SONTEST BLOC SONTEST BLOC SONTEST BLOC SONTEST BLOC SON",
+      "audioEvents": []
+    }
+  ]
+}
