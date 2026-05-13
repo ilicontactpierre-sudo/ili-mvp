@@ -1,0 +1,71 @@
+{
+  "id": "test-bloc-son-2",
+  "title": "TEST BLOC SON 2",
+  "author": "TEST BLOC SON 2",
+  "published": true,
+  "sounds": [
+    {
+      "id": "02_COMMISSARIAT_-_Tic-Tac_umaxtk",
+      "url": "/sounds/02_COMMISSARIAT_-_Tic-Tac_umaxtk.mp3",
+      "loop": false
+    },
+    {
+      "id": "11_CONTINES_-_Sweep_eqnvoh",
+      "url": "/sounds/11_CONTINES_-_Sweep_eqnvoh.mp3",
+      "loop": false
+    }
+  ],
+  "segments": [
+    {
+      "id": "seg_0",
+      "text": "TEST BLOC SON 2TEST BLOC SON 2TEST BLOC SON 2. TEST BLOC SON 2TEST BLOC SON 2,TEST BLOC SON 2TEST BLOC SON 2TEST BLOC SON 2TEST BLOC SON 2:",
+      "audioEvents": [
+        {
+          "action": "play",
+          "soundId": "11_CONTINES_-_Sweep_eqnvoh",
+          "volume": 1,
+          "delay": 0,
+          "loop": false
+        }
+      ]
+    },
+    {
+      "id": "seg_1",
+      "text": "TEST BLOC SON 2TEST BLOC SON 2TEST BLOC SON 2/TEST BLOC",
+      "audioEvents": [
+        {
+          "action": "play",
+          "soundId": "02_COMMISSARIAT_-_Tic-Tac_umaxtk",
+          "volume": 1,
+          "delay": 0,
+          "loop": false
+        },
+        {
+          "action": "stop",
+          "soundId": "02_COMMISSARIAT_-_Tic-Tac_umaxtk"
+        },
+        {
+          "action": "stop",
+          "soundId": "11_CONTINES_-_Sweep_eqnvoh"
+        }
+      ]
+    },
+    {
+      "id": "seg_2",
+      "text": "SON 2TEST BLOC SON 2. TEST BLOC SON 2TEST BLOC SON 2.\nTEST BLOC SON 2.",
+      "audioEvents": [
+        {
+          "action": "play",
+          "soundId": "02_COMMISSARIAT_-_Tic-Tac_umaxtk",
+          "volume": 1,
+          "delay": 0,
+          "loop": false
+        },
+        {
+          "action": "stop",
+          "soundId": "02_COMMISSARIAT_-_Tic-Tac_umaxtk"
+        }
+      ]
+    }
+  ]
+}
