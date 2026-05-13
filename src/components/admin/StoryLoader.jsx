@@ -47,14 +47,49 @@ function StoryLoader({ onLoadStory, onPreviewStory }) {
       // Conversion audioEvents -> soundTracks si nécessaire (ancien format)
       let soundTracks = data.soundTracks || []
       
-      if (data.segments && data.segments.length > 0) {
+      // Normaliser les segments : s'assurer qu'ils ont tous un champ text et id
+      const normalizedSegments = (data.segments || []).map((seg, index) => {
+        // Si le segment a déjà un champ text, on le garde
+        if (seg && typeof seg.text === 'string') {
+          return {
+            id: seg.id || `seg_${index}`,
+            text: seg.text,
+            audioEvents: seg.audioEvents || [],
+            ...seg
+          }
+        }
+        
+        // Si le segment est un objet avec des clés numériques (ancien format bugué)
+        if (seg && typeof seg === 'object') {
+          const numericKeys = Object.keys(seg).filter(key => String(Number(key)) === key)
+          if (numericKeys.length > 0) {
+            // Reconstruire le texte à partir des clés numériques
+            const text = numericKeys
+              .sort((a, b) => Number(a) - Number(b))
+              .map(key => seg[key])
+              .join('')
+            return {
+              id: seg.id || `seg_${index}`,
+              text: text,
+              audioEvents: seg.audioEvents || []
+            }
+          }
+        }
+        
+        // Segment déjà au bon format ou string
+        return typeof seg === 'string' 
+          ? { id: `seg_${index}`, text: seg, audioEvents: [] }
+          : { id: `seg_${index}`, text: '', audioEvents: [] }
+      })
+      
+      if (normalizedSegments.length > 0) {
         // Vérifier si les segments ont des audioEvents (ancien format)
-        const hasAudioEvents = data.segments.some(s => s.audioEvents && s.audioEvents.length > 0)
+        const hasAudioEvents = normalizedSegments.some(s => s.audioEvents && s.audioEvents.length > 0)
         
         if (hasAudioEvents && soundTracks.length === 0) {
           // Convertir audioEvents en soundTracks
           soundTracks = []
-          data.segments.forEach((segment, segIndex) => {
+          normalizedSegments.forEach((segment, segIndex) => {
             if (segment.audioEvents) {
               segment.audioEvents.forEach((ae, aeIndex) => {
                 soundTracks.push({
@@ -79,7 +114,7 @@ function StoryLoader({ onLoadStory, onPreviewStory }) {
           title: data.title || '',
           author: data.author || '',
           slug: data.id || storyId,
-          segments: data.segments || [],
+          segments: normalizedSegments,
           soundTracks: soundTracks,
           sounds: data.sounds || []
         })
@@ -101,11 +136,31 @@ function StoryLoader({ onLoadStory, onPreviewStory }) {
       }
       const data = await response.json()
 
+      // Normaliser les segments pour l'aperçu aussi
+      const normalizedSegments = (data.segments || []).map((seg, index) => {
+        if (seg && typeof seg.text === 'string') {
+          return { id: seg.id || `seg_${index}`, text: seg.text, audioEvents: seg.audioEvents || [] }
+        }
+        if (seg && typeof seg === 'object') {
+          const numericKeys = Object.keys(seg).filter(key => String(Number(key)) === key)
+          if (numericKeys.length > 0) {
+            const text = numericKeys
+              .sort((a, b) => Number(a) - Number(b))
+              .map(key => seg[key])
+              .join('')
+            return { id: seg.id || `seg_${index}`, text: text, audioEvents: seg.audioEvents || [] }
+          }
+        }
+        return typeof seg === 'string'
+          ? { id: `seg_${index}`, text: seg, audioEvents: [] }
+          : { id: `seg_${index}`, text: '', audioEvents: [] }
+      })
+
       if (onPreviewStory) {
         onPreviewStory({
           title: data.title || '',
           author: data.author || '',
-          segments: data.segments || [],
+          segments: normalizedSegments,
           soundTracks: data.soundTracks || [],
           sounds: data.sounds || []
         })

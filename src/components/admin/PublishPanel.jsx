@@ -61,10 +61,21 @@ function PublishPanel({
   // Convertir soundTracks en audioEvents pour le format publié
   const convertSoundTracksToAudioEvents = () => {
     // Initialiser audioEvents pour chaque segment
-    const segmentsWithAudio = segments.map(seg => ({
-      ...seg,
-      audioEvents: []
-    }))
+    // Gérer correctement les segments qui sont des strings (format par défaut)
+    const segmentsWithAudio = segments.map((seg, index) => {
+      if (typeof seg === 'string') {
+        return {
+          id: `seg_${index}`,
+          text: seg,
+          audioEvents: []
+        }
+      }
+      // Si c'est déjà un objet, préserver les propriétés et ajouter audioEvents si manquant
+      return {
+        ...seg,
+        audioEvents: seg.audioEvents || []
+      }
+    })
 
     // Pour chaque soundTrack, créer les audioEvents correspondants
     soundTracks.forEach(track => {
