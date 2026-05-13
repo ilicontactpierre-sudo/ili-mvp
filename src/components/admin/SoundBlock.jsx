@@ -433,11 +433,13 @@ function SoundBlock({
         // Utiliser dragStart.startSegmentIndex si targetCell.segmentIndex est invalide
         const targetSegmentIndex = currentTargetCell.segmentIndex >= 0 ? currentTargetCell.segmentIndex : dragStart.startSegmentIndex
         if (targetSegmentIndex !== dragStart.startSegmentIndex) {
-          const newStartSegmentId = `segment_${targetSegmentIndex}`
+          const newStartSegmentId = segments[targetSegmentIndex]?.id 
+            || segments[targetSegmentIndex]?._id
           const currentEndIndex = endSegmentIndex !== -1 ? endSegmentIndex : startSegmentIndex
           const offset = currentEndIndex - dragStart.startSegmentIndex
           const newEndIndex = Math.min(segments.length - 1, targetSegmentIndex + offset)
-          const newEndSegmentId = `segment_${newEndIndex}`
+          const newEndSegmentId = segments[newEndIndex]?.id 
+            || segments[newEndIndex]?._id
           onResize(soundTrack.id, newStartSegmentId, newEndSegmentId)
         }
         if (onDragEnd) onDragEnd()

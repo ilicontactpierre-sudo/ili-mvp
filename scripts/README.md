@@ -47,9 +47,15 @@ npm run add-sound
 
 ### `npm run checkpoint`
 Crée un point de contrôle (checkpoint) du projet.
+cd "/Users/Twolow/Library/CloudStorage/GoogleDrive-ili.contact.pierre@gmail.com/Mon Drive/ILi Cursor/ili-mvp/ili-mvp"
+
 ```bash
 npm run checkpoint
 ```
+Relance Vite : 
+
+cd "/Users/Twolow/Library/CloudStorage/GoogleDrive-ili.contact.pierre@gmail.com/Mon Drive/ILi Cursor/ili-mvp/ili-mvp"
+npx vite --host 0.0.0.0 --port 5173
 
 ## 🛠️ Scripts Directs (sans npm)
 
