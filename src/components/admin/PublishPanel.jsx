@@ -136,7 +136,13 @@ function PublishPanel({
         .filter(t => !t.muted)
         .map(t => t.soundId)
     )
-    return soundLibrary.filter(s => usedSoundIds.has(s.id))
+    return soundLibrary
+      .filter(s => usedSoundIds.has(s.id))
+      .map(s => ({
+        id: s.id,
+        url: `/sounds/${s.filename}`,
+        loop: s.loop || false,
+      }))
   }
 
   // Construire les données de l'histoire pour publication
