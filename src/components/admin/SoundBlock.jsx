@@ -180,13 +180,31 @@ function SoundBlock({
     if (e.button !== 0) return
     e.stopPropagation()
     
+    // Obtenir la position absolue du bloc par rapport à la timeline
+    const blockRect = blockRef.current?.getBoundingClientRect()
+    const timelineRoot = blockRef.current?.closest('[data-timeline-root]')
+    const timelineRect = timelineRoot ? timelineRoot.getBoundingClientRect() : null
+    const timelineScrollTop = timelineRoot ? timelineRoot.scrollTop : 0
+    
+    // Position absolue du haut du bloc dans le contenu scrollable
+    const absoluteBlockTop = blockRect && timelineRect 
+      ? blockRect.top - timelineRect.top + timelineScrollTop 
+      : 0
+    
+    // Position absolue du bas du bloc
+    const absoluteBlockBottom = absoluteBlockTop + blockHeight
+    
     setIsResizing(direction)
     setResizeStart({
       y: e.clientY,
       startSegment: startSegmentIndex,
-      endSegment: endSegmentIndex !== -1 ? endSegmentIndex : startSegmentIndex
+      endSegment: endSegmentIndex !== -1 ? endSegmentIndex : startSegmentIndex,
+      rowHeights: rowHeights || [],
+      absoluteBlockTop,
+      absoluteBlockBottom,
+      timelineScrollTop: timelineScrollTop || 0
     })
-  }, [startSegmentIndex, endSegmentIndex])
+  }, [startSegmentIndex, endSegmentIndex, rowHeights, blockHeight])
 
   // Gestion des poignées de fade
   const handleFadeMouseDown = useCallback((e, type) => {
@@ -291,20 +309,88 @@ function SoundBlock({
       // Resize pour changer la durée
       if (isResizing) {
         const deltaY = e.clientY - resizeStart.y
-        const segmentDelta = Math.round(deltaY / SEGMENT_HEIGHT)
+        const currentRowHeights = resizeStart.rowHeights || []
+        const startIdx = resizeStart.startSegment
+        const endIdx = resizeStart.endSegment
+        
+        // Obtenir le conteneur scrollable pour calculer la position absolue
+        const timelineRoot = blockRef.current?.closest('[data-timeline-root]')
+        const currentScrollTop = timelineRoot ? timelineRoot.scrollTop : 0
         
         if (isResizing === 'bottom') {
-          const newEndIndex = Math.max(
-            resizeStart.startSegment + 1, // Au moins 1 segment
-            Math.min(segments.length - 1, resizeStart.endSegment + segmentDelta)
-          )
+          // Position absolue actuelle du bas du bloc
+          const absoluteBottom = resizeStart.absoluteBlockBottom + deltaY
+          
+          // Trouver le segment qui correspond à cette position
+          let accumulated = 0
+          let newEndIndex = startIdx
+          
+          for (let i = 0; i < currentRowHeights.length; i++) {
+            const rowHeight = currentRowHeights[i] || SEGMENT_HEIGHT
+            const rowTotal = rowHeight + 8 // chaque ligne a un séparateur de 8px en bas
+            
+            // Vérifier si la position du curseur est dans ce segment
+            if (absoluteBottom <= accumulated + rowHeight) {
+              // Le curseur est dans ce segment
+              const midPoint = accumulated + rowHeight / 2
+              if (absoluteBottom >= midPoint) {
+                newEndIndex = i
+              } else if (i > startIdx) {
+                newEndIndex = i - 1
+              } else {
+                newEndIndex = startIdx
+              }
+              break
+            }
+            
+            // Si c'est le dernier segment, on s'arrête ici
+            if (absoluteBottom <= accumulated + rowTotal) {
+              newEndIndex = i
+              break
+            }
+            
+            accumulated += rowTotal
+            newEndIndex = i
+          }
+          
+          // S'assurer qu'on a au moins 1 segment et qu'on ne dépasse pas les limites
+          newEndIndex = Math.max(startIdx, Math.min(currentRowHeights.length - 1, newEndIndex))
+          
           const newEndSegmentId = segments[newEndIndex]?.id || segments[newEndIndex]?._id
           onResize(soundTrack.id, null, newEndSegmentId)
+          
         } else if (isResizing === 'top') {
-          const newStartIndex = Math.max(
-            0,
-            Math.min(resizeStart.endSegment - 1, resizeStart.startSegment + segmentDelta)
-          )
+          // Position absolue actuelle du haut du bloc (qui bouge quand on tire)
+          const absoluteTop = resizeStart.absoluteBlockTop + deltaY
+          
+          // Trouver le segment qui correspond à cette position
+          let accumulated = 0
+          let newStartIndex = startIdx
+          
+          for (let i = 0; i < currentRowHeights.length; i++) {
+            const rowHeight = currentRowHeights[i] || SEGMENT_HEIGHT
+            const rowTotal = rowHeight + 8
+            
+            // Vérifier si la position du curseur est dans ce segment
+            if (absoluteTop <= accumulated + rowHeight) {
+              // Le curseur est dans ce segment
+              const midPoint = accumulated + rowHeight / 2
+              if (absoluteTop <= midPoint) {
+                newStartIndex = i
+              } else if (i < endIdx) {
+                newStartIndex = i + 1
+              } else {
+                newStartIndex = endIdx
+              }
+              break
+            }
+            
+            accumulated += rowTotal
+          }
+          
+          // S'assurer qu'on ne dépasse pas le segment de fin et qu'on reste >= 0
+          newStartIndex = Math.max(0, Math.min(endIdx, newStartIndex))
+          
           const newStartSegmentId = segments[newStartIndex]?.id || segments[newStartIndex]?._id
           onResize(soundTrack.id, newStartSegmentId, null)
         }

@@ -1,4 +1,4 @@
-import { useState, useRef, useMemo, useCallback, useEffect } from 'react'
+import { useState, useRef, useMemo, useCallback, useEffect, useLayoutEffect } from 'react'
 import SoundBlock from './SoundBlock'
 import SoundBlockPanel from './SoundBlockPanel'
 import SoundLibraryPicker from './SoundLibraryPicker'
@@ -38,6 +38,7 @@ function SegmentTimelineRow({
   dividerPosition,
   isDraggingDivider,
   onDividerMouseDown,
+  rowRef,
   isAnyBlockDragging,
   dragTargetCell,
   onDragStart,
@@ -115,13 +116,27 @@ function SegmentTimelineRow({
     setSplitPreviewPosition(null)
   }, [])
 
-  // Ajuster la hauteur du textarea automatiquement
+  // État pour suivre la hauteur du contenu texte en mode normal
+  const [normalModeHeight, setNormalModeHeight] = useState(null)
+  const textContentRef = useRef(null)
+
+  // Ajuster la hauteur du textarea automatiquement en mode édition
   useEffect(() => {
     if (isEditing && textareaRef.current) {
       textareaRef.current.style.height = 'auto'
       textareaRef.current.style.height = textareaRef.current.scrollHeight + 'px'
     }
   }, [isEditing, editText])
+
+  // Mesurer la hauteur du texte en mode normal
+  useEffect(() => {
+    if (!isEditing && textContentRef.current) {
+      const height = textContentRef.current.scrollHeight
+      if (height !== normalModeHeight) {
+        setNormalModeHeight(height)
+      }
+    }
+  }, [isEditing, text, dividerPosition])
 
   const handleClick = (e) => {
     // Mode coupe : couper exactement à la position du clic
@@ -205,11 +220,12 @@ function SegmentTimelineRow({
 
   return (
     <div
+      ref={rowRef}
       style={{
         display: 'flex',
         borderBottom: '1px solid #f0f0f0',
-        minHeight: rowHeight ? `${rowHeight}px` : `${SEGMENT_HEIGHT}px`,
-        height: rowHeight ? `${rowHeight}px` : 'auto',
+        height: 'auto',
+        minHeight: `${SEGMENT_HEIGHT}px`,
         backgroundColor: isSelected ? '#f0f7ff' : (index % 2 === 0 ? '#fff' : '#fafafa'),
         transition: 'background-color 0.15s ease',
         position: 'relative'
@@ -253,9 +269,11 @@ function SegmentTimelineRow({
             lineHeight: '1.4',
             color: '#333',
             wordBreak: 'break-word',
+            overflowWrap: 'break-word',
+            whiteSpace: 'pre-wrap',
             position: 'relative',
             cursor: isCmdPressed && !isEditing ? 'crosshair' : 'text',
-            overflow: 'hidden',
+            overflow: 'visible',
             display: 'block'
           }}
           onMouseMove={handleSplitPreviewMouseMove}
@@ -271,7 +289,7 @@ function SegmentTimelineRow({
               autoFocus
               style={{
                 width: '100%',
-                minHeight: '20px',
+                minHeight: '100%',
                 padding: '0',
                 margin: '0',
                 fontSize: '0.85rem',
@@ -289,7 +307,7 @@ function SegmentTimelineRow({
               }}
             />
           ) : (
-            <span style={{ display: 'block', minHeight: '20px' }}>
+            <span ref={textContentRef} style={{ display: 'block', whiteSpace: 'pre-wrap', overflowWrap: 'break-word', lineHeight: '1.4', fontSize: '0.85rem', height: 'auto' }}>
               {/* Affichage du texte avec indicateur de découpe */}
               {splitPreviewPosition !== null && isCmdPressed ? (
                 <>
@@ -564,12 +582,14 @@ function UnifiedSegmentsTimeline({
   const [isDraggingDivider, setIsDraggingDivider] = useState(false)
   const [editingSegmentIndex, setEditingSegmentIndex] = useState(null)
   const [editTexts, setEditTexts] = useState({})
+  const [measuredRowHeights, setMeasuredRowHeights] = useState([])
   const [isAnyBlockDragging, setIsAnyBlockDragging] = useState(false)
   const [dragTargetCell, setDragTargetCell] = useState({ segmentIndex: -1, column: -1 })
   
   const containerRef = useRef(null)
   const scrollContainerRef = useRef(null)
   const dividerRef = useRef(null)
+  const rowRefs = useRef([])
 
   // Gérer le drag du séparateur
   useEffect(() => {
@@ -822,6 +842,14 @@ function UnifiedSegmentsTimeline({
       track.id === soundId ? { ...track, ...updates } : track
     )
     onSoundTracksChange(updatedTracks)
+    if (onSaveToHistory) onSaveToHistory()
+  }, [soundTracks, onSoundTracksChange, onSaveToHistory])
+
+  const handleRealTimeUpdate = useCallback((updatedTrack) => {
+    const updatedTracks = soundTracks.map(track =>
+      track.id === updatedTrack.id ? updatedTrack : track
+    )
+    onSoundTracksChange(updatedTracks)
   }, [soundTracks, onSoundTracksChange])
 
   const handleDeleteSoundTrack = useCallback((soundId) => {
@@ -873,14 +901,42 @@ function UnifiedSegmentsTimeline({
     setSelectedSoundId(null)
   }
 
-  // Calculer la hauteur totale basée sur le contenu des segments
-  const rowHeights = useMemo(() => {
+  // Calculer une estimation initiale rapide de la hauteur des lignes
+  // En tenant compte de la largeur de la colonne de texte pour un calcul plus précis
+  const estimatedRowHeights = useMemo(() => {
+    // Estimer le nombre de caractères par ligne en fonction de la largeur de la colonne
+    // La largeur de la colonne segment est dividerPosition% du conteneur
+    // Avec une police system-ui à 0.85rem, on estime ~50-60 chars pour 45% de largeur
+    const charsPerLine = Math.max(30, Math.round((dividerPosition / 45) * 55))
+    const lineHeight = 20 // pixels
+    
     return segments.map(segment => {
       const text = segment.text || segment || ''
-      const lines = Math.ceil(text.length / 60) // Approx 60 chars per line
-      return Math.max(SEGMENT_HEIGHT, lines * 20)
+      // Compter les lignes naturelles (sauts de ligne explicites)
+      const explicitLines = text.split('\n').length
+      // Compter les lignes dues au wrapping
+      const wrappedLines = Math.ceil(text.length / charsPerLine)
+      // Prendre le maximum des deux
+      const lines = Math.max(explicitLines, wrappedLines)
+      // Hauteur minimale = SEGMENT_HEIGHT, hauteur calculée = padding + lignes * lineHeight
+      const calculatedHeight = 16 + lines * lineHeight // 16px pour le padding (0.5rem top + 0.5rem bottom)
+      return Math.max(SEGMENT_HEIGHT, calculatedHeight)
     })
-  }, [segments])
+  }, [segments, dividerPosition])
+
+  const rowHeights = measuredRowHeights.length === segments.length ? measuredRowHeights : estimatedRowHeights
+
+  useLayoutEffect(() => {
+    const heights = segments.map((_, index) => {
+      const row = rowRefs.current[index]
+      return row ? Math.max(SEGMENT_HEIGHT, Math.ceil(row.getBoundingClientRect().height)) : SEGMENT_HEIGHT
+    })
+
+    const rowsChanged = heights.length !== measuredRowHeights.length || heights.some((height, idx) => height !== measuredRowHeights[idx])
+    if (rowsChanged) {
+      setMeasuredRowHeights(heights)
+    }
+  }, [segments, editTexts, dividerPosition, editingSegmentIndex, selectedSegmentIndex, soundTracks.length])
 
   const totalHeight = rowHeights.reduce((sum, rowHeight) => sum + rowHeight + 8, 0)
 
@@ -1016,6 +1072,7 @@ function UnifiedSegmentsTimeline({
             <SegmentTimelineRow
               segment={segment}
               index={index}
+              rowRef={(el) => { rowRefs.current[index] = el }}
               rowHeight={rowHeights[index]}
               rowHeights={rowHeights}
               isSelected={selectedSegmentIndex === index}
@@ -1096,6 +1153,7 @@ function UnifiedSegmentsTimeline({
             sound={selectedSound}
             segments={segments}
             onSave={handleSaveSoundTrack}
+            onRealTimeUpdate={handleRealTimeUpdate}
             onClose={closePanel}
             onDelete={handleDeleteSoundTrack}
           />

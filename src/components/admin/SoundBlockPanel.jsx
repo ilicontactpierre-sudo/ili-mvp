@@ -106,11 +106,34 @@ function SoundBlockPanel({
 
   // Trouver les indexes des segments
   const getSegmentIndex = useCallback((segmentId) => {
-    return segments.findIndex(s => s.id === segmentId || s._id === segmentId)
+    if (!segmentId) return -1
+    const idx = segments.findIndex(s => s.id === segmentId || s._id === segmentId)
+    if (idx !== -1) return idx
+    
+    // Fallback: si segmentId est au format "segment_N", utiliser N comme index
+    const match = segmentId?.match(/^segment_(\d+)$/)
+    if (match) {
+      const index = parseInt(match[1], 10)
+      if (index >= 0 && index < segments.length) return index
+    }
+    
+    return -1
   }, [segments])
 
   const startSegmentIndex = getSegmentIndex(soundTrack.startSegmentId)
   const endSegmentIndex = getSegmentIndex(soundTrack.endSegmentId)
+  
+  // Debug pour diagnostic
+  console.log('SoundBlockPanel Debug:', {
+    soundTrackId: soundTrack?.id,
+    startSegmentId: soundTrack?.startSegmentId,
+    endSegmentId: soundTrack?.endSegmentId,
+    startSegmentIndex,
+    endSegmentIndex,
+    segmentsCount: segments?.length,
+    firstSegment: segments?.[0],
+    lastSegment: segments?.[segments?.length - 1]
+  })
 
   // Style du fader vertical
   const verticalSliderStyle = {
@@ -342,7 +365,7 @@ function SoundBlockPanel({
           {/* Segment de début */}
           <div style={{ flex: 1 }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.25rem' }}>
-              <label style={{ fontSize: '0.75rem', color: '#888' }}>N° début</label>
+              <label style={{ fontSize: '0.75rem', color: '#888' }}>Segment début</label>
             </div>
             <input
               type="number"
@@ -356,15 +379,14 @@ function SoundBlockPanel({
                 if (!isNaN(numValue) && numValue >= 1 && numValue <= segments.length) {
                   const newIndex = numValue - 1
                   const currentEndIndex = endSegmentIndex !== -1 ? endSegmentIndex : startSegmentIndex
-                  if (newIndex < currentEndIndex) {
-                    handleChange('startSegmentId', segments[newIndex]?.id || segments[newIndex]?._id)
-                  } else {
-                    handleChange('startSegmentId', segments[newIndex]?.id || segments[newIndex]?._id)
-                    if (newIndex >= currentEndIndex) {
-                      const newEndIndex = Math.min(newIndex + 1, segments.length - 1)
-                      handleChange('endSegmentId', segments[newEndIndex]?.id || segments[newEndIndex]?._id)
-                    }
+                  // Si le nouveau début est après la fin actuelle, on ajuste la fin
+                  if (newIndex >= currentEndIndex) {
+                    const newEndIndex = Math.min(newIndex + 1, segments.length - 1)
+                    // Utiliser le format segment_N comme ID
+                    handleChange('endSegmentId', `segment_${newEndIndex}`)
                   }
+                  // Utiliser le format segment_N comme ID
+                  handleChange('startSegmentId', `segment_${newIndex}`)
                 }
               }}
               style={{ 
@@ -383,21 +405,27 @@ function SoundBlockPanel({
           {/* Segment de fin */}
           <div style={{ flex: 1 }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.25rem' }}>
-              <label style={{ fontSize: '0.75rem', color: '#888' }}>N° fin</label>
+              <label style={{ fontSize: '0.75rem', color: '#888' }}>Segment fin</label>
             </div>
             <input
               type="number"
-              min="2"
+              min="1"
               max={segments.length}
               value={endSegmentIndex >= 0 ? endSegmentIndex + 1 : (startSegmentIndex >= 0 ? startSegmentIndex + 1 : '')}
               onChange={(e) => {
                 const value = e.target.value
                 if (value === '') return // Laisser vide pendant l'édition
                 const numValue = parseInt(value)
-                if (!isNaN(numValue) && numValue >= 2 && numValue <= segments.length) {
+                if (!isNaN(numValue) && numValue >= 1 && numValue <= segments.length) {
                   const newIndex = numValue - 1
-                  if (newIndex > startSegmentIndex) {
-                    handleChange('endSegmentId', segments[newIndex]?.id || segments[newIndex]?._id)
+                  // La fin doit être >= au début
+                  if (newIndex >= startSegmentIndex) {
+                    // Utiliser le format segment_N comme ID
+                    handleChange('endSegmentId', `segment_${newIndex}`)
+                  } else {
+                    // Si on met une fin avant le début, on ajuste le début aussi
+                    handleChange('endSegmentId', `segment_${newIndex}`)
+                    handleChange('startSegmentId', `segment_${newIndex}`)
                   }
                 }
               }}
@@ -415,7 +443,7 @@ function SoundBlockPanel({
           </div>
         </div>
         <div style={{ fontSize: '0.65rem', color: '#666', marginTop: '0.25rem' }}>
-          N° fin doit être supérieur à N° début ({startSegmentIndex >= 0 ? startSegmentIndex + 1 : '-'})
+          Le son sera actif sur les segments {startSegmentIndex >= 0 ? startSegmentIndex + 1 : '-'} à {endSegmentIndex >= 0 ? endSegmentIndex + 1 : (startSegmentIndex >= 0 ? startSegmentIndex + 1 : '-')}
         </div>
 
         {/* Colonne */}
