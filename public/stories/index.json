@@ -3,5 +3,10 @@
     "id": "test-histoire",
     "title": "La Parure",
     "author": "Guy de Maupassant"
+  },
+  {
+    "id": "test-1",
+    "title": "Test 1",
+    "author": "Victor Hugo"
   }
 ]
