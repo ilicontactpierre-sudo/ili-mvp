@@ -3,18 +3,7 @@
   "title": "TEST SON POUR CLAUDE",
   "author": "TEST SON POUR CLAUDE",
   "published": true,
-  "sounds": [
-    {
-      "id": "02_COMMISSARIAT_-_Tic-Tac_umaxtk",
-      "url": "/sounds/02_COMMISSARIAT_-_Tic-Tac_umaxtk.mp3",
-      "loop": false
-    },
-    {
-      "id": "11_CONTINES_-_Sweep_eqnvoh",
-      "url": "/sounds/11_CONTINES_-_Sweep_eqnvoh.mp3",
-      "loop": false
-    }
-  ],
+  "sounds": [],
   "segments": [
     {
       "id": "seg_0",
