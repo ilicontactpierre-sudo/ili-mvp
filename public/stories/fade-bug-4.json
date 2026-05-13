@@ -1,0 +1,89 @@
+{
+  "id": "fade-bug-4",
+  "title": "FADE BUG 4",
+  "author": "FADE BUG 4",
+  "published": true,
+  "sounds": [
+    {
+      "id": "02_COMMISSARIAT_-_Tic-Tac_umaxtk",
+      "url": "/sounds/02_COMMISSARIAT_-_Tic-Tac_umaxtk.mp3",
+      "loop": false
+    },
+    {
+      "id": "12_LISE_-_Oiseaux_enz7jr",
+      "url": "/sounds/12_LISE_-_Oiseaux_enz7jr.mp3",
+      "loop": false
+    }
+  ],
+  "segments": [
+    {
+      "id": "seg_0",
+      "text": "FADE BUG 4FADE BUG 4FADE BUG 4FADE BUG 4FADE BUG 4! FADE BUG 4FADE BUG 4FADE BUG 4FADE BUG 4! FADE BUG 4FADE BUG 4FADE",
+      "audioEvents": [
+        {
+          "action": "play",
+          "soundId": "02_COMMISSARIAT_-_Tic-Tac_umaxtk",
+          "volume": 0.5,
+          "delay": 0,
+          "loop": false
+        }
+      ]
+    },
+    {
+      "id": "seg_1",
+      "text": "BUG 4FADE BUG 4FADE BUG 4FADE BUG 4FADE BUG 4! FADE BUG 4FADE BUG 4FADE BUG 4!",
+      "audioEvents": []
+    },
+    {
+      "id": "seg_2",
+      "text": "FADE BUG 4FADE BUG 4FADE BUG 4FADE BUG 4!\nFADE BUG 4FADE BUG 4FADE BUG 4FADE BUG 4FADE B",
+      "audioEvents": [
+        {
+          "action": "play",
+          "soundId": "12_LISE_-_Oiseaux_enz7jr",
+          "volume": 0.5,
+          "delay": 0,
+          "loop": false
+        }
+      ]
+    },
+    {
+      "id": "seg_3",
+      "text": "UG 4FADE BUG 4FADE B",
+      "audioEvents": []
+    },
+    {
+      "id": "seg_4",
+      "text": "UG 4FADE BUG 4FADE BUG 4FADE BUG 4! FADE BUG 4FADE BUG 4FADE BUG 4!",
+      "audioEvents": []
+    }
+  ],
+  "soundTracks": [
+    {
+      "id": "st_1778708055716_8iwel1wgv",
+      "soundId": "02_COMMISSARIAT_-_Tic-Tac_umaxtk",
+      "startSegmentId": "segment_0",
+      "endSegmentId": "segment_0",
+      "column": 0,
+      "volume": 0.5,
+      "fadeIn": 0,
+      "fadeOut": 0,
+      "delay": 0,
+      "loop": false,
+      "muted": false
+    },
+    {
+      "id": "st_1778708064184_ml0xjgyx3",
+      "soundId": "12_LISE_-_Oiseaux_enz7jr",
+      "startSegmentId": "segment_2",
+      "endSegmentId": "segment_2",
+      "column": 3,
+      "volume": 0.5,
+      "fadeIn": 0,
+      "fadeOut": 0,
+      "delay": 0,
+      "loop": false,
+      "muted": false
+    }
+  ]
+}
