@@ -1,0 +1,55 @@
+{
+  "id": "test-bloc-long-1",
+  "title": "TEST BLOC LONG 1",
+  "author": "TEST BLOC LONG 1",
+  "published": true,
+  "sounds": [
+    {
+      "id": "02_COMMISSARIAT_-_Tic-Tac_umaxtk",
+      "url": "/sounds/02_COMMISSARIAT_-_Tic-Tac_umaxtk.mp3",
+      "loop": false
+    },
+    {
+      "id": "12_LISE_-_Oiseaux_enz7jr",
+      "url": "/sounds/12_LISE_-_Oiseaux_enz7jr.mp3",
+      "loop": false
+    }
+  ],
+  "segments": [
+    {
+      "id": "seg_0",
+      "text": "TEST BLOC LONG 1TEST BLOC LONG 1TEST BLOC LONG 1TEST BLOC LONG 1TEST BLOC LONG 1,T",
+      "audioEvents": [
+        {
+          "action": "play",
+          "soundId": "02_COMMISSARIAT_-_Tic-Tac_umaxtk",
+          "volume": 1,
+          "delay": 0,
+          "loop": false
+        }
+      ]
+    },
+    {
+      "id": "seg_1",
+      "text": "EST BLOC LONG 1TEST BLOC LONG 1TEST BLOC LONG 1,TEST BLOC LONG 1TEST BLOC LONG 1. TEST BLOC LONG 1TEST BLOC LONG 1,TEST BLOC LONG 1vTEST BLOC LONG 1!",
+      "audioEvents": []
+    },
+    {
+      "id": "seg_2",
+      "text": "TEST BLOC LONG 1TEST BLOC LONG 1TEST BLOC LONG 1. TEST BLOC LONG 1TEST BLOC LONG 1!",
+      "audioEvents": [
+        {
+          "action": "stop",
+          "soundId": "02_COMMISSARIAT_-_Tic-Tac_umaxtk"
+        },
+        {
+          "action": "play",
+          "soundId": "12_LISE_-_Oiseaux_enz7jr",
+          "volume": 0.5,
+          "delay": 0,
+          "loop": false
+        }
+      ]
+    }
+  ]
+}
