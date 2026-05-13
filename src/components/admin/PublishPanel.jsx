@@ -111,23 +111,15 @@ function PublishPanel({
         })
       }
 
-      // Stop ou FadeOut sur le segment APRÈS la fin du bloc
-      // Exemple : bloc sur seg 0→1 → stop sur seg 2
-      const stopIdx = endIdx + 1
-      if (stopIdx < segmentsWithAudio.length) {
-        if (track.fadeOut > 0) {
-          segmentsWithAudio[stopIdx].audioEvents.push({
-            action: 'fadeOut',
-            soundId: track.soundId,
-            duration: track.fadeOut
-          })
-        } else {
-          segmentsWithAudio[stopIdx].audioEvents.push({
-            action: 'stop',
-            soundId: track.soundId
-          })
-        }
+      if (track.fadeOut > 0) {
+        // fadeOut se déclenche au début du dernier segment du bloc
+        segmentsWithAudio[endIdx].audioEvents.push({
+          action: 'fadeOut',
+          soundId: track.soundId,
+          duration: track.fadeOut
+        })
       }
+// fadeOut = 0 → rien : le son joue jusqu'à sa fin naturelle
       // Si stopIdx >= longueur : pas de stop, le son joue jusqu'à la fin de l'histoire
     })
 

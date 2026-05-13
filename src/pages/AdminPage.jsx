@@ -375,17 +375,17 @@ function AdminPage() {
               muted: false,
               column: 0
             }
-          } else if (ev.action === 'stop' || ev.action === 'fadeOut') {
-            // Fin d'un bloc son
+                  // APRÈS
+          } else if (ev.action === 'fadeOut') {
+            // fadeOut est sur le segment de fin lui-même
             if (openTracks[ev.soundId]) {
               openTracks[ev.soundId].endSegmentId = seg.id
-              if (ev.action === 'fadeOut') {
-                openTracks[ev.soundId].fadeOut = ev.duration || 0
-              }
+              openTracks[ev.soundId].fadeOut = ev.duration || 0
               reconstructed.push(openTracks[ev.soundId])
               delete openTracks[ev.soundId]
             }
           }
+          // Plus de cas 'stop' — un stop dans un vieux JSON est ignoré proprement
         })
       })
 
