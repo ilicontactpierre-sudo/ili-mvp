@@ -29,7 +29,8 @@ npm run preview
 ```
 
 ### `npm run publish` 🚀
-**Publie les changements sur Vercel** (équivalent à `git add . && git commit && git push`)
+**Publie les changements sur Vercel** (équivalent à `git add . && git commit && git push`).
+Le script vérifie aussi l'état de `origin/main` avant de pousser et s'arrête si la branche distante a des commits non intégrés.
 ```bash
 npm run publish
 ```
