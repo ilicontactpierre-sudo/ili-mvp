@@ -38,17 +38,18 @@
     {
       "id": "seg_1",
       "text": "TEST FADE 1TEST FADE 1! TEST FADE 1TEST FADE 1! TEST F",
-      "audioEvents": []
-    },
-    {
-      "id": "seg_2",
-      "text": "ADE 1TEST FADE 1TEST FADE 1! TEST FADE 1TEST FADE 1",
       "audioEvents": [
         {
           "action": "fadeOut",
           "soundId": "02_COMMISSARIAT_-_Tic-Tac_umaxtk",
           "duration": 11250
-        },
+        }
+      ]
+    },
+    {
+      "id": "seg_2",
+      "text": "ADE 1TEST FADE 1TEST FADE 1! TEST FADE 1TEST FADE 1",
+      "audioEvents": [
         {
           "action": "play",
           "soundId": "11_CONTINES_-_Sweep_eqnvoh",
@@ -63,10 +64,6 @@
       "text": "TEST FADE 1TEST FADE 1TEST FADE 1TEST FADE 1TEST FADE 1",
       "audioEvents": [
         {
-          "action": "stop",
-          "soundId": "11_CONTINES_-_Sweep_eqnvoh"
-        },
-        {
           "action": "fadeIn",
           "soundId": "12_LISE_-_Oiseaux_enz7jr",
           "volume": 0.5,
@@ -79,11 +76,6 @@
     {
       "id": "seg_4",
       "text": "TEST FADE 1TEST FADE 1TEST FADE 1!",
-      "audioEvents": []
-    },
-    {
-      "id": "seg_5",
-      "text": "TEST FADE 1TEST FADE 1!",
       "audioEvents": [
         {
           "action": "fadeOut",
@@ -91,6 +83,11 @@
           "duration": 5600
         }
       ]
+    },
+    {
+      "id": "seg_5",
+      "text": "TEST FADE 1TEST FADE 1!",
+      "audioEvents": []
     }
   ],
   "soundTracks": [
