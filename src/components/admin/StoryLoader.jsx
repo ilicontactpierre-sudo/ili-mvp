@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 function StoryLoader({ onLoadStory, onPreviewStory }) {
   const [isExpanded, setIsExpanded] = useState(false)
@@ -8,6 +8,7 @@ function StoryLoader({ onLoadStory, onPreviewStory }) {
   const [selectedStory, setSelectedStory] = useState(null)
   const [deletingStoryId, setDeletingStoryId] = useState(null)
   const [deletePassword, setDeletePassword] = useState('')
+  const [isLocalDev, setIsLocalDev] = useState(false)
 
   // Charger l'index des histoires quand on déplie la section
   const loadStoriesIndex = async () => {
@@ -191,6 +192,11 @@ function StoryLoader({ onLoadStory, onPreviewStory }) {
     }
   }
 
+  useEffect(() => {
+    const hostname = window.location.hostname
+    setIsLocalDev(hostname === 'localhost' || hostname === '127.0.0.1')
+  }, [])
+
   // Ouvrir l'aperçu d'une histoire
   const handlePreview = async (storyId) => {
     try {
@@ -243,6 +249,11 @@ function StoryLoader({ onLoadStory, onPreviewStory }) {
   const handleDeleteConfirm = async () => {
     if (!deletePassword.trim()) return
 
+    if (isLocalDev) {
+      alert('Suppression non disponible en local. Cette fonctionnalité fonctionne uniquement en production.')
+      return
+    }
+
     try {
       const response = await fetch('/api/delete', {
         method: 'DELETE',
@@ -256,8 +267,17 @@ function StoryLoader({ onLoadStory, onPreviewStory }) {
       })
 
       if (!response.ok) {
-        const error = await response.json()
-        throw new Error(error.error || 'Erreur lors de la suppression')
+        const text = await response.text()
+        let message = 'Erreur lors de la suppression'
+        if (text) {
+          try {
+            const json = JSON.parse(text)
+            message = json.error || json.message || text
+          } catch {
+            message = text
+          }
+        }
+        throw new Error(message)
       }
 
       // Recharger la liste des histoires

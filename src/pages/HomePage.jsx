@@ -5,6 +5,11 @@ function HomePage() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [stories, setStories] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const isLocalDev = typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
+
+  const toggleMenu = () => {
+    setIsMenuOpen(prev => !prev);
+  };
 
   useEffect(() => {
     const fetchStories = async () => {
@@ -27,6 +32,10 @@ function HomePage() {
   }, []);
 
   const handleDeleteStory = async (storyId, password) => {
+    if (isLocalDev) {
+      throw new Error('Suppression non disponible en local. Cette fonctionnalité fonctionne uniquement en production.');
+    }
+
     try {
       const response = await fetch('/api/delete', {
         method: 'DELETE',
@@ -40,8 +49,17 @@ function HomePage() {
       });
 
       if (!response.ok) {
-        const error = await response.json();
-        throw new Error(error.error || 'Erreur lors de la suppression');
+        const text = await response.text();
+        let message = 'Erreur lors de la suppression';
+        if (text) {
+          try {
+            const json = JSON.parse(text);
+            message = json.error || json.message || text;
+          } catch {
+            message = text;
+          }
+        }
+        throw new Error(message);
       }
 
       // Refresh the stories list
