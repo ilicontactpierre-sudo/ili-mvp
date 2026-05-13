@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import EndScreen from '../components/EndScreen.jsx'
 import StartScreen from '../components/StartScreen.jsx'
@@ -26,7 +26,7 @@ function StoryPage() {
   const preloadedSoundsRef = useRef(new Map())
   const audioEngineRef = useRef(null)
   const ignoreAdvanceUntilRef = useRef(0)
-  const segments = story?.segments ?? []
+  const segments = useMemo(() => story?.segments ?? [], [story])
   const lastIndex = Math.max(segments.length - 1, 0)
 
   const goToNext = useCallback(() => {
@@ -115,7 +115,7 @@ function StoryPage() {
     }
 
     audioEngineRef.current.executeEvents(segments[currentIndex].audioEvents ?? [])
-  }, [currentIndex, isStarted, segments])
+  }, [currentIndex, isStarted])
 
   useEffect(() => {
     if (!isFinished) {
