@@ -8,7 +8,8 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "add-sound": "node scripts/addSound.js"
+    "add-sound": "node scripts/addSound.js",
+    "checkpoint": "node scripts/checkpoint.js"
   },
   "dependencies": {
     "howler": "^2.2.4",

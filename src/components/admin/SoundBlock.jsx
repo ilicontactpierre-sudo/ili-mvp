@@ -250,19 +250,25 @@ function SoundBlock({
           const newColumn = Math.max(0, Math.min(COLUMN_COUNT - 1, 
             Math.round(dragStart.column + deltaX / COLUMN_WIDTH)))
           
-          // Trouver la ligne cible
+          // Trouver la ligne cible - on cherche la ligne dont le centre est le plus proche
           let accumulated = 0
           let newStartIndex = 0
           let targetRowCenter = 0
+          let minDistance = Infinity
+          
           for (let i = 0; i < rowHeights.length; i++) {
             const rowHeight = rowHeights[i]
             const rowTotal = rowHeight + 8
             const rowCenter = accumulated + rowHeight / 2
-            if (relativeBlockY < accumulated + rowTotal) {
+            const distance = Math.abs(relativeBlockY - rowCenter)
+            
+            // On garde la ligne dont le centre est le plus proche
+            if (distance < minDistance) {
+              minDistance = distance
               newStartIndex = i
               targetRowCenter = rowCenter
-              break
             }
+            
             accumulated += rowTotal
           }
 
@@ -288,21 +294,19 @@ function SoundBlock({
           }
           
           // Debug
-          console.log('Drag:', { relativeBlockY, newStartIndex, newColumn, dragStartIndex: dragStart.startSegmentIndex, dragStartColumn: dragStart.column })
+          console.log('Drag:', { 
+            relativeBlockY, 
+            newStartIndex, 
+            newColumn, 
+            dragStartIndex: dragStart.startSegmentIndex, 
+            dragStartColumn: dragStart.column,
+            rowHeightsSample: rowHeights.slice(0, 3), // Affiche les 3 premières hauteurs
+            minDistance
+          })
 
-          // Note: onColumnChange est appelé seulement au mouseup, pas pendant le drag
+          // Note: onColumnChange et onResize sont appelés seulement au mouseup, pas pendant le drag
           // pour éviter que le bloc ne se re-rende et ne "saute"
-
-          if (newStartIndex !== dragStart.startSegmentIndex) {
-            const currentEndIndex = endSegmentIndex !== -1 ? endSegmentIndex : startSegmentIndex
-            const offset = currentEndIndex - dragStart.startSegmentIndex
-            const newEndIndex = Math.min(segments.length - 1, newStartIndex + offset)
-            // Utiliser le format segment_N comme ID car les segments sont des chaînes
-            const newStartSegmentId = `segment_${newStartIndex}`
-            const newEndSegmentId = `segment_${newEndIndex}`
-            console.log('Calling onResize with:', { soundTrackId: soundTrack.id, newStartSegmentId, newEndSegmentId, newStartIndex, newEndIndex })
-            onResize(soundTrack.id, newStartSegmentId, newEndSegmentId)
-          }
+          // On se contente de mettre à jour targetCell pour le feedback visuel
         }
       }
       

@@ -310,6 +310,28 @@ function applyRhythmShocks(segments, units, granularity) {
 // ÉTAPE 5 — SAUTS DE LIGNE INTERNES
 // ══════════════════════════════════════════════════════════════
 
+/**
+ * Trouve les positions de coupure valides dans un segment (après la ponctuation)
+ * Retourne un tableau de positions où un saut de ligne est acceptable
+ */
+function findValidBreakPositions(segment) {
+  const positions = [];
+  
+  // Chercher les points de coupure après la ponctuation (. ! ? … ; :)
+  for (let i = 0; i < segment.length - 1; i++) {
+    if ('.!?…;:'.includes(segment[i])) {
+      // Inclure l'espace après la ponctuation si présent
+      let pos = i + 1;
+      while (pos < segment.length && segment[pos] === ' ') {
+        pos++;
+      }
+      positions.push(pos);
+    }
+  }
+  
+  return positions;
+}
+
 function applyLineBreaks(segments, granularity) {
   let previousHadLineBreak = false;
   
@@ -331,53 +353,71 @@ function applyLineBreaks(segments, granularity) {
       continue;
     }
     
+    // Trouver les positions de coupure valides (après ponctuation uniquement)
+    const validBreakPositions = findValidBreakPositions(segment);
+    
+    // Si pas de point de coupure valide, on ne peut pas couper
+    if (validBreakPositions.length === 0) {
+      continue;
+    }
+    
     // B) Phrase très courte EN DÉBUT de segment
-    if (!modified && segment.length < CONFIG.SHORT_PHRASE_THRESHOLD) {
-      if (Math.random() < CONFIG.LINE_BREAK_PROBS.shortAtStart) {
-        // Insérer \n avant cette phrase (donc au début, pas très utile visuellement)
-        // En fait, on ne fait rien car c'est déjà au début
-        // Cette règle s'applique plutôt si le segment commence par une très courte phrase
-        // suivie d'autre chose
-        const parts = segment.split(' ');
-        if (parts.length > 2) {
-          const firstWord = parts[0];
-          if (firstWord.length < CONFIG.SHORT_PHRASE_THRESHOLD) {
-            segments[i] = firstWord + '\n' + parts.slice(1).join(' ');
-            modified = true;
-            previousHadLineBreak = true;
-          }
-        }
+    // On coupe après la première phrase si elle est très courte
+    if (!modified && validBreakPositions.length > 0) {
+      const firstBreakPos = validBreakPositions[0];
+      const firstPhrase = segment.substring(0, firstBreakPos).trim();
+      const rest = segment.substring(firstBreakPos).trim();
+      
+      if (firstPhrase.length < CONFIG.SHORT_PHRASE_THRESHOLD && 
+          rest.length > 0 &&
+          Math.random() < CONFIG.LINE_BREAK_PROBS.shortAtStart) {
+        segments[i] = firstPhrase + '\n' + rest;
+        modified = true;
+        previousHadLineBreak = true;
       }
     }
     
     // C) Phrase très courte EN FIN de segment
-    if (!modified && segment.length < CONFIG.SHORT_PHRASE_THRESHOLD) {
-      if (Math.random() < CONFIG.LINE_BREAK_PROBS.shortAtEnd) {
-        const parts = segment.split(' ');
-        if (parts.length > 2) {
-          const lastPart = parts[parts.length - 1];
-          const beforeLast = parts.slice(0, -1).join(' ');
-          if (lastPart.length < CONFIG.SHORT_PHRASE_THRESHOLD) {
-            segments[i] = beforeLast + '\n' + lastPart;
-            modified = true;
-            previousHadLineBreak = true;
-          }
-        }
+    if (!modified && validBreakPositions.length > 1) {
+      const lastBreakPos = validBreakPositions[validBreakPositions.length - 1];
+      const lastPhrase = segment.substring(lastBreakPos).trim();
+      const before = segment.substring(0, lastBreakPos).trim();
+      
+      if (lastPhrase.length < CONFIG.SHORT_PHRASE_THRESHOLD && 
+          before.length > 0 &&
+          Math.random() < CONFIG.LINE_BREAK_PROBS.shortAtEnd) {
+        segments[i] = before + '\n' + lastPhrase;
+        modified = true;
+        previousHadLineBreak = true;
       }
     }
     
-    // D) Phrase très courte EN MILIEU de segment
-    if (!modified) {
-      const parts = segment.split(' ');
-      for (let j = 1; j < parts.length - 1; j++) {
-        if (parts[j].length < CONFIG.SHORT_PHRASE_THRESHOLD && 
-            Math.random() < CONFIG.LINE_BREAK_PROBS.shortInMiddle) {
-          const before = parts.slice(0, j).join(' ');
-          const after = parts.slice(j).join(' ');
-          segments[i] = before + '\n' + after;
-          modified = true;
-          previousHadLineBreak = true;
-          break;
+    // D) Segment long : couper près du milieu, mais uniquement après une ponctuation
+    if (!modified && segment.length > CONFIG.LONG_SEGMENT_THRESHOLD) {
+      if (Math.random() < CONFIG.LINE_BREAK_PROBS.longSegment) {
+        const mid = Math.floor(segment.length / 2);
+        
+        // Trouver la position de coupure valide la plus proche du centre
+        let bestPos = -1;
+        let minDistance = Infinity;
+        
+        for (const pos of validBreakPositions) {
+          const distance = Math.abs(pos - mid);
+          if (distance < minDistance) {
+            minDistance = distance;
+            bestPos = pos;
+          }
+        }
+        
+        // Appliquer la coupure si on a trouvé une position raisonnable
+        if (bestPos > 0 && bestPos < segment.length && minDistance < 50) {
+          const before = segment.substring(0, bestPos).trim();
+          const after = segment.substring(bestPos).trim();
+          if (before.length > 0 && after.length > 0) {
+            segments[i] = before + '\n' + after;
+            modified = true;
+            previousHadLineBreak = true;
+          }
         }
       }
     }
@@ -394,55 +434,6 @@ function applyLineBreaks(segments, granularity) {
         segments[i] = modifiedSegment;
         modified = true;
         previousHadLineBreak = true;
-      }
-    }
-    
-    // F) Segment long, aucune règle précédente déclenchée
-    if (!modified && segment.length > CONFIG.LONG_SEGMENT_THRESHOLD) {
-      if (Math.random() < CONFIG.LINE_BREAK_PROBS.longSegment) {
-        // Insérer \n au milieu, à la frontière de phrase la plus proche
-        const mid = Math.floor(segment.length / 2);
-        
-        // Chercher un point de coupure près du centre
-        let cutPos = -1;
-        const searchRange = 30; // Chercher dans un rayon de 30 caractères
-        
-        for (let offset = 0; offset < searchRange; offset++) {
-          const pos1 = mid + offset;
-          const pos2 = mid - offset;
-          
-          if (pos1 < segment.length && '.!?…;:'.includes(segment[pos1])) {
-            cutPos = pos1 + 1;
-            break;
-          }
-          if (pos2 > 0 && '.!?…;:'.includes(segment[pos2])) {
-            cutPos = pos2 + 1;
-            break;
-          }
-        }
-        
-        if (cutPos === -1) {
-          // Si pas trouvé, couper à un espace près du centre
-          for (let offset = 0; offset < searchRange; offset++) {
-            const pos1 = mid + offset;
-            const pos2 = mid - offset;
-            
-            if (pos1 < segment.length && segment[pos1] === ' ') {
-              cutPos = pos1;
-              break;
-            }
-            if (pos2 > 0 && segment[pos2] === ' ') {
-              cutPos = pos2;
-              break;
-            }
-          }
-        }
-        
-        if (cutPos > 0 && cutPos < segment.length) {
-          segments[i] = segment.substring(0, cutPos).trim() + '\n' + segment.substring(cutPos).trim();
-          modified = true;
-          previousHadLineBreak = true;
-        }
       }
     }
   }
