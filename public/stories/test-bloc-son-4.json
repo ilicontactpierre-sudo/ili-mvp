@@ -32,7 +32,12 @@
     {
       "id": "seg_1",
       "text": "TEST BLOC SON 4TEST BLOC SON 4TEST BLOC SON 4TEST BLOC SON 4. TEST BLOC SON 4TEST BLOC SON 4TEST BLOC SON 4,TEST BLOC SON 4TEST BLOC SON 4,TEST BLOC SON 4TEST BLOC SON 4TEST BLOC SON 4TEST BLOC SON 4,TEST BLOC SON 4TEST BLOC SON 4.",
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "stop",
+          "soundId": "02_COMMISSARIAT_-_Tic-Tac_umaxtk"
+        }
+      ]
     },
     {
       "id": "seg_2",
