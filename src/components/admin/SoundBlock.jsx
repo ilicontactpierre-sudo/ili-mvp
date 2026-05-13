@@ -423,12 +423,11 @@ function SoundBlock({
             maxFadeMs
           ))
           onUpdate(soundTrack.id, { fadeOut: Math.round(newFadeOut) })
+          }
         }
-}
       }
-    }
 
-    const handleMouseUp = () => {
+      const handleMouseUp = () => {
       // Utiliser targetCellRef.current pour avoir la valeur la plus récente
       const currentTargetCell = targetCellRef.current
       if (isDragging) {
