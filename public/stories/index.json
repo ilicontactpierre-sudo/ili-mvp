@@ -8,5 +8,10 @@
     "id": "test-1",
     "title": "Test 1",
     "author": "Victor Hugo"
+  },
+  {
+    "id": "test-4",
+    "title": "Test 4",
+    "author": "Victor Hugo"
   }
 ]
