@@ -52,7 +52,7 @@ function StoryLoader({ onLoadStory, onPreviewStory }) {
         // Si le segment a déjà un champ text, on le garde
         if (seg && typeof seg.text === 'string') {
           return {
-            id: seg.id || `seg_${index}`,
+            id: seg.id || `segment_${index}`,
             text: seg.text,
             audioEvents: seg.audioEvents || [],
             ...seg
@@ -69,7 +69,7 @@ function StoryLoader({ onLoadStory, onPreviewStory }) {
               .map(key => seg[key])
               .join('')
             return {
-              id: seg.id || `seg_${index}`,
+              id: seg.id || `segment_${index}`,
               text: text,
               audioEvents: seg.audioEvents || []
             }
@@ -78,8 +78,8 @@ function StoryLoader({ onLoadStory, onPreviewStory }) {
         
         // Segment déjà au bon format ou string
         return typeof seg === 'string' 
-          ? { id: `seg_${index}`, text: seg, audioEvents: [] }
-          : { id: `seg_${index}`, text: '', audioEvents: [] }
+          ? { id: `segment_${index}`, text: seg, audioEvents: [] }
+          : { id: `segment_${index}`, text: '', audioEvents: [] }
       })
       
       if (normalizedSegments.length > 0) {

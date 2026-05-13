@@ -65,12 +65,20 @@ function PublishPanel({
     const segmentsWithAudio = segments.map((seg, index) => {
       if (typeof seg === 'string') {
         return {
-          id: `seg_${index}`,
+          id: `segment_${index}`,
           text: seg,
           audioEvents: []
         }
       }
-      // Si c'est déjà un objet, préserver les propriétés et ajouter audioEvents si manquant
+      // Si c'est déjà un objet mais sans id, lui en donner un cohérent
+      if (!seg.id) {
+        return {
+          ...seg,
+          id: `segment_${index}`,
+          audioEvents: seg.audioEvents || []
+        }
+      }
+      // Si c'est déjà un objet avec id, préserver les propriétés
       return {
         ...seg,
         audioEvents: seg.audioEvents || []
@@ -84,10 +92,10 @@ function PublishPanel({
       const sound = soundLibrary.find(s => s.id === track.soundId)
       if (!sound) return
 
-      // Trouver les segments de début et de fin
-      const startSegmentIndex = segments.findIndex(s => s.id === track.startSegmentId)
+      // Trouver les segments de début et de fin (dans segmentsWithAudio qui a les IDs normalisés)
+      const startSegmentIndex = segmentsWithAudio.findIndex(s => s.id === track.startSegmentId)
       const endSegmentIndex = track.endSegmentId
-        ? segments.findIndex(s => s.id === track.endSegmentId)
+        ? segmentsWithAudio.findIndex(s => s.id === track.endSegmentId)
         : startSegmentIndex
 
       if (startSegmentIndex === -1) return
@@ -156,7 +164,8 @@ function PublishPanel({
       author: author || 'Anonyme',
       published: true,
       sounds: usedSounds,
-      segments: segmentsWithAudio
+      segments: segmentsWithAudio,
+      soundTracks: soundTracks || []
     }
   }
 
