@@ -4,6 +4,28 @@ import SoundBlockPanel from './SoundBlockPanel'
 import SoundLibraryPicker from './SoundLibraryPicker'
 import { SEGMENT_HEIGHT, COLUMN_COUNT, COLUMN_WIDTH } from './constants'
 
+const getSegmentText = (segment) => {
+  if (typeof segment === 'string') {
+    return segment
+  }
+
+  if (segment && typeof segment === 'object') {
+    if (typeof segment.text === 'string') {
+      return segment.text
+    }
+
+    const numericKeys = Object.keys(segment).filter(key => String(Number(key)) === key)
+    if (numericKeys.length > 0) {
+      return numericKeys
+        .sort((a, b) => Number(a) - Number(b))
+        .map(key => segment[key])
+        .join('')
+    }
+  }
+
+  return ''
+}
+
 // Composant pour une ligne unifiée Segment + Timeline
 function SegmentTimelineRow({ 
   segment, 
@@ -48,7 +70,7 @@ function SegmentTimelineRow({
   const containerRef = useRef(null)
   const textareaRef = useRef(null)
 
-  const text = segment.text || segment
+  const text = getSegmentText(segment)
   
   // État pour la position de découpe potentielle (mode Cmd)
   const [splitPreviewPosition, setSplitPreviewPosition] = useState(null)
@@ -671,7 +693,7 @@ function UnifiedSegmentsTimeline({
     const segment = segments[index]
     setEditTexts(prev => ({
       ...prev,
-      [index]: segment.text || segment
+      [index]: getSegmentText(segment)
     }))
   }, [segments])
 
@@ -709,8 +731,8 @@ function UnifiedSegmentsTimeline({
     if (index >= segments.length - 1) return
     
     const updatedSegments = [...segments]
-    const seg1 = typeof segments[index] === 'string' ? segments[index] : segments[index].text
-    const seg2 = typeof segments[index + 1] === 'string' ? segments[index + 1] : segments[index + 1].text
+    const seg1 = getSegmentText(segments[index])
+    const seg2 = getSegmentText(segments[index + 1])
     
     const wordCount = seg1.split(' ').length
     const delay = Math.round(wordCount * 200)
@@ -740,7 +762,7 @@ function UnifiedSegmentsTimeline({
 
   const handleSplitSegment = useCallback((index, splitPosition) => {
     const segment = segments[index]
-    const text = typeof segment === 'string' ? segment : segment.text
+    const text = getSegmentText(segment)
     
     if (splitPosition <= 0 || splitPosition >= text.length) return
     
@@ -911,7 +933,7 @@ function UnifiedSegmentsTimeline({
     const lineHeight = 20 // pixels
     
     return segments.map(segment => {
-      const text = segment.text || segment || ''
+      const text = getSegmentText(segment)
       // Compter les lignes naturelles (sauts de ligne explicites)
       const explicitLines = text.split('\n').length
       // Compter les lignes dues au wrapping
