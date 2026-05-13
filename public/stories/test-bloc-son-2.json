@@ -22,8 +22,8 @@
       "audioEvents": [
         {
           "action": "play",
-          "soundId": "11_CONTINES_-_Sweep_eqnvoh",
-          "volume": 1,
+          "soundId": "02_COMMISSARIAT_-_Tic-Tac_umaxtk",
+          "volume": 0.5,
           "delay": 0,
           "loop": false
         }
@@ -35,7 +35,7 @@
       "audioEvents": [
         {
           "action": "stop",
-          "soundId": "11_CONTINES_-_Sweep_eqnvoh"
+          "soundId": "02_COMMISSARIAT_-_Tic-Tac_umaxtk"
         }
       ]
     },
@@ -45,14 +45,14 @@
       "audioEvents": [
         {
           "action": "play",
-          "soundId": "02_COMMISSARIAT_-_Tic-Tac_umaxtk",
-          "volume": 1,
+          "soundId": "11_CONTINES_-_Sweep_eqnvoh",
+          "volume": 0.5,
           "delay": 0,
           "loop": false
         },
         {
           "action": "stop",
-          "soundId": "02_COMMISSARIAT_-_Tic-Tac_umaxtk"
+          "soundId": "11_CONTINES_-_Sweep_eqnvoh"
         }
       ]
     }
