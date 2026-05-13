@@ -113,20 +113,28 @@ function PublishPanel({
         })
       }
 
-      // Événement de fin : fadeOut ou stop (sur le segment de fin)
+      // Événement de fin : sur le segment SUIVANT la fin du bloc
       const resolvedEndIdx = endIdx === -1 ? startIdx : endIdx
-      if (track.fadeOut > 0) {
-        segmentsWithAudio[resolvedEndIdx].audioEvents.push({
-          action: 'fadeOut',
-          soundId: track.soundId,
-          duration: track.fadeOut
-        })
-      } else if (resolvedEndIdx !== startIdx || track.endSegmentId != null) {
-        // Ajouter stop seulement si le son a une fin explicite
-        segmentsWithAudio[resolvedEndIdx].audioEvents.push({
-          action: 'stop',
-          soundId: track.soundId
-        })
+      const stopIdx = resolvedEndIdx + 1
+
+      // N'ajouter un stop que s'il y a un segment suivant
+      // ET que le bloc a une fin explicite différente du début
+      if (
+        stopIdx < segmentsWithAudio.length &&
+        (resolvedEndIdx !== startIdx || track.endSegmentId != null)
+      ) {
+        if (track.fadeOut > 0) {
+          segmentsWithAudio[stopIdx].audioEvents.push({
+            action: 'fadeOut',
+            soundId: track.soundId,
+            duration: track.fadeOut
+          })
+        } else {
+          segmentsWithAudio[stopIdx].audioEvents.push({
+            action: 'stop',
+            soundId: track.soundId
+          })
+        }
       }
     })
 
