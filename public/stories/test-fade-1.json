@@ -1,0 +1,137 @@
+{
+  "id": "test-fade-1",
+  "title": "TEST FADE 1",
+  "author": "TEST FADE 1",
+  "published": true,
+  "sounds": [
+    {
+      "id": "02_COMMISSARIAT_-_Tic-Tac_umaxtk",
+      "url": "/sounds/02_COMMISSARIAT_-_Tic-Tac_umaxtk.mp3",
+      "loop": false
+    },
+    {
+      "id": "11_CONTINES_-_Sweep_eqnvoh",
+      "url": "/sounds/11_CONTINES_-_Sweep_eqnvoh.mp3",
+      "loop": false
+    },
+    {
+      "id": "12_LISE_-_Oiseaux_enz7jr",
+      "url": "/sounds/12_LISE_-_Oiseaux_enz7jr.mp3",
+      "loop": false
+    }
+  ],
+  "segments": [
+    {
+      "id": "seg_0",
+      "text": "TEST FADE 1TEST FADE 1TEST FADE 1,TEST FADE 1TEST FADE 1! TEST FADE 1TEST FADE 1!\nTEST FADE 1TEST FADE 1TEST FADE 1TEST FADE 1TEST FADE 1TEST FADE 1TEST FADE 1!",
+      "audioEvents": [
+        {
+          "action": "fadeIn",
+          "soundId": "02_COMMISSARIAT_-_Tic-Tac_umaxtk",
+          "volume": 0.5,
+          "duration": 2125,
+          "delay": 0,
+          "loop": false
+        }
+      ]
+    },
+    {
+      "id": "seg_1",
+      "text": "TEST FADE 1TEST FADE 1! TEST FADE 1TEST FADE 1! TEST F",
+      "audioEvents": []
+    },
+    {
+      "id": "seg_2",
+      "text": "ADE 1TEST FADE 1TEST FADE 1! TEST FADE 1TEST FADE 1",
+      "audioEvents": [
+        {
+          "action": "fadeOut",
+          "soundId": "02_COMMISSARIAT_-_Tic-Tac_umaxtk",
+          "duration": 11250
+        },
+        {
+          "action": "play",
+          "soundId": "11_CONTINES_-_Sweep_eqnvoh",
+          "volume": 0.5,
+          "delay": 0,
+          "loop": false
+        }
+      ]
+    },
+    {
+      "id": "seg_3",
+      "text": "TEST FADE 1TEST FADE 1TEST FADE 1TEST FADE 1TEST FADE 1",
+      "audioEvents": [
+        {
+          "action": "stop",
+          "soundId": "11_CONTINES_-_Sweep_eqnvoh"
+        },
+        {
+          "action": "fadeIn",
+          "soundId": "12_LISE_-_Oiseaux_enz7jr",
+          "volume": 0.5,
+          "duration": 5600,
+          "delay": 0,
+          "loop": false
+        }
+      ]
+    },
+    {
+      "id": "seg_4",
+      "text": "TEST FADE 1TEST FADE 1TEST FADE 1!",
+      "audioEvents": []
+    },
+    {
+      "id": "seg_5",
+      "text": "TEST FADE 1TEST FADE 1!",
+      "audioEvents": [
+        {
+          "action": "fadeOut",
+          "soundId": "12_LISE_-_Oiseaux_enz7jr",
+          "duration": 5600
+        }
+      ]
+    }
+  ],
+  "soundTracks": [
+    {
+      "id": "st_1778687239150_y15bepo0g",
+      "soundId": "02_COMMISSARIAT_-_Tic-Tac_umaxtk",
+      "startSegmentId": "segment_0",
+      "endSegmentId": "seg_1",
+      "column": 0,
+      "volume": 0.5,
+      "fadeIn": 2125,
+      "fadeOut": 11250,
+      "delay": 0,
+      "loop": false,
+      "muted": false
+    },
+    {
+      "id": "st_1778687245833_6ymktkw4w",
+      "soundId": "11_CONTINES_-_Sweep_eqnvoh",
+      "startSegmentId": "segment_2",
+      "endSegmentId": "segment_2",
+      "column": 2,
+      "volume": 0.5,
+      "fadeIn": 0,
+      "fadeOut": 0,
+      "delay": 0,
+      "loop": false,
+      "muted": false
+    },
+    {
+      "id": "st_1778687264601_oex78czgl",
+      "soundId": "12_LISE_-_Oiseaux_enz7jr",
+      "startSegmentId": "segment_3",
+      "endSegmentId": "seg_4",
+      "column": 3,
+      "volume": 0.5,
+      "fadeIn": 5600,
+      "fadeOut": 5600,
+      "delay": 0,
+      "loop": false,
+      "muted": false
+    }
+  ]
+}
