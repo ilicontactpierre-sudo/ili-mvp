@@ -163,7 +163,8 @@ function PublishPanel({
       author: author || 'Anonyme',
       published: true,
       sounds: usedSounds,
-      segments: segmentsWithAudio
+      segments: segmentsWithAudio,
+      soundTracks: soundTracks  // ← ajouter cette ligne
     }
   }
 
