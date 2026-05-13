@@ -28,5 +28,10 @@
     "id": "test-son-3",
     "title": "test son 3",
     "author": "test son 3"
+  },
+  {
+    "id": "test-son-pour-claude",
+    "title": "TEST SON POUR CLAUDE",
+    "author": "TEST SON POUR CLAUDE"
   }
 ]
