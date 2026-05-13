@@ -23,8 +23,8 @@
         {
           "action": "fadeIn",
           "soundId": "12_LISE_-_Oiseaux_enz7jr",
-          "volume": 1,
-          "duration": 3400,
+          "volume": 0.5,
+          "duration": 2746,
           "delay": 0,
           "loop": false
         }
@@ -33,32 +33,32 @@
     {
       "id": "seg_1",
       "text": "EST FADE BUG 3TEST FADE BUG 3TEST FADE BUG 3TEST FADE BUG 3TEST FADE BUG 3TEST FADE BUG 3TEST FADE BUG 3TEST FADE BUG 3T",
-      "audioEvents": [
-        {
-          "action": "fadeOut",
-          "soundId": "12_LISE_-_Oiseaux_enz7jr",
-          "duration": 3700
-        }
-      ]
+      "audioEvents": []
     },
     {
       "id": "seg_2",
       "text": "EST FADE BUG 3TEST FADE BUG 3TEST FADE BUG 3TEST FADE BUG 3TEST FADE BUG 3TEST FADE BUG 3TEST FADE BUG 3TEST FADE BU",
       "audioEvents": [
         {
-          "action": "fadeIn",
-          "soundId": "02_COMMISSARIAT_-_Tic-Tac_umaxtk",
-          "volume": 1,
-          "duration": 3944,
-          "delay": 0,
-          "loop": false
+          "action": "fadeOut",
+          "soundId": "12_LISE_-_Oiseaux_enz7jr",
+          "duration": 3451
         }
       ]
     },
     {
       "id": "seg_3",
       "text": "G 3TEST FADE BUG 3TEST FADE BUG 3TEST FADE BUG 3TEST FADE BUG 3TEST FADE BUG 3TES",
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "fadeIn",
+          "soundId": "02_COMMISSARIAT_-_Tic-Tac_umaxtk",
+          "volume": 0.5,
+          "duration": 4661,
+          "delay": 0,
+          "loop": false
+        }
+      ]
     },
     {
       "id": "seg_4",
@@ -67,7 +67,7 @@
         {
           "action": "fadeOut",
           "soundId": "02_COMMISSARIAT_-_Tic-Tac_umaxtk",
-          "duration": 3662
+          "duration": 4379
         }
       ]
     }
@@ -76,25 +76,25 @@
     {
       "id": "st_1778696159659_3ydhmj0w4",
       "soundId": "02_COMMISSARIAT_-_Tic-Tac_umaxtk",
-      "startSegmentId": "seg_2",
+      "startSegmentId": "seg_3",
       "endSegmentId": "seg_4",
       "column": 0,
-      "volume": 1,
-      "fadeIn": 3944,
-      "fadeOut": 3662,
+      "volume": 0.5,
+      "fadeIn": 4661,
+      "fadeOut": 4379,
       "delay": 0,
       "loop": false,
       "muted": false
     },
     {
-      "id": "st_1778697566926_u9612fsap",
+      "id": "st_1778697957189_h74f3e15g",
       "soundId": "12_LISE_-_Oiseaux_enz7jr",
       "startSegmentId": "seg_0",
-      "endSegmentId": "seg_1",
+      "endSegmentId": "seg_2",
       "column": 2,
-      "volume": 1,
-      "fadeIn": 3400,
-      "fadeOut": 3700,
+      "volume": 0.5,
+      "fadeIn": 2746,
+      "fadeOut": 3451,
       "delay": 0,
       "loop": false,
       "muted": false
