@@ -21,9 +21,10 @@
       "text": "TEST FADE 2TEST FADE 2TEST FADE 2TEST FADE 2TEST FADE 2! TEST FADE 2TEST FADE 2TEST FADE 2!\nTEST FADE 2TEST FA",
       "audioEvents": [
         {
-          "action": "play",
+          "action": "fadeIn",
           "soundId": "02_COMMISSARIAT_-_Tic-Tac_umaxtk",
           "volume": 1,
+          "duration": 4750,
           "delay": 0,
           "loop": false
         }
@@ -39,9 +40,15 @@
       "text": "TEST FADE 2TEST FADE 2TEST FADE 2TEST FADE 2TEST FADE 2! TEST FADE 2TEST FADE 2T",
       "audioEvents": [
         {
-          "action": "play",
+          "action": "fadeOut",
+          "soundId": "02_COMMISSARIAT_-_Tic-Tac_umaxtk",
+          "duration": 5000
+        },
+        {
+          "action": "fadeIn",
           "soundId": "12_LISE_-_Oiseaux_enz7jr",
           "volume": 1,
+          "duration": 3375,
           "delay": 0,
           "loop": false
         }
@@ -55,7 +62,13 @@
     {
       "id": "seg_4",
       "text": "2TEST FADE 2TEST FADE 2! TEST FADE 2TEST FADE 2TEST FADE 2!",
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "fadeOut",
+          "soundId": "12_LISE_-_Oiseaux_enz7jr",
+          "duration": 4250
+        }
+      ]
     }
   ],
   "soundTracks": [
@@ -66,8 +79,8 @@
       "endSegmentId": "seg_2",
       "column": 0,
       "volume": 1,
-      "fadeIn": 0,
-      "fadeOut": 0,
+      "fadeIn": 4750,
+      "fadeOut": 5000,
       "delay": 0,
       "loop": false,
       "muted": false
@@ -79,8 +92,8 @@
       "endSegmentId": "seg_4",
       "column": 2,
       "volume": 1,
-      "fadeIn": 0,
-      "fadeOut": 0,
+      "fadeIn": 3375,
+      "fadeOut": 4250,
       "delay": 0,
       "loop": false,
       "muted": false
