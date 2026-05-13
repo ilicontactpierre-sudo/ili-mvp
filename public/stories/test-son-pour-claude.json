@@ -1,0 +1,40 @@
+{
+  "id": "test-son-pour-claude",
+  "title": "TEST SON POUR CLAUDE",
+  "author": "TEST SON POUR CLAUDE",
+  "published": true,
+  "sounds": [
+    {
+      "id": "02_COMMISSARIAT_-_Tic-Tac_umaxtk",
+      "url": "/sounds/02_COMMISSARIAT_-_Tic-Tac_umaxtk.mp3",
+      "loop": false
+    },
+    {
+      "id": "11_CONTINES_-_Sweep_eqnvoh",
+      "url": "/sounds/11_CONTINES_-_Sweep_eqnvoh.mp3",
+      "loop": false
+    }
+  ],
+  "segments": [
+    {
+      "id": "seg_0",
+      "text": "TEST SON POUR CLAUDETEST SON POUR CLAUDETEST SON POUR CLAUDETEST SON POUR CL",
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1",
+      "text": "AUDETEST SON POUR CLAUDETEST SON POUR CLAUDETEST SON POUR CLAUDETEST SON POUR CLAUDETEST SON POUR CLAUD",
+      "audioEvents": []
+    },
+    {
+      "id": "seg_2",
+      "text": "ETEST SON POUR CLAUDETEST SON POUR CLAUDETEST SON POUR CLAUDETEST SON POUR CLAUDETEST SON POUR CLAUDETEST SON POUR CLAUDETEST SON POUR",
+      "audioEvents": []
+    },
+    {
+      "id": "seg_3",
+      "text": "CLAUDETEST SON POUR CLAUDE",
+      "audioEvents": []
+    }
+  ]
+}
