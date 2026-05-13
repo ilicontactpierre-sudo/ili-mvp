@@ -10,11 +10,6 @@
       "loop": false
     },
     {
-      "id": "11_CONTINES_-_Sweep_eqnvoh",
-      "url": "/sounds/11_CONTINES_-_Sweep_eqnvoh.mp3",
-      "loop": false
-    },
-    {
       "id": "12_LISE_-_Oiseaux_enz7jr",
       "url": "/sounds/12_LISE_-_Oiseaux_enz7jr.mp3",
       "loop": false
@@ -49,15 +44,7 @@
     {
       "id": "seg_2",
       "text": "ADE 1TEST FADE 1TEST FADE 1! TEST FADE 1TEST FADE 1",
-      "audioEvents": [
-        {
-          "action": "play",
-          "soundId": "11_CONTINES_-_Sweep_eqnvoh",
-          "volume": 0.5,
-          "delay": 0,
-          "loop": false
-        }
-      ]
+      "audioEvents": []
     },
     {
       "id": "seg_3",
@@ -100,19 +87,6 @@
       "volume": 0.5,
       "fadeIn": 2125,
       "fadeOut": 11250,
-      "delay": 0,
-      "loop": false,
-      "muted": false
-    },
-    {
-      "id": "st_1778687245833_6ymktkw4w",
-      "soundId": "11_CONTINES_-_Sweep_eqnvoh",
-      "startSegmentId": "segment_2",
-      "endSegmentId": "segment_2",
-      "column": 2,
-      "volume": 0.5,
-      "fadeIn": 0,
-      "fadeOut": 0,
       "delay": 0,
       "loop": false,
       "muted": false
