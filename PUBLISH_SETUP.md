@@ -8,7 +8,36 @@ Ce guide explique comment configurer la publication automatique des histoires IL
 2. **Déploiement Vercel** configuré pour le projet
 3. **Node.js** installé localement pour générer le Personal Access Token
 
-## 🚀 Étape 1 : Créer un Personal Access Token GitHub
+## 🚀 Commande de Publication Rapide
+
+Une fois la configuration terminée, utilise cette commande simple pour publier tes changements :
+
+```bash
+npm run publish
+```
+
+Ou directement avec le script shell :
+```bash
+./publish.sh
+```
+
+Tu peux aussi personnaliser le message de commit :
+```bash
+./publish.sh "feat: mon super changement"
+```
+
+**Ce que fait la commande :**
+1. ✅ Ajoute tous les fichiers modifiés (`git add .`)
+2. ✅ Crée un commit automatique
+3. ✅ Pousse vers la branche `main` sur GitHub
+4. ✅ Déclenche automatiquement le déploiement Vercel
+
+**Après la publication :**
+- ⏱️ Attends 1-2 minutes que Vercel déploie
+- 🔄 Rafraîchis ta page avec `Ctrl+Shift+R` (ou `Cmd+Shift+R` sur Mac)
+- 🌐 Vérifie le déploiement sur https://vercel.com/dashboard
+
+## � Étape 1 : Créer un Personal Access Token GitHub
 
 1. Va sur GitHub → Settings → Developer settings → Personal access tokens → Tokens (classic)
 2. Clique sur **Generate new token (classic)**
@@ -37,7 +66,7 @@ Ce guide explique comment configurer la publication automatique des histoires IL
 4. Pour chaque variable, coche **Production**, **Preview**, et **Development**
 5. Clique sur **Save** après chaque ajout
 
-## 🔄 Étape 3 : Redéploie Manuellement
+## �🔄 Étape 3 : Redéploie Manuellement
 
 Après avoir ajouté les variables d'environnement, tu dois redéployer manuellement :
 
