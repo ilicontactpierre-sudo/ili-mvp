@@ -22,9 +22,9 @@
       "audioEvents": [
         {
           "action": "fadeIn",
-          "soundId": "02_COMMISSARIAT_-_Tic-Tac_umaxtk",
+          "soundId": "12_LISE_-_Oiseaux_enz7jr",
           "volume": 0.5,
-          "duration": 2401,
+          "duration": 2641,
           "delay": 0,
           "loop": false
         }
@@ -36,8 +36,8 @@
       "audioEvents": [
         {
           "action": "fadeOut",
-          "soundId": "02_COMMISSARIAT_-_Tic-Tac_umaxtk",
-          "duration": 3531
+          "soundId": "12_LISE_-_Oiseaux_enz7jr",
+          "duration": 3697
         }
       ]
     },
@@ -47,9 +47,9 @@
       "audioEvents": [
         {
           "action": "fadeIn",
-          "soundId": "12_LISE_-_Oiseaux_enz7jr",
+          "soundId": "02_COMMISSARIAT_-_Tic-Tac_umaxtk",
           "volume": 0.5,
-          "duration": 2641,
+          "duration": 2401,
           "delay": 0,
           "loop": false
         }
@@ -58,26 +58,26 @@
     {
       "id": "seg_3",
       "text": "UG 4FADE BUG 4FADE B",
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "fadeOut",
+          "soundId": "02_COMMISSARIAT_-_Tic-Tac_umaxtk",
+          "duration": 3531
+        }
+      ]
     },
     {
       "id": "seg_4",
       "text": "UG 4FADE BUG 4FADE BUG 4FADE BUG 4! FADE BUG 4FADE BUG 4FADE BUG 4!",
-      "audioEvents": [
-        {
-          "action": "fadeOut",
-          "soundId": "12_LISE_-_Oiseaux_enz7jr",
-          "duration": 3697
-        }
-      ]
+      "audioEvents": []
     }
   ],
   "soundTracks": [
     {
       "id": "st_1778708055716_8iwel1wgv",
       "soundId": "02_COMMISSARIAT_-_Tic-Tac_umaxtk",
-      "startSegmentId": "segment_0",
-      "endSegmentId": "seg_1",
+      "startSegmentId": "seg_2",
+      "endSegmentId": "seg_3",
       "column": 0,
       "volume": 0.5,
       "fadeIn": 2401,
@@ -89,8 +89,8 @@
     {
       "id": "st_1778708064184_ml0xjgyx3",
       "soundId": "12_LISE_-_Oiseaux_enz7jr",
-      "startSegmentId": "segment_2",
-      "endSegmentId": "seg_4",
+      "startSegmentId": "seg_0",
+      "endSegmentId": "seg_1",
       "column": 3,
       "volume": 0.5,
       "fadeIn": 2641,
