@@ -5,13 +5,13 @@
   "published": true,
   "sounds": [
     {
-      "id": "02_COMMISSARIAT_-_Tic-Tac_umaxtk",
-      "url": "/sounds/02_COMMISSARIAT_-_Tic-Tac_umaxtk.mp3",
+      "id": "11_CONTINES_-_Sweep_eqnvoh",
+      "url": "/sounds/11_CONTINES_-_Sweep_eqnvoh.mp3",
       "loop": false
     },
     {
-      "id": "11_CONTINES_-_Sweep_eqnvoh",
-      "url": "/sounds/11_CONTINES_-_Sweep_eqnvoh.mp3",
+      "id": "12_LISE_-_Oiseaux_enz7jr",
+      "url": "/sounds/12_LISE_-_Oiseaux_enz7jr.mp3",
       "loop": false
     }
   ],
@@ -22,8 +22,8 @@
       "audioEvents": [
         {
           "action": "play",
-          "soundId": "02_COMMISSARIAT_-_Tic-Tac_umaxtk",
-          "volume": 0.5,
+          "soundId": "12_LISE_-_Oiseaux_enz7jr",
+          "volume": 1,
           "delay": 0,
           "loop": false
         }
@@ -35,7 +35,7 @@
       "audioEvents": [
         {
           "action": "stop",
-          "soundId": "02_COMMISSARIAT_-_Tic-Tac_umaxtk"
+          "soundId": "12_LISE_-_Oiseaux_enz7jr"
         }
       ]
     },
@@ -46,7 +46,7 @@
         {
           "action": "play",
           "soundId": "11_CONTINES_-_Sweep_eqnvoh",
-          "volume": 0.5,
+          "volume": 1,
           "delay": 0,
           "loop": false
         },
