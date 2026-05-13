@@ -76,10 +76,20 @@ function PublishPanel({
       if (track.muted) return
 
       // Trouver les index en comparant avec les IDs originaux des segments
-      const startIdx = segmentsWithAudio.findIndex(s => String(s.id) === String(track.startSegmentId))
-      const endIdx = track.endSegmentId != null
+      let startIdx = segmentsWithAudio.findIndex(s => String(s.id) === String(track.startSegmentId))
+      // Fallback : si l'ID est au format "segment_N" ou "seg_N", utiliser l'index N
+      if (startIdx === -1) {
+        const match = String(track.startSegmentId).match(/^seg(?:ment)?_(\d+)$/)
+        if (match) startIdx = parseInt(match[1], 10)
+      }
+
+      let endIdx = track.endSegmentId != null
         ? segmentsWithAudio.findIndex(s => String(s.id) === String(track.endSegmentId))
         : startIdx
+      if (endIdx === -1 && track.endSegmentId != null) {
+        const match = String(track.endSegmentId).match(/^seg(?:ment)?_(\d+)$/)
+        if (match) endIdx = parseInt(match[1], 10)
+      }
 
       if (startIdx === -1) return
 

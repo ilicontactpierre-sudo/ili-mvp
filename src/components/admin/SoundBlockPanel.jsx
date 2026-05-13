@@ -110,8 +110,8 @@ function SoundBlockPanel({
     const idx = segments.findIndex(s => s.id === segmentId || s._id === segmentId)
     if (idx !== -1) return idx
     
-    // Fallback: si segmentId est au format "segment_N", utiliser N comme index
-    const match = segmentId?.match(/^segment_(\d+)$/)
+    // Fallback: si segmentId est au format "segment_N" ou "seg_N", utiliser N comme index
+    const match = segmentId?.match(/^seg(?:ment)?_(\d+)$/)
     if (match) {
       const index = parseInt(match[1], 10)
       if (index >= 0 && index < segments.length) return index
@@ -382,11 +382,11 @@ function SoundBlockPanel({
                   // Si le nouveau début est après la fin actuelle, on ajuste la fin
                   if (newIndex >= currentEndIndex) {
                     const newEndIndex = Math.min(newIndex + 1, segments.length - 1)
-                    // Utiliser le format segment_N comme ID
-                    handleChange('endSegmentId', `segment_${newEndIndex}`)
+                    // Utiliser l'ID réel du segment
+                    handleChange('endSegmentId', segments[newEndIndex].id ?? `seg_${newEndIndex}`)
                   }
-                  // Utiliser le format segment_N comme ID
-                  handleChange('startSegmentId', `segment_${newIndex}`)
+                  // Utiliser l'ID réel du segment
+                  handleChange('startSegmentId', segments[newIndex].id ?? `seg_${newIndex}`)
                 }
               }}
               style={{ 
@@ -420,12 +420,12 @@ function SoundBlockPanel({
                   const newIndex = numValue - 1
                   // La fin doit être >= au début
                   if (newIndex >= startSegmentIndex) {
-                    // Utiliser le format segment_N comme ID
-                    handleChange('endSegmentId', `segment_${newIndex}`)
+                    // Utiliser l'ID réel du segment
+                    handleChange('endSegmentId', segments[newIndex].id ?? `seg_${newIndex}`)
                   } else {
                     // Si on met une fin avant le début, on ajuste le début aussi
-                    handleChange('endSegmentId', `segment_${newIndex}`)
-                    handleChange('startSegmentId', `segment_${newIndex}`)
+                    handleChange('endSegmentId', segments[newIndex].id ?? `seg_${newIndex}`)
+                    handleChange('startSegmentId', segments[newIndex].id ?? `seg_${newIndex}`)
                   }
                 }
               }}
