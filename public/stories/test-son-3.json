@@ -8,18 +8,25 @@
       "id": "02_COMMISSARIAT_-_Tic-Tac_umaxtk",
       "url": "/sounds/02_COMMISSARIAT_-_Tic-Tac_umaxtk.mp3",
       "loop": false
-    },
-    {
-      "id": "11_CONTINES_-_Sweep_eqnvoh",
-      "url": "/sounds/11_CONTINES_-_Sweep_eqnvoh.mp3",
-      "loop": false
     }
   ],
   "segments": [
     {
       "id": "seg_0",
       "text": "test son 3tes",
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "play",
+          "soundId": "02_COMMISSARIAT_-_Tic-Tac_umaxtk",
+          "volume": 0.5,
+          "delay": 0,
+          "loop": false
+        },
+        {
+          "action": "stop",
+          "soundId": "02_COMMISSARIAT_-_Tic-Tac_umaxtk"
+        }
+      ]
     },
     {
       "id": "seg_1",
