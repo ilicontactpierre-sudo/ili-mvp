@@ -19,7 +19,19 @@
     {
       "id": "seg_0",
       "text": "TEST BLOC SONTEST BLOC SONTEST BLOC SONTEST BLOC SONTEST BLOC SONTEST BLOC SONTEST BLOC SONTEST BLOC SONTEST BLOC SONTEST BLOC SONTEST BLOC SONTEST BLOC SON.",
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "play",
+          "soundId": "02_COMMISSARIAT_-_Tic-Tac_umaxtk",
+          "volume": 1,
+          "delay": 0,
+          "loop": false
+        },
+        {
+          "action": "stop",
+          "soundId": "02_COMMISSARIAT_-_Tic-Tac_umaxtk"
+        }
+      ]
     },
     {
       "id": "seg_1",
@@ -34,7 +46,19 @@
     {
       "id": "seg_3",
       "text": "EST BLOC SONTEST BLOC SONTEST BLOC SONTEST BLOC SONTEST BLOC SON",
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "play",
+          "soundId": "11_CONTINES_-_Sweep_eqnvoh",
+          "volume": 0.5,
+          "delay": 0,
+          "loop": false
+        },
+        {
+          "action": "stop",
+          "soundId": "11_CONTINES_-_Sweep_eqnvoh"
+        }
+      ]
     }
   ]
 }
