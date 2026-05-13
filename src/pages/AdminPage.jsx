@@ -430,7 +430,13 @@ function AdminPage() {
     const usedSoundIds = new Set(
       soundTracks.filter(t => !t.muted).map(t => t.soundId)
     )
-    const sounds = soundLibrary.filter(s => usedSoundIds.has(s.id))
+    const sounds = soundLibrary
+  .filter(s => usedSoundIds.has(s.id))
+  .map(s => ({
+    id: s.id,
+    url: s.url || (s.filename ? `/sounds/${s.filename}` : `/sounds/${s.id}.mp3`),
+    loop: s.loop || false,
+  }))
     
     return {
       title: storyTitle || 'Sans titre',
