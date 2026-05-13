@@ -43,5 +43,10 @@
     "id": "test-fade-1",
     "title": "TEST FADE 1",
     "author": "TEST FADE 1"
+  },
+  {
+    "id": "test-fade-2",
+    "title": "TEST FADE 2",
+    "author": "TEST FADE 2"
   }
 ]
