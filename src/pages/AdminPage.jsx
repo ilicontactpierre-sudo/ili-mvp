@@ -336,10 +336,69 @@ function AdminPage() {
   const handleLoadStory = (storyData) => {
     setStoryTitle(storyData.title || '')
     setStoryAuthor(storyData.author || '')
-    setStorySlug(storyData.slug || '')
-    setSegments(storyData.segments || [])
-    setSoundTracks(storyData.soundTracks || [])
-    
+    setStorySlug(storyData.id || storyData.slug || '')
+
+    // Normaliser les segments
+    const loadedSegments = (storyData.segments || []).map((seg, i) => ({
+      id: seg.id ?? `seg_${i}`,
+      text: seg.text || '',
+      audioEvents: seg.audioEvents || []
+    }))
+    setSegments(loadedSegments)
+
+    // Reconstruire soundTracks depuis sounds[] + audioEvents[]
+    // si soundTracks n'existe pas dans le JSON (cas JSON publié)
+    if (storyData.soundTracks && storyData.soundTracks.length > 0) {
+      setSoundTracks(storyData.soundTracks)
+    } else {
+      const reconstructed = []
+      const soundsMap = {}
+      ;(storyData.sounds || []).forEach(s => { soundsMap[s.id] = s })
+
+      // Parcourir les audioEvents de chaque segment pour reconstruire les blocs
+      const openTracks = {} // soundId -> track en cours
+
+      loadedSegments.forEach((seg, segIdx) => {
+        ;(seg.audioEvents || []).forEach(ev => {
+          if (ev.action === 'play' || ev.action === 'fadeIn') {
+            // Début d'un bloc son
+            openTracks[ev.soundId] = {
+              id: `track_${Date.now()}_${Math.random().toString(36).slice(2)}`,
+              soundId: ev.soundId,
+              startSegmentId: seg.id,
+              endSegmentId: seg.id, // sera mis à jour si on trouve un stop/fadeOut
+              volume: ev.volume ?? 0.5,
+              loop: ev.loop || soundsMap[ev.soundId]?.loop || false,
+              delay: ev.delay || 0,
+              fadeIn: ev.action === 'fadeIn' ? (ev.duration || 0) : 0,
+              fadeOut: 0,
+              muted: false,
+              column: 0
+            }
+          } else if (ev.action === 'stop' || ev.action === 'fadeOut') {
+            // Fin d'un bloc son
+            if (openTracks[ev.soundId]) {
+              openTracks[ev.soundId].endSegmentId = seg.id
+              if (ev.action === 'fadeOut') {
+                openTracks[ev.soundId].fadeOut = ev.duration || 0
+              }
+              reconstructed.push(openTracks[ev.soundId])
+              delete openTracks[ev.soundId]
+            }
+          }
+        })
+      })
+
+      // Sons sans événement de fin explicite : fermer au dernier segment
+      Object.values(openTracks).forEach(track => {
+        const lastSeg = loadedSegments[loadedSegments.length - 1]
+        track.endSegmentId = lastSeg?.id ?? track.startSegmentId
+        reconstructed.push(track)
+      })
+
+      setSoundTracks(reconstructed)
+    }
+
     // Afficher une confirmation
     alert('Histoire chargée dans l\'éditeur.\n\nLes modifications non sauvegardées ont été remplacées.')
     
