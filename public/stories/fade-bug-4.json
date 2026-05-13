@@ -58,6 +58,11 @@
     {
       "id": "seg_3",
       "text": "UG 4FADE BUG 4FADE B",
+      "audioEvents": []
+    },
+    {
+      "id": "seg_4",
+      "text": "UG 4FADE BUG 4FADE BUG 4FADE BUG 4! FADE BUG 4FADE BUG 4FADE BUG 4!",
       "audioEvents": [
         {
           "action": "fadeOut",
@@ -65,11 +70,6 @@
           "duration": 3697
         }
       ]
-    },
-    {
-      "id": "seg_4",
-      "text": "UG 4FADE BUG 4FADE BUG 4FADE BUG 4! FADE BUG 4FADE BUG 4FADE BUG 4!",
-      "audioEvents": []
     }
   ],
   "soundTracks": [
@@ -90,7 +90,7 @@
       "id": "st_1778708064184_ml0xjgyx3",
       "soundId": "12_LISE_-_Oiseaux_enz7jr",
       "startSegmentId": "segment_2",
-      "endSegmentId": "seg_3",
+      "endSegmentId": "seg_4",
       "column": 3,
       "volume": 0.5,
       "fadeIn": 2641,
