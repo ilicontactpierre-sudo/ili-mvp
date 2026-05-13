@@ -22,11 +22,6 @@ class AudioEngine {
     if (event.action === 'volume')  return this.setSoundVolume(event)
   }
 
-  _cancelActiveFade(howl) {
-    const current = howl.volume()
-    howl.fade(current, current, 1)
-  }
-
   playSound({ soundId, volume = 1, loop }) {
     if (!soundId || this.playingSounds.has(soundId)) return
     const howl = this.howlMap.get(soundId)
@@ -41,7 +36,7 @@ class AudioEngine {
     this._fadeTokens.delete(soundId)
     const soundState = this.playingSounds.get(soundId)
     if (soundState) {
-      this._cancelActiveFade(soundState.howl)
+      soundState.howl.off('fade')
       soundState.howl.stop()
       this.playingSounds.delete(soundId)
       return
@@ -55,11 +50,14 @@ class AudioEngine {
     const howl = this.howlMap.get(soundId)
     if (!howl) return
 
+    // Invalide tout fadeOut en attente
     const token = Symbol()
     this._fadeTokens.set(soundId, token)
 
+    // Retire les listeners fade existants pour éviter tout conflit
+    howl.off('fade')
+
     if (this.playingSounds.has(soundId)) {
-      this._cancelActiveFade(howl)
       const current = howl.volume()
       howl.fade(current, volume, duration)
     } else {
@@ -80,6 +78,10 @@ class AudioEngine {
 
     const token = Symbol()
     this._fadeTokens.set(soundId, token)
+
+    // Retire tous les listeners fade existants AVANT d'en poser un nouveau
+    // Cela évite que le listener capte un fade parasite (ex: annulation)
+    howl.off('fade')
 
     const fromVolume = howl.volume()
 
@@ -109,7 +111,7 @@ class AudioEngine {
   stopAll(duration = 0) {
     this._fadeTokens.clear()
     this.playingSounds.forEach(({ howl }) => {
-      this._cancelActiveFade(howl)
+      howl.off('fade')
       if (duration > 0) {
         const fromVolume = howl.volume()
         howl.once('fade', () => howl.stop())
