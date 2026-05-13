@@ -37,11 +37,43 @@ function StoryReader({ storyId, storyData, currentIndex = 0 }) {
   }, [storyId, storyData])
 
   // Utilise les segments du fichier chargé en mode 1
-  const finalSegments = storyData
+  const rawSegments = storyData
     ? segments
     : loadedStory
       ? loadedStory.segments || []
       : segments
+
+  const normalizeSegment = (segment, index) => {
+    if (segment && typeof segment.text === 'string') {
+      return segment
+    }
+
+    if (segment && typeof segment === 'object') {
+      const numericKeys = Object.keys(segment).filter((key) => String(Number(key)) === key)
+      if (numericKeys.length) {
+        const text = numericKeys
+          .sort((a, b) => Number(a) - Number(b))
+          .map((key) => segment[key])
+          .join('')
+
+        return {
+          id: segment.id ?? index,
+          text,
+          audioEvents: segment.audioEvents || [],
+          ...segment,
+        }
+      }
+    }
+
+    return {
+      id: segment?.id ?? index,
+      text: '',
+      audioEvents: segment?.audioEvents || [],
+      ...segment,
+    }
+  }
+
+  const finalSegments = rawSegments.map(normalizeSegment)
   const segmentRefs = useRef([])
   const [translateY, setTranslateY] = useState(0)
 

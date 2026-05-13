@@ -262,7 +262,7 @@ function StoryPage() {
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
     >
-      <StoryReader segments={segments} currentIndex={currentIndex} />
+      <StoryReader storyData={story} currentIndex={currentIndex} />
     </div>
   )
 }

@@ -557,8 +557,8 @@ function PublishPanel({
         />
       )}
 
-      {/* Export JSON manuel (action secondaire) */}
-      <div style={{ marginTop: '1.5rem' }}>
+      {/* Boutons d'export et publication rapide */}
+      <div style={{ marginTop: '1.5rem', display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
         <button
           onClick={handleGenerateJson}
           disabled={!segments.length || !slug}
@@ -570,6 +570,25 @@ function PublishPanel({
         >
           📋 Générer le JSON (export manuel)
         </button>
+        
+        {/* Bouton de publication rapide */}
+        {autoPublishStatus === 'idle' && (
+          <button
+            onClick={handleAutoPublish}
+            disabled={isPublishDisabled}
+            style={{
+              ...styles.button.secondary,
+              fontSize: '0.75rem',
+              padding: '0.5rem 1rem',
+              backgroundColor: isPublishDisabled ? 'rgba(255,255,255,0.06)' : 'rgba(40,167,69,0.2)',
+              color: isPublishDisabled ? 'rgba(255,255,255,0.7)' : 'rgba(40,167,69,0.9)',
+              border: isPublishDisabled ? '1px solid rgba(255,255,255,0.12)' : '1px solid rgba(40,167,69,0.3)'
+            }}
+            title="Publie l'histoire et la rend visible sur la page d'accueil"
+          >
+            ✨ Publier (visible sur l'accueil)
+          </button>
+        )}
       </div>
 
       {/* JSON généré */}
