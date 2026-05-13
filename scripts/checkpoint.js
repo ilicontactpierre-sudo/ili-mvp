@@ -26,7 +26,17 @@ function run(command) {
   return execSync(command, { stdio: 'inherit' })
 }
 
+function runOutput(command) {
+  return execSync(command, { encoding: 'utf8' }).trim()
+}
+
 const rl = readline.createInterface({ input, output })
+
+const currentBranch = runOutput('git branch --show-current')
+if (!currentBranch) {
+  console.error('Impossible de détecter la branche courante. Assurez-vous d’être sur une branche locale.')
+  process.exit(1)
+}
 
 const today = formatDate(new Date())
 const prefix = `ili-checkpoint-${today}`
@@ -59,7 +69,7 @@ rl.question(`Nom du checkpoint (sans le préfixe '${prefix}-') : `, (answer) => 
     run(`git tag -a ${tagName} -m "${tagMessage}"`)
 
     console.log('\nÉtape 4/4 : push vers origin')
-    run('git push origin HEAD')
+    run(`git push origin ${currentBranch}`)
     run(`git push origin ${tagName}`)
 
     console.log(`\nCheckpoint créé avec succès : ${tagName}`)
