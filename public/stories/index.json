@@ -43,5 +43,10 @@
     "id": "test-fade-bug-3",
     "title": "TEST FADE BUG 3",
     "author": "TEST FADE BUG 3"
+  },
+  {
+    "id": "fade-bug-4",
+    "title": "FADE BUG 4",
+    "author": "FADE BUG 4"
   }
 ]
