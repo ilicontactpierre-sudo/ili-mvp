@@ -191,7 +191,7 @@ function StoryPreviewModal({ isOpen, storyData, onClose }) {
           backgroundColor: 'var(--color-bg)',
           position: 'relative',
           animation: 'scaleIn 250ms ease'
-          fontSize: '14px',  
+          fontSize: '14px'  
         }}
       >
         <div style={{
