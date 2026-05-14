@@ -3,12 +3,12 @@
 :root {
   --color-bg: #0d0d0f;
   --color-text-focus: #ffffff;
-  --color-text-blur: rgba(255, 255, 255, 0.4);
+  --color-text-blur: rgba(255, 255, 255, 0.22);
   --font-primary: 'Lora', Georgia, 'Times New Roman', serif;
   --font-logo: 'Roboto', sans-serif;
-  --font-size-focus: clamp(2rem, 5.8vw, 2.65rem);
-  --font-size-blur: clamp(1.85rem, 5.3vw, 2.35rem);
-  --blur-amount: 1.8px;
+  --font-size-focus: clamp(1.6rem, 5vw, 2.4rem);
+  --font-size-blur: clamp(1.45rem, 4.5vw, 2.1rem);
+  --blur-amount: 3.5px;         /* était 1.8px */
   --transition-speed: 400ms;
   --segment-max-width: 680px;
 }

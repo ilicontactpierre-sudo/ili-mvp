@@ -42,7 +42,7 @@
 
 .story-reader__segment--blur {
   color: var(--color-text-blur);
-  opacity: 0.55;
-  transform: scale(0.93);
+  opacity: 0.45;
+  transform: scale(0.92);
   filter: blur(var(--blur-amount));
 }
