@@ -99,7 +99,8 @@ function StoryPreviewModal({ isOpen, storyData, onClose }) {
     }
 
     audioEngineRef.current.executeEvents(segments[currentIndex].audioEvents || [])
-  }, [currentIndex, isStarted, segments])
+  }, [currentIndex, isStarted])
+
 
   // Arrêter l'audio à la fin
   useEffect(() => {
@@ -168,9 +169,9 @@ function StoryPreviewModal({ isOpen, storyData, onClose }) {
   // Fermer le modal
   const handleClose = () => {
     audioEngineRef.current?.stopAll()
-    if (onClose) {
-      onClose()
-    }
+    audioEngineRef.current = null  // ← ajoute cette ligne
+    if (onClose) onClose()
+  }
   }
 
   // Recommencer depuis le début
