@@ -13,8 +13,8 @@
 .story-reader__segment {
   width: min(100%, var(--segment-max-width));
   margin: 0 auto;
-  padding: 0 1.25rem;
-  margin-bottom: clamp(1.4rem, 3vh, 2.2rem);
+  padding: 0 1.75rem;
+  margin-bottom: clamp(1.8rem, 4vh, 2.8rem);
   text-align: left;
   font-family: var(--font-primary);
   font-size: var(--font-size-focus);
@@ -42,7 +42,7 @@
 
 .story-reader__segment--blur {
   color: var(--color-text-blur);
-  opacity: 0.65;
-  transform: scale(0.94);
+  opacity: 0.55;
+  transform: scale(0.93);
   filter: blur(var(--blur-amount));
 }
