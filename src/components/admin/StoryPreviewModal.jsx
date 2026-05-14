@@ -183,17 +183,18 @@ function StoryPreviewModal({ isOpen, storyData, onClose }) {
 
       <div
         style={{
-          width: '375px', height: '667px',
+          width: '375px',
+          height: '667px',
           borderRadius: '44px',
           border: '8px solid #2a2a2a',
           boxShadow: '0 30px 80px rgba(0,0,0,0.9)',
           overflow: 'hidden',
           backgroundColor: 'var(--color-bg)',
           position: 'relative',
-          animation: 'scaleIn 250ms ease'
-          fontSize: '14px'  
+          animation: 'scaleIn 250ms ease',
         }}
       >
+        {/* Notch */}
         <div style={{
           position: 'absolute', top: 0, left: '50%',
           transform: 'translateX(-50%)',
@@ -204,8 +205,18 @@ function StoryPreviewModal({ isOpen, storyData, onClose }) {
           zIndex: 100
         }} />
 
+        {/* Contenu réduit — simule un vrai écran mobile dans le cadre */}
         <div
-          style={{ width: '100%', height: '100%', overflow: 'hidden' }}
+          style={{
+            width: '390px',
+            height: '844px',
+            transformOrigin: 'top left',
+            transform: 'scale(0.792)',  /* 375/390 ≈ 0.96 en largeur, 667/844 ≈ 0.79 en hauteur */
+            overflow: 'hidden',
+            position: 'absolute',
+            top: 0,
+            left: 0,
+          }}
           onClick={handleScreenClick}
           onTouchStart={handleTouchStart}
           onTouchEnd={handleTouchEnd}
