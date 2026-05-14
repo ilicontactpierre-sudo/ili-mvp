@@ -117,7 +117,6 @@ function StoryPreviewModal({ isOpen, storyData, onClose }) {
     if (event.target === event.currentTarget) {
       handleClose()
     }
-  }
 
   // Gestion du clic sur l'écran (navigation)
   const handleScreenClick = (event) => {
