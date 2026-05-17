@@ -1,10 +1,13 @@
 // ══════════════════════════════════════════════════════════════════════════════
 // segmentAlgorithm.js — Moteur de découpage narratif heuristique
-// Version 2.0 — Sans IA, sans random pur, sans magic numbers arbitraires
+// Version 2.1 — Sans IA, sans random pur, sans magic numbers arbitraires
 // ══════════════════════════════════════════════════════════════════════════════
 //
 // PIPELINE :
+//   0. normalizeText       → normalisation unicode (...→…, tirets, etc.)
 //   1. parseIntoUnits      → unités atomiques typées depuis le texte brut
+//                            RÈGLE : une ligne native = une unité (jamais coupée
+//                            en milieu de ligne sauf si > MAX_CHARS)
 //   2. scoreUnits          → score narratif par unité (isolation, tension, continuité)
 //   3. detectBeats         → détection des beats dramatiques (révélation, punchline…)
 //   4. composeSegments     → assemblage déterministe basé sur les scores et beats
@@ -15,7 +18,7 @@
 
 
 // ══════════════════════════════════════════════════════════════════════════════
-// CONFIG — toutes les constantes en un seul endroit, aucun magic number ailleurs
+// CONFIG
 // ══════════════════════════════════════════════════════════════════════════════
 
 const CONFIG = {
@@ -36,9 +39,6 @@ const CONFIG = {
 
   // Score d'isolation au-dessus duquel une unité est isolée (granularité ≤ 7)
   ISOLATION_THRESHOLD: 0.62,
-
-  // Nombre max de répliques de dialogue par segment
-  MAX_DIALOGUE_LINES_PER_SEGMENT: 2,
 
   // Nombre max d'unités d'accélération par segment
   MAX_ACCELERATION_UNITS: 2,
@@ -65,7 +65,6 @@ const CONFIG = {
   ],
 
   // Nombre max d'unités par segment selon la granularité (1→10)
-  // Calculé par : floor(1 + (g-1) * 0.78), plafonné à 10
   maxUnitsForGranularity(g) {
     return Math.min(10, Math.floor(1 + (g - 1) * 0.78))
   },
@@ -73,28 +72,56 @@ const CONFIG = {
 
 
 // ══════════════════════════════════════════════════════════════════════════════
-// TYPES — constantes de typage des unités et des beats
+// TYPES
 // ══════════════════════════════════════════════════════════════════════════════
 
 const UNIT_TYPE = {
-  CHAPTER_HEADER:  'chapter_header',   // "Chapitre X" ou "CHAPITRE X"
-  DIALOGUE_LINE:   'dialogue_line',    // commence par - ou —
-  DIALOGUE_QUOTE:  'dialogue_quote',   // contient « »
-  ENUMERATION:     'enumeration',      // liste avec ≥ 3 virgules ou puces
-  SCENE_END:       'scene_end',        // dernière unité avant PARAGRAPH_BREAK
-  SHORT_BEAT:      'short_beat',       // < VERY_SHORT_UNIT_THRESHOLD, action simple
-  NARRATIVE:       'narrative',        // narration standard
+  CHAPTER_HEADER: 'chapter_header',  // "Chapitre X" ou "CHAPITRE X"
+  DIALOGUE_LINE:  'dialogue_line',   // commence par - ou —
+  DIALOGUE_QUOTE: 'dialogue_quote',  // contient « »
+  ENUMERATION:    'enumeration',     // liste avec ≥ 3 virgules ou puces •
+  SCENE_END:      'scene_end',       // dernière unité avant PARAGRAPH_BREAK
+  SHORT_BEAT:     'short_beat',      // < VERY_SHORT_UNIT_THRESHOLD, action simple
+  NARRATIVE:      'narrative',       // narration standard
 }
 
 const BEAT_TYPE = {
-  REVELATION:   'revelation',    // info qui change tout — toujours seule
-  PUNCHLINE:    'punchline',     // chute courte après montée — toujours seule
-  BREATH:       'breath',        // respiration après densité — toujours seule
-  ACCELERATION: 'acceleration',  // séquence rapide — groupes de 1-2 unités
-  SCENE_CLOSE:  'scene_close',   // fermeture de scène — toujours seule
+  REVELATION:   'revelation',   // info qui change tout — toujours seule
+  PUNCHLINE:    'punchline',    // chute courte après montée — toujours seule
+  BREATH:       'breath',       // respiration après densité — toujours seule
+  ACCELERATION: 'acceleration', // séquence rapide — groupes de 1-2 unités
+  SCENE_CLOSE:  'scene_close',  // fermeture de scène — toujours seule
 }
 
 const PARAGRAPH_MARKER = '---PARAGRAPH_BREAK---'
+
+
+// ══════════════════════════════════════════════════════════════════════════════
+// PHASE 0 — NORMALISATION DU TEXTE
+// ══════════════════════════════════════════════════════════════════════════════
+
+/**
+ * Normalise le texte brut avant tout parsing.
+ *
+ * Règles :
+ *   - "..." (3 points ASCII) → "…" (ellipse Unicode, insécable)
+ *   - ".." (2 points)        → "…" (faute de frappe fréquente)
+ *   - Espaces multiples      → espace simple
+ *   - Trim de chaque ligne   (sans supprimer les sauts de ligne natifs)
+ */
+function normalizeText(text) {
+  return text
+    // Trois points ASCII → ellipse unicode (AVANT toute autre règle)
+    .replace(/\.{3,}/g, '…')
+    // Deux points ASCII consécutifs → ellipse
+    .replace(/\.{2}/g, '…')
+    // Espaces multiples sur une même ligne → espace simple
+    .replace(/[ \t]{2,}/g, ' ')
+    // Trim de chaque ligne sans supprimer les sauts de ligne
+    .split('\n')
+    .map(line => line.trim())
+    .join('\n')
+}
 
 
 // ══════════════════════════════════════════════════════════════════════════════
@@ -102,8 +129,18 @@ const PARAGRAPH_MARKER = '---PARAGRAPH_BREAK---'
 // ══════════════════════════════════════════════════════════════════════════════
 
 /**
- * Découpe le texte brut en unités atomiques (phrases) avec leurs métadonnées.
- * Retourne un tableau d'objets { text, type, isLastBeforeParagraphBreak }.
+ * Découpe le texte normalisé en unités atomiques.
+ *
+ * PRINCIPE FONDAMENTAL :
+ *   Une ligne native du texte = une unité atomique.
+ *   On ne découpe JAMAIS à l'intérieur d'une ligne sauf si elle dépasse
+ *   MAX_CHARS, auquel cas on coupe au dernier point de ponctuation valide
+ *   avant la limite — jamais en milieu de phrase.
+ *
+ *   Cela garantit :
+ *   - le respect des sauts de ligne natifs (dialogues, poésie, listes)
+ *   - l'absence de coupure en pleine phrase
+ *   - la préservation des ellipses (normalisées en …)
  */
 function parseIntoUnits(text) {
   const rawUnits = []
@@ -117,30 +154,41 @@ function parseIntoUnits(text) {
     const lines = paragraph.split('\n')
 
     for (const line of lines) {
-      if (!line.trim()) continue
+      const trimmed = line.trim()
+      if (!trimmed) continue
 
-      const phrases = splitIntoPhrases(line.trim())
-      for (const phrase of phrases) {
-        if (phrase.trim()) {
-          rawUnits.push(phrase.trim())
-        }
+      // Ligne dans la limite → unité unique (cas normal)
+      const isDialogueLine = /^[-—]/.test(trimmed)
+
+// Les lignes de dialogue ne sont JAMAIS coupées (sauf si > MAX_CHARS, auquel
+// cas splitLongLine coupe au dernier point valide = "le plus tardivement possible")
+      if (trimmed.length <= CONFIG.MAX_CHARS || isDialogueLine) {
+        rawUnits.push(trimmed)
+        continue
+      }
+
+      const chunks = splitLongLine(trimmed)
+      for (const chunk of chunks) {
+        if (chunk.trim()) rawUnits.push(chunk.trim())
       }
     }
 
     rawUnits.push(PARAGRAPH_MARKER)
   }
 
-  // Retirer le dernier marqueur de paragraphe
-  if (rawUnits.length > 0 && rawUnits[rawUnits.length - 1] === PARAGRAPH_MARKER) {
+  // Retirer les marqueurs de paragraphe en fin de tableau
+  while (
+    rawUnits.length > 0 &&
+    rawUnits[rawUnits.length - 1] === PARAGRAPH_MARKER
+  ) {
     rawUnits.pop()
   }
 
-  // Typer chaque unité en connaissant son contexte (suivante = marqueur ?)
+  // Typer chaque unité
   const typedUnits = []
   for (let i = 0; i < rawUnits.length; i++) {
     const raw = rawUnits[i]
-
-    if (raw === PARAGRAPH_MARKER) continue // on ne garde pas les marqueurs
+    if (raw === PARAGRAPH_MARKER) continue
 
     const isLastBeforeParagraphBreak =
       rawUnits[i + 1] === PARAGRAPH_MARKER || i === rawUnits.length - 1
@@ -149,64 +197,117 @@ function parseIntoUnits(text) {
       text: raw,
       type: classifyUnit(raw, isLastBeforeParagraphBreak),
       isLastBeforeParagraphBreak,
-      scores: null, // rempli en phase 2
+      scores: null,
     })
   }
 
-  return typedUnits
+  return mergeFragments(typedUnits)
 }
 
 /**
- * Découpe une ligne en phrases atomiques en respectant les guillemets « ».
- * Points de coupure : . ! ? … ; : (sauf à l'intérieur de « »)
+ * Fusionne les unités-fragments avec l'unité suivante.
+ * Un fragment = unité ne se terminant pas par une ponctuation de fin de phrase.
+ * Itère jusqu'à ce qu'il n'y ait plus de fragments internes.
+ *
+ * Règles :
+ *  - Ne fusionne JAMAIS à travers une frontière de paragraphe
+ *  - Ne fusionne JAMAIS un en-tête de chapitre
+ *  - Fusionne tant que des fragments existent (chaînes de fragments gérées)
  */
-function splitIntoPhrases(line) {
-  const phrases = []
-  let current = ''
-  let inQuotes = false
-  let i = 0
+function mergeFragments(typedUnits) {
+  const isSentenceEnd = (text) =>
+    /[.!?…;:»'")\]]$/.test(text.trim())
 
-  while (i < line.length) {
-    const char = line[i]
+  let units = typedUnits
+  let changed = true
 
-    if (char === '«') {
-      inQuotes = true
-      current += char
-      i++
-      continue
+  while (changed) {
+    changed = false
+    const result = []
+    let i = 0
+
+    while (i < units.length) {
+      const unit = units[i]
+
+      const isFragment =
+        !isSentenceEnd(unit.text) &&
+        !unit.isLastBeforeParagraphBreak &&
+        unit.type !== UNIT_TYPE.CHAPTER_HEADER
+
+      if (isFragment && i + 1 < units.length) {
+        const next = units[i + 1]
+        const mergedText = unit.text + ' ' + next.text
+
+        result.push({
+          text: mergedText,
+          type: classifyUnit(mergedText, next.isLastBeforeParagraphBreak),
+          isLastBeforeParagraphBreak: next.isLastBeforeParagraphBreak,
+          scores: null,
+        })
+
+        i += 2
+        changed = true
+      } else {
+        result.push(unit)
+        i++
+      }
     }
 
-    if (char === '»') {
-      inQuotes = false
-      current += char
-      i++
-      continue
-    }
-
-    if (inQuotes) {
-      current += char
-      i++
-      continue
-    }
-
-    if ('.!?…;:'.includes(char)) {
-      current += char
-      const trimmed = current.trim()
-      if (trimmed) phrases.push(trimmed)
-      current = ''
-      i++
-      // Sauter les espaces après la ponctuation
-      while (i < line.length && line[i] === ' ') i++
-      continue
-    }
-
-    current += char
-    i++
+    units = result
   }
 
-  if (current.trim()) phrases.push(current.trim())
+  return units
+}
+/**
+ * Coupe une ligne trop longue (> MAX_CHARS) au dernier point de ponctuation
+ * valide avant la limite. Ne coupe jamais en milieu de mot.
+ *
+ * Ponctuation de coupure valide : . ! ? ; suivi d'un espace ou fin de chaîne.
+ * Les ellipses (…) ne sont PAS des points de coupure — elles font partie
+ * du flux de la phrase.
+ */
+function splitLongLine(line) {
+  const chunks = []
+  let remaining = line
 
-  return phrases
+  while (remaining.length > CONFIG.MAX_CHARS) {
+    let bestCut = -1
+
+    // Chercher le dernier point de coupure valide avant MAX_CHARS
+    for (let i = CONFIG.MAX_CHARS - 1; i >= 1; i--) {
+      const char = remaining[i]
+      const next = remaining[i + 1]
+
+      // Ponctuation forte (hors ellipse) suivie d'espace ou fin → coupure valide
+      if (
+        '.!?;'.includes(char) &&
+        remaining[i - 1] !== '.' &&
+        remaining[i - 1] !== '…' &&   // ne pas couper juste après une ellipse
+        (next === ' ' || next === undefined)
+      ) {
+        bestCut = i + 1
+        break
+      }
+    }
+
+    if (bestCut <= 0) {
+      // Aucun point de coupure valide → coupure au dernier espace (dernier recours)
+      let spacePos = -1
+      for (let i = CONFIG.MAX_CHARS - 1; i >= 0; i--) {
+        if (remaining[i] === ' ') {
+          spacePos = i
+          break
+        }
+      }
+      bestCut = spacePos > 0 ? spacePos : CONFIG.MAX_CHARS
+    }
+
+    chunks.push(remaining.substring(0, bestCut).trim())
+    remaining = remaining.substring(bestCut).trim()
+  }
+
+  if (remaining) chunks.push(remaining)
+  return chunks
 }
 
 /**
@@ -220,12 +321,12 @@ function classifyUnit(text, isLastBeforeParagraphBreak) {
     return UNIT_TYPE.CHAPTER_HEADER
   }
 
-  // Réplique de dialogue (tiret ou em-dash en début)
+  // Réplique de dialogue : commence par - ou — (tiret de dialogue français)
   if (/^[-—]/.test(t)) {
     return UNIT_TYPE.DIALOGUE_LINE
   }
 
-  // Dialogue entre guillemets
+  // Dialogue entre guillemets « »
   if (t.includes('«') && t.includes('»')) {
     return UNIT_TYPE.DIALOGUE_QUOTE
   }
@@ -241,7 +342,7 @@ function classifyUnit(text, isLastBeforeParagraphBreak) {
     return UNIT_TYPE.SCENE_END
   }
 
-  // Coup court isolable : très court + ponctuation forte
+  // Beat court : très court + ponctuation conclusive
   if (t.length < CONFIG.VERY_SHORT_UNIT_THRESHOLD && /[.!?…]$/.test(t)) {
     return UNIT_TYPE.SHORT_BEAT
   }
@@ -263,6 +364,7 @@ function classifyUnit(text, isLastBeforeParagraphBreak) {
  */
 function scoreUnit(unit, index, allUnits) {
   const t = unit.text.trim()
+  const tLower = t.toLowerCase()
   const prev = allUnits[index - 1] || null
   const next = allUnits[index + 1] || null
 
@@ -275,42 +377,47 @@ function scoreUnit(unit, index, allUnits) {
   }
 
   // Verbe d'action simple (frappe dramatique)
-  if (CONFIG.ACTION_VERBS.some(v => t.toLowerCase().includes(v))) {
+  if (CONFIG.ACTION_VERBS.some(v => tLower.includes(v))) {
     isolation += 0.30
   }
 
   // Ponctuation émotionnelle forte
   if (/[!?…]$/.test(t)) isolation += 0.15
 
-  // Révélation : contenu court après deux-points ou tiret
-  if (/[:—]\s/.test(t) && t.length < 90) isolation += 0.20
+  // Révélation : contenu court après deux-points
+  if (/:\s/.test(t) && t.length < 90) isolation += 0.20
 
   // Dialogue
-  if (unit.type === UNIT_TYPE.DIALOGUE_LINE) isolation += 0.30
+  if (unit.type === UNIT_TYPE.DIALOGUE_LINE) isolation += 0.25
   if (unit.type === UNIT_TYPE.DIALOGUE_QUOTE) isolation += 0.15
 
-  // Fin de scène (fermeture de paragraphe)
+  // Fin de scène
   if (unit.type === UNIT_TYPE.SCENE_END) isolation += 0.50
 
   // En-tête de chapitre : isolation totale
   if (unit.type === UNIT_TYPE.CHAPTER_HEADER) isolation = 1.0
 
   // Très court après très long : pic de tension visuel
-  if (prev && prev.text.length > CONFIG.LONG_UNIT_THRESHOLD &&
-      t.length < CONFIG.VERY_SHORT_UNIT_THRESHOLD) {
+  if (
+    prev &&
+    prev.text.length > CONFIG.LONG_UNIT_THRESHOLD &&
+    t.length < CONFIG.VERY_SHORT_UNIT_THRESHOLD
+  ) {
     isolation += 0.30
   }
 
   // ── TENSION ────────────────────────────────────────────────────────────────
   let tension = 0
 
-  const tLower = t.toLowerCase()
   const tensionMatches = CONFIG.TENSION_WORDS.filter(w => tLower.includes(w))
   tension += Math.min(tensionMatches.length * 0.18, 0.54)
 
   // Phrase courte après longue = pic de tension
-  if (prev && prev.text.length > CONFIG.LONG_UNIT_THRESHOLD &&
-      t.length < CONFIG.SHORT_UNIT_THRESHOLD) {
+  if (
+    prev &&
+    prev.text.length > CONFIG.LONG_UNIT_THRESHOLD &&
+    t.length < CONFIG.SHORT_UNIT_THRESHOLD
+  ) {
     tension += 0.28
   }
 
@@ -323,7 +430,7 @@ function scoreUnit(unit, index, allUnits) {
   // Se termine par virgule ou deux-points → appartient à la suite
   if (/[,:]$/.test(t)) continuity += 0.55
 
-  // Commence par une conjonction de coordination ou subordination
+  // Commence par une conjonction
   if (CONFIG.CONTINUITY_CONJUNCTIONS.some(c => tLower.startsWith(c))) {
     continuity += 0.45
   }
@@ -337,14 +444,17 @@ function scoreUnit(unit, index, allUnits) {
   }
 
   // Un dialogue ne continue pas vers de la narration
-  if (unit.type === UNIT_TYPE.DIALOGUE_LINE && next &&
-      next.type === UNIT_TYPE.NARRATIVE) {
+  if (
+    unit.type === UNIT_TYPE.DIALOGUE_LINE &&
+    next &&
+    next.type === UNIT_TYPE.NARRATIVE
+  ) {
     continuity = Math.max(0, continuity - 0.40)
   }
 
   return {
-    isolation: Math.min(isolation, 1),
-    tension:   Math.min(tension, 1),
+    isolation:  Math.min(isolation, 1),
+    tension:    Math.min(tension, 1),
     continuity: Math.min(continuity, 1),
   }
 }
@@ -366,7 +476,6 @@ function scoreUnits(typedUnits) {
 
 /**
  * Retourne une Map<index, BEAT_TYPE> indiquant le beat de chaque unité concernée.
- * Une unité sans beat n'est pas dans la Map.
  */
 function detectBeats(scoredUnits) {
   const beats = new Map()
@@ -382,22 +491,23 @@ function detectBeats(scoredUnits) {
       continue
     }
 
-    // ── EN-TÊTE DE CHAPITRE — isolé systématiquement
+    // ── EN-TÊTE DE CHAPITRE
     if (u.type === UNIT_TYPE.CHAPTER_HEADER) {
       beats.set(i, BEAT_TYPE.REVELATION)
       continue
     }
 
-    // ── RÉVÉLATION : isolation élevée + après une longue unité
+    // ── RÉVÉLATION : isolation élevée + après longue unité
     if (
       u.scores.isolation > 0.70 &&
-      prev && prev.text.length > CONFIG.LONG_UNIT_THRESHOLD
+      prev &&
+      prev.text.length > CONFIG.LONG_UNIT_THRESHOLD
     ) {
       beats.set(i, BEAT_TYPE.REVELATION)
       continue
     }
 
-    // ── PUNCHLINE : très court + tension + type SHORT_BEAT
+    // ── PUNCHLINE : très court + tension + SHORT_BEAT
     if (
       u.type === UNIT_TYPE.SHORT_BEAT &&
       u.scores.tension > 0.35 &&
@@ -407,7 +517,7 @@ function detectBeats(scoredUnits) {
       continue
     }
 
-    // ── RESPIRATION : après N segments longs consécutifs, unité courte
+    // ── RESPIRATION : après N unités longues consécutives, unité courte
     if (i >= CONFIG.CONSECUTIVE_LONG_BEFORE_BREATH) {
       const precedingUnits = scoredUnits.slice(
         i - CONFIG.CONSECUTIVE_LONG_BEFORE_BREATH,
@@ -422,11 +532,12 @@ function detectBeats(scoredUnits) {
       }
     }
 
-    // ── ACCÉLÉRATION : séquences d'énumérations ou de courts consécutifs
+    // ── ACCÉLÉRATION : énumérations ou courts consécutifs
     if (
       u.type === UNIT_TYPE.ENUMERATION ||
       (u.text.length < CONFIG.SHORT_UNIT_THRESHOLD &&
-        next && next.text.length < CONFIG.SHORT_UNIT_THRESHOLD)
+        next &&
+        next.text.length < CONFIG.SHORT_UNIT_THRESHOLD)
     ) {
       beats.set(i, BEAT_TYPE.ACCELERATION)
     }
@@ -445,11 +556,12 @@ function detectBeats(scoredUnits) {
  * Retourne un tableau de tableaux d'unités : Array<Array<ScoredUnit>>
  *
  * Règles de priorité (dans l'ordre) :
- *   1. REVELATION / PUNCHLINE / SCENE_CLOSE / CHAPTER_HEADER → toujours seuls
+ *   1. REVELATION / PUNCHLINE / SCENE_CLOSE → toujours seuls
  *   2. BREATH → toujours seul
- *   3. DIALOGUE_LINE → regroupe les répliques consécutives (max 2)
- *   4. isolation > seuil (et granularité ≤ 7) → seul
- *   5. ACCELERATION → groupes de 1-2 unités
+ *   3. DIALOGUE_LINE → toujours seul (jamais fusionné avec une autre réplique
+ *      ou de la narration). Si > MAX_CHARS : déjà coupé en phase parsing.
+ *   4. isolation > seuil (granularité ≤ 7) → seul
+ *   5. ACCELERATION → groupes de 1-2 unités (sans dialogue)
  *   6. NARRATIVE → regroupement jusqu'à maxUnitsPerSegment
  */
 function composeSegments(scoredUnits, beats, granularity) {
@@ -458,6 +570,26 @@ function composeSegments(scoredUnits, beats, granularity) {
   let i = 0
 
   while (i < scoredUnits.length) {
+    // Ajouter EN TÊTE du while de la règle 6, avant tous les "if ... break" :
+
+// ── SÉCURITÉ FRAGMENT ──────────────────────────────────────────────────
+// Si le dernier élément du groupe est un fragment (pas de ponctuation de fin),
+// on force la fusion — les conditions normales de break ne s'appliquent pas.
+const lastInGroup = group.length > 0 ? group[group.length - 1] : null
+const prevIsFragment =
+  lastInGroup !== null &&
+  !/[.!?…;:»'")\]]$/.test(lastInGroup.text.trim())
+
+if (prevIsFragment) {
+  const totalCharsF = group.reduce((sum, gu) => sum + gu.text.length + 1, 0)
+  if (totalCharsF + current.text.length <= CONFIG.MAX_CHARS) {
+    group.push(current)
+    i++
+    continue  // ne pas évaluer les breaks normaux
+  }
+  // Si vraiment trop long, on accepte la coupure (cas extrême)
+}
+// ── FIN SÉCURITÉ FRAGMENT ──────────────────────────────────────────────
     const u = scoredUnits[i]
     const beat = beats.get(i)
 
@@ -479,38 +611,12 @@ function composeSegments(scoredUnits, beats, granularity) {
       continue
     }
 
-    // ── RÈGLE 3 : dialogues → regroupe les répliques consécutives (max 2) ──
+    // ── RÈGLE 3 : dialogue → toujours seul ─────────────────────────────────
+    // Une réplique de dialogue ne se fusionne jamais avec quoi que ce soit.
+    // Si elle dépasse MAX_CHARS, elle a déjà été découpée en parsing.
     if (u.type === UNIT_TYPE.DIALOGUE_LINE) {
-      const dialogueGroup = []
-
-      while (
-        i < scoredUnits.length &&
-        scoredUnits[i].type === UNIT_TYPE.DIALOGUE_LINE &&
-        dialogueGroup.length < CONFIG.MAX_DIALOGUE_LINES_PER_SEGMENT
-      ) {
-        // Ne pas inclure une unité qui a un beat fort
-        const currentBeat = beats.get(i)
-        if (
-          dialogueGroup.length > 0 &&
-          (currentBeat === BEAT_TYPE.REVELATION ||
-            currentBeat === BEAT_TYPE.PUNCHLINE ||
-            currentBeat === BEAT_TYPE.SCENE_CLOSE)
-        ) {
-          break
-        }
-
-        // Vérifier MAX_CHARS
-        const totalChars = dialogueGroup.reduce(
-          (sum, du) => sum + du.text.length + 1,
-          0
-        )
-        if (totalChars + scoredUnits[i].text.length > CONFIG.MAX_CHARS) break
-
-        dialogueGroup.push(scoredUnits[i])
-        i++
-      }
-
-      segments.push(dialogueGroup)
+      segments.push([u])
+      i++
       continue
     }
 
@@ -521,7 +627,7 @@ function composeSegments(scoredUnits, beats, granularity) {
       continue
     }
 
-    // ── RÈGLE 5 : accélération → groupes courts ────────────────────────────
+    // ── RÈGLE 5 : accélération → groupes courts (sans dialogue) ───────────
     if (beat === BEAT_TYPE.ACCELERATION) {
       const accelGroup = []
 
@@ -530,18 +636,20 @@ function composeSegments(scoredUnits, beats, granularity) {
         beats.get(i) === BEAT_TYPE.ACCELERATION &&
         accelGroup.length < Math.min(CONFIG.MAX_ACCELERATION_UNITS, maxUnits)
       ) {
+        const cur = scoredUnits[i]
+        if (cur.type === UNIT_TYPE.DIALOGUE_LINE) break
+
         const totalChars = accelGroup.reduce(
           (sum, au) => sum + au.text.length + 1,
           0
         )
-        if (totalChars + scoredUnits[i].text.length > CONFIG.MAX_CHARS) break
+        if (totalChars + cur.text.length > CONFIG.MAX_CHARS) break
 
-        accelGroup.push(scoredUnits[i])
+        accelGroup.push(cur)
         i++
       }
 
       if (accelGroup.length === 0) {
-        // Sécurité : ne jamais bloquer
         segments.push([u])
         i++
       } else {
@@ -567,12 +675,10 @@ function composeSegments(scoredUnits, beats, granularity) {
         break
       }
 
-      // Stop si on passe à un dialogue (rupture de type)
-      if (group.length > 0 && current.type === UNIT_TYPE.DIALOGUE_LINE) {
-        break
-      }
+      // Stop si dialogue
+      if (current.type === UNIT_TYPE.DIALOGUE_LINE) break
 
-      // Stop si isolation élevée (sauf en granularité > 7)
+      // Stop si isolation élevée sur une unité autre que la première
       if (
         group.length > 0 &&
         current.scores.isolation >= CONFIG.ISOLATION_THRESHOLD &&
@@ -583,9 +689,9 @@ function composeSegments(scoredUnits, beats, granularity) {
 
       // Stop si continuité faible entre deux unités consécutives
       if (group.length > 0) {
-        const prev = group[group.length - 1]
+        const prevUnit = group[group.length - 1]
         if (
-          prev.scores.continuity < 0.20 &&
+          prevUnit.scores.continuity < 0.20 &&
           current.scores.continuity < 0.20
         ) {
           break
@@ -604,7 +710,7 @@ function composeSegments(scoredUnits, beats, granularity) {
     }
 
     if (group.length === 0) {
-      // Sécurité : ne jamais bloquer sur un cycle sans avancement
+      // Sécurité : ne jamais bloquer
       segments.push([u])
       i++
     } else {
@@ -622,11 +728,10 @@ function composeSegments(scoredUnits, beats, granularity) {
 
 /**
  * Vérifie le rythme global et insère des respirations si nécessaire.
- * Ne modifie jamais les segments beats forts (REVELATION, PUNCHLINE, SCENE_CLOSE).
  *
  * Règle : après N segments longs consécutifs, si le segment suivant est
- * lui-même long ET divisible (≥ 2 unités), on le sépare pour créer
- * une respiration naturelle.
+ * lui-même long ET divisible (≥ 2 unités sans beat fort ni dialogue),
+ * on le sépare pour créer une respiration naturelle.
  */
 function enforceRhythmCadence(segments) {
   const result = []
@@ -636,7 +741,6 @@ function enforceRhythmCadence(segments) {
     const group = segments[i]
     const totalChars = group.reduce((sum, u) => sum + u.text.length, 0)
     const isLong = totalChars > CONFIG.LONG_UNIT_THRESHOLD
-    const isShort = totalChars < CONFIG.SHORT_UNIT_THRESHOLD
 
     if (isLong) {
       consecutiveLong++
@@ -653,21 +757,20 @@ function enforceRhythmCadence(segments) {
     ) {
       const nextGroup = segments[i + 1]
 
-      // Ne pas toucher aux groupes d'une seule unité ou aux beats forts
       if (nextGroup.length >= 2) {
-        // Vérifier qu'aucune unité du nextGroup n'est un beat fort
-        const hasStrongBeat = nextGroup.some(u =>
-          u.type === UNIT_TYPE.SCENE_END ||
-          u.type === UNIT_TYPE.CHAPTER_HEADER
+        const hasProtectedUnit = nextGroup.some(
+          u =>
+            u.type === UNIT_TYPE.SCENE_END ||
+            u.type === UNIT_TYPE.CHAPTER_HEADER ||
+            u.type === UNIT_TYPE.DIALOGUE_LINE
         )
 
-        if (!hasStrongBeat) {
-          // Sépare en deux : [première unité] + [reste]
+        if (!hasProtectedUnit) {
           result.push([nextGroup[0]])
           if (nextGroup.length > 1) {
             result.push(nextGroup.slice(1))
           }
-          i++ // Sauter le segment qu'on vient de splitter
+          i++
           consecutiveLong = 0
         }
       }
@@ -685,12 +788,12 @@ function enforceRhythmCadence(segments) {
 /**
  * Convertit chaque groupe d'unités en string final.
  * Les unités d'un même groupe sont jointes par un espace.
- * Filtre les segments vides.
+ * Filtre les segments vides ou réduits à de la ponctuation seule.
  */
 function serializeSegments(composedSegments) {
   return composedSegments
     .map(group => group.map(u => u.text).join(' ').trim())
-    .filter(s => s.length > 0)
+    .filter(s => s.length > 0 && /[a-zA-ZÀ-ÿ\u0100-\u024F]/.test(s))
 }
 
 
@@ -711,8 +814,11 @@ export function segmentText(text, granularity = 5) {
   // Clamp la granularité entre 1 et 10
   const g = Math.max(1, Math.min(10, Math.round(granularity)))
 
-  // Phase 1 : parsing typé
-  const typedUnits = parseIntoUnits(text)
+  // Phase 0 : normalisation unicode et typographique
+  const normalized = normalizeText(text)
+
+  // Phase 1 : parsing typé (une ligne native = une unité)
+  const typedUnits = parseIntoUnits(normalized)
   if (typedUnits.length === 0) return []
 
   // Phase 2 : scoring narratif
