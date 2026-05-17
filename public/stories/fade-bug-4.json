@@ -18,7 +18,7 @@
   "segments": [
     {
       "id": "seg_0",
-      "text": "FADE BUG 4FADE BUG 4FADE BUG 4FADE BUG 4FADE BUG 4! FADE BUG 4FADE BUG 4FADE BUG 4FADE BUG 4! FADE BUG 4FADE BUG 4FADE",
+      "text": "FADE BUG 4FADE\n\n BUG 4FADE B",
       "audioEvents": [
         {
           "action": "fadeIn",
@@ -29,6 +29,16 @@
           "loop": false
         }
       ]
+    },
+    {
+      "id": "seg_0",
+      "text": "UG 4FADE BUG 4FADE BUG 4! FADE BUG 4FADE BUG 4FADE BUG 4FADE BUG 4! FADE BUG 4FADE BUG 4FAD",
+      "audioEvents": []
+    },
+    {
+      "id": "seg_0",
+      "text": "E",
+      "audioEvents": []
     },
     {
       "id": "seg_1",
@@ -57,7 +67,7 @@
     },
     {
       "id": "seg_3",
-      "text": "UG 4FADE BUG 4FADE B",
+      "text": "12345678",
       "audioEvents": [
         {
           "action": "fadeOut",
