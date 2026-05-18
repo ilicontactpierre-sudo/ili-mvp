@@ -771,7 +771,6 @@ function UnifiedSegmentsTimeline({
   const [selectedVfxId, setSelectedVfxId]       = useState(null)
   const [editingVfxTrack, setEditingVfxTrack]   = useState(null)
   const [isAnyVfxDragging, setIsAnyVfxDragging] = useState(false)
-  const [vfxDragTarget, setVfxDragTarget]        = useState({ segmentIndex: -1, column: -1 })
   const [vfxDragTarget, setVfxDragTarget] = useState({ segmentIndex: -1, column: -1 })
 
   // ── Chapitres ──────────────────────────────────────────────
