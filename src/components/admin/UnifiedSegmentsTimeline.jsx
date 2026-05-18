@@ -869,7 +869,7 @@ function UnifiedSegmentsTimeline({
     return hidden
   }, [segments, collapsedChapters])
 
-  const containerRef = useRef(null)  const scrollContainerRef = useRef(null)
+  const containerRef = useRef(null)
   const dividerRef = useRef(null)
   const rowRefs = useRef([])
 
