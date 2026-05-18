@@ -359,63 +359,65 @@ function SegmentTimelineRow({
           
         </div>
 
-        {/* Boutons d'action (visibles au survol) */}
-        {(hovered || isSelected) && (
-          <div style={{
-            display: 'flex',
-            gap: '2px',
-            position: 'absolute',
-            right: '8px',
-            top: '50%',
-            transform: 'translateY(-50%)'
-          }}>
-            <button
-              onClick={(e) => { e.stopPropagation(); onAdd(index); }}
-              style={{
-                background: '#4CAF50',
-                border: 'none',
-                borderRadius: '50%',
-                width: '22px',
-                height: '22px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                cursor: 'pointer',
-                color: 'white',
-                fontSize: '14px',
-                fontWeight: 'bold',
-                transition: 'transform 0.15s ease',
-                boxShadow: '0 1px 3px rgba(0,0,0,0.2)'
-              }}
-              title="Ajouter un segment après"
-            >
-              +
-            </button>
-
-            <button
-              onClick={(e) => { e.stopPropagation(); onDelete(index); }}
-              style={{
-                background: '#f44336',
-                border: 'none',
-                borderRadius: '50%',
-                width: '22px',
-                height: '22px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                cursor: 'pointer',
-                color: 'white',
-                fontSize: '12px',
-                transition: 'transform 0.15s ease',
-                boxShadow: '0 1px 3px rgba(0,0,0,0.2)'
-              }}
-              title="Supprimer le segment"
-            >
-              🗑
-            </button>
-          </div>
-        )}
+  
       </div>
+
+      {/* Boutons d'action (visibles au survol) */}
+      {(hovered || isSelected) && (
+        <div style={{
+          display: 'flex',
+          gap: '2px',
+          position: 'absolute',
+          right: '8px',
+          top: '50%',
+          transform: 'translateY(-50%)',
+          zIndex: 10
+        }}>
+          <button
+            onClick={(e) => { e.stopPropagation(); onAdd(index); }}
+            style={{
+              background: '#4CAF50',
+              border: 'none',
+              borderRadius: '50%',
+              width: '22px',
+              height: '22px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              cursor: 'pointer',
+              color: 'white',
+              fontSize: '14px',
+              fontWeight: 'bold',
+              transition: 'transform 0.15s ease',
+              boxShadow: '0 1px 3px rgba(0,0,0,0.2)'
+            }}
+            title="Ajouter un segment après"
+          >
+            +
+          </button>
+          <button
+            onClick={(e) => { e.stopPropagation(); onDelete(index); }}
+            style={{
+              background: '#f44336',
+              border: 'none',
+              borderRadius: '50%',
+              width: '22px',
+              height: '22px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              cursor: 'pointer',
+              color: 'white',
+              fontSize: '12px',
+              transition: 'transform 0.15s ease',
+              boxShadow: '0 1px 3px rgba(0,0,0,0.2)'
+            }}
+            title="Supprimer le segment"
+          >
+            🗑
+          </button>
+        </div>
+      )}
 
       {/* Séparateur redimensionnable */}
       <div
@@ -717,7 +719,7 @@ function UnifiedSegmentsTimeline({
       const updatedSegments = [...segments]
       updatedSegments[index] = typeof segments[index] === 'string' 
         ? newText 
-        : { ...segments[index], text: newText }
+        : { ...segments[index], text: newText, breakAt: null }
       onSegmentsChange(updatedSegments)
       if (onSaveToHistory) onSaveToHistory()
     }

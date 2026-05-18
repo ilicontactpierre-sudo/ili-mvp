@@ -12,24 +12,20 @@ function StoryLoader({ onLoadStory, onPreviewStory }) {
 
   // Charger l'index des histoires quand on déplie la section
   const loadStoriesIndex = async () => {
-    if (!isExpanded) {
-      setIsExpanded(true)
+    if (isExpanded) {
+      setIsExpanded(false)
       return
     }
-
+    setIsExpanded(true)
     setIsLoading(true)
     setError('')
-
     try {
       const response = await fetch('/stories/index.json')
       if (!response.ok) {
         throw new Error('Impossible de charger l\'index des histoires')
       }
       const data = await response.json()
-      console.log('Données brutes de index.json:', data)
-      // Gérer à la fois le format { stories: [...] } et le format tableau direct [...]
       const storiesArray = Array.isArray(data) ? data : (Array.isArray(data.stories) ? data.stories : [])
-      console.log('Histoires extraites:', storiesArray)
       setStories(storiesArray)
     } catch (err) {
       setError(err.message || 'Erreur de chargement')
