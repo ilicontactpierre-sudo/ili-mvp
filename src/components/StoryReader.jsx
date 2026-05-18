@@ -1,5 +1,6 @@
 import { useLayoutEffect, useRef, useState } from 'react'
 import './StoryReader.css'
+import { renderMarkdown } from '../utils/renderMarkdown'
 
 function StoryReader({ storyId, storyData, currentIndex = 0 }) {
   // MODE 2 — données directes en props (nouveau)
@@ -111,16 +112,17 @@ function StoryReader({ storyId, storyData, currentIndex = 0 }) {
 
           return (
             <p
-              key={segment.id}
-              ref={(node) => {
-                segmentRefs.current[index] = node
-              }}
-              className={`story-reader__segment ${
-                isFocused ? 'story-reader__segment--focus' : 'story-reader__segment--blur'
-              }`}
-            >
-              {segment.text}
-            </p>
+            key={segment.id}
+            ref={(node) => {
+              segmentRefs.current[index] = node
+            }}
+            className={`story-reader__segment ${
+              isFocused ? 'story-reader__segment--focus' : 'story-reader__segment--blur'
+            }`}
+            style={{ fontFamily: segment.fontFamily || 'inherit' }}
+          >
+            {renderMarkdown(segment.text)}
+          </p>
           )
         })}
       </div>
