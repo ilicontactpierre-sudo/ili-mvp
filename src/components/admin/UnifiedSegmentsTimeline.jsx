@@ -2,8 +2,9 @@ import { useState, useRef, useMemo, useCallback, useEffect, useLayoutEffect } fr
 import SoundBlock from './SoundBlock'
 import SoundBlockPanel from './SoundBlockPanel'
 import SoundLibraryPicker from './SoundLibraryPicker'
-import { SEGMENT_HEIGHT, COLUMN_COUNT, COLUMN_WIDTH } from './constants'
-import FormatToolbar from './FormatToolbar'
+import { SEGMENT_HEIGHT, COLUMN_COUNT, COLUMN_WIDTH, VFX_COLUMN_COUNT, VFX_COLUMN_WIDTH, VFX_TYPES, VFX_COLORS, createVfxTrack } from './constants'
+import VfxBlock from './VfxBlock'
+import VfxBlockPanel from './VfxBlockPanel'import FormatToolbar from './FormatToolbar'
 import { renderMarkdown } from '../../utils/renderMarkdown'
 
 const getSegmentText = (segment) => {
