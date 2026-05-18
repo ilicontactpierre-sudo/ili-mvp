@@ -559,6 +559,7 @@ function SegmentTimelineRow({
           position: 'relative',
           overflow: 'visible',
           borderLeft: '2px solid #e0e0e0',
+          alignSelf: 'stretch',   // ← nouveau
         }}
       >
         {/* Grille VFX */}
@@ -579,6 +580,7 @@ function SegmentTimelineRow({
                 width: `${VFX_COLUMN_WIDTH}px`,
                 flexShrink: 0,
                 height: '100%',
+                minHeight: `${SEGMENT_HEIGHT}px`,   // ← nouveau
                 borderRight: colIndex < VFX_COLUMN_COUNT - 1 ? '1px solid #f0f0f0' : 'none',
                 backgroundColor: isVfxDragTarget
                   ? 'rgba(120, 80, 220, 0.2)'
