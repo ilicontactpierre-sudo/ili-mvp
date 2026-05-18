@@ -858,31 +858,44 @@ const handleTextSelection = useCallback(() => {
   })
 }, [])
 
-  // Appliquer gras/italique/souligné/barré sur la sélection ou le segment entier
+// Appliquer gras/italique/souligné/barré sur la sélection ou le segment entier
+  // Avec toggle : si le marqueur est déjà présent, il est retiré
   const handleFormat = useCallback((type) => {
     if (!formatToolbar || formatToolbar.segmentIndex === null || formatToolbar.segmentIndex === undefined) return
     const { segmentIndex, selectedText, mode } = formatToolbar
     const segment = segments[segmentIndex]
     if (!segment) return
-
     const fullText = typeof segment === 'string' ? segment : (segment.text || '')
     const markers = { bold: '**', italic: '*', underline: '__', strikethrough: '~~' }
     const m = markers[type]
     if (!m) return
 
+    // Fonction toggle : ajoute ou retire les marqueurs autour d'une cible
+    const toggleMarker = (text, marker) => {
+      const escaped = marker.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+      const regex = new RegExp(`^${escaped}(.+?)${escaped}$`, 's')
+      const match = text.match(regex)
+      if (match) {
+        // Déjà marqué → retirer
+        return match[1]
+      }
+      // Pas encore marqué → ajouter
+      return marker + text + marker
+    }
+
     let newText
     if (mode === 'segment' || !selectedText) {
-      // Appliquer au segment entier
-      newText = m + fullText + m
+      // Appliquer/retirer sur le segment entier
+      newText = toggleMarker(fullText, m)
     } else {
-      // Appliquer uniquement à la sélection
+      // Appliquer/retirer sur la sélection uniquement
       const selStart = fullText.indexOf(selectedText)
       if (selStart === -1) return
       const selEnd = selStart + selectedText.length
-      newText = fullText.slice(0, selStart) + m + selectedText + m + fullText.slice(selEnd)
+      const toggled = toggleMarker(selectedText, m)
+      newText = fullText.slice(0, selStart) + toggled + fullText.slice(selEnd)
     }
 
-    
     const updatedSegments = [...segments]
     updatedSegments[segmentIndex] = typeof segment === 'string'
       ? newText
