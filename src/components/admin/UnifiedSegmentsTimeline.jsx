@@ -706,9 +706,17 @@ function UnifiedSegmentsTimeline({
   const handleStartEdit = useCallback((index) => {
     setEditingSegmentIndex(index)
     const segment = segments[index]
+    // Si le segment a un breakAt, on l'injecte comme vrai saut de ligne
+    // pour que l'utilisateur puisse le voir et le modifier
+    let editValue = getSegmentText(segment)
+    if (segment && typeof segment === 'object' && segment.breakAt != null) {
+      const before = editValue.slice(0, segment.breakAt).trimEnd()
+      const after = editValue.slice(segment.breakAt).trimStart()
+      editValue = before + '\n\n' + after
+    }
     setEditTexts(prev => ({
       ...prev,
-      [index]: getSegmentText(segment)
+      [index]: editValue
     }))
   }, [segments])
 
@@ -721,11 +729,22 @@ function UnifiedSegmentsTimeline({
 
   const handleEditBlur = useCallback((index) => {
     const newText = editTexts[index]
-    if (newText !== undefined && newText !== (segments[index].text || segments[index])) {
+    if (newText !== undefined) {
+      // Détecter si l'utilisateur a conservé ou inséré un double saut de ligne
+      // et le convertir en breakAt pour l'affichage
+      const doubleBreakMatch = newText.match(/^([\s\S]*?)\n\n([\s\S]*)$/)
+      let cleanText, breakAt
+      if (doubleBreakMatch) {
+        cleanText = doubleBreakMatch[1].trimEnd() + ' ' + doubleBreakMatch[2].trimStart()
+        breakAt = doubleBreakMatch[1].trimEnd().length + 1 // +1 pour l'espace
+      } else {
+        cleanText = newText
+        breakAt = null
+      }
       const updatedSegments = [...segments]
-      updatedSegments[index] = typeof segments[index] === 'string' 
-        ? newText 
-        : { ...segments[index], text: newText, breakAt: null }
+      updatedSegments[index] = typeof segments[index] === 'string'
+        ? cleanText
+        : { ...segments[index], text: cleanText, breakAt }
       onSegmentsChange(updatedSegments)
       if (onSaveToHistory) onSaveToHistory()
     }
