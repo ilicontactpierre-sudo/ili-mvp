@@ -781,22 +781,53 @@ function AdminPage() {
               </div>
 
               <div style={{ display: 'flex', gap: '0.5rem', marginTop: '1rem' }}>
-                <button
-                  onClick={handleCutText}
-                  disabled={isCutting || !storyText.trim()}
-                  style={{
-                    padding: '0.75rem 1.5rem',
-                    fontSize: '1rem',
-                    backgroundColor: storyText.trim() && !isCutting ? '#28a745' : '#ccc',
-                    color: 'white',
-                    border: 'none',
-                    borderRadius: '4px',
-                    cursor: storyText.trim() && !isCutting ? 'pointer' : 'not-allowed',
-                    flex: 1
-                  }}
-                >
-                  {isCutting ? "Découpage en cours..." : "Découper le texte"}
-                </button>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.35rem', flex: 1 }}>
+                  <button
+                    onClick={handleCutText}
+                    disabled={isCutting || !storyText.trim()}
+                    style={{
+                      padding: '0.75rem 1.5rem',
+                      fontSize: '1rem',
+                      backgroundColor: storyText.trim() && !isCutting ? '#28a745' : '#ccc',
+                      color: 'white',
+                      border: 'none',
+                      borderRadius: '4px',
+                      cursor: storyText.trim() && !isCutting ? 'pointer' : 'not-allowed',
+                    }}
+                  >
+                    {isCutting ? "Découpage en cours..." : "Découper le texte"}
+                  </button>
+                  {segments.length > 0 && (
+                    <button
+                      onClick={() => {
+                        // Injecte un faux keyup pour forcer la désactivation du mode découpe
+                        window.dispatchEvent(new KeyboardEvent('keyup', { key: 'Meta', bubbles: true }))
+                        window.dispatchEvent(new KeyboardEvent('keyup', { key: 'Control', bubbles: true }))
+                      }}
+                      title="Forcer la désactivation du mode découpe si bloqué"
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '0.35rem',
+                        padding: '0.2rem 0.6rem',
+                        fontSize: '0.72rem',
+                        backgroundColor: 'transparent',
+                        color: '#bbb',
+                        border: 'none',
+                        borderRadius: '4px',
+                        cursor: 'pointer',
+                        alignSelf: 'flex-start',
+                        opacity: 0.7,
+                        transition: 'opacity 0.15s ease',
+                      }}
+                      onMouseEnter={e => e.currentTarget.style.opacity = '1'}
+                      onMouseLeave={e => e.currentTarget.style.opacity = '0.7'}
+                    >
+                      <span style={{ fontSize: '0.85rem' }}>✂</span>
+                      <span>réinitialiser mode découpe</span>
+                    </button>
+                  )}
+                </div>
                 
                 {/* Boutons Undo/Redo */}
                 <div style={{ display: 'flex', gap: '0.25rem' }}>
