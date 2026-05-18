@@ -3,6 +3,8 @@ import SoundBlock from './SoundBlock'
 import SoundBlockPanel from './SoundBlockPanel'
 import SoundLibraryPicker from './SoundLibraryPicker'
 import { SEGMENT_HEIGHT, COLUMN_COUNT, COLUMN_WIDTH } from './constants'
+import FormatToolbar from './FormatToolbar'
+import { renderMarkdown } from '../../utils/renderMarkdown'
 
 const getSegmentText = (segment) => {
   if (typeof segment === 'string') {
@@ -347,12 +349,12 @@ function SegmentTimelineRow({
                 </>
               ) : segment && typeof segment === 'object' && segment.breakAt !== null ? (
                 <>
-                  {segment.text.slice(0, segment.breakAt).trim()}
+                  {renderMarkdown(segment.text.slice(0, segment.breakAt).trim())}
                   {'\n\n'}
-                  {segment.text.slice(segment.breakAt).trim()}
+                  {renderMarkdown(segment.text.slice(segment.breakAt).trim())}
                 </>
               ) : (
-                text
+                renderMarkdown(text)
               )}
             </span>
           )}
@@ -616,6 +618,8 @@ function UnifiedSegmentsTimeline({
   const [measuredRowHeights, setMeasuredRowHeights] = useState([])
   const [isAnyBlockDragging, setIsAnyBlockDragging] = useState(false)
   const [dragTargetCell, setDragTargetCell] = useState({ segmentIndex: -1, column: -1 })
+  const [formatToolbar, setFormatToolbar] = useState(null)
+// { mode: 'selection'|'segment', position: {top, left}, segmentIndex, range }
   
   const containerRef = useRef(null)
   const scrollContainerRef = useRef(null)
@@ -810,9 +814,93 @@ function UnifiedSegmentsTimeline({
     if (onSaveToHistory) onSaveToHistory()
   }, [segments, soundTracks, onSegmentsChange, onSoundTracksChange, onSaveToHistory])
 
-  const handleSelectSegment = useCallback((index) => {
-    setSelectedSegmentIndex(index)
-  }, [])
+// Toolbar au clic sur un segment (mode segment entier)
+const handleSegmentClick = useCallback((index) => {
+  setSelectedSegmentIndex(index)
+  // Si du texte est sélectionné, laisser le toolbar de sélection gérer
+  const selection = window.getSelection()
+  if (selection && !selection.isCollapsed) return
+  const row = rowRefs.current[index]
+  if (!row) return
+  const rect = row.getBoundingClientRect()
+  setFormatToolbar({
+    mode: 'segment',
+    position: { top: rect.top + window.scrollY, left: rect.left + rect.width / 2 },
+    segmentIndex: index,
+    range: null,
+  })
+}, [])
+
+const handleSelectSegment = useCallback((index) => {
+  handleSegmentClick(index)
+}, [handleSegmentClick])
+
+// Apparition du toolbar à la sélection de texte
+const handleTextSelection = useCallback(() => {
+  const selection = window.getSelection()
+  if (!selection || selection.isCollapsed || selection.toString().trim() === '') {
+    setFormatToolbar(null)
+    return
+  }
+  const range = selection.getRangeAt(0)
+  const rect = range.getBoundingClientRect()
+  setFormatToolbar({
+    mode: 'selection',
+    position: { top: rect.top + window.scrollY, left: rect.left + rect.width / 2 },
+    range: range.cloneRange(),
+    segmentIndex: null,
+  })
+}, [])
+
+  // Appliquer gras/italique/souligné sur la sélection
+  const handleFormat = useCallback((type) => {
+    if (!formatToolbar?.range) return
+    const selection = window.getSelection()
+    selection.removeAllRanges()
+    selection.addRange(formatToolbar.range)
+    const selectedText = formatToolbar.range.toString()
+    if (!selectedText) return
+
+    // Trouver le segment concerné via le nœud DOM
+    const container = formatToolbar.range.commonAncestorContainer
+    const rowEl = container.nodeType === 1
+      ? container.closest('[data-segment-index]')
+      : container.parentElement?.closest('[data-segment-index]')
+    const segIdx = rowEl ? parseInt(rowEl.dataset.segmentIndex, 10) : null
+    if (segIdx === null || segIdx === undefined || isNaN(segIdx)) return
+
+    const segment = segments[segIdx]
+    const fullText = segment.text || ''
+
+    // Trouver la position de la sélection dans segment.text
+    // On cherche selectedText dans fullText (première occurrence après offset estimé)
+    const selStart = fullText.indexOf(selectedText)
+    if (selStart === -1) return
+    const selEnd = selStart + selectedText.length
+
+    const markers = { bold: '**', italic: '*', underline: '__' }
+    const m = markers[type]
+    const newText = fullText.slice(0, selStart) + m + selectedText + m + fullText.slice(selEnd)
+
+    const updatedSegments = [...segments]
+    updatedSegments[segIdx] = { ...segment, text: newText }
+    onSegmentsChange(updatedSegments)
+    if (onSaveToHistory) onSaveToHistory()
+    setFormatToolbar(null)
+    selection.removeAllRanges()
+  }, [formatToolbar, segments, onSegmentsChange, onSaveToHistory])
+
+  // Changer la police d'un segment
+  const handleFontChange = useCallback((fontValue) => {
+    if (!formatToolbar) return
+    const idx = formatToolbar.segmentIndex ?? formatToolbar.segmentIndex
+    if (idx === null || idx === undefined) return
+    const updatedSegments = [...segments]
+    updatedSegments[idx] = { ...segments[idx], fontFamily: fontValue }
+    onSegmentsChange(updatedSegments)
+    if (onSaveToHistory) onSaveToHistory()
+    setFormatToolbar(null)
+  }, [formatToolbar, segments, onSegmentsChange, onSaveToHistory])
 
   // Actions sur les sons
   const handleSelectSound = (soundId) => {
@@ -1092,6 +1180,7 @@ function UnifiedSegmentsTimeline({
       <div 
         ref={scrollContainerRef}
         data-timeline-root="true"
+        onMouseUp={handleTextSelection}
         style={{
           flex: 1,
           overflowY: 'auto',
@@ -1099,7 +1188,7 @@ function UnifiedSegmentsTimeline({
         }}
       >
         {segments.map((segment, index) => (
-          <div key={segment.id || segment._id || index}>
+          <div key={segment.id || segment._id || index} data-segment-index={index}>
             <SegmentTimelineRow
               segment={segment}
               index={index}
@@ -1212,6 +1301,21 @@ function UnifiedSegmentsTimeline({
             setShowSoundPicker(false)
           }}
           onClose={() => setShowSoundPicker(false)}
+        />
+      )}
+      {/* Toolbar de formatage flottant */}
+      {formatToolbar && (
+        <FormatToolbar
+          mode={formatToolbar.mode}
+          position={formatToolbar.position}
+          onFormat={handleFormat}
+          onFontChange={handleFontChange}
+          currentFont={
+            formatToolbar.segmentIndex !== null
+              ? segments[formatToolbar.segmentIndex]?.fontFamily || ''
+              : ''
+          }
+          onClose={() => setFormatToolbar(null)}
         />
       )}
     </div>
