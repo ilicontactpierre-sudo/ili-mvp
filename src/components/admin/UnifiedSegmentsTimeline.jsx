@@ -49,6 +49,10 @@ function SegmentTimelineRow({
   onEditKeyDown,
   hovered,
   onHover,
+  isChapter,
+  isCollapsed,
+  onToggleChapter,
+  onToggleIsChapter,
   soundTracks,
   segments,
   soundLibrary,
@@ -267,8 +271,11 @@ function SegmentTimelineRow({
         borderBottom: '1px solid #f0f0f0',
         height: 'auto',
         minHeight: `${SEGMENT_HEIGHT}px`,
-        backgroundColor: isSelected ? '#f0f7ff' : (index % 2 === 0 ? '#fff' : '#fafafa'),
-        transition: 'background-color 0.15s ease',
+        backgroundColor: isChapter
+          ? (isSelected ? '#ede9fe' : '#f5f3ff')
+          : (isSelected ? '#f0f7ff' : (index % 2 === 0 ? '#fff' : '#fafafa')),
+        borderLeft: isChapter ? '3px solid #8B5CF6' : '3px solid transparent',
+        transition: 'background-color 0.15s ease, border-left-color 0.2s ease',
         position: 'relative'
       }}
       onMouseEnter={() => onHover(index)}
@@ -290,15 +297,58 @@ function SegmentTimelineRow({
         onClick={handleClick}
         onDoubleClick={handleDoubleClick}
       >
-        {/* Numéro du segment */}
-        <span style={{
-          color: '#999',
-          fontSize: '0.7rem',
-          minWidth: '20px',
-          textAlign: 'center',
-          paddingTop: '3px',
-          fontWeight: 'bold'
-        }}>
+      {/* Étoile : bascule le statut chapitre */}
+        <button
+          onClick={(e) => { e.stopPropagation(); onToggleIsChapter(index) }}
+          title={isChapter ? 'Retirer le statut chapitre' : 'Marquer comme chapitre'}
+          style={{
+            background: 'none',
+            border: 'none',
+            cursor: 'pointer',
+            padding: '0 1px',
+            fontSize: '0.65rem',
+            lineHeight: 1,
+            color: isChapter ? '#8B5CF6' : 'transparent',
+            flexShrink: 0,
+            transition: 'color 0.2s ease',
+            alignSelf: 'flex-start',
+            marginTop: '3px',
+          }}
+          onMouseEnter={e => { if (!isChapter) e.currentTarget.style.color = '#c4b5fd' }}
+          onMouseLeave={e => { if (!isChapter) e.currentTarget.style.color = 'transparent' }}
+        >
+          {isChapter ? '★' : '☆'}
+        </button>
+
+        {/* Numéro du segment — cliquable si chapitre pour collapse/expand */}
+        <span
+          onClick={isChapter ? (e) => { e.stopPropagation(); onToggleChapter(index) } : undefined}
+          title={isChapter ? (isCollapsed ? 'Déplier les segments' : 'Replier les segments') : ''}
+          style={{
+            color: isChapter ? '#8B5CF6' : '#999',
+            fontSize: '0.7rem',
+            minWidth: '24px',
+            textAlign: 'center',
+            paddingTop: '3px',
+            fontWeight: 'bold',
+            cursor: isChapter ? 'pointer' : 'default',
+            userSelect: 'none',
+            transition: 'color 0.2s ease',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '1px',
+            flexShrink: 0,
+          }}
+        >
+          {isChapter && (
+            <span style={{
+              fontSize: '0.55rem',
+              display: 'inline-block',
+              transform: isCollapsed ? 'rotate(-90deg)' : 'rotate(0deg)',
+              transition: 'transform 0.25s ease',
+              marginRight: '1px',
+            }}>▼</span>
+          )}
           {index + 1}
         </span>
 
@@ -722,6 +772,10 @@ function UnifiedSegmentsTimeline({
   const [editingVfxTrack, setEditingVfxTrack]   = useState(null)
   const [isAnyVfxDragging, setIsAnyVfxDragging] = useState(false)
   const [vfxDragTarget, setVfxDragTarget]        = useState({ segmentIndex: -1, column: -1 })
+  const [vfxDragTarget, setVfxDragTarget] = useState({ segmentIndex: -1, column: -1 })
+
+  // ── Chapitres ──────────────────────────────────────────────
+  const [collapsedChapters, setCollapsedChapters] = useState(new Set())
 
   const handleSelectVfx       = useCallback((id) => setSelectedVfxId(id), [])
   const handleDoubleClickVfx  = useCallback((track) => setEditingVfxTrack(track), [])
@@ -758,6 +812,37 @@ function UnifiedSegmentsTimeline({
     setEditingVfxTrack(null)
   }, [vfxTracks, onVfxTracksChange, onSaveToHistory])
 
+    // Bascule le statut "chapitre" d'un segment
+  const handleToggleIsChapter = useCallback((index) => {
+    const segment = segments[index]
+    if (!segment) return
+    const wasChapter = segment?.isChapter === true
+    const updatedSegments = [...segments]
+    updatedSegments[index] = typeof segment === 'string'
+      ? { text: segment, isChapter: !wasChapter }
+      : { ...segment, isChapter: !wasChapter }
+    onSegmentsChange(updatedSegments)
+    if (onSaveToHistory) onSaveToHistory()
+    // Si on retire le statut chapitre, on retire aussi le collapse
+    if (wasChapter) {
+      setCollapsedChapters(prev => {
+        const next = new Set(prev)
+        next.delete(index)
+        return next
+      })
+    }
+  }, [segments, onSegmentsChange, onSaveToHistory])
+
+  // Collapse/expand un chapitre au clic sur son numéro
+  const handleToggleChapter = useCallback((index) => {
+    setCollapsedChapters(prev => {
+      const next = new Set(prev)
+      if (next.has(index)) next.delete(index)
+      else next.add(index)
+      return next
+    })
+  }, [])
+
   const handleAddVfxToCell = useCallback((segmentIndex, column) => {
     if (!onVfxTracksChange) return
     const segId  = segments[segmentIndex]?.id || segments[segmentIndex]?._id
@@ -769,8 +854,22 @@ function UnifiedSegmentsTimeline({
   const [formatToolbar, setFormatToolbar] = useState(null)
 // { mode: 'selection'|'segment', position: {top, left}, segmentIndex, range }
   
-  const containerRef = useRef(null)
-  const scrollContainerRef = useRef(null)
+  // Calcule quels segments sont cachés (sous un chapitre collapsé)
+  const hiddenSegments = useMemo(() => {
+    const hidden = new Set()
+    let currentChapterCollapsed = false
+    for (let i = 0; i < segments.length; i++) {
+      const isChap = segments[i]?.isChapter === true
+      if (isChap) {
+        currentChapterCollapsed = collapsedChapters.has(i)
+      } else if (currentChapterCollapsed) {
+        hidden.add(i)
+      }
+    }
+    return hidden
+  }, [segments, collapsedChapters])
+
+  const containerRef = useRef(null)  const scrollContainerRef = useRef(null)
   const dividerRef = useRef(null)
   const rowRefs = useRef([])
 
@@ -1361,73 +1460,93 @@ const handleTextSelection = useCallback(() => {
           overflowX: 'hidden'
         }}
       >
-        {segments.map((segment, index) => (
-          <div key={segment.id || segment._id || index} data-segment-index={index}>
-            <SegmentTimelineRow
-              segment={segment}
-              index={index}
-              rowRef={(el) => { rowRefs.current[index] = el }}
-              rowHeight={rowHeights[index]}
-              rowHeights={rowHeights}
-              isSelected={selectedSegmentIndex === index}
-              onSelect={handleSelectSegment}
-              onEdit={handleStartEdit}
-              onEditChange={handleEditChange}
-              onEditBlur={handleEditBlur}
-              onEditKeyDown={handleEditKeyDown}
-              isEditing={editingSegmentIndex === index}
-              editText={editTexts[index] || ''}
-              onSplitAtPosition={handleSplitSegment}
-              onAdd={handleAddSegment}
-              onDelete={handleDeleteSegment}
-              isCmdPressed={isCmdPressed}
-              hovered={hoveredRow === index}
-              onHover={(idx) => setHoveredRow(idx)}
-              soundTracks={soundTracks}
-              segments={segments}
-              soundLibrary={soundLibrary}
-              selectedSoundId={selectedSoundId}
-              editingSoundTrack={editingSoundTrack}
-              onSoundSelect={handleSelectSound}
-              onSoundDoubleClick={handleDoubleClickSound}
-              onSoundColumnChange={handleColumnChange}
-              onSoundResize={handleResizeSound}
-              onSoundUpdate={handleUpdateSoundTrack}
-              onAddSoundToCell={handleDoubleClickEmptyCell}
-              dividerPosition={dividerPosition}
-              isDraggingDivider={isDraggingDivider}
-              onDividerMouseDown={() => setIsDraggingDivider(true)}
-              isAnyBlockDragging={isAnyBlockDragging}
-              dragTargetCell={dragTargetCell}
-              onDragStart={handleSoundDragStart}
-              onDragEnd={handleSoundDragEnd}
-              onDragTargetChange={handleDragTargetChange}
-              onTextSelection={handleTextSelection}
-              vfxTracks={vfxTracks}
-              selectedVfxId={selectedVfxId}
-              editingVfxTrack={editingVfxTrack}
-              onVfxSelect={handleSelectVfx}
-              onVfxDoubleClick={handleDoubleClickVfx}
-              onVfxColumnChange={handleVfxColumnChange}
-              onVfxResize={handleVfxResize}
-              onAddVfxToCell={handleAddVfxToCell}
-              isAnyVfxDragging={isAnyVfxDragging}
-              vfxDragTarget={vfxDragTarget}
-              onVfxDragStart={handleVfxDragStart}
-              onVfxDragEnd={handleVfxDragEnd}
-              onVfxDragTargetChange={handleVfxDragTargetChange}
-            />
-            
-            {index < segments.length - 1 && (
-              <SegmentSeparator
+        {segments.map((segment, index) => {
+          const isChapter = segment?.isChapter === true
+          const isHidden = hiddenSegments.has(index)
+          const isCollapsed = collapsedChapters.has(index)
+
+          return (
+            <div
+              key={segment.id || segment._id || index}
+              data-segment-index={index}
+              style={{
+                maxHeight: isHidden ? '0px' : '1000px',
+                opacity: isHidden ? 0 : 1,
+                overflow: 'hidden',
+                transition: 'max-height 0.38s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease',
+                pointerEvents: isHidden ? 'none' : 'auto',
+              }}
+            >
+              <SegmentTimelineRow
+                segment={segment}
                 index={index}
-                onMerge={handleMergeSegments}
-                isHovered={hoveredSeparator}
-                onHover={setHoveredSeparator}
+                rowRef={(el) => { rowRefs.current[index] = el }}
+                rowHeight={rowHeights[index]}
+                rowHeights={rowHeights}
+                isSelected={selectedSegmentIndex === index}
+                onSelect={handleSelectSegment}
+                onEdit={handleStartEdit}
+                onEditChange={handleEditChange}
+                onEditBlur={handleEditBlur}
+                onEditKeyDown={handleEditKeyDown}
+                isEditing={editingSegmentIndex === index}
+                editText={editTexts[index] || ''}
+                onSplitAtPosition={handleSplitSegment}
+                onAdd={handleAddSegment}
+                onDelete={handleDeleteSegment}
+                isCmdPressed={isCmdPressed}
+                hovered={hoveredRow === index}
+                onHover={(idx) => setHoveredRow(idx)}
+                soundTracks={soundTracks}
+                segments={segments}
+                soundLibrary={soundLibrary}
+                selectedSoundId={selectedSoundId}
+                editingSoundTrack={editingSoundTrack}
+                onSoundSelect={handleSelectSound}
+                onSoundDoubleClick={handleDoubleClickSound}
+                onSoundColumnChange={handleColumnChange}
+                onSoundResize={handleResizeSound}
+                onSoundUpdate={handleUpdateSoundTrack}
+                onAddSoundToCell={handleDoubleClickEmptyCell}
+                dividerPosition={dividerPosition}
+                isDraggingDivider={isDraggingDivider}
+                onDividerMouseDown={() => setIsDraggingDivider(true)}
+                isAnyBlockDragging={isAnyBlockDragging}
+                dragTargetCell={dragTargetCell}
+                onDragStart={handleSoundDragStart}
+                onDragEnd={handleSoundDragEnd}
+                onDragTargetChange={handleDragTargetChange}
+                onTextSelection={handleTextSelection}
+                vfxTracks={vfxTracks}
+                selectedVfxId={selectedVfxId}
+                editingVfxTrack={editingVfxTrack}
+                onVfxSelect={handleSelectVfx}
+                onVfxDoubleClick={handleDoubleClickVfx}
+                onVfxColumnChange={handleVfxColumnChange}
+                onVfxResize={handleVfxResize}
+                onAddVfxToCell={handleAddVfxToCell}
+                isAnyVfxDragging={isAnyVfxDragging}
+                vfxDragTarget={vfxDragTarget}
+                onVfxDragStart={handleVfxDragStart}
+                onVfxDragEnd={handleVfxDragEnd}
+                onVfxDragTargetChange={handleVfxDragTargetChange}
+                isChapter={isChapter}
+                isCollapsed={isCollapsed}
+                onToggleChapter={handleToggleChapter}
+                onToggleIsChapter={handleToggleIsChapter}
               />
-            )}
-          </div>
-        ))}
+
+              {index < segments.length - 1 && (
+                <SegmentSeparator
+                  index={index}
+                  onMerge={handleMergeSegments}
+                  isHovered={hoveredSeparator}
+                  onHover={setHoveredSeparator}
+                />
+              )}
+            </div>
+          )
+        })}
 
         {segments.length === 0 && (
           <div style={{
