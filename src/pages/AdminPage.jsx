@@ -181,8 +181,7 @@ function AdminPage() {
   // Raccourcis clavier pour undo/redo
   useEffect(() => {
     const handleKeyDown = (e) => {
-      const key = e.key.toLowerCase()
-
+      const key = e.key?.toLowerCase() ?? ''  
       // Ctrl+Z ou Cmd+Z pour undo
       if ((e.ctrlKey || e.metaKey) && key === 'z' && !e.shiftKey) {
         e.preventDefault()
