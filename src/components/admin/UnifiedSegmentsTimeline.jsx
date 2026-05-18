@@ -4,7 +4,8 @@ import SoundBlockPanel from './SoundBlockPanel'
 import SoundLibraryPicker from './SoundLibraryPicker'
 import { SEGMENT_HEIGHT, COLUMN_COUNT, COLUMN_WIDTH, VFX_COLUMN_COUNT, VFX_COLUMN_WIDTH, VFX_TYPES, VFX_COLORS, createVfxTrack } from './constants'
 import VfxBlock from './VfxBlock'
-import VfxBlockPanel from './VfxBlockPanel'import FormatToolbar from './FormatToolbar'
+import VfxBlockPanel from './VfxBlockPanel'
+import FormatToolbar from './FormatToolbar'
 import { renderMarkdown } from '../../utils/renderMarkdown'
 
 const getSegmentText = (segment) => {
@@ -612,8 +613,10 @@ function UnifiedSegmentsTimeline({
   segments, 
   soundTracks, 
   soundLibrary,
+  vfxTracks = [],
   onSegmentsChange,
   onSoundTracksChange,
+  onVfxTracksChange,
   onSaveToHistory
 }) {
   const [selectedSoundId, setSelectedSoundId] = useState(null)
