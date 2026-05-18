@@ -622,8 +622,13 @@ function UnifiedSegmentsTimeline({
   const [hoveredRow, setHoveredRow] = useState(null)
   const [hoveredSeparator, setHoveredSeparator] = useState(null)
   const [isCmdPressed, setIsCmdPressed] = useState(false)
-  const [dividerPosition, setDividerPosition] = useState(45) // Pourcentage de la largeur pour la partie Segment
-  const [isDraggingDivider, setIsDraggingDivider] = useState(false)
+  const [dividerPosition, setDividerPosition] = useState(68.5)    // La partie Timeline fait exactement la largeur cumulée des colonnes
+    // On calcule le pourcentage que ça représente dans le conteneur (800px max dans AdminPage)
+    const timelineWidth = COLUMN_COUNT * COLUMN_WIDTH
+    const containerWidth = 800
+    const timelinePct = (timelineWidth / containerWidth) * 100
+    return Math.max(30, Math.min(70, 100 - timelinePct))
+  })  const [isDraggingDivider, setIsDraggingDivider] = useState(false)
   const [editingSegmentIndex, setEditingSegmentIndex] = useState(null)
   const [editTexts, setEditTexts] = useState({})
   const [measuredRowHeights, setMeasuredRowHeights] = useState([])
