@@ -70,7 +70,20 @@ function SegmentTimelineRow({
   dragTargetCell,
   onDragStart,
   onDragEnd,
-  onDragTargetChange
+  onDragTargetChange,
+  vfxTracks,
+  selectedVfxId,
+  editingVfxTrack,
+  onVfxSelect,
+  onVfxDoubleClick,
+  onVfxColumnChange,
+  onVfxResize,
+  onAddVfxToCell,
+  isAnyVfxDragging,
+  vfxDragTarget,
+  onVfxDragStart,
+  onVfxDragEnd,
+  onVfxDragTargetChange
 }) {
   console.log('segment', index, segment)
   const containerRef = useRef(null)
@@ -466,29 +479,24 @@ function SegmentTimelineRow({
       <div
         data-timeline-container="true"
         style={{
-          flex: '0 0 auto',
-          width: `${100 - dividerPosition}%`,
+          flex: '1 1 auto',
           display: 'flex',
           position: 'relative',
           overflow: 'visible',
           minWidth: `${COLUMN_COUNT * COLUMN_WIDTH}px`
         }}
       >
-        {/* Grille de la timeline */}
+        {/* Grille de la timeline audio */}
         {Array.from({ length: COLUMN_COUNT }).map((_, colIndex) => {
-          // Vérifier s'il y a un son qui occupe cette cellule (commence ou s'étend sur ce segment)
           const hasSound = soundTracks.some(track => {
             const startIdx = getSegmentIndexFromId(track.startSegmentId)
             const endIdx = getSegmentIndexFromId(track.endSegmentId)
             const trackEnd = endIdx !== -1 ? endIdx : startIdx
             return track.column === colIndex && startIdx <= index && trackEnd >= index
           })
-          
-          // Vérifier si c'est la case cible du drag
-          const isDragTarget = isAnyBlockDragging && 
-                               dragTargetCell.segmentIndex === index && 
-                               dragTargetCell.column === colIndex
-          
+          const isDragTarget = isAnyBlockDragging &&
+            dragTargetCell.segmentIndex === index &&
+            dragTargetCell.column === colIndex
           return (
             <div
               key={colIndex}
@@ -497,8 +505,8 @@ function SegmentTimelineRow({
                 flexShrink: 0,
                 height: '100%',
                 borderRight: colIndex < COLUMN_COUNT - 1 ? '1px solid #f0f0f0' : 'none',
-                backgroundColor: isDragTarget 
-                  ? 'rgba(33, 150, 243, 0.2)' 
+                backgroundColor: isDragTarget
+                  ? 'rgba(33, 150, 243, 0.2)'
                   : hasSound ? 'transparent' : 'rgba(76, 175, 80, 0.03)',
                 cursor: hasSound ? 'default' : 'pointer',
                 position: 'relative',
@@ -509,11 +517,7 @@ function SegmentTimelineRow({
             >
               {isDragTarget && (
                 <div style={{
-                  position: 'absolute',
-                  top: 0,
-                  left: 0,
-                  right: 0,
-                  bottom: 0,
+                  position: 'absolute', top: 0, left: 0, right: 0, bottom: 0,
                   border: '2px dashed #2196F3',
                   borderRadius: '4px',
                   pointerEvents: 'none',
@@ -544,6 +548,84 @@ function SegmentTimelineRow({
             currentSegmentIndex={index}
           />
         ))}
+      </div>
+
+      {/* Zone VFX (2 colonnes, à droite de la timeline audio) */}
+      <div
+        style={{
+          flex: '0 0 auto',
+          width: `${VFX_COLUMN_COUNT * VFX_COLUMN_WIDTH}px`,
+          display: 'flex',
+          position: 'relative',
+          overflow: 'visible',
+          borderLeft: '2px solid #e0e0e0',
+        }}
+      >
+        {/* Grille VFX */}
+        {Array.from({ length: VFX_COLUMN_COUNT }).map((_, colIndex) => {
+          const hasVfx = (vfxTracks || []).some(track => {
+            const si = segments.findIndex(s => s.id === track.startSegmentId || s._id === track.startSegmentId)
+            const ei = segments.findIndex(s => s.id === track.endSegmentId   || s._id === track.endSegmentId)
+            const te = ei !== -1 ? ei : si
+            return track.column === colIndex && si <= index && te >= index
+          })
+          const isVfxDragTarget = isAnyVfxDragging &&
+            vfxDragTarget.segmentIndex === index &&
+            vfxDragTarget.column === colIndex
+          return (
+            <div
+              key={colIndex}
+              style={{
+                width: `${VFX_COLUMN_WIDTH}px`,
+                flexShrink: 0,
+                height: '100%',
+                borderRight: colIndex < VFX_COLUMN_COUNT - 1 ? '1px solid #f0f0f0' : 'none',
+                backgroundColor: isVfxDragTarget
+                  ? 'rgba(120, 80, 220, 0.2)'
+                  : hasVfx ? 'transparent' : 'rgba(120, 80, 220, 0.03)',
+                cursor: hasVfx ? 'default' : 'pointer',
+                position: 'relative',
+                transition: 'background-color 0.1s ease',
+              }}
+              onDoubleClick={() => !hasVfx && onAddVfxToCell(index, colIndex)}
+              title={!hasVfx ? 'Double-cliquez pour ajouter un effet' : ''}
+            >
+              {isVfxDragTarget && (
+                <div style={{
+                  position: 'absolute', inset: 0,
+                  border: '2px dashed #7C50DC',
+                  borderRadius: '4px',
+                  pointerEvents: 'none',
+                  boxSizing: 'border-box',
+                }} />
+              )}
+            </div>
+          )
+        })}
+
+        {/* Blocs VFX pour cette ligne */}
+        {(vfxTracks || [])
+          .filter(track => {
+            const si = segments.findIndex(s => s.id === track.startSegmentId || s._id === track.startSegmentId)
+            return si === index
+          })
+          .map(track => (
+            <VfxBlock
+              key={track.id}
+              vfxTrack={track}
+              segments={segments}
+              rowHeights={rowHeights}
+              isSelected={track.id === selectedVfxId || track.id === editingVfxTrack?.id}
+              onSelect={onVfxSelect}
+              onDoubleClick={onVfxDoubleClick}
+              onColumnChange={onVfxColumnChange}
+              onResize={onVfxResize}
+              onDragStart={onVfxDragStart}
+              onDragEnd={onVfxDragEnd}
+              onDragTargetChange={onVfxDragTargetChange}
+            />
+          ))
+        }
       </div>
     </div>
   )
@@ -1243,16 +1325,26 @@ const handleTextSelection = useCallback(() => {
           }} />
         </div>
 
-        {/* Partie Timeline du header */}
+        {/* Partie Timeline du header — Audio + VFX côte à côte */}
         <div style={{
           flex: `0 0 calc(${100 - dividerPosition}% - 6px)`,
           padding: '0 0 0 1rem',
           display: 'flex',
           alignItems: 'center',
           boxSizing: 'border-box',
-          overflow: 'hidden'
+          overflow: 'hidden',
+          gap: '0',
         }}>
-          <span>Timeline Audio</span>
+          <span style={{ flex: 1 }}>Timeline Audio</span>
+          <span style={{
+            width: `${VFX_COLUMN_COUNT * VFX_COLUMN_WIDTH}px`,
+            flexShrink: 0,
+            fontSize: '0.8rem',
+            color: '#888',
+            borderLeft: '2px solid #e0e0e0',
+            paddingLeft: '8px',
+            textAlign: 'center',
+          }}>VFX</span>
         </div>
       </div>
 
@@ -1309,6 +1401,19 @@ const handleTextSelection = useCallback(() => {
               onDragEnd={handleSoundDragEnd}
               onDragTargetChange={handleDragTargetChange}
               onTextSelection={handleTextSelection}
+              vfxTracks={vfxTracks}
+              selectedVfxId={selectedVfxId}
+              editingVfxTrack={editingVfxTrack}
+              onVfxSelect={handleSelectVfx}
+              onVfxDoubleClick={handleDoubleClickVfx}
+              onVfxColumnChange={handleVfxColumnChange}
+              onVfxResize={handleVfxResize}
+              onAddVfxToCell={handleAddVfxToCell}
+              isAnyVfxDragging={isAnyVfxDragging}
+              vfxDragTarget={vfxDragTarget}
+              onVfxDragStart={handleVfxDragStart}
+              onVfxDragEnd={handleVfxDragEnd}
+              onVfxDragTargetChange={handleVfxDragTargetChange}
             />
             
             {index < segments.length - 1 && (
@@ -1383,6 +1488,25 @@ const handleTextSelection = useCallback(() => {
           }}
           onClose={() => setShowSoundPicker(false)}
         />
+      )}
+      {/* Panel VFX */}
+      {editingVfxTrack && (
+        <>
+          <div
+            style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.3)', zIndex: 1000 }}
+            onClick={() => setEditingVfxTrack(null)}
+          />
+          <VfxBlockPanel
+            vfxTrack={editingVfxTrack}
+            segments={segments}
+            onSave={handleSaveVfxTrack}
+            onClose={() => setEditingVfxTrack(null)}
+            onDelete={handleDeleteVfxTrack}
+            onRealTimeUpdate={(updated) => {
+              if (onVfxTracksChange) onVfxTracksChange(vfxTracks.map(t => t.id === updated.id ? updated : t))
+            }}
+          />
+        </>
       )}
       {/* Toolbar de formatage flottant */}
       {formatToolbar && (
