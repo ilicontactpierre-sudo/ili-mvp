@@ -69,7 +69,6 @@ function SegmentTimelineRow({
   onDragStart,
   onDragEnd,
   onDragTargetChange,
-  onTextSelection
 }) {
   console.log('segment', index, segment)
   const containerRef = useRef(null)
