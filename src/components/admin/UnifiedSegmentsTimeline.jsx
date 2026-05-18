@@ -1203,55 +1203,6 @@ const handleTextSelection = useCallback(() => {
         </div>
       </div>
 
-      {/* En-têtes de colonnes Timeline */}
-      <div style={{
-        display: 'flex',
-        borderBottom: '1px solid #e9ecef',
-        backgroundColor: '#fafafa',
-        flexShrink: 0
-      }}>
-        {/* Espace vide aligné avec la partie Segment */}
-        <div style={{
-          flex: `0 0 ${dividerPosition}%`,
-          borderRight: '1px solid #e9ecef'
-        }} />
-
-        {/* Séparateur */}
-        <div style={{
-          width: '6px',
-          flexShrink: 0,
-          backgroundColor: 'transparent'
-        }} />
-
-        {/* Colonnes de la timeline */}
-        <div style={{
-          flex: `0 0 calc(${100 - dividerPosition}% - 6px)`,
-          display: 'flex',
-          overflowX: 'auto',
-          paddingLeft: '1rem',
-          boxSizing: 'border-box'
-        }}>
-          {Array.from({ length: COLUMN_COUNT }).map((_, i) => (
-            <div
-              key={i}
-              style={{
-                width: `${COLUMN_WIDTH}px`,
-                flexShrink: 0,
-                padding: '0.4rem 0.5rem',
-                fontSize: '0.7rem',
-                color: '#666',
-                textAlign: 'center',
-                fontWeight: 'bold',
-                borderRight: i < COLUMN_COUNT - 1 ? '1px solid #e9ecef' : 'none',
-                backgroundColor: i % 2 === 0 ? '#fafafa' : '#fff'
-              }}
-            >
-              Col {i}
-            </div>
-          ))}
-        </div>
-      </div>
-
       {/* Contenu scrollable unifié */}
       <div 
         ref={scrollContainerRef}
