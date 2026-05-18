@@ -339,14 +339,23 @@ function SegmentTimelineRow({
                 <>
                   {text.substring(0, splitPreviewPosition)}
                   <span style={{
-                    display: 'inline-block',
-                    width: '2px',
-                    height: '1.2em',
-                    backgroundColor: '#ef4444',
-                    verticalAlign: 'text-bottom',
-                    margin: '0 1px',
-                    animation: 'blink 0.8s ease-in-out infinite'
-                  }} />
+                    position: 'relative',
+                    display: 'inline',
+                    width: 0,
+                    overflow: 'visible',
+                    pointerEvents: 'none',
+                  }}>
+                    <span style={{
+                      position: 'absolute',
+                      left: '-1px',
+                      top: '0.05em',
+                      width: '2px',
+                      height: '1.1em',
+                      backgroundColor: '#ef4444',
+                      animation: 'blink 0.8s ease-in-out infinite',
+                      pointerEvents: 'none',
+                    }} />
+                  </span>
                   {text.substring(splitPreviewPosition)}
                 </>
               ) : segment && typeof segment === 'object' && segment.breakAt !== null ? (
