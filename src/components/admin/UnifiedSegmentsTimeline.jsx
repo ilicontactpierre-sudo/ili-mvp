@@ -814,11 +814,7 @@ function UnifiedSegmentsTimeline({
     if (onSaveToHistory) onSaveToHistory()
   }, [segments, soundTracks, onSegmentsChange, onSoundTracksChange, onSaveToHistory])
 
-  const handleSelectSegment = useCallback((index) => {
-  handleSegmentClick(index)
-}, [handleSegmentClick])
-
-// Toolbar au clic sur un segment (mode segment entier)
+  // Toolbar au clic sur un segment (mode segment entier)
 const handleSegmentClick = useCallback((index) => {
   setSelectedSegmentIndex(index)
   const selection = window.getSelection()
@@ -834,7 +830,9 @@ const handleSegmentClick = useCallback((index) => {
   })
 }, [])
 
-
+  const handleSelectSegment = useCallback((index) => {
+  handleSegmentClick(index)
+}, [handleSegmentClick])
 
 // Apparition du toolbar à la sélection de texte
 const handleTextSelection = useCallback(() => {
