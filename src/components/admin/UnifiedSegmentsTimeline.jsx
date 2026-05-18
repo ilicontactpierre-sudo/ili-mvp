@@ -1364,6 +1364,11 @@ const handleTextSelection = useCallback(() => {
               ? segments[formatToolbar.segmentIndex]?.fontFamily || ''
               : ''
           }
+          currentText={
+            formatToolbar.segmentIndex !== null
+              ? (segments[formatToolbar.segmentIndex]?.text || '')
+              : ''
+          }
           onClose={() => setFormatToolbar(null)}
         />
       )}
