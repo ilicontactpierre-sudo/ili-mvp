@@ -311,6 +311,7 @@ function SegmentTimelineRow({
                 onChange={(e) => onEditChange(index, e.target.value)}
                 onBlur={() => onEditBlur(index)}
                 onKeyDown={(e) => onEditKeyDown(index, e)}
+                onMouseUp={(e) => e.stopPropagation()}
                 autoFocus
                 style={{
                   width: '100%',
