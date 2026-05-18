@@ -40,4 +40,3 @@ export function renderMarkdown(text) {
 
   return parts.length > 0 ? parts : text
 }
-
