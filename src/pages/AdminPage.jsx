@@ -329,7 +329,7 @@ function AdminPage() {
     setStorySlug(snapshot.slug || '')
     setSegments(snapshot.segments || [])
     setSoundTracks(snapshot.soundTracks || [])
-    // Scroll vers l'éditeur
+    setVfxTracks(snapshot.vfxTracks || [])
     window.scrollTo({ top: 400, behavior: 'smooth' })
   }
 
@@ -448,6 +448,7 @@ function AdminPage() {
         audioEvents: seg.audioEvents || []
       })),
       soundTracks: soundTracks,
+      vfxTracks: vfxTracks,
       sounds: sounds
     }
   }
@@ -460,6 +461,7 @@ function AdminPage() {
     setStoryText('')
     setSegments([])
     setSoundTracks([])
+    setVfxTracks([])
     setHistory([])
     setHistoryIndex(-1)
     setCutError('')
