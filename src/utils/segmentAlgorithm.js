@@ -171,6 +171,16 @@ function parseIntoUnits(text) {
       if (!trimmed) continue
 
       const isDialogueLine = /^[-—]/.test(trimmed)
+      // Ligne de puce → unité atomique non fusionnable
+      // On lui force isLastBeforeParagraphBreak pour bloquer mergeFragments
+      const isBulletLine = /^[•\-\*]/.test(trimmed)
+      if (isBulletLine) {
+        rawUnits.push(trimmed)
+        // Insérer un marqueur de paragraphe fictif après chaque puce
+        // pour que mergeFragments ne les fusionne jamais
+        rawUnits.push(PARAGRAPH_MARKER)
+        continue
+      }
 
       // Dialogue → jamais découpé en phrases
       if (isDialogueLine) {
