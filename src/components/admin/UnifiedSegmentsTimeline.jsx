@@ -38,6 +38,7 @@ function SegmentTimelineRow({
   onSplitAtPosition,
   onAdd, 
   onDelete,
+  onTextSelection,
   isCmdPressed,
   isEditing,
   editText,
@@ -67,7 +68,8 @@ function SegmentTimelineRow({
   dragTargetCell,
   onDragStart,
   onDragEnd,
-  onDragTargetChange
+  onDragTargetChange,
+  onTextSelection
 }) {
   console.log('segment', index, segment)
   const containerRef = useRef(null)
@@ -311,7 +313,8 @@ function SegmentTimelineRow({
                 onChange={(e) => onEditChange(index, e.target.value)}
                 onBlur={() => onEditBlur(index)}
                 onKeyDown={(e) => onEditKeyDown(index, e)}
-                onMouseUp={handleTextSelection}                autoFocus
+                onMouseUp={onTextSelection}
+                autoFocus
                 style={{
                   width: '100%',
                   minHeight: '100%',
@@ -1274,6 +1277,7 @@ const handleTextSelection = useCallback(() => {
               onDragStart={handleSoundDragStart}
               onDragEnd={handleSoundDragEnd}
               onDragTargetChange={handleDragTargetChange}
+              onTextSelection={handleTextSelection}
             />
             
             {index < segments.length - 1 && (
