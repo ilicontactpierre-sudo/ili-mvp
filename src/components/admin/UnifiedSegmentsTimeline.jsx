@@ -633,6 +633,55 @@ function UnifiedSegmentsTimeline({
   const [measuredRowHeights, setMeasuredRowHeights] = useState([])
   const [isAnyBlockDragging, setIsAnyBlockDragging] = useState(false)
   const [dragTargetCell, setDragTargetCell] = useState({ segmentIndex: -1, column: -1 })
+  // ── États VFX ──────────────────────────────────────────────
+  const [selectedVfxId, setSelectedVfxId]       = useState(null)
+  const [editingVfxTrack, setEditingVfxTrack]   = useState(null)
+  const [isAnyVfxDragging, setIsAnyVfxDragging] = useState(false)
+  const [vfxDragTarget, setVfxDragTarget]        = useState({ segmentIndex: -1, column: -1 })
+
+  const handleSelectVfx       = useCallback((id) => setSelectedVfxId(id), [])
+  const handleDoubleClickVfx  = useCallback((track) => setEditingVfxTrack(track), [])
+  const handleVfxDragStart    = useCallback(() => setIsAnyVfxDragging(true), [])
+  const handleVfxDragEnd      = useCallback(() => { setIsAnyVfxDragging(false); setVfxDragTarget({ segmentIndex: -1, column: -1 }) }, [])
+  const handleVfxDragTargetChange = useCallback((si, col) => setVfxDragTarget({ segmentIndex: si, column: col }), [])
+
+  const handleVfxColumnChange = useCallback((vfxId, newCol) => {
+    if (!onVfxTracksChange) return
+    onVfxTracksChange(vfxTracks.map(t => t.id === vfxId ? { ...t, column: newCol } : t))
+    if (onSaveToHistory) onSaveToHistory()
+  }, [vfxTracks, onVfxTracksChange, onSaveToHistory])
+
+  const handleVfxResize = useCallback((vfxId, newStart, newEnd) => {
+    if (!onVfxTracksChange) return
+    onVfxTracksChange(vfxTracks.map(t => {
+      if (t.id !== vfxId) return t
+      return { ...t, ...(newStart && { startSegmentId: newStart }), ...(newEnd && { endSegmentId: newEnd }) }
+    }))
+    if (onSaveToHistory) onSaveToHistory()
+  }, [vfxTracks, onVfxTracksChange, onSaveToHistory])
+
+  const handleSaveVfxTrack = useCallback((updated) => {
+    if (!onVfxTracksChange) return
+    onVfxTracksChange(vfxTracks.map(t => t.id === updated.id ? updated : t))
+    if (onSaveToHistory) onSaveToHistory()
+    setEditingVfxTrack(null)
+  }, [vfxTracks, onVfxTracksChange, onSaveToHistory])
+
+  const handleDeleteVfxTrack = useCallback((vfxId) => {
+    if (!onVfxTracksChange) return
+    onVfxTracksChange(vfxTracks.filter(t => t.id !== vfxId))
+    if (onSaveToHistory) onSaveToHistory()
+    setEditingVfxTrack(null)
+  }, [vfxTracks, onVfxTracksChange, onSaveToHistory])
+
+  const handleAddVfxToCell = useCallback((segmentIndex, column) => {
+    if (!onVfxTracksChange) return
+    const segId  = segments[segmentIndex]?.id || segments[segmentIndex]?._id
+    const track  = createVfxTrack('shake', segId, column)
+    onVfxTracksChange([...vfxTracks, track])
+    if (onSaveToHistory) onSaveToHistory()
+    setEditingVfxTrack(track)
+  }, [segments, vfxTracks, onVfxTracksChange, onSaveToHistory])
   const [formatToolbar, setFormatToolbar] = useState(null)
 // { mode: 'selection'|'segment', position: {top, left}, segmentIndex, range }
   
