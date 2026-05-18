@@ -71,12 +71,21 @@ rl.question(`Nom du checkpoint (sans le préfixe '${prefix}-') : `, (answer) => 
   const tagMessage = `ILi checkpoint: ${tagName}`
 
   try {
-    console.log('\nÉtape 0/5 : synchronisation avec origin')
+    console.log('\nÉtape 0/5 : vérification et sauvegarde des modifications en cours')
+    
+    // Vérifier s'il y a des modifications non commitées
     if (!isWorkingTreeClean()) {
-      console.error('Le répertoire de travail n\'est pas propre. Merci de committer ou stash vos changements avant de créer un checkpoint.')
-      process.exit(1)
+      console.log('Des modifications sont en cours. Elles seront automatiquement sauvegardées avant le checkpoint.')
+      run('git add .')
+      try {
+        run('git commit -m "save: modifications en cours avant checkpoint"')
+      } catch (error) {
+        // Si aucun changement à committer, on continue
+        console.log('Aucune modification à sauvegarder, poursuite...')
+      }
     }
 
+    console.log('\nÉtape 1/5 : synchronisation avec origin')
     run('git fetch origin')
     const status = getBranchSyncStatus(currentBranch)
 
@@ -89,23 +98,21 @@ rl.question(`Nom du checkpoint (sans le préfixe '${prefix}-') : `, (answer) => 
       run(`git merge --ff-only origin/${currentBranch}`)
     }
 
-    console.log('\nÉtape 1/5 : ajout des changements')
+    console.log('\nÉtape 2/5 : ajout des changements pour le checkpoint')
     run('git add .')
 
-    console.log('\nÉtape 2/5 : création du commit')
+    console.log('\nÉtape 3/5 : création du commit de checkpoint')
     try {
       run(`git commit -m "${commitMessage}"`)
     } catch (error) {
-      console.log('Aucun changement à valider ou commit déjà existant. Poursuite...')
+      console.log('Aucun changement à valider pour le checkpoint. Poursuite...')
     }
 
-    console.log(`\nÉtape 3/5 : création du tag ${tagName}`)
+    console.log(`\nÉtape 4/5 : création du tag ${tagName}`)
     run(`git tag -a ${tagName} -m "${tagMessage}"`)
 
-    console.log('\nÉtape 4/5 : push de la branche vers origin')
+    console.log('\nÉtape 5/5 : push de la branche et du tag vers origin')
     run(`git push origin ${currentBranch}`)
-
-    console.log('\nÉtape 5/5 : push du tag vers origin')
     run(`git push origin ${tagName}`)
 
     console.log(`\nCheckpoint créé avec succès : ${tagName}`)

@@ -67,6 +67,7 @@ function SegmentTimelineRow({
   onDragEnd,
   onDragTargetChange
 }) {
+  console.log('segment', index, segment)
   const containerRef = useRef(null)
   const textareaRef = useRef(null)
 
@@ -330,7 +331,6 @@ function SegmentTimelineRow({
             />
           ) : (
             <span ref={textContentRef} style={{ display: 'block', whiteSpace: 'pre-wrap', overflowWrap: 'break-word', lineHeight: '1.4', fontSize: '0.85rem', height: 'auto' }}>
-              {/* Affichage du texte avec indicateur de découpe */}
               {splitPreviewPosition !== null && isCmdPressed ? (
                 <>
                   {text.substring(0, splitPreviewPosition)}
@@ -345,11 +345,18 @@ function SegmentTimelineRow({
                   }} />
                   {text.substring(splitPreviewPosition)}
                 </>
+              ) : segment && typeof segment === 'object' && segment.breakAt !== null && Array.isArray(segment.lines) && segment.breakAt < segment.lines.length - 1 ? (
+                <>
+                  {segment.lines.slice(0, segment.breakAt + 1).join(' ')}
+                  {'\n\n'}
+                  {segment.lines.slice(segment.breakAt + 1).join(' ')}
+                </>
               ) : (
                 text
               )}
             </span>
           )}
+          
         </div>
 
         {/* Boutons d'action (visibles au survol) */}
