@@ -814,10 +814,13 @@ function UnifiedSegmentsTimeline({
     if (onSaveToHistory) onSaveToHistory()
   }, [segments, soundTracks, onSegmentsChange, onSoundTracksChange, onSaveToHistory])
 
+  const handleSelectSegment = useCallback((index) => {
+  handleSegmentClick(index)
+}, [handleSegmentClick])
+
 // Toolbar au clic sur un segment (mode segment entier)
 const handleSegmentClick = useCallback((index) => {
   setSelectedSegmentIndex(index)
-  // Si du texte est sélectionné, laisser le toolbar de sélection gérer
   const selection = window.getSelection()
   if (selection && !selection.isCollapsed) return
   const row = rowRefs.current[index]
@@ -825,28 +828,25 @@ const handleSegmentClick = useCallback((index) => {
   const rect = row.getBoundingClientRect()
   setFormatToolbar({
     mode: 'segment',
-    position: { top: rect.top + window.scrollY, left: rect.left + rect.width / 2 },
+    position: { top: rect.top - 44, left: rect.left + rect.width / 2 },
     segmentIndex: index,
     range: null,
   })
 }, [])
 
-const handleSelectSegment = useCallback((index) => {
-  handleSegmentClick(index)
-}, [handleSegmentClick])
+
 
 // Apparition du toolbar à la sélection de texte
 const handleTextSelection = useCallback(() => {
   const selection = window.getSelection()
   if (!selection || selection.isCollapsed || selection.toString().trim() === '') {
-    setFormatToolbar(null)
-    return
+    return  // Ne pas effacer — laisser le toolbar segment visible
   }
   const range = selection.getRangeAt(0)
   const rect = range.getBoundingClientRect()
   setFormatToolbar({
     mode: 'selection',
-    position: { top: rect.top + window.scrollY, left: rect.left + rect.width / 2 },
+    position: { top: rect.top - 44, left: rect.left + rect.width / 2 },
     range: range.cloneRange(),
     segmentIndex: null,
   })

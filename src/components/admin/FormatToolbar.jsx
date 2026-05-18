@@ -1,21 +1,14 @@
-import { useState, useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 
 const FONTS = [
-  { label: 'Sans-serif', value: 'system-ui, -apple-system, sans-serif' },
-  { label: 'Serif',      value: 'Georgia, "Times New Roman", serif' },
-  { label: 'Mono',       value: '"Courier New", Courier, monospace' },
+  { label: 'Sans', value: 'system-ui, -apple-system, sans-serif' },
+  { label: 'Serif', value: 'Georgia, "Times New Roman", serif' },
+  { label: 'Mono', value: '"Courier New", Courier, monospace' },
 ]
 
-/**
- * FormatToolbar
- * Apparaît en deux modes :
- *   - mode "selection" : sélection de texte → gras/italique/souligné
- *   - mode "segment"   : segment(s) sélectionné(s) → police du segment entier
- */
 export default function FormatToolbar({ mode, position, onFormat, onFontChange, currentFont, onClose }) {
   const ref = useRef(null)
 
-  // Fermer si clic extérieur
   useEffect(() => {
     const handleMouseDown = (e) => {
       if (ref.current && !ref.current.contains(e.target)) {
@@ -30,7 +23,7 @@ export default function FormatToolbar({ mode, position, onFormat, onFontChange, 
 
   const toolbarStyle = {
     position: 'fixed',
-    top: position.top - 44,
+    top: position.top,
     left: position.left,
     transform: 'translateX(-50%)',
     display: 'flex',
@@ -45,7 +38,7 @@ export default function FormatToolbar({ mode, position, onFormat, onFontChange, 
     userSelect: 'none',
   }
 
-  const btnStyle = (active) => ({
+  const btn = (active) => ({
     background: active ? 'rgba(255,255,255,0.2)' : 'transparent',
     border: 'none',
     borderRadius: '4px',
@@ -73,24 +66,23 @@ export default function FormatToolbar({ mode, position, onFormat, onFontChange, 
       <div ref={ref} style={toolbarStyle}>
         {mode === 'selection' && (
           <>
-            <button style={btnStyle(false)} onMouseDown={(e) => { e.preventDefault(); onFormat('bold') }} title="Gras">
+            <button style={btn(false)} onMouseDown={(e) => { e.preventDefault(); onFormat('bold') }} title="Gras">
               <strong>B</strong>
             </button>
-            <button style={btnStyle(false)} onMouseDown={(e) => { e.preventDefault(); onFormat('italic') }} title="Italique">
+            <button style={btn(false)} onMouseDown={(e) => { e.preventDefault(); onFormat('italic') }} title="Italique">
               <em>I</em>
             </button>
-            <button style={btnStyle(false)} onMouseDown={(e) => { e.preventDefault(); onFormat('underline') }} title="Souligné">
+            <button style={btn(false)} onMouseDown={(e) => { e.preventDefault(); onFormat('underline') }} title="Souligné">
               <u>U</u>
             </button>
             {divider}
           </>
         )}
-        {/* Sélecteur de police — toujours visible */}
         {FONTS.map(font => (
           <button
             key={font.value}
             style={{
-              ...btnStyle(currentFont === font.value),
+              ...btn(currentFont === font.value),
               fontFamily: font.value,
               fontSize: '12px',
               padding: '4px 8px',
