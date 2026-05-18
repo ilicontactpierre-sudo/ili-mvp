@@ -36,13 +36,13 @@
 .story-reader__segment--focus {
   color: var(--color-text-focus);
   opacity: 1;
-  transform: scale(1);
   filter: blur(0);
+  transform: none;
 }
 
 .story-reader__segment--blur {
   color: var(--color-text-blur);
-  opacity: 0.45;
-  transform: scale(0.92);
-  filter: blur(var(--blur-amount));
+  opacity: 0.38;
+  filter: blur(3px);
+  transform: none;
 }
