@@ -834,28 +834,56 @@ const handleSegmentClick = useCallback((index) => {
   handleSegmentClick(index)
 }, [handleSegmentClick])
 
-// Apparition du toolbar à la sélection de texte
+// Apparition du toolbar à la sélection de texte (span normal ET textarea en édition)
 const handleTextSelection = useCallback(() => {
   const selection = window.getSelection()
-  if (!selection || selection.isCollapsed || selection.toString().trim() === '') return
+  const selectedText = selection?.toString().trim()
 
-  const range = selection.getRangeAt(0)
-  const container = range.commonAncestorContainer
-  const segmentDiv = (container.nodeType === 1 ? container : container.parentElement)
-    ?.closest('[data-segment-index]')
-  if (!segmentDiv) return
+  // Cas 1 : sélection native (span en mode lecture)
+  if (selection && !selection.isCollapsed && selectedText) {
+    const range = selection.getRangeAt(0)
+    const container = range.commonAncestorContainer
+    const segmentDiv = (container.nodeType === 1 ? container : container.parentElement)
+      ?.closest('[data-segment-index]')
+    if (segmentDiv) {
+      const segmentIndex = parseInt(segmentDiv.dataset.segmentIndex, 10)
+      const row = rowRefs.current[segmentIndex]
+      if (row) {
+        const rect = row.getBoundingClientRect()
+        setFormatToolbar({
+          mode: 'selection',
+          position: { top: rect.top, left: rect.left + rect.width / 2 },
+          segmentIndex,
+          selectedText,
+        })
+        return
+      }
+    }
+  }
 
-  const segmentIndex = parseInt(segmentDiv.dataset.segmentIndex, 10)
-  const row = rowRefs.current[segmentIndex]
-  if (!row) return
-
-  const rect = row.getBoundingClientRect()
-  setFormatToolbar({
-    mode: 'selection',
-    position: { top: rect.top, left: rect.left + rect.width / 2 },
-    segmentIndex,
-    selectedText: selection.toString(),
-  })
+  // Cas 2 : sélection dans un textarea (mode édition)
+  const activeEl = document.activeElement
+  if (
+    activeEl &&
+    activeEl.tagName === 'TEXTAREA' &&
+    activeEl.selectionStart !== activeEl.selectionEnd
+  ) {
+    const selected = activeEl.value.substring(activeEl.selectionStart, activeEl.selectionEnd).trim()
+    if (!selected) return
+    // Retrouver le segment parent via data-segment-index
+    const segmentDiv = activeEl.closest('[data-segment-index]')
+    if (!segmentDiv) return
+    const segmentIndex = parseInt(segmentDiv.dataset.segmentIndex, 10)
+    const row = rowRefs.current[segmentIndex]
+    if (!row) return
+    const rect = row.getBoundingClientRect()
+    setFormatToolbar({
+      mode: 'selection',
+      position: { top: rect.top, left: rect.left + rect.width / 2 },
+      segmentIndex,
+      selectedText: selected,
+    })
+  }
 }, [])
 
 // Appliquer gras/italique/souligné/barré sur la sélection ou le segment entier
