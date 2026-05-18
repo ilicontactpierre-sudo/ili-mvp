@@ -306,31 +306,31 @@ function SegmentTimelineRow({
         >
           {isEditing ? (
             <textarea
-              ref={textareaRef}
-              value={editText}
-              onChange={(e) => onEditChange(index, e.target.value)}
-              onBlur={() => onEditBlur(index)}
-              onKeyDown={(e) => onEditKeyDown(index, e)}
-              autoFocus
-              style={{
-                width: '100%',
-                minHeight: '100%',
-                padding: '0',
-                margin: '0',
-                fontSize: '0.85rem',
-                border: 'none',
-                borderRadius: '0',
-                resize: 'none',
-                fontFamily: 'inherit',
-                lineHeight: '1.4',
-                outline: 'none',
-                boxSizing: 'border-box',
-                background: 'transparent',
-                color: 'inherit',
-                overflow: 'hidden',
-                display: 'block'
-              }}
-            />
+                ref={textareaRef}
+                value={editText}
+                onChange={(e) => onEditChange(index, e.target.value)}
+                onBlur={() => onEditBlur(index)}
+                onKeyDown={(e) => onEditKeyDown(index, e)}
+                autoFocus
+                style={{
+                  width: '100%',
+                  minHeight: '100%',
+                  padding: '0',
+                  margin: '0',
+                  fontSize: '0.85rem',
+                  border: 'none',
+                  borderRadius: '0',
+                  resize: 'none',
+                  fontFamily: segment.fontFamily || 'inherit',
+                  lineHeight: '1.4',
+                  outline: 'none',
+                  boxSizing: 'border-box',
+                  background: 'transparent',
+                  color: 'inherit',
+                  overflow: 'hidden',
+                  display: 'block'
+                }}
+              />
           ) : (
             <span ref={textContentRef} style={{ display: 'block', whiteSpace: 'pre-wrap', overflowWrap: 'break-word', lineHeight: '1.4', fontSize: '0.85rem', height: 'auto' }}>
               {splitPreviewPosition !== null && isCmdPressed ? (
@@ -824,9 +824,9 @@ const handleSegmentClick = useCallback((index) => {
   const rect = row.getBoundingClientRect()
   setFormatToolbar({
     mode: 'segment',
-    position: { top: rect.top - 44, left: rect.left + rect.width / 2 },
+    position: { top: rect.top, left: rect.left + rect.width / 2 },
     segmentIndex: index,
-    range: null,
+    selectedText: null,
   })
 }, [])
 
@@ -837,64 +837,71 @@ const handleSegmentClick = useCallback((index) => {
 // Apparition du toolbar à la sélection de texte
 const handleTextSelection = useCallback(() => {
   const selection = window.getSelection()
-  if (!selection || selection.isCollapsed || selection.toString().trim() === '') {
-    return  // Ne pas effacer — laisser le toolbar segment visible
-  }
+  if (!selection || selection.isCollapsed || selection.toString().trim() === '') return
+
   const range = selection.getRangeAt(0)
-  const rect = range.getBoundingClientRect()
+  const container = range.commonAncestorContainer
+  const segmentDiv = (container.nodeType === 1 ? container : container.parentElement)
+    ?.closest('[data-segment-index]')
+  if (!segmentDiv) return
+
+  const segmentIndex = parseInt(segmentDiv.dataset.segmentIndex, 10)
+  const row = rowRefs.current[segmentIndex]
+  if (!row) return
+
+  const rect = row.getBoundingClientRect()
   setFormatToolbar({
     mode: 'selection',
-    position: { top: rect.top - 44, left: rect.left + rect.width / 2 },
-    range: range.cloneRange(),
-    segmentIndex: null,
+    position: { top: rect.top, left: rect.left + rect.width / 2 },
+    segmentIndex,
+    selectedText: selection.toString(),
   })
 }, [])
 
-  // Appliquer gras/italique/souligné sur la sélection
+  // Appliquer gras/italique/souligné/barré sur la sélection ou le segment entier
   const handleFormat = useCallback((type) => {
-    if (!formatToolbar?.range) return
-    const selection = window.getSelection()
-    selection.removeAllRanges()
-    selection.addRange(formatToolbar.range)
-    const selectedText = formatToolbar.range.toString()
-    if (!selectedText) return
+    if (!formatToolbar || formatToolbar.segmentIndex === null || formatToolbar.segmentIndex === undefined) return
+    const { segmentIndex, selectedText, mode } = formatToolbar
+    const segment = segments[segmentIndex]
+    if (!segment) return
 
-    // Trouver le segment concerné via le nœud DOM
-    const container = formatToolbar.range.commonAncestorContainer
-    const rowEl = container.nodeType === 1
-      ? container.closest('[data-segment-index]')
-      : container.parentElement?.closest('[data-segment-index]')
-    const segIdx = rowEl ? parseInt(rowEl.dataset.segmentIndex, 10) : null
-    if (segIdx === null || segIdx === undefined || isNaN(segIdx)) return
-
-    const segment = segments[segIdx]
-    const fullText = segment.text || ''
-
-    // Trouver la position de la sélection dans segment.text
-    // On cherche selectedText dans fullText (première occurrence après offset estimé)
-    const selStart = fullText.indexOf(selectedText)
-    if (selStart === -1) return
-    const selEnd = selStart + selectedText.length
-
-    const markers = { bold: '**', italic: '*', underline: '__' }
+    const fullText = typeof segment === 'string' ? segment : (segment.text || '')
+    const markers = { bold: '**', italic: '*', underline: '__', strikethrough: '~~' }
     const m = markers[type]
-    const newText = fullText.slice(0, selStart) + m + selectedText + m + fullText.slice(selEnd)
+    if (!m) return
 
+    let newText
+    if (mode === 'segment' || !selectedText) {
+      // Appliquer au segment entier
+      newText = m + fullText + m
+    } else {
+      // Appliquer uniquement à la sélection
+      const selStart = fullText.indexOf(selectedText)
+      if (selStart === -1) return
+      const selEnd = selStart + selectedText.length
+      newText = fullText.slice(0, selStart) + m + selectedText + m + fullText.slice(selEnd)
+    }
+
+    
     const updatedSegments = [...segments]
-    updatedSegments[segIdx] = { ...segment, text: newText }
+    updatedSegments[segmentIndex] = typeof segment === 'string'
+      ? newText
+      : { ...segment, text: newText }
     onSegmentsChange(updatedSegments)
     if (onSaveToHistory) onSaveToHistory()
     setFormatToolbar(null)
-    selection.removeAllRanges()
   }, [formatToolbar, segments, onSegmentsChange, onSaveToHistory])
 
   // Changer la police d'un segment
   const handleFontChange = useCallback((fontValue) => {
-    if (!formatToolbar) return
-    const idx = formatToolbar.segmentIndex ?? formatToolbar.segmentIndex
-    if (idx === null || idx === undefined) return
+    if (!formatToolbar || formatToolbar.segmentIndex === null || formatToolbar.segmentIndex === undefined) return
+    const idx = formatToolbar.segmentIndex
+    const segment = segments[idx]
+    if (!segment) return
     const updatedSegments = [...segments]
-    updatedSegments[idx] = { ...segments[idx], fontFamily: fontValue }
+    updatedSegments[idx] = typeof segment === 'string'
+      ? { text: segment, fontFamily: fontValue }
+      : { ...segment, fontFamily: fontValue }
     onSegmentsChange(updatedSegments)
     if (onSaveToHistory) onSaveToHistory()
     setFormatToolbar(null)
