@@ -1,6 +1,7 @@
 import { useLayoutEffect, useRef, useState } from 'react'
 import './StoryReader.css'
 import { renderMarkdown } from '../utils/renderMarkdown'
+import { getVfxClass } from './admin/constants'
 
 function StoryReader({ storyId, storyData, currentIndex = 0 }) {
   // MODE 2 — données directes en props (nouveau)
@@ -113,13 +114,39 @@ function StoryReader({ storyId, storyData, currentIndex = 0 }) {
           return (
             <p
             key={segment.id}
-            ref={(node) => {
-              segmentRefs.current[index] = node
+            ref={(node) => { segmentRefs.current[index] = node }}
+            className={[
+              'story-reader__segment',
+              isFocused ? 'story-reader__segment--focus' : 'story-reader__segment--blur',
+              ...(() => {
+                if (!isFocused || !storyData?.vfxTracks) return []
+                const segId = segment.id || segment._id || String(index)
+                return storyData.vfxTracks
+                  .filter(t => {
+                    const si = (storyData.segments || []).findIndex(s => s.id === t.startSegmentId || s._id === t.startSegmentId)
+                    const ei = (storyData.segments || []).findIndex(s => s.id === t.endSegmentId   || s._id === t.endSegmentId)
+                    const te = ei !== -1 ? ei : si
+                    return si <= index && index <= te
+                  })
+                  .map(t => getVfxClass(t))
+                  .filter(Boolean)
+              })(),
+            ].join(' ')}
+            style={{
+              fontFamily: segment.fontFamily || 'inherit',
+              ...((() => {
+                if (!isFocused || !storyData?.vfxTracks) return {}
+                const flashTrack = storyData.vfxTracks.find(t => {
+                  if (t.type !== 'flash') return false
+                  const si = (storyData.segments || []).findIndex(s => s.id === t.startSegmentId || s._id === t.startSegmentId)
+                  const ei = (storyData.segments || []).findIndex(s => s.id === t.endSegmentId   || s._id === t.endSegmentId)
+                  const te = ei !== -1 ? ei : si
+                  return si <= index && index <= te
+                })
+                return flashTrack ? { '--vfx-flash-color': flashTrack.color } : {}
+              })()),
             }}
-            className={`story-reader__segment ${
-              isFocused ? 'story-reader__segment--focus' : 'story-reader__segment--blur'
-            }`}
-            style={{ fontFamily: segment.fontFamily || 'inherit' }}
+            data-vfx-text={segment.text}
           >
             {renderMarkdown(segment.text)}
           </p>
