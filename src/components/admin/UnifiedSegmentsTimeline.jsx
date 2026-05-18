@@ -345,11 +345,11 @@ function SegmentTimelineRow({
                   }} />
                   {text.substring(splitPreviewPosition)}
                 </>
-              ) : segment && typeof segment === 'object' && segment.breakAt !== null && Array.isArray(segment.lines) && segment.breakAt < segment.lines.length - 1 ? (
+              ) : segment && typeof segment === 'object' && segment.breakAt !== null ? (
                 <>
-                  {segment.lines.slice(0, segment.breakAt + 1).join(' ')}
+                  {segment.text.slice(0, segment.breakAt).trim()}
                   {'\n\n'}
-                  {segment.lines.slice(segment.breakAt + 1).join(' ')}
+                  {segment.text.slice(segment.breakAt).trim()}
                 </>
               ) : (
                 text

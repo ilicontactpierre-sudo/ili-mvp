@@ -948,61 +948,40 @@ function serializeSegments(composedSegments) {
       const text = lines.join(' ').trim()
       if (!text || !/[a-zA-ZÀ-ÿ\u0100-\u024F]/.test(text)) return null
 
-      // ── DÉTECTION DU SAUT INTRA-SEGMENT ──────────────────────────────────
       let breakAt = null
 
-      // Cas 1 : règle structurelle forte (deux-points ou ellipse avant très court)
-      // → systématique, pas de probabilité
-      for (let i = 0; i < lines.length - 1; i++) {
-        const curr = lines[i].trim()
-        const next = lines[i + 1].trim()
-        if (
-          /[:]$/.test(curr) ||
-          (curr.endsWith('…') && next.length < 40)
-        ) {
-          breakAt = i
-          break
-        }
-      }
+      // Chercher un point de coupure directement dans la string text
+      // Seulement si le segment est assez long
+      if (text.length >= 80) {
+        const prob =
+          text.length >= 220 ? 0.60 :
+          text.length >= 160 ? 0.40 :
+          text.length >= 120 ? 0.30 :
+          0.20
+        const roll = pseudoRandom(segIndex * 31 + text.length)
+        if (roll < prob) {
+          // Chercher une ponctuation forte (.  !  ?  …) entre 40% et 70% du texte
+          // pour éviter les coupures trop proches du début ou de la fin
+          const start = Math.floor(text.length * 0.25)
+          const end   = Math.floor(text.length * 0.80)
 
-      // Cas 2 : saut visuel probabiliste sur segments moyens/longs (≥ 2 unités)
-      // Seulement si aucun saut structurel n'a déjà été détecté
-      if (breakAt === null && lines.length >= 2) {
-        const totalChars = text.length
-        const isMediumOrLong = totalChars >= 100
-
-        if (isMediumOrLong) {
-          // Probabilité de saut selon la longueur :
-          // 100-160 car → 25%
-          // 161-220 car → 40%
-          // 221+    car → 55%
-          const prob =
-            totalChars >= 221 ? 0.55 :
-            totalChars >= 161 ? 0.40 :
-            0.25
-
-          const roll = pseudoRandom(segIndex * 31 + lines.length * 7)
-
-          if (roll < prob) {
-            // Chercher le meilleur point de coupure parmi les unités :
-            // ponctuation forte (.  !  ?  …) pas en première ni dernière unité
-            // on préfère couper après une unité qui se termine par ! ? … : .
-            // et dont la partie suivante est assez longue (≥ 30 car)
-            for (let i = 0; i < lines.length - 1; i++) {
-              const curr = lines[i].trim()
-              const next = lines[i + 1].trim()
-              if (
-                /[.!?…]$/.test(curr) &&
-                next.length >= 30
-              ) {
-                breakAt = i
-                break
-              }
+          for (let i = start; i < end; i++) {
+            const char = text[i]
+            const next = text[i + 1]
+            if (
+              '.!?…»'.includes(char) &&
+              (next === ' ' || next === undefined)
+            ) {
+              // breakAt = index du caractère dans text (inclusif)
+              breakAt = i + 1
+              break
             }
           }
         }
       }
-
+if (breakAt !== null) {
+  console.log('BREAK AT', segIndex, breakAt, text.length, text.substring(0, 40))
+}
       return { lines, text, breakAt }
     })
     .filter(Boolean)
