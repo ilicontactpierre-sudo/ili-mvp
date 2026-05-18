@@ -712,6 +712,24 @@ function AdminPage() {
           width: '100%', 
           maxWidth: '800px'
         }}>
+{/* Nouvelle histoire */}
+          <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '1rem' }}>
+            <button
+              onClick={handleNewStory}
+              style={{
+                padding: '0.6rem 1.25rem',
+                fontSize: '0.9rem',
+                backgroundColor: '#fff',
+                color: '#333',
+                border: '1px solid #ccc',
+                borderRadius: '4px',
+                cursor: 'pointer',
+              }}
+            >
+              ＋ Nouvelle histoire
+            </button>
+          </div>
+
           {/* 2. StoryLoader (section collapsible) */}
           <StoryLoader
             onLoadStory={handleLoadStory}
