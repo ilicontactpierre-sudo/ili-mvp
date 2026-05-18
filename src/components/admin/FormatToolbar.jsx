@@ -15,10 +15,17 @@ const GOOGLE_FONTS_URL =
   '&family=Courier+Prime:ital,wght@0,400;0,700;1,400' +
   '&family=Meie+Script&display=swap'
 
-export default function FormatToolbar({ mode, position, onFormat, onFontChange, currentFont, onClose }) {
+// Vérifie si un texte est entouré d'un marqueur donné
+function isActive(text, marker) {
+  if (!text) return false
+  const escaped = marker.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+  const regex = new RegExp(`^${escaped}.+${escaped}$`, 's')
+  return regex.test(text.trim())
+}
+
+export default function FormatToolbar({ mode, position, onFormat, onFontChange, currentFont, currentText, onClose }) {
   const ref = useRef(null)
 
-  // Charger les Google Fonts une seule fois
   useEffect(() => {
     if (!document.getElementById('ili-format-fonts')) {
       const link = document.createElement('link')
@@ -29,7 +36,6 @@ export default function FormatToolbar({ mode, position, onFormat, onFontChange, 
     }
   }, [])
 
-  // Fermer si clic en dehors
   useEffect(() => {
     const handleMouseDown = (e) => {
       if (ref.current && !ref.current.contains(e.target)) onClose()
@@ -41,6 +47,14 @@ export default function FormatToolbar({ mode, position, onFormat, onFontChange, 
   if (!position) return null
 
   const top = Math.max(8, position.top - 50)
+
+  const boldActive    = isActive(currentText, '**')
+  const italicActive  = isActive(currentText, '*')
+  const underActive   = isActive(currentText, '__')
+  const strikeActive  = isActive(currentText, '~~')
+
+  const activeStyle  = { background: 'rgba(255,255,255,0.90)', color: '#1a1a1a' }
+  const defaultStyle = { background: 'transparent', color: 'white' }
 
   return (
     <>
@@ -64,12 +78,11 @@ export default function FormatToolbar({ mode, position, onFormat, onFontChange, 
           display: flex;
           align-items: center;
           justify-content: center;
-          transition: background 0.12s ease;
+          transition: background 0.12s ease, color 0.12s ease;
         }
-        .ili-fmt-btn:hover { background: rgba(255,255,255,0.18) !important; }
-        .ili-fmt-btn.active { background: rgba(255,255,255,0.22); }
+        .ili-fmt-btn:hover { background: rgba(255,255,255,0.18) !important; color: white !important; }
+        .ili-fmt-btn.active { background: rgba(255,255,255,0.90) !important; color: #1a1a1a !important; }
       `}</style>
-
       <div
         ref={ref}
         style={{
@@ -91,16 +104,32 @@ export default function FormatToolbar({ mode, position, onFormat, onFontChange, 
         }}
       >
         {/* ── Formatage ── */}
-        <button className="ili-fmt-btn" onMouseDown={(e) => { e.preventDefault(); onFormat('bold') }} title="Gras">
+        <button
+          className={`ili-fmt-btn${boldActive ? ' active' : ''}`}
+          onMouseDown={(e) => { e.preventDefault(); onFormat('bold') }}
+          title="Gras"
+        >
           <strong style={{ fontFamily: 'Georgia, serif', fontSize: 14 }}>B</strong>
         </button>
-        <button className="ili-fmt-btn" onMouseDown={(e) => { e.preventDefault(); onFormat('italic') }} title="Italique">
+        <button
+          className={`ili-fmt-btn${italicActive ? ' active' : ''}`}
+          onMouseDown={(e) => { e.preventDefault(); onFormat('italic') }}
+          title="Italique"
+        >
           <em style={{ fontFamily: 'Georgia, serif', fontStyle: 'italic', fontSize: 14 }}>I</em>
         </button>
-        <button className="ili-fmt-btn" onMouseDown={(e) => { e.preventDefault(); onFormat('underline') }} title="Souligné">
+        <button
+          className={`ili-fmt-btn${underActive ? ' active' : ''}`}
+          onMouseDown={(e) => { e.preventDefault(); onFormat('underline') }}
+          title="Souligné"
+        >
           <span style={{ textDecoration: 'underline' }}>U</span>
         </button>
-        <button className="ili-fmt-btn" onMouseDown={(e) => { e.preventDefault(); onFormat('strikethrough') }} title="Barré">
+        <button
+          className={`ili-fmt-btn${strikeActive ? ' active' : ''}`}
+          onMouseDown={(e) => { e.preventDefault(); onFormat('strikethrough') }}
+          title="Barré"
+        >
           <span style={{ textDecoration: 'line-through' }}>S</span>
         </button>
 
