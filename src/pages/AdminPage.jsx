@@ -29,6 +29,7 @@ function AdminPage() {
 
   // SoundTracks - nouveau modèle de données pour la timeline audio
   const [soundTracks, setSoundTracks] = useState([])
+  const [vfxTracks, setVfxTracks] = useState([])
 
   // Bibliothèque sonore
   const [soundLibrary, setSoundLibrary] = useState([])
