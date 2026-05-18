@@ -303,7 +303,7 @@ function AdminPage() {
       
       // Utiliser l'algorithme local au lieu de l'API Gemini
       const result = segmentText(storyText, granularity);
-      
+      console.log('RESULT BRUT', result.filter(s => s.breakAt !== null))
       console.log("Découpage terminé - nombre de segments:", result.length);
       console.log("Premiers segments:", result.slice(0, 3));
       
