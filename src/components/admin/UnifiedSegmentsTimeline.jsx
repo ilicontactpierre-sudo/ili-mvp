@@ -622,7 +622,7 @@ function UnifiedSegmentsTimeline({
   const [hoveredRow, setHoveredRow] = useState(null)
   const [hoveredSeparator, setHoveredSeparator] = useState(null)
   const [isCmdPressed, setIsCmdPressed] = useState(false)
-  const [dividerPosition, setDividerPosition] = useState(61.5)
+  const [dividerPosition, setDividerPosition] = useState(64.5)
   const [isDraggingDivider, setIsDraggingDivider] = useState(false)
   const [editingSegmentIndex, setEditingSegmentIndex] = useState(null)
   const [editTexts, setEditTexts] = useState({})
