@@ -909,8 +909,10 @@ function AdminPage() {
                         segments={segments}
                         soundTracks={soundTracks}
                         soundLibrary={soundLibrary}
+                        vfxTracks={vfxTracks}
                         onSegmentsChange={setSegments}
                         onSoundTracksChange={setSoundTracks}
+                        onVfxTracksChange={setVfxTracks}
                         onSaveToHistory={() => saveToHistory(segments)}
                       />
                     </div>
