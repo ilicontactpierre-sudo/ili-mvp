@@ -60,11 +60,13 @@ body {
   align-items: center;
   z-index: 10;
   position: relative;
-  transition: transform 700ms cubic-bezier(0.76, 0, 0.24, 1);
+  transform: translateY(0);
+  transition: transform 900ms cubic-bezier(0.87, 0, 0.13, 1);
+  will-change: transform;
 }
 
 .logo-container.logo-open {
-  transform: translateY(-38vh);
+  transform: translateY(-36vh);
 }
 
 /* Logo "ILi" */
@@ -78,20 +80,34 @@ body {
   user-select: none;
   margin: 0;
   line-height: 1;
+  transform: scale(1);
   transition:
-    font-size 700ms cubic-bezier(0.76, 0, 0.24, 1),
-    opacity 200ms ease;
+    font-size 900ms cubic-bezier(0.87, 0, 0.13, 1),
+    opacity 200ms ease,
+    transform 80ms cubic-bezier(0.25, 0, 0.5, 1);
+  will-change: transform;
 }
 
 .logo:hover {
-  opacity: 0.7;
+  opacity: 0.75;
+}
+
+/* Bump au clic */
+.logo.logo-bump {
+  transform: scale(0.94);
+  transition: transform 80ms cubic-bezier(0.25, 0, 0.5, 1);
 }
 
 .logo-container.logo-open .logo {
-  font-size: clamp(36px, 7vw, 56px);
+  font-size: clamp(36px, 7vw, 54px);
+  transform: scale(1);
+  transition:
+    font-size 900ms cubic-bezier(0.87, 0, 0.13, 1),
+    opacity 200ms ease,
+    transform 120ms cubic-bezier(0.25, 0, 0.5, 1);
 }
 
-/* Tagline "lecture immersive" */
+/* Tagline */
 .logo-tagline {
   font-family: var(--font-logo);
   font-size: 11px;
@@ -102,15 +118,16 @@ body {
   margin-top: 12px;
   cursor: pointer;
   user-select: none;
-  transition:
-    opacity 350ms ease,
-    transform 350ms ease;
   transform: translateY(0px);
+  opacity: 1;
+  transition:
+    opacity 280ms ease,
+    transform 280ms ease;
 }
 
 .logo-container.logo-open .logo-tagline {
   opacity: 0;
-  transform: translateY(-6px);
+  transform: translateY(-8px);
   pointer-events: none;
 }
 
@@ -141,8 +158,8 @@ body {
   -ms-overflow-style: none;
   pointer-events: all;
   opacity: 0;
-  transform: translateY(18px);
-  animation: menu-enter 600ms cubic-bezier(0.76, 0, 0.24, 1) 280ms forwards;
+  transform: translateY(22px);
+  animation: menu-enter 700ms cubic-bezier(0.16, 1, 0.3, 1) 180ms forwards;
 }
 
 .story-menu-container::-webkit-scrollbar {
@@ -169,9 +186,9 @@ body {
   cursor: pointer;
   transition: background 250ms ease;
   opacity: 0;
-  transform: translateY(12px);
-  animation: story-card-enter 500ms cubic-bezier(0.76, 0, 0.24, 1) forwards;
-  animation-delay: calc(320ms + var(--delay, 0ms));
+  transform: translateY(10px);
+  animation: story-card-enter 600ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation-delay: calc(260ms + var(--delay, 0ms));
   display: flex;
   align-items: center;
   justify-content: space-between;
