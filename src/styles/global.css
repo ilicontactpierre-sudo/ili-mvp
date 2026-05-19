@@ -131,7 +131,7 @@ body {
 .story-menu-container {
   width: 90%;
   max-width: 480px;
-  max-height: 95vh;
+  max-height: 55vh;
   overflow-y: auto;
   scrollbar-width: none;
   -ms-overflow-style: none;
