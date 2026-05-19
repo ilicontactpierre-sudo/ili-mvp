@@ -802,7 +802,7 @@ function UnifiedSegmentsTimeline({
   onVfxTracksChange,
   onSaveToHistory
 }) {
-  const [selectedSoundId, setSelectedSoundId] = useState(null)
+  const [selectedSoundIds, setSelectedSoundIds] = useState(new Set())
   const [editingSoundTrack, setEditingSoundTrack] = useState(null)
   const [showSoundPicker, setShowSoundPicker] = useState(false)
   const [selectedSegmentIndex, setSelectedSegmentIndex] = useState(null)
@@ -817,7 +817,7 @@ function UnifiedSegmentsTimeline({
   const [isAnyBlockDragging, setIsAnyBlockDragging] = useState(false)
   const [dragTargetCell, setDragTargetCell] = useState({ segmentIndex: -1, column: -1 })
   // ── États VFX ──────────────────────────────────────────────
-  const [selectedVfxId, setSelectedVfxId]       = useState(null)
+  const [selectedVfxIds, setSelectedVfxIds]     = useState(new Set())
   const [editingVfxTrack, setEditingVfxTrack]   = useState(null)
   const [isAnyVfxDragging, setIsAnyVfxDragging] = useState(false)
   const [vfxDragTarget, setVfxDragTarget] = useState({ segmentIndex: -1, column: -1 })
@@ -825,7 +825,15 @@ function UnifiedSegmentsTimeline({
   // ── Chapitres ──────────────────────────────────────────────
   const [collapsedChapters, setCollapsedChapters] = useState(new Set())
 
-  const handleSelectVfx       = useCallback((id) => setSelectedVfxId(id), [])
+  const handleSelectVfx = useCallback((id, isShift) => {
+      setSelectedVfxIds(prev => {
+        const next = isShift ? new Set(prev) : new Set()
+        if (isShift && prev.has(id)) next.delete(id)
+        else next.add(id)
+        return next
+      })
+      if (!isShift) setSelectedSoundIds(new Set())
+    }, [])  
   const handleDoubleClickVfx  = useCallback((track) => setEditingVfxTrack(track), [])
   const handleVfxDragStart    = useCallback(() => setIsAnyVfxDragging(true), [])
   const handleVfxDragEnd      = useCallback(() => { setIsAnyVfxDragging(false); setVfxDragTarget({ segmentIndex: -1, column: -1 }) }, [])
