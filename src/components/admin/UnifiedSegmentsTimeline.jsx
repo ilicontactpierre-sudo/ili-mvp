@@ -844,6 +844,12 @@ function UnifiedSegmentsTimeline({
     if (onSaveToHistory) onSaveToHistory()
   }, [vfxTracks, onVfxTracksChange, onSaveToHistory])
 
+  const handleVfxUpdate = useCallback((vfxId, updates) => {
+    if (!onVfxTracksChange) return
+    onVfxTracksChange(vfxTracks.map(t => t.id === vfxId ? { ...t, ...updates } : t))
+    if (onSaveToHistory) onSaveToHistory()
+  }, [vfxTracks, onVfxTracksChange, onSaveToHistory])
+
   const handleVfxResize = useCallback((vfxId, newStart, newEnd) => {
     if (!onVfxTracksChange) return
     onVfxTracksChange(vfxTracks.map(t => {
