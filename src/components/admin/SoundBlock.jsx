@@ -103,9 +103,9 @@ function SoundBlock({
 
   // Calculer les positions de fade en pixels (basé sur la hauteur du bloc)
   const maxFadeHeight = blockHeight * 0.8
-  const fadeInHeight = Math.min((soundTrack.fadeIn || 0) / (segments.length * 5000) * blockHeight, maxFadeHeight)
-  const fadeOutHeight = Math.min((soundTrack.fadeOut || 0) / (segments.length * 5000) * blockHeight, maxFadeHeight)
-
+  const fadeInHeight = Math.min((soundTrack.fadeIn || 0) / 4000 * maxFadeHeight, maxFadeHeight)
+  const fadeOutHeight = Math.min((soundTrack.fadeOut || 0) / 4000 * maxFadeHeight, maxFadeHeight)
+  
   // Motif rayé pour loop
   const loopPattern = soundTrack.loop ? `repeating-linear-gradient(
     45deg,
