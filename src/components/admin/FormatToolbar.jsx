@@ -1,11 +1,11 @@
 import { useEffect, useRef } from 'react'
 
 const FONTS = [
-  { label: 'Lora',      css: "'Lora', serif" },
-  { label: 'Garamond',  css: "'EB Garamond', serif" },
-  { label: 'Roboto',    css: "'Roboto', sans-serif" },
-  { label: 'Writer',    css: "'Courier Prime', monospace" },
-  { label: 'Script',    css: "'Meie Script', cursive" },
+  { label: 'Lora',     css: "'Lora', serif" },
+  { label: 'Garamond', css: "'EB Garamond', serif" },
+  { label: 'Roboto',   css: "'Roboto', sans-serif" },
+  { label: 'Writer',   css: "'Courier Prime', monospace" },
+  { label: 'Script',   css: "'Meie Script', cursive" },
 ]
 
 const GOOGLE_FONTS_URL =
@@ -15,20 +15,7 @@ const GOOGLE_FONTS_URL =
   '&family=Courier+Prime:ital,wght@0,400;0,700;1,400' +
   '&family=Meie+Script&display=swap'
 
-// Vérifie si un texte est entouré d'un marqueur donné (sans confondre * et **)
-function isActive(text, marker) {
-  if (!text) return false
-  const t = text.trim()
-  if (marker === '*') {
-    // Italique : commence par * mais PAS ** 
-    return /^\*[^*]/.test(t) && /[^*]\*$/.test(t)
-  }
-  const escaped = marker.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
-  const regex = new RegExp(`^${escaped}.+${escaped}$`, 's')
-  return regex.test(t)
-}
-
-export default function FormatToolbar({ mode, position, onFormat, onFontChange, currentFont, currentText, onClose }) {
+export default function FormatToolbar({ position, onFormat, onFontChange, currentFont, currentSegment, onClose }) {
   const ref = useRef(null)
 
   useEffect(() => {
@@ -53,13 +40,10 @@ export default function FormatToolbar({ mode, position, onFormat, onFontChange, 
 
   const top = Math.max(8, position.top - 50)
 
-  const boldActive    = isActive(currentText, '**')
-  const italicActive  = isActive(currentText, '*')
-  const underActive   = isActive(currentText, '__')
-  const strikeActive  = isActive(currentText, '~~')
-
-  const activeStyle  = { background: 'rgba(255,255,255,0.90)', color: '#1a1a1a' }
-  const defaultStyle = { background: 'transparent', color: 'white' }
+  const boldActive   = !!currentSegment?.bold
+  const italicActive = !!currentSegment?.italic
+  const underActive  = !!currentSegment?.underline
+  const strikeActive = !!currentSegment?.strikethrough
 
   return (
     <>
@@ -85,7 +69,7 @@ export default function FormatToolbar({ mode, position, onFormat, onFontChange, 
           justify-content: center;
           transition: background 0.12s ease, color 0.12s ease;
         }
-        .ili-fmt-btn:hover { background: rgba(255,255,255,0.18) !important; color: white !important; }
+        .ili-fmt-btn:hover { background: rgba(255,255,255,0.18) !important; }
         .ili-fmt-btn.active { background: rgba(255,255,255,0.90) !important; color: #1a1a1a !important; }
       `}</style>
       <div
@@ -108,40 +92,25 @@ export default function FormatToolbar({ mode, position, onFormat, onFontChange, 
           whiteSpace: 'nowrap',
         }}
       >
-        {/* ── Formatage ── */}
-        <button
-          className={`ili-fmt-btn${boldActive ? ' active' : ''}`}
-          onMouseDown={(e) => { e.preventDefault(); onFormat('bold') }}
-          title="Gras"
-        >
+        <button className={`ili-fmt-btn${boldActive ? ' active' : ''}`}
+          onMouseDown={(e) => { e.preventDefault(); onFormat('bold') }} title="Gras">
           <strong style={{ fontFamily: 'Georgia, serif', fontSize: 14 }}>B</strong>
         </button>
-        <button
-          className={`ili-fmt-btn${italicActive ? ' active' : ''}`}
-          onMouseDown={(e) => { e.preventDefault(); onFormat('italic') }}
-          title="Italique"
-        >
+        <button className={`ili-fmt-btn${italicActive ? ' active' : ''}`}
+          onMouseDown={(e) => { e.preventDefault(); onFormat('italic') }} title="Italique">
           <em style={{ fontFamily: 'Georgia, serif', fontStyle: 'italic', fontSize: 14 }}>I</em>
         </button>
-        <button
-          className={`ili-fmt-btn${underActive ? ' active' : ''}`}
-          onMouseDown={(e) => { e.preventDefault(); onFormat('underline') }}
-          title="Souligné"
-        >
+        <button className={`ili-fmt-btn${underActive ? ' active' : ''}`}
+          onMouseDown={(e) => { e.preventDefault(); onFormat('underline') }} title="Souligné">
           <span style={{ textDecoration: 'underline' }}>U</span>
         </button>
-        <button
-          className={`ili-fmt-btn${strikeActive ? ' active' : ''}`}
-          onMouseDown={(e) => { e.preventDefault(); onFormat('strikethrough') }}
-          title="Barré"
-        >
+        <button className={`ili-fmt-btn${strikeActive ? ' active' : ''}`}
+          onMouseDown={(e) => { e.preventDefault(); onFormat('strikethrough') }} title="Barré">
           <span style={{ textDecoration: 'line-through' }}>S</span>
         </button>
 
-        {/* ── Séparateur ── */}
         <div style={{ width: 1, height: 18, backgroundColor: 'rgba(255,255,255,0.2)', margin: '0 4px', flexShrink: 0 }} />
 
-        {/* ── Polices ── */}
         {FONTS.map(font => (
           <button
             key={font.css}
