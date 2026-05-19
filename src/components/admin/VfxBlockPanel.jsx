@@ -1,19 +1,22 @@
 import { useState } from 'react'
 import { VFX_TYPES, VFX_COLORS } from './constants'
+import hapticEngine, { HAPTIC_PATTERNS } from '../../engine/HapticEngine'
 
 const PRESET_FLASH_COLORS = [
-  { label: 'Rouge', value: 'rgba(200, 0, 0, 0.12)' },
-  { label: 'Bleu', value: 'rgba(0, 80, 200, 0.12)' },
-  { label: 'Vert', value: 'rgba(0, 160, 60, 0.10)' },
-  { label: 'Blanc', value: 'rgba(255, 255, 255, 0.18)' },
+  { label: 'Rouge',  value: 'rgba(200, 0, 0, 0.12)' },
+  { label: 'Bleu',   value: 'rgba(0, 80, 200, 0.12)' },
+  { label: 'Vert',   value: 'rgba(0, 160, 60, 0.10)' },
+  { label: 'Blanc',  value: 'rgba(255, 255, 255, 0.18)' },
   { label: 'Orange', value: 'rgba(220, 120, 0, 0.12)' },
   { label: 'Violet', value: 'rgba(120, 0, 200, 0.12)' },
 ]
 
 function VfxBlockPanel({ vfxTrack, segments, onSave, onClose, onDelete, onRealTimeUpdate }) {
   const [local, setLocal] = useState({ ...vfxTrack })
+  // true = affiche le sous-panneau de sélection haptique
+  const [showHaptic, setShowHaptic] = useState(false)
 
-  const typeDef = VFX_TYPES[local.type] || {}
+  const typeDef  = VFX_TYPES[local.type] || {}
   const baseColor = VFX_COLORS[local.type] || '#B0B0B0'
 
   const update = (patch) => {
@@ -21,6 +24,8 @@ function VfxBlockPanel({ vfxTrack, segments, onSave, onClose, onDelete, onRealTi
     setLocal(next)
     if (onRealTimeUpdate) onRealTimeUpdate(next)
   }
+
+  // ── Styles ────────────────────────────────────────────────────────────────
 
   const panelStyle = {
     position: 'fixed',
@@ -75,8 +80,124 @@ function VfxBlockPanel({ vfxTrack, segments, onSave, onClose, onDelete, onRealTi
     cursor: 'pointer',
   })
 
+  // ── Rendu du sous-panneau haptique ────────────────────────────────────────
+
+  const renderHapticPanel = () => {
+    const isSupported = hapticEngine.isSupported
+    const selected    = local.hapticPattern || null
+
+    return (
+      <div style={{
+        backgroundColor: '#f8f9fa',
+        borderRadius: '8px',
+        padding: '10px 12px',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '10px',
+      }}>
+
+        {/* Avertissement si non supporté */}
+        {!isSupported && (
+          <div style={{
+            fontSize: '11px',
+            color: '#888',
+            backgroundColor: '#fff3cd',
+            borderRadius: '6px',
+            padding: '6px 10px',
+            lineHeight: '1.4',
+          }}>
+            ⚠️ Vibrations non disponibles sur cet appareil ou navigateur (iOS non supporté).
+            Le pattern sera sauvegardé mais inactif.
+          </div>
+        )}
+
+        {/* Grille des patterns */}
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(3, 1fr)',
+          gap: '6px',
+        }}>
+          {Object.entries(HAPTIC_PATTERNS).map(([key, pattern]) => {
+            const isActive = selected === key
+            return (
+              <button
+                key={key}
+                title={pattern.description}
+                onClick={() => {
+                  // Sélectionne ou désélectionne
+                  const next = isActive ? null : key
+                  update({ hapticPattern: next })
+                  // Prévisualisation tactile immédiate (Android uniquement)
+                  if (next && hapticEngine.isSupported) {
+                    hapticEngine.preview(next)
+                  }
+                }}
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  gap: '4px',
+                  padding: '8px 4px',
+                  border: isActive ? `2px solid ${baseColor}` : '1px solid #ddd',
+                  borderRadius: '8px',
+                  backgroundColor: isActive ? `${baseColor}22` : '#fff',
+                  cursor: 'pointer',
+                  transition: 'all 0.12s ease',
+                }}
+              >
+                <span style={{ fontSize: '18px', lineHeight: 1 }}>{pattern.icon}</span>
+                <span style={{
+                  fontSize: '10px',
+                  fontWeight: isActive ? '700' : '400',
+                  color: isActive ? '#222' : '#666',
+                  textAlign: 'center',
+                  lineHeight: '1.2',
+                }}>
+                  {pattern.label}
+                </span>
+              </button>
+            )
+          })}
+        </div>
+
+        {/* Bouton "Aucune vibration" si un pattern est sélectionné */}
+        {selected && (
+          <button
+            onClick={() => update({ hapticPattern: null })}
+            style={{
+              fontSize: '11px',
+              color: '#888',
+              background: 'none',
+              border: 'none',
+              cursor: 'pointer',
+              textAlign: 'left',
+              padding: '0',
+              textDecoration: 'underline',
+            }}
+          >
+            Supprimer la vibration
+          </button>
+        )}
+
+        {/* Description du pattern sélectionné */}
+        {selected && HAPTIC_PATTERNS[selected] && (
+          <div style={{
+            fontSize: '11px',
+            color: '#666',
+            fontStyle: 'italic',
+          }}>
+            {HAPTIC_PATTERNS[selected].description}
+          </div>
+        )}
+      </div>
+    )
+  }
+
+  // ── Rendu principal ───────────────────────────────────────────────────────
+
   return (
     <div style={panelStyle}>
+
       {/* Header */}
       <div style={headerStyle}>
         <div style={{
@@ -105,8 +226,8 @@ function VfxBlockPanel({ vfxTrack, segments, onSave, onClose, onDelete, onRealTi
             style={selectStyle}
             value={local.type}
             onChange={(e) => {
-              const t    = e.target.value
-              const def  = VFX_TYPES[t] || {}
+              const t   = e.target.value
+              const def = VFX_TYPES[t] || {}
               update({ type: t, mode: def.modes?.[0] || '', loop: false })
             }}
           >
@@ -144,7 +265,7 @@ function VfxBlockPanel({ vfxTrack, segments, onSave, onClose, onDelete, onRealTi
           </div>
         )}
 
-        {/* Loop (uniquement pour shake) */}
+        {/* Loop */}
         {typeDef.hasLoop && (
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
             <input
@@ -160,7 +281,7 @@ function VfxBlockPanel({ vfxTrack, segments, onSave, onClose, onDelete, onRealTi
           </div>
         )}
 
-        {/* Couleur (uniquement pour flash) */}
+        {/* Couleur (flash) */}
         {typeDef.hasColor && (
           <div>
             <label style={labelStyle}>Couleur du flash</label>
@@ -184,7 +305,52 @@ function VfxBlockPanel({ vfxTrack, segments, onSave, onClose, onDelete, onRealTi
           </div>
         )}
 
-        {/* Segments couverts */}
+        {/* ── Section Haptique ───────────────────────────────────────────── */}
+        <div>
+          {/* Bouton toggle */}
+          <button
+            onClick={() => setShowHaptic(v => !v)}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px',
+              width: '100%',
+              padding: '7px 10px',
+              border: local.hapticPattern ? `1.5px solid ${baseColor}` : '1px solid #ddd',
+              borderRadius: '8px',
+              backgroundColor: local.hapticPattern ? `${baseColor}18` : '#fafafa',
+              cursor: 'pointer',
+              fontSize: '13px',
+              color: local.hapticPattern ? '#222' : '#666',
+              fontWeight: local.hapticPattern ? '600' : '400',
+              textAlign: 'left',
+              transition: 'all 0.12s ease',
+            }}
+          >
+            <span style={{ fontSize: '16px' }}>
+              {local.hapticPattern
+                ? HAPTIC_PATTERNS[local.hapticPattern]?.icon || '📳'
+                : '📳'}
+            </span>
+            <span>
+              {local.hapticPattern
+                ? `Vibration : ${HAPTIC_PATTERNS[local.hapticPattern]?.label}`
+                : 'Ajouter une vibration'}
+            </span>
+            <span style={{ marginLeft: 'auto', fontSize: '12px', color: '#999' }}>
+              {showHaptic ? '▲' : '▼'}
+            </span>
+          </button>
+
+          {/* Sous-panneau déployable */}
+          {showHaptic && (
+            <div style={{ marginTop: '8px' }}>
+              {renderHapticPanel()}
+            </div>
+          )}
+        </div>
+
+        {/* Portée */}
         <div style={{
           backgroundColor: '#f8f9fa',
           borderRadius: '8px',
