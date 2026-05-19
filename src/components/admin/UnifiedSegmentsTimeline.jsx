@@ -1231,16 +1231,36 @@ const handleTextSelection = useCallback(() => {
     const m = markers[type]
     if (!m) return
 
-    // Fonction toggle : ajoute ou retire les marqueurs autour d'une cible
+    // Fonction toggle : ajoute ou retire les marqueurs, en gérant les conflits * vs **
     const toggleMarker = (text, marker) => {
-      const escaped = marker.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
-      const regex = new RegExp(`^${escaped}(.+?)${escaped}$`, 's')
-      const match = text.match(regex)
-      if (match) {
-        // Déjà marqué → retirer
-        return match[1]
+      if (marker === '*') {
+        // Italique : vérifie que c'est * et pas **
+        if (/^\*[^*]/.test(text) && /[^*]\*$/.test(text)) {
+          return text.slice(1, -1)
+        }
+        return '*' + text + '*'
       }
-      // Pas encore marqué → ajouter
+      if (marker === '**') {
+        // Gras : retire ** si présent, sans toucher aux * d'italique éventuels
+        if (text.startsWith('**') && text.endsWith('**') && text.length > 4) {
+          return text.slice(2, -2)
+        }
+        return '**' + text + '**'
+      }
+      if (marker === '__') {
+        // Souligné : vérifie exactement __ de chaque côté
+        if (text.startsWith('__') && text.endsWith('__') && text.length > 4) {
+          return text.slice(2, -2)
+        }
+        return '__' + text + '__'
+      }
+      if (marker === '~~') {
+        // Barré
+        if (text.startsWith('~~') && text.endsWith('~~') && text.length > 4) {
+          return text.slice(2, -2)
+        }
+        return '~~' + text + '~~'
+      }
       return marker + text + marker
     }
 
