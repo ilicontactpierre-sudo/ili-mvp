@@ -2,6 +2,7 @@ import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import './StoryReader.css'
 import { renderMarkdown } from '../utils/renderMarkdown'
 import { getVfxClass } from './admin/constants'
+import hapticEngine from '../engine/HapticEngine'
 
 function StoryReader({ storyId, storyData, currentIndex = 0 }) {
   // MODE 2 — données directes en props (nouveau)
