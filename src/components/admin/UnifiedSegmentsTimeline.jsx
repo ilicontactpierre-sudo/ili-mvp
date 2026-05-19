@@ -1358,13 +1358,19 @@ const handleTextSelection = useCallback(() => {
       if (e.key === 'Backspace' || e.key === 'Delete') {
         const active = document.activeElement
         const isTyping = active && (active.tagName === 'TEXTAREA' || active.tagName === 'INPUT')
-        if (!isTyping && selectedSoundId) {
-          e.preventDefault()
-          handleDeleteSoundTrack(selectedSoundId)
-          setSelectedSoundId(null)
+        if (!isTyping) {
+          if (selectedSoundId) {
+            e.preventDefault()
+            handleDeleteSoundTrack(selectedSoundId)
+            setSelectedSoundId(null)
+          }
+          if (selectedVfxId) {
+            e.preventDefault()
+            handleDeleteVfxTrack(selectedVfxId)
+            setSelectedVfxId(null)
+          }
         }
       }
-    }
     const handleKeyUp = (e) => {
       if (e.key === 'Meta' || e.key === 'Control') {
         setIsCmdPressed(false)
