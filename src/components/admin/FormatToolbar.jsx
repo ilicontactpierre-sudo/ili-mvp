@@ -15,12 +15,17 @@ const GOOGLE_FONTS_URL =
   '&family=Courier+Prime:ital,wght@0,400;0,700;1,400' +
   '&family=Meie+Script&display=swap'
 
-// Vérifie si un texte est entouré d'un marqueur donné
+// Vérifie si un texte est entouré d'un marqueur donné (sans confondre * et **)
 function isActive(text, marker) {
   if (!text) return false
+  const t = text.trim()
+  if (marker === '*') {
+    // Italique : commence par * mais PAS ** 
+    return /^\*[^*]/.test(t) && /[^*]\*$/.test(t)
+  }
   const escaped = marker.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
   const regex = new RegExp(`^${escaped}.+${escaped}$`, 's')
-  return regex.test(text.trim())
+  return regex.test(t)
 }
 
 export default function FormatToolbar({ mode, position, onFormat, onFontChange, currentFont, currentText, onClose }) {
