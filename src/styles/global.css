@@ -130,8 +130,8 @@ body {
   transform: translateY(-6px);
   pointer-events: none;
   transition:
-    opacity 3900ms cubic-bezier(0.16, 1, 0.3, 1),
-    transform 3900ms cubic-bezier(0.16, 1, 0.3, 1);
+    opacity 2900ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 2900ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 /* Invite "CHOISIS TON HISTOIRE" */
 .logo-invite {
