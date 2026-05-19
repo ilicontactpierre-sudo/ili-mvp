@@ -1401,7 +1401,7 @@ const handleTextSelection = useCallback(() => {
       window.removeEventListener('keyup', handleKeyUp)
       window.removeEventListener('blur', handleBlur)
     }
-  }, [selectedSoundId, handleDeleteSoundTrack])
+  }, [selectedSoundIds, selectedVfxIds, handleDeleteSoundTrack, handleDeleteVfxTrack])
 
   const handleDoubleClickEmptyCell = useCallback((segmentIndex, column) => {
     if (segmentIndex >= segments.length) return
