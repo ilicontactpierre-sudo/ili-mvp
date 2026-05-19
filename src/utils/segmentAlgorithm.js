@@ -319,6 +319,7 @@ function mergeFragments(typedUnits) {
             text: mergedText,
             type: classifyUnit(mergedText, next.isLastBeforeParagraphBreak),
             isLastBeforeParagraphBreak: next.isLastBeforeParagraphBreak,
+            isFirstOfParagraph: unit.isFirstOfParagraph,
             scores: null,
           })
           i += 2
@@ -1000,7 +1001,7 @@ function serializeSegments(composedSegments) {
 if (breakAt !== null) {
   console.log('BREAK AT', segIndex, breakAt, text.length, text.substring(0, 40))
 }
-      return { lines, text, breakAt }
+      return { lines, text, breakAt, isLeader: isLeader || false }
     })
     .filter(Boolean)
 }
