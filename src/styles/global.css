@@ -130,7 +130,7 @@ body {
   transform: translateY(-8px);
   pointer-events: none;
 }
-//* Invite "CHOISIS TON HISTOIRE" */
+/* Invite "CHOISIS TON HISTOIRE" */
 .logo-invite {
   font-family: var(--font-logo);
   font-size: 11px;
