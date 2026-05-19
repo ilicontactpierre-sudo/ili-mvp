@@ -105,7 +105,7 @@ function SoundBlock({
   const maxFadeHeight = blockHeight * 0.4
   const fadeInHeight = (soundTrack.fadeIn || 0) / 4000 * maxFadeHeight
   const fadeOutHeight = (soundTrack.fadeOut || 0) / 4000 * maxFadeHeight
-  
+
   // Motif rayé pour loop
   const loopPattern = soundTrack.loop ? `repeating-linear-gradient(
     45deg,
@@ -123,8 +123,7 @@ function SoundBlock({
     if (e.target.dataset.resizeHandle) return
     e.stopPropagation()
     
-    // Sélectionner le bloc (pour le drag, pas pour éditer)
-    onSelect(soundTrack.id)
+    onSelect(soundTrack.id, e.shiftKey)
     
     const startX = e.clientX
     const startY = e.clientY
