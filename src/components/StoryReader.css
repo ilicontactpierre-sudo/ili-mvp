@@ -46,3 +46,9 @@
   filter: blur(3px);
   transform: none;
 }
+
+/* ── Leader / Finisher ─────────────────────────────────── */
+.story-reader__segment--hidden {
+  opacity: 0 !important;
+  pointer-events: none;
+}
