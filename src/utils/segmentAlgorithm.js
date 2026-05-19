@@ -83,6 +83,7 @@ const BEAT_TYPE = {
 }
 
 const PARAGRAPH_MARKER = '---PARAGRAPH_BREAK---'
+const FAKE_PARAGRAPH_MARKER = '---FAKE_PARAGRAPH_BREAK---'
 
 // ══════════════════════════════════════════════════════════════════════════════
 // PHASE 0 — NORMALISATION DU TEXTE
@@ -176,9 +177,7 @@ function parseIntoUnits(text) {
       const isBulletLine = /^[•\-\*]/.test(trimmed)
       if (isBulletLine) {
         rawUnits.push(trimmed)
-        // Insérer un marqueur de paragraphe fictif après chaque puce
-        // pour que mergeFragments ne les fusionne jamais
-        rawUnits.push(PARAGRAPH_MARKER)
+        rawUnits.push(FAKE_PARAGRAPH_MARKER)
         continue
       }
 
@@ -239,7 +238,8 @@ function parseIntoUnits(text) {
   // Retirer les marqueurs de paragraphe en fin de tableau
   while (
     rawUnits.length > 0 &&
-    rawUnits[rawUnits.length - 1] === PARAGRAPH_MARKER
+    (rawUnits[rawUnits.length - 1] === PARAGRAPH_MARKER ||
+     rawUnits[rawUnits.length - 1] === FAKE_PARAGRAPH_MARKER)
   ) {
     rawUnits.pop()
   }
@@ -253,8 +253,15 @@ function parseIntoUnits(text) {
       nextIsFirstOfParagraph = true
       continue
     }
+    if (raw === FAKE_PARAGRAPH_MARKER) {
+      // Marqueur fictif : bloque la fusion mais ne déclenche pas isLeader
+      nextIsFirstOfParagraph = false
+      continue
+    }
     const isLastBeforeParagraphBreak =
-      rawUnits[i + 1] === PARAGRAPH_MARKER || i === rawUnits.length - 1
+      rawUnits[i + 1] === PARAGRAPH_MARKER ||
+      rawUnits[i + 1] === FAKE_PARAGRAPH_MARKER ||
+      i === rawUnits.length - 1
     const isFirstOfParagraph = nextIsFirstOfParagraph
     nextIsFirstOfParagraph = false
     typedUnits.push({
