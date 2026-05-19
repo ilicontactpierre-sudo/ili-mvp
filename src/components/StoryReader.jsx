@@ -90,7 +90,9 @@ function StoryReader({ storyId, storyData, currentIndex = 0 }) {
   }
   // Finisher → cacher le segment juste en dessous (le Leader suivant)
   if (isCurrentFinisher) {
-    hiddenFromView.add(currentIndex + 1)
+    for (let i = currentIndex + 1; i < finalSegments.length; i++) {
+      hiddenFromView.add(i)
+    }
   }
 
   const segmentRefs = useRef([])
