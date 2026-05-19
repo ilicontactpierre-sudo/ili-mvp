@@ -448,18 +448,28 @@ function SoundBlockPanel({
 
         {/* Colonne */}
         <div>
-          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.25rem' }}>
-            <label style={{ fontSize: '0.75rem', color: '#888' }}>Colonne</label>
-            <span style={{ fontSize: '0.75rem', color: color }}>{editedTrack.column}</span>
+          <label style={{ fontSize: '0.75rem', color: '#888', display: 'block', marginBottom: '0.5rem' }}>Colonne</label>
+          <div style={{ display: 'flex', gap: '6px' }}>
+            {Array.from({ length: 6 }).map((_, i) => (
+              <div
+                key={i}
+                onClick={() => handleChange('column', i)}
+                title={`Colonne ${i}`}
+                style={{
+                  width: '28px',
+                  height: '28px',
+                  borderRadius: '5px',
+                  border: `2px solid ${color}`,
+                  backgroundColor: editedTrack.column === i ? color : 'transparent',
+                  cursor: 'pointer',
+                  transition: 'background-color 0.15s ease, transform 0.1s ease',
+                  flexShrink: 0,
+                }}
+                onMouseEnter={e => { if (editedTrack.column !== i) e.currentTarget.style.backgroundColor = `${color}40` }}
+                onMouseLeave={e => { if (editedTrack.column !== i) e.currentTarget.style.backgroundColor = 'transparent' }}
+              />
+            ))}
           </div>
-          <input
-            type="range"
-            min="0"
-            max="5"
-            value={editedTrack.column}
-            onChange={(e) => handleChange('column', parseInt(e.target.value))}
-            style={{ width: '100%', accentColor: color }}
-          />
         </div>
 
         {/* Fade In */}
