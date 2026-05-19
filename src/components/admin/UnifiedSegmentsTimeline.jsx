@@ -982,11 +982,21 @@ function UnifiedSegmentsTimeline({
     }
   }, [isDraggingDivider])
 
-  // Gérer la touche Command
+  // Gérer la touche Command + Backspace pour supprimer un bloc son sélectionné
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === 'Meta' || e.key === 'Control') {
         setIsCmdPressed(true)
+      }
+      // Supprimer le bloc son sélectionné avec Backspace ou Delete
+      if (e.key === 'Backspace' || e.key === 'Delete') {
+        const active = document.activeElement
+        const isTyping = active && (active.tagName === 'TEXTAREA' || active.tagName === 'INPUT')
+        if (!isTyping && selectedSoundId) {
+          e.preventDefault()
+          handleDeleteSoundTrack(selectedSoundId)
+          setSelectedSoundId(null)
+        }
       }
     }
     const handleKeyUp = (e) => {
@@ -995,7 +1005,6 @@ function UnifiedSegmentsTimeline({
       }
     }
     const handleBlur = () => {
-      // Réinitialiser si la fenêtre perd le focus
       setIsCmdPressed(false)
     }
     window.addEventListener('keydown', handleKeyDown)
@@ -1006,7 +1015,7 @@ function UnifiedSegmentsTimeline({
       window.removeEventListener('keyup', handleKeyUp)
       window.removeEventListener('blur', handleBlur)
     }
-  }, [])
+  }, [selectedSoundId, handleDeleteSoundTrack])
 
   // Drag du séparateur
   useEffect(() => {
