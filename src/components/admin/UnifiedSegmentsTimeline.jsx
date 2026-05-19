@@ -1371,6 +1371,7 @@ const handleTextSelection = useCallback(() => {
           }
         }
       }
+    }
     const handleKeyUp = (e) => {
       if (e.key === 'Meta' || e.key === 'Control') {
         setIsCmdPressed(false)
