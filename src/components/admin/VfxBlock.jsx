@@ -10,6 +10,7 @@ function VfxBlock({
   onDoubleClick,
   onColumnChange,
   onResize,
+  onUpdate,
   onDragStart,
   onDragEnd,
   onDragTargetChange,
