@@ -53,5 +53,10 @@
     "id": "test-ancrage-1",
     "title": "test ancrage 1",
     "author": "test ancrage 1"
+  },
+  {
+    "id": "haptique-1",
+    "title": "Haptique 1",
+    "author": "Haptique 1"
   }
 ]
