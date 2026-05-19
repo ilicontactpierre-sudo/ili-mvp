@@ -982,40 +982,6 @@ function UnifiedSegmentsTimeline({
     }
   }, [isDraggingDivider])
 
-  // Gérer la touche Command + Backspace pour supprimer un bloc son sélectionné
-  useEffect(() => {
-    const handleKeyDown = (e) => {
-      if (e.key === 'Meta' || e.key === 'Control') {
-        setIsCmdPressed(true)
-      }
-      // Supprimer le bloc son sélectionné avec Backspace ou Delete
-      if (e.key === 'Backspace' || e.key === 'Delete') {
-        const active = document.activeElement
-        const isTyping = active && (active.tagName === 'TEXTAREA' || active.tagName === 'INPUT')
-        if (!isTyping && selectedSoundId) {
-          e.preventDefault()
-          handleDeleteSoundTrack(selectedSoundId)
-          setSelectedSoundId(null)
-        }
-      }
-    }
-    const handleKeyUp = (e) => {
-      if (e.key === 'Meta' || e.key === 'Control') {
-        setIsCmdPressed(false)
-      }
-    }
-    const handleBlur = () => {
-      setIsCmdPressed(false)
-    }
-    window.addEventListener('keydown', handleKeyDown)
-    window.addEventListener('keyup', handleKeyUp)
-    window.addEventListener('blur', handleBlur)
-    return () => {
-      window.removeEventListener('keydown', handleKeyDown)
-      window.removeEventListener('keyup', handleKeyUp)
-      window.removeEventListener('blur', handleBlur)
-    }
-  }, [selectedSoundId, handleDeleteSoundTrack])
 
   // Drag du séparateur
   useEffect(() => {
@@ -1382,6 +1348,40 @@ const handleTextSelection = useCallback(() => {
     onSoundTracksChange(updatedTracks)
     if (onSaveToHistory) onSaveToHistory()
   }, [soundTracks, onSoundTracksChange, onSaveToHistory])
+
+  // Gérer la touche Command + Backspace pour supprimer un bloc son sélectionné
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Meta' || e.key === 'Control') {
+        setIsCmdPressed(true)
+      }
+      if (e.key === 'Backspace' || e.key === 'Delete') {
+        const active = document.activeElement
+        const isTyping = active && (active.tagName === 'TEXTAREA' || active.tagName === 'INPUT')
+        if (!isTyping && selectedSoundId) {
+          e.preventDefault()
+          handleDeleteSoundTrack(selectedSoundId)
+          setSelectedSoundId(null)
+        }
+      }
+    }
+    const handleKeyUp = (e) => {
+      if (e.key === 'Meta' || e.key === 'Control') {
+        setIsCmdPressed(false)
+      }
+    }
+    const handleBlur = () => {
+      setIsCmdPressed(false)
+    }
+    window.addEventListener('keydown', handleKeyDown)
+    window.addEventListener('keyup', handleKeyUp)
+    window.addEventListener('blur', handleBlur)
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown)
+      window.removeEventListener('keyup', handleKeyUp)
+      window.removeEventListener('blur', handleBlur)
+    }
+  }, [selectedSoundId, handleDeleteSoundTrack])
 
   const handleDoubleClickEmptyCell = useCallback((segmentIndex, column) => {
     if (segmentIndex >= segments.length) return
