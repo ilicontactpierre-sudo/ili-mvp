@@ -1,61 +1,17 @@
 /**
- * renderMarkdown(text)
- * Supporte : **gras**, *italique*, __souligné__, ~~barré~~
- * Gère les imbrications.
+ * renderMarkdown(text, segment)
+ * Applique le formatage depuis les propriétés du segment (bold, italic, underline, strikethrough)
+ * Plus de marqueurs dans le texte — le texte est toujours du texte brut.
  */
-export function renderMarkdown(text) {
-  if (!text) return null
-  return parseInline(text)
-}
-
-function parseInline(text) {
+export function renderMarkdown(text, segment) {
   if (!text) return null
 
-  const tokens = [
-    { marker: '~~', tag: 's'      },
-    { marker: '__', tag: 'u'      },
-    { marker: '**', tag: 'strong' },
-    { marker: '*',  tag: 'em'     },
-  ]
+  let content = text
 
-  for (const { marker, tag } of tokens) {
-    let startIdx = -1
-    let endIdx   = -1
+  if (segment?.strikethrough) content = <s>{content}</s>
+  if (segment?.underline)     content = <u>{content}</u>
+  if (segment?.italic)        content = <em>{content}</em>
+  if (segment?.bold)          content = <strong>{content}</strong>
 
-    if (marker === '*') {
-      for (let i = 0; i < text.length; i++) {
-        if (text[i] === '*' && text[i - 1] !== '*' && text[i + 1] !== '*') {
-          if (startIdx === -1) {
-            startIdx = i
-          } else {
-            endIdx = i
-            break
-          }
-        }
-      }
-    } else {
-      startIdx = text.indexOf(marker)
-      if (startIdx !== -1) {
-        endIdx = text.indexOf(marker, startIdx + marker.length)
-      }
-    }
-
-    if (startIdx === -1 || endIdx === -1) continue
-
-    const before = text.slice(0, startIdx)
-    const inner  = text.slice(startIdx + marker.length, endIdx)
-    const after  = text.slice(endIdx + marker.length)
-
-    const Tag = tag
-
-    return (
-      <>
-        {before || null}
-        <Tag>{parseInline(inner)}</Tag>
-        {after ? parseInline(after) : null}
-      </>
-    )
-  }
-
-  return text
+  return content
 }
