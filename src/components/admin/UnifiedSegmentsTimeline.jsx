@@ -53,6 +53,9 @@ function SegmentTimelineRow({
   isCollapsed,
   onToggleChapter,
   onToggleIsChapter,
+  isLeader,
+  isFinisher,
+  onToggleIsLeader,
   soundTracks,
   segments,
   soundLibrary,
@@ -268,13 +271,19 @@ function SegmentTimelineRow({
       ref={rowRef}
       style={{
         display: 'flex',
-        borderBottom: '1px solid #f0f0f0',
+        borderBottom: isFinisher ? '2px solid rgba(249, 115, 22, 0.45)' : '1px solid #f0f0f0',
         height: 'auto',
         minHeight: `${SEGMENT_HEIGHT}px`,
         backgroundColor: isChapter
           ? (isSelected ? '#ede9fe' : '#f5f3ff')
-          : (isSelected ? '#f0f7ff' : (index % 2 === 0 ? '#fff' : '#fafafa')),
-        borderLeft: isChapter ? '3px solid #8B5CF6' : '3px solid transparent',
+          : isLeader
+            ? (isSelected ? '#ffedd5' : '#fff7ed')
+            : (isSelected ? '#f0f7ff' : (index % 2 === 0 ? '#fff' : '#fafafa')),
+        borderLeft: isChapter
+          ? '3px solid #8B5CF6'
+          : isLeader
+            ? '3px solid #F97316'
+            : '3px solid transparent',
         transition: 'background-color 0.15s ease, border-left-color 0.2s ease',
         position: 'relative'
       }}
@@ -320,6 +329,29 @@ function SegmentTimelineRow({
           {isChapter ? '★' : '☆'}
         </button>
 
+        {/* Losange : bascule le statut leader */}
+        <button
+          onClick={(e) => { e.stopPropagation(); onToggleIsLeader(index) }}
+          title={isLeader ? 'Retirer le statut leader' : 'Marquer comme leader (nouvelle séquence)'}
+          style={{
+            background: 'none',
+            border: 'none',
+            cursor: 'pointer',
+            padding: '0 1px',
+            fontSize: '0.6rem',
+            lineHeight: 1,
+            color: isLeader ? '#F97316' : 'transparent',
+            flexShrink: 0,
+            transition: 'color 0.2s ease',
+            alignSelf: 'flex-start',
+            marginTop: '3px',
+          }}
+          onMouseEnter={e => { if (!isLeader) e.currentTarget.style.color = '#fed7aa' }}
+          onMouseLeave={e => { if (!isLeader) e.currentTarget.style.color = 'transparent' }}
+        >
+          {isLeader ? '◆' : '◇'}
+        </button>
+
         {/* Numéro du segment — cliquable si chapitre pour collapse/expand */}
         <span
           onClick={isChapter ? (e) => { e.stopPropagation(); onToggleChapter(index) } : undefined}
@@ -351,6 +383,25 @@ function SegmentTimelineRow({
           )}
           {index + 1}
         </span>
+
+        {/* Indicateur Finisher (auto-calculé, lecture seule) */}
+        {isFinisher && (
+          <span
+            title="Finisher (auto) — le segment suivant est un Leader"
+            style={{
+              fontSize: '0.5rem',
+              color: '#F97316',
+              opacity: 0.7,
+              flexShrink: 0,
+              alignSelf: 'flex-start',
+              marginTop: '4px',
+              lineHeight: 1,
+              cursor: 'default',
+            }}
+          >
+            ⏹
+          </span>
+        )}
 
         {/* Texte éditable */}
         <div 
@@ -879,6 +930,15 @@ function UnifiedSegmentsTimeline({
     }
     return hidden
   }, [segments, collapsedChapters])
+
+  // Calcule les segments Finisher (segment juste avant un Leader)
+  const finisherSegments = useMemo(() => {
+    const finishers = new Set()
+    for (let i = 0; i < segments.length - 1; i++) {
+      if (segments[i + 1]?.isLeader === true) finishers.add(i)
+    }
+    return finishers
+  }, [segments])
 
   const containerRef = useRef(null)
   const scrollContainerRef = useRef(null)
@@ -1546,6 +1606,9 @@ const handleTextSelection = useCallback(() => {
                 isCollapsed={isCollapsed}
                 onToggleChapter={handleToggleChapter}
                 onToggleIsChapter={handleToggleIsChapter}
+                isLeader={segment?.isLeader === true}
+                isFinisher={finisherSegments.has(index)}
+                onToggleIsLeader={handleToggleIsLeader}
               />
 
               {index < segments.length - 1 && (
