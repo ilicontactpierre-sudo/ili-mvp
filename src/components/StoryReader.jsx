@@ -210,7 +210,7 @@ function StoryReader({ storyId, storyData, currentIndex = 0 }) {
             }}
             data-vfx-text={segment.text}
           >
-            {renderMarkdown(segment.text)}
+            {renderMarkdown(segment.text, segment)}
           </p>
           )
         })}
