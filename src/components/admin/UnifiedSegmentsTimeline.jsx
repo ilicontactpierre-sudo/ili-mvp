@@ -79,7 +79,7 @@ function SegmentTimelineRow({
   onDragEnd,
   onDragTargetChange,
   vfxTracks,
-  selectedVfxId,
+  selectedVfxIds,
   editingVfxTrack,
   onVfxSelect,
   onVfxDoubleClick,
