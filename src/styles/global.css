@@ -41,6 +41,7 @@ body {
 /* ═══════════════════════════════════════════════════════ */
 /* HOME PAGE STYLES                                       */
 /* ═══════════════════════════════════════════════════════ */
+
 .home-page {
   background: var(--color-bg);
   min-height: 100vh;
@@ -58,13 +59,12 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  transition: transform 400ms ease-in-out;
   z-index: 10;
-  position: relative;
-  transition: transform 700ms cubic-bezier(0.76, 0, 0.24, 1);
 }
 
 .logo-container.logo-open {
-  transform: translateY(-38vh);
+  transform: translateY(-35vh);
 }
 
 /* Logo "ILi" */
@@ -76,11 +76,9 @@ body {
   letter-spacing: 0.15em;
   cursor: pointer;
   user-select: none;
+  transition: opacity 200ms ease;
   margin: 0;
   line-height: 1;
-  transition:
-    font-size 700ms cubic-bezier(0.76, 0, 0.24, 1),
-    opacity 200ms ease;
 }
 
 .logo:hover {
@@ -88,7 +86,7 @@ body {
 }
 
 .logo-container.logo-open .logo {
-  font-size: clamp(36px, 7vw, 56px);
+  font-size: clamp(40px, 8vw, 64px);
 }
 
 /* Tagline "lecture immersive" */
@@ -100,23 +98,23 @@ body {
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.3);
   margin-top: 12px;
+  transition: opacity 400ms ease;
   cursor: pointer;
   user-select: none;
-  transition:
-    opacity 350ms ease,
-    transform 350ms ease;
-  transform: translateY(0px);
+}
+
+.logo:hover .logo-tagline {
+  opacity: 0.7;
 }
 
 .logo-container.logo-open .logo-tagline {
   opacity: 0;
-  transform: translateY(-6px);
-  pointer-events: none;
 }
 
 /* ═══════════════════════════════════════════════════════ */
 /* STORY MENU STYLES                                      */
 /* ═══════════════════════════════════════════════════════ */
+
 .story-menu-backdrop {
   position: absolute;
   top: 0;
@@ -129,31 +127,18 @@ body {
   justify-content: flex-end;
   padding-bottom: 8vh;
   z-index: 5;
-  pointer-events: none;
 }
-
 .story-menu-container {
   width: 90%;
   max-width: 480px;
-  max-height: 45vh;
+  max-height: 60vh;
   overflow-y: auto;
   scrollbar-width: none;
   -ms-overflow-style: none;
-  pointer-events: all;
-  opacity: 0;
-  transform: translateY(18px);
-  animation: menu-enter 600ms cubic-bezier(0.76, 0, 0.24, 1) 280ms forwards;
 }
 
 .story-menu-container::-webkit-scrollbar {
   display: none;
-}
-
-@keyframes menu-enter {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
 }
 
 /* Story List */
@@ -164,14 +149,14 @@ body {
 
 /* Story Card */
 .story-card {
-  padding: 18px 24px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 20px 24px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
   cursor: pointer;
-  transition: background 250ms ease;
+  transition: background 200ms ease, opacity 350ms ease-out, transform 350ms ease-out;
   opacity: 0;
-  transform: translateY(12px);
-  animation: story-card-enter 500ms cubic-bezier(0.76, 0, 0.24, 1) forwards;
-  animation-delay: calc(320ms + var(--delay, 0ms));
+  transform: translateY(20px);
+  animation: story-card-enter 350ms ease-out forwards;
+  animation-delay: var(--delay, 0ms);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -185,7 +170,7 @@ body {
 }
 
 .story-card:hover {
-  background: rgba(255, 255, 255, 0.035);
+  background: rgba(255, 255, 255, 0.04);
 }
 
 .story-card:last-child {
@@ -219,67 +204,6 @@ body {
 .delete-button:hover {
   color: rgba(255, 0, 0, 0.8);
   background: rgba(255, 0, 0, 0.1);
-}
-
-/* Story Title */
-.story-title {
-  font-family: var(--font-primary);
-  font-size: 17px;
-  font-weight: 400;
-  color: rgba(255, 255, 255, 0.85);
-  transition: color 200ms ease;
-}
-
-.story-card:hover .story-title {
-  color: rgba(255, 255, 255, 1);
-}
-
-/* Story Author */
-.story-author {
-  font-family: var(--font-logo);
-  font-size: 11px;
-  font-weight: 300;
-  letter-spacing: 0.12em;
-  color: rgba(255, 255, 255, 0.35);
-  margin-top: 5px;
-}
-
-/* Skeleton Loading */
-.story-card.skeleton {
-  pointer-events: none;
-  animation: skeleton-pulse 1.5s ease-in-out infinite;
-}
-
-.story-card.skeleton .skeleton-title,
-.story-card.skeleton .skeleton-author {
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 4px;
-}
-
-.story-card.skeleton .skeleton-title {
-  height: 20px;
-  width: 65%;
-}
-
-.story-card.skeleton .skeleton-author {
-  height: 12px;
-  width: 35%;
-  margin-top: 6px;
-}
-
-@keyframes skeleton-pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.4; }
-}
-
-/* Empty State */
-.empty-state {
-  text-align: center;
-  font-size: 13px;
-  color: rgba(255, 255, 255, 0.25);
-  font-family: var(--font-logo);
-  padding: 40px 20px;
-  letter-spacing: 0.05em;
 }
 
 /* Delete Confirmation Dialog */
@@ -390,4 +314,64 @@ body {
 .confirm-button:disabled {
   background: rgba(100, 100, 100, 0.5);
   cursor: not-allowed;
+}
+
+/* Story Title */
+.story-title {
+  font-family: var(--font-primary);
+  font-size: 18px;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.9);
+  transition: color 200ms ease;
+}
+
+.story-card:hover .story-title {
+  color: rgba(255, 255, 255, 1);
+}
+
+/* Story Author */
+.story-author {
+  font-family: var(--font-logo);
+  font-size: 12px;
+  font-weight: 300;
+  letter-spacing: 0.1em;
+  color: rgba(255, 255, 255, 0.4);
+  margin-top: 6px;
+}
+
+/* Skeleton Loading */
+.story-card.skeleton {
+  pointer-events: none;
+  animation: skeleton-pulse 1.5s ease-in-out infinite;
+}
+
+.story-card.skeleton .skeleton-title,
+.story-card.skeleton .skeleton-author {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 4px;
+}
+
+.story-card.skeleton .skeleton-title {
+  height: 22px;
+  width: 70%;
+}
+
+.story-card.skeleton .skeleton-author {
+  height: 14px;
+  width: 40%;
+  margin-top: 6px;
+}
+
+@keyframes skeleton-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+/* Empty State */
+.empty-state {
+  text-align: center;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.3);
+  font-family: var(--font-logo);
+  padding: 40px 20px;
 }
