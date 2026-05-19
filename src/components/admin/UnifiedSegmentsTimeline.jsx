@@ -1614,7 +1614,7 @@ const handleTextSelection = useCallback(() => {
                 soundTracks={soundTracks}
                 segments={segments}
                 soundLibrary={soundLibrary}
-                selectedSoundId={selectedSoundId}
+                selectedSoundIds={selectedSoundIds}
                 editingSoundTrack={editingSoundTrack}
                 onSoundSelect={handleSelectSound}
                 onSoundDoubleClick={handleDoubleClickSound}
