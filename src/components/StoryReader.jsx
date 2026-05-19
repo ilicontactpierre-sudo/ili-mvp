@@ -76,6 +76,23 @@ function StoryReader({ storyId, storyData, currentIndex = 0 }) {
   }
 
   const finalSegments = rawSegments.map(normalizeSegment)
+
+  // Calcul Leader / Finisher pour le comportement visuel du player
+  const isCurrentLeader = finalSegments[currentIndex]?.isLeader === true
+  const isCurrentFinisher =
+    currentIndex < finalSegments.length - 1 &&
+    finalSegments[currentIndex + 1]?.isLeader === true
+
+  const hiddenFromView = new Set()
+  // Leader → cacher tous les segments au-dessus
+  if (isCurrentLeader) {
+    for (let i = 0; i < currentIndex; i++) hiddenFromView.add(i)
+  }
+  // Finisher → cacher le segment juste en dessous (le Leader suivant)
+  if (isCurrentFinisher) {
+    hiddenFromView.add(currentIndex + 1)
+  }
+
   const segmentRefs = useRef([])
   const [translateY, setTranslateY] = useState(0)
 
@@ -110,7 +127,7 @@ function StoryReader({ storyId, storyData, currentIndex = 0 }) {
       >
         {finalSegments.map((segment, index) => {
           const isFocused = index === currentIndex
-
+          const isHidden = hiddenFromView.has(index)
           return (
             <p
             key={segment.id}
@@ -118,6 +135,7 @@ function StoryReader({ storyId, storyData, currentIndex = 0 }) {
             className={[
               'story-reader__segment',
               isFocused ? 'story-reader__segment--focus' : 'story-reader__segment--blur',
+              isHidden ? 'story-reader__segment--hidden' : '',
               ...(() => {
                 if (!isFocused || !storyData?.vfxTracks) return []
                 const segId = segment.id || segment._id || String(index)
@@ -134,6 +152,7 @@ function StoryReader({ storyId, storyData, currentIndex = 0 }) {
             ].join(' ')}
             style={{
               fontFamily: segment.fontFamily || 'inherit',
+              ...(isHidden ? { pointerEvents: 'none' } : {}),
               ...((() => {
                 if (!isFocused || !storyData?.vfxTracks) return {}
                 const flashTrack = storyData.vfxTracks.find(t => {
