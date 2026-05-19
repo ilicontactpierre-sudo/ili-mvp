@@ -1632,7 +1632,7 @@ const handleTextSelection = useCallback(() => {
                 onDragTargetChange={handleDragTargetChange}
                 onTextSelection={handleTextSelection}
                 vfxTracks={vfxTracks}
-                selectedVfxId={selectedVfxId}
+                selectedVfxIds={selectedVfxIds}
                 editingVfxTrack={editingVfxTrack}
                 onVfxSelect={handleSelectVfx}
                 onVfxDoubleClick={handleDoubleClickVfx}
