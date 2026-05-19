@@ -959,6 +959,7 @@ function enforceRhythmCadence(segments) {
  */
 function serializeSegments(composedSegments) {
   const pseudoRandom = (seed) => ((seed * 2654435761) >>> 0) / 4294967296
+  if (segIndex > 0) console.log(segIndex, group[0]?.isFirstOfParagraph, group[0]?.text?.substring(0, 30))
   return composedSegments
     .map((group, segIndex) => {
       const lines = group.map(u => u.text)
