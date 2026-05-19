@@ -90,6 +90,7 @@ function SegmentTimelineRow({
   vfxDragTarget,
   onVfxDragStart,
   onVfxDragEnd,
+  onVfxUpdate,
   onVfxDragTargetChange
 }) {
   console.log('segment', index, segment)
