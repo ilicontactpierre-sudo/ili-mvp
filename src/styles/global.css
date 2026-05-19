@@ -127,8 +127,11 @@ body {
 
 .logo-container.logo-open .logo-tagline {
   opacity: 0;
-  transform: translateY(-8px);
+  transform: translateY(-6px);
   pointer-events: none;
+  transition:
+    opacity 900ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 900ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 /* Invite "CHOISIS TON HISTOIRE" */
 .logo-invite {
