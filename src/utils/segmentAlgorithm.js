@@ -951,12 +951,13 @@ function enforceRhythmCadence(segments) {
  */
 function serializeSegments(composedSegments) {
   const pseudoRandom = (seed) => ((seed * 2654435761) >>> 0) / 4294967296
-
   return composedSegments
     .map((group, segIndex) => {
       const lines = group.map(u => u.text)
       const text = lines.join(' ').trim()
       if (!text || !/[a-zA-ZÀ-ÿ\u0100-\u024F]/.test(text)) return null
+      // Marquer comme Leader si la première unité du groupe ouvre un nouveau paragraphe
+      const isLeader = segIndex > 0 && group[0]?.isFirstOfParagraph === true
 
       let breakAt = null
 
