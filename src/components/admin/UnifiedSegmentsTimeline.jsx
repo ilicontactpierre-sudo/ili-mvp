@@ -635,8 +635,7 @@ function SegmentTimelineRow({
             segments={segments}
             soundLibrary={soundLibrary}
             rowHeights={rowHeights}
-            isSelected={track.id === selectedSoundId || track.id === editingSoundTrack?.id}
-            onSelect={onSoundSelect}
+            isSelected={selectedSoundIds.has(track.id) || track.id === editingSoundTrack?.id}            onSelect={onSoundSelect}
             onDoubleClick={onSoundDoubleClick}
             onColumnChange={onSoundColumnChange}
             onResize={onSoundResize}
@@ -716,7 +715,7 @@ function SegmentTimelineRow({
               vfxTrack={track}
               segments={segments}
               rowHeights={rowHeights}
-              isSelected={track.id === selectedVfxId || track.id === editingVfxTrack?.id}
+              isSelected={selectedVfxIds.has(track.id) || track.id === editingVfxTrack?.id}
               onSelect={onVfxSelect}
               onDoubleClick={onVfxDoubleClick}
               onColumnChange={onVfxColumnChange}
@@ -1283,9 +1282,15 @@ const handleTextSelection = useCallback(() => {
   }, [formatToolbar, segments, onSegmentsChange, onSaveToHistory])
 
   // Actions sur les sons
-  const handleSelectSound = (soundId) => {
-    setSelectedSoundId(soundId)
-  }
+  const handleSelectSound = useCallback((id, isShift) => {
+    setSelectedSoundIds(prev => {
+      const next = isShift ? new Set(prev) : new Set()
+      if (isShift && prev.has(id)) next.delete(id)
+      else next.add(id)
+      return next
+    })
+    if (!isShift) setSelectedVfxIds(new Set())
+  }, [])
 
   const handleSoundDragStart = useCallback(() => {
     setIsAnyBlockDragging(true)
@@ -1367,15 +1372,15 @@ const handleTextSelection = useCallback(() => {
         const active = document.activeElement
         const isTyping = active && (active.tagName === 'TEXTAREA' || active.tagName === 'INPUT')
         if (!isTyping) {
-          if (selectedSoundId) {
+          if (selectedSoundIds.size > 0) {
             e.preventDefault()
-            handleDeleteSoundTrack(selectedSoundId)
-            setSelectedSoundId(null)
+            selectedSoundIds.forEach(id => handleDeleteSoundTrack(id))
+            setSelectedSoundIds(new Set())
           }
-          if (selectedVfxId) {
+          if (selectedVfxIds.size > 0) {
             e.preventDefault()
-            handleDeleteVfxTrack(selectedVfxId)
-            setSelectedVfxId(null)
+            selectedVfxIds.forEach(id => handleDeleteVfxTrack(id))
+            setSelectedVfxIds(new Set())
           }
         }
       }
@@ -1438,7 +1443,7 @@ const handleTextSelection = useCallback(() => {
 
   const closePanel = () => {
     setEditingSoundTrack(null)
-    setSelectedSoundId(null)
+    setSelectedSoundIds(new Set())
   }
 
   // Calculer une estimation initiale rapide de la hauteur des lignes
