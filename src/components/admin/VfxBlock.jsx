@@ -225,6 +225,7 @@ function VfxBlock({
     }
   }, [isDragging, isResizing, dragStart, resizeStart, vfxTrack.id, segments, actualEndIndex, onUpdate, onResize, onDragEnd])
 
+
   return (
     <div
       ref={blockRef}
