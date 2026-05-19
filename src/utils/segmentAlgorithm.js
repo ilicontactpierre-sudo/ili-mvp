@@ -246,15 +246,22 @@ function parseIntoUnits(text) {
 
   // Typer chaque unité
   const typedUnits = []
+  let nextIsFirstOfParagraph = false
   for (let i = 0; i < rawUnits.length; i++) {
     const raw = rawUnits[i]
-    if (raw === PARAGRAPH_MARKER) continue
+    if (raw === PARAGRAPH_MARKER) {
+      nextIsFirstOfParagraph = true
+      continue
+    }
     const isLastBeforeParagraphBreak =
       rawUnits[i + 1] === PARAGRAPH_MARKER || i === rawUnits.length - 1
+    const isFirstOfParagraph = nextIsFirstOfParagraph
+    nextIsFirstOfParagraph = false
     typedUnits.push({
       text: raw,
       type: classifyUnit(raw, isLastBeforeParagraphBreak),
       isLastBeforeParagraphBreak,
+      isFirstOfParagraph,
       scores: null,
     })
   }
