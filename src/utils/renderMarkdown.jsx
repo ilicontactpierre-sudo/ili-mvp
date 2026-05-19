@@ -2,41 +2,57 @@
  * renderMarkdown(text)
  * Parse un Markdown léger et retourne du JSX.
  * Supporte : **gras**, *italique*, __souligné__, ~~barré~~
+ * Gère les imbrications : ~~__**texte**__~~ etc.
  */
 export function renderMarkdown(text) {
   if (!text) return null
+  const result = parseInline(text)
+  return result.length > 0 ? result : text
+}
 
-  const parts = []
-  // Ordre : ~~barré~~ → __souligné__ → **gras** → *italique*
-  const regex = /(~~(.+?)~~)|(__(.+?)__)|(\*\*(.+?)\*\*)|(\*(.+?)\*)/g
-  let lastIndex = 0
-  let match
+function parseInline(text, key = 0) {
+  if (!text) return []
 
-  while ((match = regex.exec(text)) !== null) {
-    if (match.index > lastIndex) {
-      parts.push(text.slice(lastIndex, match.index))
+  // Ordre important : ** avant * pour éviter la confusion
+  const tokens = [
+    { marker: '~~', tag: 's' },
+    { marker: '__', tag: 'u' },
+    { marker: '**', tag: 'strong' },
+    { marker: '*',  tag: 'em' },
+  ]
+
+  for (const { marker, tag } of tokens) {
+    const escaped = marker.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+
+    // Pour *, on évite de matcher ** (donc on vérifie que c'est pas précédé/suivi d'un autre *)
+    let regex
+    if (marker === '*') {
+      regex = /(?<!\*)\*(?!\*)(.+?)(?<!\*)\*(?!\*)/s
+    } else {
+      regex = new RegExp(`${escaped}(.+?)${escaped}`, 's')
     }
 
-    if (match[1]) {
-      // ~~barré~~
-      parts.push(<s key={match.index}>{match[2]}</s>)
-    } else if (match[3]) {
-      // __souligné__
-      parts.push(<u key={match.index}>{match[4]}</u>)
-    } else if (match[5]) {
-      // **gras**
-      parts.push(<strong key={match.index}>{match[6]}</strong>)
-    } else if (match[7]) {
-      // *italique*
-      parts.push(<em key={match.index}>{match[8]}</em>)
-    }
+    const match = text.match(regex)
+    if (!match) continue
 
-    lastIndex = regex.lastIndex
+    const before = text.slice(0, match.index)
+    const inner  = match[1]
+    const after  = text.slice(match.index + match[0].length)
+
+    const parts = []
+    if (before) parts.push(...parseInline(before, key + 1))
+
+    const Tag = tag
+    parts.push(
+      <Tag key={`${key}-${match.index}`}>
+        {parseInline(inner, key + 100 + match.index)}
+      </Tag>
+    )
+
+    if (after) parts.push(...parseInline(after, key + 200 + match.index))
+    return parts
   }
 
-  if (lastIndex < text.length) {
-    parts.push(text.slice(lastIndex))
-  }
-
-  return parts.length > 0 ? parts : text
+  // Aucun marqueur trouvé : texte brut
+  return [text]
 }
