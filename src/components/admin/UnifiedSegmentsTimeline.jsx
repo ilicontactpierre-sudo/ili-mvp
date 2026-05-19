@@ -59,7 +59,7 @@ function SegmentTimelineRow({
   soundTracks,
   segments,
   soundLibrary,
-  selectedSoundId,
+  selectedSoundIds,
   editingSoundTrack,
   onSoundSelect,
   onSoundDoubleClick,
