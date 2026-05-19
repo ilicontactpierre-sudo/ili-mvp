@@ -866,19 +866,34 @@ function UnifiedSegmentsTimeline({
     if (!segment) return
     const wasChapter = segment?.isChapter === true
     const updatedSegments = [...segments]
-    updatedSegments[index] = typeof segment === 'string'
-      ? { text: segment, isChapter: !wasChapter }
-      : { ...segment, isChapter: !wasChapter }
-    onSegmentsChange(updatedSegments)
-    if (onSaveToHistory) onSaveToHistory()
-    // Si on retire le statut chapitre, on retire aussi le collapse
-    if (wasChapter) {
+
+    if (!wasChapter) {
+      // Activation chapitre : isChapter + isLeader sur le segment courant
+      updatedSegments[index] = typeof segment === 'string'
+        ? { text: segment, isChapter: true, isLeader: true }
+        : { ...segment, isChapter: true, isLeader: true }
+      // isLeader sur le segment suivant → rend le courant Finisher automatiquement
+      if (index + 1 < segments.length) {
+        const next = segments[index + 1]
+        updatedSegments[index + 1] = typeof next === 'string'
+          ? { text: next, isLeader: true }
+          : { ...next, isLeader: true }
+      }
+    } else {
+      // Désactivation chapitre : retire seulement isChapter
+      // Les leaders restent (suppression manuelle possible)
+      updatedSegments[index] = typeof segment === 'string'
+        ? { text: segment, isChapter: false }
+        : { ...segment, isChapter: false }
       setCollapsedChapters(prev => {
         const next = new Set(prev)
         next.delete(index)
         return next
       })
     }
+
+    onSegmentsChange(updatedSegments)
+    if (onSaveToHistory) onSaveToHistory()
   }, [segments, onSegmentsChange, onSaveToHistory])
 
   // Collapse/expand un chapitre au clic sur son numéro
