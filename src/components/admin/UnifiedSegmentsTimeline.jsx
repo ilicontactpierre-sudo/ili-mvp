@@ -1223,64 +1223,18 @@ const handleTextSelection = useCallback(() => {
   // Avec toggle : si le marqueur est déjà présent, il est retiré
   const handleFormat = useCallback((type) => {
     if (!formatToolbar || formatToolbar.segmentIndex === null || formatToolbar.segmentIndex === undefined) return
-    const { segmentIndex, selectedText, mode } = formatToolbar
+    const { segmentIndex } = formatToolbar
     const segment = segments[segmentIndex]
     if (!segment) return
-    const fullText = typeof segment === 'string' ? segment : (segment.text || '')
-    const markers = { bold: '**', italic: '*', underline: '__', strikethrough: '~~' }
-    const m = markers[type]
-    if (!m) return
 
-    // Fonction toggle : ajoute ou retire les marqueurs, en gérant les conflits * vs **
-    const toggleMarker = (text, marker) => {
-      if (marker === '*') {
-        // Italique : vérifie que c'est * et pas **
-        if (/^\*[^*]/.test(text) && /[^*]\*$/.test(text)) {
-          return text.slice(1, -1)
-        }
-        return '*' + text + '*'
-      }
-      if (marker === '**') {
-        // Gras : retire ** si présent, sans toucher aux * d'italique éventuels
-        if (text.startsWith('**') && text.endsWith('**') && text.length > 4) {
-          return text.slice(2, -2)
-        }
-        return '**' + text + '**'
-      }
-      if (marker === '__') {
-        // Souligné : vérifie exactement __ de chaque côté
-        if (text.startsWith('__') && text.endsWith('__') && text.length > 4) {
-          return text.slice(2, -2)
-        }
-        return '__' + text + '__'
-      }
-      if (marker === '~~') {
-        // Barré
-        if (text.startsWith('~~') && text.endsWith('~~') && text.length > 4) {
-          return text.slice(2, -2)
-        }
-        return '~~' + text + '~~'
-      }
-      return marker + text + marker
-    }
-
-    let newText
-    if (mode === 'segment' || !selectedText) {
-      // Appliquer/retirer sur le segment entier
-      newText = toggleMarker(fullText, m)
-    } else {
-      // Appliquer/retirer sur la sélection uniquement
-      const selStart = fullText.indexOf(selectedText)
-      if (selStart === -1) return
-      const selEnd = selStart + selectedText.length
-      const toggled = toggleMarker(selectedText, m)
-      newText = fullText.slice(0, selStart) + toggled + fullText.slice(selEnd)
-    }
+    const key = { bold: 'bold', italic: 'italic', underline: 'underline', strikethrough: 'strikethrough' }[type]
+    if (!key) return
 
     const updatedSegments = [...segments]
     updatedSegments[segmentIndex] = typeof segment === 'string'
-      ? newText
-      : { ...segment, text: newText }
+      ? { text: segment, [key]: true }
+      : { ...segment, [key]: !segment[key] }
+
     onSegmentsChange(updatedSegments)
     if (onSaveToHistory) onSaveToHistory()
     setFormatToolbar(null)
@@ -1769,7 +1723,6 @@ const handleTextSelection = useCallback(() => {
       {/* Toolbar de formatage flottant */}
       {formatToolbar && (
         <FormatToolbar
-          mode={formatToolbar.mode}
           position={formatToolbar.position}
           onFormat={handleFormat}
           onFontChange={handleFontChange}
@@ -1778,10 +1731,10 @@ const handleTextSelection = useCallback(() => {
               ? segments[formatToolbar.segmentIndex]?.fontFamily || ''
               : ''
           }
-          currentText={
+          currentSegment={
             formatToolbar.segmentIndex !== null
-              ? (segments[formatToolbar.segmentIndex]?.text || '')
-              : ''
+              ? segments[formatToolbar.segmentIndex]
+              : null
           }
           onClose={() => setFormatToolbar(null)}
         />
