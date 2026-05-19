@@ -323,8 +323,7 @@ function SegmentTimelineRow({
             alignSelf: 'flex-start',
             marginTop: '3px',
           }}
-          onMouseEnter={e => { if (!isChapter) e.currentTarget.style.color = '#c4b5fd' }}
-          onMouseLeave={e => { if (!isChapter) e.currentTarget.style.color = 'transparent' }}
+
         >
           {isChapter ? '★' : '☆'}
         </button>
