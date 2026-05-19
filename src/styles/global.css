@@ -129,7 +129,7 @@ body {
   z-index: 5;
 }
 .story-menu-container {
-  width: 30%;
+  width: 90%;
   max-width: 480px;
   max-height: 45vh;
   overflow-y: auto;
