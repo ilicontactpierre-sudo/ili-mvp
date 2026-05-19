@@ -101,20 +101,60 @@ function StoryReader({ storyId, storyData, currentIndex = 0 }) {
   useLayoutEffect(() => {
     function computeTranslate() {
       const focusedNode = segmentRefs.current[currentIndex]
-
-      if (!focusedNode) {
-        return
-      }
+      if (!focusedNode) return
 
       const viewportHeight = window.innerHeight
+      const PADDING = 28 // marge de sécurité haut/bas en px
+
+      // ── Trouver la séquence narrative courante (Leader → Finisher) ──
+      let leaderIndex = -1
+      for (let i = currentIndex; i >= 0; i--) {
+        if (finalSegments[i]?.isLeader) { leaderIndex = i; break }
+      }
+
+      // Finisher = segment juste avant le prochain Leader, ou dernier segment
+      let finisherIndex = finalSegments.length - 1
+      if (leaderIndex !== -1) {
+        for (let i = leaderIndex + 1; i < finalSegments.length; i++) {
+          if (finalSegments[i]?.isLeader) { finisherIndex = i - 1; break }
+        }
+      }
+
+      // ── Calcul de la progression t ∈ [0, 1] dans la séquence ──
+      const sequenceLength = finisherIndex - leaderIndex
+      let anchorFraction = 0.50 // défaut : centre
+
+      if (leaderIndex !== -1 && sequenceLength > 0) {
+        const t = Math.max(0, Math.min(1,
+          (currentIndex - leaderIndex) / sequenceLength
+        ))
+        // Courbe cubique (2t−1)³ : lente au centre, rapide aux extrémités
+        // → le lecteur passe la majorité du temps proche du centre
+        anchorFraction = 0.50 + 0.13 * Math.pow(2 * t - 1, 3)
+      }
+
+      // ── Calcul du translateY désiré ──
+      const anchorY = viewportHeight * anchorFraction
       const focusedCenterY = focusedNode.offsetTop + focusedNode.offsetHeight / 2
-      const nextTranslateY = viewportHeight / 2 - focusedCenterY
+      const desiredTranslateY = anchorY - focusedCenterY
+
+      // ── Clamping : segment toujours entièrement visible ──
+      const minTranslateY = PADDING - focusedNode.offsetTop
+      const maxTranslateY = viewportHeight - PADDING - focusedNode.offsetTop - focusedNode.offsetHeight
+
+      let nextTranslateY
+      if (minTranslateY > maxTranslateY) {
+        // Segment plus grand que l'écran : priorité au début du segment
+        nextTranslateY = minTranslateY
+      } else {
+        nextTranslateY = Math.max(minTranslateY, Math.min(maxTranslateY, desiredTranslateY))
+      }
+
       setTranslateY(nextTranslateY)
     }
 
     const rafId = requestAnimationFrame(computeTranslate)
     window.addEventListener('resize', computeTranslate)
-
     return () => {
       cancelAnimationFrame(rafId)
       window.removeEventListener('resize', computeTranslate)
