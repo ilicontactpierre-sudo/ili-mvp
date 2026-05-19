@@ -1,4 +1,4 @@
-import { useLayoutEffect, useRef, useState } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import './StoryReader.css'
 import { renderMarkdown } from '../utils/renderMarkdown'
 import { getVfxClass } from './admin/constants'
