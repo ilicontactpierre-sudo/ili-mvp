@@ -25,9 +25,6 @@ function VfxBlock({
   const blockRef = useRef(null)
   const targetCellRef = useRef({ segmentIndex: -1, column: -1 })
 
-  useEffect(() => {
-    targetCellRef.current = targetCell
-  }, [targetCell])
 
   // Résolution des indices de segment
   const getSegmentIndex = useCallback((segmentId) => {
@@ -146,6 +143,8 @@ function VfxBlock({
             accumulated += rowHeights[i] + 8
           }
 
+          // Mise à jour directe et synchrone — évite le décalage du useEffect
+          targetCellRef.current = { segmentIndex: newStartIndex, column: newColumn }
           setTargetCell({ segmentIndex: newStartIndex, column: newColumn })
           if (onDragTargetChange) onDragTargetChange(newStartIndex, newColumn)
         }
@@ -192,16 +191,23 @@ function VfxBlock({
     const handleMouseUp = () => {
       const current = targetCellRef.current
       if (isDragging) {
-        if (current.column !== dragStart.column && current.column >= 0) {
-          onColumnChange(vfxTrack.id, current.column)
-        }
+        const newCol    = current.column >= 0 ? current.column : dragStart.column
         const targetIdx = current.segmentIndex >= 0 ? current.segmentIndex : dragStart.startSegmentIndex
+
+        const updates = {}
+        if (newCol !== dragStart.column) {
+          updates.column = newCol
+        }
         if (targetIdx !== dragStart.startSegmentIndex) {
           const newStartId = segments[targetIdx]?.id || segments[targetIdx]?._id
           const offset     = actualEndIndex - dragStart.startSegmentIndex
           const newEndIdx  = Math.min(segments.length - 1, targetIdx + offset)
           const newEndId   = segments[newEndIdx]?.id || segments[newEndIdx]?._id
-          onResize(vfxTrack.id, newStartId, newEndId)
+          updates.startSegmentId = newStartId
+          updates.endSegmentId   = newEndId
+        }
+        if (Object.keys(updates).length > 0) {
+          onUpdate(vfxTrack.id, updates)
         }
         if (onDragEnd) onDragEnd()
       }
@@ -217,7 +223,7 @@ function VfxBlock({
       window.removeEventListener('mousemove', handleMouseMove)
       window.removeEventListener('mouseup', handleMouseUp)
     }
-  }, [isDragging, isResizing, dragStart, resizeStart, vfxTrack.id, segments, actualEndIndex, onColumnChange, onResize, onDragEnd])
+  }, [isDragging, isResizing, dragStart, resizeStart, vfxTrack.id, segments, actualEndIndex, onUpdate, onResize, onDragEnd])
 
   return (
     <div
