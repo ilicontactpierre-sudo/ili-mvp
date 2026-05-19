@@ -1631,6 +1631,7 @@ const handleTextSelection = useCallback(() => {
                 isLeader={segment?.isLeader === true}
                 isFinisher={finisherSegments.has(index)}
                 onToggleIsLeader={handleToggleIsLeader}
+                onVfxUpdate={handleVfxUpdate}
               />
 
               {index < segments.length - 1 && (
