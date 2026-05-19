@@ -1,8 +1,7 @@
 /**
  * renderMarkdown(text)
- * Parse un Markdown léger et retourne du JSX.
  * Supporte : **gras**, *italique*, __souligné__, ~~barré~~
- * Gère les imbrications : ~~__**texte**__~~ etc.
+ * Gère les imbrications.
  */
 export function renderMarkdown(text) {
   if (!text) return null
@@ -24,7 +23,6 @@ function parseInline(text) {
     let endIdx   = -1
 
     if (marker === '*') {
-      // Cherche * qui n'est pas ** 
       for (let i = 0; i < text.length; i++) {
         if (text[i] === '*' && text[i - 1] !== '*' && text[i + 1] !== '*') {
           if (startIdx === -1) {
