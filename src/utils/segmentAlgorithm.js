@@ -1001,6 +1001,7 @@ function serializeSegments(composedSegments) {
 if (breakAt !== null) {
   console.log('BREAK AT', segIndex, breakAt, text.length, text.substring(0, 40))
 }
+if (segIndex > 0) console.log(segIndex, group[0]?.isFirstOfParagraph, group[0]?.text?.substring(0, 30))
       return { lines, text, breakAt, isLeader: isLeader || false }
     })
     .filter(Boolean)
