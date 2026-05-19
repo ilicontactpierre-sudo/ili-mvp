@@ -964,8 +964,8 @@ function serializeSegments(composedSegments) {
       const lines = group.map(u => u.text)
       const text = lines.join(' ').trim()
       if (!text || !/[a-zA-ZÀ-ÿ\u0100-\u024F]/.test(text)) return null
-      // Marquer comme Leader si la première unité du groupe ouvre un nouveau paragraphe
-      const isLeader = segIndex > 0 && group[0]?.isFirstOfParagraph === true
+      // Marquer comme Leader si n'importe quelle unité du groupe ouvre un nouveau paragraphe
+      const isLeader = segIndex > 0 && group.some(u => u.isFirstOfParagraph === true)
 
       let breakAt = null
 
@@ -1001,8 +1001,13 @@ function serializeSegments(composedSegments) {
 if (breakAt !== null) {
   console.log('BREAK AT', segIndex, breakAt, text.length, text.substring(0, 40))
 }
-if (segIndex > 0) console.log(segIndex, group[0]?.isFirstOfParagraph, group[0]?.text?.substring(0, 30))
-      return { lines, text, breakAt, isLeader: isLeader || false }
+      return { 
+        lines, 
+        text, 
+        breakAt, 
+        isLeader: isLeader || false,
+        id: `seg_${segIndex}_${Date.now()}`
+      }
     })
     .filter(Boolean)
 }
