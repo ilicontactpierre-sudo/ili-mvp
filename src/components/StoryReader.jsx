@@ -130,7 +130,7 @@ function StoryReader({ storyId, storyData, currentIndex = 0 }) {
         ))
         // Courbe cubique (2t−1)³ : lente au centre, rapide aux extrémités
         // → le lecteur passe la majorité du temps proche du centre
-        anchorFraction = 0.50 + 0.40 * Math.pow(2 * t - 1, 3)
+        anchorFraction = 0.50 + 0.30 * Math.pow(2 * t - 1, 3)
       }
 
       // ── Calcul du translateY désiré ──
