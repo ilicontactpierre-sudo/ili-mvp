@@ -409,21 +409,20 @@ function SoundBlock({
         const msPerPixel = totalDurationMs / (blockH > 0 ? blockH : 1)
         const maxFadeMs = blockH * 0.8 * msPerPixel
 
+        const MAX_FADE_MS = 4000
         if (isAdjustingFade === 'fadeIn') {
-          // Vers le bas = augmente le fadeIn, on part de la valeur initiale
           const newFadeIn = Math.max(0, Math.min(
             fadeStartRef.current.fadeIn + deltaY * msPerPixel,
-            maxFadeMs
+            Math.min(maxFadeMs, MAX_FADE_MS)
           ))
           onUpdate(soundTrack.id, { fadeIn: Math.round(newFadeIn) })
         } else if (isAdjustingFade === 'fadeOut') {
-          // Vers le haut = augmente le fadeOut, on part de la valeur initiale
           const newFadeOut = Math.max(0, Math.min(
             fadeStartRef.current.fadeOut + (-deltaY) * msPerPixel,
-            maxFadeMs
+            Math.min(maxFadeMs, MAX_FADE_MS)
           ))
           onUpdate(soundTrack.id, { fadeOut: Math.round(newFadeOut) })
-          }
+        }
         }
       }
 
