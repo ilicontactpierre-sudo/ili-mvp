@@ -6,53 +6,58 @@
  */
 export function renderMarkdown(text) {
   if (!text) return null
-  const result = parseInline(text)
-  return result.length > 0 ? result : text
+  return parseInline(text)
 }
 
-function parseInline(text, key = 0) {
-  if (!text) return []
+function parseInline(text) {
+  if (!text) return null
 
-  // Ordre important : ** avant * pour éviter la confusion
   const tokens = [
-    { marker: '~~', tag: 's' },
-    { marker: '__', tag: 'u' },
+    { marker: '~~', tag: 's'      },
+    { marker: '__', tag: 'u'      },
     { marker: '**', tag: 'strong' },
-    { marker: '*',  tag: 'em' },
+    { marker: '*',  tag: 'em'     },
   ]
 
   for (const { marker, tag } of tokens) {
-    const escaped = marker.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+    let startIdx = -1
+    let endIdx   = -1
 
-    // Pour *, on évite de matcher ** (donc on vérifie que c'est pas précédé/suivi d'un autre *)
-    let regex
     if (marker === '*') {
-      regex = /(?<!\*)\*(?!\*)(.+?)(?<!\*)\*(?!\*)/s
+      // Cherche * qui n'est pas ** 
+      for (let i = 0; i < text.length; i++) {
+        if (text[i] === '*' && text[i - 1] !== '*' && text[i + 1] !== '*') {
+          if (startIdx === -1) {
+            startIdx = i
+          } else {
+            endIdx = i
+            break
+          }
+        }
+      }
     } else {
-      regex = new RegExp(`${escaped}(.+?)${escaped}`, 's')
+      startIdx = text.indexOf(marker)
+      if (startIdx !== -1) {
+        endIdx = text.indexOf(marker, startIdx + marker.length)
+      }
     }
 
-    const match = text.match(regex)
-    if (!match) continue
+    if (startIdx === -1 || endIdx === -1) continue
 
-    const before = text.slice(0, match.index)
-    const inner  = match[1]
-    const after  = text.slice(match.index + match[0].length)
-
-    const parts = []
-    if (before) parts.push(...parseInline(before, key + 1))
+    const before = text.slice(0, startIdx)
+    const inner  = text.slice(startIdx + marker.length, endIdx)
+    const after  = text.slice(endIdx + marker.length)
 
     const Tag = tag
-    parts.push(
-      <Tag key={`${key}-${match.index}`}>
-        {parseInline(inner, key + 100 + match.index)}
-      </Tag>
-    )
 
-    if (after) parts.push(...parseInline(after, key + 200 + match.index))
-    return parts
+    return (
+      <>
+        {before || null}
+        <Tag>{parseInline(inner)}</Tag>
+        {after ? parseInline(after) : null}
+      </>
+    )
   }
 
-  // Aucun marqueur trouvé : texte brut
-  return [text]
+  return text
 }
