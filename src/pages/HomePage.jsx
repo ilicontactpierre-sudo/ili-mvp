@@ -1,15 +1,24 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import StoryMenu from '../components/StoryMenu';
 
 function HomePage() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [phase, setPhase] = useState('idle'); // idle | bumping | transitioning | open
   const [stories, setStories] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const audioRef = useRef(null);
   const isLocalDev = typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
 
-  const toggleMenu = () => {
-    setIsMenuOpen(prev => !prev);
-  };
+  useEffect(() => {
+    // Précharger le son au montage
+    audioRef.current = new Audio('/sounds/Clic ILi.mp3');
+    audioRef.current.volume = 0.6;
+    return () => {
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current = null;
+      }
+    };
+  }, []);
 
   useEffect(() => {
     const fetchStories = async () => {
@@ -17,7 +26,6 @@ function HomePage() {
         const response = await fetch('/stories/index.json');
         if (!response.ok) throw new Error('Failed to fetch stories');
         const data = await response.json();
-        // Gérer à la fois le format { stories: [...] } et le format tableau direct [...]
         const storiesArray = Array.isArray(data) ? data : (Array.isArray(data.stories) ? data.stories : [])
         setStories(storiesArray);
       } catch (error) {
@@ -27,71 +35,86 @@ function HomePage() {
         setIsLoading(false);
       }
     };
-
     fetchStories();
   }, []);
 
+  const handleLogoClick = () => {
+    if (phase !== 'idle') return;
+
+    // Phase 0 : bump + son simultanés
+    if (audioRef.current) {
+      audioRef.current.currentTime = 0;
+      audioRef.current.play().catch(() => {});
+    }
+    setPhase('bumping');
+
+    // Phase 1 : silence, puis glissement
+    setTimeout(() => {
+      setPhase('transitioning');
+    }, 120);
+
+    // Phase 2 : menu émerge pendant que le logo finit de se poser
+    setTimeout(() => {
+      setPhase('open');
+    }, 900);
+  };
+
+  const handleClose = () => {
+    setPhase('idle');
+  };
+
   const handleDeleteStory = async (storyId, password) => {
     if (isLocalDev) {
-      throw new Error('Suppression non disponible en local. Cette fonctionnalité fonctionne uniquement en production.');
+      throw new Error('Suppression non disponible en local.');
     }
-
     try {
       const response = await fetch('/api/delete', {
         method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          slug: storyId,
-          password: password,
-        }),
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ slug: storyId, password }),
       });
-
       if (!response.ok) {
         const text = await response.text();
         let message = 'Erreur lors de la suppression';
-        if (text) {
-          try {
-            const json = JSON.parse(text);
-            message = json.error || json.message || text;
-          } catch {
-            message = text;
-          }
-        }
+        try { message = JSON.parse(text).error || text; } catch { message = text; }
         throw new Error(message);
       }
-
-      // Refresh the stories list
       const fetchResponse = await fetch('/stories/index.json');
       if (fetchResponse.ok) {
         const data = await fetchResponse.json();
-        const storiesArray = Array.isArray(data) ? data : (Array.isArray(data.stories) ? data.stories : []);
-        setStories(storiesArray);
+        setStories(Array.isArray(data) ? data : (Array.isArray(data.stories) ? data.stories : []));
       }
-
       alert('Histoire supprimée avec succès');
     } catch (error) {
       throw error;
     }
   };
 
+  const isOpen = phase === 'open';
+  const isMoving = phase === 'transitioning' || phase === 'open';
+  const isBumping = phase === 'bumping';
+
   return (
     <div className="home-page">
-      <div className={`logo-container ${isMenuOpen ? 'logo-open' : ''}`}>
-        <h1 className="logo" onClick={toggleMenu}>
+      <div className={`logo-container ${isMoving ? 'logo-open' : ''}`}>
+        <h1
+          className={`logo ${isBumping ? 'logo-bump' : ''}`}
+          onClick={handleLogoClick}
+        >
           ILi
         </h1>
         <p className="logo-tagline">lecture immersive</p>
       </div>
 
-      <StoryMenu
-        isOpen={isMenuOpen}
-        stories={stories}
-        isLoading={isLoading}
-        onClose={() => setIsMenuOpen(false)}
-        onDeleteStory={handleDeleteStory}
-      />
+      {isOpen && (
+        <StoryMenu
+          isOpen={true}
+          stories={stories}
+          isLoading={isLoading}
+          onClose={handleClose}
+          onDeleteStory={handleDeleteStory}
+        />
+      )}
     </div>
   );
 }
