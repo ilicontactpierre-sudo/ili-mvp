@@ -346,8 +346,7 @@ function SegmentTimelineRow({
             alignSelf: 'flex-start',
             marginTop: '3px',
           }}
-          onMouseEnter={e => { if (!isLeader) e.currentTarget.style.color = '#fed7aa' }}
-          onMouseLeave={e => { if (!isLeader) e.currentTarget.style.color = 'transparent' }}
+
         >
           {isLeader ? '◆' : '◇'}
         </button>
