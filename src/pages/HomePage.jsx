@@ -104,6 +104,7 @@ function HomePage() {
           ILi
         </h1>
         <p className="logo-tagline">lecture immersive</p>
+        <p className="logo-invite">Choisis ton histoire</p>
       </div>
 
       {isOpen && (
