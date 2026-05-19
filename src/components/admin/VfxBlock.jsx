@@ -70,7 +70,7 @@ function VfxBlock({
     if (e.button !== 0) return
     if (e.target.dataset.resizeHandle) return
     e.stopPropagation()
-    onSelect(vfxTrack.id)
+    onSelect(vfxTrack.id, e.shiftKey)
 
     const startX = e.clientX
     const startY = e.clientY
