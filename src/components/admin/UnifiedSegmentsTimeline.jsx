@@ -841,6 +841,18 @@ function UnifiedSegmentsTimeline({
       return next
     })
   }, [])
+  
+// Bascule le statut "leader" d'un segment
+  const handleToggleIsLeader = useCallback((index) => {
+    const segment = segments[index]
+    if (!segment) return
+    const updatedSegments = [...segments]
+    updatedSegments[index] = typeof segment === 'string'
+      ? { text: segment, isLeader: true }
+      : { ...segment, isLeader: !segment.isLeader }
+    onSegmentsChange(updatedSegments)
+    if (onSaveToHistory) onSaveToHistory()
+  }, [segments, onSegmentsChange, onSaveToHistory])
 
   const handleAddVfxToCell = useCallback((segmentIndex, column) => {
     if (!onVfxTracksChange) return
