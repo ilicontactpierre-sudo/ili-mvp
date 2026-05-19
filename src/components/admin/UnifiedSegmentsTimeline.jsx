@@ -721,6 +721,7 @@ function SegmentTimelineRow({
               onDoubleClick={onVfxDoubleClick}
               onColumnChange={onVfxColumnChange}
               onResize={onVfxResize}
+              onUpdate={onVfxUpdate}
               onDragStart={onVfxDragStart}
               onDragEnd={onVfxDragEnd}
               onDragTargetChange={onVfxDragTargetChange}
