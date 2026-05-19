@@ -474,12 +474,12 @@ function SegmentTimelineRow({
                 </>
               ) : segment && typeof segment === 'object' && segment.breakAt !== null ? (
                 <>
-                  {renderMarkdown(segment.text.slice(0, segment.breakAt).trim())}
+                  {renderMarkdown(segment.text.slice(0, segment.breakAt).trim(), segment)}
                   {'\n\n'}
-                  {renderMarkdown(segment.text.slice(segment.breakAt).trim())}
+                  {renderMarkdown(segment.text.slice(segment.breakAt).trim(), segment)}
                 </>
               ) : (
-                renderMarkdown(text)
+                renderMarkdown(text, segment)
               )}
             </span>
           )}
