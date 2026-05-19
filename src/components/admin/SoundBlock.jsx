@@ -102,9 +102,9 @@ function SoundBlock({
   const width = COLUMN_WIDTH - 5
 
   // Calculer les positions de fade en pixels (basé sur la hauteur du bloc)
-  const maxFadeHeight = blockHeight * 0.8
-  const fadeInHeight = Math.min((soundTrack.fadeIn || 0) / 4000 * maxFadeHeight, maxFadeHeight)
-  const fadeOutHeight = Math.min((soundTrack.fadeOut || 0) / 4000 * maxFadeHeight, maxFadeHeight)
+  const maxFadeHeight = blockHeight * 0.4
+  const fadeInHeight = (soundTrack.fadeIn || 0) / 4000 * maxFadeHeight
+  const fadeOutHeight = (soundTrack.fadeOut || 0) / 4000 * maxFadeHeight
   
   // Motif rayé pour loop
   const loopPattern = soundTrack.loop ? `repeating-linear-gradient(
@@ -405,9 +405,9 @@ function SoundBlock({
         const deltaY = e.clientY - fadeStartRef.current.y
         // px → ms : on se base sur la hauteur réelle du bloc
         const blockH = fadeStartRef.current.blockHeight
-        const totalDurationMs = segments.length * 5000
-        const msPerPixel = totalDurationMs / (blockH > 0 ? blockH : 1)
-        const maxFadeMs = blockH * 0.8 * msPerPixel
+        const maxFadeHeight = blockH * 0.4
+        const msPerPixel = 4000 / (maxFadeHeight > 0 ? maxFadeHeight : 1)
+        const maxFadeMs = 4000
 
         const MAX_FADE_MS = 4000
         if (isAdjustingFade === 'fadeIn') {
