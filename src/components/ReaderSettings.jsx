@@ -159,7 +159,8 @@ function playSettingsClic() {
           rgba(0, 240, 255, 0.015) 2px,
           rgba(0, 240, 255, 0.015) 4px
         )
-      `document.body.style.backgroundImage = `
+      `
+      document.body.style.backgroundImage = `
   linear-gradient(45deg, rgba(255,0,127,0.08) 25%, transparent 25%),
   linear-gradient(-45deg, rgba(0,240,255,0.08) 25%, transparent 25%),
   linear-gradient(45deg, transparent 75%, rgba(157,0,255,0.08) 75%),
