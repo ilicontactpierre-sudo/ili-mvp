@@ -34,15 +34,23 @@ function StoryPage() {
     if (!isStarted || !segments.length || isFinished) {
       return
     }
-
     setCurrentIndex((prevIndex) => {
       if (prevIndex >= lastIndex) {
         setIsFinished(true)
         return prevIndex
       }
-      return prevIndex + 1
+      const next = prevIndex + 1
+      if (story?.id) saveProgress(story.id, next)
+      return next
     })
-  }, [isFinished, isStarted, lastIndex, segments.length])
+  }, [isFinished, isStarted, lastIndex, segments.length, story])
+
+  const goToIndex = useCallback((index) => {
+    if (!isStarted || !segments.length) return
+    const clamped = Math.max(0, Math.min(lastIndex, index))
+    setCurrentIndex(clamped)
+    if (story?.id) saveProgress(story.id, clamped)
+  }, [isStarted, segments.length, lastIndex, story])
 
   const goToPrevious = useCallback(() => {
     if (!isStarted || !segments.length) {
