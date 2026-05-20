@@ -197,8 +197,8 @@ function StoryReader({ storyId, storyData, currentIndex = 0, isJumping = false }
       style={{
         opacity: isJumping ? 0 : 1,
         transition: isJumping
-          ? 'opacity 300ms cubic-bezier(0.25, 0.46, 0.45, 0.94)'
-          : 'opacity 400ms cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+          ? 'opacity 1300ms cubic-bezier(0.25, 0.46, 0.45, 0.94)'
+          : 'opacity 1400ms cubic-bezier(0.25, 0.46, 0.45, 0.94)',
       }}
     >
       <div
