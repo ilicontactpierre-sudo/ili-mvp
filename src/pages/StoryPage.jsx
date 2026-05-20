@@ -295,7 +295,7 @@ function StoryPage() {
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
     >
-      <StoryReader storyData={story} currentIndex={currentIndex} isJumping={isJumping} />
+      <StoryReader storyData={story} currentIndex={currentIndex} jumpPhase={jumpPhase} />
       <ReaderSettings
         storyId={story?.id}
         segments={segments}
