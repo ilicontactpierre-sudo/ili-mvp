@@ -147,6 +147,14 @@ function SoundBlock({
       timelineScrollTop
     })
 
+    dragStartRef.current = {
+      x: startX,
+      y: startY,
+      column: soundTrack.column,
+      startSegmentIndex,
+      timelineScrollTop: timelineScrollTop || 0
+    }
+
     const onMouseMove = (moveEvent) => {
       const dx = moveEvent.clientX - startX
       const dy = moveEvent.clientY - startY
@@ -430,18 +438,19 @@ function SoundBlock({
       // Utiliser targetCellRef.current pour avoir la valeur la plus récente
       const currentTargetCell = targetCellRef.current
       if (isDragging) {
+        // Lire les valeurs depuis la ref — jamais périmées contrairement au state
+        const ds = dragStartRef.current || dragStart
         // Appliquer les changements de colonne au moment du relâchement
-        if (currentTargetCell.column !== dragStart.column && currentTargetCell.column >= 0) {
+        if (currentTargetCell.column !== ds.column && currentTargetCell.column >= 0) {
           onColumnChange(soundTrack.id, currentTargetCell.column)
         }
         // Appliquer les changements de ligne (segment) au moment du relâchement
-        // Utiliser dragStart.startSegmentIndex si targetCell.segmentIndex est invalide
-        const targetSegmentIndex = currentTargetCell.segmentIndex >= 0 ? currentTargetCell.segmentIndex : dragStart.startSegmentIndex
-        if (targetSegmentIndex !== dragStart.startSegmentIndex) {
+        const targetSegmentIndex = currentTargetCell.segmentIndex >= 0 ? currentTargetCell.segmentIndex : ds.startSegmentIndex
+        if (targetSegmentIndex !== ds.startSegmentIndex) {
           const newStartSegmentId = segments[targetSegmentIndex]?.id 
             || segments[targetSegmentIndex]?._id
           const currentEndIndex = endSegmentIndex !== -1 ? endSegmentIndex : startSegmentIndex
-          const offset = currentEndIndex - dragStart.startSegmentIndex
+          const offset = currentEndIndex - ds.startSegmentIndex
           const newEndIndex = Math.min(segments.length - 1, targetSegmentIndex + offset)
           const newEndSegmentId = segments[newEndIndex]?.id 
             || segments[newEndIndex]?._id
