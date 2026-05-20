@@ -43,6 +43,8 @@ function SoundBlock({
   const [resizeStart, setResizeStart] = useState({ y: 0, startSegment: null, endSegment: null })
   const [isHovered, setIsHovered] = useState(false)
   const blockRef = useRef(null)
+  const segmentsRef = useRef(segments)
+  useEffect(() => { segmentsRef.current = segments }, [segments])
   const fadeStartRef = useRef(null)
   const targetCellRef = useRef({ segmentIndex: -1, column: -1 })
   
