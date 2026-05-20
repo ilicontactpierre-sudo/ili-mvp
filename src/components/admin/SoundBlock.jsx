@@ -243,82 +243,38 @@ function SoundBlock({
         const deltaX = e.clientX - dragStart.x
         const deltaY = e.clientY - dragStart.y
         setDragOffset({ x: deltaX, y: deltaY })
-        
-        // Obtenir le conteneur scrollable pour avoir la position de scroll actuelle
+
         const timelineRoot = blockRef.current?.closest('[data-timeline-root]')
-        const currentScrollTop = timelineRoot ? timelineRoot.scrollTop : 0
-        // Calculer la position Y relative au contenu scrollable de la timeline
-        // On utilise la position du bloc dans le conteneur + le delta de drag
-        const blockRect = blockRef.current?.getBoundingClientRect()
         const timelineRect = timelineRoot?.getBoundingClientRect()
-        
-        if (blockRect && timelineRect && rowHeights) {
-          // Position du centre du bloc par rapport au contenu scrollable
-          // getBoundingClientRect() retourne la position visuelle (inclut le transform)
-          const relativeBlockY = blockRect.top - timelineRect.top + currentScrollTop + blockRect.height / 2
-          
-          // Pour X, on calcule la colonne cible en fonction du delta X depuis le début du drag
-          // C'est plus fiable car indépendant de la position du conteneur
-          const newColumn = Math.max(0, Math.min(COLUMN_COUNT - 1, 
+        const currentScrollTop = timelineRoot ? timelineRoot.scrollTop : 0
+
+        if (timelineRect && rowHeights) {
+          // Position du CURSEUR dans le contenu scrollable — indépendant du transform du bloc
+          const cursorY = e.clientY - timelineRect.top + currentScrollTop
+
+          const newColumn = Math.max(0, Math.min(COLUMN_COUNT - 1,
             Math.round(dragStart.column + deltaX / COLUMN_WIDTH)))
-          
-          // Trouver la ligne cible - on cherche la ligne dont le centre est le plus proche
+
+          // Trouver la ligne dont le centre est le plus proche du curseur
           let accumulated = 0
           let newStartIndex = 0
-          let targetRowCenter = 0
           let minDistance = Infinity
-          
+
           for (let i = 0; i < rowHeights.length; i++) {
             const rowHeight = rowHeights[i]
-            const rowTotal = rowHeight + 8
             const rowCenter = accumulated + rowHeight / 2
-            const distance = Math.abs(relativeBlockY - rowCenter)
-            
-            // On garde la ligne dont le centre est le plus proche
+            const distance = Math.abs(cursorY - rowCenter)
             if (distance < minDistance) {
               minDistance = distance
               newStartIndex = i
-              targetRowCenter = rowCenter
             }
-            
-            accumulated += rowTotal
+            accumulated += rowHeight + 8
           }
 
-          // Trouver la colonne cible
-          const targetColCenter = newColumn * COLUMN_WIDTH + COLUMN_WIDTH / 2
-          
-          // Calculer l'écart par rapport au centre de la case cible (pour Y seulement)
-          const distToRowCenter = Math.abs(relativeBlockY - targetRowCenter)
-          
-          // Seuils de snap (en pixels)
-          const snapThresholdY = rowHeights[newStartIndex] * 0.4
-          const snapThresholdX = COLUMN_WIDTH * 0.4
-          
-          // Calculer le snap offset pour un effet d'aimant (Y seulement)
-          const newSnapY = (targetRowCenter - relativeBlockY) * 0.3
-          
-          setSnapOffset({ x: 0, y: newSnapY })
           setTargetCell({ segmentIndex: newStartIndex, column: newColumn })
-          
-          // Notifier le parent de la case cible
           if (onDragTargetChange) {
             onDragTargetChange(newStartIndex, newColumn)
           }
-          
-          // Debug
-          console.log('Drag:', { 
-            relativeBlockY, 
-            newStartIndex, 
-            newColumn, 
-            dragStartIndex: dragStart.startSegmentIndex, 
-            dragStartColumn: dragStart.column,
-            rowHeightsSample: rowHeights.slice(0, 3), // Affiche les 3 premières hauteurs
-            minDistance
-          })
-
-          // Note: onColumnChange et onResize sont appelés seulement au mouseup, pas pendant le drag
-          // pour éviter que le bloc ne se re-rende et ne "saute"
-          // On se contente de mettre à jour targetCell pour le feedback visuel
         }
       }
       
