@@ -146,7 +146,7 @@ function playSettingsClic() {
       document.body.style.backgroundImage = "url('https://www.transparenttextures.com/patterns/natural-paper.png')"
       document.body.style.backgroundAttachment = 'fixed'
     } else if (isSynthwave) {
-      root.style.setProperty('--color-bg', '#020117')
+      root.style.setProperty('--color-bg', '#000000')
       root.style.setProperty('--color-text-focus', '#fdc7f9')
       root.style.setProperty('--color-text-blur', 'rgb(49, 61, 171)')
       root.style.setProperty('--font-primary', "'VT323', 'Courier New', monospace")
