@@ -94,25 +94,27 @@ export default function ReaderSettings({
   onJumpTo,
 }) {
   // ── Whoosh navigation ───────────────────────────────────────────────────────
-  const WHOOSH_COUNT = 6
-  const whooshRefs = useRef([])
-  useEffect(() => {
-    whooshRefs.current = Array.from({ length: WHOOSH_COUNT }, (_, i) => {
-      const a = new Audio(`/sounds/whoosh-${i + 1}.mp3`)
-      a.volume = 0.35
-      return a
-    })
-  }, [])
-  const lastWhooshRef = useRef(-1)
-  function playWhoosh() {
-    let next
-    do { next = Math.floor(Math.random() * WHOOSH_COUNT) }
-    while (next === lastWhooshRef.current)
-    lastWhooshRef.current = next
-    const audio = whooshRefs.current[next]
-    if (audio) { audio.currentTime = 0; audio.play().catch(() => {}) }
-  }
-  // ── Fin whoosh ──────────────────────────────────────────────────────────────
+const WHOOSH_COUNT = 6
+const lastWhooshRef = useRef(-1)
+function playWhoosh() {
+  let next
+  do { next = Math.floor(Math.random() * WHOOSH_COUNT) }
+  while (next === lastWhooshRef.current)
+  lastWhooshRef.current = next
+  try {
+    const audio = new Audio(`/sounds/whoosh-${next + 1}.mp3`)
+    audio.volume = 0.35
+    audio.play().catch(() => {})
+  } catch {}
+}
+function playSettingsClic() {
+  try {
+    const audio = new Audio('/sounds/Clic-Settings.mp3')
+    audio.volume = 0.5
+    audio.play().catch(() => {})
+  } catch {}
+}
+// ── Fin whoosh ──────────────────────────────────────────────────────────────
 
   const [isOpen, setIsOpen]           = useState(false)
   const [showChapters, setShowChapters] = useState(false)
