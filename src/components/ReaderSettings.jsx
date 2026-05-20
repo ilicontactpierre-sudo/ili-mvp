@@ -353,7 +353,7 @@ function playSettingsClic() {
       {/* ── Bouton roue crantée ── */}
       <button
         className={`rs-gear-btn${isOpen ? ' open' : ''}`}
-        onClick={() => { setIsOpen(v => !v); setShowChapters(false) }}
+        onClick={() => { playSettingsClic(); setIsOpen(v => !v); setShowChapters(false) }}
         aria-label="Paramètres de lecture"
       >
         <IconGear />
