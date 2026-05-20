@@ -52,27 +52,27 @@ function StoryPage() {
     if (!isStarted || !segments.length || jumpPhase !== 'idle') return
     const clamped = Math.max(0, Math.min(lastIndex, index))
 
-    // Nettoyer les timers précédents
     jumpTimersRef.current.forEach(clearTimeout)
     jumpTimersRef.current = []
 
-    // Phase 1 : fade out (400ms)
+    // Phase out : blur + opacité
     setJumpPhase('out')
 
+    // Changer le segment au pic du fondu
     const t1 = setTimeout(() => {
-      // Phase 2 : changer le segment, rester invisible
       setCurrentIndex(clamped)
       if (story?.id) saveProgress(story.id, clamped)
-    }, 400)
+    }, 550)
 
+    // Démarrer le fade in
     const t2 = setTimeout(() => {
-      // Phase 3 : fade in (après un vrai délai pour que React ait rendu le nouveau segment)
       setJumpPhase('in')
-    }, 500)
+    }, 650)
 
+    // Retour idle
     const t3 = setTimeout(() => {
       setJumpPhase('idle')
-    }, 1400)
+    }, 1800)
 
     jumpTimersRef.current = [t1, t2, t3]
   }, [isStarted, segments.length, lastIndex, story, jumpPhase])
