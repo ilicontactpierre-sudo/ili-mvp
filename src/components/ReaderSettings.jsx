@@ -151,15 +151,7 @@ function playSettingsClic() {
       root.style.setProperty('--color-text-blur', 'rgb(8, 51, 244)')
       root.style.setProperty('--font-primary', "'VT323', 'Courier New', monospace")
       root.style.setProperty('--blur-amount', '2px')
-      document.body.style.backgroundImage = `
-        repeating-linear-gradient(
-          2deg,
-          transparent,
-          transparent 2px,
-          rgba(0, 240, 255, 0.015) 2px,
-          rgba(0, 240, 255, 0.015) 4px
-        )
-      `
+  
       document.body.style.backgroundImage = `
   linear-gradient(45deg, rgba(255,0,127,0.08) 25%, transparent 25%),
   linear-gradient(-45deg, rgba(0,240,255,0.08) 25%, transparent 25%),
