@@ -76,7 +76,7 @@ function StartScreen({ title, author, soundsToPreload = [], savedProgress, onSta
         <p style={{ opacity: 0.82, fontSize: 'clamp(1.1rem, 4.6vw, 1.55rem)' }}>{author}</p>
 
         {/* Bloc à hauteur fixe pour éviter le saut au chargement */}
-        <div style={{ marginTop: '4rem', minHeight: '8rem', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        <div style={{ marginTop: '4rem', minHeight: '12rem', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
           {phase === 'loading' || phase === 'exiting' ? (
             <p style={{ opacity: 0.28, fontSize: 'clamp(0.65rem, 2.5vw, 0.78rem)', letterSpacing: '0.2em', textTransform: 'uppercase', fontFamily: 'var(--font-logo)' }}>
               Chargement...
