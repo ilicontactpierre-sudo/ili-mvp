@@ -1773,4 +1773,98 @@ const handleTextSelection = useCallback(() => {
   )
 }
 
+// ─── Réorganisation des segments avec gestion des soundTracks ───────────────
+function reorderSegments(fromIndex, toIndex, segments, soundTracks) {
+  if (fromIndex === toIndex) return { newSegments: segments, newSoundTracks: soundTracks }
+
+  // 1. Identifier le bloc à déplacer
+  // Si le segment source est un chapitre, on prend tout son contenu jusqu'au prochain chapitre
+  const isChapterDrag = segments[fromIndex]?.isChapter === true
+  let blockEnd = fromIndex
+  if (isChapterDrag) {
+    for (let i = fromIndex + 1; i < segments.length; i++) {
+      if (segments[i]?.isChapter === true) break
+      blockEnd = i
+    }
+  }
+  const blockSize = blockEnd - fromIndex + 1
+  const block = segments.slice(fromIndex, fromIndex + blockSize)
+  const movedIds = new Set(block.map(s => s.id || s._id).filter(Boolean))
+
+  // 2. Construire newSegments
+  const withoutBlock = [
+    ...segments.slice(0, fromIndex),
+    ...segments.slice(fromIndex + blockSize)
+  ]
+  // toIndex est exprimé sur la liste originale, on le recalcule sur la liste sans le bloc
+  const insertAt = toIndex > fromIndex ? toIndex - blockSize + 1 : toIndex
+  const clampedInsert = Math.max(0, Math.min(insertAt, withoutBlock.length))
+  const newSegments = [
+    ...withoutBlock.slice(0, clampedInsert),
+    ...block,
+    ...withoutBlock.slice(clampedInsert)
+  ]
+
+  // 3. Recalculer les soundTracks
+  // Helper : index d'un segmentId dans une liste de segments
+  const idxIn = (list, id) => list.findIndex(s => (s.id || s._id) === id)
+
+  const newSoundTracks = []
+  const toClone = [] // tracks à cloner (start=end=movedId) pour le cas scission
+
+  for (const track of soundTracks) {
+    const { startSegmentId, endSegmentId } = track
+    const oldStart = idxIn(segments, startSegmentId)
+    const oldEnd   = idxIn(segments, endSegmentId)
+
+    // Nombre de segments déplacés appartenant à ce track
+    const movedInTrack = block.filter(s => {
+      const sid = s.id || s._id
+      return sid && oldStart !== -1 && oldEnd !== -1
+        && idxIn(segments, sid) >= oldStart
+        && idxIn(segments, sid) <= oldEnd
+    })
+
+    const trackTouchesBlock = movedInTrack.length > 0
+    const trackIsOnlyBlock  = movedInTrack.length === (oldEnd - oldStart + 1)
+      && movedIds.has(startSegmentId) && movedIds.has(endSegmentId)
+
+    if (!trackTouchesBlock) {
+      // Cas 3 : aucun rapport → inchangé
+      newSoundTracks.push(track)
+      continue
+    }
+
+    if (trackIsOnlyBlock) {
+      // Cas 1 : track entièrement sur le bloc déplacé → suit automatiquement
+      newSoundTracks.push(track)
+      continue
+    }
+
+    // Cas 2 : track étalée qui contenait une partie du bloc → on garde la track originale
+    // (ses ids start/end pointent toujours sur les bons segments, le bloc n'est plus entre eux)
+    newSoundTracks.push(track)
+
+    // + on clone une track pour chaque segment déplacé qui était dans le span
+    for (const seg of movedInTrack) {
+      const sid = seg.id || seg._id
+      if (!sid) continue
+      toClone.push({
+        ...track,
+        id: `st_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+        startSegmentId: sid,
+        endSegmentId: sid,
+      })
+    }
+  }
+
+  // Ajouter les clones
+  newSoundTracks.push(...toClone)
+
+  // Cas 4 : le segment atterrit entre deux segments d'une même track → gratuit,
+  // les SoundBlocks se basent sur les indices dans newSegments, inclusion automatique.
+
+  return { newSegments, newSoundTracks }
+}
+
 export default UnifiedSegmentsTimeline
