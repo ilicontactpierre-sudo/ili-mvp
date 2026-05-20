@@ -1878,7 +1878,7 @@ const handleTextSelection = useCallback(() => {
                     rowRef: (el) => { rowRefs.current[index] = el },
                     rowHeight: rowHeights[index],
                     rowHeights,
-                    isSelected: selectedSegmentIndex === index,
+                    isSelected,
                     onSelect: handleSelectSegment,
                     onEdit: handleStartEdit,
                     onEditChange: handleEditChange,
