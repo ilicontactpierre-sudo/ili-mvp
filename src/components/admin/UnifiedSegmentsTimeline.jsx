@@ -1980,6 +1980,54 @@ const handleTextSelection = useCallback(() => {
           onClose={() => setFormatToolbar(null)}
         />
       )}
+      {/* ── Fantôme de drag segment ── */}
+      {isDraggingSegment && (
+        <div
+          ref={ghostRef}
+          style={{
+            position: 'fixed',
+            left: '50%',
+            transform: 'translateX(-50%)',
+            top: 0, // sera mis à jour par handleSegmentDragMove via ref
+            zIndex: 9999,
+            pointerEvents: 'none',
+            minWidth: '320px',
+            maxWidth: '600px',
+            backgroundColor: '#fff',
+            border: '2px solid #6366f1',
+            borderRadius: '10px',
+            boxShadow: '0 16px 48px rgba(99,102,241,0.25), 0 4px 12px rgba(0,0,0,0.12)',
+            padding: '0.6rem 1rem',
+            fontSize: '0.85rem',
+            color: '#333',
+            lineHeight: '1.4',
+            opacity: 0.96,
+            backdropFilter: 'blur(4px)',
+            transition: 'box-shadow 0.15s ease',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '0.5rem',
+          }}
+        >
+          <span style={{ fontSize: '1rem', flexShrink: 0 }}>
+            {segments[dragStateRef.current.fromIndex]?.isChapter ? '📖' : '⠿'}
+          </span>
+          <span style={{
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+            whiteSpace: 'nowrap',
+            flex: 1,
+          }}>
+            {dragStateRef.current.ghostText}
+          </span>
+        </div>
+      )}
+      <style>{`
+        @keyframes ili-placeholder-pulse {
+          0%, 100% { opacity: 1; }
+          50% { opacity: 0.5; }
+        }
+      `}</style>
     </div>
   )
 }
