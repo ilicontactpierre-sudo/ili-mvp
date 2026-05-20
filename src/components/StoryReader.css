@@ -46,6 +46,18 @@
   filter: blur(3px);
   transform: none;
 }
+.story-reader__segment--blur-near {
+  color: var(--color-text-blur);
+  opacity: 0.62;
+  filter: blur(1.2px);
+  transform: none;
+}
+.story-reader__segment--blur-mid {
+  color: var(--color-text-blur);
+  opacity: 0.46;
+  filter: blur(2px);
+  transform: none;
+}
 
 /* ── Leader / Finisher ─────────────────────────────────── */
 .story-reader__segment--hidden {
