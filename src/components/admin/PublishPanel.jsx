@@ -149,7 +149,6 @@ function PublishPanel({
   const buildStoryData = () => {
     const segmentsWithAudio = convertSoundTracksToAudioEvents()
     const usedSounds = getUsedSounds()
-
     return {
       id: slug,
       title: title || 'Sans titre',
@@ -157,7 +156,8 @@ function PublishPanel({
       published: true,
       sounds: usedSounds,
       segments: segmentsWithAudio,
-      soundTracks: soundTracks  // ← ajouter cette ligne
+      soundTracks: soundTracks,
+      vfxTracks: vfxTracks || []
     }
   }
 
