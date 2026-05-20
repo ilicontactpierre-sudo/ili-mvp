@@ -52,6 +52,7 @@ function StartScreen({ title, author, soundsToPreload = [], savedProgress, onSta
 
   return (
     <main
+      onPointerUp={!hasProgress && phase === 'idle' ? (e) => { e.stopPropagation(); handleStart(false) } : undefined}
       style={{
         minHeight: '100dvh',
         display: 'grid',
@@ -64,6 +65,7 @@ function StartScreen({ title, author, soundsToPreload = [], savedProgress, onSta
         opacity: phase === 'exiting' ? 0 : 1,
         transform: phase === 'exiting' ? 'translateY(-10px)' : 'translateY(0)',
         transition: 'opacity 520ms cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 520ms cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+        cursor: !hasProgress && phase === 'idle' ? 'pointer' : 'default',
       }}
     >
       {styleTag}
@@ -73,51 +75,47 @@ function StartScreen({ title, author, soundsToPreload = [], savedProgress, onSta
         </h1>
         <p style={{ opacity: 0.82, fontSize: 'clamp(1.1rem, 4.6vw, 1.55rem)' }}>{author}</p>
 
-        {phase === 'loading' || phase === 'exiting' ? (
-          <p style={{ marginTop: '3.1rem', opacity: 0.92, fontSize: 'clamp(1.2rem, 5vw, 1.7rem)' }}>
-            Chargement de l'expérience sonore...
-          </p>
-        ) : hasProgress ? (
-          <div style={{
-            marginTop: '4rem',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            gap: '0.1rem',
-            animation: 'fadeUp 700ms cubic-bezier(0.16, 1, 0.3, 1) both',
-          }}>
-            <p style={{
-              opacity: 0.28,
-              fontSize: 'clamp(0.65rem, 2.5vw, 0.78rem)',
-              letterSpacing: '0.2em',
-              textTransform: 'uppercase',
-              fontFamily: 'var(--font-logo)',
-              marginBottom: '2rem',
-            }}>
-              tu as déjà commencé cette histoire
+        {/* Bloc à hauteur fixe pour éviter le saut au chargement */}
+        <div style={{ marginTop: '4rem', minHeight: '8rem', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          {phase === 'loading' || phase === 'exiting' ? (
+            <p style={{ opacity: 0.28, fontSize: 'clamp(0.65rem, 2.5vw, 0.78rem)', letterSpacing: '0.2em', textTransform: 'uppercase', fontFamily: 'var(--font-logo)' }}>
+              Chargement...
             </p>
-            <button
-              onPointerUp={(e) => { e.stopPropagation(); handleStart(true) }}
-              style={btnStyle(true)}
-            >
-              Reprendre
-            </button>
-            <div style={{ height: '1.6rem' }} />
-            <button
-              onPointerUp={(e) => { e.stopPropagation(); handleStart(false) }}
-              style={btnStyle(false)}
-            >
-              Recommencer
-            </button>
-          </div>
-        ) : (
-          <p
-            onPointerUp={(e) => { e.stopPropagation(); handleStart(false) }}
-            style={{ marginTop: '3.1rem', opacity: 0.92, fontSize: 'clamp(1.2rem, 5vw, 1.7rem)', cursor: 'pointer' }}
-          >
-            Lire avec ILi
-          </p>
-        )}
+          ) : hasProgress ? (
+            <div style={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              gap: '0.1rem',
+              animation: 'fadeUp 700ms cubic-bezier(0.16, 1, 0.3, 1) both',
+            }}>
+              <p style={{
+                opacity: 0.28,
+                fontSize: 'clamp(0.65rem, 2.5vw, 0.78rem)',
+                letterSpacing: '0.2em',
+                textTransform: 'uppercase',
+                fontFamily: 'var(--font-logo)',
+                marginBottom: '2rem',
+              }}>
+                tu as déjà commencé cette histoire
+              </p>
+              <button
+                onPointerUp={(e) => { e.stopPropagation(); handleStart(true) }}
+                style={btnStyle(true)}
+              >
+                Reprendre
+              </button>
+              <div style={{ height: '1.6rem' }} />
+              <button
+                onPointerUp={(e) => { e.stopPropagation(); handleStart(false) }}
+                style={btnStyle(false)}
+              >
+                Recommencer
+              </button>
+            </div>
+          ) : null}
+        </div>
+
       </section>
     </main>
   )
