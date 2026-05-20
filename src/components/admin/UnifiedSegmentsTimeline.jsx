@@ -240,7 +240,7 @@ function SegmentTimelineRow({
       return
     }
     
-    onSelect(index)
+    onSelect(index, e)
   }
 
   const handleDoubleClick = (e) => {
