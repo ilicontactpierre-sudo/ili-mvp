@@ -1504,6 +1504,166 @@ const handleTextSelection = useCallback(() => {
   }, [segments, editTexts, dividerPosition, editingSegmentIndex, selectedSegmentIndex, soundTracks.length, hiddenSegments])
   const totalHeight = rowHeights.reduce((sum, rowHeight) => sum + rowHeight + 8, 0)
 
+  // ── Handlers drag & drop segments ──────────────────────────
+  const handleSegmentDragStart = useCallback((e, index) => {
+    e.stopPropagation()
+    // Ne pas lancer si on est en train d'éditer ou de déplacer un bloc son
+    if (editingSegmentIndex !== null || isAnyBlockDragging || isAnyVfxDragging) return
+    // Ne pas lancer si clic sur un bouton ou input
+    if (e.target.tagName === 'BUTTON' || e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return
+
+    const isChapterDrag = segments[index]?.isChapter === true
+    let blockEnd = index
+    if (isChapterDrag) {
+      for (let i = index + 1; i < segments.length; i++) {
+        if (segments[i]?.isChapter === true) break
+        blockEnd = i
+      }
+    }
+    const blockSize = blockEnd - index + 1
+    const block = segments.slice(index, index + blockSize)
+    const firstText = getSegmentText(block[0])
+    const ghostText = isChapterDrag
+      ? `📖 ${firstText.slice(0, 40)}${firstText.length > 40 ? '…' : ''}${blockSize > 1 ? ` (+${blockSize - 1} segments)` : ''}`
+      : firstText.slice(0, 60) + (firstText.length > 60 ? '…' : '')
+
+    const rowEl = rowRefs.current[index]
+    const rowRect = rowEl ? rowEl.getBoundingClientRect() : { top: e.clientY, height: 40 }
+
+    dragStateRef.current = {
+      active: true,
+      fromIndex: index,
+      blockSize,
+      startY: e.clientY,
+      currentY: e.clientY,
+      offsetY: e.clientY - rowRect.top,
+      ghostText,
+      ghostHeight: rowRect.height,
+    }
+
+    setIsDraggingSegment(true)
+    setDragPlaceholderIndex(index)
+
+    // Désactiver la sélection texte pendant le drag
+    document.body.style.userSelect = 'none'
+    document.body.style.cursor = 'grabbing'
+  }, [segments, editingSegmentIndex, isAnyBlockDragging, isAnyVfxDragging])
+
+  const handleSegmentDragMove = useCallback((e) => {
+    const ds = dragStateRef.current
+    if (!ds.active) return
+
+    ds.currentY = e.clientY
+
+    // Positionner le fantôme
+    if (ghostRef.current) {
+      ghostRef.current.style.top = `${e.clientY - ds.offsetY}px`
+    }
+
+    // Calculer le placeholder index en fonction de la position du curseur
+    const scrollEl = scrollContainerRef.current
+    if (!scrollEl) return
+
+    // Auto-scroll si le fantôme approche des bords
+    const scrollRect = scrollEl.getBoundingClientRect()
+    const edgeSize = 80
+    if (autoScrollRef.current) clearInterval(autoScrollRef.current)
+    if (e.clientY < scrollRect.top + edgeSize) {
+      autoScrollRef.current = setInterval(() => {
+        scrollEl.scrollTop -= 8
+      }, 16)
+    } else if (e.clientY > scrollRect.bottom - edgeSize) {
+      autoScrollRef.current = setInterval(() => {
+        scrollEl.scrollTop += 8
+      }, 16)
+    }
+
+    // Trouver la ligne sous le curseur pour calculer le placeholder
+    let newPlaceholder = ds.fromIndex
+    let cumulY = scrollEl.getBoundingClientRect().top - scrollEl.scrollTop
+
+    for (let i = 0; i < segments.length; i++) {
+      if (hiddenSegments.has(i)) continue
+      const h = (rowHeights[i] || SEGMENT_HEIGHT) + 8 // +8 pour le SegmentSeparator
+      const midY = cumulY + h / 2
+      if (e.clientY < midY) {
+        newPlaceholder = i
+        break
+      }
+      cumulY += h
+      newPlaceholder = i + 1
+    }
+
+    // Si c'est un drag de chapitre (Option A) : on ne peut déposer qu'entre chapitres
+    if (segments[ds.fromIndex]?.isChapter === true) {
+      // Trouver l'index chapitre le plus proche
+      const chapterIndices = segments.reduce((acc, s, i) => {
+        if (s?.isChapter === true) acc.push(i)
+        return acc
+      }, [])
+      // Positions valides : avant chaque chapitre (sauf soi-même) + à la fin
+      const validDrops = chapterIndices.filter(ci => ci !== ds.fromIndex)
+      validDrops.push(segments.length) // fin de liste
+
+      // Trouver le drop valide le plus proche
+      let closest = validDrops[0] ?? ds.fromIndex
+      let minDist = Infinity
+      for (const ci of validDrops) {
+        const dist = Math.abs(ci - newPlaceholder)
+        if (dist < minDist) { minDist = dist; closest = ci }
+      }
+      newPlaceholder = closest
+    }
+
+    if (newPlaceholder !== dragPlaceholderIndex) {
+      setDragPlaceholderIndex(newPlaceholder)
+    }
+  }, [segments, hiddenSegments, rowHeights, dragPlaceholderIndex])
+
+  const handleSegmentDragEnd = useCallback(() => {
+    const ds = dragStateRef.current
+    if (!ds.active) return
+
+    // Cleanup auto-scroll
+    if (autoScrollRef.current) {
+      clearInterval(autoScrollRef.current)
+      autoScrollRef.current = null
+    }
+
+    const { fromIndex, blockSize } = ds
+    const toIndex = dragPlaceholderIndex
+
+    // Réinitialiser l'état drag
+    dragStateRef.current = { ...dragStateRef.current, active: false }
+    document.body.style.userSelect = ''
+    document.body.style.cursor = ''
+    setIsDraggingSegment(false)
+    setDragPlaceholderIndex(-1)
+
+    // Appliquer la réorganisation si déplacement réel
+    const blockEnd = fromIndex + blockSize - 1
+    const noMove = toIndex >= fromIndex && toIndex <= blockEnd + 1
+    if (noMove) return
+
+    const { newSegments, newSoundTracks } = reorderSegments(fromIndex, toIndex, segments, soundTracks)
+    onSegmentsChange(newSegments)
+    onSoundTracksChange(newSoundTracks)
+    if (onSaveToHistory) onSaveToHistory()
+  }, [dragPlaceholderIndex, segments, soundTracks, onSegmentsChange, onSoundTracksChange, onSaveToHistory])
+
+  // Attacher les listeners globaux pour le drag segment
+  useEffect(() => {
+    if (!isDraggingSegment) return
+    const onMove = (e) => handleSegmentDragMove(e)
+    const onUp   = ()  => handleSegmentDragEnd()
+    window.addEventListener('mousemove', onMove)
+    window.addEventListener('mouseup', onUp)
+    return () => {
+      window.removeEventListener('mousemove', onMove)
+      window.removeEventListener('mouseup', onUp)
+    }
+  }, [isDraggingSegment, handleSegmentDragMove, handleSegmentDragEnd])
+
   return (
     <div 
       ref={containerRef}
