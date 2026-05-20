@@ -152,16 +152,12 @@ function playSettingsClic() {
       root.style.setProperty('--font-primary', "'VT323', 'Courier New', monospace")
       root.style.setProperty('--blur-amount', '2px')
       document.body.style.backgroundImage = `
-        radial-gradient(1px 1px at 20% 15%, rgba(255,255,255,0.6) 0%, transparent 100%),
-        radial-gradient(1px 1px at 75% 30%, rgba(255,255,255,0.4) 0%, transparent 100%),
-        radial-gradient(1px 1px at 50% 60%, rgba(255,255,255,0.5) 0%, transparent 100%),
-        radial-gradient(1px 1px at 85% 75%, rgba(255,255,255,0.3) 0%, transparent 100%),
         repeating-linear-gradient(
-          0deg,
+          2deg,
           transparent,
           transparent 2px,
-          rgba(28, 193, 204, 0.01) 2px,
-          rgba(229, 255, 0, 0.01) 4px
+          rgba(0, 240, 255, 0.015) 2px,
+          rgba(0, 240, 255, 0.015) 4px
         )
       `
       document.body.style.backgroundAttachment = 'fixed'
