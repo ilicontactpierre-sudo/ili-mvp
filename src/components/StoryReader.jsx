@@ -4,7 +4,7 @@ import { renderMarkdown } from '../utils/renderMarkdown'
 import { getVfxClass } from './admin/constants'
 import hapticEngine from '../engine/HapticEngine'
 
-function StoryReader({ storyId, storyData, currentIndex = 0 }) {
+function StoryReader({ storyId, storyData, currentIndex = 0, isJumping = false }) {
   // MODE 2 — données directes en props (nouveau)
   // Quand storyData est fourni, ignore storyId et utilise ces données
   const segments = storyData ? storyData.segments : []
