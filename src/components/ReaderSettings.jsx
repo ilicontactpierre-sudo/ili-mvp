@@ -118,8 +118,8 @@ function playSettingsClic() {
 
   const [isOpen, setIsOpen]           = useState(false)
   const [showChapters, setShowChapters] = useState(false)
-  const [isDark, setIsDark]           = useState(true)
-  const [fontSizeIndex, setFontSizeIndex] = useState(() => {
+  const [isDark, setIsDark] = useState(true)
+  const [isToutdoux, setIsToutdoux] = useState(false)  const [fontSizeIndex, setFontSizeIndex] = useState(() => {
     try { return parseInt(localStorage.getItem('ili_font_size') || '2') } catch { return 2 }
   })
   const menuRef    = useRef(null)
