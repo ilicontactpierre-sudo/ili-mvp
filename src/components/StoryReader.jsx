@@ -214,7 +214,12 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle' 
     >
       <div
         className="story-reader__track"
-        style={{ '--track-translate-y': `${translateY}px` }}
+        style={{
+          '--track-translate-y': `${translateY}px`,
+          transition: jumpPhase !== 'idle'
+            ? 'none'
+            : undefined,
+        }}
       >
         {finalSegments.map((segment, index) => {
           const isFocused = index === currentIndex
