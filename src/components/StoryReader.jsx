@@ -4,7 +4,7 @@ import { renderMarkdown } from '../utils/renderMarkdown'
 import { getVfxClass } from './admin/constants'
 import hapticEngine from '../engine/HapticEngine'
 
-function StoryReader({ storyId, storyData, currentIndex = 0, isJumping = false }) {
+function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle' }) {
   // MODE 2 — données directes en props (nouveau)
   // Quand storyData est fourni, ignore storyId et utilise ces données
   const segments = storyData ? storyData.segments : []
@@ -195,10 +195,12 @@ function StoryReader({ storyId, storyData, currentIndex = 0, isJumping = false }
       className="story-reader"
       aria-live="polite"
       style={{
-        opacity: isJumping ? 0 : 1,
-        transition: isJumping
-          ? 'opacity 300ms cubic-bezier(0.25, 0.46, 0.45, 0.94)'
-          : 'opacity 400ms cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+        opacity: jumpPhase === 'out' ? 0 : 1,
+        filter: jumpPhase === 'in' ? 'blur(0px)' : jumpPhase === 'out' ? 'blur(6px)' : 'blur(0px)',
+        transform: jumpPhase === 'in' ? 'translateY(0px)' : jumpPhase === 'out' ? 'translateY(12px)' : 'translateY(0px)',
+        transition: jumpPhase === 'out'
+          ? 'opacity 320ms cubic-bezier(0.4, 0, 1, 1), filter 320ms ease, transform 320ms ease'
+          : 'opacity 800ms cubic-bezier(0.16, 1, 0.3, 1), filter 900ms cubic-bezier(0.16, 1, 0.3, 1), transform 900ms cubic-bezier(0.16, 1, 0.3, 1)',
       }}
     >
       <div
