@@ -221,6 +221,7 @@ function SoundBlock({
   }, [soundTrack.fadeIn, soundTrack.fadeOut, blockHeight])
 
   // Effets de mouvement global
+  const dragStartRef = useRef(null)
   useEffect(() => {
     if (!isDragging && !isResizing && !isAdjustingFade) return
 
