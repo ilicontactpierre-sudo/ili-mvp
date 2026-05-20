@@ -146,20 +146,19 @@ function playSettingsClic() {
       document.body.style.backgroundImage = "url('https://www.transparenttextures.com/patterns/natural-paper.png')"
       document.body.style.backgroundAttachment = 'fixed'
     } else if (isSynthwave) {
-      root.style.setProperty('--color-bg', '#fae3fc')
+      root.style.setProperty('--color-bg', '#000000')
       root.style.setProperty('--color-text-focus', '#000000')
       root.style.setProperty('--color-text-blur', 'rgb(8, 51, 244)')
       root.style.setProperty('--font-primary', "'VT323', 'Courier New', monospace")
       root.style.setProperty('--blur-amount', '2px')
-      document.body.style.backgroundImage = `
-        repeating-linear-gradient(
-          2deg,
-          transparent,
-          transparent 2px,
-          rgba(0, 240, 255, 0.015) 2px,
-          rgba(0, 240, 255, 0.015) 4px
-        )
-      `
+  document.body.style.backgroundImage = `
+  radial-gradient(circle, rgba(255,0,127,0.35) 1px, transparent 1px),
+  radial-gradient(circle, rgba(0,240,255,0.25) 1px, transparent 1px),
+  radial-gradient(circle, rgba(157,0,255,0.2) 1px, transparent 1px)
+`
+document.body.style.backgroundSize = '30px 30px, 50px 50px, 70px 70px'
+document.body.style.backgroundPosition = '0 0, 15px 15px, 7px 7px'
+document.body.style.backgroundSize = '20px 20px'
       document.body.style.backgroundAttachment = 'fixed'
     } else if (isDark) {
       root.style.setProperty('--color-bg', '#080809')
