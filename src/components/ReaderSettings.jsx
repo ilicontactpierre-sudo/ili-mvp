@@ -172,6 +172,7 @@ export default function ReaderSettings({
     .filter(Boolean)
 
   const handleJump = (index) => {
+    playWhoosh()
     onJumpTo(index)
     setIsOpen(false)
     setShowChapters(false)
