@@ -195,12 +195,12 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle' 
       className="story-reader"
       aria-live="polite"
       style={{
-        opacity: jumpPhase === 'out' ? 0 : 1,
-        filter: jumpPhase === 'in' ? 'blur(0px)' : jumpPhase === 'out' ? 'blur(6px)' : 'blur(0px)',
-        transform: jumpPhase === 'in' ? 'translateY(0px)' : jumpPhase === 'out' ? 'translateY(12px)' : 'translateY(0px)',
+        opacity: jumpPhase === 'out' || jumpPhase === 'idle' && false ? 0 : jumpPhase === 'in' ? 1 : jumpPhase === 'idle' ? 1 : 0,
         transition: jumpPhase === 'out'
-          ? 'opacity 320ms cubic-bezier(0.4, 0, 1, 1), filter 320ms ease, transform 320ms ease'
-          : 'opacity 800ms cubic-bezier(0.16, 1, 0.3, 1), filter 900ms cubic-bezier(0.16, 1, 0.3, 1), transform 900ms cubic-bezier(0.16, 1, 0.3, 1)',
+          ? 'opacity 380ms cubic-bezier(0.4, 0, 1, 1)'
+          : jumpPhase === 'in'
+            ? 'opacity 900ms cubic-bezier(0.16, 1, 0.3, 1)'
+            : 'none',
       }}
     >
       <div
