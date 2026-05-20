@@ -160,24 +160,23 @@ function VfxBlockPanel({ vfxTrack, segments, onSave, onClose, onDelete, onRealTi
           })}
         </div>
 
-        {/* Bouton "Aucune vibration" si un pattern est sélectionné */}
-        {selected && (
-          <button
-            onClick={() => update({ hapticPattern: null })}
-            style={{
-              fontSize: '11px',
-              color: '#888',
-              background: 'none',
-              border: 'none',
-              cursor: 'pointer',
-              textAlign: 'left',
-              padding: '0',
-              textDecoration: 'underline',
-            }}
-          >
-            Supprimer la vibration
-          </button>
-        )}
+        {/* Bouton "Aucune vibration" — toujours visible */}
+        <button
+          onClick={() => update({ hapticPattern: null })}
+          style={{
+            padding: '6px 12px',
+            border: !selected ? `2px solid ${baseColor}` : '1px solid #ddd',
+            borderRadius: '8px',
+            backgroundColor: !selected ? `${baseColor}22` : '#fff',
+            fontSize: '12px',
+            fontWeight: !selected ? '700' : '400',
+            color: !selected ? '#222' : '#888',
+            cursor: 'pointer',
+            transition: 'all 0.12s ease',
+          }}
+        >
+          Aucune vibration
+        </button>
 
         {/* Description du pattern sélectionné */}
         {selected && HAPTIC_PATTERNS[selected] && (
