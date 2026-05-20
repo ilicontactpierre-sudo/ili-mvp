@@ -119,7 +119,8 @@ function playSettingsClic() {
   const [isOpen, setIsOpen]           = useState(false)
   const [showChapters, setShowChapters] = useState(false)
   const [isDark, setIsDark] = useState(true)
-  const [isToutdoux, setIsToutdoux] = useState(false)  
+  const [isToutdoux, setIsToutdoux] = useState(false)
+  const [isSynthwave, setIsSynthwave] = useState(false)
   const [fontSizeIndex, setFontSizeIndex] = useState(() => {
     try { return parseInt(localStorage.getItem('ili_font_size') || '2') } catch { return 2 }
   })
@@ -129,6 +130,13 @@ function playSettingsClic() {
   // ── Appliquer le thème ──────────────────────────────────────────────────────
   useEffect(() => {
     const root = document.documentElement
+
+    // Reset
+    document.body.style.backgroundImage = 'none'
+    document.body.style.backgroundAttachment = 'auto'
+    root.style.setProperty('--font-primary', "'Lora', Georgia, 'Times New Roman', serif")
+    root.style.setProperty('--blur-amount', '3px')
+
     if (isToutdoux) {
       root.style.setProperty('--color-bg', '#fdfaf1')
       root.style.setProperty('--color-text-focus', '#4a453f')
@@ -137,21 +145,32 @@ function playSettingsClic() {
       root.style.setProperty('--blur-amount', '2px')
       document.body.style.backgroundImage = "url('https://www.transparenttextures.com/patterns/natural-paper.png')"
       document.body.style.backgroundAttachment = 'fixed'
+    } else if (isSynthwave) {
+      root.style.setProperty('--color-bg', '#0b0510')
+      root.style.setProperty('--color-text-focus', '#ffffff')
+      root.style.setProperty('--color-text-blur', 'rgba(0, 240, 255, 0.2)')
+      root.style.setProperty('--font-primary', "'VT323', 'Courier New', monospace")
+      root.style.setProperty('--blur-amount', '2px')
+      document.body.style.backgroundImage = `
+        repeating-linear-gradient(
+          0deg,
+          transparent,
+          transparent 2px,
+          rgba(0, 240, 255, 0.015) 2px,
+          rgba(0, 240, 255, 0.015) 4px
+        )
+      `
+      document.body.style.backgroundAttachment = 'fixed'
+    } else if (isDark) {
+      root.style.setProperty('--color-bg', '#080809')
+      root.style.setProperty('--color-text-focus', '#ffffff')
+      root.style.setProperty('--color-text-blur', 'rgba(255, 255, 255, 0.22)')
     } else {
-      root.style.setProperty('--font-primary', "'Lora', Georgia, 'Times New Roman', serif")
-      root.style.setProperty('--blur-amount', '3px')
-      document.body.style.backgroundImage = 'none'
-      if (isDark) {
-        root.style.setProperty('--color-bg', '#080809')
-        root.style.setProperty('--color-text-focus', '#ffffff')
-        root.style.setProperty('--color-text-blur', 'rgba(255, 255, 255, 0.22)')
-      } else {
-        root.style.setProperty('--color-bg', '#f5f0e8')
-        root.style.setProperty('--color-text-focus', '#1a1a18')
-        root.style.setProperty('--color-text-blur', 'rgba(26, 26, 24, 0.25)')
-      }
+      root.style.setProperty('--color-bg', '#f5f0e8')
+      root.style.setProperty('--color-text-focus', '#1a1a18')
+      root.style.setProperty('--color-text-blur', 'rgba(26, 26, 24, 0.25)')
     }
-  }, [isDark, isToutdoux])
+  }, [isDark, isToutdoux, isSynthwave])
 
   // ── Appliquer la taille de police ───────────────────────────────────────────
   useEffect(() => {
@@ -382,24 +401,36 @@ function playSettingsClic() {
             <span className="rs-label">Thème</span>
             <div className="rs-row">
               <button
-                className={`rs-btn${isDark && !isToutdoux ? ' active' : ''}${isToutdoux ? ' active' : ''}`}
+                className={`rs-btn${isDark && !isToutdoux && !isSynthwave ? ' active' : ''}${isSynthwave ? ' active' : ''}`}
                 onClick={(e) => {
                   if (e.metaKey || e.ctrlKey) {
-                    setIsToutdoux(v => !v)
+                    setIsSynthwave(v => !v)
+                    setIsToutdoux(false)
                     setIsDark(true)
                   } else {
+                    setIsSynthwave(false)
                     setIsToutdoux(false)
                     setIsDark(true)
                   }
                 }}
-                title="Mode sombre (Cmd+clic pour mode secret)"
+                title="Mode sombre (Cmd+clic pour mode Synthwave)"
               >
                 <IconMoon />
               </button>
               <button
-                className={`rs-btn${!isDark && !isToutdoux ? ' active' : ''}`}
-                onClick={() => { setIsToutdoux(false); setIsDark(false) }}
-                title="Mode clair"
+                className={`rs-btn${!isDark && !isToutdoux && !isSynthwave ? ' active' : ''}${isToutdoux ? ' active' : ''}`}
+                onClick={(e) => {
+                  if (e.metaKey || e.ctrlKey) {
+                    setIsToutdoux(v => !v)
+                    setIsSynthwave(false)
+                    setIsDark(false)
+                  } else {
+                    setIsToutdoux(false)
+                    setIsSynthwave(false)
+                    setIsDark(false)
+                  }
+                }}
+                title="Mode clair (Cmd+clic pour mode Toutdoux)"
               >
                 <IconSun />
               </button>
