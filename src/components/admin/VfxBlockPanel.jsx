@@ -224,13 +224,14 @@ function VfxBlockPanel({ vfxTrack, segments, onSave, onClose, onDelete, onRealTi
           <label style={labelStyle}>Type d'effet</label>
           <select
             style={selectStyle}
-            value={local.type}
+            value={local.type || ''}
             onChange={(e) => {
               const t   = e.target.value
               const def = VFX_TYPES[t] || {}
-              update({ type: t, mode: def.modes?.[0] || '', loop: false })
+              update({ type: t || null, mode: def.modes?.[0] || '', loop: false })
             }}
           >
+            <option value="">— Aucun effet —</option>
             {Object.entries(VFX_TYPES).map(([key, def]) => (
               <option key={key} value={key}>{def.label}</option>
             ))}
