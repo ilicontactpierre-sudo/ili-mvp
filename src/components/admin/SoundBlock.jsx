@@ -462,7 +462,6 @@ function SoundBlock({
           const segs = segmentsRef.current
           const newStartSegmentId = segs[targetSegmentIndex]?.id 
             || segs[targetSegmentIndex]?._id
-          const segs = segmentsRef.current
           const currentStartIdx = segs.findIndex(s => s.id === soundTrack.startSegmentId || s._id === soundTrack.startSegmentId)
           const currentEndIdx = segs.findIndex(s => s.id === soundTrack.endSegmentId || s._id === soundTrack.endSegmentId)
           const currentEndIndex = currentEndIdx !== -1 ? currentEndIdx : currentStartIdx
