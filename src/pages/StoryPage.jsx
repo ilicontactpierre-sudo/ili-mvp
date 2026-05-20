@@ -283,6 +283,7 @@ function StoryPage() {
         title={story?.title ?? ''}
         author={story?.author ?? ''}
         soundsToPreload={story?.sounds ?? []}
+        savedProgress={story?.id ? loadProgress(story.id) : null}
         onStart={(preloadedHowlMap) => {
           preloadedSoundsRef.current = preloadedHowlMap
           audioEngineRef.current = new AudioEngine(preloadedHowlMap)
