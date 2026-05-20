@@ -1699,30 +1699,36 @@ const handleTextSelection = useCallback(() => {
     const ds = dragStateRef.current
     if (!ds.active) return
 
-    // Cleanup auto-scroll
     if (autoScrollRef.current) {
       clearInterval(autoScrollRef.current)
       autoScrollRef.current = null
     }
 
-    const { fromIndex, blockSize } = ds
+    const { sortedIndices } = ds
     const toIndex = dragPlaceholderIndex
 
-    // Réinitialiser l'état drag
     dragStateRef.current = { ...dragStateRef.current, active: false }
     document.body.style.userSelect = ''
     document.body.style.cursor = ''
     setIsDraggingSegment(false)
     setDragPlaceholderIndex(-1)
 
-    // Appliquer la réorganisation si déplacement réel
-    const blockEnd = fromIndex + blockSize - 1
-    const noMove = toIndex >= fromIndex && toIndex <= blockEnd + 1
+    // Drop dans sa propre zone → annuler
+    const indicesSet = new Set(sortedIndices)
+    const noMove = indicesSet.has(toIndex) || indicesSet.has(toIndex - 1)
     if (noMove) return
 
-    const { newSegments, newSoundTracks } = reorderSegments(fromIndex, toIndex, segments, soundTracks)
+    const { newSegments, newSoundTracks } = reorderMultiple(sortedIndices, toIndex, segments, soundTracks)
     onSegmentsChange(newSegments)
     onSoundTracksChange(newSoundTracks)
+    // Mettre à jour la sélection pour pointer vers les nouveaux indices
+    const insertAt = toIndex > Math.max(...sortedIndices)
+      ? toIndex - sortedIndices.length
+      : toIndex
+    const newSelected = new Set(
+      sortedIndices.map((_, i) => insertAt + i)
+    )
+    setSelectedSegmentIndices(newSelected)
     if (onSaveToHistory) onSaveToHistory()
   }, [dragPlaceholderIndex, segments, soundTracks, onSegmentsChange, onSoundTracksChange, onSaveToHistory])
 
