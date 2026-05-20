@@ -45,25 +45,36 @@ function StoryPage() {
     })
   }, [isFinished, isStarted, lastIndex, segments.length, story])
 
-  const [jumpPhase, setJumpPhase] = useState('idle') // 'idle' | 'out' | 'in'
+  const [jumpPhase, setJumpPhase] = useState('idle')
+  const jumpTimersRef = useRef([])
 
   const goToIndex = useCallback((index) => {
     if (!isStarted || !segments.length || jumpPhase !== 'idle') return
     const clamped = Math.max(0, Math.min(lastIndex, index))
-    // Phase 1 : fade out
+
+    // Nettoyer les timers précédents
+    jumpTimersRef.current.forEach(clearTimeout)
+    jumpTimersRef.current = []
+
+    // Phase 1 : fade out (400ms)
     setJumpPhase('out')
-    setTimeout(() => {
-      // Phase 2 : changer le segment (invisible)
+
+    const t1 = setTimeout(() => {
+      // Phase 2 : changer le segment, rester invisible
       setCurrentIndex(clamped)
       if (story?.id) saveProgress(story.id, clamped)
-      // Phase 3 : fade in lent
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          setJumpPhase('in')
-          setTimeout(() => setJumpPhase('idle'), 900)
-        })
-      })
-    }, 350)
+    }, 400)
+
+    const t2 = setTimeout(() => {
+      // Phase 3 : fade in (après un vrai délai pour que React ait rendu le nouveau segment)
+      setJumpPhase('in')
+    }, 500)
+
+    const t3 = setTimeout(() => {
+      setJumpPhase('idle')
+    }, 1400)
+
+    jumpTimersRef.current = [t1, t2, t3]
   }, [isStarted, segments.length, lastIndex, story, jumpPhase])
 
   const goToPrevious = useCallback(() => {
