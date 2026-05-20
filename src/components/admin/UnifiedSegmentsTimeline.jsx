@@ -2078,8 +2078,12 @@ function reorderSegments(fromIndex, toIndex, segments, soundTracks) {
     ...segments.slice(0, fromIndex),
     ...segments.slice(fromIndex + blockSize)
   ]
-  // toIndex est exprimé sur la liste originale, on le recalcule sur la liste sans le bloc
-  const insertAt = toIndex > fromIndex ? toIndex - blockSize + 1 : toIndex
+  // toIndex est un index d'insertion sur la liste originale (0 = avant le segment 0,
+  // N = après le segment N-1). On le convertit en index d'insertion sur withoutBlock.
+  // Si on drag vers le bas, les éléments du bloc ont disparu avant toIndex → décaler.
+  const insertAt = toIndex > fromIndex
+    ? toIndex - blockSize   // les blockSize éléments supprimés étaient avant toIndex
+    : toIndex               // drag vers le haut : pas de décalage
   const clampedInsert = Math.max(0, Math.min(insertAt, withoutBlock.length))
   const newSegments = [
     ...withoutBlock.slice(0, clampedInsert),
