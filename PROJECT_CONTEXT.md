@@ -1,162 +1,190 @@
-# PROJECT_CONTEXT — ILi MVP
+# ILi MVP — Contexte Projet
 
-## 1. Stack technique
+Application web de lecture immersive d'histoires avec accompagnement sonore.
+
+---
+
+## 1. Stack Technique
 
 | Couche | Technologie | Version | Détails |
 |--------|-------------|---------|---------|
 | **Frontend** | React | 19.2.6 | SPA avec React Router v7 |
-| **Bundler** | Vite | 8.0.12 | HMR, build optimisé |
-| **Backend** | Vercel Serverless Functions | Node.js | Fonctions dans `api/` |
-| **Base de données** | GitHub API (fichiers JSON) | — | Stockage des stories via Git |
-| **Déploiement** | Vercel | — | CI/CD auto au push sur `main` |
-| **Audio** | Howler.js | 2.2.4 | Moteur audio pour stories |
-| **Haptique** | Vibration API | — | Support mobile natif |
+| **Bundler** | Vite | 8.0.12 | HMR + build optimisé |
+| **Audio** | Howler.js | 2.2.4 | Moteur audio (play, fade, loop) |
+| **Hébergement** | Vercel | — | Déploiement auto depuis GitHub |
+| **Backend** | Vercel Serverless Functions | — | API `/api/publish.js` (Node.js) |
+| **Base de données** | Fichiers JSON statiques | — | Pas de BDD, données dans `public/stories/` |
+| **CI/CD** | GitHub → Vercel | — | Push sur `main` déclenche le déploiement |
 
 ---
 
-## 2. Structure des fichiers
+## 2. Structure des Fichiers
 
 ```
 ili-mvp/
-├── api/                      # Fonctions serverless Vercel
-│   ├── delete.js             # DELETE /api/delete — supprime une story
-│   └── publish.js            # POST /api/publish — publie une story
-├── public/                   # Assets statiques (servis à la racine)
-│   ├── sounds/               # Bibliothèque sonore locale
-│   │   └── sounds-index.json # Index des sons disponibles
-│   └── stories/              # Fichiers JSON des histoires
-│       └── index.json        # Index des stories publiées
+├── api/
+│   ├── publish.js          # API de publication (GitHub API)
+│   └── delete.js           # API de suppression
+├── public/
+│   ├── favicon.svg
+│   ├── icons.svg
+│   ├── sounds/
+│   │   ├── sounds-index.json   # Index des sons disponibles
+│   │   └── *.mp3               # Fichiers audio
+│   └── stories/
+│       ├── index.json          # Liste des histoires publiées
+│       └── *.json              # Fichiers d'histoires (segments + audio)
+├── scripts/
+│   ├── addSound.js         # Ajoute un son à la bibliothèque
+│   ├── generateSoundsIndex.js
+│   └── convert-stories.js
 ├── src/
 │   ├── components/
-│   │   ├── admin/            # Interface d'édition (StoryBuilder)
-│   │   ├── StoryReader.jsx   # Lecteur de stories
-│   │   ├── StoryMenu.jsx     # Menu de sélection
+│   │   ├── admin/          # Interface d'édition (timeline, publish, etc.)
+│   │   ├── StoryReader.jsx # Lecteur de segments
+│   │   ├── StoryMenu.jsx   # Menu de sélection
+│   │   ├── ReaderSettings.jsx
 │   │   └── ...
 │   ├── engine/
-│   │   ├── AudioEngine.js    # Gestion audio (Howler)
-│   │   └── HapticEngine.js   # Gestion haptique
+│   │   ├── AudioEngine.js  # Moteur audio (Howler.js wrapper)
+│   │   └── HapticEngine.js # Vibrations (mobile)
 │   ├── pages/
-│   │   ├── HomePage.jsx      # Accueil / sélection stories
-│   │   ├── StoryPage.jsx     # Lecteur (/lire/:storyId)
-│   │   └── AdminPage.jsx     # Éditeur (/admin)
+│   │   ├── HomePage.jsx    # Liste des histoires
+│   │   ├── StoryPage.jsx   # Lecteur (route `/lire/:storyId`)
+│   │   └── AdminPage.jsx   # Éditeur (route `/admin`, protégé par mot de passe)
 │   ├── utils/
-│   │   ├── renderMarkdown.jsx
-│   │   └── segmentAlgorithm.js
+│   │   ├── segmentAlgorithm.js  # Découpage automatique du texte
+│   │   └── renderMarkdown.jsx
 │   ├── styles/
 │   │   ├── global.css
 │   │   └── vfx.css
-│   ├── assets/               # Images, icônes
-│   ├── App.jsx               # Routes
-│   └── main.jsx              # Point d'entrée
-├── scripts/                  # Scripts utilitaires
-│   ├── addSound.js           # Ajoute un son à la bibliothèque
-│   ├── checkpoint.js         # Sauvegarde l'état courant
-│   └── generateSoundsIndex.js
+│   ├── App.jsx             # Routes
+│   ├── main.jsx            # Point d'entrée
+│   └── index.css
 ├── index.html
 ├── package.json
 ├── vite.config.js
-├── vercel.json               # Rewrites SPA
-└── publish.sh                # Script de déploiement
+├── vercel.json             # Rewrites SPA
+└── publish.sh              # Script de publication manuelle
 ```
 
 ---
 
-## 3. Flux de données principal
+## 3. Flux de Données Principal
 
-### Navigation
-```
-Routes (React Router) :
-  /           → HomePage      → fetch(/public/stories/index.json)
-  /lire/:id   → StoryPage     → fetch(/public/stories/{id}.json)
-  /admin      → AdminPage     → édition + preview
-```
+### Lecture d'une histoire
+1. **Homepage** (`/`) → fetch `/stories/index.json` → liste les histoires
+2. **StoryPage** (`/lire/:storyId`) → fetch `/stories/{storyId}.json`
+3. **StoryReader** affiche les segments un par un
+4. **AudioEngine** déclenche les sons selon les `audioEvents` de chaque segment
+5. Progression sauvegardée dans `localStorage` via `ReaderSettings`
 
-### Publication d'une story (flux complet)
-```
-1. AdminPage (StoryBuilder) → crée/modifie storyData
-2. PublishPanel → POST /api/publish { password, slug, storyData }
-3. api/publish.js :
-   - Vérifie ADMIN_PASSWORD
-   - Écrit public/stories/{slug}.json via GitHub API
-   - Met à jour public/stories/index.json via GitHub API
-4. Push Git → Vercel red dé déploye automatiquement
-5. La story est accessible sur /lire/{slug}
-```
-
-### Suppression d'une story
-```
-1. AdminPage → DELETE /api/delete { password, slug }
-2. api/delete.js :
-   - Vérifie ADMIN_PASSWORD
-   - Supprime public/stories/{slug}.json via GitHub API
-   - Met à jour public/stories/index.json
-```
+### Création / Publication
+1. **AdminPage** (`/admin`) → authentification par mot de passe (`VITE_ADMIN_PASSWORD`)
+2. Édition : découpage auto du texte, ajout de sons via timeline
+3. **PublishPanel** → appel POST `/api/publish` (ou export JSON manuel)
+4. **API `/api/publish.js`** :
+   - Vérifie `ADMIN_PASSWORD` (côté serveur)
+   - Écrit `public/stories/{slug}.json` via GitHub API
+   - Met à jour `public/stories/index.json`
+   - Commit & push automatique sur GitHub
+5. **Vercel** red dé dé déploie automatiquement (~30s)
 
 ### Authentification
-- **Pas de système d'auth utilisateur** — l'app est publique en lecture
-- **Auth admin** : mot de passe simple (`ADMIN_PASSWORD`) vérifié côté serveur dans les API `/api/publish` et `/api/delete`
-- **Stockage** : GitHub Content API avec `GITHUB_TOKEN` (write access au repo)
+- **Admin uniquement** : mot de passe stocké dans `sessionStorage` + variable env
+- Pas d'auth utilisateur pour la lecture (ouverte à tous)
 
 ---
 
-## 4. Points sensibles connus
+## 4. Points Sensibles
 
-### Fichiers de config critiques
+### Fichiers de Configuration Critiques
 | Fichier | Rôle |
 |---------|------|
-| `vite.config.js` | Config Vite (React plugin uniquement, très minimal) |
-| `vercel.json` | Rewrite SPA : toutes les routes → `index.html` |
+| `vite.config.js` | Config Vite (plugin React uniquement, config minimale) |
+| `vercel.json` | Rewrites SPA : toutes les routes → `index.html` |
 | `package.json` | Scripts, dépendances, version |
 
-### Différences local vs production
-| Aspect | Local (`npm run dev`) | Production (Vercel) |
-|--------|----------------------|---------------------|
-| Stories | Fichiers statiques dans `public/stories/` | Mêmes fichiers, mis à jour via API + Git |
-| API | Non disponibles (Vercel CLI requis) | Serverless functions actives |
-| Sons | Fichiers locaux dans `public/sounds/` | Certains sons utilisent Cloudinary (CDN) |
+### Environnement Local vs Production
+| Aspect | Local | Production (Vercel) |
+|--------|-------|---------------------|
+| Serveur | `vite` (dev server port 5173) | CDN statique + serverless functions |
+| API publish | Non disponible (message d'avertissement) | Fonctionne via GitHub API |
+| Assets | Servis depuis `public/` en local | CDN Vercel |
+| HTTPS | Non (localhost) | Oui (Vercel) |
 
-### Assets statiques
-- **Servis depuis** : `public/` → racine du site
-- **Stories** : `public/stories/*.json` — chargés en `fetch()` côté client
-- **Sons locaux** : `public/sounds/*.mp3` — chargés par Howler.js
-- **Sons distants** : URLs Cloudinary dans les données de story
+### Assets Statiques
+- **Servis depuis** : dossier `public/` à la racine
+- **Stories** : `public/stories/*.json` (fichiers statiques)
+- **Sons** : `public/sounds/*.mp3` + index JSON
+- **Images** : `src/assets/` (importés via Vite) + `public/favicon.svg`
 
-### Gestion des médias
+### Gestion des Fichiers Médias
 | Type | Pipeline | Formats | CDN |
 |------|----------|---------|-----|
-| **Audio** | Upload manuel dans `public/sounds/` + script `generateSoundsIndex.js` | MP3 | Non (local) ou Cloudinary |
-| **Images** | Dans `src/assets/` ou URLs externes | PNG, SVG | Non |
-| **Icônes** | `public/icons.svg` (sprite SVG) | SVG | Non |
+| **Audio** | Fichiers MP3 dans `public/sounds/` + index JSON généré par script | MP3 | Non (Vercel CDN) |
+| **Images** | Assets dans `src/assets/` ou SVG dans `public/` | SVG, PNG | Non (Vercel CDN) |
+| **Histoires** | JSON manuel ou export depuis l'admin | JSON structuré | Non (Vercel CDN) |
 
----
-
-## 5. Commandes clés
-
-```bash
-npm run dev        # Démarre Vite dev server (localhost:5173)
-npm run build      # Build de production → dist/
-npm run preview    # Prévisualise le build en local
-npm run lint       # ESLint
-npm run add-sound  # Ajoute un son à la bibliothèque
-./publish.sh       # Commit + push → déclenche déploiement Vercel
+**Format JSON d'une histoire** :
+```json
+{
+  "id": "slug",
+  "title": "Titre",
+  "author": "Auteur",
+  "published": true,
+  "formUrl": "https://...",
+  "sounds": [{ "id": "sound_1", "url": "/sounds/file.mp3", "loop": true }],
+  "segments": [
+    { "id": 1, "text": "Texte du segment", "audioEvents": [{ "action": "fadeIn", "soundId": "sound_1", "volume": 0.5, "duration": 2000 }] }
+  ],
+  "soundTracks": [],
+  "vfxTracks": []
+}
 ```
 
 ---
 
-## 6. Variables d'environnement
+## 5. Commandes Clés
 
-### Côté serveur (Vercel Environment Variables)
-| Variable | Rôle |
-|----------|------|
-| `ADMIN_PASSWORD` | Mot de passe pour publier/supprimer des stories |
-| `GITHUB_TOKEN` | Token GitHub avec accès write au repo |
-| `GITHUB_OWNER` | Propriétaire du repo GitHub |
-| `GITHUB_REPO` | Nom du repo GitHub |
-| `GITHUB_BRANCH` | Branche cible (défaut : `main`) |
+```bash
+# Développement
+npm run dev          # Vite dev server (localhost:5173)
 
-### Côté client
-- Aucune variable d'environnement client n'est utilisée
+# Build
+npm run build        # Build de production dans dist/
+npm run preview      # Prévisualisation du build
+
+# Linting
+npm run lint         # ESLint
+
+# Utilitaires
+npm run add-sound    # Ajoute un MP3 à la bibliothèque
+npm run checkpoint   # Sauvegarde + relance le dev server
+
+# Publication
+npm run publish      # Lance publish.sh (git add/commit/push → Vercel)
+./publish.sh         # Script bash de publication
+```
 
 ---
 
-*Généré le 20/05/2026 — Pour toute question, voir `README.md` ou `IMPLEMENTATION_SUMMARY.md`*
+## 6. Variables d'Environnement
+
+### Côté Client (`.env`)
+- `VITE_ADMIN_PASSWORD` — Mot de passe pour accéder à `/admin`
+
+### Côté Serveur (Vercel Environment Variables)
+- `ADMIN_PASSWORD` — Validation des requêtes POST `/api/publish`
+- `GITHUB_TOKEN` — Token GitHub pour écrire via l'API
+- `GITHUB_OWNER` — Propriétaire du repo GitHub
+- `GITHUB_REPO` — Nom du repo GitHub
+- `GITHUB_BRANCH` — Branche cible (défaut: `main`)
+
+---
+
+## 7. URLs de Référence
+
+- **Production** : `https://ili-mvp.vercel.app`
+- **Repo GitHub** : `https://github.com/ilicontactpierre-sudo/ili-mvp`
+- **Dashboard Vercel** : `https://vercel.com/dashboard`
