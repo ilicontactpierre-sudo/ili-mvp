@@ -151,7 +151,7 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle' 
 
       // ── Calcul de la progression t ∈ [0, 1] dans la séquence ──
       const sequenceLength = finisherIndex - leaderIndex
-      let anchorFraction = 0.50 // défaut : centre
+      let anchorFraction = 0.42 // légèrement au-dessus du centre
 
       if (leaderIndex !== -1 && sequenceLength > 0) {
         const t = Math.max(0, Math.min(1,
