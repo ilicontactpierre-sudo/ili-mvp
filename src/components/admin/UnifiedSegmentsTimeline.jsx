@@ -91,7 +91,9 @@ function SegmentTimelineRow({
   onVfxDragStart,
   onVfxDragEnd,
   onVfxUpdate,
-  onVfxDragTargetChange
+  onVfxDragTargetChange,
+  onDragHandleMouseDown,
+  isDragging,
 }) {
   console.log('segment', index, segment)
   const containerRef = useRef(null)
@@ -307,6 +309,27 @@ function SegmentTimelineRow({
         onClick={handleClick}
         onDoubleClick={handleDoubleClick}
       >
+        {/* Handle drag ⠿ */}
+        <div
+          onMouseDown={onDragHandleMouseDown}
+          title="Déplacer ce segment"
+          style={{
+            cursor: isDragging ? 'grabbing' : 'grab',
+            padding: '0 2px',
+            fontSize: '0.75rem',
+            color: 'rgba(0,0,0,0.2)',
+            flexShrink: 0,
+            alignSelf: 'flex-start',
+            marginTop: '3px',
+            lineHeight: 1,
+            userSelect: 'none',
+            transition: 'color 0.15s ease',
+          }}
+          onMouseEnter={e => e.currentTarget.style.color = '#6366f1'}
+          onMouseLeave={e => e.currentTarget.style.color = 'rgba(0,0,0,0.2)'}
+        >
+          ⠿
+        </div>
       {/* Étoile : bascule le statut chapitre */}
         <button
           onClick={(e) => { e.stopPropagation(); onToggleIsChapter(index) }}
