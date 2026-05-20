@@ -41,6 +41,15 @@ function StartScreen({ title, author, soundsToPreload = [], savedProgress, onSta
 
   const hasProgress = savedProgress && savedProgress.segmentIndex > 0
 
+  const styleTag = (
+    <style>{`
+      @keyframes fadeUp {
+        from { opacity: 0; transform: translateY(12px); }
+        to   { opacity: 1; transform: translateY(0); }
+      }
+    `}</style>
+  )
+
   return (
     <main
       style={{
@@ -57,6 +66,7 @@ function StartScreen({ title, author, soundsToPreload = [], savedProgress, onSta
         transition: 'opacity 520ms cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 520ms cubic-bezier(0.25, 0.46, 0.45, 0.94)',
       }}
     >
+      {styleTag}
       <section style={{ display: 'grid', gap: '1.1rem', width: '100%', maxWidth: '40rem' }}>
         <h1 style={{ fontSize: 'clamp(2.4rem, 9vw, 4rem)', fontWeight: 600, lineHeight: 1.2 }}>
           {title}
@@ -68,9 +78,23 @@ function StartScreen({ title, author, soundsToPreload = [], savedProgress, onSta
             Chargement de l'expérience sonore...
           </p>
         ) : hasProgress ? (
-          <div style={{ marginTop: '3.1rem', display: 'grid', gap: '1rem' }}>
-            <p style={{ opacity: 0.5, fontSize: 'clamp(0.8rem, 3vw, 1rem)', letterSpacing: '0.08em', textTransform: 'uppercase', fontFamily: 'var(--font-logo)' }}>
-              Tu as déjà commencé cette histoire
+          <div style={{
+            marginTop: '4rem',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            gap: '0.1rem',
+            animation: 'fadeUp 700ms cubic-bezier(0.16, 1, 0.3, 1) both',
+          }}>
+            <p style={{
+              opacity: 0.28,
+              fontSize: 'clamp(0.65rem, 2.5vw, 0.78rem)',
+              letterSpacing: '0.2em',
+              textTransform: 'uppercase',
+              fontFamily: 'var(--font-logo)',
+              marginBottom: '2rem',
+            }}>
+              tu as déjà commencé cette histoire
             </p>
             <button
               onPointerUp={(e) => { e.stopPropagation(); handleStart(true) }}
@@ -78,11 +102,12 @@ function StartScreen({ title, author, soundsToPreload = [], savedProgress, onSta
             >
               Reprendre
             </button>
+            <div style={{ height: '1.6rem' }} />
             <button
               onPointerUp={(e) => { e.stopPropagation(); handleStart(false) }}
               style={btnStyle(false)}
             >
-              Recommencer depuis le début
+              Recommencer
             </button>
           </div>
         ) : (
@@ -100,16 +125,21 @@ function StartScreen({ title, author, soundsToPreload = [], savedProgress, onSta
 
 function btnStyle(primary) {
   return {
-    background: primary ? 'rgba(255,255,255,0.1)' : 'transparent',
-    border: primary ? '1px solid rgba(255,255,255,0.2)' : '1px solid rgba(255,255,255,0.08)',
-    borderRadius: '12px',
-    color: primary ? 'rgba(255,255,255,0.92)' : 'rgba(255,255,255,0.45)',
+    background: 'transparent',
+    border: 'none',
+    borderBottom: primary
+      ? '1px solid rgba(255,255,255,0.35)'
+      : '1px solid rgba(255,255,255,0.1)',
+    borderRadius: 0,
+    color: primary ? 'rgba(255,255,255,0.9)' : 'rgba(255,255,255,0.3)',
     fontFamily: 'var(--font-primary)',
-    fontSize: 'clamp(1rem, 4vw, 1.35rem)',
-    padding: '0.9rem 1.5rem',
+    fontSize: 'clamp(1rem, 3.8vw, 1.25rem)',
+    fontWeight: primary ? 400 : 300,
+    letterSpacing: '0.04em',
+    padding: '0.75rem 0',
     cursor: 'pointer',
-    transition: 'all 200ms ease',
     WebkitTapHighlightColor: 'transparent',
+    transition: 'color 300ms ease, border-color 300ms ease',
   }
 }
 
