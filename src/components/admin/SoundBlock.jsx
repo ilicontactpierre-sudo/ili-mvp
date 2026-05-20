@@ -370,7 +370,7 @@ function SoundBlock({
           // S'assurer qu'on a au moins 1 segment et qu'on ne dépasse pas les limites
           newEndIndex = Math.max(startIdx, Math.min(currentRowHeights.length - 1, newEndIndex))
           
-          const newEndSegmentId = segments[newEndIndex]?.id || segments[newEndIndex]?._id
+          const newEndSegmentId = segmentsRef.current[newEndIndex]?.id || segmentsRef.current[newEndIndex]?._id
           onResize(soundTrack.id, null, newEndSegmentId)
           
         } else if (isResizing === 'top') {
