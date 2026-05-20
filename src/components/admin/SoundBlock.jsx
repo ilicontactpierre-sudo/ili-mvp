@@ -405,7 +405,7 @@ function SoundBlock({
           // S'assurer qu'on ne dépasse pas le segment de fin et qu'on reste >= 0
           newStartIndex = Math.max(0, Math.min(endIdx, newStartIndex))
           
-          const newStartSegmentId = segments[newStartIndex]?.id || segments[newStartIndex]?._id
+          const newStartSegmentId = segmentsRef.current[newStartIndex]?.id || segmentsRef.current[newStartIndex]?._id
           onResize(soundTrack.id, newStartSegmentId, null)
         }
       }
