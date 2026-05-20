@@ -98,24 +98,22 @@ function VfxBlock({
       const timelineRect = timelineRoot?.getBoundingClientRect()
       const scrollTop    = timelineRoot ? timelineRoot.scrollTop : 0
 
-      if (blockRect && timelineRect) {
-        // Centre Y du bloc dans le scroll container
-        const relY = blockRect.top - timelineRect.top + scrollTop + blockRect.height / 2
+      if (timelineRect) {
+        // Position du CURSEUR dans le contenu scrollable — indépendant du transform du bloc
+        const cursorY = ev.clientY - timelineRect.top + scrollTop
 
-        // Colonne cible basée sur le delta X depuis le début
         const newColumn = Math.max(0, Math.min(VFX_COLUMN_COUNT - 1,
           Math.round(drag.column + dx / VFX_COLUMN_WIDTH)))
 
-        // Ligne cible : chercher le segment dont le centre est le plus proche
+        // Ligne cible : chercher le segment dont le centre est le plus proche du curseur
         let accumulated = 0, newStartIndex = 0, minDist = Infinity
         const rh = drag.rowHeights
         for (let i = 0; i < rh.length; i++) {
           const center   = accumulated + rh[i] / 2
-          const distance = Math.abs(relY - center)
+          const distance = Math.abs(cursorY - center)
           if (distance < minDist) { minDist = distance; newStartIndex = i }
           accumulated += rh[i] + 8
         }
-
         targetCellRef.current = { segmentIndex: newStartIndex, column: newColumn }
         if (onDragTargetChange) onDragTargetChange(newStartIndex, newColumn)
       }
