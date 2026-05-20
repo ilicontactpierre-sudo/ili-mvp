@@ -151,13 +151,21 @@ function playSettingsClic() {
       root.style.setProperty('--color-text-blur', 'rgb(8, 51, 244)')
       root.style.setProperty('--font-primary', "'VT323', 'Courier New', monospace")
       root.style.setProperty('--blur-amount', '2px')
-  document.body.style.backgroundImage = `
-  radial-gradient(circle, rgba(255,0,127,0.35) 1px, transparent 1px),
-  radial-gradient(circle, rgba(0,240,255,0.25) 1px, transparent 1px),
-  radial-gradient(circle, rgba(157,0,255,0.2) 1px, transparent 1px)
+      document.body.style.backgroundImage = `
+        repeating-linear-gradient(
+          2deg,
+          transparent,
+          transparent 2px,
+          rgba(0, 240, 255, 0.015) 2px,
+          rgba(0, 240, 255, 0.015) 4px
+        )
+      `
+      document.body.style.backgroundImage = `
+  linear-gradient(45deg, rgba(255,0,127,0.08) 25%, transparent 25%),
+  linear-gradient(-45deg, rgba(0,240,255,0.08) 25%, transparent 25%),
+  linear-gradient(45deg, transparent 75%, rgba(157,0,255,0.08) 75%),
+  linear-gradient(-45deg, transparent 75%, rgba(255,0,127,0.05) 75%)
 `
-document.body.style.backgroundSize = '30px 30px, 50px 50px, 70px 70px'
-document.body.style.backgroundPosition = '0 0, 15px 15px, 7px 7px'
 document.body.style.backgroundSize = '20px 20px'
       document.body.style.backgroundAttachment = 'fixed'
     } else if (isDark) {
