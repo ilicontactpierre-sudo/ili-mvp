@@ -295,6 +295,9 @@ function StoryPage() {
             if (saved && saved.segmentIndex > 0) {
               setCurrentIndex(saved.segmentIndex)
             }
+          } else {
+            if (story?.id) clearProgress(story.id)
+            setCurrentIndex(0)
           }
           setIsStarted(true)
         }}
