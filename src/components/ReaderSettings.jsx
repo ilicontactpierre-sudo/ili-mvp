@@ -103,7 +103,7 @@ function playWhoosh() {
   lastWhooshRef.current = next
   try {
     const audio = new Audio(`/sounds/whoosh-${next + 1}.mp3`)
-    audio.volume = 0.35
+    audio.volume = 0.25
     audio.play().catch(() => {})
   } catch {}
 }
