@@ -4,7 +4,7 @@ import EndScreen from '../components/EndScreen.jsx'
 import StartScreen from '../components/StartScreen.jsx'
 import StoryReader from '../components/StoryReader.jsx'
 import AudioEngine from '../engine/AudioEngine.js'
-import ReaderSettings, { saveProgress, loadProgress } from '../components/ReaderSettings.jsx'
+import ReaderSettings, { saveProgress, loadProgress, clearProgress } from '../components/ReaderSettings.jsx'
 
 const fullScreenStyle = {
   minHeight: '100vh',
