@@ -1443,6 +1443,15 @@ const handleTextSelection = useCallback(() => {
       if (e.key === 'Meta' || e.key === 'Control') {
         setIsCmdPressed(true)
       }
+      // Escape : annuler le drag segment en cours
+      if (e.key === 'Escape' && dragStateRef.current.active) {
+        dragStateRef.current.active = false
+        document.body.style.userSelect = ''
+        document.body.style.cursor = ''
+        setIsDraggingSegment(false)
+        setDragPlaceholderIndex(-1)
+        if (autoScrollRef.current) { clearInterval(autoScrollRef.current); autoScrollRef.current = null }
+      }
       if (e.key === 'Backspace' || e.key === 'Delete') {
         const active = document.activeElement
         const isTyping = active && (active.tagName === 'TEXTAREA' || active.tagName === 'INPUT')
@@ -2208,6 +2217,73 @@ function reorderSegments(fromIndex, toIndex, segments, soundTracks) {
   // Cas 4 : le segment atterrit entre deux segments d'une même track → gratuit,
   // les SoundBlocks se basent sur les indices dans newSegments, inclusion automatique.
 
+  return { newSegments, newSoundTracks }
+}
+
+// ─── Réorganisation multi-sélection avec gestion des soundTracks ─────────────
+function reorderMultiple(sortedIndices, toIndex, segments, soundTracks) {
+  const indicesSet = new Set(sortedIndices)
+  const block = sortedIndices.map(i => segments[i])
+  const movedIds = new Set(block.map(s => s.id || s._id).filter(Boolean))
+
+  // Liste sans les segments déplacés
+  const withoutBlock = segments.filter((_, i) => !indicesSet.has(i))
+
+  // Calculer l'index d'insertion dans withoutBlock
+  // toIndex est exprimé sur la liste originale
+  // On compte combien d'indices sélectionnés sont AVANT toIndex
+  const countBefore = sortedIndices.filter(i => i < toIndex).length
+  const insertAt = Math.max(0, Math.min(toIndex - countBefore, withoutBlock.length))
+
+  const newSegments = [
+    ...withoutBlock.slice(0, insertAt),
+    ...block,
+    ...withoutBlock.slice(insertAt),
+  ]
+
+  // Recalculer les soundTracks
+  const idxIn = (list, id) => list.findIndex(s => (s.id || s._id) === id)
+
+  const newSoundTracks = []
+  const toClone = []
+
+  for (const track of soundTracks) {
+    const { startSegmentId, endSegmentId } = track
+    const oldStart = idxIn(segments, startSegmentId)
+    const oldEnd   = idxIn(segments, endSegmentId)
+    if (oldStart === -1 || oldEnd === -1) { newSoundTracks.push(track); continue }
+
+    const movedInTrack = block.filter(s => {
+      const sid = s.id || s._id
+      if (!sid) return false
+      const si = idxIn(segments, sid)
+      return si >= oldStart && si <= oldEnd
+    })
+
+    const trackTouchesBlock  = movedInTrack.length > 0
+    const trackIsOnlyBlock   = movedIds.has(startSegmentId) && movedIds.has(endSegmentId)
+      && movedInTrack.length === (oldEnd - oldStart + 1)
+
+    if (!trackTouchesBlock || trackIsOnlyBlock) {
+      newSoundTracks.push(track)
+      continue
+    }
+
+    // Track partielle : garder l'original + cloner pour chaque segment déplacé
+    newSoundTracks.push(track)
+    for (const seg of movedInTrack) {
+      const sid = seg.id || seg._id
+      if (!sid) continue
+      toClone.push({
+        ...track,
+        id: `st_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+        startSegmentId: sid,
+        endSegmentId: sid,
+      })
+    }
+  }
+
+  newSoundTracks.push(...toClone)
   return { newSegments, newSoundTracks }
 }
 
