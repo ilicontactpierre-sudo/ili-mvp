@@ -1842,8 +1842,8 @@ const handleTextSelection = useCallback(() => {
           // Placeholder avant ce segment
           const showPlaceholderBefore = isDraggingSegment && dragPlaceholderIndex === index
           const isBeingDragged = isDraggingSegment
-            && index >= dragStateRef.current.fromIndex
-            && index < dragStateRef.current.fromIndex + dragStateRef.current.blockSize
+            && dragStateRef.current.sortedIndices?.includes(index)
+          const isSelected = selectedSegmentIndices.has(index)
 
           return (
             <div
