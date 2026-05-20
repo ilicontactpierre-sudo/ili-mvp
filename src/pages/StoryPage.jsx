@@ -154,7 +154,7 @@ function StoryPage() {
     }
     const x = event.clientX
     const width = window.innerWidth
-    if (x / width < 0.30) {
+    if (x / width < 0.400) {
       goToPrevious()
     } else {
       goToNext()
