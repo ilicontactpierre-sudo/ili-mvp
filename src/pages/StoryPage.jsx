@@ -277,6 +277,12 @@ function StoryPage() {
       onTouchEnd={handleTouchEnd}
     >
       <StoryReader storyData={story} currentIndex={currentIndex} />
+      <ReaderSettings
+        storyId={story?.id}
+        segments={segments}
+        currentIndex={currentIndex}
+        onJumpTo={goToIndex}
+      />
     </div>
   )
 }
