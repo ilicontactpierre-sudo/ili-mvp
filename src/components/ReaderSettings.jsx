@@ -148,7 +148,7 @@ function playSettingsClic() {
     } else if (isSynthwave) {
       root.style.setProperty('--color-bg', '#0b0510')
       root.style.setProperty('--color-text-focus', '#ffffff')
-      root.style.setProperty('--color-text-blur', 'rgba(0, 240, 255, 0.2)')
+      root.style.setProperty('--color-text-blur', 'rgba(255, 0, 127, 0.5)')
       root.style.setProperty('--font-primary', "'VT323', 'Courier New', monospace")
       root.style.setProperty('--blur-amount', '2px')
       document.body.style.backgroundImage = `
