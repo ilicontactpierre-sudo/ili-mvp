@@ -1455,16 +1455,18 @@ const handleTextSelection = useCallback(() => {
 
   useLayoutEffect(() => {
     const heights = segments.map((_, index) => {
+      if (hiddenSegments.has(index)) {
+        // Segment caché : conserver la hauteur précédente ou estimer
+        return measuredRowHeights[index] || estimatedRowHeights[index] || SEGMENT_HEIGHT
+      }
       const row = rowRefs.current[index]
       return row ? Math.max(SEGMENT_HEIGHT, Math.ceil(row.getBoundingClientRect().height)) : SEGMENT_HEIGHT
     })
-
     const rowsChanged = heights.length !== measuredRowHeights.length || heights.some((height, idx) => height !== measuredRowHeights[idx])
     if (rowsChanged) {
       setMeasuredRowHeights(heights)
     }
-  }, [segments, editTexts, dividerPosition, editingSegmentIndex, selectedSegmentIndex, soundTracks.length])
-
+  }, [segments, editTexts, dividerPosition, editingSegmentIndex, selectedSegmentIndex, soundTracks.length, hiddenSegments])
   const totalHeight = rowHeights.reduce((sum, rowHeight) => sum + rowHeight + 8, 0)
 
   return (
