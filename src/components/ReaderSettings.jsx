@@ -113,6 +113,27 @@ export default function ReaderSettings({
   currentIndex,
   onJumpTo,
 }) {
+  // ── Whoosh navigation ───────────────────────────────────────────────────────
+  const WHOOSH_COUNT = 6
+  const whooshRefs = useRef([])
+  useEffect(() => {
+    whooshRefs.current = Array.from({ length: WHOOSH_COUNT }, (_, i) => {
+      const a = new Audio(`/sounds/whoosh-${i + 1}.mp3`)
+      a.volume = 0.35
+      return a
+    })
+  }, [])
+  const lastWhooshRef = useRef(-1)
+  function playWhoosh() {
+    let next
+    do { next = Math.floor(Math.random() * WHOOSH_COUNT) }
+    while (next === lastWhooshRef.current)
+    lastWhooshRef.current = next
+    const audio = whooshRefs.current[next]
+    if (audio) { audio.currentTime = 0; audio.play().catch(() => {}) }
+  }
+  // ── Fin whoosh ──────────────────────────────────────────────────────────────
+
   const [isOpen, setIsOpen]           = useState(false)
   const [showChapters, setShowChapters] = useState(false)
   const [isDark, setIsDark]           = useState(true)
