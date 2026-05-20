@@ -45,12 +45,18 @@ function StoryPage() {
     })
   }, [isFinished, isStarted, lastIndex, segments.length, story])
 
+  const [isJumping, setIsJumping] = useState(false)
+
   const goToIndex = useCallback((index) => {
-    if (!isStarted || !segments.length) return
+    if (!isStarted || !segments.length || isJumping) return
     const clamped = Math.max(0, Math.min(lastIndex, index))
-    setCurrentIndex(clamped)
-    if (story?.id) saveProgress(story.id, clamped)
-  }, [isStarted, segments.length, lastIndex, story])
+    setIsJumping(true)
+    setTimeout(() => {
+      setCurrentIndex(clamped)
+      if (story?.id) saveProgress(story.id, clamped)
+      setTimeout(() => setIsJumping(false), 50)
+    }, 320)
+  }, [isStarted, segments.length, lastIndex, story, isJumping])
 
   const goToPrevious = useCallback(() => {
     if (!isStarted || !segments.length) {
@@ -281,7 +287,7 @@ function StoryPage() {
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
     >
-      <StoryReader storyData={story} currentIndex={currentIndex} />
+      <StoryReader storyData={story} currentIndex={currentIndex} isJumping={isJumping} />
       <ReaderSettings
         storyId={story?.id}
         segments={segments}
