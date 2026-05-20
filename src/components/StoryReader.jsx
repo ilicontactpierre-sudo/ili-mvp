@@ -85,16 +85,24 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle' 
     finalSegments[currentIndex + 1]?.isLeader === true
 
   const hiddenFromView = new Set()
-  // Leader → cacher tous les segments au-dessus
-  if (isCurrentLeader) {
-    for (let i = 0; i < currentIndex; i++) hiddenFromView.add(i)
+
+// Trouver le Leader de la séquence courante
+let currentLeaderIndex = -1
+for (let i = currentIndex; i >= 0; i--) {
+  if (finalSegments[i]?.isLeader) { currentLeaderIndex = i; break }
+}
+
+// Cacher tout ce qui est avant le Leader courant
+if (currentLeaderIndex > 0) {
+  for (let i = 0; i < currentLeaderIndex; i++) hiddenFromView.add(i)
+}
+
+// Finisher → cacher le Leader suivant et tout ce qui suit
+if (isCurrentFinisher) {
+  for (let i = currentIndex + 1; i < finalSegments.length; i++) {
+    hiddenFromView.add(i)
   }
-  // Finisher → cacher le segment juste en dessous (le Leader suivant)
-  if (isCurrentFinisher) {
-    for (let i = currentIndex + 1; i < finalSegments.length; i++) {
-      hiddenFromView.add(i)
-    }
-  }
+}
 
   // ── Haptique : démarre/arrête la vibration selon le segment actif ──
   useEffect(() => {
@@ -232,11 +240,13 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle' 
               'story-reader__segment',
               isFocused
                 ? 'story-reader__segment--focus'
-                : Math.abs(index - currentIndex) === 1
-                  ? 'story-reader__segment--blur-near'
-                  : Math.abs(index - currentIndex) === 2
-                    ? 'story-reader__segment--blur-mid'
-                    : 'story-reader__segment--blur',
+                : isHidden
+                  ? ''
+                  : Math.abs(index - currentIndex) === 1
+                    ? 'story-reader__segment--blur-near'
+                    : Math.abs(index - currentIndex) === 2
+                      ? 'story-reader__segment--blur-mid'
+                      : 'story-reader__segment--blur',
               isHidden ? 'story-reader__segment--hidden' : '',
               ...(() => {
                 if (!isFocused || !storyData?.vfxTracks) return []
