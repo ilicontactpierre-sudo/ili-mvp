@@ -160,8 +160,8 @@ function playSettingsClic() {
           0deg,
           transparent,
           transparent 2px,
-          rgba(0,240,255,0.015) 2px,
-          rgba(0,240,255,0.015) 4px
+          rgba(28, 193, 204, 0.01) 2px,
+          rgba(27, 207, 220, 0.01) 4px
         )
       `
       document.body.style.backgroundAttachment = 'fixed'
