@@ -3,7 +3,13 @@
   "title": "Haptique 1",
   "author": "Haptique 1",
   "published": true,
-  "sounds": [],
+  "sounds": [
+    {
+      "id": "02_COMMISSARIAT_-_Tic-Tac_umaxtk",
+      "url": "/sounds/02_COMMISSARIAT_-_Tic-Tac_umaxtk.mp3",
+      "loop": false
+    }
+  ],
   "segments": [
     {
       "lines": [
@@ -11,7 +17,8 @@
       ],
       "text": "CHAPITRE 01 - Ensemble",
       "breakAt": null,
-      "isLeader": false,
+      "isLeader": true,
+      "isChapter": true,
       "id": "seg_0",
       "audioEvents": []
     },
@@ -32,6 +39,8 @@
       "text": "- Merci mon cœur…",
       "breakAt": null,
       "isLeader": false,
+      "bold": true,
+      "italic": true,
       "id": "seg_2",
       "audioEvents": []
     },
@@ -43,7 +52,15 @@
       "breakAt": null,
       "isLeader": false,
       "id": "seg_3",
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "play",
+          "soundId": "02_COMMISSARIAT_-_Tic-Tac_umaxtk",
+          "volume": 0.5,
+          "delay": 0,
+          "loop": false
+        }
+      ]
     },
     {
       "lines": [
@@ -753,5 +770,19 @@
       "audioEvents": []
     }
   ],
-  "soundTracks": []
+  "soundTracks": [
+    {
+      "id": "st_1779201762518_48ywzbpc5",
+      "soundId": "02_COMMISSARIAT_-_Tic-Tac_umaxtk",
+      "startSegmentId": "segment_3",
+      "endSegmentId": "segment_3",
+      "column": 5,
+      "volume": 0.5,
+      "fadeIn": 0,
+      "fadeOut": 0,
+      "delay": 0,
+      "loop": false,
+      "muted": false
+    }
+  ]
 }
