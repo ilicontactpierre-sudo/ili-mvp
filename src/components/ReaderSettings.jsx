@@ -209,7 +209,7 @@ function playSettingsClic() {
           border-radius: 50%;
           border: none;
           background: transparent;
-          color: ${isDark ? 'rgba(255,255,255,0.25)' : 'rgba(26,26,24,0.25)'};
+          color: ${isDark ? 'rgba(255,255,255,0.45)' : 'rgba(26,26,24,0.45)'};
           cursor: pointer;
           display: flex;
           align-items: center;
