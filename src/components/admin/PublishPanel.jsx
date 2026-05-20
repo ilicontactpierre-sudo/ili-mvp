@@ -7,6 +7,7 @@ function PublishPanel({
   slug,
   segments,
   soundTracks,
+  vfxTracks,
   soundLibrary,
   onNewStory,
   onSaveDraft
