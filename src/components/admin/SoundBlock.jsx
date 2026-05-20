@@ -471,7 +471,7 @@ function SoundBlock({
           const newEndSegmentId = segs[newEndIndex]?.id || segs[newEndIndex]?._id
           console.log('RESIZE CALL:', { newStartSegmentId, newEndSegmentId, targetSegmentIndex, newEndIndex })
           onResize(soundTrack.id, newStartSegmentId, newEndSegmentId)
-        
+        }
         if (onDragEnd) onDragEnd()
       }
       setIsDragging(false)
