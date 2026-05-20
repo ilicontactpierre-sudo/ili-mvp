@@ -96,6 +96,34 @@ function StoryReader({ storyId, storyData, currentIndex = 0 }) {
     }
   }
 
+  // ── Haptique : démarre/arrête la vibration selon le segment actif ──
+  useEffect(() => {
+    if (!storyData?.vfxTracks) {
+      hapticEngine.stop()
+      return
+    }
+
+    // Cherche un VFX actif sur le segment courant qui a un hapticPattern
+    const activeHapticPattern = storyData.vfxTracks
+      .filter(t => t.hapticPattern) // seulement les VFX avec un pattern défini
+      .find(t => {
+        const segs = storyData.segments || []
+        const si = segs.findIndex(s => s.id === t.startSegmentId || s._id === t.startSegmentId)
+        const ei = segs.findIndex(s => s.id === t.endSegmentId   || s._id === t.endSegmentId)
+        const end = ei !== -1 ? ei : si
+        return si <= currentIndex && currentIndex <= end
+      })
+
+    if (activeHapticPattern) {
+      hapticEngine.play(activeHapticPattern.hapticPattern)
+    } else {
+      hapticEngine.stop()
+    }
+
+    // Nettoyage : si le composant est démonté pendant une vibration
+    return () => { hapticEngine.stop() }
+  }, [currentIndex, storyData])
+  
   const segmentRefs = useRef([])
   const [translateY, setTranslateY] = useState(0)
 
