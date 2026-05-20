@@ -826,6 +826,22 @@ function UnifiedSegmentsTimeline({
   // ── Chapitres ──────────────────────────────────────────────
   const [collapsedChapters, setCollapsedChapters] = useState(new Set())
 
+  // ── Drag & drop segments ────────────────────────────────────
+  const [isDraggingSegment, setIsDraggingSegment] = useState(false)
+  const [dragPlaceholderIndex, setDragPlaceholderIndex] = useState(-1)
+  const dragStateRef = useRef({
+    active: false,
+    fromIndex: -1,
+    blockSize: 1,
+    startY: 0,
+    currentY: 0,
+    offsetY: 0,       // décalage curseur / coin supérieur du segment
+    ghostText: '',
+    ghostHeight: 0,
+  })
+  const ghostRef = useRef(null)
+  const autoScrollRef = useRef(null)
+
   const handleSelectVfx = useCallback((id, isShift) => {
       setSelectedVfxIds(prev => {
         const next = isShift ? new Set(prev) : new Set()
