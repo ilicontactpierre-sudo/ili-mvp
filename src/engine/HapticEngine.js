@@ -110,9 +110,12 @@ class HapticEngine {
 
   _loadPreference() {
     try {
-      return localStorage.getItem('ili_haptic_enabled') === 'true'
+      const stored = localStorage.getItem('ili_haptic_enabled')
+      // Si l'utilisateur n'a jamais touché au réglage → activé par défaut
+      if (stored === null) return true
+      return stored === 'true'
     } catch {
-      return false // désactivé par défaut
+      return true // activé par défaut même si localStorage indisponible
     }
   }
 
