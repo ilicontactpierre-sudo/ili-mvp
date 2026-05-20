@@ -1605,11 +1605,14 @@ const handleTextSelection = useCallback(() => {
     let newPlaceholder = ds.fromIndex
     let cumulY = scrollEl.getBoundingClientRect().top - scrollEl.scrollTop
 
+    const dragginDown = dragStateRef.current.currentY >= dragStateRef.current.startY
     for (let i = 0; i < segments.length; i++) {
       if (hiddenSegments.has(i)) continue
-      const h = (rowHeights[i] || SEGMENT_HEIGHT) + 8 // +8 pour le SegmentSeparator
-      const midY = cumulY + h / 2
-      if (e.clientY < midY) {
+      const h = (rowHeights[i] || SEGMENT_HEIGHT) + 8
+      // Seuil : milieu de la ligne, mais décalé vers le bas quand on drague vers le bas
+      // pour éviter le "drop une ligne trop bas"
+      const threshold = dragginDown ? cumulY + h * 0.65 : cumulY + h * 0.35
+      if (e.clientY < threshold) {
         newPlaceholder = i
         break
       }
