@@ -449,13 +449,14 @@ function SoundBlock({
         // Appliquer les changements de ligne (segment) au moment du relâchement
         const targetSegmentIndex = currentTargetCell.segmentIndex >= 0 ? currentTargetCell.segmentIndex : ds.startSegmentIndex
         if (targetSegmentIndex !== ds.startSegmentIndex) {
-          const newStartSegmentId = segments[targetSegmentIndex]?.id 
-            || segments[targetSegmentIndex]?._id
+          const segs = segmentsRef.current
+          const newStartSegmentId = segs[targetSegmentIndex]?.id 
+            || segs[targetSegmentIndex]?._id
           const currentEndIndex = endSegmentIndex !== -1 ? endSegmentIndex : startSegmentIndex
           const offset = currentEndIndex - ds.startSegmentIndex
-          const newEndIndex = Math.min(segments.length - 1, targetSegmentIndex + offset)
-          const newEndSegmentId = segments[newEndIndex]?.id 
-            || segments[newEndIndex]?._id
+          const newEndIndex = Math.min(segs.length - 1, targetSegmentIndex + offset)
+          const newEndSegmentId = segs[newEndIndex]?.id 
+            || segs[newEndIndex]?._id
           onResize(soundTrack.id, newStartSegmentId, newEndSegmentId)
         }
         if (onDragEnd) onDragEnd()
