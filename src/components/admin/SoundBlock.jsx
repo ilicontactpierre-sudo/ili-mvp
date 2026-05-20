@@ -173,11 +173,12 @@ function SoundBlock({
     const onMouseUp = () => {
       window.removeEventListener('mousemove', onMouseMove)
       window.removeEventListener('mouseup', onMouseUp)
+      // Ne pas gérer le drop ici — c'est le useEffect qui s'en charge
+      // On gère uniquement le cas où le bloc n'a pas bougé
       if (!hasMoved) {
         setIsDragging(false)
-      } else {
-        if (onDragEnd) onDragEnd()
       }
+      // Si hasMoved, le useEffect handleMouseUp prend le relais
     }
     
     window.addEventListener('mousemove', onMouseMove)
