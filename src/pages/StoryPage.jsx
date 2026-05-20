@@ -284,15 +284,17 @@ function StoryPage() {
         author={story?.author ?? ''}
         soundsToPreload={story?.sounds ?? []}
         savedProgress={story?.id ? loadProgress(story.id) : null}
-        onStart={(preloadedHowlMap) => {
+        onStart={(preloadedHowlMap, resume) => {
+          console.log('resume =', resume)
           preloadedSoundsRef.current = preloadedHowlMap
           audioEngineRef.current = new AudioEngine(preloadedHowlMap)
           ignoreAdvanceUntilRef.current = Date.now() + 600
           touchStartY.current = null
-          // Reprendre là où l'utilisateur s'était arrêté
-          const saved = story?.id ? loadProgress(story.id) : null
-          if (saved && saved.segmentIndex > 0) {
-            setCurrentIndex(saved.segmentIndex)
+          if (resume) {
+            const saved = story?.id ? loadProgress(story.id) : null
+            if (saved && saved.segmentIndex > 0) {
+              setCurrentIndex(saved.segmentIndex)
+            }
           }
           setIsStarted(true)
         }}
