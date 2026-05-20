@@ -458,18 +458,18 @@ function SoundBlock({
           segAtTarget: segmentsRef.current[currentTargetCell.segmentIndex],
         })
         const targetSegmentIndex = currentTargetCell.segmentIndex >= 0 ? currentTargetCell.segmentIndex : ds.startSegmentIndex
+        const targetSegmentIndex = currentTargetCell.segmentIndex >= 0 ? currentTargetCell.segmentIndex : ds.startSegmentIndex
         if (targetSegmentIndex !== ds.startSegmentIndex) {
           const segs = segmentsRef.current
-          const newStartSegmentId = segs[targetSegmentIndex]?.id 
-            || segs[targetSegmentIndex]?._id
+          // Recalculer les indices depuis les IDs pour éviter les valeurs périmées
           const currentStartIdx = segs.findIndex(s => s.id === soundTrack.startSegmentId || s._id === soundTrack.startSegmentId)
           const currentEndIdx = segs.findIndex(s => s.id === soundTrack.endSegmentId || s._id === soundTrack.endSegmentId)
           const currentEndIndex = currentEndIdx !== -1 ? currentEndIdx : currentStartIdx
-          console.log('IDs:', { newStartSegmentId, newEndSegmentId, currentEndIndex })
+          const newStartSegmentId = segs[targetSegmentIndex]?.id || segs[targetSegmentIndex]?._id
           const offset = currentEndIndex - ds.startSegmentIndex
           const newEndIndex = Math.min(segs.length - 1, targetSegmentIndex + offset)
-          const newEndSegmentId = segs[newEndIndex]?.id 
-            || segs[newEndIndex]?._id
+          const newEndSegmentId = segs[newEndIndex]?.id || segs[newEndIndex]?._id
+          console.log('RESIZE CALL:', { newStartSegmentId, newEndSegmentId, targetSegmentIndex, newEndIndex })
           onResize(soundTrack.id, newStartSegmentId, newEndSegmentId)
         }
         if (onDragEnd) onDragEnd()
