@@ -1565,33 +1565,49 @@ const handleTextSelection = useCallback(() => {
   // ── Handlers drag & drop segments ──────────────────────────
   const handleSegmentDragStart = useCallback((e, index) => {
     e.stopPropagation()
-    // Ne pas lancer si on est en train d'éditer ou de déplacer un bloc son
     if (editingSegmentIndex !== null || isAnyBlockDragging || isAnyVfxDragging) return
-    // Ne pas lancer si clic sur un bouton ou input
     if (e.target.tagName === 'BUTTON' || e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return
 
-    const isChapterDrag = segments[index]?.isChapter === true
-    let blockEnd = index
-    if (isChapterDrag) {
-      for (let i = index + 1; i < segments.length; i++) {
-        if (segments[i]?.isChapter === true) break
-        blockEnd = i
+    // Si le segment dragué n'est pas dans la sélection → drag solo, reset sélection
+    let dragIndices // Set<number> des indices à déplacer
+    if (selectedSegmentIndices.has(index)) {
+      dragIndices = new Set(selectedSegmentIndices)
+    } else {
+      dragIndices = new Set([index])
+      setSelectedSegmentIndices(new Set([index]))
+      selectionAnchorRef.current = index
+    }
+
+    // Compléter automatiquement les chapitres : si un chapitre est sélectionné,
+    // inclure tous ses enfants même s'ils ne sont pas explicitement sélectionnés
+    const completed = new Set(dragIndices)
+    for (const idx of dragIndices) {
+      if (segments[idx]?.isChapter === true) {
+        for (let i = idx + 1; i < segments.length; i++) {
+          if (segments[i]?.isChapter === true) break
+          completed.add(i)
+        }
       }
     }
-    const blockSize = blockEnd - index + 1
-    const block = segments.slice(index, index + blockSize)
-    const firstText = getSegmentText(block[0])
-    const ghostText = isChapterDrag
-      ? `📖 ${firstText.slice(0, 40)}${firstText.length > 40 ? '…' : ''}${blockSize > 1 ? ` (+${blockSize - 1} segments)` : ''}`
-      : firstText.slice(0, 60) + (firstText.length > 60 ? '…' : '')
+
+    // Trier les indices dans l'ordre de la liste
+    const sortedIndices = [...completed].sort((a, b) => a - b)
+
+    const firstText = getSegmentText(segments[sortedIndices[0]])
+    const count = sortedIndices.length
+    const hasChapter = sortedIndices.some(i => segments[i]?.isChapter === true)
+    const ghostText = count === 1
+      ? firstText.slice(0, 60) + (firstText.length > 60 ? '…' : '')
+      : `${hasChapter ? '📖 ' : ''}${firstText.slice(0, 40)}… (+${count - 1} segment${count > 2 ? 's' : ''})`
 
     const rowEl = rowRefs.current[index]
     const rowRect = rowEl ? rowEl.getBoundingClientRect() : { top: e.clientY, height: 40 }
 
     dragStateRef.current = {
       active: true,
-      fromIndex: index,
-      blockSize,
+      fromIndex: index,           // index de référence pour le placeholder
+      sortedIndices,              // indices triés à déplacer
+      blockSize: sortedIndices.length,
       startY: e.clientY,
       currentY: e.clientY,
       offsetY: e.clientY - rowRect.top,
@@ -1600,12 +1616,10 @@ const handleTextSelection = useCallback(() => {
     }
 
     setIsDraggingSegment(true)
-    setDragPlaceholderIndex(index)
-
-    // Désactiver la sélection texte pendant le drag
+    setDragPlaceholderIndex(sortedIndices[0])
     document.body.style.userSelect = 'none'
     document.body.style.cursor = 'grabbing'
-  }, [segments, editingSegmentIndex, isAnyBlockDragging, isAnyVfxDragging])
+  }, [segments, selectedSegmentIndices, editingSegmentIndex, isAnyBlockDragging, isAnyVfxDragging])
 
   const handleSegmentDragMove = useCallback((e) => {
     const ds = dragStateRef.current
