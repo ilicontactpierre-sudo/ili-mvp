@@ -128,16 +128,29 @@ function playSettingsClic() {
   // ── Appliquer le thème ──────────────────────────────────────────────────────
   useEffect(() => {
     const root = document.documentElement
-    if (isDark) {
-      root.style.setProperty('--color-bg', '#080809')
-      root.style.setProperty('--color-text-focus', '#ffffff')
-      root.style.setProperty('--color-text-blur', 'rgba(255, 255, 255, 0.22)')
+    if (isToutdoux) {
+      root.style.setProperty('--color-bg', '#fdfaf1')
+      root.style.setProperty('--color-text-focus', '#4a453f')
+      root.style.setProperty('--color-text-blur', 'rgba(74, 69, 63, 0.22)')
+      root.style.setProperty('--font-primary', "'Playfair Display', Georgia, serif")
+      root.style.setProperty('--blur-amount', '2px')
+      document.body.style.backgroundImage = "url('https://www.transparenttextures.com/patterns/natural-paper.png')"
+      document.body.style.backgroundAttachment = 'fixed'
     } else {
-      root.style.setProperty('--color-bg', '#f5f0e8')
-      root.style.setProperty('--color-text-focus', '#1a1a18')
-      root.style.setProperty('--color-text-blur', 'rgba(26, 26, 24, 0.25)')
+      root.style.setProperty('--font-primary', "'Lora', Georgia, 'Times New Roman', serif")
+      root.style.setProperty('--blur-amount', '3px')
+      document.body.style.backgroundImage = 'none'
+      if (isDark) {
+        root.style.setProperty('--color-bg', '#080809')
+        root.style.setProperty('--color-text-focus', '#ffffff')
+        root.style.setProperty('--color-text-blur', 'rgba(255, 255, 255, 0.22)')
+      } else {
+        root.style.setProperty('--color-bg', '#f5f0e8')
+        root.style.setProperty('--color-text-focus', '#1a1a18')
+        root.style.setProperty('--color-text-blur', 'rgba(26, 26, 24, 0.25)')
+      }
     }
-  }, [isDark])
+  }, [isDark, isToutdoux])
 
   // ── Appliquer la taille de police ───────────────────────────────────────────
   useEffect(() => {
@@ -368,15 +381,23 @@ function playSettingsClic() {
             <span className="rs-label">Thème</span>
             <div className="rs-row">
               <button
-                className={`rs-btn${isDark ? ' active' : ''}`}
-                onClick={() => setIsDark(true)}
-                title="Mode sombre"
+                className={`rs-btn${isDark && !isToutdoux ? ' active' : ''}${isToutdoux ? ' active' : ''}`}
+                onClick={(e) => {
+                  if (e.metaKey || e.ctrlKey) {
+                    setIsToutdoux(v => !v)
+                    setIsDark(true)
+                  } else {
+                    setIsToutdoux(false)
+                    setIsDark(true)
+                  }
+                }}
+                title="Mode sombre (Cmd+clic pour mode secret)"
               >
                 <IconMoon />
               </button>
               <button
-                className={`rs-btn${!isDark ? ' active' : ''}`}
-                onClick={() => setIsDark(false)}
+                className={`rs-btn${!isDark && !isToutdoux ? ' active' : ''}`}
+                onClick={() => { setIsToutdoux(false); setIsDark(false) }}
                 title="Mode clair"
               >
                 <IconSun />
