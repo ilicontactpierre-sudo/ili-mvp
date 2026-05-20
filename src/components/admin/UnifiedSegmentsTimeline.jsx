@@ -1880,6 +1880,16 @@ const handleTextSelection = useCallback(() => {
             Aucun segment. Découpez un texte pour commencer.
           </div>
         )}
+        {/* Placeholder en fin de liste */}
+        {isDraggingSegment && dragPlaceholderIndex >= segments.length && (
+          <div style={{
+            height: '3px',
+            margin: '2px 8px',
+            backgroundColor: '#6366f1',
+            borderRadius: '2px',
+            boxShadow: '0 0 8px rgba(99,102,241,0.6)',
+          }} />
+        )}
       </div>
 
       {/* Panel d'édition au double-clic */}
