@@ -149,11 +149,16 @@ function StoryPage() {
     if (Date.now() < ignoreAdvanceUntilRef.current) {
       return
     }
-
     if (event.target.closest('a, button, input, textarea, select, summary, [role="button"]')) {
       return
     }
-    goToNext()
+    const x = event.clientX
+    const width = window.innerWidth
+    if (x / width < 0.30) {
+      goToPrevious()
+    } else {
+      goToNext()
+    }
   }
 
   function handleTouchStart(event) {
