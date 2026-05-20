@@ -195,11 +195,20 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle' 
       className="story-reader"
       aria-live="polite"
       style={{
-        opacity: jumpPhase === 'out' || jumpPhase === 'idle' && false ? 0 : jumpPhase === 'in' ? 1 : jumpPhase === 'idle' ? 1 : 0,
-        transition: jumpPhase === 'out'
-          ? 'opacity 380ms cubic-bezier(0.4, 0, 1, 1)'
+        filter: jumpPhase === 'out'
+          ? 'blur(12px)'
           : jumpPhase === 'in'
-            ? 'opacity 900ms cubic-bezier(0.16, 1, 0.3, 1)'
+            ? 'blur(0px)'
+            : 'blur(0px)',
+        opacity: jumpPhase === 'out'
+          ? 0
+          : jumpPhase === 'in'
+            ? 1
+            : 1,
+        transition: jumpPhase === 'out'
+          ? 'filter 200ms ease-in, opacity 300ms ease-in 200ms'
+          : jumpPhase === 'in'
+            ? 'opacity 350ms ease-out, filter 700ms ease-out 200ms'
             : 'none',
       }}
     >
