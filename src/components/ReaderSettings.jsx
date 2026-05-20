@@ -23,26 +23,6 @@ export function clearProgress(storyId) {
   try { localStorage.removeItem(PROGRESS_KEY(storyId)) } catch {}
 }
 
-// ── Whoosh navigation ─────────────────────────────────────────────────────────
-const WHOOSH_COUNT = 6
-const whooshRefs = useRef([])
-useEffect(() => {
-  whooshRefs.current = Array.from({ length: WHOOSH_COUNT }, (_, i) => {
-    const a = new Audio(`/sounds/whoosh-${i + 1}.mp3`)
-    a.volume = 0.35
-    return a
-  })
-}, [])
-const lastWhooshRef = useRef(-1)
-function playWhoosh() {
-  let next
-  do { next = Math.floor(Math.random() * WHOOSH_COUNT) }
-  while (next === lastWhooshRef.current)
-  lastWhooshRef.current = next
-  const audio = whooshRefs.current[next]
-  if (audio) { audio.currentTime = 0; audio.play().catch(() => {}) }
-}
-
 // ── Icônes SVG inline ─────────────────────────────────────────────────────────
 const IconSun = () => (
   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
