@@ -829,7 +829,9 @@ function UnifiedSegmentsTimeline({
   const [selectedSoundIds, setSelectedSoundIds] = useState(new Set())
   const [editingSoundTrack, setEditingSoundTrack] = useState(null)
   const [showSoundPicker, setShowSoundPicker] = useState(false)
-  const [selectedSegmentIndex, setSelectedSegmentIndex] = useState(null)
+  // Sélection multiple de segments
+  const [selectedSegmentIndices, setSelectedSegmentIndices] = useState(new Set())
+  const selectionAnchorRef = useRef(null) // dernière ancre pour Shift+clic
   const [hoveredRow, setHoveredRow] = useState(null)
   const [hoveredSeparator, setHoveredSeparator] = useState(null)
   const [isCmdPressed, setIsCmdPressed] = useState(false)
@@ -1213,25 +1215,58 @@ function UnifiedSegmentsTimeline({
     if (onSaveToHistory) onSaveToHistory()
   }, [segments, soundTracks, onSegmentsChange, onSoundTracksChange, onSaveToHistory])
 
-  // Toolbar au clic sur un segment (mode segment entier)
-const handleSegmentClick = useCallback((index) => {
-  setSelectedSegmentIndex(index)
-  const selection = window.getSelection()
-  if (selection && !selection.isCollapsed) return
-  const row = rowRefs.current[index]
-  if (!row) return
-  const rect = row.getBoundingClientRect()
-  setFormatToolbar({
-    mode: 'segment',
-    position: { top: rect.top, left: rect.left + rect.width / 2 },
-    segmentIndex: index,
-    selectedText: null,
-  })
-}, [])
+  // Sélection avec support Cmd+clic (discontinu) et Shift+clic (plage)
+  const handleSelectSegment = useCallback((index, e) => {
+    const isCmd  = e?.metaKey || e?.ctrlKey
+    const isShift = e?.shiftKey
 
-  const handleSelectSegment = useCallback((index) => {
-  handleSegmentClick(index)
-}, [handleSegmentClick])
+    if (isCmd && !isShift) {
+      // Cmd+clic : toggle individuel
+      setSelectedSegmentIndices(prev => {
+        const next = new Set(prev)
+        if (next.has(index)) next.delete(index)
+        else next.add(index)
+        return next
+      })
+      selectionAnchorRef.current = index
+    } else if (isShift && selectionAnchorRef.current !== null) {
+      // Shift+clic : plage depuis l'ancre
+      const anchor = selectionAnchorRef.current
+      const from = Math.min(anchor, index)
+      const to   = Math.max(anchor, index)
+      // Si la cible est un chapitre, étendre jusqu'à son dernier enfant
+      let rangeTo = to
+      if (segments[to]?.isChapter === true) {
+        for (let i = to + 1; i < segments.length; i++) {
+          if (segments[i]?.isChapter === true) break
+          rangeTo = i
+        }
+      }
+      setSelectedSegmentIndices(prev => {
+        const next = new Set(prev)
+        for (let i = from; i <= rangeTo; i++) next.add(i)
+        return next
+      })
+      // ancre inchangée
+    } else {
+      // Clic simple : sélection exclusive
+      setSelectedSegmentIndices(new Set([index]))
+      selectionAnchorRef.current = index
+    }
+
+    // FormatToolbar sur le segment cliqué
+    const selection = window.getSelection()
+    if (selection && !selection.isCollapsed) return
+    const row = rowRefs.current[index]
+    if (!row) return
+    const rect = row.getBoundingClientRect()
+    setFormatToolbar({
+      mode: 'segment',
+      position: { top: rect.top, left: rect.left + rect.width / 2 },
+      segmentIndex: index,
+      selectedText: null,
+    })
+  }, [segments])
 
 // Apparition du toolbar à la sélection de texte (span normal ET textarea en édition)
 const handleTextSelection = useCallback(() => {
