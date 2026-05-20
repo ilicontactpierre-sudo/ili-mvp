@@ -353,7 +353,7 @@ function SegmentTimelineRow({
 
         {/* Numéro du segment — cliquable si chapitre pour collapse/expand */}
         <span
-          onClick={isChapter ? (e) => { e.stopPropagation(); onToggleChapter(index) } : undefined}
+          onClick={isChapter ? (e) => { e.stopPropagation(); e.preventDefault(); onToggleChapter(index, e.shiftKey) } : undefined}
           title={isChapter ? (isCollapsed ? 'Déplier les segments' : 'Replier les segments') : ''}
           style={{
             color: isChapter ? '#8B5CF6' : '#999',
