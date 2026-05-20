@@ -912,14 +912,33 @@ function UnifiedSegmentsTimeline({
   }, [segments, onSegmentsChange, onSaveToHistory])
 
   // Collapse/expand un chapitre au clic sur son numéro
-  const handleToggleChapter = useCallback((index) => {
-    setCollapsedChapters(prev => {
+  const handleToggleChapter = useCallback((index, shiftKey = false) => {
+  setCollapsedChapters(prev => {
+    const willCollapse = !prev.has(index) // ce que l'action locale ferait
+
+    if (!shiftKey) {
+      // Comportement normal : toggle uniquement ce chapitre
       const next = new Set(prev)
       if (next.has(index)) next.delete(index)
       else next.add(index)
       return next
-    })
-  }, [])
+    }
+
+    // Shift+clic : appliquer l'action locale à TOUS les chapitres
+    const allChapterIndices = segments.reduce((acc, seg, i) => {
+      if (seg?.isChapter === true) acc.push(i)
+      return acc
+    }, [])
+
+    if (willCollapse) {
+      // Fermer tous les chapitres
+      return new Set(allChapterIndices)
+    } else {
+      // Ouvrir tous les chapitres
+      return new Set()
+    }
+  })
+}, [segments])
   
 // Bascule le statut "leader" d'un segment
   const handleToggleIsLeader = useCallback((index) => {
