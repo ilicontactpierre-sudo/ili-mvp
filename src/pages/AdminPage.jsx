@@ -930,6 +930,7 @@ function AdminPage() {
             slug={storySlug}
             segments={segments}
             soundTracks={soundTracks}
+            vfxTracks={vfxTracks}
             soundLibrary={soundLibrary}
             onNewStory={handleNewStory}
             onSaveDraft={handleSaveDraft}
