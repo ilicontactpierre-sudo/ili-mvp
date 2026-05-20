@@ -120,6 +120,7 @@ function SoundBlock({
   // Gestion du drag (déplacement pour changer de colonne ET de ligne)
   // Le drag ne se déclenche qu'après un petit délai pour ne pas interférer avec le clic
   const handleMouseDown = useCallback((e) => {
+    console.log('MOUSEDOWN target:', e.target.dataset, e.target.tagName)
     if (e.button !== 0) return
     if (e.target.dataset.fadeHandle) return
     if (e.target.dataset.resizeHandle) return
