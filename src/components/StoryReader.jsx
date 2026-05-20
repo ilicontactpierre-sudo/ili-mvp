@@ -230,7 +230,13 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle' 
             ref={(node) => { segmentRefs.current[index] = node }}
             className={[
               'story-reader__segment',
-              isFocused ? 'story-reader__segment--focus' : 'story-reader__segment--blur',
+              isFocused
+                ? 'story-reader__segment--focus'
+                : Math.abs(index - currentIndex) === 1
+                  ? 'story-reader__segment--blur-near'
+                  : Math.abs(index - currentIndex) === 2
+                    ? 'story-reader__segment--blur-mid'
+                    : 'story-reader__segment--blur',
               isHidden ? 'story-reader__segment--hidden' : '',
               ...(() => {
                 if (!isFocused || !storyData?.vfxTracks) return []
