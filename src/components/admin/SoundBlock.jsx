@@ -306,15 +306,7 @@ function SoundBlock({
           }
           
           // Debug
-          console.log('Drag:', { 
-            relativeBlockY, 
-            newStartIndex, 
-            newColumn, 
-            dragStartIndex: dragStart.startSegmentIndex, 
-            dragStartColumn: dragStart.column,
-            rowHeightsSample: rowHeights.slice(0, 3), // Affiche les 3 premières hauteurs
-            minDistance
-          })
+
 
           // Note: onColumnChange et onResize sont appelés seulement au mouseup, pas pendant le drag
           // pour éviter que le bloc ne se re-rende et ne "saute"
@@ -449,7 +441,14 @@ function SoundBlock({
           onColumnChange(soundTrack.id, currentTargetCell.column)
         }
         // Appliquer les changements de ligne (segment) au moment du relâchement
-
+        console.log('MOUSEUP DEBUG:', {
+          targetCell: currentTargetCell,
+          ds_startSegmentIndex: ds.startSegmentIndex,
+          ds_column: ds.column,
+          segmentsRefLength: segmentsRef.current.length,
+          targetSegmentIndex: currentTargetCell.segmentIndex >= 0 ? currentTargetCell.segmentIndex : ds.startSegmentIndex,
+          segAtTarget: segmentsRef.current[currentTargetCell.segmentIndex],
+        })
         const targetSegmentIndex = currentTargetCell.segmentIndex >= 0 ? currentTargetCell.segmentIndex : ds.startSegmentIndex
         if (targetSegmentIndex !== ds.startSegmentIndex) {
           const segs = segmentsRef.current
