@@ -45,18 +45,26 @@ function StoryPage() {
     })
   }, [isFinished, isStarted, lastIndex, segments.length, story])
 
-  const [isJumping, setIsJumping] = useState(false)
+  const [jumpPhase, setJumpPhase] = useState('idle') // 'idle' | 'out' | 'in'
 
   const goToIndex = useCallback((index) => {
-    if (!isStarted || !segments.length || isJumping) return
+    if (!isStarted || !segments.length || jumpPhase !== 'idle') return
     const clamped = Math.max(0, Math.min(lastIndex, index))
-    setIsJumping(true)
+    // Phase 1 : fade out
+    setJumpPhase('out')
     setTimeout(() => {
+      // Phase 2 : changer le segment (invisible)
       setCurrentIndex(clamped)
       if (story?.id) saveProgress(story.id, clamped)
-      setTimeout(() => setIsJumping(false), 50)
-    }, 320)
-  }, [isStarted, segments.length, lastIndex, story, isJumping])
+      // Phase 3 : fade in lent
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          setJumpPhase('in')
+          setTimeout(() => setJumpPhase('idle'), 900)
+        })
+      })
+    }, 350)
+  }, [isStarted, segments.length, lastIndex, story, jumpPhase])
 
   const goToPrevious = useCallback(() => {
     if (!isStarted || !segments.length) {
