@@ -147,7 +147,7 @@ function playSettingsClic() {
       document.body.style.backgroundAttachment = 'fixed'
     } else if (isSynthwave) {
       root.style.setProperty('--color-bg', '#000000')
-      root.style.setProperty('--color-text-focus', '#000000')
+      root.style.setProperty('--color-text-focus', '#ffffff')
       root.style.setProperty('--color-text-blur', 'rgb(8, 51, 244)')
       root.style.setProperty('--font-primary', "'VT323', 'Courier New', monospace")
       root.style.setProperty('--blur-amount', '2px')
