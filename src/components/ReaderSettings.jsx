@@ -1,0 +1,425 @@
+import { useState, useEffect, useRef } from 'react'
+
+// ── localStorage helpers ──────────────────────────────────────────────────────
+const PROGRESS_KEY = (storyId) => `ili_progress_${storyId}`
+
+export function saveProgress(storyId, segmentIndex) {
+  try {
+    localStorage.setItem(PROGRESS_KEY(storyId), JSON.stringify({
+      segmentIndex,
+      timestamp: Date.now()
+    }))
+  } catch {}
+}
+
+export function loadProgress(storyId) {
+  try {
+    const raw = localStorage.getItem(PROGRESS_KEY(storyId))
+    return raw ? JSON.parse(raw) : null
+  } catch { return null }
+}
+
+export function clearProgress(storyId) {
+  try { localStorage.removeItem(PROGRESS_KEY(storyId)) } catch {}
+}
+
+// ── Icônes SVG inline ─────────────────────────────────────────────────────────
+const IconSun = () => (
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <circle cx="12" cy="12" r="5"/>
+    <line x1="12" y1="1" x2="12" y2="3"/>
+    <line x1="12" y1="21" x2="12" y2="23"/>
+    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+    <line x1="1" y1="12" x2="3" y2="12"/>
+    <line x1="21" y1="12" x2="23" y2="12"/>
+    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+  </svg>
+)
+
+const IconMoon = () => (
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+  </svg>
+)
+
+const IconFontSmall = () => (
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <text x="2" y="18" fontSize="14" fontFamily="serif" fill="currentColor" stroke="none">A</text>
+    <text x="13" y="14" fontSize="9" fontFamily="serif" fill="currentColor" stroke="none">A</text>
+  </svg>
+)
+
+const IconFontLarge = () => (
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <text x="1" y="18" fontSize="18" fontFamily="serif" fill="currentColor" stroke="none">A</text>
+    <text x="14" y="13" fontSize="10" fontFamily="serif" fill="currentColor" stroke="none">A</text>
+  </svg>
+)
+
+const IconList = () => (
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <line x1="8" y1="6" x2="21" y2="6"/>
+    <line x1="8" y1="12" x2="21" y2="12"/>
+    <line x1="8" y1="18" x2="21" y2="18"/>
+    <line x1="3" y1="6" x2="3.01" y2="6"/>
+    <line x1="3" y1="12" x2="3.01" y2="12"/>
+    <line x1="3" y1="18" x2="3.01" y2="18"/>
+  </svg>
+)
+
+const IconGear = () => (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <circle cx="12" cy="12" r="3"/>
+    <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+  </svg>
+)
+
+// ── Tailles de police disponibles ─────────────────────────────────────────────
+const FONT_SIZES = [
+  { label: 'XS', focus: 'clamp(1.05rem, 3.0vw, 1.45rem)', blur: 'clamp(0.95rem, 2.8vw, 1.35rem)' },
+  { label: 'S',  focus: 'clamp(1.25rem, 3.6vw, 1.7rem)',  blur: 'clamp(1.15rem, 3.3vw, 1.6rem)'  },
+  { label: 'M',  focus: 'clamp(1.45rem, 4.2vw, 2rem)',    blur: 'clamp(1.35rem, 3.9vw, 1.85rem)' }, // défaut
+  { label: 'L',  focus: 'clamp(1.65rem, 4.8vw, 2.3rem)',  blur: 'clamp(1.55rem, 4.5vw, 2.15rem)' },
+  { label: 'XL', focus: 'clamp(1.9rem, 5.5vw, 2.65rem)',  blur: 'clamp(1.8rem, 5.2vw, 2.5rem)'   },
+]
+const DEFAULT_FONT_SIZE_INDEX = 2 // M
+
+// ── Composant principal ───────────────────────────────────────────────────────
+export default function ReaderSettings({
+  storyId,
+  segments,
+  currentIndex,
+  onJumpTo,
+}) {
+  const [isOpen, setIsOpen]           = useState(false)
+  const [showChapters, setShowChapters] = useState(false)
+  const [isDark, setIsDark]           = useState(true)
+  const [fontSizeIndex, setFontSizeIndex] = useState(() => {
+    try { return parseInt(localStorage.getItem('ili_font_size') || '2') } catch { return 2 }
+  })
+  const menuRef    = useRef(null)
+  const chaptersRef = useRef(null)
+
+  // ── Appliquer le thème ──────────────────────────────────────────────────────
+  useEffect(() => {
+    const root = document.documentElement
+    if (isDark) {
+      root.style.setProperty('--color-bg', '#080809')
+      root.style.setProperty('--color-text-focus', '#ffffff')
+      root.style.setProperty('--color-text-blur', 'rgba(255, 255, 255, 0.22)')
+    } else {
+      root.style.setProperty('--color-bg', '#f5f0e8')
+      root.style.setProperty('--color-text-focus', '#1a1a18')
+      root.style.setProperty('--color-text-blur', 'rgba(26, 26, 24, 0.25)')
+    }
+  }, [isDark])
+
+  // ── Appliquer la taille de police ───────────────────────────────────────────
+  useEffect(() => {
+    const size = FONT_SIZES[fontSizeIndex]
+    const root = document.documentElement
+    root.style.setProperty('--font-size-focus', size.focus)
+    root.style.setProperty('--font-size-blur', size.blur)
+    try { localStorage.setItem('ili_font_size', String(fontSizeIndex)) } catch {}
+  }, [fontSizeIndex])
+
+  // ── Fermer si clic en dehors ────────────────────────────────────────────────
+  useEffect(() => {
+    if (!isOpen) return
+    const handleClick = (e) => {
+      if (menuRef.current && !menuRef.current.contains(e.target)) {
+        setIsOpen(false)
+        setShowChapters(false)
+      }
+    }
+    document.addEventListener('mousedown', handleClick)
+    document.addEventListener('touchstart', handleClick)
+    return () => {
+      document.removeEventListener('mousedown', handleClick)
+      document.removeEventListener('touchstart', handleClick)
+    }
+  }, [isOpen])
+
+  // ── Construire la liste chapitres + leaders ─────────────────────────────────
+  const navItems = segments
+    .map((seg, i) => {
+      if (seg.isChapter) return { index: i, type: 'chapter', text: seg.text }
+      if (seg.isLeader)  return { index: i, type: 'leader',  text: seg.text }
+      return null
+    })
+    .filter(Boolean)
+
+  const handleJump = (index) => {
+    onJumpTo(index)
+    setIsOpen(false)
+    setShowChapters(false)
+  }
+
+  // ── Styles dynamiques selon thème ──────────────────────────────────────────
+  const bg       = isDark ? 'rgba(12,12,14,0.96)' : 'rgba(245,240,232,0.97)'
+  const fg       = isDark ? 'rgba(255,255,255,0.85)' : 'rgba(26,26,24,0.85)'
+  const fgDim    = isDark ? 'rgba(255,255,255,0.35)' : 'rgba(26,26,24,0.35)'
+  const border   = isDark ? 'rgba(255,255,255,0.08)' : 'rgba(26,26,24,0.1)'
+  const hoverBg  = isDark ? 'rgba(255,255,255,0.06)' : 'rgba(26,26,24,0.06)'
+
+  return (
+    <>
+      <style>{`
+        @keyframes settings-in {
+          from { opacity: 0; transform: scale(0.92) translateY(-6px); }
+          to   { opacity: 1; transform: scale(1)    translateY(0); }
+        }
+        @keyframes chapters-in {
+          from { opacity: 0; max-height: 0; }
+          to   { opacity: 1; max-height: 360px; }
+        }
+        .rs-gear-btn {
+          position: fixed;
+          top: 16px;
+          right: 16px;
+          z-index: 8000;
+          width: 36px;
+          height: 36px;
+          border-radius: 50%;
+          border: none;
+          background: transparent;
+          color: ${isDark ? 'rgba(255,255,255,0.25)' : 'rgba(26,26,24,0.25)'};
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          transition: color 0.2s ease, transform 0.3s ease;
+          -webkit-tap-highlight-color: transparent;
+        }
+        .rs-gear-btn:hover, .rs-gear-btn.open {
+          color: ${isDark ? 'rgba(255,255,255,0.7)' : 'rgba(26,26,24,0.7)'};
+        }
+        .rs-gear-btn.open {
+          transform: rotate(45deg);
+        }
+        .rs-menu {
+          position: fixed;
+          top: 58px;
+          right: 12px;
+          z-index: 7999;
+          width: 200px;
+          background: ${bg};
+          border: 1px solid ${border};
+          border-radius: 14px;
+          box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+          animation: settings-in 0.18s cubic-bezier(0.16,1,0.3,1) both;
+          overflow: hidden;
+        }
+        .rs-section {
+          padding: 8px 6px;
+          border-bottom: 1px solid ${border};
+        }
+        .rs-section:last-child { border-bottom: none; }
+        .rs-label {
+          font-family: var(--font-logo, sans-serif);
+          font-size: 9px;
+          letter-spacing: 0.18em;
+          text-transform: uppercase;
+          color: ${fgDim};
+          padding: 4px 10px 6px;
+          display: block;
+        }
+        .rs-row {
+          display: flex;
+          align-items: center;
+          gap: 2px;
+          padding: 0 2px;
+        }
+        .rs-btn {
+          flex: 1;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          height: 40px;
+          border: none;
+          background: transparent;
+          color: ${fg};
+          border-radius: 9px;
+          cursor: pointer;
+          transition: background 0.15s ease, color 0.15s ease;
+          -webkit-tap-highlight-color: transparent;
+        }
+        .rs-btn:hover, .rs-btn.active {
+          background: ${hoverBg};
+        }
+        .rs-btn.active {
+          color: ${isDark ? '#fff' : '#1a1a18'};
+        }
+        .rs-font-label {
+          font-family: var(--font-primary, serif);
+          font-size: 13px;
+          color: ${fg};
+          font-weight: 500;
+          min-width: 22px;
+          text-align: center;
+        }
+        .rs-chapters-btn {
+          width: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 10px 12px;
+          border: none;
+          background: transparent;
+          color: ${fg};
+          border-radius: 9px;
+          cursor: pointer;
+          font-family: var(--font-logo, sans-serif);
+          font-size: 12px;
+          letter-spacing: 0.05em;
+          transition: background 0.15s ease;
+          -webkit-tap-highlight-color: transparent;
+        }
+        .rs-chapters-btn:hover { background: ${hoverBg}; }
+        .rs-chapters-list {
+          animation: chapters-in 0.25s cubic-bezier(0.16,1,0.3,1) both;
+          overflow: hidden;
+          max-height: 360px;
+          overflow-y: auto;
+          scrollbar-width: none;
+        }
+        .rs-chapters-list::-webkit-scrollbar { display: none; }
+        .rs-chapter-item {
+          display: flex;
+          align-items: baseline;
+          gap: 8px;
+          width: 100%;
+          padding: 9px 12px;
+          border: none;
+          background: transparent;
+          cursor: pointer;
+          text-align: left;
+          border-radius: 8px;
+          transition: background 0.12s ease;
+          -webkit-tap-highlight-color: transparent;
+        }
+        .rs-chapter-item:hover { background: ${hoverBg}; }
+        .rs-chapter-item.current { background: ${hoverBg}; }
+        .rs-chapter-num {
+          font-family: var(--font-logo, sans-serif);
+          font-size: 9px;
+          color: ${fgDim};
+          min-width: 18px;
+          flex-shrink: 0;
+          letter-spacing: 0.05em;
+        }
+        .rs-chapter-text {
+          font-family: var(--font-primary, serif);
+          font-size: 12px;
+          color: ${fg};
+          line-height: 1.35;
+          overflow: hidden;
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
+        }
+        .rs-chapter-text.chapter-type {
+          font-weight: 600;
+          color: ${isDark ? 'rgba(255,255,255,0.95)' : 'rgba(26,26,24,0.95)'};
+        }
+      `}</style>
+
+      {/* ── Bouton roue crantée ── */}
+      <button
+        className={`rs-gear-btn${isOpen ? ' open' : ''}`}
+        onClick={() => { setIsOpen(v => !v); setShowChapters(false) }}
+        aria-label="Paramètres de lecture"
+      >
+        <IconGear />
+      </button>
+
+      {/* ── Menu ── */}
+      {isOpen && (
+        <div ref={menuRef} className="rs-menu">
+
+          {/* Thème */}
+          <div className="rs-section">
+            <span className="rs-label">Thème</span>
+            <div className="rs-row">
+              <button
+                className={`rs-btn${isDark ? ' active' : ''}`}
+                onClick={() => setIsDark(true)}
+                title="Mode sombre"
+              >
+                <IconMoon />
+              </button>
+              <button
+                className={`rs-btn${!isDark ? ' active' : ''}`}
+                onClick={() => setIsDark(false)}
+                title="Mode clair"
+              >
+                <IconSun />
+              </button>
+            </div>
+          </div>
+
+          {/* Taille de police */}
+          <div className="rs-section">
+            <span className="rs-label">Police</span>
+            <div className="rs-row">
+              <button
+                className="rs-btn"
+                onClick={() => setFontSizeIndex(i => Math.max(0, i - 1))}
+                disabled={fontSizeIndex === 0}
+                title="Réduire"
+                style={{ opacity: fontSizeIndex === 0 ? 0.3 : 1 }}
+              >
+                <IconFontSmall />
+              </button>
+              <span className="rs-font-label">{FONT_SIZES[fontSizeIndex].label}</span>
+              <button
+                className="rs-btn"
+                onClick={() => setFontSizeIndex(i => Math.min(FONT_SIZES.length - 1, i + 1))}
+                disabled={fontSizeIndex === FONT_SIZES.length - 1}
+                title="Agrandir"
+                style={{ opacity: fontSizeIndex === FONT_SIZES.length - 1 ? 0.3 : 1 }}
+              >
+                <IconFontLarge />
+              </button>
+            </div>
+          </div>
+
+          {/* Navigation chapitres */}
+          {navItems.length > 0 && (
+            <div className="rs-section">
+              <button
+                className="rs-chapters-btn"
+                onClick={() => setShowChapters(v => !v)}
+              >
+                <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                  <IconList />
+                  <span>Navigation</span>
+                </span>
+                <span style={{ fontSize: 10, opacity: 0.5 }}>{showChapters ? '▲' : '▼'}</span>
+              </button>
+              {showChapters && (
+                <div ref={chaptersRef} className="rs-chapters-list">
+                  {navItems.map((item) => (
+                    <button
+                      key={item.index}
+                      className={`rs-chapter-item${item.index === currentIndex ? ' current' : ''}`}
+                      onClick={() => handleJump(item.index)}
+                    >
+                      <span className="rs-chapter-num">{item.index + 1}</span>
+                      <span className={`rs-chapter-text${item.type === 'chapter' ? ' chapter-type' : ''}`}>
+                        {item.text?.slice(0, 60)}{item.text?.length > 60 ? '…' : ''}
+                      </span>
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
+
+        </div>
+      )}
+    </>
+  )
+}
