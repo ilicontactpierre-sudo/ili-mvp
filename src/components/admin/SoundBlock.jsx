@@ -448,6 +448,14 @@ function SoundBlock({
         }
         // Appliquer les changements de ligne (segment) au moment du relâchement
         const targetSegmentIndex = currentTargetCell.segmentIndex >= 0 ? currentTargetCell.segmentIndex : ds.startSegmentIndex
+        console.log('MOUSEUP DEBUG:', {
+  targetCell: currentTargetCell,
+  ds_startSegmentIndex: ds.startSegmentIndex,
+  ds_column: ds.column,
+  segmentsRefLength: segmentsRef.current.length,
+  targetSegmentIndex: currentTargetCell.segmentIndex >= 0 ? currentTargetCell.segmentIndex : ds.startSegmentIndex,
+  segAtTarget: segmentsRef.current[currentTargetCell.segmentIndex],
+})
         if (targetSegmentIndex !== ds.startSegmentIndex) {
           const segs = segmentsRef.current
           const newStartSegmentId = segs[targetSegmentIndex]?.id 
