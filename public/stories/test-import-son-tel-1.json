@@ -1,0 +1,49 @@
+{
+  "id": "test-import-son-tel-1",
+  "title": "test import son tel 1",
+  "author": "test import son tel 1",
+  "published": true,
+  "sounds": [
+    {
+      "id": "fx_sonnerie_te_le_phone_a_cadence",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/fx_sonnerie_te_le_phone_a_cadence.mp3",
+      "loop": false
+    }
+  ],
+  "segments": [
+    {
+      "lines": [
+        "azea"
+      ],
+      "text": "azea",
+      "breakAt": null,
+      "isLeader": false,
+      "id": "seg_0",
+      "audioEvents": [
+        {
+          "action": "play",
+          "soundId": "fx_sonnerie_te_le_phone_a_cadence",
+          "volume": 0.5,
+          "delay": 0,
+          "loop": false
+        }
+      ]
+    }
+  ],
+  "soundTracks": [
+    {
+      "id": "st_1779353833948_f7eadj34r",
+      "soundId": "fx_sonnerie_te_le_phone_a_cadence",
+      "startSegmentId": "segment_0",
+      "endSegmentId": "segment_0",
+      "column": 0,
+      "volume": 0.5,
+      "fadeIn": 0,
+      "fadeOut": 0,
+      "delay": 0,
+      "loop": false,
+      "muted": false
+    }
+  ],
+  "vfxTracks": []
+}
