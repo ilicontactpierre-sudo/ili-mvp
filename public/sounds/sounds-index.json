@@ -5,12 +5,27 @@
     "relativePath": "02_COMMISSARIAT_-_Tic-Tac_umaxtk.mp3",
     "label": "02 COMMISSARIAT Tic Tac Umaxtk",
     "categories": [],
-    "tags": ["horloge", "tic-tac", "mécanique", "temps", "suspense", "tension", "ambience", "boucle", "heure", "minuterie", "compte à rebours", "suspense", "anticipation"],
+    "tags": [
+      "horloge",
+      "tic-tac",
+      "mécanique",
+      "temps",
+      "suspense",
+      "tension",
+      "ambience",
+      "boucle",
+      "heure",
+      "minuterie",
+      "compte à rebours",
+      "suspense",
+      "anticipation"
+    ],
     "mood": [],
     "loop": false,
     "duration": 0,
     "intensity": "moyenne",
-    "tempo": "moyen"
+    "tempo": "moyen",
+    "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/02_COMMISSARIAT_-_Tic-Tac_umaxtk.mp3"
   },
   {
     "id": "11_CONTINES_-_Sweep_eqnvoh",
@@ -18,12 +33,23 @@
     "relativePath": "11_CONTINES_-_Sweep_eqnvoh.mp3",
     "label": "11 CONTINES Sweep Eqnvoh",
     "categories": [],
-    "tags": ["whoosh", "vent", "mouvement", "transition", "ambiance", "suspense", "tension", "dynamique", "anticipation"],
+    "tags": [
+      "whoosh",
+      "vent",
+      "mouvement",
+      "transition",
+      "ambiance",
+      "suspense",
+      "tension",
+      "dynamique",
+      "anticipation"
+    ],
     "mood": [],
     "loop": false,
     "duration": 0,
     "intensity": "moyenne",
-    "tempo": "moyen"
+    "tempo": "moyen",
+    "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/11_CONTINES_-_Sweep_eqnvoh.mp3"
   },
   {
     "id": "12_LISE_-_Oiseaux_enz7jr",
@@ -31,11 +57,23 @@
     "relativePath": "12_LISE_-_Oiseaux_enz7jr.mp3",
     "label": "12 LISE Oiseaux Enz7jr",
     "categories": [],
-    "tags": ["oiseaux", "nature", "ambiance", "tranquillité", "chant", "vol", "environnement", "sonore", "naturel", "paisible"],
+    "tags": [
+      "oiseaux",
+      "nature",
+      "ambiance",
+      "tranquillité",
+      "chant",
+      "vol",
+      "environnement",
+      "sonore",
+      "naturel",
+      "paisible"
+    ],
     "mood": [],
     "loop": false,
     "duration": 0,
     "intensity": "moyenne",
-    "tempo": "moyen"
+    "tempo": "moyen",
+    "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/12_LISE_-_Oiseaux_enz7jr.mp3"
   }
 ]
