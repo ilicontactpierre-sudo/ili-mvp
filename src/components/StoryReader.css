@@ -64,3 +64,64 @@
   opacity: 0 !important;
   pointer-events: none;
 }
+
+/* ── CHAPITRE ACTIF : centré, légèrement au-dessus du milieu ── */
+.story-reader__chapter-center {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 25%;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.story-reader__chapter-center-text {
+  font-size: 1.4rem;
+  font-weight: 700;
+  text-align: center;
+  padding: 0 24px;
+  color: var(--color-text-primary, #fff);
+}
+
+/* ── STICKY CHAPTER : en haut, uniquement au segment +1 ── */
+.story-reader__chapter-sticky {
+  position: relative;
+  width: 100%;
+  padding: 16px 24px 12px;
+  text-align: center;
+  flex-shrink: 0;
+  z-index: 10;
+  animation: chapterStickyIn 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.story-reader__chapter-sticky-text {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  color: var(--color-text-primary, #fff);
+  opacity: 0.75;
+}
+
+.story-reader__chapter-sticky-line {
+  position: absolute;
+  bottom: 0;
+  left: 24px;
+  right: 24px;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.35;
+}
+
+@keyframes chapterStickyIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── TRACK caché quand chapitre actif ── */
+.story-reader__track--hidden {
+  visibility: hidden;
+  pointer-events: none;
+}
