@@ -730,7 +730,7 @@ function SegmentTimelineRow({
         {/* Blocs VFX pour cette ligne */}
         {(vfxTracks || [])
           .filter(track => {
-            const si = segments.findIndex(s => s.id === track.startSegmentId || s._id === track.startSegmentId)
+            const si = getSegmentIndexFromId(track.startSegmentId)
             return si === index
           })
           .map(track => (
