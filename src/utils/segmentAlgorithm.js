@@ -1009,6 +1009,7 @@ if (breakAt !== null) {
   console.log('BREAK AT', segIndex, breakAt, text.length, text.substring(0, 40))
 }
       return { 
+        id: `seg_${segIndex}_${text.length}`,
         lines, 
         text, 
         breakAt, 

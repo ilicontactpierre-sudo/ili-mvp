@@ -109,8 +109,9 @@ function SoundLibraryPicker({
   }
 
   const handleAddSound = (sound) => {
-    const effectiveSegmentId = (segmentIndex !== undefined && segments[segmentIndex])
-      ? (segments[segmentIndex].id || segments[segmentIndex]._id || `segment_${segmentIndex}`)
+    const seg = segments[segmentIndex]
+    const effectiveSegmentId = (segmentIndex !== undefined && seg)
+      ? (seg.id || seg._id || `seg_${segmentIndex}`)
       : null
     if (!effectiveSegmentId) { console.error('Segment cible introuvable'); return }
 
