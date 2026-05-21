@@ -183,8 +183,9 @@ function SoundImporter({ adminPassword, onSoundsImported, onClose }) {
     let mp3Buffer
     const isAlreadyMp3 = /\.mp3$/i.test(file.name)
     if (isAlreadyMp3) {
-      // Réutiliser le fichier original
-      mp3Buffer = new Uint8Array(arrayBuffer)
+      // Relire le fichier (arrayBuffer est détaché après decodeAudioData)
+      const freshBuffer = await file.arrayBuffer()
+      mp3Buffer = new Uint8Array(freshBuffer)
     } else {
       updateEntry(index, { progress: 30 })
       mp3Buffer = await encodeToMp3(audioBuffer, BITRATE)
