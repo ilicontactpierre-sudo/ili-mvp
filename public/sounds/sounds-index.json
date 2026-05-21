@@ -75,5 +75,26 @@
     "intensity": "moyenne",
     "tempo": "moyen",
     "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/12_LISE_-_Oiseaux_enz7jr.mp3"
+  },
+  {
+    "id": "fx_sonnerie_te_le_phone_a_cadence",
+    "filename": "fx_sonnerie_te_le_phone_a_cadence.mp3",
+    "relativePath": "fx_sonnerie_te_le_phone_a_cadence.mp3",
+    "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/fx_sonnerie_te_le_phone_a_cadence.mp3",
+    "label": "FX Sonnerie téléphone à cadence",
+    "categories": [],
+    "tags": [
+      "sonnerie",
+      "téléphone",
+      "cadence"
+    ],
+    "mood": [],
+    "loop": false,
+    "duration": 5.2,
+    "intensity": "moyenne",
+    "tempo": "moyen",
+    "channels": 2,
+    "bitrate": 128,
+    "importedAt": "2026-05-21T08:55:56.164Z"
   }
 ]
