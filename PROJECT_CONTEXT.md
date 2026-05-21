@@ -1,141 +1,146 @@
-# PROJECT_CONTEXT — ILi MVP
+# ILi MVP - Contexte Projet
 
 ## 1. Stack Technique
 
-| Couche | Technologie | Version |
-|--------|-------------|---------|
-| **Frontend** | React | 19.2.6 |
-| **Bundler** | Vite | 8.0.12 |
-| **Routing** | React Router DOM | 7.15.0 |
-| **Audio** | Howler.js | 2.2.4 |
-| **Hébergement** | Vercel (SPA rewrite) | — |
-| **CI/CD** | Git → Vercel (auto-deploy) | — |
-
-**Pas de backend** — application 100% frontend, données statiques (fichiers JSON dans `/public`).
-
----
+| Couche | Technologie | Version/Détails |
+|--------|-------------|-----------------|
+| **Frontend** | React + Vite | v18+, Vite 5.x |
+| **Backend** | Node.js (Serverless) | Vercel Functions |
+| **Base de données** | Supabase | PostgreSQL + Storage |
+| **Hébergement** | Vercel | CI/CD via GitHub |
+| **Bundler** | Vite | Configuration dans `vite.config.js` |
 
 ## 2. Structure des Fichiers
 
 ```
 ili-mvp/
-├── public/
-│   ├── stories/           # Fichiers JSON des histoires
-│   │   ├── index.json     # Catalogue des histoires
-│   │   └── *.json         # Données de chaque histoire
-│   ├── sounds/            # Sons locaux
-│   │   ├── sounds-index.json  # Index des sons
-│   │   └── *.mp3
-│   └── icons.svg
+├── api/                    # Fonctions serverless Vercel
+│   ├── upload-audio.js    # Upload audio stories
+│   ├── upload-sound.js    # Upload sons bibliothèque
+│   ├── delete.js          # Suppression
+│   └── publish.js         # Publication
+├── public/                # Assets statiques
+│   ├── sounds/            # Sons locaux (whoosh, clics, etc.)
+│   └── stories/           # Stories JSON (dev/test)
+├── scripts/               # Scripts utilitaires
+│   ├── audio-dictionary.js
+│   ├── generateSoundsIndex.js
+│   └── migrate-sounds-to-supabase.js
 ├── src/
-│   ├── pages/             # Routes principales
-│   │   ├── HomePage.jsx   # /
-│   │   ├── StoryPage.jsx  # /lire/:storyId
-│   │   └── AdminPage.jsx  # /admin
 │   ├── components/
-│   │   ├── admin/         # Éditeur d'histoires
-│   │   ├── StoryReader.jsx # Lecteur d'histoires
-│   │   └── ...
+│   │   ├── admin/         # Interface administration
+│   │   │   ├── SoundBlock.jsx
+│   │   │   ├── VfxBlock.jsx
+│   │   │   ├── UnifiedSegmentsTimeline.jsx
+│   │   │   ├── SoundImporter.jsx
+│   │   │   └── PublishPanel.jsx
+│   │   ├── StoryReader.jsx    # Lecteur stories
+│   │   ├── ReaderSettings.jsx # Paramètres lecture
+│   │   └── StartScreen.jsx
 │   ├── engine/            # Moteurs métier
-│   │   ├── AudioEngine.js # Gestion audio (Howler)
-│   │   └── HapticEngine.js # Vibrations
-│   └── utils/             # Helpers
-├── api/                   # Serverless functions (Vercel)
-│   ├── delete.js
-│   └── publish.js
-├── vite.config.js
-├── vercel.json            # SPA rewrite
+│   │   ├── AudioEngine.js     # Gestion audio
+│   │   └── HapticEngine.js    # Retours haptiques
+│   ├── pages/             # Routes principales
+│   │   ├── HomePage.jsx
+│   │   ├── StoryPage.jsx
+│   │   └── AdminPage.jsx
+│   ├── utils/
+│   │   ├── renderMarkdown.jsx
+│   │   └── segmentAlgorithm.js
+│   ├── styles/
+│   │   ├── global.css
+│   │   └── vfx.css
+│   ├── App.jsx
+│   └── main.jsx
+├── .env                   # Variables d'environnement
+├── vite.config.js         # Config Vite
+├── vercel.json            # Config Vercel
 └── package.json
 ```
 
----
+## 3. Flux de Données Principal
 
-## 3. Flux de Données
-
-### Lecture d'une histoire
+### Navigation
 ```
-User → HomePage (liste depuis /stories/index.json)
-     → StoryPage (/lire/:id)
-        → Fetch /stories/:id.json
-        → StoryReader affiche segments
-        → AudioEngine exécute audioEvents (fadeIn, play, fadeOut)
+HomePage → StoryPage (lecture) ou AdminPage (création)
 ```
 
-### Création (Admin)
-```
-AdminPage → DraftManager (brouillons localStorage)
-          → UnifiedSegmentsTimeline (édition segments)
-          → PublishPanel → publish.sh → commit Git → Vercel deploy
-```
+### Lecture d'une story
+1. `StoryPage` charge le JSON depuis `public/stories/` ou Supabase
+2. `StoryReader` affiche le contenu segmenté
+3. `AudioEngine` gère la lecture audio synchronisée
+4. `HapticEngine` fournit les retours haptiques
 
-### Auth
-**Aucune authentification** — l'admin est accessible publiquement (à sécuriser).
+### Création d'une story (Admin)
+1. `AdminPage` → éditeur avec `SoundBlock`, `VfxBlock`
+2. Upload audio via `api/upload-audio.js` → Supabase Storage
+3. Upload sons via `api/upload-sound.js` → Supabase Storage
+4. Publication via `api/publish.js`
 
----
+### Authentification
+- **Non implémentée** dans le MVP actuel
+- Prévu : Supabase Auth
 
-## 4. Points Sensibles
+## 4. Points Sensibles Connus
 
-### Fichiers de config critiques
+### Fichiers de Configuration Critiques
 | Fichier | Rôle |
 |---------|------|
-| `vite.config.js` | Build SPA React |
-| `vercel.json` | Rewrite URL → index.html (SPA routing) |
-| `package.json` | Scripts + dépendances |
+| `vite.config.js` | Build frontend, proxy API en dev |
+| `vercel.json` | Rewrites API → functions serverless |
+| `.env` | URLs Supabase, clés API |
 
-### Local vs Production
+### Différences Local vs Production
 | Aspect | Local | Production |
 |--------|-------|------------|
-| Serveur | Vite dev server (:5173) | Vercel CDN |
-| Stories | `/public/stories/*.json` | Idem (servi par Vercel) |
-| Sons | Locaux (`/sounds/`) ou Cloudinary | Cloudinary (URLs externes) |
+| **API** | Proxy Vite (`/api` → `localhost:3000/api`) | Vercel Functions |
+| **Stories** | `public/stories/*.json` | Supabase Storage |
+| **Sons** | `public/sounds/` + Supabase | Supabase Storage uniquement |
 
-### Assets statiques
-- **Servis depuis** : `/public/` → racine du site
-- **Stories** : JSON statiques, pas de base de données
-- **Sons** : mix local (`/sounds/`) + Cloudinary (CDN)
+### Assets Statiques
+- **Servis depuis** : `public/` (Vercel CDN)
+- **Sons locaux** : `public/sounds/` (clics, whoosh, effets UI)
+- **Stories dev** : `public/stories/*.json` (tests uniquement)
 
-### Médias
-| Type | Pipeline | Formats | CDN |
-|------|----------|---------|-----|
-| Audio | Upload manuel → `/public/sounds/` ou Cloudinary | MP3 | Cloudinary oui |
-| Images | Asset dans `/src/assets/` ou URLs externes | PNG, SVG | Non |
-| Vidéo | Non supporté | — | — |
+### Gestion des Fichiers Médias
+| Type | Pipeline | Formats | Stockage |
+|------|----------|---------|----------|
+| **Audio stories** | Upload → Supabase Storage | MP3, WAV | Supabase |
+| **Sons bibliothèque** | Upload → Supabase Storage | MP3 | Supabase |
+| **Effets UI** | Commit dans `public/sounds/` | MP3 | Vercel CDN |
+| **Images** | Assets dans `src/assets/` | PNG, SVG | Vercel CDN |
 
----
+**Pas de CDN externe** (tout via Vercel + Supabase).
 
 ## 5. Commandes Clés
 
 ```bash
-npm run dev        # Dev server (Vite :5173)
-npm run build      # Build production → /dist
-npm run preview    # Preview build local
-npm run lint       # ESLint
-npm run add-sound  # Génère sounds-index.json
-npm run publish    # bash publish.sh (commit + push)
+# Développement
+npm run dev
+
+# Build production
+npm run build
+
+# Preview build local
+npm run preview
+
+# Lint
+npm run lint
 ```
 
----
+**Déploiement** : Push sur `main` → Vercel auto-deploy
 
 ## 6. Variables d'Environnement
 
-**Aucune variable requise** pour le fonctionnement de base.
-
-Variables optionnelles (si `.env` présent) :
-- `VITE_*` — variables exposées au frontend (préfixe obligatoire Vite)
+```
+VITE_SUPABASE_URL
+VITE_SUPABASE_ANON_KEY
+SUPABASE_SERVICE_ROLE_KEY
+SUPABASE_URL
+```
 
 ---
 
-## 7. Architecture Résumé
-
-```
-┌─────────────────────────────────────────────────────┐
-│                    ILi MVP                          │
-│  Application de lecture d'histoires interactives    │
-│  avec synchronisation audio/haptique                │
-├─────────────────────────────────────────────────────┤
-│  Frontend : React 19 + Vite 8                       │
-│  Données  : JSON statiques (/public/stories/)       │
-│  Audio    : Howler.js + AudioEngine personnalisé    │
-│  Déploiement : Vercel (push Git = deploy auto)      │
-│  Pas de backend, pas de BDD, pas d'auth             │
-└─────────────────────────────────────────────────────┘
+**Objectif** : Application de création et lecture de stories interactives multi-sensorielles (audio, haptique, visuel).
+**Public** : Enfants/apprenants en lecture.
+**MVP** : Fonctionnel, auth et features avancées à venir.
