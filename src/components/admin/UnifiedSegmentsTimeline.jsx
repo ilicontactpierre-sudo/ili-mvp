@@ -997,7 +997,8 @@ function UnifiedSegmentsTimeline({
 
   const handleAddVfxToCell = useCallback((segmentIndex, column) => {
     if (!onVfxTracksChange) return
-    const segId  = segments[segmentIndex]?.id || segments[segmentIndex]?._id
+    const seg = segments[segmentIndex]
+    const segId = seg?.id || seg?._id || `seg_${segmentIndex}`
     const track  = createVfxTrack('shake', segId, column)
     onVfxTracksChange([...vfxTracks, track])
     if (onSaveToHistory) onSaveToHistory()
