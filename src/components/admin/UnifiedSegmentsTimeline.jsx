@@ -825,6 +825,8 @@ function UnifiedSegmentsTimeline({
   onSoundTracksChange,
   onVfxTracksChange,
   onSaveToHistory
+  adminPassword,        // ← ajouter
+  onSoundsImported,
 }) {
   const [selectedSoundIds, setSelectedSoundIds] = useState(new Set())
   const [editingSoundTrack, setEditingSoundTrack] = useState(null)
