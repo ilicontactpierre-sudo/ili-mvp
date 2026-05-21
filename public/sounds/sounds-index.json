@@ -77,17 +77,14 @@
     "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/12_LISE_-_Oiseaux_enz7jr.mp3"
   },
   {
+{
     "id": "fx_sonnerie_te_le_phone_a_cadence",
     "filename": "fx_sonnerie_te_le_phone_a_cadence.mp3",
     "relativePath": "fx_sonnerie_te_le_phone_a_cadence.mp3",
     "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/fx_sonnerie_te_le_phone_a_cadence.mp3",
-    "label": "FX Sonnerie téléphone à cadence",
+    "label": "FX Sonnerie téléphone à cadence",
     "categories": [],
-    "tags": [
-      "sonnerie",
-      "téléphone",
-      "cadence"
-    ],
+    "tags": ["sonnerie", "téléphone", "cadence"],
     "mood": [],
     "loop": false,
     "duration": 5.2,
@@ -96,5 +93,60 @@
     "channels": 2,
     "bitrate": 128,
     "importedAt": "2026-05-21T08:56:53.000Z"
+  },
+  {
+    "id": "bt_boing_pipe_in_water",
+    "filename": "BT BOING Pipe In Water.mp3",
+    "label": "BT BOING Pipe In Water",
+    "description": "",
+    "tags": [],
+    "category": "Autre",
+    "categories": ["Autre"],
+    "mood": [],
+    "loop": false,
+    "duration": 9.8,
+    "intensity": "moyenne",
+    "tempo": "moyen",
+    "url": "",
+    "boomCategory": "",
+    "boomSubcategory": "",
+    "library": "BOOM Library"
+  },
+  {
+    "id": "mafck_fire_whoosh_torch",
+    "filename": "MAFCK FIRE Whoosh Torch.mp3",
+    "label": "MAFCK FIRE Whoosh Torch",
+    "description": "BURNING SWOOSH Medium attack, low noise sweeping, swooshing past. Flaring. Fast decay.",
+    "tags": [],
+    "category": "Autre",
+    "categories": ["Autre"],
+    "mood": [],
+    "loop": false,
+    "duration": 16.5,
+    "intensity": "moyenne",
+    "tempo": "moyen",
+    "url": "",
+    "boomCategory": "Magic",
+    "boomSubcategory": "",
+    "library": "BOOM Library"
+  },
+  {
+    "id": "woodmvmt_matchbox_rattle_01_b00m_one",
+    "filename": "WOODMvmt_Matchbox Rattle 01_B00M_ONE.mp3",
+    "label": "Matchbox Rattle 01",
+    "description": "Shaking matchbox",
+    "tags": ["matches inside rattling. matchbox", "rattle", "shaking", "handling", "turn", "matchsticks"],
+    "category": "SFX",
+    "categories": ["SFX"],
+    "mood": [],
+    "loop": false,
+    "duration": 8.8,
+    "intensity": "moyenne",
+    "tempo": "moyen",
+    "url": "",
+    "boomCategory": "WOOD",
+    "boomSubcategory": "MOVEMENT",
+    "library": "BOOM ONE"
+  }
   }
 ]
