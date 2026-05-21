@@ -687,8 +687,8 @@ function SegmentTimelineRow({
         {/* Grille VFX */}
         {Array.from({ length: VFX_COLUMN_COUNT }).map((_, colIndex) => {
           const hasVfx = (vfxTracks || []).some(track => {
-            const si = segments.findIndex(s => s.id === track.startSegmentId || s._id === track.startSegmentId)
-            const ei = segments.findIndex(s => s.id === track.endSegmentId   || s._id === track.endSegmentId)
+            const si = getSegmentIndexFromId(track.startSegmentId)
+            const ei = getSegmentIndexFromId(track.endSegmentId)
             const te = ei !== -1 ? ei : si
             return track.column === colIndex && si <= index && te >= index
           })
