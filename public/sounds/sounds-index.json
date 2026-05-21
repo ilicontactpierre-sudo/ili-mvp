@@ -77,7 +77,7 @@
     "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/12_LISE_-_Oiseaux_enz7jr.mp3"
   },
   {
-{
+
     "id": "fx_sonnerie_te_le_phone_a_cadence",
     "filename": "fx_sonnerie_te_le_phone_a_cadence.mp3",
     "relativePath": "fx_sonnerie_te_le_phone_a_cadence.mp3",
@@ -148,5 +148,5 @@
     "boomSubcategory": "MOVEMENT",
     "library": "BOOM ONE"
   }
-  }
+  
 ]
