@@ -1,0 +1,74 @@
+{
+  "id": "test-poign",
+  "title": "test poignéé",
+  "author": "test poignéé",
+  "published": true,
+  "sounds": [
+    {
+      "id": "02_COMMISSARIAT_-_Tic-Tac_umaxtk",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/02_COMMISSARIAT_-_Tic-Tac_umaxtk.mp3",
+      "loop": false
+    },
+    {
+      "id": "mafck_fire_whoosh_torch",
+      "url": "/sounds/MAFCK FIRE Whoosh Torch.mp3",
+      "loop": false
+    }
+  ],
+  "segments": [
+    {
+      "id": "seg_0_245",
+      "text": "CH-DS HIT Boom 01.wavCH-DS HIT Boom 01.wavCH-DS HIT Boom 01.wavCH-DS HIT Boom 01.wavCH-DS HIT Boom 01.wavCH-DS HIT Boom 01.wavCH-DS HIT Boom 01.wavCH-DS HIT Boom 01.wavCH-DS HIT Boom 01.wavCH-DS HIT Boom 01.wavCH-DS HIT Boom 01.wavCH-DS HIT Boom",
+      "audioEvents": [
+        {
+          "action": "play",
+          "soundId": "02_COMMISSARIAT_-_Tic-Tac_umaxtk",
+          "volume": 0.5,
+          "delay": 0,
+          "loop": false
+        },
+        {
+          "action": "play",
+          "soundId": "mafck_fire_whoosh_torch",
+          "volume": 0.5,
+          "delay": 0,
+          "loop": false
+        }
+      ]
+    },
+    {
+      "id": "seg_1_174",
+      "text": "01.wavCH-DS HIT Boom 01.wavCH-DS HIT Boom 01.wavCH-DS HIT Boom 01.wavCH-DS HIT Boom 01.wavCH-DS HIT Boom 01.wavCH-DS HIT Boom 01.wavCH-DS HIT Boom 01.wavCH-DS HIT Boom 01.wav",
+      "audioEvents": []
+    }
+  ],
+  "soundTracks": [
+    {
+      "id": "st_1779390322720_tf0rlcmga",
+      "soundId": "02_COMMISSARIAT_-_Tic-Tac_umaxtk",
+      "startSegmentId": "seg_0_245",
+      "endSegmentId": "seg_1_174",
+      "column": 0,
+      "volume": 0.5,
+      "fadeIn": 0,
+      "fadeOut": 0,
+      "delay": 0,
+      "loop": false,
+      "muted": false
+    },
+    {
+      "id": "st_1779390356249_bxl7pins5",
+      "soundId": "mafck_fire_whoosh_torch",
+      "startSegmentId": "seg_0_245",
+      "endSegmentId": "seg_1_174",
+      "column": 1,
+      "volume": 0.5,
+      "fadeIn": 0,
+      "fadeOut": 0,
+      "delay": 0,
+      "loop": false,
+      "muted": false
+    }
+  ],
+  "vfxTracks": []
+}
