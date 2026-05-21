@@ -915,6 +915,13 @@ function AdminPage() {
                         onSoundTracksChange={setSoundTracks}
                         onVfxTracksChange={setVfxTracks}
                         onSaveToHistory={() => saveToHistory(segments)}
+                        adminPassword={password}
+                        onSoundsImported={(newSounds) => {
+                          fetch('/sounds/sounds-index.json')
+                            .then(res => res.json())
+                            .then(data => setSoundLibrary(data))
+                            .catch(err => console.error('Erreur rechargement bibliothèque:', err))
+                        }}
                       />
                     </div>
                   </div>
