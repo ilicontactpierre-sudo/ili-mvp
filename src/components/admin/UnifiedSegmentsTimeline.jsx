@@ -2017,6 +2017,10 @@ const handleTextSelection = useCallback(() => {
           segmentIndex={showSoundPicker.segmentIndex}
           segmentId={showSoundPicker.segmentId}
           column={showSoundPicker.column}
+          adminPassword={adminPassword}
+          onSoundsImported={(newSounds) => {
+            if (onSoundsImported) onSoundsImported(newSounds)
+          }}
           onAddSound={(soundData) => {
             console.log('onAddSound called with soundData:', soundData)
             console.log('showSoundPicker was:', showSoundPicker)
