@@ -197,18 +197,24 @@ function SoundImporter({ adminPassword, onSoundsImported, onClose }) {
     const slug = slugify(file.name)
     const filename = `${slug}.mp3`
 
-    // 5. Upload vers Supabase Storage
+    // 5. Upload vers Supabase via Vercel Function (service_role key côté serveur)
     const blob = new Blob([mp3Buffer], { type: 'audio/mpeg' })
-    const { error: uploadError } = await supabase.storage
-      .from('sounds')
-      .upload(filename, blob, { contentType: 'audio/mpeg', upsert: true })
-    if (uploadError) throw new Error(`Upload Supabase : ${uploadError.message}`)
+    const formData = new FormData()
+    formData.append('file', blob, filename)
+    formData.append('password', adminPassword)
+    formData.append('filename', filename)
+
+    const uploadRes = await fetch('/api/upload-audio', {
+      method: 'POST',
+      body: formData,
+    })
+    if (!uploadRes.ok) {
+      const uploadErr = await uploadRes.json()
+      throw new Error(`Upload Supabase : ${uploadErr.error}`)
+    }
+    const { publicUrl } = await uploadRes.json()
     if (abortRef.current) throw new Error('Annulé')
     updateEntry(index, { progress: 85 })
-
-    // 6. Récupérer l'URL publique
-    const { data: urlData } = supabase.storage.from('sounds').getPublicUrl(filename)
-    const publicUrl = urlData.publicUrl
 
     // 7. Construire l'entrée sounds-index
     const soundEntry = {
