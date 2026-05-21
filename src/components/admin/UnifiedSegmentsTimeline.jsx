@@ -255,7 +255,7 @@ function SegmentTimelineRow({
     if (idx !== -1) return idx
     
     // Fallback: si segmentId est au format "segment_N", utiliser N comme index
-    const match = segmentId?.match(/^segment_(\d+)$/)
+    const match = segmentId?.match(/^seg(?:ment)?_(\d+)$/)
     if (match) {
       const index = parseInt(match[1], 10)
       if (index >= 0 && index < segments.length) return index
