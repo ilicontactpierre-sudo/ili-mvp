@@ -9,12 +9,6 @@
  */
 
 import { useState, useRef, useCallback } from 'react'
-import { createClient } from '@supabase/supabase-js'
-
-const supabase = createClient(
-  import.meta.env.VITE_SUPABASE_URL,
-  import.meta.env.VITE_SUPABASE_ANON_KEY
-)
 
 const BITRATE = 128 // kbps — bon compromis qualité/poids pour ambiances stéréo
 const MAX_FILE_SIZE_MB = 150
