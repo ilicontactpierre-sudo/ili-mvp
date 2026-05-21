@@ -419,12 +419,11 @@ function SoundBlock({
           const currentStartIdx = segs.findIndex(s => s.id === soundTrack.startSegmentId || s._id === soundTrack.startSegmentId)
           const currentEndIdx = segs.findIndex(s => s.id === soundTrack.endSegmentId || s._id === soundTrack.endSegmentId)
           const currentEndIndex = currentEndIdx !== -1 ? currentEndIdx : currentStartIdx
-          const newStartSegmentId = segs[targetSegmentIndex]?.id || segs[targetSegmentIndex]?._id
-          console.log('SEG AT TARGET:', segs[targetSegmentIndex], 'keys:', segs[targetSegmentIndex] ? Object.keys(segs[targetSegmentIndex]) : 'undefined')
+          const getSegId = (seg, idx) => seg?.id || seg?._id || `seg_${idx}`
+          const newStartSegmentId = getSegId(segs[targetSegmentIndex], targetSegmentIndex)
           const offset = currentEndIndex - ds.startSegmentIndex
-          const newEndIndex = Math.min(segs.length - 1, targetSegmentIndex + offset)
-          const newEndSegmentId = segs[newEndIndex]?.id || segs[newEndIndex]?._id
-          console.log('RESIZE CALL:', { newStartSegmentId, newEndSegmentId, targetSegmentIndex, newEndIndex })
+          const newEndIndex = Math.min(segs.length - 1, Math.max(0, targetSegmentIndex + offset))
+          const newEndSegmentId = getSegId(segs[newEndIndex], newEndIndex)
           onResize(soundTrack.id, newStartSegmentId, newEndSegmentId)
         
         }
