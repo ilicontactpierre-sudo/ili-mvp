@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import StoryMenu from '../components/StoryMenu';
+import ReaderSettings from '../components/ReaderSettings.jsx'
 
 function HomePage() {
   const [phase, setPhase] = useState('idle'); // idle | bumping | transitioning | open
@@ -115,6 +116,9 @@ function HomePage() {
           onClose={handleClose}
           onDeleteStory={handleDeleteStory}
         />
+      )}
+      {isOpen && (
+        <ReaderSettings />
       )}
     </div>
   );
