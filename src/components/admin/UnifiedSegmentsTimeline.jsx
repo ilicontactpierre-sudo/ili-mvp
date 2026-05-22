@@ -843,6 +843,7 @@ function UnifiedSegmentsTimeline({
   const [editTexts, setEditTexts] = useState({})
   const [measuredRowHeights, setMeasuredRowHeights] = useState([])
   const [isAnyBlockDragging, setIsAnyBlockDragging] = useState(false)
+  const [isResizingBlock, setIsResizingBlock] = useState(false)
   const [dragTargetCell, setDragTargetCell] = useState({ segmentIndex: -1, column: -1 })
   // ── États VFX ──────────────────────────────────────────────
   const [selectedVfxIds, setSelectedVfxIds]     = useState(new Set())
