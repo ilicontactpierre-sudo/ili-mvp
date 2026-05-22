@@ -5,13 +5,13 @@
   "published": true,
   "sounds": [
     {
-      "id": "12_LISE_-_Oiseaux_enz7jr",
-      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/12_LISE_-_Oiseaux_enz7jr.mp3",
+      "id": "02_COMMISSARIAT_-_Tic-Tac_umaxtk",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/02_COMMISSARIAT_-_Tic-Tac_umaxtk.mp3",
       "loop": false
     },
     {
-      "id": "mafck_fire_whoosh_torch",
-      "url": "/sounds/MAFCK FIRE Whoosh Torch.mp3",
+      "id": "fx_sonnerie_te_le_phone_a_cadence",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/fx_sonnerie_te_le_phone_a_cadence.mp3",
       "loop": false
     }
   ],
@@ -19,20 +19,26 @@
     {
       "id": "seg_0_22",
       "text": "CHAPITRE 01 - Ensemble",
-      "audioEvents": [
-        {
-          "action": "play",
-          "soundId": "12_LISE_-_Oiseaux_enz7jr",
-          "volume": 0.5,
-          "delay": 0,
-          "loop": false
-        }
-      ]
+      "audioEvents": [],
+      "breakAt": null
     },
     {
       "id": "seg_1_102",
       "text": "- À nos six années ici, et surtout, à ta fin de mission ! \"Well done\" comme on dit ! - Merci mon cœur…",
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "play",
+          "soundId": "fx_sonnerie_te_le_phone_a_cadence",
+          "volume": 0.5,
+          "delay": 0,
+          "loop": false
+        },
+        {
+          "action": "fadeOut",
+          "soundId": "fx_sonnerie_te_le_phone_a_cadence",
+          "duration": 464
+        }
+      ]
     },
     {
       "id": "seg_2_73",
@@ -40,7 +46,7 @@
       "audioEvents": [
         {
           "action": "play",
-          "soundId": "mafck_fire_whoosh_torch",
+          "soundId": "02_COMMISSARIAT_-_Tic-Tac_umaxtk",
           "volume": 0.5,
           "delay": 0,
           "loop": false
@@ -50,7 +56,13 @@
     {
       "id": "seg_3_77",
       "text": "Rim se redresse et se lève d’un air solennel, son verre brandit vers le ciel.",
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "fadeOut",
+          "soundId": "02_COMMISSARIAT_-_Tic-Tac_umaxtk",
+          "duration": 973
+        }
+      ]
     },
     {
       "id": "seg_4_186",
@@ -390,27 +402,27 @@
   ],
   "soundTracks": [
     {
-      "id": "st_1779457020457_mx60njf5y",
-      "soundId": "mafck_fire_whoosh_torch",
-      "startSegmentId": "seg_2_73",
-      "endSegmentId": "seg_2_73",
-      "column": 1,
+      "id": "st_1779460467603_fxcfd4k8z",
+      "soundId": "fx_sonnerie_te_le_phone_a_cadence",
+      "startSegmentId": "seg_1_102",
+      "endSegmentId": "seg_1_102",
+      "column": 0,
       "volume": 0.5,
       "fadeIn": 0,
-      "fadeOut": 0,
+      "fadeOut": 464,
       "delay": 0,
       "loop": false,
       "muted": false
     },
     {
-      "id": "st_1779457550582_yr54rgafd",
-      "soundId": "12_LISE_-_Oiseaux_enz7jr",
-      "startSegmentId": "seg_0_22",
-      "endSegmentId": "seg_0_22",
-      "column": 0,
+      "id": "st_1779460523322_5ky7mluqp",
+      "soundId": "02_COMMISSARIAT_-_Tic-Tac_umaxtk",
+      "startSegmentId": "seg_2_73",
+      "endSegmentId": "seg_3_77",
+      "column": 1,
       "volume": 0.5,
       "fadeIn": 0,
-      "fadeOut": 0,
+      "fadeOut": 973,
       "delay": 0,
       "loop": false,
       "muted": false
