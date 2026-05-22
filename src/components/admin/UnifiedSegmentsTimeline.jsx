@@ -1374,11 +1374,12 @@ const handleTextSelection = useCallback(() => {
   const handleSoundDragStart = useCallback(() => {
     setIsAnyBlockDragging(true)
   }, [])
-
   const handleSoundDragEnd = useCallback(() => {
     setIsAnyBlockDragging(false)
     setDragTargetCell({ segmentIndex: -1, column: -1 })
   }, [])
+  const handleSoundResizeStart = useCallback(() => setIsResizingBlock(true), [])
+  const handleSoundResizeEnd   = useCallback(() => setIsResizingBlock(false), [])
 
   const handleDragTargetChange = useCallback((segmentIndex, column) => {
     setDragTargetCell({ segmentIndex, column })
