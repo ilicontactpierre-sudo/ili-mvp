@@ -78,6 +78,8 @@ function SegmentTimelineRow({
   onDragStart,
   onDragEnd,
   onDragTargetChange,
+  onResizeStart,
+  onResizeEnd,
   vfxTracks,
   selectedVfxIds,
   editingVfxTrack,
