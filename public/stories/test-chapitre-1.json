@@ -5,13 +5,13 @@
   "published": true,
   "sounds": [
     {
-      "id": "fx_sonnerie_te_le_phone_a_cadence",
-      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/fx_sonnerie_te_le_phone_a_cadence.mp3",
+      "id": "12_LISE_-_Oiseaux_enz7jr",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/12_LISE_-_Oiseaux_enz7jr.mp3",
       "loop": false
     },
     {
-      "id": "mafck_fire_whoosh_torch",
-      "url": "/sounds/MAFCK FIRE Whoosh Torch.mp3",
+      "id": "fx_sonnerie_te_le_phone_a_cadence",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/fx_sonnerie_te_le_phone_a_cadence.mp3",
       "loop": false
     }
   ],
@@ -46,7 +46,7 @@
         },
         {
           "action": "play",
-          "soundId": "mafck_fire_whoosh_torch",
+          "soundId": "12_LISE_-_Oiseaux_enz7jr",
           "volume": 0.5,
           "delay": 0,
           "loop": false
@@ -64,8 +64,8 @@
       "audioEvents": [
         {
           "action": "fadeOut",
-          "soundId": "mafck_fire_whoosh_torch",
-          "duration": 796
+          "soundId": "12_LISE_-_Oiseaux_enz7jr",
+          "duration": 1150
         }
       ]
     },
@@ -415,14 +415,14 @@
       "muted": false
     },
     {
-      "id": "st_1779460633933_k98k56bsl",
-      "soundId": "mafck_fire_whoosh_torch",
+      "id": "st_1779460700520_69jm0k54w",
+      "soundId": "12_LISE_-_Oiseaux_enz7jr",
       "startSegmentId": "seg_2_73",
       "endSegmentId": "seg_4_186",
       "column": 1,
       "volume": 0.5,
       "fadeIn": 0,
-      "fadeOut": 796,
+      "fadeOut": 1150,
       "delay": 0,
       "loop": false,
       "muted": false
