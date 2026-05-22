@@ -438,6 +438,7 @@ function SoundBlock({
       setTargetCell({ segmentIndex: -1, column: -1 })
       setIsResizing(null)
       setIsAdjustingFade(null)
+      if (onResizeEnd) onResizeEnd()
       fadeStartRef.current = null
     }
 
