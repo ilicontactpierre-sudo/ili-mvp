@@ -669,6 +669,8 @@ function SegmentTimelineRow({
             onDragStart={onDragStart}
             onDragEnd={onDragEnd}
             onDragTargetChange={onDragTargetChange}
+            onResizeStart={onResizeStart}
+            onResizeEnd={onResizeEnd}
             currentSegmentIndex={index}
           />
         ))}
