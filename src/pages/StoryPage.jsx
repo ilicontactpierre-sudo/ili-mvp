@@ -279,29 +279,32 @@ function StoryPage() {
 
   if (!isStarted) {
     return (
-      <StartScreen
-        title={story?.title ?? ''}
-        author={story?.author ?? ''}
-        soundsToPreload={story?.sounds ?? []}
-        savedProgress={story?.id ? loadProgress(story.id) : null}
-        onStart={(preloadedHowlMap, resume) => {
-          console.log('resume =', resume)
-          preloadedSoundsRef.current = preloadedHowlMap
-          audioEngineRef.current = new AudioEngine(preloadedHowlMap)
-          ignoreAdvanceUntilRef.current = Date.now() + 600
-          touchStartY.current = null
-          if (resume) {
-            const saved = story?.id ? loadProgress(story.id) : null
-            if (saved && saved.segmentIndex > 0) {
-              setCurrentIndex(saved.segmentIndex)
+      <>
+        <StartScreen
+          title={story?.title ?? ''}
+          author={story?.author ?? ''}
+          soundsToPreload={story?.sounds ?? []}
+          savedProgress={story?.id ? loadProgress(story.id) : null}
+          onStart={(preloadedHowlMap, resume) => {
+            console.log('resume =', resume)
+            preloadedSoundsRef.current = preloadedHowlMap
+            audioEngineRef.current = new AudioEngine(preloadedHowlMap)
+            ignoreAdvanceUntilRef.current = Date.now() + 600
+            touchStartY.current = null
+            if (resume) {
+              const saved = story?.id ? loadProgress(story.id) : null
+              if (saved && saved.segmentIndex > 0) {
+                setCurrentIndex(saved.segmentIndex)
+              }
+            } else {
+              if (story?.id) clearProgress(story.id)
+              setCurrentIndex(0)
             }
-          } else {
-            if (story?.id) clearProgress(story.id)
-            setCurrentIndex(0)
-          }
-          setIsStarted(true)
-        }}
-      />
+            setIsStarted(true)
+          }}
+        />
+        <ReaderSettings storyId={story?.id} segments={[]} />
+      </>
     )
   }
 
