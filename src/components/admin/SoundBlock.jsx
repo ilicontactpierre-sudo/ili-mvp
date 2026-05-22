@@ -30,6 +30,8 @@ function SoundBlock({
   onDragStart,
   onDragEnd,
   onDragTargetChange,
+  onResizeStart,
+  onResizeEnd,
   currentSegmentIndex
 }) {
   const [isDragging, setIsDragging] = useState(false)
@@ -206,6 +208,7 @@ function SoundBlock({
     const absoluteBlockBottom = absoluteBlockTop + blockHeight
     
     setIsResizing(direction)
+    if (onResizeStart) onResizeStart()
     setResizeStart({
       y: e.clientY,
       startSegment: startSegmentIndex,
