@@ -65,10 +65,13 @@ function PublishPanel({
       if (typeof seg === 'string') {
         return { id: `seg_${index}`, text: seg, audioEvents: [] }
       }
-      if (!seg.id) {
-        return { ...seg, id: `seg_${index}`, text: seg.text || '', audioEvents: [] }
+      const base = {
+        ...seg,
+        id: seg.id || `seg_${index}`,
+        text: seg.text || '',
+        audioEvents: [],
       }
-      return { id: seg.id, text: seg.text || '', audioEvents: [] }
+      return base
     })
 
     soundTracks.forEach(track => {
