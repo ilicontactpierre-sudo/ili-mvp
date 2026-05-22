@@ -1,8 +1,8 @@
 import { useState, useEffect, useRef } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 // ── localStorage helpers ──────────────────────────────────────────────────────
 const PROGRESS_KEY = (storyId) => `ili_progress_${storyId}`
-
 export function saveProgress(storyId, segmentIndex) {
   try {
     localStorage.setItem(PROGRESS_KEY(storyId), JSON.stringify({
@@ -11,16 +11,25 @@ export function saveProgress(storyId, segmentIndex) {
     }))
   } catch {}
 }
-
 export function loadProgress(storyId) {
   try {
     const raw = localStorage.getItem(PROGRESS_KEY(storyId))
     return raw ? JSON.parse(raw) : null
   } catch { return null }
 }
-
 export function clearProgress(storyId) {
   try { localStorage.removeItem(PROGRESS_KEY(storyId)) } catch {}
+}
+
+// ── Lecture localStorage thème + police ──────────────────────────────────────
+function loadTheme() {
+  try {
+    const raw = localStorage.getItem('ili_theme')
+    return raw ? JSON.parse(raw) : { isDark: true, isToutdoux: false, isSynthwave: false }
+  } catch { return { isDark: true, isToutdoux: false, isSynthwave: false } }
+}
+function saveTheme(val) {
+  try { localStorage.setItem('ili_theme', JSON.stringify(val)) } catch {}
 }
 
 // ── Icônes SVG inline ─────────────────────────────────────────────────────────
@@ -37,27 +46,23 @@ const IconSun = () => (
     <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
   </svg>
 )
-
 const IconMoon = () => (
   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
     <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
   </svg>
 )
-
 const IconFontSmall = () => (
   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
     <text x="2" y="18" fontSize="14" fontFamily="serif" fill="currentColor" stroke="none">A</text>
     <text x="13" y="14" fontSize="9" fontFamily="serif" fill="currentColor" stroke="none">A</text>
   </svg>
 )
-
 const IconFontLarge = () => (
   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
     <text x="1" y="18" fontSize="18" fontFamily="serif" fill="currentColor" stroke="none">A</text>
     <text x="14" y="13" fontSize="10" fontFamily="serif" fill="currentColor" stroke="none">A</text>
   </svg>
 )
-
 const IconList = () => (
   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
     <line x1="8" y1="6" x2="21" y2="6"/>
@@ -68,11 +73,17 @@ const IconList = () => (
     <line x1="3" y1="18" x2="3.01" y2="18"/>
   </svg>
 )
-
 const IconGear = () => (
   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
     <circle cx="12" cy="12" r="3"/>
     <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+  </svg>
+)
+const IconExit = () => (
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+    <polyline points="16 17 21 12 16 7"/>
+    <line x1="21" y1="12" x2="9" y2="12"/>
   </svg>
 )
 
@@ -80,63 +91,65 @@ const IconGear = () => (
 const FONT_SIZES = [
   { label: 'XS', focus: 'clamp(1.05rem, 3.0vw, 1.45rem)', blur: 'clamp(0.95rem, 2.8vw, 1.35rem)' },
   { label: 'S',  focus: 'clamp(1.25rem, 3.6vw, 1.7rem)',  blur: 'clamp(1.15rem, 3.3vw, 1.6rem)'  },
-  { label: 'M',  focus: 'clamp(1.45rem, 4.2vw, 2rem)',    blur: 'clamp(1.35rem, 3.9vw, 1.85rem)' }, // défaut
+  { label: 'M',  focus: 'clamp(1.45rem, 4.2vw, 2rem)',    blur: 'clamp(1.35rem, 3.9vw, 1.85rem)' },
   { label: 'L',  focus: 'clamp(1.65rem, 4.8vw, 2.3rem)',  blur: 'clamp(1.55rem, 4.5vw, 2.15rem)' },
   { label: 'XL', focus: 'clamp(1.9rem, 5.5vw, 2.65rem)',  blur: 'clamp(1.8rem, 5.2vw, 2.5rem)'   },
 ]
-const DEFAULT_FONT_SIZE_INDEX = 2 // M
 
 // ── Composant principal ───────────────────────────────────────────────────────
 export default function ReaderSettings({
   storyId,
-  segments,
+  segments = [],
   currentIndex,
   onJumpTo,
 }) {
-  // ── Whoosh navigation ───────────────────────────────────────────────────────
-const WHOOSH_COUNT = 6
-const lastWhooshRef = useRef(-1)
-function playWhoosh() {
-  let next
-  do { next = Math.floor(Math.random() * WHOOSH_COUNT) }
-  while (next === lastWhooshRef.current)
-  lastWhooshRef.current = next
-  try {
-    const audio = new Audio(`/sounds/whoosh-${next + 1}.mp3`)
-    audio.volume = 0.25
-    audio.play().catch(() => {})
-  } catch {}
-}
-function playSettingsClic() {
-  try {
-    const audio = new Audio('/sounds/Clic-Settings.mp3')
-    audio.volume = 0.2
-    audio.play().catch(() => {})
-  } catch {}
-}
-// ── Fin whoosh ──────────────────────────────────────────────────────────────
+  const navigate = useNavigate()
 
-  const [isOpen, setIsOpen]           = useState(false)
+  // ── Whoosh navigation ───────────────────────────────────────────────────────
+  const WHOOSH_COUNT = 6
+  const lastWhooshRef = useRef(-1)
+  function playWhoosh() {
+    let next
+    do { next = Math.floor(Math.random() * WHOOSH_COUNT) }
+    while (next === lastWhooshRef.current)
+    lastWhooshRef.current = next
+    try {
+      const audio = new Audio(`/sounds/whoosh-${next + 1}.mp3`)
+      audio.volume = 0.25
+      audio.play().catch(() => {})
+    } catch {}
+  }
+  function playSettingsClic() {
+    try {
+      const audio = new Audio('/sounds/Clic-Settings.mp3')
+      audio.volume = 0.2
+      audio.play().catch(() => {})
+    } catch {}
+  }
+
+  const [isOpen, setIsOpen]             = useState(false)
   const [showChapters, setShowChapters] = useState(false)
-  const [isDark, setIsDark] = useState(true)
-  const [isToutdoux, setIsToutdoux] = useState(false)
-  const [isSynthwave, setIsSynthwave] = useState(false)
+
+  // ── Thème — initialisé depuis localStorage ──────────────────────────────────
+  const [isDark, setIsDark]           = useState(() => loadTheme().isDark)
+  const [isToutdoux, setIsToutdoux]   = useState(() => loadTheme().isToutdoux)
+  const [isSynthwave, setIsSynthwave] = useState(() => loadTheme().isSynthwave)
+
+  // ── Police — initialisée depuis localStorage ────────────────────────────────
   const [fontSizeIndex, setFontSizeIndex] = useState(() => {
     try { return parseInt(localStorage.getItem('ili_font_size') || '2') } catch { return 2 }
   })
-  const menuRef    = useRef(null)
+
+  const menuRef     = useRef(null)
   const chaptersRef = useRef(null)
 
-  // ── Appliquer le thème ──────────────────────────────────────────────────────
+  // ── Appliquer le thème (+ sauvegarde) ──────────────────────────────────────
   useEffect(() => {
     const root = document.documentElement
-
-    // Reset
     document.body.style.backgroundImage = 'none'
     document.body.style.backgroundAttachment = 'auto'
     root.style.setProperty('--font-primary', "'Lora', Georgia, 'Times New Roman', serif")
     root.style.setProperty('--blur-amount', '3px')
-
     if (isToutdoux) {
       root.style.setProperty('--color-bg', '#fdfaf1')
       root.style.setProperty('--color-text-focus', '#4a453f')
@@ -151,13 +164,11 @@ function playSettingsClic() {
       root.style.setProperty('--color-text-blur', 'rgb(254, 255, 230)')
       root.style.setProperty('--font-primary', "'VT323', 'Courier New', monospace")
       root.style.setProperty('--blur-amount', '2px')
-  document.body.style.backgroundImage = `
-  radial-gradient(circle, rgba(255,0,127,0.35) 1px, transparent 1px),
-  radial-gradient(circle, rgba(0,240,255,0.25) 1px, transparent 1px),
-  radial-gradient(circle, rgba(157,0,255,0.2) 1px, transparent 1px)
-`
-      document.body.style.backgroundSize = '30px 30px, 50px 50px, 70px 70px'
-      document.body.style.backgroundPosition = '0 0, 15px 15px, 7px 7px'
+      document.body.style.backgroundImage = `
+        radial-gradient(circle, rgba(255,0,127,0.35) 1px, transparent 1px),
+        radial-gradient(circle, rgba(0,240,255,0.25) 1px, transparent 1px),
+        radial-gradient(circle, rgba(157,0,255,0.2) 1px, transparent 1px)
+      `
       document.body.style.backgroundSize = '20px 20px'
       document.body.style.backgroundAttachment = 'fixed'
     } else if (isDark) {
@@ -169,9 +180,10 @@ function playSettingsClic() {
       root.style.setProperty('--color-text-focus', '#1a1a18')
       root.style.setProperty('--color-text-blur', 'rgba(26, 26, 24, 0.25)')
     }
+    saveTheme({ isDark, isToutdoux, isSynthwave })
   }, [isDark, isToutdoux, isSynthwave])
 
-  // ── Appliquer la taille de police ───────────────────────────────────────────
+  // ── Appliquer la taille de police (+ sauvegarde) ────────────────────────────
   useEffect(() => {
     const size = FONT_SIZES[fontSizeIndex]
     const root = document.documentElement
@@ -197,7 +209,7 @@ function playSettingsClic() {
     }
   }, [isOpen])
 
-  // ── Construire la liste chapitres + leaders ─────────────────────────────────
+  // ── Navigation chapitres ────────────────────────────────────────────────────
   const navItems = segments
     .map((seg, i) => {
       if (seg.isChapter) return { index: i, type: 'chapter', text: seg.text }
@@ -213,12 +225,18 @@ function playSettingsClic() {
     setShowChapters(false)
   }
 
+  const handleQuit = () => {
+    playWhoosh()
+    setIsOpen(false)
+    navigate('/')
+  }
+
   // ── Styles dynamiques selon thème ──────────────────────────────────────────
-  const bg       = isDark ? 'rgba(12,12,14,0.96)' : 'rgba(245,240,232,0.97)'
-  const fg       = isDark ? 'rgba(255,255,255,0.85)' : 'rgba(26,26,24,0.85)'
-  const fgDim    = isDark ? 'rgba(255,255,255,0.35)' : 'rgba(26,26,24,0.35)'
-  const border   = isDark ? 'rgba(255,255,255,0.08)' : 'rgba(26,26,24,0.1)'
-  const hoverBg  = isDark ? 'rgba(255,255,255,0.06)' : 'rgba(26,26,24,0.06)'
+  const bg      = isDark ? 'rgba(12,12,14,0.96)' : 'rgba(245,240,232,0.97)'
+  const fg      = isDark ? 'rgba(255,255,255,0.85)' : 'rgba(26,26,24,0.85)'
+  const fgDim   = isDark ? 'rgba(255,255,255,0.35)' : 'rgba(26,26,24,0.35)'
+  const border  = isDark ? 'rgba(255,255,255,0.08)' : 'rgba(26,26,24,0.1)'
+  const hoverBg = isDark ? 'rgba(255,255,255,0.06)' : 'rgba(26,26,24,0.06)'
 
   return (
     <>
@@ -233,11 +251,11 @@ function playSettingsClic() {
         }
         .rs-gear-btn {
           position: fixed;
-          top: 16px;
-          right: 16px;
+          top: 8px;
+          right: 8px;
           z-index: 8000;
-          width: 36px;
-          height: 36px;
+          width: 48px;
+          height: 48px;
           border-radius: 50%;
           border: none;
           background: transparent;
@@ -380,6 +398,27 @@ function playSettingsClic() {
           font-weight: 600;
           color: ${isDark ? 'rgba(255,255,255,0.95)' : 'rgba(26,26,24,0.95)'};
         }
+        .rs-quit-btn {
+          width: 100%;
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          padding: 10px 12px;
+          border: none;
+          background: transparent;
+          color: ${isDark ? 'rgba(255,255,255,0.45)' : 'rgba(26,26,24,0.45)'};
+          border-radius: 9px;
+          cursor: pointer;
+          font-family: var(--font-logo, sans-serif);
+          font-size: 12px;
+          letter-spacing: 0.05em;
+          transition: background 0.15s ease, color 0.15s ease;
+          -webkit-tap-highlight-color: transparent;
+        }
+        .rs-quit-btn:hover {
+          background: ${hoverBg};
+          color: ${fg};
+        }
       `}</style>
 
       {/* ── Bouton roue crantée ── */}
@@ -403,13 +442,9 @@ function playSettingsClic() {
                 className={`rs-btn${isDark && !isToutdoux && !isSynthwave ? ' active' : ''}${isSynthwave ? ' active' : ''}`}
                 onClick={(e) => {
                   if (e.metaKey || e.ctrlKey) {
-                    setIsSynthwave(v => !v)
-                    setIsToutdoux(false)
-                    setIsDark(true)
+                    setIsSynthwave(v => !v); setIsToutdoux(false); setIsDark(true)
                   } else {
-                    setIsSynthwave(false)
-                    setIsToutdoux(false)
-                    setIsDark(true)
+                    setIsSynthwave(false); setIsToutdoux(false); setIsDark(true)
                   }
                 }}
                 title="Mode sombre (Cmd+clic pour mode Synthwave)"
@@ -420,13 +455,9 @@ function playSettingsClic() {
                 className={`rs-btn${!isDark && !isToutdoux && !isSynthwave ? ' active' : ''}${isToutdoux ? ' active' : ''}`}
                 onClick={(e) => {
                   if (e.metaKey || e.ctrlKey) {
-                    setIsToutdoux(v => !v)
-                    setIsSynthwave(false)
-                    setIsDark(false)
+                    setIsToutdoux(v => !v); setIsSynthwave(false); setIsDark(false)
                   } else {
-                    setIsToutdoux(false)
-                    setIsSynthwave(false)
-                    setIsDark(false)
+                    setIsToutdoux(false); setIsSynthwave(false); setIsDark(false)
                   }
                 }}
                 title="Mode clair (Cmd+clic pour mode Toutdoux)"
@@ -444,8 +475,8 @@ function playSettingsClic() {
                 className="rs-btn"
                 onClick={() => setFontSizeIndex(i => Math.max(0, i - 1))}
                 disabled={fontSizeIndex === 0}
-                title="Réduire"
                 style={{ opacity: fontSizeIndex === 0 ? 0.3 : 1 }}
+                title="Réduire"
               >
                 <IconFontSmall />
               </button>
@@ -454,16 +485,16 @@ function playSettingsClic() {
                 className="rs-btn"
                 onClick={() => setFontSizeIndex(i => Math.min(FONT_SIZES.length - 1, i + 1))}
                 disabled={fontSizeIndex === FONT_SIZES.length - 1}
-                title="Agrandir"
                 style={{ opacity: fontSizeIndex === FONT_SIZES.length - 1 ? 0.3 : 1 }}
+                title="Agrandir"
               >
                 <IconFontLarge />
               </button>
             </div>
           </div>
 
-          {/* Navigation chapitres */}
-          {navItems.length > 0 && (
+          {/* Navigation chapitres — uniquement dans une histoire */}
+          {storyId && navItems.length > 0 && (
             <div className="rs-section">
               <button
                 className="rs-chapters-btn"
@@ -491,6 +522,16 @@ function playSettingsClic() {
                   ))}
                 </div>
               )}
+            </div>
+          )}
+
+          {/* Quitter l'histoire — uniquement dans une histoire */}
+          {storyId && (
+            <div className="rs-section">
+              <button className="rs-quit-btn" onClick={handleQuit}>
+                <IconExit />
+                <span>Quitter l'histoire</span>
+              </button>
             </div>
           )}
 
