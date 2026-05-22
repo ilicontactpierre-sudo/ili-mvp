@@ -117,7 +117,7 @@ body {
   font-weight: 300;
   letter-spacing: 0.4em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.3);
+  color: rgba(255, 255, 255, 0.55);
   margin-top: 12px;
   cursor: pointer;
   user-select: none;
@@ -161,7 +161,7 @@ body {
     transform: translateY(4px);
   }
   to {
-    color: rgba(255, 255, 255, 0.28);
+    color: rgba(255, 255, 255, 0.55);
     transform: translateY(0);
   }
 }
@@ -289,10 +289,10 @@ body {
 /* Story Author */
 .story-author {
   font-family: var(--font-logo);
-  font-size: 11px;
-  font-weight: 300;
-  letter-spacing: 0.12em;
-  color: rgba(255, 255, 255, 0.35);
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.15em;
+  color: rgba(255, 255, 255, 0.55);
   margin-top: 5px;
 }
 
