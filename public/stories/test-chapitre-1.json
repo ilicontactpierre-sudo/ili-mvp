@@ -5,13 +5,13 @@
   "published": true,
   "sounds": [
     {
-      "id": "02_COMMISSARIAT_-_Tic-Tac_umaxtk",
-      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/02_COMMISSARIAT_-_Tic-Tac_umaxtk.mp3",
+      "id": "fx_sonnerie_te_le_phone_a_cadence",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/fx_sonnerie_te_le_phone_a_cadence.mp3",
       "loop": false
     },
     {
-      "id": "fx_sonnerie_te_le_phone_a_cadence",
-      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/fx_sonnerie_te_le_phone_a_cadence.mp3",
+      "id": "mafck_fire_whoosh_torch",
+      "url": "/sounds/MAFCK FIRE Whoosh Torch.mp3",
       "loop": false
     }
   ],
@@ -32,11 +32,6 @@
           "volume": 0.5,
           "delay": 0,
           "loop": false
-        },
-        {
-          "action": "fadeOut",
-          "soundId": "fx_sonnerie_te_le_phone_a_cadence",
-          "duration": 464
         }
       ]
     },
@@ -45,8 +40,13 @@
       "text": "Rob continue sur sa lancée : « Un discours, un discours, un discours ! ».",
       "audioEvents": [
         {
+          "action": "fadeOut",
+          "soundId": "fx_sonnerie_te_le_phone_a_cadence",
+          "duration": 464
+        },
+        {
           "action": "play",
-          "soundId": "02_COMMISSARIAT_-_Tic-Tac_umaxtk",
+          "soundId": "mafck_fire_whoosh_torch",
           "volume": 0.5,
           "delay": 0,
           "loop": false
@@ -56,18 +56,18 @@
     {
       "id": "seg_3_77",
       "text": "Rim se redresse et se lève d’un air solennel, son verre brandit vers le ciel.",
-      "audioEvents": [
-        {
-          "action": "fadeOut",
-          "soundId": "02_COMMISSARIAT_-_Tic-Tac_umaxtk",
-          "duration": 973
-        }
-      ]
+      "audioEvents": []
     },
     {
       "id": "seg_4_186",
       "text": "Quand elle voit une partie des clients la dévisager avec étonnement, elle se ravise faisant petit geste à tous ces spectateurs inattendus, comme pour signifier que le show est déjà fini.",
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "fadeOut",
+          "soundId": "mafck_fire_whoosh_torch",
+          "duration": 796
+        }
+      ]
     },
     {
       "id": "seg_5_19",
@@ -405,7 +405,7 @@
       "id": "st_1779460467603_fxcfd4k8z",
       "soundId": "fx_sonnerie_te_le_phone_a_cadence",
       "startSegmentId": "seg_1_102",
-      "endSegmentId": "seg_1_102",
+      "endSegmentId": "seg_2_73",
       "column": 0,
       "volume": 0.5,
       "fadeIn": 0,
@@ -415,14 +415,14 @@
       "muted": false
     },
     {
-      "id": "st_1779460523322_5ky7mluqp",
-      "soundId": "02_COMMISSARIAT_-_Tic-Tac_umaxtk",
+      "id": "st_1779460633933_k98k56bsl",
+      "soundId": "mafck_fire_whoosh_torch",
       "startSegmentId": "seg_2_73",
-      "endSegmentId": "seg_3_77",
+      "endSegmentId": "seg_4_186",
       "column": 1,
       "volume": 0.5,
       "fadeIn": 0,
-      "fadeOut": 973,
+      "fadeOut": 796,
       "delay": 0,
       "loop": false,
       "muted": false
