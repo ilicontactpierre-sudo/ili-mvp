@@ -65,59 +65,92 @@
   pointer-events: none;
 }
 
-/* ── CHAPITRE ACTIF : centré, légèrement au-dessus du milieu ── */
-.story-reader__chapter-center {
+/* ── CHAPITRE FLOTTANT (objet unique, deux états) ── */
+.story-reader__chapter-float {
   position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding-bottom: 25%;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  text-align: center;
   pointer-events: none;
-  z-index: 2;
+  /* Transition douce entre focused et sticky */
+  transition:
+    top 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+    font-size 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.story-reader__chapter-center-text {
+/* État : chapitre actif → centré, légèrement au-dessus du milieu */
+.story-reader__chapter-float[data-mode="focused"] {
+  top: 37%;
+  transform: translateY(-50%);
+  padding: 0 24px;
+}
+
+.story-reader__chapter-float[data-mode="focused"] .story-reader__chapter-float-text {
   font-size: 1.4rem;
   font-weight: 700;
-  text-align: center;
-  padding: 0 24px;
-  color: var(--color-text-primary, #fff);
+  opacity: 1;
+  color: var(--color-text-focus, #fff);
 }
 
-/* ── STICKY CHAPTER : en haut, uniquement au segment +1 ── */
-.story-reader__chapter-sticky {
-  position: relative;
-  width: 100%;
-  padding: 16px 24px 12px;
-  text-align: center;
-  flex-shrink: 0;
-  z-index: 10;
-  animation: chapterStickyIn 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+.story-reader__chapter-float[data-mode="focused"] .story-reader__chapter-float-line {
+  opacity: 0;
+  margin-top: 0;
 }
 
-.story-reader__chapter-sticky-text {
-  display: block;
-  font-size: 0.85rem;
+/* État : sticky → en haut, petit */
+.story-reader__chapter-float[data-mode="sticky"] {
+  top: 0;
+  transform: translateY(0);
+  padding: 14px 24px 12px;
+}
+
+.story-reader__chapter-float[data-mode="sticky"] .story-reader__chapter-float-text {
+  font-size: 0.82rem;
   font-weight: 700;
   letter-spacing: 0.03em;
-  color: var(--color-text-primary, #fff);
   opacity: 0.75;
+  color: var(--color-text-focus, #fff);
 }
 
-.story-reader__chapter-sticky-line {
+.story-reader__chapter-float[data-mode="sticky"] .story-reader__chapter-float-line {
+  opacity: 0.4;
+  margin-top: 0;
+}
+
+/* Le trait */
+.story-reader__chapter-float-text {
+  display: block;
+  transition:
+    font-size 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.story-reader__chapter-float-line {
   position: absolute;
   bottom: 0;
   left: 24px;
   right: 24px;
   height: 1px;
-  background: currentColor;
-  opacity: 0.35;
+  background: var(--color-text-focus, #fff);
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-@keyframes chapterStickyIn {
-  from { opacity: 0; transform: translateY(-10px); }
-  to   { opacity: 1; transform: translateY(0); }
+/* ── SPACER : réserve la hauteur sticky dans le flow ── */
+.story-reader__chapter-spacer {
+  flex-shrink: 0;
+  transition: height 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.story-reader__chapter-spacer[data-mode="focused"],
+.story-reader__chapter-spacer[data-mode="sticky"] {
+  height: 56px; /* = padding top+bottom du sticky (14+12) + ligne + texte ~14px */
+}
+
+.story-reader__chapter-spacer[data-mode="gone"] {
+  height: 0;
 }
 
 /* ── TRACK caché quand chapitre actif ── */
