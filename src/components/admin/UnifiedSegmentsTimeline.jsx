@@ -1925,6 +1925,8 @@ const handleTextSelection = useCallback(() => {
                     onDragStart: handleSoundDragStart,
                     onDragEnd: handleSoundDragEnd,
                     onDragTargetChange: handleDragTargetChange,
+                    onResizeStart: handleSoundResizeStart,
+                    onResizeEnd: handleSoundResizeEnd,
                     onTextSelection: handleTextSelection,
                     vfxTracks,
                     selectedVfxIds,
