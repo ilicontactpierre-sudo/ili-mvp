@@ -265,15 +265,18 @@ function StoryPage() {
 
   if (isFinished) {
     return (
-      <EndScreen
-        title={story?.title ?? ''}
-        author={story?.author ?? ''}
-        formUrl={story?.formUrl}
-        onRestart={() => {
-          setCurrentIndex(0)
-          setIsFinished(false)
-        }}
-      />
+      <>
+        <EndScreen
+          title={story?.title ?? ''}
+          author={story?.author ?? ''}
+          formUrl={story?.formUrl}
+          onRestart={() => {
+            setCurrentIndex(0)
+            setIsFinished(false)
+          }}
+        />
+        <ReaderSettings storyId={story?.id} segments={[]} />
+      </>
     )
   }
 
