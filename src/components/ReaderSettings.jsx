@@ -439,8 +439,21 @@ export default function ReaderSettings({
       {/* ── Bouton roue crantée ── */}
       <button
         className={`rs-gear-btn${isOpen ? ' open' : ''}`}
-        onClick={() => { playClicSettings(); setIsOpen(v => !v); setShowChapters(false) }}
-        aria-label="Paramètres de lecture"
+      onClick={() => {
+        playClicSettings()
+        if (isOpen) {
+          setIsClosing(true)
+          setShowChapters(false)
+          setTimeout(() => {
+            setIsOpen(false)
+            setIsClosing(false)
+          }, 160)
+        } else {
+          setIsOpen(true)
+          setIsClosing(false)
+          setShowChapters(false)
+        }
+      }}        aria-label="Paramètres de lecture"
       >
         <IconGear />
       </button>
