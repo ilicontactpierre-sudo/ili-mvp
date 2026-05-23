@@ -245,7 +245,7 @@ body {
 }
 
 .story-card:hover {
-  background: rgba(255, 255, 255, 0.035);
+  background: color-mix(in srgb, var(--color-text-focus) 4%, transparent);
 }
 
 .story-card:last-child {
