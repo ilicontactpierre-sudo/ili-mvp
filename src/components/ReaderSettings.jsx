@@ -137,6 +137,7 @@ export default function ReaderSettings({
   })
 
   const menuRef     = useRef(null)
+  const gearRef     = useRef(null)
   const chaptersRef = useRef(null)
 
   // ── Appliquer le thème (+ sauvegarde) ──────────────────────────────────────
