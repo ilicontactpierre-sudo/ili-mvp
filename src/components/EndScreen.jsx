@@ -1,4 +1,21 @@
-function EndScreen({ title, author, formUrl, onRestart }) {
+import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+
+function EndScreen({ title, author, formUrl }) {
+  const navigate = useNavigate()
+  const [visible, setVisible] = useState(false)
+  const [leaving, setLeaving] = useState(false)
+
+  useEffect(() => {
+    const t = setTimeout(() => setVisible(true), 80)
+    return () => clearTimeout(t)
+  }, [])
+
+  const handleReturnHome = () => {
+    setLeaving(true)
+    setTimeout(() => navigate('/'), 1400)
+  }
+
   return (
     <main
       style={{
@@ -11,6 +28,15 @@ function EndScreen({ title, author, formUrl, onRestart }) {
         color: 'var(--color-text-focus)',
         fontFamily: 'var(--font-primary)',
         padding: '2rem 1.5rem',
+        opacity: leaving ? 0 : visible ? 1 : 0,
+        transform: leaving
+          ? 'translateY(-18px)'
+          : visible
+            ? 'translateY(0)'
+            : 'translateY(14px)',
+        transition: leaving
+          ? 'opacity 1400ms cubic-bezier(0.87, 0, 0.13, 1), transform 1400ms cubic-bezier(0.87, 0, 0.13, 1)'
+          : 'opacity 1000ms cubic-bezier(0.16, 1, 0.3, 1), transform 1000ms cubic-bezier(0.16, 1, 0.3, 1)',
       }}
     >
       <div />
@@ -22,57 +48,72 @@ function EndScreen({ title, author, formUrl, onRestart }) {
             maxWidth: '11rem',
             height: '1px',
             margin: '0 auto 1.4rem',
-            background: 'rgba(255, 255, 255, 0.16)',
+            background: 'color-mix(in srgb, var(--color-text-focus) 16%, transparent)',
           }}
         />
         <p style={{ opacity: 0.65, fontSize: '0.95rem', letterSpacing: '0.02em' }}>
-          {title} - {author}
-        </p>
-        <p style={{ marginTop: '1.5rem', fontSize: 'clamp(1.35rem, 5.2vw, 2rem)', lineHeight: 1.45 }}>
-          Merci d'avoir vécu cette expérience.
+          {title} — {author}
         </p>
 
-        <a
-          href={formUrl}
-          target="_blank"
-          rel="noreferrer"
-          style={{
-            marginTop: '2.2rem',
-            display: 'inline-block',
-            padding: '0.85rem 1.35rem',
-            borderRadius: '999px',
-            background: 'var(--color-text-focus)',
-            color: 'var(--color-bg)',
-            textDecoration: 'none',
-            fontSize: '1rem',
-            fontWeight: 600,
-          }}
-        >
-          Partager mon avis
-        </a>
+        {formUrl && (
+          
+            href={formUrl}
+            target="_blank"
+            rel="noreferrer"
+            style={{
+              marginTop: '2.2rem',
+              display: 'inline-block',
+              padding: '0.85rem 1.35rem',
+              borderRadius: '999px',
+              background: 'var(--color-text-focus)',
+              color: 'var(--color-bg)',
+              textDecoration: 'none',
+              fontSize: '1rem',
+              fontWeight: 600,
+            }}
+          >
+            Partager mon avis
+          </a>
+        )}
 
         <button
           type="button"
-          onClick={onRestart}
+          onClick={handleReturnHome}
           style={{
-            marginTop: '1rem',
+            marginTop: formUrl ? '1.5rem' : '2.5rem',
             display: 'block',
             marginInline: 'auto',
             border: 'none',
+            borderBottom: '1px solid color-mix(in srgb, var(--color-text-focus) 20%, transparent)',
+            borderRadius: 0,
             background: 'transparent',
-            color: 'rgba(255, 255, 255, 0.72)',
+            color: 'color-mix(in srgb, var(--color-text-focus) 55%, transparent)',
             fontFamily: 'var(--font-primary)',
             fontSize: '1rem',
+            letterSpacing: '0.04em',
+            padding: '0.6rem 0',
             cursor: 'pointer',
-            textDecoration: 'underline',
-            textUnderlineOffset: '0.18rem',
+            transition: 'color 400ms ease, border-color 400ms ease',
+          }}
+          onMouseEnter={e => {
+            e.currentTarget.style.color = 'var(--color-text-focus)'
+            e.currentTarget.style.borderBottomColor = 'color-mix(in srgb, var(--color-text-focus) 45%, transparent)'
+          }}
+          onMouseLeave={e => {
+            e.currentTarget.style.color = 'color-mix(in srgb, var(--color-text-focus) 55%, transparent)'
+            e.currentTarget.style.borderBottomColor = 'color-mix(in srgb, var(--color-text-focus) 20%, transparent)'
           }}
         >
-          Recommencer
+          Choisir une autre histoire
         </button>
       </section>
 
-      <div style={{ alignSelf: 'end', opacity: 0.55, fontSize: '0.95rem', letterSpacing: '0.06em' }}>
+      <div style={{
+        alignSelf: 'end',
+        opacity: 0.3,
+        fontSize: '0.95rem',
+        letterSpacing: '0.06em',
+      }}>
         ILi
       </div>
     </main>
