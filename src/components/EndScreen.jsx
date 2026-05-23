@@ -16,6 +16,12 @@ function EndScreen({ title, author, formUrl }) {
     setTimeout(() => navigate('/'), 1400)
   }
 
+  const lineColor = 'color-mix(in srgb, var(--color-text-focus) 16%, transparent)'
+  const btnColor = 'color-mix(in srgb, var(--color-text-focus) 55%, transparent)'
+  const btnBorder = 'color-mix(in srgb, var(--color-text-focus) 20%, transparent)'
+  const btnHoverColor = 'var(--color-text-focus)'
+  const btnHoverBorder = 'color-mix(in srgb, var(--color-text-focus) 45%, transparent)'
+
   return (
     <main
       style={{
@@ -48,7 +54,7 @@ function EndScreen({ title, author, formUrl }) {
             maxWidth: '11rem',
             height: '1px',
             margin: '0 auto 1.4rem',
-            background: 'color-mix(in srgb, var(--color-text-focus) 16%, transparent)',
+            background: lineColor,
           }}
         />
         <p style={{ opacity: 0.65, fontSize: '0.95rem', letterSpacing: '0.02em' }}>
@@ -84,10 +90,10 @@ function EndScreen({ title, author, formUrl }) {
             display: 'block',
             marginInline: 'auto',
             border: 'none',
-            borderBottom: '1px solid color-mix(in srgb, var(--color-text-focus) 20%, transparent)',
+            borderBottom: `1px solid ${btnBorder}`,
             borderRadius: 0,
             background: 'transparent',
-            color: 'color-mix(in srgb, var(--color-text-focus) 55%, transparent)',
+            color: btnColor,
             fontFamily: 'var(--font-primary)',
             fontSize: '1rem',
             letterSpacing: '0.04em',
@@ -96,12 +102,12 @@ function EndScreen({ title, author, formUrl }) {
             transition: 'color 400ms ease, border-color 400ms ease',
           }}
           onMouseEnter={e => {
-            e.currentTarget.style.color = 'var(--color-text-focus)'
-            e.currentTarget.style.borderBottomColor = 'color-mix(in srgb, var(--color-text-focus) 45%, transparent)'
+            e.currentTarget.style.color = btnHoverColor
+            e.currentTarget.style.borderBottomColor = btnHoverBorder
           }}
           onMouseLeave={e => {
-            e.currentTarget.style.color = 'color-mix(in srgb, var(--color-text-focus) 55%, transparent)'
-            e.currentTarget.style.borderBottomColor = 'color-mix(in srgb, var(--color-text-focus) 20%, transparent)'
+            e.currentTarget.style.color = btnColor
+            e.currentTarget.style.borderBottomColor = btnBorder
           }}
         >
           Choisir une autre histoire
