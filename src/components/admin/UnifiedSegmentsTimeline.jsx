@@ -515,61 +515,70 @@ function SegmentTimelineRow({
   
       </div>
 
-      {/* Boutons d'action (visibles au survol) */}
+      {/* Boutons d'action (visibles au survol) — ancrés dans la colonne segment */}
       {(hovered || isSelected) && (
         <div style={{
-          display: 'flex',
-          gap: '2px',
           position: 'absolute',
-          right: '8px',
-          top: '50%',
-          transform: 'translateY(-50%)',
-          zIndex: 10
+          bottom: '5px',
+          right: '6px',
+          display: 'flex',
+          gap: '4px',
+          zIndex: 10,
+          width: `calc(${dividerPosition}% - 12px)`,
+          justifyContent: 'flex-end',
+          pointerEvents: 'none',
         }}>
           <button
             onClick={(e) => { e.stopPropagation(); onAdd(index); }}
+            title="Ajouter un segment après"
             style={{
-              background: '#4CAF50',
-              border: 'none',
-              borderRadius: '50%',
-              width: '22px',
-              height: '22px',
+              pointerEvents: 'all',
+              background: 'transparent',
+              border: '1px solid #4CAF50',
+              borderRadius: '4px',
+              height: '20px',
+              padding: '0 7px',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               cursor: 'pointer',
-              color: 'white',
-              fontSize: '14px',
-              fontWeight: 'bold',
-              transition: 'transform 0.15s ease',
-              boxShadow: '0 1px 3px rgba(0,0,0,0.2)'
+              color: '#4CAF50',
+              fontSize: '13px',
+              fontWeight: 600,
+              lineHeight: 1,
+              transition: 'background 0.15s ease, color 0.15s ease',
             }}
-            title="Ajouter un segment après"
+            onMouseEnter={e => { e.currentTarget.style.background = '#4CAF50'; e.currentTarget.style.color = '#fff' }}
+            onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = '#4CAF50' }}
           >
-            +
+            + segment
           </button>
           <button
             onClick={(e) => { e.stopPropagation(); onDelete(index); }}
+            title="Supprimer le segment"
             style={{
-              background: '#f44336',
-              border: 'none',
-              borderRadius: '50%',
-              width: '22px',
-              height: '22px',
+              pointerEvents: 'all',
+              background: 'transparent',
+              border: '1px solid #f44336',
+              borderRadius: '4px',
+              height: '20px',
+              padding: '0 7px',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               cursor: 'pointer',
-              color: 'white',
-              fontSize: '12px',
-              transition: 'transform 0.15s ease',
-              boxShadow: '0 1px 3px rgba(0,0,0,0.2)'
+              color: '#f44336',
+              fontSize: '11px',
+              lineHeight: 1,
+              transition: 'background 0.15s ease, color 0.15s ease',
             }}
-            title="Supprimer le segment"
+            onMouseEnter={e => { e.currentTarget.style.background = '#f44336'; e.currentTarget.style.color = '#fff' }}
+            onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = '#f44336' }}
           >
-            🗑
+            supprimer
           </button>
         </div>
+      )}
       )}
 
       {/* Séparateur redimensionnable */}
