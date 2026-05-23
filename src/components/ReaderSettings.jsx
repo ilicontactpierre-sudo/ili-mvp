@@ -179,6 +179,12 @@ export default function ReaderSettings({
       root.style.setProperty('--color-bg', '#f5f0e8')
       root.style.setProperty('--color-text-focus', '#1a1a18')
       root.style.setProperty('--color-text-blur', 'rgba(26, 26, 24, 0.25)')
+      root.style.setProperty('--color-bg-secondary',   '#ebe6dd')
+      root.style.setProperty('--color-bg-accent',      '#ddd8cf')
+      root.style.setProperty('--color-border',         'rgba(26, 26, 24, 0.12)')
+      root.style.setProperty('--color-text',           'rgba(26, 26, 24, 0.9)')
+      root.style.setProperty('--color-text-secondary', 'rgba(26, 26, 24, 0.5)')
+      root.style.setProperty('--color-primary',        '#5254cc')
     }
     saveTheme({ isDark, isToutdoux, isSynthwave })
   }, [isDark, isToutdoux, isSynthwave])
