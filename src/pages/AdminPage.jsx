@@ -698,6 +698,7 @@ function AdminPage() {
         slug={storySlug}
         segments={segments}
         soundTracks={soundTracks}
+        vfxTracks={vfxTracks}
         onRestore={handleRestoreSnapshot}
         onOpenPreview={() => setIsPreviewOpen(true)}
       />
