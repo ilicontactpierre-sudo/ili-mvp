@@ -340,9 +340,10 @@ function AdminPage() {
 
     // Normaliser les segments
     const loadedSegments = (storyData.segments || []).map((seg, i) => ({
+      ...seg,
       id: seg.id ?? `seg_${i}`,
       text: seg.text || '',
-      audioEvents: seg.audioEvents || []
+      audioEvents: seg.audioEvents || [],
     }))
     setSegments(loadedSegments)
 
