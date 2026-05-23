@@ -149,8 +149,21 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle' 
 
     const rafId = requestAnimationFrame(computeTranslate)
     window.addEventListener('resize', computeTranslate)
-    return () => { cancelAnimationFrame(rafId); window.removeEventListener('resize', computeTranslate) }
-  }, [finalSegments, currentIndex, chapterMode])
+
+    const observer = new MutationObserver(() => {
+      requestAnimationFrame(computeTranslate)
+    })
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['style'],
+    })
+
+    return () => {
+      cancelAnimationFrame(rafId)
+      window.removeEventListener('resize', computeTranslate)
+      observer.disconnect()
+    }
+    }, [finalSegments, currentIndex, chapterMode])
 
   return (
     <main
