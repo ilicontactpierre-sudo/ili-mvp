@@ -248,9 +248,9 @@ export default function ReaderSettings({
   return (
     <>
       <style>{`
-        @keyframes settings-in {
-          from { opacity: 0; transform: scale(0.92) translateY(-6px); }
-          to   { opacity: 1; transform: scale(1)    translateY(0); }
+        @keyframes settings-out {
+          from { opacity: 1; transform: scale(1)    translateY(0); }
+          to   { opacity: 0; transform: scale(0.92) translateY(-6px); }
         }
         @keyframes chapters-in {
           from { opacity: 0; max-height: 0; }
@@ -273,6 +273,13 @@ export default function ReaderSettings({
           justify-content: center;
           transition: color 0.2s ease, transform 0.3s ease;
           -webkit-tap-highlight-color: transparent;
+          outline: none;
+          -webkit-appearance: none;
+          appearance: none;
+        }
+        .rs-gear-btn:focus, .rs-gear-btn:focus-visible {
+          outline: none;
+          box-shadow: none;
         }
         .rs-gear-btn:hover, .rs-gear-btn.open {
           color: ${isDark ? 'rgba(255,255,255,0.7)' : 'rgba(26,26,24,0.7)'};
