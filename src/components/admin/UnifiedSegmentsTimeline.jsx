@@ -78,8 +78,6 @@ function SegmentTimelineRow({
   onDragStart,
   onDragEnd,
   onDragTargetChange,
-  onResizeStart,
-  onResizeEnd,
   vfxTracks,
   selectedVfxIds,
   editingVfxTrack,
@@ -666,8 +664,6 @@ function SegmentTimelineRow({
             onDragStart={onDragStart}
             onDragEnd={onDragEnd}
             onDragTargetChange={onDragTargetChange}
-            onResizeStart={onResizeStart}
-            onResizeEnd={onResizeEnd}
             currentSegmentIndex={index}
           />
         ))}
@@ -844,7 +840,6 @@ function UnifiedSegmentsTimeline({
   const [editTexts, setEditTexts] = useState({})
   const [measuredRowHeights, setMeasuredRowHeights] = useState([])
   const [isAnyBlockDragging, setIsAnyBlockDragging] = useState(false)
-  const [isResizingBlock, setIsResizingBlock] = useState(false)
   const [dragTargetCell, setDragTargetCell] = useState({ segmentIndex: -1, column: -1 })
   // ── États VFX ──────────────────────────────────────────────
   const [selectedVfxIds, setSelectedVfxIds]     = useState(new Set())
@@ -1379,8 +1374,6 @@ const handleTextSelection = useCallback(() => {
     setIsAnyBlockDragging(false)
     setDragTargetCell({ segmentIndex: -1, column: -1 })
   }, [])
-  const handleSoundResizeStart = useCallback(() => setIsResizingBlock(true), [])
-  const handleSoundResizeEnd   = useCallback(() => setIsResizingBlock(false), [])
 
   const handleDragTargetChange = useCallback((segmentIndex, column) => {
     setDragTargetCell({ segmentIndex, column })
@@ -1925,8 +1918,6 @@ const handleTextSelection = useCallback(() => {
                     onDragStart: handleSoundDragStart,
                     onDragEnd: handleSoundDragEnd,
                     onDragTargetChange: handleDragTargetChange,
-                    onResizeStart: handleSoundResizeStart,
-                    onResizeEnd: handleSoundResizeEnd,
                     onTextSelection: handleTextSelection,
                     vfxTracks,
                     selectedVfxIds,
