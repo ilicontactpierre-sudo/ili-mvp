@@ -202,7 +202,11 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle' 
       */}
       {chapterSegment && (
         <div
-          className="story-reader__chapter-float"
+          className={[
+            'story-reader__chapter-float',
+            isChapterFirst && introPhase === 'before' ? 'story-reader__chapter-float--intro-before' : '',
+            isChapterFirst && introPhase === 'animating' ? 'story-reader__chapter-float--intro-animating' : '',
+          ].join(' ')}
           data-mode={chapterMode}
           key={chapterSegment.id}
         >
