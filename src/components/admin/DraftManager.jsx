@@ -74,7 +74,8 @@ function DraftManager({
       author: author || '',
       slug: slug || '',
       segments: segments || [],
-      soundTracks: soundTracks || []
+      soundTracks: soundTracks || [],
+      vfxTracks: vfxTracks || [],
     }
   }, [title, author, slug, segments, soundTracks])
 
