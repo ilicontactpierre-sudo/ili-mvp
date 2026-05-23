@@ -30,8 +30,6 @@ function SoundBlock({
   onDragStart,
   onDragEnd,
   onDragTargetChange,
-  onResizeStart,
-  onResizeEnd,
   currentSegmentIndex
 }) {
   const [isDragging, setIsDragging] = useState(false)
@@ -208,7 +206,6 @@ function SoundBlock({
     const absoluteBlockBottom = absoluteBlockTop + blockHeight
     
     setIsResizing(direction)
-    if (onResizeStart) onResizeStart()
     setResizeStart({
       y: e.clientY,
       startSegment: startSegmentIndex,
@@ -438,7 +435,6 @@ function SoundBlock({
       setTargetCell({ segmentIndex: -1, column: -1 })
       setIsResizing(null)
       setIsAdjustingFade(null)
-      if (onResizeEnd) onResizeEnd()
       fadeStartRef.current = null
     }
 
