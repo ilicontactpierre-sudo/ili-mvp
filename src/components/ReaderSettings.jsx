@@ -297,7 +297,7 @@ export default function ReaderSettings({
           border: 1px solid ${border};
           border-radius: 14px;
           box-shadow: 0 8px 32px rgba(0,0,0,0.3);
-          animation: settings-in 0.18s cubic-bezier(0.16,1,0.3,1) both;
+          animation: ${isClosing ? 'settings-out 0.18s cubic-bezier(0.16,1,0.3,1) forwards' : 'settings-in 0.18s cubic-bezier(0.16,1,0.3,1) both'};
           overflow: hidden;
         }
         .rs-section {
