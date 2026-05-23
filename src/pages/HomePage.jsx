@@ -7,20 +7,7 @@ function HomePage() {
   const [phase, setPhase] = useState('idle'); // idle | bumping | transitioning | open
   const [stories, setStories] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const audioRef = useRef(null);
   const isLocalDev = typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
-
-  useEffect(() => {
-    // Précharger le son au montage
-    audioRef.current = new Audio('/sounds/Clic ILi.mp3');
-    audioRef.current.volume = 0.6;
-    return () => {
-      if (audioRef.current) {
-        audioRef.current.pause();
-        audioRef.current = null;
-      }
-    };
-  }, []);
 
   useEffect(() => {
     const fetchStories = async () => {
@@ -44,10 +31,7 @@ function HomePage() {
     if (phase !== 'idle') return;
 
     // Phase 0 : bump + son simultanés
-    if (audioRef.current) {
-      audioRef.current.currentTime = 0;
-      audioRef.current.play().catch(() => {});
-    }
+    playClicILi()
     setPhase('bumping');
 
     // Phase 1 : silence, puis glissement
