@@ -3,8 +3,6 @@ import { useNavigate } from 'react-router-dom';
 
 function StoryMenu({ isOpen, stories, isLoading, onClose, onDeleteStory }) {
   const navigate = useNavigate();
-  const [deletingStoryId, setDeletingStoryId] = useState(null);
-  const [deletePassword, setDeletePassword] = useState('');
 
   if (!isOpen) return null;
 
@@ -73,13 +71,7 @@ function StoryMenu({ isOpen, stories, isLoading, onClose, onDeleteStory }) {
                   <div className="story-title">{story.title}</div>
                   <div className="story-author">{story.author}</div>
                 </div>
-                <button
-                  className="delete-button"
-                  onClick={(e) => handleDeleteClick(e, story.id)}
-                  title="Supprimer cette histoire"
-                >
-                  🗑️
-                </button>
+                
               </div>
             ))}
           </div>
