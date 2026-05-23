@@ -97,7 +97,17 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle' 
 
   const segmentRefs = useRef([])
   const [translateY, setTranslateY] = useState(0)
-  // Hauteur réservée pour le spacer (sticky ou focused → même hauteur)
+    const [introPhase, setIntroPhase] = useState('before') // 'before' | 'animating' | 'done'
+    const introTriggeredRef = useRef(false)
+
+    useEffect(() => {
+      if (introTriggeredRef.current) return
+      introTriggeredRef.current = true
+      // Laisser le DOM se stabiliser avant de lancer l'animation
+      const t = setTimeout(() => setIntroPhase('animating'), 60)
+      const t2 = setTimeout(() => setIntroPhase('done'), 60 + 1400)
+      return () => { clearTimeout(t); clearTimeout(t2) }
+    }, [])  // Hauteur réservée pour le spacer (sticky ou focused → même hauteur)
   const STICKY_HEIGHT = 56 // px — doit correspondre au padding du sticky dans le CSS
 
   useLayoutEffect(() => {
