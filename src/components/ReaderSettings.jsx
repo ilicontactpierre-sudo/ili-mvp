@@ -477,27 +477,37 @@ export default function ReaderSettings({
             <div className="rs-row">
               <button
                 className={`rs-btn${isDark && !isToutdoux && !isSynthwave ? ' active' : ''}${isSynthwave ? ' active' : ''}`}
-                onClick={(e) => {
-                  if (e.metaKey || e.ctrlKey) {
-                    setIsSynthwave(v => !v); setIsToutdoux(false); setIsDark(true)
+                onClick={() => {
+                  if (isSynthwave) {
+                    // 3e clic lune → retour mode sombre base
+                    setIsSynthwave(false); setIsToutdoux(false); setIsDark(true)
+                  } else if (isDark && !isToutdoux) {
+                    // 2e clic lune → mode 80
+                    setIsSynthwave(true); setIsToutdoux(false); setIsDark(true)
                   } else {
+                    // 1er clic lune → mode sombre base
                     setIsSynthwave(false); setIsToutdoux(false); setIsDark(true)
                   }
                 }}
-                title="Mode sombre (Cmd+clic pour mode Synthwave)"
+                title="Mode sombre — recliquer pour mode années 80"
               >
                 <IconMoon />
               </button>
               <button
                 className={`rs-btn${!isDark && !isToutdoux && !isSynthwave ? ' active' : ''}${isToutdoux ? ' active' : ''}`}
-                onClick={(e) => {
-                  if (e.metaKey || e.ctrlKey) {
-                    setIsToutdoux(v => !v); setIsSynthwave(false); setIsDark(false)
+                onClick={() => {
+                  if (isToutdoux) {
+                    // 3e clic soleil → retour mode clair base
+                    setIsToutdoux(false); setIsSynthwave(false); setIsDark(false)
+                  } else if (!isDark && !isSynthwave) {
+                    // 2e clic soleil → mode Miyazaki
+                    setIsToutdoux(true); setIsSynthwave(false); setIsDark(false)
                   } else {
+                    // 1er clic soleil → mode clair base
                     setIsToutdoux(false); setIsSynthwave(false); setIsDark(false)
                   }
                 }}
-                title="Mode clair (Cmd+clic pour mode Toutdoux)"
+                title="Mode clair — recliquer pour mode Miyazaki"
               >
                 <IconSun />
               </button>
