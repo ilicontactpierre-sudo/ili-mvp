@@ -175,6 +175,12 @@ export default function ReaderSettings({
       root.style.setProperty('--color-bg', '#080809')
       root.style.setProperty('--color-text-focus', '#ffffff')
       root.style.setProperty('--color-text-blur', 'rgba(255, 255, 255, 0.22)')
+      root.style.setProperty('--color-bg-secondary',   '#1a1a1e')
+      root.style.setProperty('--color-bg-accent',      '#242428')
+      root.style.setProperty('--color-border',         'rgba(255, 255, 255, 0.1)')
+      root.style.setProperty('--color-text',           'rgba(255, 255, 255, 0.9)')
+      root.style.setProperty('--color-text-secondary', 'rgba(255, 255, 255, 0.5)')
+      root.style.setProperty('--color-primary',        '#6366f1')
     } else {
       root.style.setProperty('--color-bg', '#f5f0e8')
       root.style.setProperty('--color-text-focus', '#1a1a18')
