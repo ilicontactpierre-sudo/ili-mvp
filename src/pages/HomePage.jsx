@@ -1,6 +1,7 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import StoryMenu from '../components/StoryMenu';
 import ReaderSettings from '../components/ReaderSettings.jsx'
+import { playClicILi } from '../App.jsx'
 
 function HomePage() {
   const [phase, setPhase] = useState('idle'); // idle | bumping | transitioning | open
