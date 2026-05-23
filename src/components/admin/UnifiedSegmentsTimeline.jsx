@@ -515,70 +515,60 @@ function SegmentTimelineRow({
   
       </div>
 
-      {/* Boutons d'action (visibles au survol) — ancrés dans la colonne segment */}
-      {(hovered || isSelected) && (
-        <div style={{
-          position: 'absolute',
-          bottom: '5px',
-          right: '6px',
-          display: 'flex',
-          gap: '4px',
-          zIndex: 10,
-          width: `calc(${dividerPosition}% - 12px)`,
-          justifyContent: 'flex-end',
-          pointerEvents: 'none',
-        }}>
-          <button
-            onClick={(e) => { e.stopPropagation(); onAdd(index); }}
-            title="Ajouter un segment après"
-            style={{
-              pointerEvents: 'all',
-              background: 'transparent',
-              border: '1px solid #4CAF50',
-              borderRadius: '4px',
-              height: '20px',
-              padding: '0 7px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              cursor: 'pointer',
-              color: '#4CAF50',
-              fontSize: '13px',
-              fontWeight: 600,
-              lineHeight: 1,
-              transition: 'background 0.15s ease, color 0.15s ease',
-            }}
-            onMouseEnter={e => { e.currentTarget.style.background = '#4CAF50'; e.currentTarget.style.color = '#fff' }}
-            onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = '#4CAF50' }}
-          >
-            + segment
-          </button>
-          <button
-            onClick={(e) => { e.stopPropagation(); onDelete(index); }}
-            title="Supprimer le segment"
-            style={{
-              pointerEvents: 'all',
-              background: 'transparent',
-              border: '1px solid #f44336',
-              borderRadius: '4px',
-              height: '20px',
-              padding: '0 7px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              cursor: 'pointer',
-              color: '#f44336',
-              fontSize: '11px',
-              lineHeight: 1,
-              transition: 'background 0.15s ease, color 0.15s ease',
-            }}
-            onMouseEnter={e => { e.currentTarget.style.background = '#f44336'; e.currentTarget.style.color = '#fff' }}
-            onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = '#f44336' }}
-          >
-            supprimer
-          </button>
-        </div>
-      )}
+      {/* Boutons d'action — sous l'étoile et le losange */}
+      <div style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '3px',
+        flexShrink: 0,
+        alignItems: 'center',
+        marginTop: '2px',
+      }}>
+        <button
+          onClick={(e) => { e.stopPropagation(); onAdd(index); }}
+          title="Ajouter un segment après"
+          style={{
+            background: 'none',
+            border: 'none',
+            cursor: 'pointer',
+            padding: '0 1px',
+            fontSize: '0.65rem',
+            lineHeight: 1,
+            color: (hovered || isSelected) ? '#4CAF50' : 'rgba(0,0,0,0.12)',
+            flexShrink: 0,
+            transition: 'color 0.2s ease',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: '14px',
+            height: '14px',
+          }}
+        >
+          ＋
+        </button>
+        <button
+          onClick={(e) => { e.stopPropagation(); onDelete(index); }}
+          title="Supprimer le segment"
+          style={{
+            background: 'none',
+            border: 'none',
+            cursor: 'pointer',
+            padding: '0 1px',
+            fontSize: '0.6rem',
+            lineHeight: 1,
+            color: (hovered || isSelected) ? '#f44336' : 'rgba(0,0,0,0.12)',
+            flexShrink: 0,
+            transition: 'color 0.2s ease',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: '14px',
+            height: '14px',
+          }}
+        >
+          ✕
+        </button>
+      </div>
 
       {/* Séparateur redimensionnable */}
       <div
