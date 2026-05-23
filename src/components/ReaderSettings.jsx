@@ -296,7 +296,7 @@ export default function ReaderSettings({
           -webkit-appearance: none;
           appearance: none;
           opacity: 0;
-          animation: gear-appear 700ms cubic-bezier(0.16, 1, 0.3, 1) 2000ms forwards;
+          animation: gear-appear 700ms cubic-bezier(0.16, 1, 0.3, 1) 1500ms forwards;
         }
         .rs-gear-btn:focus, .rs-gear-btn:focus-visible {
           outline: none;
