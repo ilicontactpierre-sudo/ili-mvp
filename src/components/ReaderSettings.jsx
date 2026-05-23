@@ -446,7 +446,8 @@ export default function ReaderSettings({
 
       {/* ── Bouton roue crantée ── */}
       <button
-        className={`rs-gear-btn${isOpen ? ' open' : ''}`}
+      ref={gearRef}
+      className={`rs-gear-btn${isOpen ? ' open' : ''}`}
       onClick={() => {
         playClicSettings()
         if (isOpen) {
