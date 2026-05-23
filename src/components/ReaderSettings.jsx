@@ -459,7 +459,7 @@ export default function ReaderSettings({
       </button>
 
       {/* ── Menu ── */}
-      {isOpen && (
+      {(isOpen || isClosing) && (
         <div ref={menuRef} className="rs-menu">
 
           {/* Thème */}
