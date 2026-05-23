@@ -176,7 +176,6 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle' 
     }
     }, [finalSegments, currentIndex, chapterMode])
 
-  return (
     const isChapterFirst = finalSegments[0]?.isChapter === true
 
     return (
@@ -237,6 +236,15 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle' 
         style={{
           '--track-translate-y': `${translateY}px`,
           transition: jumpPhase !== 'idle' ? 'none' : undefined,
+          ...(!isChapterFirst && introPhase === 'before' ? {
+            opacity: 0,
+            transform: `translate3d(0, calc(${translateY}px + 60px), 0)`,
+          } : {}),
+          ...(!isChapterFirst && introPhase === 'animating' ? {
+            opacity: 1,
+            transform: `translate3d(0, ${translateY}px, 0)`,
+            transition: 'opacity 900ms cubic-bezier(0.16, 1, 0.3, 1), transform 1200ms cubic-bezier(0.16, 1, 0.3, 1)',
+          } : {}),
         }}
       >
         {finalSegments.map((segment, index) => {
