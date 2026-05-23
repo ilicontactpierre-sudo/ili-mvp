@@ -122,7 +122,8 @@ export default function ReaderSettings({
   }
 
 
-  const [isOpen, setIsOpen]             = useState(false)
+  const [isOpen, setIsOpen]         = useState(false)
+  const [isClosing, setIsClosing]   = useState(false)
   const [showChapters, setShowChapters] = useState(false)
 
   // ── Thème — initialisé depuis localStorage ──────────────────────────────────
