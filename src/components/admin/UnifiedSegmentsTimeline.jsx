@@ -1880,8 +1880,7 @@ const handleTextSelection = useCallback(() => {
              <div style={{
                 maxHeight: isHidden ? '0px' : '2000px',
                 opacity: isHidden ? 0 : isBeingDragged ? 0.35 : 1,
-                overflow: (isAnyBlockDragging || isAnyVfxDragging || isResizingBlock) ? 'visible' : 'hidden',
-                transition: isHidden
+                overflow: 'visible',                 transition: isHidden
                   ? 'max-height 0.38s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease'
                   : 'opacity 0.15s ease',
                 pointerEvents: isHidden ? 'none' : 'auto',
