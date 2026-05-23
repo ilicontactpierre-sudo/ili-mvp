@@ -6,6 +6,7 @@ function DraftManager({
   slug,
   segments,
   soundTracks,
+  vfxTracks,
   onRestore,
   onOpenPreview
 }) {
