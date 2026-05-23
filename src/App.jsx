@@ -9,7 +9,7 @@ const clicAudio = new Audio('/sounds/Clic ILi.mp3')
 clicAudio.volume = 0.6
 
 const clicSettingsAudio = new Audio('/sounds/Clic-Settings.mp3')
-clicSettingsAudio.volume = 0.2
+clicSettingsAudio.volume = 0.1
 
 export function playClicILi() {
   clicAudio.currentTime = 0
