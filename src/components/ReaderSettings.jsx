@@ -205,11 +205,18 @@ export default function ReaderSettings({
   useEffect(() => {
     if (!isOpen) return
     const handleClick = (e) => {
-      if (menuRef.current && !menuRef.current.contains(e.target)) {
+    if (
+      menuRef.current && !menuRef.current.contains(e.target) &&
+      gearRef.current && !gearRef.current.contains(e.target)
+    ) {
+      setIsClosing(true)
+      setShowChapters(false)
+      setTimeout(() => {
         setIsOpen(false)
-        setShowChapters(false)
-      }
+        setIsClosing(false)
+      }, 160)
     }
+  }
     document.addEventListener('mousedown', handleClick)
     document.addEventListener('touchstart', handleClick)
     return () => {
