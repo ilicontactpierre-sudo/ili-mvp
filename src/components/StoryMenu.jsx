@@ -10,29 +10,6 @@ function StoryMenu({ isOpen, stories, isLoading, onClose, onDeleteStory }) {
     setTimeout(() => navigate(`/lire/${storyId}`), 1200)
   };
 
-  const handleDeleteClick = (e, storyId) => {
-    e.stopPropagation(); // Prevent triggering story click
-    setDeletingStoryId(storyId);
-    setDeletePassword('');
-  };
-
-  const handleDeleteConfirm = async () => {
-    if (!deletePassword.trim()) return;
-
-    try {
-      await onDeleteStory(deletingStoryId, deletePassword);
-      setDeletingStoryId(null);
-      setDeletePassword('');
-    } catch (error) {
-      alert('Erreur lors de la suppression: ' + error.message);
-    }
-  };
-
-  const handleDeleteCancel = () => {
-    setDeletingStoryId(null);
-    setDeletePassword('');
-  };
-
   const handleBackdropClick = (e) => {
     if (e.target === e.currentTarget) {
       onClose();
@@ -77,44 +54,6 @@ function StoryMenu({ isOpen, stories, isLoading, onClose, onDeleteStory }) {
           </div>
         )}
       </div>
-
-      {/* Delete confirmation dialog */}
-      {deletingStoryId && (
-        <div className="delete-confirm-overlay">
-          <div className="delete-confirm-dialog">
-            <h3>Confirmer la suppression</h3>
-            <p>Êtes-vous sûr de vouloir supprimer cette histoire ?</p>
-            <p>Cette action est irréversible.</p>
-
-            <div className="password-input">
-              <label htmlFor="delete-password">Mot de passe admin:</label>
-              <input
-                id="delete-password"
-                type="password"
-                value={deletePassword}
-                onChange={(e) => setDeletePassword(e.target.value)}
-                placeholder="Entrez le mot de passe"
-              />
-            </div>
-
-            <div className="delete-confirm-buttons">
-              <button
-                className="cancel-button"
-                onClick={handleDeleteCancel}
-              >
-                Annuler
-              </button>
-              <button
-                className="confirm-button"
-                onClick={handleDeleteConfirm}
-                disabled={!deletePassword.trim()}
-              >
-                Supprimer
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 }
