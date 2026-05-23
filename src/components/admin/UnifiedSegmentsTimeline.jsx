@@ -579,7 +579,6 @@ function SegmentTimelineRow({
           </button>
         </div>
       )}
-      )}
 
       {/* Séparateur redimensionnable */}
       <div
