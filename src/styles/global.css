@@ -286,21 +286,19 @@ body {
   font-family: var(--font-primary);
   font-size: 17px;
   font-weight: 400;
-  color: rgba(255, 255, 255, 0.85);
+  color: color-mix(in srgb, var(--color-text-focus) 85%, transparent);
   transition: color 200ms ease;
 }
-
 .story-card:hover .story-title {
-  color: rgba(255, 255, 255, 1);
+  color: var(--color-text-focus);
 }
-
 /* Story Author */
 .story-author {
   font-family: var(--font-logo);
   font-size: 12px;
   font-weight: 400;
   letter-spacing: 0.15em;
-  color: rgba(255, 255, 255, 0.55);
+  color: color-mix(in srgb, var(--color-text-focus) 55%, transparent);
   margin-top: 5px;
 }
 
