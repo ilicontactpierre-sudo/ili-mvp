@@ -62,7 +62,7 @@ function EndScreen({ title, author, formUrl }) {
         </p>
 
         {formUrl && (
-          
+          <a
             href={formUrl}
             target="_blank"
             rel="noreferrer"
@@ -90,7 +90,7 @@ function EndScreen({ title, author, formUrl }) {
             display: 'block',
             marginInline: 'auto',
             border: 'none',
-            borderBottom: `1px solid ${btnBorder}`,
+            borderBottom: '1px solid ' + btnBorder,
             borderRadius: 0,
             background: 'transparent',
             color: btnColor,
@@ -101,11 +101,11 @@ function EndScreen({ title, author, formUrl }) {
             cursor: 'pointer',
             transition: 'color 400ms ease, border-color 400ms ease',
           }}
-          onMouseEnter={e => {
+          onMouseEnter={function(e) {
             e.currentTarget.style.color = btnHoverColor
             e.currentTarget.style.borderBottomColor = btnHoverBorder
           }}
-          onMouseLeave={e => {
+          onMouseLeave={function(e) {
             e.currentTarget.style.color = btnColor
             e.currentTarget.style.borderBottomColor = btnBorder
           }}
