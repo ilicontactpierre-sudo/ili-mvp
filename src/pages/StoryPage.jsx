@@ -270,10 +270,6 @@ function StoryPage() {
           title={story?.title ?? ''}
           author={story?.author ?? ''}
           formUrl={story?.formUrl}
-          onRestart={() => {
-            setCurrentIndex(0)
-            setIsFinished(false)
-          }}
         />
         <ReaderSettings storyId={story?.id} segments={[]} />
       </>
