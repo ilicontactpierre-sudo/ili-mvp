@@ -334,7 +334,7 @@ body {
 .empty-state {
   text-align: center;
   font-size: 13px;
-  color: rgba(255, 255, 255, 0.25);
+  color: color-mix(in srgb, var(--color-text-focus) 25%, transparent);
   font-family: var(--font-logo);
   padding: 40px 20px;
   letter-spacing: 0.05em;
