@@ -9,7 +9,7 @@ function StoryMenu({ isOpen, stories, isLoading, onClose, onDeleteStory }) {
   if (!isOpen) return null;
 
   const handleStoryClick = (storyId) => {
-    navigate(`/lire/${storyId}`);
+    setTimeout(() => navigate(`/lire/${storyId}`), 1200)
   };
 
   const handleDeleteClick = (e, storyId) => {
