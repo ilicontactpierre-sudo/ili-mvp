@@ -125,7 +125,7 @@ body {
   font-weight: 300;
   letter-spacing: 0.4em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.55);
+  color: color-mix(in srgb, var(--color-text-focus) 55%, transparent);
   margin-top: 12px;
   cursor: pointer;
   user-select: none;
@@ -260,7 +260,7 @@ body {
 .delete-button {
   background: none;
   border: none;
-  color: rgba(255, 255, 255, 0.4);
+  color: color-mix(in srgb, var(--color-text-focus) 40%, transparent);
   font-size: 16px;
   cursor: pointer;
   padding: 8px;
