@@ -126,10 +126,12 @@ function btnStyle(primary) {
     background: 'transparent',
     border: 'none',
     borderBottom: primary
-      ? '1px solid rgba(255,255,255,0.35)'
-      : '1px solid rgba(255,255,255,0.1)',
+      ? '1px solid color-mix(in srgb, var(--color-text-focus) 35%, transparent)'
+      : '1px solid color-mix(in srgb, var(--color-text-focus) 10%, transparent)',
     borderRadius: 0,
-    color: primary ? 'rgba(255,255,255,0.9)' : 'rgba(255,255,255,0.3)',
+    color: primary
+      ? 'color-mix(in srgb, var(--color-text-focus) 90%, transparent)'
+      : 'color-mix(in srgb, var(--color-text-focus) 30%, transparent)',
     fontFamily: 'var(--font-primary)',
     fontSize: 'clamp(1rem, 3.8vw, 1.25rem)',
     fontWeight: primary ? 400 : 300,
