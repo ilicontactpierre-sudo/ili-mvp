@@ -1,7 +1,17 @@
+import { useRef } from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
 import HomePage from './pages/HomePage.jsx'
 import StoryPage from './pages/StoryPage.jsx'
 import AdminPage from './pages/AdminPage.jsx'
+
+// Instance audio globale, créée une seule fois
+const clicAudio = new Audio('/sounds/Clic ILi.mp3')
+clicAudio.volume = 0.6
+
+export function playClicILi() {
+  clicAudio.currentTime = 0
+  clicAudio.play().catch(() => {})
+}
 
 function App() {
   return (
