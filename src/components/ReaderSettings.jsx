@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { playClicSettings } from '../App.jsx'
 
 // ── localStorage helpers ──────────────────────────────────────────────────────
 const PROGRESS_KEY = (storyId) => `ili_progress_${storyId}`
@@ -119,13 +120,7 @@ export default function ReaderSettings({
       audio.play().catch(() => {})
     } catch {}
   }
-  function playSettingsClic() {
-    try {
-      const audio = new Audio('/sounds/Clic-Settings.mp3')
-      audio.volume = 0.2
-      audio.play().catch(() => {})
-    } catch {}
-  }
+
 
   const [isOpen, setIsOpen]             = useState(false)
   const [showChapters, setShowChapters] = useState(false)
