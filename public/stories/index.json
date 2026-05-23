@@ -78,5 +78,10 @@
     "id": "test-chapitre-1",
     "title": "Test chapitre 1",
     "author": "Test chapitre 1"
+  },
+  {
+    "id": "test-chapitre-2",
+    "title": "test chapitre 2",
+    "author": "test chapitre 2"
   }
 ]
