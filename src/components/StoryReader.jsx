@@ -99,6 +99,8 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle' 
   const trackRef = useRef(null)
   const chapterFloatRef = useRef(null)
   const introAppliedRef = useRef(false)
+  const prevChapterModeRef = useRef(chapterMode)
+  const firstStickyDoneRef = useRef(false)
 
   useEffect(() => {
     if (introAppliedRef.current || finalSegments.length === 0) return
