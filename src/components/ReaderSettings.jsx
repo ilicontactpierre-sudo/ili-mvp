@@ -244,7 +244,13 @@ export default function ReaderSettings({
   const handleQuit = () => {
     playWhoosh()
     setIsOpen(false)
-    navigate('/')
+    const el = document.querySelector('.story-reader')
+    if (el) {
+      el.style.transition = 'opacity 600ms ease-in, filter 600ms ease-in'
+      el.style.opacity = '0'
+      el.style.filter = 'blur(8px)'
+    }
+    setTimeout(() => navigate('/'), 600)
   }
 
   // ── Styles dynamiques selon thème ──────────────────────────────────────────
