@@ -99,25 +99,6 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle' 
   const trackRef = useRef(null)
   const chapterFloatRef = useRef(null)
   const introAppliedRef = useRef(false)
-  const prevChapterModeRef = useRef(chapterMode)
-  const firstStickyDoneRef = useRef(false)
-
-  // Supprimer la transition au premier passage focused → sticky
-  useEffect(() => {
-    const prev = prevChapterModeRef.current
-    prevChapterModeRef.current = chapterMode
-    if (prev === 'focused' && chapterMode === 'sticky' && !firstStickyDoneRef.current) {
-      firstStickyDoneRef.current = true
-      const el = chapterFloatRef.current
-      if (!el) return
-      el.style.transition = 'none'
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          el.style.transition = ''
-        })
-      })
-    }
-  }, [chapterMode])
 
   useEffect(() => {
     if (introAppliedRef.current || finalSegments.length === 0) return
