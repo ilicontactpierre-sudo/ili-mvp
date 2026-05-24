@@ -204,6 +204,7 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle' 
       */}
       {chapterSegment && (
         <div
+          ref={chapterFloatRef}
           className="story-reader__chapter-float"
           data-mode={chapterMode}
           key={chapterSegment.id}
@@ -231,6 +232,7 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle' 
 
       {/* ── TRACK ── */}
       <div
+        ref={trackRef}
         className={[
           'story-reader__track',
           chapterMode === 'focused' ? 'story-reader__track--hidden' : '',
