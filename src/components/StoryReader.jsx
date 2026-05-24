@@ -180,7 +180,7 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle' 
     }
     }, [finalSegments, currentIndex, chapterMode])
 
-    return (
+    
     const applyFilterToMain = chapterMode !== 'sticky'
     return (
     <main
