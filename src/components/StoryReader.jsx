@@ -97,19 +97,7 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle' 
 
   const segmentRefs = useRef([])
   const [translateY, setTranslateY] = useState(0)
-    const [introPhase, setIntroPhase] = useState('before')
-    const introTriggeredRef = useRef(false)
-    const isChapterFirst = finalSegments[0]?.isChapter === true
-    const hasSegments = finalSegments.length > 0
-
-    useEffect(() => {
-    if (!hasSegments) return
-    if (introTriggeredRef.current) return
-    introTriggeredRef.current = true
-    const t = setTimeout(() => setIntroPhase('animating'), 60)
-    const t2 = setTimeout(() => setIntroPhase('done'), 60 + 1400)
-    return () => { clearTimeout(t); clearTimeout(t2) }
-  }, [hasSegments])
+  
       // Hauteur réservée pour le spacer (sticky ou focused → même hauteur)
   const STICKY_HEIGHT = 56 // px — doit correspondre au padding du sticky dans le CSS
 
@@ -202,11 +190,7 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle' 
       */}
       {chapterSegment && (
         <div
-          className={[
-            'story-reader__chapter-float',
-            isChapterFirst && introPhase === 'before' ? 'story-reader__chapter-float--intro-before' : '',
-            isChapterFirst && introPhase === 'animating' ? 'story-reader__chapter-float--intro-animating' : '',
-          ].join(' ')}
+          className="story-reader__chapter-float"
           data-mode={chapterMode}
           key={chapterSegment.id}
         >
@@ -240,15 +224,6 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle' 
         style={{
           '--track-translate-y': `${translateY}px`,
           transition: jumpPhase !== 'idle' ? 'none' : undefined,
-          ...(!isChapterFirst && introPhase === 'before' && hasSegments ? {
-            opacity: 0,
-            transform: `translate3d(0, calc(${translateY}px + 60px), 0)`,
-          } : {}),
-          ...(!isChapterFirst && introPhase === 'animating' ? {
-            opacity: 1,
-            transform: `translate3d(0, ${translateY}px, 0)`,
-            transition: 'opacity 900ms cubic-bezier(0.16, 1, 0.3, 1), transform 1200ms cubic-bezier(0.16, 1, 0.3, 1)',
-          } : {}),
         }}
       >
         {finalSegments.map((segment, index) => {
