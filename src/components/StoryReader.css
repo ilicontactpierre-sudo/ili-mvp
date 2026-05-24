@@ -65,6 +65,12 @@
   pointer-events: none;
 }
 
+/* ── Chapitre dans le track : masqué quand le flottant est sticky ── */
+.story-reader__track .story-reader__segment--chapter-in-track {
+  opacity: 0 !important;
+  pointer-events: none;
+}
+
 /* ── CHAPITRE FLOTTANT (objet unique, deux états) ── */
 .story-reader__chapter-float {
   position: absolute;
