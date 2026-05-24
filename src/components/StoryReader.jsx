@@ -294,7 +294,15 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle' 
               }}
               data-vfx-text={segment.text}
             >
-              {renderMarkdown(segment.text, segment)}
+              {segment.breakAt != null && segment.breakAt > 0 && segment.breakAt < segment.text?.length ? (
+                <>
+                  {renderMarkdown(segment.text.slice(0, segment.breakAt).trim(), segment)}
+                  <br /><br />
+                  {renderMarkdown(segment.text.slice(segment.breakAt).trim(), segment)}
+                </>
+              ) : (
+                renderMarkdown(segment.text, segment)
+              )}
             </p>
           )
         })}
