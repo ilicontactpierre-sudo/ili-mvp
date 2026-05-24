@@ -97,8 +97,9 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle' 
 
   const segmentRefs = useRef([])
   const [translateY, setTranslateY] = useState(0)
-    const [introPhase, setIntroPhase] = useState('before') // 'before' | 'animating' | 'done'
+    const [introPhase, setIntroPhase] = useState('before')
     const introTriggeredRef = useRef(false)
+    const isChapterFirst = finalSegments[0]?.isChapter === true
 
     useEffect(() => {
       if (introTriggeredRef.current) return
@@ -175,8 +176,6 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle' 
       observer.disconnect()
     }
     }, [finalSegments, currentIndex, chapterMode])
-
-    const isChapterFirst = finalSegments[0]?.isChapter === true
 
     return (
     <main
