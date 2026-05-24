@@ -7,733 +7,358 @@
   "segments": [
     {
       "id": "seg_0_22",
-      "lines": [
-        "CHAPITRE 01 - Ensemble"
-      ],
       "text": "CHAPITRE 01 - Ensemble",
-      "breakAt": null,
-      "isLeader": true,
-      "isChapter": true,
       "audioEvents": []
     },
     {
       "id": "seg_1_102",
-      "lines": [
-        "- À nos six années ici, et surtout, à ta fin de mission ! \"Well done\" comme on dit ! - Merci mon cœur…"
-      ],
       "text": "- À nos six années ici, et surtout, à ta fin de mission ! \"Well done\" comme on dit ! - Merci mon cœur…",
-      "breakAt": 57,
-      "isLeader": true,
-      "audioEvents": []
+      "audioEvents": [],
+      "breakAt": 85
     },
     {
       "id": "seg_2_73",
-      "lines": [
-        "Rob continue sur sa lancée : « Un discours, un discours, un discours ! »."
-      ],
       "text": "Rob continue sur sa lancée : « Un discours, un discours, un discours ! ».",
-      "breakAt": null,
-      "isLeader": false,
       "audioEvents": []
     },
     {
       "id": "seg_3_77",
-      "lines": [
-        "Rim se redresse et se lève d’un air solennel, son verre brandit vers le ciel."
-      ],
       "text": "Rim se redresse et se lève d’un air solennel, son verre brandit vers le ciel.",
-      "breakAt": null,
-      "isLeader": false,
       "audioEvents": []
     },
     {
       "id": "seg_4_186",
-      "lines": [
-        "Quand elle voit une partie des clients la dévisager avec étonnement, elle se ravise faisant petit geste à tous ces spectateurs inattendus, comme pour signifier que le show est déjà fini."
-      ],
       "text": "Quand elle voit une partie des clients la dévisager avec étonnement, elle se ravise faisant petit geste à tous ces spectateurs inattendus, comme pour signifier que le show est déjà fini.",
-      "breakAt": null,
-      "isLeader": false,
       "audioEvents": []
     },
     {
       "id": "seg_5_19",
-      "lines": [
-        "Rob éclate de rire."
-      ],
       "text": "Rob éclate de rire.",
-      "breakAt": null,
-      "isLeader": true,
-      "isChapter": true,
       "audioEvents": []
     },
     {
       "id": "seg_6_51",
-      "lines": [
-        "Ses yeux la dévisages avec un amour sans équivoque."
-      ],
       "text": "Ses yeux la dévisages avec un amour sans équivoque.",
-      "breakAt": null,
-      "isLeader": true,
       "audioEvents": []
     },
     {
       "id": "seg_7_136",
-      "lines": [
-        "Il décide de simuler une interview, tendant à Rim sa coupe de champagne comme on tend un micro, sa main droite sur sa fausse oreillette."
-      ],
       "text": "Il décide de simuler une interview, tendant à Rim sa coupe de champagne comme on tend un micro, sa main droite sur sa fausse oreillette.",
-      "breakAt": null,
-      "isLeader": false,
       "audioEvents": []
     },
     {
       "id": "seg_8_74",
-      "lines": [
-        "- Un petit mot peut être pour nos téléspectateurs qui vous admirent tant ?"
-      ],
       "text": "- Un petit mot peut être pour nos téléspectateurs qui vous admirent tant ?",
-      "breakAt": null,
-      "isLeader": false,
       "audioEvents": []
     },
     {
       "id": "seg_9_121",
-      "lines": [
-        "- J’aimerai d’abord remercier toute ma famille qui a su ne pas croire en moi et me donner la force. »",
-        "Rob lève son verre."
-      ],
       "text": "- J’aimerai d’abord remercier toute ma famille qui a su ne pas croire en moi et me donner la force. » Rob lève son verre.",
-      "breakAt": null,
-      "isLeader": false,
       "audioEvents": []
     },
     {
       "id": "seg_10_163",
-      "lines": [
-        "- Remercier ma chienne, Agatha, partie trop tôt, qui me manque terriblement, et sans qui ça n'aurait pas été la même.",
-        "Rob lève son verre faisant un signe de croix."
-      ],
       "text": "- Remercier ma chienne, Agatha, partie trop tôt, qui me manque terriblement, et sans qui ça n'aurait pas été la même. Rob lève son verre faisant un signe de croix.",
-      "breakAt": 117,
-      "isLeader": false,
       "audioEvents": []
     },
     {
       "id": "seg_11_176",
-      "lines": [
-        "- Je remercie aussi Marcel, notre raison d’être, qui nous unis pour la vie, et sans qui nos nuits existeraient encore.",
-        "Rob lève son verre faisant, là encore, un signe de croix."
-      ],
       "text": "- Je remercie aussi Marcel, notre raison d’être, qui nous unis pour la vie, et sans qui nos nuits existeraient encore. Rob lève son verre faisant, là encore, un signe de croix.",
-      "breakAt": null,
-      "isLeader": false,
       "audioEvents": []
     },
     {
       "id": "seg_12_167",
-      "lines": [
-        "- Et enfin je remercie Rob Corpe, grâce à qui ces six années sont passées si vite, et avec qui je souhaite passer toutes mes heures à venir…",
-        "Rob se lève et l’embrasse."
-      ],
       "text": "- Et enfin je remercie Rob Corpe, grâce à qui ces six années sont passées si vite, et avec qui je souhaite passer toutes mes heures à venir… Rob se lève et l’embrasse.",
-      "breakAt": null,
-      "isLeader": false,
       "audioEvents": []
     },
     {
       "id": "seg_13_112",
-      "lines": [
-        "Il ne lui dira pas ce soir, mais il sait qu’elle sait : lui aussi rêve de passer le reste de sa vie à ses côtés."
-      ],
       "text": "Il ne lui dira pas ce soir, mais il sait qu’elle sait : lui aussi rêve de passer le reste de sa vie à ses côtés.",
-      "breakAt": null,
-      "isLeader": false,
       "audioEvents": []
     },
     {
       "id": "seg_14_41",
-      "lines": [
-        "Rim a l’oeil humide et le sourire apaisé."
-      ],
       "text": "Rim a l’oeil humide et le sourire apaisé.",
-      "breakAt": null,
-      "isLeader": false,
       "audioEvents": []
     },
     {
       "id": "seg_15_84",
-      "lines": [
-        "L’émotion du moment, se dit-elle.",
-        "Ou peut- être parce que c’est déjà son 4ème verre."
-      ],
       "text": "L’émotion du moment, se dit-elle. Ou peut- être parce que c’est déjà son 4ème verre.",
-      "breakAt": null,
-      "isLeader": false,
       "audioEvents": []
     },
     {
       "id": "seg_16_9",
-      "lines": [
-        "Qui sait…"
-      ],
       "text": "Qui sait…",
-      "breakAt": null,
-      "isLeader": false,
       "audioEvents": []
     },
     {
       "id": "seg_17_93",
-      "lines": [
-        "« Ils disent tous que ça va me manquer… Le terrain, l'adrénaline, les collègues, le danger. »"
-      ],
       "text": "« Ils disent tous que ça va me manquer… Le terrain, l'adrénaline, les collègues, le danger. »",
-      "breakAt": 39,
-      "isLeader": false,
       "audioEvents": []
     },
     {
       "id": "seg_18_69",
-      "lines": [
-        "Elle fait une de ces grimaces sur-jouées dont elle seule a le secret."
-      ],
       "text": "Elle fait une de ces grimaces sur-jouées dont elle seule a le secret.",
-      "breakAt": null,
-      "isLeader": false,
       "audioEvents": []
     },
     {
       "id": "seg_19_26",
-      "lines": [
-        "- C'est mal te connaitre !"
-      ],
       "text": "- C'est mal te connaitre !",
-      "breakAt": null,
-      "isLeader": false,
       "audioEvents": []
     },
     {
       "id": "seg_20_49",
-      "lines": [
-        "Leurs rires complices couvrent le groupe de jazz."
-      ],
       "text": "Leurs rires complices couvrent le groupe de jazz.",
-      "breakAt": null,
-      "isLeader": false,
       "audioEvents": []
     },
     {
       "id": "seg_21_100",
-      "lines": [
-        "- J'ai juste hâte que tu termines aussi, et après, Hasta la vista baby, let's go pour la",
-        "vraie vie !"
-      ],
       "text": "- J'ai juste hâte que tu termines aussi, et après, Hasta la vista baby, let's go pour la vraie vie !",
-      "breakAt": null,
-      "isLeader": false,
       "audioEvents": []
     },
     {
       "id": "seg_22_182",
-      "lines": [
-        "Ils boivent à leurs santés; une gorgée à l’espoir d’une vie heureuse.",
-        "Car ils le savent tous les deux, les 18 jours qui arrivent seront surement les jours les plus longs de leur vie."
-      ],
       "text": "Ils boivent à leurs santés; une gorgée à l’espoir d’une vie heureuse. Car ils le savent tous les deux, les 18 jours qui arrivent seront surement les jours les plus longs de leur vie.",
-      "breakAt": null,
-      "isLeader": false,
       "audioEvents": []
     },
     {
       "id": "seg_23_108",
-      "lines": [
-        "Il est l’heure de partir s’ils veulent profiter encore un peu de leur soirée avant la fin de la baby-sitter."
-      ],
       "text": "Il est l’heure de partir s’ils veulent profiter encore un peu de leur soirée avant la fin de la baby-sitter.",
-      "breakAt": null,
-      "isLeader": false,
       "audioEvents": []
     },
     {
       "id": "seg_25_67",
-      "lines": [
-        "Les deux regardent la note avec un petit soupire : c’est pas donné."
-      ],
       "text": "Les deux regardent la note avec un petit soupire : c’est pas donné.",
-      "breakAt": null,
-      "isLeader": false,
       "audioEvents": []
     },
     {
       "id": "seg_26_96",
-      "lines": [
-        "Ils décident de prendre un dernier verre au Winchester, leur bar préféré, là où tout à commencé."
-      ],
       "text": "Ils décident de prendre un dernier verre au Winchester, leur bar préféré, là où tout à commencé.",
-      "breakAt": null,
-      "isLeader": false,
       "audioEvents": []
     },
     {
       "id": "seg_27_53",
-      "lines": [
-        "Machinalement Rim s’empresse de regarder son poignet."
-      ],
       "text": "Machinalement Rim s’empresse de regarder son poignet.",
-      "breakAt": null,
-      "isLeader": false,
       "audioEvents": []
     },
     {
       "id": "seg_28_74",
-      "lines": [
-        "Sur sa peau, un léger bronzage laisse deviner une montre longtemps portée."
-      ],
       "text": "Sur sa peau, un léger bronzage laisse deviner une montre longtemps portée.",
-      "breakAt": null,
-      "isLeader": false,
       "audioEvents": []
     },
     {
       "id": "seg_29_153",
-      "lines": [
-        "Elle se fige et pose lentement son regard sur Rob : il a lui aussi les yeux braqués sur son poignet, plus précisément sur sa montre qui orne son poignet…"
-      ],
       "text": "Elle se fige et pose lentement son regard sur Rob : il a lui aussi les yeux braqués sur son poignet, plus précisément sur sa montre qui orne son poignet…",
-      "breakAt": null,
-      "isLeader": false,
       "audioEvents": []
     },
     {
       "id": "seg_30_99",
-      "lines": [
-        "\"Rdv au QG immédiatement. Prévoir pour plusieurs nuits. Alertes inhabituelles sur zones à risques.\""
-      ],
       "text": "\"Rdv au QG immédiatement. Prévoir pour plusieurs nuits. Alertes inhabituelles sur zones à risques.\"",
-      "breakAt": null,
-      "isLeader": false,
       "audioEvents": []
     },
     {
       "id": "seg_31_70",
-      "lines": [
-        "Elle connaît ce petit rictus sur son visage, elle le connait par cœur."
-      ],
       "text": "Elle connaît ce petit rictus sur son visage, elle le connait par cœur.",
-      "breakAt": null,
-      "isLeader": true,
       "audioEvents": []
     },
     {
       "id": "seg_32_28",
-      "lines": [
-        "Rob lève les yeux vers elle."
-      ],
       "text": "Rob lève les yeux vers elle.",
-      "breakAt": null,
-      "isLeader": false,
       "audioEvents": []
     },
     {
       "id": "seg_33_53",
-      "lines": [
-        "Pas besoin de parler, elle sait qu’elle rentre seule."
-      ],
       "text": "Pas besoin de parler, elle sait qu’elle rentre seule.",
-      "breakAt": null,
-      "isLeader": false,
       "audioEvents": []
     },
     {
       "id": "seg_34_73",
-      "lines": [
-        "Elle serre son poignet nu aussi fort que se serre son cœur à cet instant."
-      ],
       "text": "Elle serre son poignet nu aussi fort que se serre son cœur à cet instant.",
-      "breakAt": null,
-      "isLeader": false,
       "audioEvents": []
     },
     {
       "id": "seg_35_157",
-      "lines": [
-        "Ils avaient peut-être raison les collègues, on ne sort pas indemne de ce genre de carrière… Et ce que Rob ne dit pas, c’est qu’il le sait et qu’il en a peur."
-      ],
       "text": "Ils avaient peut-être raison les collègues, on ne sort pas indemne de ce genre de carrière… Et ce que Rob ne dit pas, c’est qu’il le sait et qu’il en a peur.",
-      "breakAt": null,
-      "isLeader": false,
       "audioEvents": []
     },
     {
       "id": "seg_36_50",
-      "lines": [
-        "Dans 18 jours, tout ça, c’est fini pour lui aussi."
-      ],
       "text": "Dans 18 jours, tout ça, c’est fini pour lui aussi.",
-      "breakAt": null,
-      "isLeader": false,
       "audioEvents": []
     },
     {
       "id": "seg_37_33",
-      "lines": [
-        "Chapitre 02 : Un matin ordinaire."
-      ],
       "text": "Chapitre 02 : Un matin ordinaire.",
-      "breakAt": null,
-      "isLeader": true,
       "audioEvents": []
     },
     {
       "id": "seg_38_37",
-      "lines": [
-        "Il y a des matins heureux à Brooklyn."
-      ],
       "text": "Il y a des matins heureux à Brooklyn.",
-      "breakAt": null,
-      "isLeader": false,
       "audioEvents": []
     },
     {
       "id": "seg_39_202",
-      "lines": [
-        "Quand, sur les peaux endormies, viennent danser les premières lueurs du jour.",
-        "Quand règne l’odeur d’une nuit aux rêves éveillés.",
-        "Même le réveil de la ville ne peut émoustiller ces moments hors du temps."
-      ],
       "text": "Quand, sur les peaux endormies, viennent danser les premières lueurs du jour. Quand règne l’odeur d’une nuit aux rêves éveillés. Même le réveil de la ville ne peut émoustiller ces moments hors du temps.",
-      "breakAt": 77,
-      "isLeader": false,
       "audioEvents": []
     },
     {
       "id": "seg_40_33",
-      "lines": [
-        "La douceur d’une vie sans soucis."
-      ],
       "text": "La douceur d’une vie sans soucis.",
-      "breakAt": null,
-      "isLeader": false,
       "audioEvents": []
     },
     {
       "id": "seg_41_67",
-      "lines": [
-        "Les paupières en bernes, Rim sonde son lit d’un étirement gracieux."
-      ],
       "text": "Les paupières en bernes, Rim sonde son lit d’un étirement gracieux.",
-      "breakAt": null,
-      "isLeader": false,
       "audioEvents": []
     },
     {
       "id": "seg_42_117",
-      "lines": [
-        "Sentir son petit corps chaud et entendre le doux son de sa voix… Aucun doute, ce matin sera un de ces matins heureux."
-      ],
       "text": "Sentir son petit corps chaud et entendre le doux son de sa voix… Aucun doute, ce matin sera un de ces matins heureux.",
-      "breakAt": null,
-      "isLeader": false,
       "audioEvents": []
     },
     {
       "id": "seg_43_92",
-      "lines": [
-        "La lumière du soleil frappe la rétine de Rim laissant apparaitre ses yeux verts électriques."
-      ],
       "text": "La lumière du soleil frappe la rétine de Rim laissant apparaitre ses yeux verts électriques.",
-      "breakAt": null,
-      "isLeader": false,
       "audioEvents": []
     },
     {
       "id": "seg_44_65",
-      "lines": [
-        "Une pensée furtive vient renforcer ce moment : plus que 15 jours."
-      ],
       "text": "Une pensée furtive vient renforcer ce moment : plus que 15 jours.",
-      "breakAt": null,
-      "isLeader": false,
       "audioEvents": []
     },
     {
       "id": "seg_45_199",
-      "lines": [
-        "Le sourire en coin, elle sait ce qui lui reste à faire : que son rituel commence !",
-        "Peignoir soyeux, pantoufles enfilées sans respect pour le contrefort, le pas vif et séduisant, les cheveux sauvages."
-      ],
       "text": "Le sourire en coin, elle sait ce qui lui reste à faire : que son rituel commence ! Peignoir soyeux, pantoufles enfilées sans respect pour le contrefort, le pas vif et séduisant, les cheveux sauvages.",
-      "breakAt": 82,
-      "isLeader": false,
       "audioEvents": []
     },
     {
       "id": "seg_46_63",
-      "lines": [
-        "Tasse posée, capsule parée, eau à température dans 19 secondes."
-      ],
       "text": "Tasse posée, capsule parée, eau à température dans 19 secondes.",
-      "breakAt": null,
-      "isLeader": false,
       "audioEvents": []
     },
     {
       "id": "seg_47_48",
-      "lines": [
-        "Dans le frigo : yaourt, beurre, fromage, lait… ?"
-      ],
       "text": "Dans le frigo : yaourt, beurre, fromage, lait… ?",
-      "breakAt": null,
-      "isLeader": false,
       "audioEvents": []
     },
     {
       "id": "seg_48_72",
-      "lines": [
-        "Oula, finalement, pas de lait.",
-        "Machine prête, bouton pressé, café coulé."
-      ],
       "text": "Oula, finalement, pas de lait. Machine prête, bouton pressé, café coulé.",
-      "breakAt": null,
-      "isLeader": false,
       "audioEvents": []
     },
     {
       "id": "seg_49_71",
-      "lines": [
-        "Table basse, canapé, télé.",
-        "Ça y est, Rim est prête pour son matin rêvé."
-      ],
       "text": "Table basse, canapé, télé. Ça y est, Rim est prête pour son matin rêvé.",
-      "breakAt": null,
-      "isLeader": false,
       "audioEvents": []
     },
     {
       "id": "seg_50_40",
-      "lines": [
-        "« Le réconfort de notre petit confort »."
-      ],
       "text": "« Le réconfort de notre petit confort ».",
-      "breakAt": null,
-      "isLeader": false,
       "audioEvents": []
     },
     {
       "id": "seg_51_158",
-      "lines": [
-        "Il ne se passe pas une journée sans que Rim n’observe une situation qui illustre à merveille l’un des innombrables dictons dont sa grand-mère avait le secret."
-      ],
       "text": "Il ne se passe pas une journée sans que Rim n’observe une situation qui illustre à merveille l’un des innombrables dictons dont sa grand-mère avait le secret.",
-      "breakAt": null,
-      "isLeader": false,
       "audioEvents": []
     },
     {
       "id": "seg_52_58",
-      "lines": [
-        "Elle regarde un instant la photo qui trône près du canapé."
-      ],
       "text": "Elle regarde un instant la photo qui trône près du canapé.",
-      "breakAt": null,
-      "isLeader": false,
       "audioEvents": []
     },
     {
       "id": "seg_53_280",
-      "lines": [
-        "Rob et elle en train de s’embrasser, Pierre, le grand frère de Rob, qui détourne grossièrement le regard avec ses airs de drama-king, et tous les invités debout, jetant des fleurs et du riz… Qu’il est doux cet instant où le temps s’arrête, et violent ce moment où sonne le réveil."
-      ],
       "text": "Rob et elle en train de s’embrasser, Pierre, le grand frère de Rob, qui détourne grossièrement le regard avec ses airs de drama-king, et tous les invités debout, jetant des fleurs et du riz… Qu’il est doux cet instant où le temps s’arrête, et violent ce moment où sonne le réveil.",
-      "breakAt": 190,
-      "isLeader": false,
       "audioEvents": []
     },
     {
       "id": "seg_54_27",
-      "lines": [
-        "Chapitre 03 : Le brouillard"
-      ],
       "text": "Chapitre 03 : Le brouillard",
-      "breakAt": null,
-      "isLeader": false,
       "audioEvents": []
     },
     {
       "id": "seg_55_54",
-      "lines": [
-        "Un dernier coup d'œil aux camarades qui resteront ici."
-      ],
       "text": "Un dernier coup d'œil aux camarades qui resteront ici.",
-      "breakAt": null,
-      "isLeader": false,
       "audioEvents": []
     },
     {
       "id": "seg_56_214",
-      "lines": [
-        "Tous ont la tête basse et les épaules en bernes.",
-        "Pourtant, Rob le sait, personne ne manque de courage ici, mais ils tiennent juste à la vie… Ok, dernière vérification avant le grand bain.",
-        "• Fusil plasma XKO2 chargé"
-      ],
       "text": "Tous ont la tête basse et les épaules en bernes. Pourtant, Rob le sait, personne ne manque de courage ici, mais ils tiennent juste à la vie… Ok, dernière vérification avant le grand bain. • Fusil plasma XKO2 chargé",
-      "breakAt": 140,
-      "isLeader": false,
       "audioEvents": []
     },
     {
       "id": "seg_57_65",
-      "lines": [
-        "• Combinaison fermée",
-        "• Masque intégral verrouillé et dépressurisé"
-      ],
       "text": "• Combinaison fermée • Masque intégral verrouillé et dépressurisé",
-      "breakAt": null,
-      "isLeader": false,
       "audioEvents": []
     },
     {
       "id": "seg_58_47",
-      "lines": [
-        "• Photo du mariage dans sa poche poitrine, O.K."
-      ],
       "text": "• Photo du mariage dans sa poche poitrine, O.K.",
-      "breakAt": null,
-      "isLeader": false,
       "audioEvents": []
     },
     {
       "id": "seg_59_35",
-      "lines": [
-        "…Quand faut y aller, faut y aller !"
-      ],
       "text": "…Quand faut y aller, faut y aller !",
-      "breakAt": null,
-      "isLeader": false,
       "audioEvents": []
     },
     {
       "id": "seg_60_139",
-      "lines": [
-        "Durant toute sa carrière, on l’avait préparé pour ce genre de mission.",
-        "Six ans qu’il s’entraine avec les collègues à tout type de scénario."
-      ],
       "text": "Durant toute sa carrière, on l’avait préparé pour ce genre de mission. Six ans qu’il s’entraine avec les collègues à tout type de scénario.",
-      "breakAt": null,
-      "isLeader": false,
       "audioEvents": []
     },
     {
       "id": "seg_61_62",
-      "lines": [
-        "Et pourtant, de toute évidence, Rob sait qu’il n’est pas prêt."
-      ],
       "text": "Et pourtant, de toute évidence, Rob sait qu’il n’est pas prêt.",
-      "breakAt": null,
-      "isLeader": false,
       "audioEvents": []
     },
     {
       "id": "seg_62_29",
-      "lines": [
-        "Aucun d’entre eux n’est prêt."
-      ],
       "text": "Aucun d’entre eux n’est prêt.",
-      "breakAt": null,
-      "isLeader": false,
       "audioEvents": []
     },
     {
       "id": "seg_63_102",
-      "lines": [
-        "Depuis qu’ils sont entrés dans le bâtiment Sud, Rob et son équipe avancent dans une fumée nauséabonde."
-      ],
       "text": "Depuis qu’ils sont entrés dans le bâtiment Sud, Rob et son équipe avancent dans une fumée nauséabonde.",
-      "breakAt": null,
-      "isLeader": false,
       "audioEvents": []
     },
     {
       "id": "seg_64_137",
-      "lines": [
-        "Armes aux points, ils essaient de garder les yeux rivés droit devant, lutant pour ne pas croiser les regards éteints qui jonchent le sol."
-      ],
       "text": "Armes aux points, ils essaient de garder les yeux rivés droit devant, lutant pour ne pas croiser les regards éteints qui jonchent le sol.",
-      "breakAt": null,
-      "isLeader": false,
       "audioEvents": []
     },
     {
       "id": "seg_65_133",
-      "lines": [
-        "Au détour d'un énième couloir, Jim, dépiégeur fraîchement affecté aux forces spéciales, repère la lumière verte d'un sas de niveau 4."
-      ],
       "text": "Au détour d'un énième couloir, Jim, dépiégeur fraîchement affecté aux forces spéciales, repère la lumière verte d'un sas de niveau 4.",
-      "breakAt": null,
-      "isLeader": false,
       "audioEvents": []
     },
     {
       "id": "seg_66_31",
-      "lines": [
-        "Le digicode semble fonctionnel."
-      ],
       "text": "Le digicode semble fonctionnel.",
-      "breakAt": null,
-      "isLeader": false,
       "audioEvents": []
     },
     {
       "id": "seg_67_13",
-      "lines": [
-        "Jim se lance."
-      ],
       "text": "Jim se lance.",
-      "breakAt": null,
-      "isLeader": false,
       "audioEvents": []
     },
     {
       "id": "seg_68_243",
-      "lines": [
-        "En passant la porte sécurisée, Alex alerte Rob et ses camarades : ils viennent de perdre contact avec la base centrale.",
-        "Comme prévu, la radio ne leur servira plus.",
-        "Quelques regards s’échangent, tous emplis de pudeur face à la peur qui grandit."
-      ],
       "text": "En passant la porte sécurisée, Alex alerte Rob et ses camarades : ils viennent de perdre contact avec la base centrale. Comme prévu, la radio ne leur servira plus. Quelques regards s’échangent, tous emplis de pudeur face à la peur qui grandit.",
-      "breakAt": null,
-      "isLeader": false,
       "audioEvents": []
     },
     {
       "id": "seg_69_2",
-      "lines": [
-        "Le"
-      ],
       "text": "Le",
-      "breakAt": null,
-      "isLeader": false,
       "audioEvents": []
     },
     {
       "id": "seg_70_94",
-      "lines": [
-        "brouillard s'épaissit à chaque pas.",
-        "Rob le sait : désormais, impossible de revenir en arrière."
-      ],
       "text": "brouillard s'épaissit à chaque pas. Rob le sait : désormais, impossible de revenir en arrière.",
-      "breakAt": null,
-      "isLeader": true,
       "audioEvents": []
     },
     {
       "id": "seg_71_9",
-      "lines": [
-        "À suivre…"
-      ],
       "text": "À suivre…",
-      "breakAt": null,
-      "isLeader": false,
       "audioEvents": []
     }
   ],
