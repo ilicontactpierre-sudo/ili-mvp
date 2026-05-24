@@ -246,11 +246,11 @@ export default function ReaderSettings({
     setIsOpen(false)
     const el = document.querySelector('.story-reader')
     if (el) {
-      el.style.transition = 'opacity 600ms ease-in, filter 600ms ease-in'
+      el.style.transition = 'opacity 700ms cubic-bezier(0.4, 0, 1, 1), filter 700ms cubic-bezier(0.4, 0, 1, 1)'
       el.style.opacity = '0'
-      el.style.filter = 'blur(8px)'
+      el.style.filter = 'blur(12px)'
     }
-    setTimeout(() => navigate('/'), 600)
+    setTimeout(() => navigate('/'), 700)
   }
 
   // ── Styles dynamiques selon thème ──────────────────────────────────────────
