@@ -343,7 +343,7 @@ function AdminPage() {
       ...seg,
       id: seg.id ?? `seg_${i}`,
       text: seg.text || '',
-      audioEvents: seg.audioEvents || [],
+      audioEvents: seg.audioEvents || []
     }))
     setSegments(loadedSegments)
 
