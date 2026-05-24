@@ -112,25 +112,6 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle' 
   }, [finalSegments])
   const [translateY, setTranslateY] = useState(0)
   
-  const prevChapterModeRef = useRef(null)
-  useEffect(() => {
-    const prev = prevChapterModeRef.current
-    prevChapterModeRef.current = chapterMode
-    if (prev === 'focused' && chapterMode === 'sticky') {
-      const el = chapterFloatRef.current
-      if (!el) return
-      el.style.transition = 'none'
-      el.style.top = '0'
-      el.style.transform = 'translateY(0)'
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          el.style.transition = ''
-          el.style.top = ''
-          el.style.transform = ''
-        })
-      })
-    }
-  }, [chapterMode])
       // Hauteur réservée pour le spacer (sticky ou focused → même hauteur)
   const STICKY_HEIGHT = 56 // px — doit correspondre au padding du sticky dans le CSS
 
