@@ -109,9 +109,11 @@
 
 /* État : sticky → en haut, petit */
 .story-reader__chapter-float[data-mode="sticky"] {
+  position: fixed;
   top: 0;
   transform: translateY(0);
   padding: 14px 24px 12px;
+  background: var(--color-bg, #f5f0e8);
 }
 
 .story-reader__chapter-float[data-mode="sticky"] .story-reader__chapter-float-text {
