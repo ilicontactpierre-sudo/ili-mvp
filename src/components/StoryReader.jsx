@@ -240,7 +240,7 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle' 
         style={{
           '--track-translate-y': `${translateY}px`,
           transition: jumpPhase !== 'idle' ? 'none' : undefined,
-          ...(!isChapterFirst && introPhase === 'before' ? {
+          ...(!isChapterFirst && introPhase === 'before' && hasSegments ? {
             opacity: 0,
             transform: `translate3d(0, calc(${translateY}px + 60px), 0)`,
           } : {}),
