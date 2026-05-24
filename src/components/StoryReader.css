@@ -89,6 +89,7 @@
 
 /* État : chapitre actif → centré, légèrement au-dessus du milieu */
 .story-reader__chapter-float[data-mode="focused"] {
+  position: absolute;
   top: 37%;
   transform: translateY(-50%);
   padding: 0 24px;
