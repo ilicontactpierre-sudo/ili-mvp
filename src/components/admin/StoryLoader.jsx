@@ -115,7 +115,7 @@ function StoryLoader({ onLoadStory, onPreviewStory }) {
   // Charger une histoire dans l'éditeur
   const handleEdit = async (storyId) => {
     try {
-      const response = await fetch(`/stories/${storyId}.json`)
+      const response = await fetch(`/stories/${storyId}.json?t=${Date.now()}`)
       if (!response.ok) {
         throw new Error(`Impossible de charger l'histoire "${storyId}"`)
       }
@@ -165,6 +165,7 @@ function StoryLoader({ onLoadStory, onPreviewStory }) {
           slug: data.id || storyId,
           segments: normalizedSegments,
           soundTracks: soundTracks,
+          vfxTracks: data.vfxTracks || [],
           sounds: soundLibrary
         })
       }
