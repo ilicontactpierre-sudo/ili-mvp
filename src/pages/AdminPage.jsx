@@ -302,23 +302,15 @@ function AdminPage() {
   const handleCutText = () => {
     setCutError('');
     setIsCutting(true);
-    setSegments([]);
-
     try {
-      console.log("Début découpage - texte:", storyText.substring(0, 100) + "...");
-      console.log("Granularité:", granularity);
-      
-      // Utiliser l'algorithme local au lieu de l'API Gemini
       const result = segmentText(storyText, granularity);
-      console.log('RESULT BRUT', result.filter(s => s.breakAt !== null))
-      console.log("Découpage terminé - nombre de segments:", result.length);
-      console.log("Premiers segments:", result.slice(0, 3));
-      
       if (result.length === 0) {
         setCutError("Aucun segment n'a été généré. Vérifiez votre texte.");
       } else {
-        setSegments(result);
-        saveToHistory(result, soundTracks, vfxTracks)
+        const newSegments = segments.length > 0 ? [...segments, ...result] : result
+        setSegments(newSegments);
+        setStoryText('');
+        saveToHistory(newSegments, soundTracks, vfxTracks)
       }
     } catch (err) {
       console.error("Erreur lors du découpage:", err);
