@@ -99,6 +99,16 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle' 
   const trackRef = useRef(null)
   const chapterFloatRef = useRef(null)
   const introAppliedRef = useRef(false)
+  const prevChapterModeRef = useRef(null)
+  useEffect(() => {
+    const prev = prevChapterModeRef.current
+    prevChapterModeRef.current = chapterMode
+    if (prev === 'focused' && chapterMode === 'sticky') {
+      if (chapterFloatRef.current) {
+        chapterFloatRef.current.classList.remove('story-reader__chapter-float--intro')
+      }
+    }
+  }, [chapterMode])
 
   useEffect(() => {
     if (introAppliedRef.current || finalSegments.length === 0) return
