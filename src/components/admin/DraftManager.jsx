@@ -78,7 +78,7 @@ function DraftManager({
       soundTracks: soundTracks || [],
       vfxTracks: vfxTracks || [],
     }
-  }, [title, author, slug, segments, soundTracks])
+  }, [title, author, slug, segments, soundTracks, vfxTracks])
 
   // Sauvegarder dans localStorage
   const saveDraft = useCallback((label) => {
