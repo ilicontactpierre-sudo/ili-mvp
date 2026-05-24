@@ -550,7 +550,7 @@ function SegmentTimelineRow({
                   </span>
                   {text.substring(splitPreviewPosition)}
                 </>
-              ) : segment && typeof segment === 'object' && segment.breakAt !== null ? (
+              ) : segment && typeof segment === 'object' && segment.breakAt !== null && segment.breakAt > 0 && segment.breakAt < segment.text?.length ? (
                 <>
                   {renderMarkdown(segment.text.slice(0, segment.breakAt).trim(), segment)}
                   {'\n\n'}
