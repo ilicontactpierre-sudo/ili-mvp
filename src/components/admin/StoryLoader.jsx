@@ -123,16 +123,9 @@ function StoryLoader({ onLoadStory, onPreviewStory }) {
 
       // Normaliser les segments : s'assurer qu'ils ont tous un champ text et id
       const normalizedSegments = (data.segments || []).map((seg, index) => {
-        // Si le segment a déjà un champ text, on le garde
         if (seg && typeof seg.text === 'string') {
-          return {
-            id: seg.id ?? `seg_${index}`,
-            text: seg.text,
-            audioEvents: seg.audioEvents || []
-          }
+          return { ...seg, id: seg.id ?? `seg_${index}` }
         }
-        
-        // Si le segment est un objet avec des clés numériques (ancien format bugué)
         if (seg && typeof seg === 'object') {
           const numericKeys = Object.keys(seg).filter(key => String(Number(key)) === key)
           if (numericKeys.length > 0) {
@@ -140,17 +133,12 @@ function StoryLoader({ onLoadStory, onPreviewStory }) {
               .sort((a, b) => Number(a) - Number(b))
               .map(key => seg[key])
               .join('')
-            return {
-              id: seg.id ?? `seg_${index}`,
-              text: text,
-              audioEvents: seg.audioEvents || []
-            }
+            return { ...seg, id: seg.id ?? `seg_${index}`, text }
           }
         }
-        
         return typeof seg === 'string'
           ? { id: `seg_${index}`, text: seg, audioEvents: [] }
-          : { id: `seg_${index}`, text: '', audioEvents: [] }
+          : { ...seg, id: seg.id ?? `seg_${index}`, text: seg?.text || '', audioEvents: seg?.audioEvents || [] }
       })
 
       // Construire la soundLibrary depuis data.sounds pour la conversion
