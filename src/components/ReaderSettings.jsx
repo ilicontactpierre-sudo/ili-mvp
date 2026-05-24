@@ -115,8 +115,8 @@ export default function ReaderSettings({
     while (next === lastWhooshRef.current)
     lastWhooshRef.current = next
     try {
-      const audio = new Audio(`/sounds/whoosh-${next + 1}.mp3`)
-      audio.volume = 0.25
+      const audio = new Audio(`/sounds/Whoosh-${next + 1}.mp3`)
+      audio.volume = 0.15
       audio.play().catch(() => {})
     } catch {}
   }
