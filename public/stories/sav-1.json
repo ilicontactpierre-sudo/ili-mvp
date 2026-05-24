@@ -77,8 +77,9 @@
       ],
       "text": "Rob éclate de rire.",
       "breakAt": null,
-      "isLeader": false,
-      "audioEvents": []
+      "isLeader": true,
+      "audioEvents": [],
+      "isChapter": true
     },
     {
       "id": "seg_6_51",
@@ -87,7 +88,7 @@
       ],
       "text": "Ses yeux la dévisages avec un amour sans équivoque.",
       "breakAt": null,
-      "isLeader": false,
+      "isLeader": true,
       "audioEvents": []
     },
     {
@@ -118,8 +119,9 @@
       ],
       "text": "- J’aimerai d’abord remercier toute ma famille qui a su ne pas croire en moi et me donner la force. » Rob lève son verre.",
       "breakAt": null,
-      "isLeader": false,
-      "audioEvents": []
+      "isLeader": true,
+      "audioEvents": [],
+      "isChapter": true
     },
     {
       "id": "seg_10_163",
@@ -129,7 +131,7 @@
       ],
       "text": "- Remercier ma chienne, Agatha, partie trop tôt, qui me manque terriblement, et sans qui ça n'aurait pas été la même. Rob lève son verre faisant un signe de croix.",
       "breakAt": 117,
-      "isLeader": false,
+      "isLeader": true,
       "audioEvents": []
     },
     {
