@@ -244,7 +244,7 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle' 
       >
         {finalSegments.map((segment, index) => {
           const isFocused = index === currentIndex
-          const isHidden = hiddenFromView.has(index)
+          const isHidden = hiddenFromView.has(index) || segment.isChapter
 
           return (
             <p
