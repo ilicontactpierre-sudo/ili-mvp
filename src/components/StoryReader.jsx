@@ -96,6 +96,20 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle' 
   }, [currentIndex, storyData])
 
   const segmentRefs = useRef([])
+  const trackRef = useRef(null)
+  const chapterFloatRef = useRef(null)
+  const introAppliedRef = useRef(false)
+
+  useEffect(() => {
+    if (introAppliedRef.current || finalSegments.length === 0) return
+    introAppliedRef.current = true
+    const isChapterFirst = finalSegments[0]?.isChapter === true
+    if (isChapterFirst && chapterFloatRef.current) {
+      chapterFloatRef.current.classList.add('story-reader__chapter-float--intro')
+    } else if (!isChapterFirst && trackRef.current) {
+      trackRef.current.classList.add('story-reader__track--intro')
+    }
+  }, [finalSegments])
   const [translateY, setTranslateY] = useState(0)
   
       // Hauteur réservée pour le spacer (sticky ou focused → même hauteur)
