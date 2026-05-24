@@ -252,6 +252,7 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle' 
               ref={(node) => { segmentRefs.current[index] = node }}
               className={[
                 'story-reader__segment',
+                (segment.isChapter && chapterMode === 'sticky') ? 'story-reader__segment--chapter-in-track' : '',
                 isFocused
                   ? 'story-reader__segment--focus'
                   : isHidden
