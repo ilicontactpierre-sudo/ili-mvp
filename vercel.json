@@ -1,16 +1,5 @@
 {
   "rewrites": [
-    {
-      "source": "/sounds/(.*)",
-      "destination": "/sounds/$1"
-    },
-    {
-      "source": "/stories/(.*)",
-      "destination": "/stories/$1"
-    },
-    {
-      "source": "/(.*)",
-      "destination": "/index.html"
-    }
+    { "source": "/(.*)", "destination": "/index.html" }
   ]
 }
