@@ -132,8 +132,8 @@
 .story-reader__chapter-float-line {
   position: absolute;
   bottom: 0;
-  left: 24px;
-  right: 24px;
+  left: 10%;
+  right: 10%;
   height: 1px;
   background: var(--color-text-focus, #fff);
   transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1);
