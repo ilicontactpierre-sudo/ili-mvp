@@ -200,3 +200,10 @@
 .story-reader__chapter-float--intro {
   animation: chapter-intro 1200ms cubic-bezier(0.16, 1, 0.3, 1) both;
 }
+
+/* ── Supprimer la sélection bleue au clic ── */
+.story-reader * {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  user-select: none;
+}
