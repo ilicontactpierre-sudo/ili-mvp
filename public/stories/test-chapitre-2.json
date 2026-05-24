@@ -3,7 +3,13 @@
   "title": "test chapitre 2",
   "author": "test chapitre 2",
   "published": true,
-  "sounds": [],
+  "sounds": [
+    {
+      "id": "12_LISE_-_Oiseaux_enz7jr",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/12_LISE_-_Oiseaux_enz7jr.mp3",
+      "loop": false
+    }
+  ],
   "segments": [
     {
       "id": "seg_0_22",
@@ -13,7 +19,15 @@
     {
       "id": "seg_1_102",
       "text": "- À nos six années ici, et surtout, à ta fin de mission ! \"Well done\" comme on dit ! - Merci mon cœur…",
-      "audioEvents": [],
+      "audioEvents": [
+        {
+          "action": "play",
+          "soundId": "12_LISE_-_Oiseaux_enz7jr",
+          "volume": 0.5,
+          "delay": 0,
+          "loop": false
+        }
+      ],
       "breakAt": 85
     },
     {
@@ -362,6 +376,20 @@
       "audioEvents": []
     }
   ],
-  "soundTracks": [],
+  "soundTracks": [
+    {
+      "id": "st_1779614165166_uxokmmcqe",
+      "soundId": "12_LISE_-_Oiseaux_enz7jr",
+      "startSegmentId": "seg_1_102",
+      "endSegmentId": "seg_1_102",
+      "column": 1,
+      "volume": 0.5,
+      "fadeIn": 0,
+      "fadeOut": 0,
+      "delay": 0,
+      "loop": false,
+      "muted": false
+    }
+  ],
   "vfxTracks": []
 }
