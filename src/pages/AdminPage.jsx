@@ -152,7 +152,7 @@ function AdminPage() {
         duration: 0
       })
       
-      saveToHistory(newSegments)
+      saveToHistory(newSegments, soundTracks, vfxTracks)
       return newSegments
     })
     
@@ -318,7 +318,7 @@ function AdminPage() {
         setCutError("Aucun segment n'a été généré. Vérifiez votre texte.");
       } else {
         setSegments(result);
-        saveToHistory(result)
+        saveToHistory(result, soundTracks, vfxTracks)
       }
     } catch (err) {
       console.error("Erreur lors du découpage:", err);
@@ -923,7 +923,7 @@ function AdminPage() {
                         onSegmentsChange={setSegments}
                         onSoundTracksChange={setSoundTracks}
                         onVfxTracksChange={setVfxTracks}
-                        onSaveToHistory={() => saveToHistory(segments)}
+                        onSaveToHistory={() => saveToHistory(segments, soundTracks, vfxTracks)}
                         adminPassword={password}
                         onSoundsImported={(newSounds) => {
                           fetch('/sounds/sounds-index.json')
