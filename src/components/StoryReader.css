@@ -97,6 +97,7 @@
 
 .story-reader__chapter-float[data-mode="focused"] .story-reader__chapter-float-line {
   opacity: 0;
+  height: 0;
   margin-top: 0;
 }
 
