@@ -181,11 +181,13 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle' 
     }, [finalSegments, currentIndex, chapterMode])
 
     return (
+    const applyFilterToMain = chapterMode !== 'sticky'
+    return (
     <main
       className="story-reader"
       aria-live="polite"
       style={{
-        filter: jumpPhase === 'out' ? 'blur(12px)' : 'blur(0px)',
+        filter: applyFilterToMain && jumpPhase === 'out' ? 'blur(12px)' : 'blur(0px)',
         opacity: jumpPhase === 'out' ? 0 : 1,
         transition: jumpPhase === 'out'
           ? 'filter 200ms ease-in, opacity 300ms ease-in 200ms'
