@@ -198,15 +198,17 @@ function AdminPage() {
     return () => window.removeEventListener('keydown', handleKeyDown)
   }, [historyIndex, history])
 
-  const saveToHistory = (newSegments) => {
+  const saveToHistory = (newSegments, newSoundTracks, newVfxTracks) => {
+    const snapshot = {
+      segments: newSegments ?? segments,
+      soundTracks: newSoundTracks ?? soundTracks,
+      vfxTracks: newVfxTracks ?? vfxTracks,
+    }
     const newHistory = history.slice(0, historyIndex + 1)
-    newHistory.push(JSON.parse(JSON.stringify(newSegments)))
-    
-    // Limiter la taille de l'historique
+    newHistory.push(JSON.parse(JSON.stringify(snapshot)))
     if (newHistory.length > MAX_HISTORY) {
       newHistory.shift()
     }
-    
     setHistory(newHistory)
     setHistoryIndex(newHistory.length - 1)
   }
@@ -280,15 +282,20 @@ function AdminPage() {
   // Fonctions undo/redo
   const handleUndo = () => {
     if (historyIndex > 0) {
+      const snapshot = history[historyIndex - 1]
       setHistoryIndex(historyIndex - 1)
-      setSegments(JSON.parse(JSON.stringify(history[historyIndex - 1])))
+      setSegments(JSON.parse(JSON.stringify(snapshot.segments)))
+      setSoundTracks(JSON.parse(JSON.stringify(snapshot.soundTracks)))
+      setVfxTracks(JSON.parse(JSON.stringify(snapshot.vfxTracks)))
     }
   }
-
   const handleRedo = () => {
     if (historyIndex < history.length - 1) {
+      const snapshot = history[historyIndex + 1]
       setHistoryIndex(historyIndex + 1)
-      setSegments(JSON.parse(JSON.stringify(history[historyIndex + 1])))
+      setSegments(JSON.parse(JSON.stringify(snapshot.segments)))
+      setSoundTracks(JSON.parse(JSON.stringify(snapshot.soundTracks)))
+      setVfxTracks(JSON.parse(JSON.stringify(snapshot.vfxTracks)))
     }
   }
 
