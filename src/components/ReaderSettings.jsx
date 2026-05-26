@@ -135,6 +135,12 @@ export default function ReaderSettings({
   const [fontSizeIndex, setFontSizeIndex] = useState(() => {
     try { return parseInt(localStorage.getItem('ili_font_size') || '2') } catch { return 2 }
   })
+  const [dys1, setDys1] = useState(() => {
+    try { return localStorage.getItem('ili_dys1') === 'true' } catch { return false }
+  })
+  const [dys2, setDys2] = useState(() => {
+    try { return localStorage.getItem('ili_dys2') === 'true' } catch { return false }
+  })
 
   const menuRef     = useRef(null)
   const gearRef     = useRef(null)
