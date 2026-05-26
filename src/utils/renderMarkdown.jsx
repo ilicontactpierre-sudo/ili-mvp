@@ -1,4 +1,4 @@
-import { applyBionicReading } from './bionicReading'
+import { applyBionicReading } from './bionicReading.jsx'
 
 /**
  * renderMarkdown(text, segment, isDysMode)
