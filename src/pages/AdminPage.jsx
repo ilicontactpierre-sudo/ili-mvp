@@ -326,6 +326,7 @@ function AdminPage() {
     setStoryTitle(snapshot.title || '')
     setStoryAuthor(snapshot.author || '')
     setStorySlug(snapshot.slug || '')
+    setStoryBookUrl(snapshot.bookUrl || '')
     setSegments(snapshot.segments || [])
     setSoundTracks(snapshot.soundTracks || [])
     setVfxTracks(snapshot.vfxTracks || [])
