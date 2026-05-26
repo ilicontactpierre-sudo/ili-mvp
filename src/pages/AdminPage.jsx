@@ -458,6 +458,7 @@ function AdminPage() {
     setStoryTitle('')
     setStoryAuthor('')
     setStorySlug('')
+    setStoryBookUrl('')
     setStoryText('')
     setSegments([])
     setSoundTracks([])
