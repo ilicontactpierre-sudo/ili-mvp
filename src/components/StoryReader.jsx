@@ -1,6 +1,9 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import './StoryReader.css'
 import { renderMarkdown } from '../utils/renderMarkdown'
+
+const isDysMode = () =>
+  localStorage.getItem('ili_dys_mode') === 'true'
 import { getVfxClass } from './admin/constants'
 import hapticEngine from '../engine/HapticEngine'
 
@@ -317,7 +320,7 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle' 
             >
               {segment.breakAt != null && segment.breakAt > 0 && segment.breakAt < segment.text?.length ? (
                 <>
-                  {renderMarkdown(segment.text.slice(0, segment.breakAt).trim(), segment)}
+                  {renderMarkdown(segment.text.slice(0, segment.breakAt).trim(), segment, isDysMode())}
                   <br /><br />
                   {renderMarkdown(segment.text.slice(segment.breakAt).trim(), segment)}
                 </>
