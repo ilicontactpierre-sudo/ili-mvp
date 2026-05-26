@@ -12,6 +12,7 @@
 import { useState, useMemo, useRef, useEffect } from 'react'
 import { Howl } from 'howler'
 import SoundImporter from './SoundImporter'
+import Fuse from 'fuse.js'
 
 const FILTER_CATEGORIES = ['Ambiance', 'Musique', 'SFX', 'Dialogue', 'Autre']
 const FILTER_MOOD = ['Calme', 'Tension', 'Mélancolie', 'Joie', 'Mystère', 'Action']
@@ -42,17 +43,28 @@ function SoundLibraryPicker({
     }
   }, [])
 
+  const fuse = useMemo(() => new Fuse(soundLibrary, {
+    keys: [
+      { name: 'label',       weight: 0.35 },
+      { name: 'tags',        weight: 0.25 },
+      { name: 'description', weight: 0.20 },
+      { name: 'searchString', weight: 0.15 },
+      { name: 'boomCategory', weight: 0.05 },
+    ],
+    threshold: 0.4,      // 0 = exact, 1 = tout accepter — 0.4 est un bon équilibre
+    ignoreLocation: true, // cherche dans tout le champ, pas seulement au début
+    minMatchCharLength: 2,
+  }), [soundLibrary])
+
   const filteredSounds = useMemo(() => {
-    return soundLibrary.filter(sound => {
-      if (search.trim()) {
-        const s = search.toLowerCase().trim()
-        const match =
-          (sound.label || '').toLowerCase().includes(s) ||
-          (sound.tags || []).some(t => t.toLowerCase().includes(s)) ||
-          (sound.mood || []).some(m => m.toLowerCase().includes(s)) ||
-          (sound.id || '').toLowerCase().includes(s)
-        if (!match) return false
-      }
+    // Appliquer d'abord la recherche floue si texte saisi
+    let results = soundLibrary
+    if (search.trim()) {
+      results = fuse.search(search.trim()).map(r => r.item)
+    }
+
+    // Puis appliquer les filtres catégorie / mood / intensité
+    return results.filter(sound => {
       if (activeFilters.categories.length > 0) {
         if (!activeFilters.categories.some(c => (sound.categories || []).includes(c))) return false
       }
@@ -64,7 +76,7 @@ function SoundLibraryPicker({
       }
       return true
     })
-  }, [soundLibrary, search, activeFilters])
+  }, [soundLibrary, search, activeFilters, fuse])
 
   const toggleFilter = (type, value) => {
     setActiveFilters(prev => ({
