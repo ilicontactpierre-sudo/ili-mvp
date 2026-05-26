@@ -145,13 +145,13 @@
   right: 10%;
   height: 1px;
   background: var(--color-text-focus, #fff);
-  transition: height 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: opacity 700ms cubic-bezier(0.1, 0.0, 0.1, 1.0);
 }
 
 /* ── SPACER : réserve la hauteur sticky dans le flow ── */
 .story-reader__chapter-spacer {
   flex-shrink: 0;
-  transition: height 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: height 700ms cubic-bezier(0.1, 0.0, 0.1, 1.0);
 }
 
 .story-reader__chapter-spacer[data-mode="focused"],
