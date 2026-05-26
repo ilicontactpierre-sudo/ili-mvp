@@ -4,9 +4,53 @@ import { renderMarkdown } from '../utils/renderMarkdown'
 import { getVfxClass } from './admin/constants'
 import hapticEngine from '../engine/HapticEngine'
 
+// ── Bionic Reading : met en gras les N premières lettres de chaque mot ──
+function applyBionicReading(text) {
+  if (!text) return null
+  // Découpe sur les espaces en préservant les séparateurs
+  const tokens = text.split(/(\s+)/)
+  return tokens.map((token, i) => {
+    // Les espaces et tokens vides passent tels quels
+    if (/^\s*$/.test(token)) return token
+    // Ponctuation seule : pas de mise en gras
+    if (/^[^\wÀ-ÿ]+$/.test(token)) return token
+    const len = token.length
+    let boldCount
+    if (len <= 3)       boldCount = 1
+    else if (len <= 6)  boldCount = 2
+    else if (len <= 9)  boldCount = 3
+    else                boldCount = Math.round(len * 0.45)
+    const boldPart  = token.slice(0, boldCount)
+    const normalPart = token.slice(boldCount)
+    return (
+      <span key={i}>
+        <strong style={{ fontWeight: 800 }}>{boldPart}</strong>
+        <span style={{ fontWeight: 400, opacity: 0.82 }}>{normalPart}</span>
+      </span>
+    )
+  })
+}
+
 function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle' }) {
   const segments = storyData ? storyData.segments : []
   const [loadedStory, setLoadedStory] = useState(null)
+  // ── Lire les options DYS depuis window (mis à jour par ReaderSettings) ──
+  const [dys1, setDys1] = useState(() => {
+    try { return localStorage.getItem('ili_dys1') === 'true' } catch { return false }
+  })
+  const [dys2, setDys2] = useState(() => {
+    try { return localStorage.getItem('ili_dys2') === 'true' } catch { return false }
+  })
+  // Écouter les changements de DYS en temps réel (via polling léger)
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const d1 = window.__iliDys1 ?? (localStorage.getItem('ili_dys1') === 'true')
+      const d2 = window.__iliDys2 ?? (localStorage.getItem('ili_dys2') === 'true')
+      setDys1(prev => prev !== d1 ? d1 : prev)
+      setDys2(prev => prev !== d2 ? d2 : prev)
+    }, 150)
+    return () => clearInterval(interval)
+  }, [])
 
   useLayoutEffect(() => {
     if (storyData || !storyId) return
@@ -213,6 +257,7 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle' 
           : jumpPhase === 'in'
             ? 'opacity 350ms ease-out, filter 700ms ease-out 200ms'
             : 'none',
+        fontFamily: dys2 ? "'Lexend', sans-serif" : undefined,
       }}
     >
       {/*
