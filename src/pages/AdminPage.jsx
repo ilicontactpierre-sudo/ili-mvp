@@ -960,6 +960,7 @@ function AdminPage() {
             title={storyTitle}
             author={storyAuthor}
             slug={storySlug}
+            bookUrl={storyBookUrl}
             segments={segments}
             soundTracks={soundTracks}
             vfxTracks={vfxTracks}
