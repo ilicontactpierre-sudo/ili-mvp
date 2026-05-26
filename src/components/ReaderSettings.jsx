@@ -204,6 +204,8 @@ export default function ReaderSettings({
     const root = document.documentElement
     root.style.setProperty('--font-size-focus', size.focus)
     root.style.setProperty('--font-size-blur', size.blur)
+    window.__iliDys1 = dys1
+    window.__iliDys2 = dys2
     try { localStorage.setItem('ili_font_size', String(fontSizeIndex)) } catch {}
   }, [fontSizeIndex])
 
