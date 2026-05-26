@@ -9,7 +9,7 @@
   --font-size-focus: clamp(1.45rem, 4.2vw, 2rem);
   --font-size-blur: clamp(1.35rem, 3.9vw, 1.85rem);
   --blur-amount: 3px;
-  --transition-speed: 1200ms;
+  --transition-speed: 2200ms;
   --segment-max-width: 680px;
 
   /* Variables UI admin — mode sombre (défaut) */
