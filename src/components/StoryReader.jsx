@@ -322,10 +322,10 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle' 
                 <>
                   {renderMarkdown(segment.text.slice(0, segment.breakAt).trim(), segment, isDysMode())}
                   <br /><br />
-                  {renderMarkdown(segment.text.slice(segment.breakAt).trim(), segment)}
+                  {renderMarkdown(segment.text.slice(segment.breakAt).trim(), segment, isDysMode())}
                 </>
               ) : (
-                renderMarkdown(segment.text, segment)
+                renderMarkdown(segment.text, segment, isDysMode())
               )}
             </p>
           )
