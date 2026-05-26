@@ -135,6 +135,9 @@ export default function ReaderSettings({
   const [fontSizeIndex, setFontSizeIndex] = useState(() => {
     try { return parseInt(localStorage.getItem('ili_font_size') || '2') } catch { return 2 }
   })
+  const [isDysMode, setIsDysMode] = useState(() => {
+  try { return localStorage.getItem('ili_dys_mode') === 'true' } catch { return false }
+})
 
   const menuRef     = useRef(null)
   const gearRef     = useRef(null)
@@ -191,6 +194,30 @@ export default function ReaderSettings({
     }
     saveTheme({ isDark, isToutdoux, isSynthwave })
   }, [isDark, isToutdoux, isSynthwave])
+
+  // ── Appliquer le mode DYS ───────────────────────────────────────────────────
+useEffect(() => {
+  const root = document.documentElement
+  try { localStorage.setItem('ili_dys_mode', String(isDysMode)) } catch {}
+  if (isDysMode) {
+    root.style.setProperty('--font-primary', "'Lexend', Verdana, Arial, sans-serif")
+    root.style.setProperty('--line-height-reader', '1.6')
+    root.style.setProperty('--letter-spacing-reader', '0.05em')
+    root.style.setProperty('--text-align-reader', 'left')
+  } else {
+    // Réappliquer la police du thème courant
+    if (isToutdoux) {
+      root.style.setProperty('--font-primary', "'Playfair Display', Georgia, serif")
+    } else if (isSynthwave) {
+      root.style.setProperty('--font-primary', "'VT323', 'Courier New', monospace")
+    } else {
+      root.style.setProperty('--font-primary', "'Lora', Georgia, 'Times New Roman', serif")
+    }
+    root.style.removeProperty('--line-height-reader')
+    root.style.removeProperty('--letter-spacing-reader')
+    root.style.removeProperty('--text-align-reader')
+  }
+}, [isDysMode, isDark, isToutdoux, isSynthwave])
 
   // ── Appliquer la taille de police (+ sauvegarde) ────────────────────────────
   useEffect(() => {
