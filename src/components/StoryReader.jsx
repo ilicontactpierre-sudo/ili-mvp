@@ -107,14 +107,16 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle' 
       if (chapterFloatRef.current) {
         chapterFloatRef.current.classList.remove('story-reader__chapter-float--intro')
       }
-      // Le track apparaît avec un délai, après que le chapitre soit monté
+      // Masquer immédiatement via CSS variable (pas de flash possible)
       if (trackRef.current) {
-        trackRef.current.classList.add('story-reader__track--entering')
+        trackRef.current.style.setProperty('--track-opacity', '0')
+        trackRef.current.style.setProperty('transition', 'none')
         setTimeout(() => {
           if (trackRef.current) {
-            trackRef.current.classList.remove('story-reader__track--entering')
+            trackRef.current.style.removeProperty('transition')
+            trackRef.current.style.setProperty('--track-opacity', '1')
           }
-        }, 500) // délai avant que les segments apparaissent
+        }, 500)
       }
     }
   }, [chapterMode])
