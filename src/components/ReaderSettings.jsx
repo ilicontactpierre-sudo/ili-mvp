@@ -263,6 +263,7 @@ export default function ReaderSettings({
   return (
     <>
       <style>{`
+      @import url('https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;600;700&display=swap');
         @keyframes settings-out {
           from { opacity: 1; transform: scale(1)    translateY(0); }
           to   { opacity: 0; transform: scale(0.92) translateY(-6px); }
