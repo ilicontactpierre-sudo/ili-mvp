@@ -207,6 +207,17 @@ export default function ReaderSettings({
     try { localStorage.setItem('ili_font_size', String(fontSizeIndex)) } catch {}
   }, [fontSizeIndex])
 
+  useEffect(() => {
+    const root = document.documentElement
+    if (dys2) {
+      root.style.setProperty('--font-dys2', "'Lexend', sans-serif")
+    } else {
+      root.style.setProperty('--font-dys2', '')
+    }
+    try { localStorage.setItem('ili_dys1', String(dys1)) } catch {}
+    try { localStorage.setItem('ili_dys2', String(dys2)) } catch {}
+  }, [dys1, dys2])
+
   // ── Fermer si clic en dehors ────────────────────────────────────────────────
   useEffect(() => {
     if (!isOpen) return
