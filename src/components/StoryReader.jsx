@@ -116,7 +116,7 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle' 
             trackRef.current.style.removeProperty('transition')
             trackRef.current.style.setProperty('--track-opacity', '1')
           }
-        }, 1000)
+        }, 300)
       }
     }
   }, [chapterMode])
