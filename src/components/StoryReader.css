@@ -34,12 +34,11 @@
     filter var(--transition-speed) cubic-bezier(0.1, 0.0, 0.1, 1.0),
     transform var(--transition-speed) cubic-bezier(0.1, 0.0, 0.1, 1.0),
     color var(--transition-speed) cubic-bezier(0.1, 0.0, 0.1, 1.0);
-}
-line-height: var(--line-height-reader, 1.7);
-  letter-spacing: var(--letter-spacing-reader, 0.01em);
-  text-align: var(--text-align-reader, left);
-.story-reader__segment:last-child {
-  margin-bottom: 0;
+  line-height: var(--line-height-reader, 1.7);
+    letter-spacing: var(--letter-spacing-reader, 0.01em);
+    text-align: var(--text-align-reader, left);
+  .story-reader__segment:last-child {
+    margin-bottom: 0;
 }
 
 .story-reader__segment--focus {
