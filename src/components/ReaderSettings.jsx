@@ -584,6 +584,32 @@ useEffect(() => {
                 <IconFontLarge />
               </button>
             </div>
+            {/* Mode DYS */}
+            <div style={{ padding: '4px 4px 2px' }}>
+              <button
+                className={`rs-btn${isDysMode ? ' active' : ''}`}
+                style={{
+                  width: '100%',
+                  justifyContent: 'space-between',
+                  padding: '0 10px',
+                  fontSize: 11,
+                  fontFamily: 'var(--font-logo, sans-serif)',
+                  letterSpacing: '0.08em',
+                  opacity: isDysMode ? 1 : 0.6,
+                }}
+                onClick={() => setIsDysMode(v => !v)}
+                title="Mode lecture DYS — Bionic Reading + Lexend"
+              >
+                <span>DYS</span>
+                <span style={{
+                  fontSize: 9,
+                  opacity: 0.6,
+                  fontFamily: 'var(--font-logo, sans-serif)',
+                }}>
+                  {isDysMode ? 'ON' : 'OFF'}
+                </span>
+              </button>
+            </div>
           </div>
 
           {/* Navigation chapitres — uniquement dans une histoire */}
