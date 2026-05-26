@@ -16,6 +16,7 @@ function AdminPage() {
   const [storyTitle, setStoryTitle] = useState('')
   const [storyAuthor, setStoryAuthor] = useState('')
   const [storySlug, setStorySlug] = useState('')
+  const [storyBookUrl, setStoryBookUrl] = useState('')
   const [storyText, setStoryText] = useState('')
   const [granularity, setGranularity] = useState(5)
   const [isCutting, setIsCutting] = useState(false)
