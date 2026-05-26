@@ -209,7 +209,7 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle' 
       let anchorFraction = 0.42
       if (leaderIndex !== -1 && sequenceLength > 0) {
         const t = Math.max(0, Math.min(1, (currentIndex - leaderIndex) / sequenceLength))
-        anchorFraction = 0.52 + 0.26 * Math.pow(2 * t - 1, 3)
+        anchorFraction = 0.32 + 0.26 * Math.pow(2 * t - 1, 3)
       }
 
       const anchorY = availableH * anchorFraction
