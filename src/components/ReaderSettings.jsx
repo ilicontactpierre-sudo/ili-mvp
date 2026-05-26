@@ -204,8 +204,6 @@ export default function ReaderSettings({
     const root = document.documentElement
     root.style.setProperty('--font-size-focus', size.focus)
     root.style.setProperty('--font-size-blur', size.blur)
-    window.__iliDys1 = dys1
-    window.__iliDys2 = dys2
     try { localStorage.setItem('ili_font_size', String(fontSizeIndex)) } catch {}
   }, [fontSizeIndex])
 
@@ -216,6 +214,8 @@ export default function ReaderSettings({
     } else {
       root.style.setProperty('--font-dys2', '')
     }
+    window.__iliDys1 = dys1
+    window.__iliDys2 = dys2
     try { localStorage.setItem('ili_dys1', String(dys1)) } catch {}
     try { localStorage.setItem('ili_dys2', String(dys2)) } catch {}
   }, [dys1, dys2])
