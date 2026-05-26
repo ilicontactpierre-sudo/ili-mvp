@@ -7,7 +7,7 @@
 .story-reader__track {
   width: 100%;
   transform: translate3d(0, var(--track-translate-y, 0px), 0);
-  transition: transform var(--transition-speed) cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition: transform var(--transition-speed) cubic-bezier(0.1, 0.0, 0.1, 1.0);
 }
 
 .story-reader__segment {
