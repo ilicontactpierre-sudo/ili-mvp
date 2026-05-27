@@ -474,6 +474,36 @@ function SoundBlockPanel({
           </div>
         </div>
 
+          {/* Trim */}
+                  {sound && sound.duration > 0 && (
+                    <div>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.4rem' }}>
+                        <label style={{ fontSize: '0.75rem', color: '#888' }}>Points de trim</label>
+                        {(editedTrack.trimStart > 0 || (editedTrack.trimEnd && editedTrack.trimEnd < sound.duration * 1000)) && (
+                          <span style={{ fontSize: '0.7rem', color: color }}>
+                            {((editedTrack.trimStart || 0) / 1000).toFixed(2)}s → {((editedTrack.trimEnd || sound.duration * 1000) / 1000).toFixed(2)}s
+                          </span>
+                        )}
+                      </div>
+                      <button
+                        onClick={() => setShowTrimmer(true)}
+                        style={{
+                          width: '100%',
+                          padding: '0.45rem',
+                          background: 'rgba(255,255,255,0.06)',
+                          border: `1px solid ${color}40`,
+                          borderRadius: '7px',
+                          color: '#ccc',
+                          fontSize: '0.8rem',
+                          cursor: 'pointer',
+                          display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.4rem',
+                        }}
+                      >
+                        <span>〰</span>
+                        <span>{(editedTrack.trimStart > 0 || editedTrack.trimEnd) ? 'Modifier le trim' : 'Définir les points d\'entrée / sortie'}</span>
+                      </button>
+                    </div>
+                  )}
         {/* Fade In */}
         <div>
           <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.25rem' }}>
@@ -595,7 +625,20 @@ function SoundBlockPanel({
           </>
         )}
       </div>
-
+      {/* WaveformTrimmer */}
+            {showTrimmer && sound && (
+              <WaveformTrimmer
+                sound={sound}
+                initialStart={editedTrack.trimStart || 0}
+                initialEnd={editedTrack.trimEnd || sound.duration * 1000}
+                onConfirm={({ trimStart, trimEnd }) => {
+                  handleChange('trimStart', trimStart)
+                  handleChange('trimEnd', trimEnd)
+                  setShowTrimmer(false)
+                }}
+                onClose={() => setShowTrimmer(false)}
+              />
+            )}
       {/* Animation CSS pour loop */}
       <style>{`
         @keyframes spin {
