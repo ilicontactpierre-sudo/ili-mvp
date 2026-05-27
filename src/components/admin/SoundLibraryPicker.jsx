@@ -190,10 +190,14 @@ const filteredSounds = useMemo(() => {
     if (playingId === sound.id) { setPlayingId(null); return }
 
     let src = null
+    let format = undefined
     if (sound.url) {
       src = sound.url
     } else if (sound.localPath) {
       src = `/api/preview-sound?path=${encodeURIComponent(sound.localPath)}`
+      // Déduire le format depuis l'extension du fichier original
+      const ext = sound.localPath.split('.').pop().toLowerCase()
+      format = ext === 'aif' ? ['aiff'] : [ext]
     }
 
     if (!src) {
@@ -203,6 +207,7 @@ const filteredSounds = useMemo(() => {
 
     const howl = new Howl({
       src: [src],
+      ...(format && { format }),
       html5: true,
       volume: 0.6,
       onloaderror: () => { setPlayingId(null); howlRef.current = null },
