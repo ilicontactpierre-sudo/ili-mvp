@@ -263,6 +263,13 @@ const fileInputRef = useRef(null)
 
   return (
     <>
+      <input
+        ref={fileInputRef}
+        type="file"
+        accept=".wav,.mp3,.aif,.aiff,.flac"
+        style={{ display: 'none' }}
+        onChange={handleFileSelected}
+      />
       <div
         style={{
           position: 'fixed', top: 0, left: 0, right: 0, bottom: 0,
@@ -414,14 +421,6 @@ const fileInputRef = useRef(null)
               <div style={{ textAlign: 'center', color: '#bbb', padding: '3rem 1rem' }}>
                 <p style={{ fontSize: '1rem' }}>Aucun son trouvé</p>
                 <p style={{ fontSize: '0.82rem' }}>Ajustez les filtres ou importez de nouveaux sons</p>
-              {/* Input fichier caché pour upload local */}
-                <input
-                  ref={fileInputRef}
-                  type="file"
-                  accept=".wav,.mp3,.aif,.aiff,.flac"
-                  style={{ display: 'none' }}
-                  onChange={handleFileSelected}
-                />
               </div>
             ) : (
               <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
