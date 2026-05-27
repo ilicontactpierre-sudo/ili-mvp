@@ -99,25 +99,7 @@ function getXmlValue(xml, tag) {
 // ─── Extraire les métadonnées utiles ─────────────────────────────────────────
 
 function parseMetadata(filePath) {
-  const fd = fs.openSync(filePath, 'r')
-  const fileSize = fs.statSync(filePath).size
-  const CHUNK_SIZE = 512 * 1024
-
-  // Lire le début (header + fmt)
-  const startBuf = Buffer.alloc(CHUNK_SIZE)
-  const startRead = fs.readSync(fd, startBuf, 0, CHUNK_SIZE, 0)
-
-  // Lire aussi la fin (l'iXML est souvent après les données audio)
-  const endOffset = Math.max(0, fileSize - CHUNK_SIZE)
-  const endBuf = Buffer.alloc(CHUNK_SIZE)
-  const endRead = fs.readSync(fd, endBuf, 0, CHUNK_SIZE, endOffset)
-  fs.closeSync(fd)
-
-  // Combiner les deux zones en un seul buffer à inspecter
-  const headerBuffer = Buffer.concat([
-    startBuf.slice(0, startRead),
-    endBuf.slice(0, endRead)
-  ])
+const headerBuffer = fs.readFileSync(filePath)
 
   const filename = path.basename(filePath)
 
