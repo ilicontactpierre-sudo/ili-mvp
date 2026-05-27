@@ -274,15 +274,6 @@ async function main() {
       continue
     }
 
-    let buffer
-    try {
-      buffer = fs.readFileSync(filePath)
-    } catch (err) {
-      console.error(`❌ Lecture impossible : ${path.basename(filePath)} — ${err.message}`)
-      errors++
-      continue
-    }
-
     let meta
     try {
       meta = parseMetadata(filePath)
@@ -291,9 +282,8 @@ async function main() {
       errors++
       continue
     }
-
-    // Calculer la durée
-    meta.duration = getWavDuration(buffer)
+    // Calculer la durée depuis le header (pas de chargement complet)
+    meta.duration = getWavDuration(filePath)
 
     // Déjà indexé ?
     if (existingIds.has(meta.id)) {
