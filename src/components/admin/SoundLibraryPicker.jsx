@@ -464,26 +464,48 @@ const filteredSounds = useMemo(() => {
                         </div>
                       </div>
 
-                      {/* Ajouter */}
-                      <button
-                        onClick={() => handleAddSound(sound)}
-                        style={{
-                          padding: '0.35rem 0.75rem',
-                          fontSize: '0.78rem',
-                          fontWeight: 500,
-                          background: '#111',
-                          color: '#fff',
-                          border: 'none',
-                          borderRadius: '6px',
-                          cursor: 'pointer',
-                          flexShrink: 0,
-                          transition: 'background 0.12s',
-                        }}
-                        onMouseEnter={e => e.currentTarget.style.background = '#333'}
-                        onMouseLeave={e => e.currentTarget.style.background = '#111'}
-                      >
-                        + Ajouter
-                      </button>
+                      {/* Ajouter / Upload */}
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', flexShrink: 0 }}>
+                        {!sound.url && sound.localPath && (
+                          <button
+                            onClick={(e) => { e.stopPropagation(); handleUploadSound(sound) }}
+                            disabled={uploadingId === sound.id}
+                            style={{
+                              padding: '0.25rem 0.6rem',
+                              fontSize: '0.72rem',
+                              fontWeight: 500,
+                              background: uploadingId === sound.id ? '#888' : '#e05c2a',
+                              color: '#fff',
+                              border: 'none',
+                              borderRadius: '6px',
+                              cursor: uploadingId === sound.id ? 'not-allowed' : 'pointer',
+                              whiteSpace: 'nowrap',
+                            }}
+                          >
+                            {uploadingId === sound.id ? '⏳' : '↑ Upload'}
+                          </button>
+                        )}
+                        <button
+                          onClick={() => handleAddSound(sound)}
+                          disabled={!sound.url}
+                          title={!sound.url ? 'Uploadez ce son d\'abord' : ''}
+                          style={{
+                            padding: '0.35rem 0.75rem',
+                            fontSize: '0.78rem',
+                            fontWeight: 500,
+                            background: sound.url ? '#111' : '#ccc',
+                            color: '#fff',
+                            border: 'none',
+                            borderRadius: '6px',
+                            cursor: sound.url ? 'pointer' : 'not-allowed',
+                            transition: 'background 0.12s',
+                          }}
+                          onMouseEnter={e => { if (sound.url) e.currentTarget.style.background = '#333' }}
+                          onMouseLeave={e => { if (sound.url) e.currentTarget.style.background = '#111' }}
+                        >
+                          + Ajouter
+                        </button>
+                      </div>
                     </div>
                   )
                 })}
