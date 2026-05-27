@@ -343,13 +343,10 @@ async function main() {
   // Mettre à jour l'index (seulement les entrées avec URL si upload, ou toutes sinon)
   const toAdd = FLAG_UPLOAD ? newEntries.filter(e => e.url) : newEntries
 
-  // Nettoyer les champs internes avant de sauvegarder
-  const cleaned = toAdd.map(({ originalFilename, originalPath, boomCategory, boomSubcategory, catId, library, ...rest }) => ({
-    ...rest,
-    boomCategory,
-    boomSubcategory,
-    library,
-  }))
+  // Enrichir avec searchString (traductions + synonymes) et nettoyer les champs internes
+  const cleaned = toAdd.map(({ originalFilename, originalPath, ...rest }) => 
+    enrichSoundEntry(rest)
+  )
 
   const updatedIndex = [...existingIndex, ...cleaned]
   fs.writeFileSync(INDEX_PATH, JSON.stringify(updatedIndex, null, 2))
