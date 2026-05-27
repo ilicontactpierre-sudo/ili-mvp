@@ -194,7 +194,7 @@ const filteredSounds = useMemo(() => {
     if (sound.url) {
       src = sound.url
     } else if (sound.localPath) {
-      src = `/api/preview-sound?path=${encodeURIComponent(sound.localPath)}`
+      src = `http://localhost:3001/api/preview-sound?path=${encodeURIComponent(sound.localPath)}`
       // Déduire le format depuis l'extension du fichier original
       const ext = sound.localPath.split('.').pop().toLowerCase()
       format = ext === 'aif' ? ['aiff'] : [ext]
