@@ -215,28 +215,6 @@ function parseMetadata(filePath) {
   }
 }
 
-// ─── Calculer la durée WAV depuis le header seulement ────────────────────────
-function getWavDuration(filePath) {
-  try {
-    const fd = fs.openSync(filePath, 'r')
-    const buf = Buffer.alloc(200)
-    fs.readSync(fd, buf, 0, 200, 0)
-    fs.closeSync(fd)
-    let offset = 12
-    while (offset < buf.length - 8) {
-      const id = buf.slice(offset, offset + 4).toString('ascii')
-      const size = buf.readUInt32LE(offset + 4)
-      if (id === 'fmt ') {
-        const byteRate = buf.readUInt32LE(offset + 16)
-        const fileStat = fs.statSync(filePath)
-        return Math.round((fileStat.size / byteRate) * 10) / 10
-      }
-      offset += 8 + size + (size % 2)
-      if (size === 0) break
-    }
-  } catch {}
-  return 0
-}
 
 // ─── Main ─────────────────────────────────────────────────────────────────────
 
