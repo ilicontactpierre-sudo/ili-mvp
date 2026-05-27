@@ -14,9 +14,14 @@ import { Howl } from 'howler'
 import SoundImporter from './SoundImporter'
 import Fuse from 'fuse.js'
 
-const FILTER_CATEGORIES = ['Ambiance', 'Musique', 'SFX', 'Dialogue', 'Autre']
-const FILTER_MOOD = ['Calme', 'Tension', 'Mélancolie', 'Joie', 'Mystère', 'Action']
-const FILTER_INTENSITY = ['douce', 'moyenne', 'forte']
+const FAMILIES = [
+  { id: 'nature',    label: '🌿 Nature',    boom: ['RAIN','WIND','WATER','NATURE','FIRE','WEATHER','THUNDER','SNOW','ICE'] },
+  { id: 'urbain',    label: '🏙 Urbain',    boom: ['CITY','TRAFFIC','CROWD','ROOM','INTERIOR','EXTERIOR','AMBIENCE','SHOP','RESTAURANT','BAR'] },
+  { id: 'impact',    label: '⚡ Impact',    boom: ['WEAPON','IMPACT','EXPLOSION','METAL','WOOD','STONE','GLASS','CLOTH','PAPER','HIT','CRASH','BREAK'] },
+  { id: 'musique',   label: '🎵 Musique',   boom: ['MUSIC','STING','DRONE','TONE','JINGLE'] },
+  { id: 'interface', label: '🖥 Interface', boom: ['USER INTERFACE','MACHINE','VEHICLE','ELECTRONIC','COMPUTER','BUTTON','BEEP','CLICK','NOTIFICATION'] },
+  { id: 'voix',      label: '🎭 Voix',      boom: ['VOICE','DIALOGUE','FOLEY','HUMAN','BREATH','FOOTSTEP'] },
+]
 
 function SoundLibraryPicker({
   soundLibrary,
