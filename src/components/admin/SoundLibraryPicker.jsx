@@ -34,7 +34,8 @@ function SoundLibraryPicker({
   onSoundsImported,
 }) {
   const [search, setSearch] = useState('')
-  const [activeFilters, setActiveFilters] = useState({ categories: [], mood: [], intensity: [] })
+  const [selectedFamily, setSelectedFamily] = useState(null)   // id de famille ou null
+  const [activeTags, setActiveTags] = useState([])             // tags sélectionnés (niveau 2)
   const [playingId, setPlayingId] = useState(null)
   const [showImporter, setShowImporter] = useState(false)
   const howlRef = useRef(null)
