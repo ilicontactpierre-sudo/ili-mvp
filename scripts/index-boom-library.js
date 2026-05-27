@@ -99,11 +99,18 @@ function getXmlValue(xml, tag) {
 // ─── Extraire les métadonnées utiles ─────────────────────────────────────────
 
 function parseMetadata(filePath) {
-  const buffer = fs.readFileSync(filePath)
+  // Lire seulement les 200KB de début — les métadonnées iXML sont toujours là
+  const HEADER_SIZE = 200 * 1024
+  const fd = fs.openSync(filePath, 'r')
+  const buffer = Buffer.alloc(HEADER_SIZE)
+  const bytesRead = fs.readSync(fd, buffer, 0, HEADER_SIZE, 0)
+  fs.closeSync(fd)
+  const headerBuffer = buffer.slice(0, bytesRead)
+
   const filename = path.basename(filePath)
 
-  const ixmlRaw = extractIxml(buffer)
-  const info = extractInfo(buffer)
+  const ixmlRaw = extractIxml(headerBuffer)
+  const info = extractInfo(headerBuffer)
 
   let category = ''
   let subcategory = ''
@@ -208,30 +215,21 @@ function parseMetadata(filePath) {
   }
 }
 
-// ─── Calculer la durée WAV ────────────────────────────────────────────────────
-
-function getWavDuration(buffer) {
+// ─── Calculer la durée WAV depuis le header seulement ────────────────────────
+function getWavDuration(filePath) {
   try {
-    // fmt chunk : sampleRate à offset 24, numChannels à 22, bitsPerSample à 34
-    // Chercher le chunk fmt
+    const fd = fs.openSync(filePath, 'r')
+    const buf = Buffer.alloc(200)
+    fs.readSync(fd, buf, 0, 200, 0)
+    fs.closeSync(fd)
     let offset = 12
-    while (offset < buffer.length - 8) {
-      const id = buffer.slice(offset, offset + 4).toString('ascii')
-      const size = buffer.readUInt32LE(offset + 4)
+    while (offset < buf.length - 8) {
+      const id = buf.slice(offset, offset + 4).toString('ascii')
+      const size = buf.readUInt32LE(offset + 4)
       if (id === 'fmt ') {
-        const sampleRate = buffer.readUInt32LE(offset + 12)
-        const byteRate = buffer.readUInt32LE(offset + 16)
-        // Chercher data chunk pour la taille
-        let o2 = 12
-        while (o2 < buffer.length - 8) {
-          const id2 = buffer.slice(o2, o2 + 4).toString('ascii')
-          const sz2 = buffer.readUInt32LE(o2 + 4)
-          if (id2 === 'data') {
-            return Math.round((sz2 / byteRate) * 10) / 10
-          }
-          o2 += 8 + sz2 + (sz2 % 2)
-          if (sz2 === 0) break
-        }
+        const byteRate = buf.readUInt32LE(offset + 16)
+        const fileStat = fs.statSync(filePath)
+        return Math.round((fileStat.size / byteRate) * 10) / 10
       }
       offset += 8 + size + (size % 2)
       if (size === 0) break
@@ -311,6 +309,12 @@ async function main() {
     console.log(`   Durée : ${meta.duration}s\n`)
 
     newEntries.push(meta)
+    // Sauvegarde progressive toutes les 50 entrées
+    if (newEntries.length % 50 === 0) {
+      const partial = [...existingIndex, ...newEntries]
+      fs.writeFileSync(INDEX_PATH, JSON.stringify(partial, null, 2))
+      process.stdout.write(`💾 Sauvegarde intermédiaire : ${partial.length} sons\n`)
+    }
   }
 
   console.log(`\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`)
