@@ -85,20 +85,20 @@ function SoundLibraryPicker({
   }, [soundLibrary, search, activeFilters, fuse])
 
   const selectFamily = (familyId) => {
-  if (selectedFamily === familyId) {
-    setSelectedFamily(null)
-    setActiveTags([])
-  } else {
-    setSelectedFamily(familyId)
-    setActiveTags([])
+    if (selectedFamily === familyId) {
+      setSelectedFamily(null)
+      setActiveTags([])
+    } else {
+      setSelectedFamily(familyId)
+      setActiveTags([])
+    }
   }
-}
 
-const toggleTag = (tag) => {
-  setActiveTags(prev =>
-    prev.includes(tag) ? prev.filter(t => t !== tag) : [...prev, tag]
-  )
-}
+  const toggleTag = (tag) => {
+    setActiveTags(prev =>
+      prev.includes(tag) ? prev.filter(t => t !== tag) : [...prev, tag]
+    )
+  }
 
   const playSoundPreview = (sound, e) => {
     e.stopPropagation()
