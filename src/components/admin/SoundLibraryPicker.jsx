@@ -462,31 +462,5 @@ const filteredSounds = useMemo(() => {
   )
 }
 
-function FilterRow({ label, filters, active, color, onToggle }) {
-  return (
-    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.4rem', flexWrap: 'wrap' }}>
-      <span style={{ fontSize: '0.72rem', color: '#bbb', minWidth: '60px', flexShrink: 0 }}>{label}</span>
-      {filters.map(f => (
-        <button
-          key={f}
-          onClick={() => onToggle(f)}
-          style={{
-            padding: '0.2rem 0.6rem',
-            fontSize: '0.72rem',
-            borderRadius: '999px',
-            border: `1px solid ${active.includes(f) ? color : '#e0e0e0'}`,
-            background: active.includes(f) ? color : 'transparent',
-            color: active.includes(f) ? '#fff' : '#666',
-            cursor: 'pointer',
-            transition: 'all 0.12s',
-            fontWeight: active.includes(f) ? 500 : 400,
-          }}
-        >
-          {f}
-        </button>
-      ))}
-    </div>
-  )
-}
 
 export default SoundLibraryPicker
