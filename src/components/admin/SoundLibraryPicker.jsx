@@ -279,9 +279,63 @@ const filteredSounds = useMemo(() => {
 
           {/* Filtres */}
           <div style={{ marginBottom: '0.75rem', flexShrink: 0 }}>
-            <FilterRow label="Catégorie" filters={FILTER_CATEGORIES} active={activeFilters.categories} color="#5a7af0" onToggle={v => toggleFilter('categories', v)} />
-            <FilterRow label="Ambiance" filters={FILTER_MOOD} active={activeFilters.mood} color="#22a06b" onToggle={v => toggleFilter('mood', v)} />
-            <FilterRow label="Intensité" filters={FILTER_INTENSITY} active={activeFilters.intensity} color="#e05c2a" onToggle={v => toggleFilter('intensity', v)} />
+
+            {/* Niveau 1 — Familles */}
+            <div style={{ display: 'flex', gap: '0.4rem', flexWrap: 'wrap', marginBottom: '0.6rem' }}>
+              {FAMILIES.map(family => (
+                <button
+                  key={family.id}
+                  onClick={() => selectFamily(family.id)}
+                  style={{
+                    padding: '0.3rem 0.75rem',
+                    fontSize: '0.78rem',
+                    borderRadius: '999px',
+                    border: `1px solid ${selectedFamily === family.id ? '#5a7af0' : '#e0e0e0'}`,
+                    background: selectedFamily === family.id ? '#5a7af0' : 'transparent',
+                    color: selectedFamily === family.id ? '#fff' : '#555',
+                    cursor: 'pointer',
+                    fontWeight: selectedFamily === family.id ? 600 : 400,
+                    transition: 'all 0.12s',
+                  }}
+                >
+                  {family.label}
+                </button>
+              ))}
+            </div>
+
+            {/* Niveau 2 — Tags contextuels (apparaît seulement si une famille est sélectionnée) */}
+            {selectedFamily && familyTags.length > 0 && (
+              <div style={{
+                padding: '0.5rem 0.65rem',
+                background: 'rgba(90,122,240,0.05)',
+                borderRadius: '8px',
+                border: '1px solid rgba(90,122,240,0.15)',
+              }}>
+                <div style={{ fontSize: '0.68rem', color: '#aaa', marginBottom: '0.4rem' }}>
+                  Tags dans cette catégorie
+                </div>
+                <div style={{ display: 'flex', gap: '0.35rem', flexWrap: 'wrap' }}>
+                  {familyTags.map(tag => (
+                    <button
+                      key={tag}
+                      onClick={() => toggleTag(tag)}
+                      style={{
+                        padding: '0.18rem 0.55rem',
+                        fontSize: '0.72rem',
+                        borderRadius: '999px',
+                        border: `1px solid ${activeTags.includes(tag) ? '#22a06b' : '#ddd'}`,
+                        background: activeTags.includes(tag) ? '#22a06b' : 'transparent',
+                        color: activeTags.includes(tag) ? '#fff' : '#666',
+                        cursor: 'pointer',
+                        transition: 'all 0.1s',
+                      }}
+                    >
+                      {tag}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
 
           {/* Résultats */}
