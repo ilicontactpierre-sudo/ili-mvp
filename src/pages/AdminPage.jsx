@@ -788,7 +788,7 @@ function AdminPage() {
                   style={{ padding: '0.75rem', fontSize: '1rem', border: '1px solid #ccc', borderRadius: '4px', width: '100%', boxSizing: 'border-box' }}
                 />
                 {!storyBookUrl && (
-                  
+                  <a
                     href="https://www.librairiesindependantes.com"
                     target="_blank"
                     rel="noreferrer"
