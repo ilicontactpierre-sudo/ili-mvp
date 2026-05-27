@@ -62,27 +62,61 @@ function SoundLibraryPicker({
     minMatchCharLength: 2,
   }), [soundLibrary])
 
-  const filteredSounds = useMemo(() => {
-    // Appliquer d'abord la recherche floue si texte saisi
-    let results = soundLibrary
-    if (search.trim()) {
-      results = fuse.search(search.trim()).map(r => r.item)
-    }
+  // Sons appartenant à la famille sélectionnée
+const familySounds = useMemo(() => {
+  if (!selectedFamily) return soundLibrary
+  const family = FAMILIES.find(f => f.id === selectedFamily)
+  if (!family) return soundLibrary
+  return soundLibrary.filter(sound => {
+    const bc = (sound.boomCategory || '').toUpperCase()
+    return family.boom.some(b => bc.includes(b))
+  })
+}, [soundLibrary, selectedFamily])
 
-    // Puis appliquer les filtres catégorie / mood / intensité
-    return results.filter(sound => {
-      if (activeFilters.categories.length > 0) {
-        if (!activeFilters.categories.some(c => (sound.categories || []).includes(c))) return false
-      }
-      if (activeFilters.mood.length > 0) {
-        if (!activeFilters.mood.some(m => (sound.mood || []).includes(m))) return false
-      }
-      if (activeFilters.intensity.length > 0) {
-        if (!activeFilters.intensity.includes(sound.intensity)) return false
-      }
-      return true
+// Tags les plus fréquents dans la famille (pour le niveau 2)
+const familyTags = useMemo(() => {
+  const freq = {}
+  familySounds.forEach(sound => {
+    ;(sound.tags || []).forEach(tag => {
+      if (tag.length > 2) freq[tag] = (freq[tag] || 0) + 1
     })
-  }, [soundLibrary, search, activeFilters, fuse])
+  })
+  return Object.entries(freq)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 24)
+    .map(([tag]) => tag)
+}, [familySounds])
+
+const filteredSounds = useMemo(() => {
+  // Base : sons de la famille (ou tous si pas de famille)
+  let results = familySounds
+
+  // Recherche floue sur cette base
+  if (search.trim()) {
+    const localFuse = new Fuse(results, {
+      keys: [
+        { name: 'label',        weight: 0.35 },
+        { name: 'tags',         weight: 0.25 },
+        { name: 'description',  weight: 0.20 },
+        { name: 'searchString', weight: 0.15 },
+        { name: 'boomCategory', weight: 0.05 },
+      ],
+      threshold: 0.4,
+      ignoreLocation: true,
+      minMatchCharLength: 2,
+    })
+    results = localFuse.search(search.trim()).map(r => r.item)
+  }
+
+  // Filtre par tags sélectionnés
+  if (activeTags.length > 0) {
+    results = results.filter(sound =>
+      activeTags.every(tag => (sound.tags || []).includes(tag))
+    )
+  }
+
+  return results
+}, [familySounds, search, activeTags])
 
   const selectFamily = (familyId) => {
     if (selectedFamily === familyId) {
