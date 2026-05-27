@@ -25,6 +25,7 @@ function SoundBlockPanel({
   const [showDelayInput, setShowDelayInput] = useState(false)
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false)
   const [isAnimating, setIsAnimating] = useState(false)
+  const [showTrimmer, setShowTrimmer] = useState(false)
   const panelRef = useRef(null)
   const animationRef = useRef(null)
 
