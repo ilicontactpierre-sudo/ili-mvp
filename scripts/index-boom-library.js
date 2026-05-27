@@ -100,7 +100,7 @@ function getXmlValue(xml, tag) {
 
 function parseMetadata(filePath) {
   // Lire seulement les 200KB de début — les métadonnées iXML sont toujours là
-  const HEADER_SIZE = 200 * 1024
+  const HEADER_SIZE = 512 * 1024
   const fd = fs.openSync(filePath, 'r')
   const buffer = Buffer.alloc(HEADER_SIZE)
   const bytesRead = fs.readSync(fd, buffer, 0, HEADER_SIZE, 0)
