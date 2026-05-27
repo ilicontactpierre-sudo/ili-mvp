@@ -63,7 +63,7 @@ function EndScreen({ title, author, formUrl, bookUrl }) {
         </p>
 
         {formUrl && (
-          
+          <a
             href={formUrl}
             target="_blank"
             rel="noreferrer"
@@ -78,12 +78,13 @@ function EndScreen({ title, author, formUrl, bookUrl }) {
               fontSize: '1rem',
               fontWeight: 600,
             }}
+          >
             Partager mon avis
           </a>
         )}
 
         {bookUrl && (
-          
+          <a
             href={bookUrl}
             target="_blank"
             rel="noreferrer"
