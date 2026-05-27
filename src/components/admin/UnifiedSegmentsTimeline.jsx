@@ -1521,8 +1521,14 @@ const handleTextSelection = useCallback(() => {
   }, [segments, soundTracks])
 
   const selectedSoundTrack = editingSoundTrack
-  const selectedSound = selectedSoundTrack ? 
-  soundLibrary.find(s => s.id === selectedSoundTrack.soundId) : null
+  const selectedSound = selectedSoundTrack ? (
+  soundLibrary.find(s => s.id === selectedSoundTrack.soundId) ||
+  soundLibrary.find(s => 
+    s.filename?.replace(/\.mp3$/i, '') === selectedSoundTrack.soundId ||
+    s.originalFilename?.replace(/\.wav$/i, '') === selectedSoundTrack.soundId ||
+    s.id === selectedSoundTrack.soundId?.toLowerCase().replace(/[^a-z0-9_]/g, '_').replace(/_+/g, '_')
+  )
+) : null
 
 console.log('DEBUG sound lookup:', {
   soundId: selectedSoundTrack?.soundId,
