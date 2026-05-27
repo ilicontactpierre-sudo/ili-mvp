@@ -1522,7 +1522,14 @@ const handleTextSelection = useCallback(() => {
 
   const selectedSoundTrack = editingSoundTrack
   const selectedSound = selectedSoundTrack ? 
-    soundLibrary.find(s => s.id === selectedSoundTrack.soundId) : null
+  soundLibrary.find(s => s.id === selectedSoundTrack.soundId) : null
+
+console.log('DEBUG sound lookup:', {
+  soundId: selectedSoundTrack?.soundId,
+  found: !!selectedSound,
+  librarySize: soundLibrary.length,
+  firstLibraryId: soundLibrary[0]?.id,
+})
 
   const closePanel = () => {
     setEditingSoundTrack(null)
