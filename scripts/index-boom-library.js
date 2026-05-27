@@ -282,8 +282,26 @@ async function main() {
       errors++
       continue
     }
-    // Calculer la durée depuis le header (pas de chargement complet)
-    meta.duration = getWavDuration(filePath)
+    // Calculer la durée depuis le fmt chunk du header
+    try {
+      const fd = fs.openSync(filePath, 'r')
+      const hbuf = Buffer.alloc(512)
+      fs.readSync(fd, hbuf, 0, 512, 0)
+      fs.closeSync(fd)
+      let off = 12
+      while (off < hbuf.length - 8) {
+        const cid = hbuf.slice(off, off + 4).toString('ascii')
+        const csz = hbuf.readUInt32LE(off + 4)
+        if (cid === 'fmt ') {
+          const byteRate = hbuf.readUInt32LE(off + 16)
+          const fileStat = fs.statSync(filePath)
+          meta.duration = Math.round((fileStat.size / byteRate) * 10) / 10
+          break
+        }
+        off += 8 + csz + (csz % 2)
+        if (csz === 0) break
+      }
+    } catch { meta.duration = 0 }
 
     // Déjà indexé ?
     if (existingIds.has(meta.id)) {
