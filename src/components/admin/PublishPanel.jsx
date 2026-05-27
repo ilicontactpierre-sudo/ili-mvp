@@ -5,6 +5,7 @@ function PublishPanel({
   title,
   author,
   slug,
+  bookUrl,
   segments,
   soundTracks,
   vfxTracks,
