@@ -119,7 +119,18 @@ class AudioEngine {
     })
     this.playingSounds.clear()
   }
-
+  _applyTrimSprite(howl, soundId, trimStart, trimEnd) {
+      if (trimStart == null && trimEnd == null) return null
+      const start = trimStart || 0
+      // trimEnd en ms — si absent, on laisse jouer jusqu'à la fin
+      if (trimEnd == null) return null
+      const duration = trimEnd - start
+      if (duration <= 0) return null
+      const spriteName = `trim_${soundId}`
+      howl._sprite = howl._sprite || {}
+      howl._sprite[spriteName] = [start, duration]
+      return spriteName
+    }
   wait(ms) {
     return new Promise((resolve) => window.setTimeout(resolve, ms))
   }
