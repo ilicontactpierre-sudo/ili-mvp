@@ -158,6 +158,7 @@ function PublishPanel({
       title: title || 'Sans titre',
       author: author || 'Anonyme',
       published: true,
+      ...(bookUrl ? { bookUrl } : {}),
       sounds: usedSounds,
       segments: segmentsWithAudio,
       soundTracks: soundTracks,
