@@ -135,9 +135,12 @@ export default function ReaderSettings({
   const [fontSizeIndex, setFontSizeIndex] = useState(() => {
     try { return parseInt(localStorage.getItem('ili_font_size') || '2') } catch { return 2 }
   })
-  const [isDysMode, setIsDysMode] = useState(() => {
-  try { return localStorage.getItem('ili_dys_mode') === 'true' } catch { return false }
-})
+  const [dys1, setDys1] = useState(() => {
+    try { return localStorage.getItem('ili_dys1') === 'true' } catch { return false }
+  })
+  const [dys2, setDys2] = useState(() => {
+    try { return localStorage.getItem('ili_dys2') === 'true' } catch { return false }
+  })
 
   const menuRef     = useRef(null)
   const gearRef     = useRef(null)
@@ -195,30 +198,6 @@ export default function ReaderSettings({
     saveTheme({ isDark, isToutdoux, isSynthwave })
   }, [isDark, isToutdoux, isSynthwave])
 
-  // ── Appliquer le mode DYS ───────────────────────────────────────────────────
-useEffect(() => {
-  const root = document.documentElement
-  try { localStorage.setItem('ili_dys_mode', String(isDysMode)) } catch {}
-  if (isDysMode) {
-    root.style.setProperty('--font-primary', "'Lexend', Verdana, Arial, sans-serif")
-    root.style.setProperty('--line-height-reader', '1.6')
-    root.style.setProperty('--letter-spacing-reader', '0.05em')
-    root.style.setProperty('--text-align-reader', 'left')
-  } else {
-    // Réappliquer la police du thème courant
-    if (isToutdoux) {
-      root.style.setProperty('--font-primary', "'Playfair Display', Georgia, serif")
-    } else if (isSynthwave) {
-      root.style.setProperty('--font-primary', "'VT323', 'Courier New', monospace")
-    } else {
-      root.style.setProperty('--font-primary', "'Lora', Georgia, 'Times New Roman', serif")
-    }
-    root.style.removeProperty('--line-height-reader')
-    root.style.removeProperty('--letter-spacing-reader')
-    root.style.removeProperty('--text-align-reader')
-  }
-}, [isDysMode, isDark, isToutdoux, isSynthwave])
-
   // ── Appliquer la taille de police (+ sauvegarde) ────────────────────────────
   useEffect(() => {
     const size = FONT_SIZES[fontSizeIndex]
@@ -227,6 +206,19 @@ useEffect(() => {
     root.style.setProperty('--font-size-blur', size.blur)
     try { localStorage.setItem('ili_font_size', String(fontSizeIndex)) } catch {}
   }, [fontSizeIndex])
+
+  useEffect(() => {
+    const root = document.documentElement
+    if (dys2) {
+      root.style.setProperty('--font-dys2', "'Lexend', sans-serif")
+    } else {
+      root.style.setProperty('--font-dys2', '')
+    }
+    window.__iliDys1 = dys1
+    window.__iliDys2 = dys2
+    try { localStorage.setItem('ili_dys1', String(dys1)) } catch {}
+    try { localStorage.setItem('ili_dys2', String(dys2)) } catch {}
+  }, [dys1, dys2])
 
   // ── Fermer si clic en dehors ────────────────────────────────────────────────
   useEffect(() => {
@@ -290,7 +282,6 @@ useEffect(() => {
   return (
     <>
       <style>{`
-      @import url('https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;600;700&display=swap');
         @keyframes settings-out {
           from { opacity: 1; transform: scale(1)    translateY(0); }
           to   { opacity: 0; transform: scale(0.92) translateY(-6px); }
@@ -488,6 +479,34 @@ useEffect(() => {
           background: ${hoverBg};
           color: ${fg};
         }
+        .rs-dys-row {
+          display: flex;
+          align-items: center;
+          gap: 6px;
+          padding: 2px 4px 4px;
+        }
+        .rs-dys-btn {
+          flex: 1;
+          height: 34px;
+          border-radius: 8px;
+          border: 1px solid ${border};
+          background: transparent;
+          color: ${fg};
+          font-size: 11px;
+          font-weight: 700;
+          letter-spacing: 0.06em;
+          cursor: pointer;
+          transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+          -webkit-tap-highlight-color: transparent;
+        }
+        .rs-dys-btn:hover {
+          background: ${hoverBg};
+        }
+        .rs-dys-btn.active {
+          background: ${isDark ? 'rgba(255,255,255,0.12)' : 'rgba(26,26,24,0.1)'};
+          border-color: ${isDark ? 'rgba(255,255,255,0.35)' : 'rgba(26,26,24,0.35)'};
+          color: ${isDark ? '#fff' : '#1a1a18'};
+        }
       `}</style>
 
       {/* ── Bouton roue crantée ── */}
@@ -560,7 +579,7 @@ useEffect(() => {
             </div>
           </div>
 
-          {/* Taille de police */}
+          {/* Taille de police + options DYS */}
           <div className="rs-section">
             <span className="rs-label">Police</span>
             <div className="rs-row">
@@ -584,30 +603,20 @@ useEffect(() => {
                 <IconFontLarge />
               </button>
             </div>
-            {/* Mode DYS */}
-            <div style={{ padding: '4px 4px 2px' }}>
+            <div className="rs-dys-row">
               <button
-                className={`rs-btn${isDysMode ? ' active' : ''}`}
-                style={{
-                  width: '100%',
-                  justifyContent: 'space-between',
-                  padding: '0 10px',
-                  fontSize: 11,
-                  fontFamily: 'var(--font-logo, sans-serif)',
-                  letterSpacing: '0.08em',
-                  opacity: isDysMode ? 1 : 0.6,
-                }}
-                onClick={() => setIsDysMode(v => !v)}
-                title="Mode lecture DYS — Bionic Reading + Lexend"
+                className={`rs-dys-btn${dys1 ? ' active' : ''}`}
+                onClick={() => { playClicSettings(); setDys1(v => !v) }}
+                title="Lecture assistée : met en gras les premières lettres de chaque mot"
               >
-                <span>DYS</span>
-                <span style={{
-                  fontSize: 9,
-                  opacity: 0.6,
-                  fontFamily: 'var(--font-logo, sans-serif)',
-                }}>
-                  {isDysMode ? 'ON' : 'OFF'}
-                </span>
+                DYS 1
+              </button>
+              <button
+                className={`rs-dys-btn${dys2 ? ' active' : ''}`}
+                onClick={() => { playClicSettings(); setDys2(v => !v) }}
+                title="Police Lexend, conçue pour la dyslexie"
+              >
+                DYS 2
               </button>
             </div>
           </div>

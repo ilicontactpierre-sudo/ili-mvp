@@ -270,6 +270,7 @@ function StoryPage() {
           title={story?.title ?? ''}
           author={story?.author ?? ''}
           formUrl={story?.formUrl}
+          bookUrl={story?.bookUrl}
         />
         <ReaderSettings storyId={story?.id} segments={[]} />
       </>

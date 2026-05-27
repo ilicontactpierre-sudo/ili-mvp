@@ -15,10 +15,12 @@
  *   npm install @supabase/supabase-js lamejs dotenv
  */
 
+
 import fs from 'fs'
 import path from 'path'
 import { createReadStream } from 'fs'
 import dotenv from 'dotenv'
+import { enrichSoundEntry } from './audio-dictionary.js'
 dotenv.config()
 
 const INDEX_PATH = path.resolve('./public/sounds/sounds-index.json')
@@ -97,11 +99,12 @@ function getXmlValue(xml, tag) {
 // ─── Extraire les métadonnées utiles ─────────────────────────────────────────
 
 function parseMetadata(filePath) {
-  const buffer = fs.readFileSync(filePath)
+const headerBuffer = fs.readFileSync(filePath)
+
   const filename = path.basename(filePath)
 
-  const ixmlRaw = extractIxml(buffer)
-  const info = extractInfo(buffer)
+  const ixmlRaw = extractIxml(headerBuffer)
+  const info = extractInfo(headerBuffer)
 
   let category = ''
   let subcategory = ''
@@ -187,6 +190,7 @@ function parseMetadata(filePath) {
     filename: filename.replace(/\.wav$/i, '.mp3'),
     originalFilename: filename,
     originalPath: filePath,
+    localPath: filePath,
     label,
     description,
     tags,
@@ -205,37 +209,6 @@ function parseMetadata(filePath) {
   }
 }
 
-// ─── Calculer la durée WAV ────────────────────────────────────────────────────
-
-function getWavDuration(buffer) {
-  try {
-    // fmt chunk : sampleRate à offset 24, numChannels à 22, bitsPerSample à 34
-    // Chercher le chunk fmt
-    let offset = 12
-    while (offset < buffer.length - 8) {
-      const id = buffer.slice(offset, offset + 4).toString('ascii')
-      const size = buffer.readUInt32LE(offset + 4)
-      if (id === 'fmt ') {
-        const sampleRate = buffer.readUInt32LE(offset + 12)
-        const byteRate = buffer.readUInt32LE(offset + 16)
-        // Chercher data chunk pour la taille
-        let o2 = 12
-        while (o2 < buffer.length - 8) {
-          const id2 = buffer.slice(o2, o2 + 4).toString('ascii')
-          const sz2 = buffer.readUInt32LE(o2 + 4)
-          if (id2 === 'data') {
-            return Math.round((sz2 / byteRate) * 10) / 10
-          }
-          o2 += 8 + sz2 + (sz2 % 2)
-          if (sz2 === 0) break
-        }
-      }
-      offset += 8 + size + (size % 2)
-      if (size === 0) break
-    }
-  } catch {}
-  return 0
-}
 
 // ─── Main ─────────────────────────────────────────────────────────────────────
 
@@ -259,9 +232,21 @@ async function main() {
   let errors = 0
 
   for (const filePath of wavFiles) {
-    const buffer = fs.readFileSync(filePath)
-    let meta
+    // Ignorer les fichiers > 500MB
+    try {
+      const fileStat = fs.statSync(filePath)
+      if (fileStat.size > 200 * 1024 * 1024) {
+        console.log(`⏭  Ignoré (${(fileStat.size / 1024 / 1024).toFixed(0)}MB) : ${path.basename(filePath)}`)
+        skipped++
+        continue
+      }
+    } catch (err) {
+      console.error(`❌ Fichier inaccessible : ${path.basename(filePath)}`)
+      errors++
+      continue
+    }
 
+    let meta
     try {
       meta = parseMetadata(filePath)
     } catch (err) {
@@ -269,9 +254,26 @@ async function main() {
       errors++
       continue
     }
-
-    // Calculer la durée
-    meta.duration = getWavDuration(buffer)
+    // Calculer la durée depuis le fmt chunk du header
+    try {
+      const fd = fs.openSync(filePath, 'r')
+      const hbuf = Buffer.alloc(512)
+      fs.readSync(fd, hbuf, 0, 512, 0)
+      fs.closeSync(fd)
+      let off = 12
+      while (off < hbuf.length - 8) {
+        const cid = hbuf.slice(off, off + 4).toString('ascii')
+        const csz = hbuf.readUInt32LE(off + 4)
+        if (cid === 'fmt ') {
+          const byteRate = hbuf.readUInt32LE(off + 16)
+          const fileStat = fs.statSync(filePath)
+          meta.duration = Math.round((fileStat.size / byteRate) * 10) / 10
+          break
+        }
+        off += 8 + csz + (csz % 2)
+        if (csz === 0) break
+      }
+    } catch { meta.duration = 0 }
 
     // Déjà indexé ?
     if (existingIds.has(meta.id)) {
@@ -287,6 +289,12 @@ async function main() {
     console.log(`   Durée : ${meta.duration}s\n`)
 
     newEntries.push(meta)
+    // Sauvegarde progressive toutes les 50 entrées
+    if (newEntries.length % 50 === 0) {
+      const partial = [...existingIndex, ...newEntries]
+      fs.writeFileSync(INDEX_PATH, JSON.stringify(partial, null, 2))
+      process.stdout.write(`💾 Sauvegarde intermédiaire : ${partial.length} sons\n`)
+    }
   }
 
   console.log(`\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`)
@@ -342,13 +350,10 @@ async function main() {
   // Mettre à jour l'index (seulement les entrées avec URL si upload, ou toutes sinon)
   const toAdd = FLAG_UPLOAD ? newEntries.filter(e => e.url) : newEntries
 
-  // Nettoyer les champs internes avant de sauvegarder
-  const cleaned = toAdd.map(({ originalFilename, originalPath, boomCategory, boomSubcategory, catId, library, ...rest }) => ({
-    ...rest,
-    boomCategory,
-    boomSubcategory,
-    library,
-  }))
+  // Enrichir avec searchString (traductions + synonymes) et nettoyer les champs internes
+  const cleaned = toAdd.map(({ originalFilename, originalPath, ...rest }) => 
+    enrichSoundEntry(rest)
+  )
 
   const updatedIndex = [...existingIndex, ...cleaned]
   fs.writeFileSync(INDEX_PATH, JSON.stringify(updatedIndex, null, 2))

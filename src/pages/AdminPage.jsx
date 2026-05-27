@@ -16,6 +16,7 @@ function AdminPage() {
   const [storyTitle, setStoryTitle] = useState('')
   const [storyAuthor, setStoryAuthor] = useState('')
   const [storySlug, setStorySlug] = useState('')
+  const [storyBookUrl, setStoryBookUrl] = useState('')
   const [storyText, setStoryText] = useState('')
   const [granularity, setGranularity] = useState(5)
   const [isCutting, setIsCutting] = useState(false)
@@ -325,6 +326,7 @@ function AdminPage() {
     setStoryTitle(snapshot.title || '')
     setStoryAuthor(snapshot.author || '')
     setStorySlug(snapshot.slug || '')
+    setStoryBookUrl(snapshot.bookUrl || '')
     setSegments(snapshot.segments || [])
     setSoundTracks(snapshot.soundTracks || [])
     setVfxTracks(snapshot.vfxTracks || [])
@@ -336,6 +338,7 @@ function AdminPage() {
     setStoryTitle(storyData.title || '')
     setStoryAuthor(storyData.author || '')
     setStorySlug(storyData.id || storyData.slug || '')
+    setStoryBookUrl(storyData.bookUrl || '')
 
     // Normaliser les segments
     const loadedSegments = (storyData.segments || []).map((seg, i) => ({
@@ -457,6 +460,7 @@ function AdminPage() {
     setStoryTitle('')
     setStoryAuthor('')
     setStorySlug('')
+    setStoryBookUrl('')
     setStoryText('')
     setSegments([])
     setSoundTracks([])
@@ -695,6 +699,7 @@ function AdminPage() {
         title={storyTitle}
         author={storyAuthor}
         slug={storySlug}
+        bookUrl={storyBookUrl}
         segments={segments}
         soundTracks={soundTracks}
         vfxTracks={vfxTracks}
@@ -774,6 +779,25 @@ function AdminPage() {
                 onChange={(e) => setStorySlug(e.target.value.toLowerCase().replace(/ /g, '-').replace(/[^a-z0-9-]/g, ''))}
                 style={{ padding: '0.75rem', fontSize: '1rem', border: '1px solid #ccc', borderRadius: '4px' }}
               />
+              <div style={{ position: 'relative' }}>
+                <input
+                  type="url"
+                  placeholder="URL librairie (ex: https://www.librairiesindependantes.com/product/...)"
+                  value={storyBookUrl}
+                  onChange={(e) => setStoryBookUrl(e.target.value)}
+                  style={{ padding: '0.75rem', fontSize: '1rem', border: '1px solid #ccc', borderRadius: '4px', width: '100%', boxSizing: 'border-box' }}
+                />
+                {!storyBookUrl && (
+                  <a
+                    href="https://www.librairiesindependantes.com"
+                    target="_blank"
+                    rel="noreferrer"
+                    style={{ display: 'block', marginTop: '0.3rem', fontSize: '0.78rem', color: '#888', textDecoration: 'underline' }}
+                  >
+                    Trouver l'URL sur librairiesindependantes.com →
+                  </a>
+                )}
+              </div>
               <textarea
                 placeholder="Colle ton texte ici (10 lignes minimum)"
                 value={storyText}
@@ -936,6 +960,7 @@ function AdminPage() {
             title={storyTitle}
             author={storyAuthor}
             slug={storySlug}
+            bookUrl={storyBookUrl}
             segments={segments}
             soundTracks={soundTracks}
             vfxTracks={vfxTracks}

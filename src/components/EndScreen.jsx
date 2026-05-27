@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-function EndScreen({ title, author, formUrl }) {
+function EndScreen({ title, author, formUrl, bookUrl }) {
   const navigate = useNavigate()
   const [visible, setVisible] = useState(false)
   const [leaving, setLeaving] = useState(false)
@@ -57,6 +57,7 @@ function EndScreen({ title, author, formUrl }) {
             background: lineColor,
           }}
         />
+
         <p style={{ opacity: 0.65, fontSize: '0.95rem', letterSpacing: '0.02em' }}>
           {title} — {author}
         </p>
@@ -82,11 +83,54 @@ function EndScreen({ title, author, formUrl }) {
           </a>
         )}
 
+        {bookUrl && (
+          <a
+            href={bookUrl}
+            target="_blank"
+            rel="noreferrer"
+            style={{
+              marginTop: formUrl ? '1rem' : '2.2rem',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '0.6rem',
+              marginInline: 'auto',
+              width: 'fit-content',
+              padding: '0.75rem 1.35rem',
+              borderRadius: '999px',
+              border: '1px solid ' + btnBorder,
+              background: 'transparent',
+              color: btnColor,
+              textDecoration: 'none',
+              fontSize: '0.95rem',
+              fontFamily: 'var(--font-primary)',
+              letterSpacing: '0.03em',
+              transition: 'color 400ms ease, border-color 400ms ease, background 400ms ease',
+            }}
+            onMouseEnter={function(e) {
+              e.currentTarget.style.color = btnHoverColor
+              e.currentTarget.style.borderColor = btnHoverBorder
+              e.currentTarget.style.background = 'color-mix(in srgb, var(--color-text-focus) 6%, transparent)'
+            }}
+            onMouseLeave={function(e) {
+              e.currentTarget.style.color = btnColor
+              e.currentTarget.style.borderColor = btnBorder
+              e.currentTarget.style.background = 'transparent'
+            }}
+          >
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+              <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+            </svg>
+            Trouver le livre en librairie
+          </a>
+        )}
+
         <button
           type="button"
           onClick={handleReturnHome}
           style={{
-            marginTop: formUrl ? '1.5rem' : '2.5rem',
+            marginTop: (formUrl || bookUrl) ? '1.5rem' : '2.5rem',
             display: 'block',
             marginInline: 'auto',
             border: 'none',

@@ -12,10 +12,16 @@
 import { useState, useMemo, useRef, useEffect } from 'react'
 import { Howl } from 'howler'
 import SoundImporter from './SoundImporter'
+import Fuse from 'fuse.js'
 
-const FILTER_CATEGORIES = ['Ambiance', 'Musique', 'SFX', 'Dialogue', 'Autre']
-const FILTER_MOOD = ['Calme', 'Tension', 'Mélancolie', 'Joie', 'Mystère', 'Action']
-const FILTER_INTENSITY = ['douce', 'moyenne', 'forte']
+const FAMILIES = [
+  { id: 'nature',     label: '🌿 Nature',      boom: ['NATURE','WATER','BIRDS','ANIMALS','CREATURE','CREATURES','VEGETATION','WEATHER','WIND','RAIN','ROCKS','EXTERIOR'] },
+  { id: 'humain',     label: '🧍 Humain',      boom: ['HUMAN','VOICES','PEOPLE','CROWDS','MOVEMENT','SPORTS','GORE','CLOTH','LEATHER','FOOTSTEP'] },
+  { id: 'objets',     label: '📦 Objets',      boom: ['OBJECTS','DOORS','METAL','WOOD','GLASS','PLASTIC','PAPER','CHAINS','TOOLS','DRAWERS','FOOD','DRINK','TOYS','GAMES','LEATHER'] },
+  { id: 'machines',   label: '⚙️ Machines',    boom: ['MACHINES','MECHANICAL','VEHICLES','AIRCRAFT','TRAINS','ENGINEERING','COMPUTERS','COMMUNICATIONS','GUNS','WEAPONS','HISTORICAL'] },
+  { id: 'design',     label: '✨ Design',       boom: ['DESIGNED','SWOOSHES','MAGIC','SCIFI','CARTOON','CINEMATIC','EXPLOSION','USER INTERFACE','INTERFACE'] },
+  { id: 'musique',    label: '🎵 Musique',      boom: ['MUSICAL','INSTRUMENTS','CINEMATIC TRAILERS'] },
+]
 
 function SoundLibraryPicker({
   soundLibrary,
@@ -28,9 +34,11 @@ function SoundLibraryPicker({
   onSoundsImported,
 }) {
   const [search, setSearch] = useState('')
-  const [activeFilters, setActiveFilters] = useState({ categories: [], mood: [], intensity: [] })
+  const [selectedFamily, setSelectedFamily] = useState(null)   // id de famille ou null
+  const [activeTags, setActiveTags] = useState([])             // tags sélectionnés (niveau 2)
   const [playingId, setPlayingId] = useState(null)
   const [showImporter, setShowImporter] = useState(false)
+  const [uploadingId, setUploadingId] = useState(null)
   const howlRef = useRef(null)
   const timerRef = useRef(null)
 
@@ -42,57 +50,165 @@ function SoundLibraryPicker({
     }
   }, [])
 
-  const filteredSounds = useMemo(() => {
-    return soundLibrary.filter(sound => {
-      if (search.trim()) {
-        const s = search.toLowerCase().trim()
-        const match =
-          (sound.label || '').toLowerCase().includes(s) ||
-          (sound.tags || []).some(t => t.toLowerCase().includes(s)) ||
-          (sound.mood || []).some(m => m.toLowerCase().includes(s)) ||
-          (sound.id || '').toLowerCase().includes(s)
-        if (!match) return false
-      }
-      if (activeFilters.categories.length > 0) {
-        if (!activeFilters.categories.some(c => (sound.categories || []).includes(c))) return false
-      }
-      if (activeFilters.mood.length > 0) {
-        if (!activeFilters.mood.some(m => (sound.mood || []).includes(m))) return false
-      }
-      if (activeFilters.intensity.length > 0) {
-        if (!activeFilters.intensity.includes(sound.intensity)) return false
-      }
-      return true
-    })
-  }, [soundLibrary, search, activeFilters])
+  const fuse = useMemo(() => new Fuse(soundLibrary, {
+    keys: [
+      { name: 'label',       weight: 0.35 },
+      { name: 'tags',        weight: 0.25 },
+      { name: 'description', weight: 0.20 },
+      { name: 'searchString', weight: 0.15 },
+      { name: 'boomCategory', weight: 0.05 },
+    ],
+    threshold: 0.4,      // 0 = exact, 1 = tout accepter — 0.4 est un bon équilibre
+    ignoreLocation: true, // cherche dans tout le champ, pas seulement au début
+    minMatchCharLength: 2,
+  }), [soundLibrary])
 
-  const toggleFilter = (type, value) => {
-    setActiveFilters(prev => ({
-      ...prev,
-      [type]: prev[type].includes(value)
-        ? prev[type].filter(v => v !== value)
-        : [...prev[type], value]
-    }))
+  // Sons appartenant à la famille sélectionnée
+const familySounds = useMemo(() => {
+  if (!selectedFamily) return soundLibrary
+  const family = FAMILIES.find(f => f.id === selectedFamily)
+  if (!family) return soundLibrary
+  return soundLibrary.filter(sound => {
+    const bc = (sound.boomCategory || '').toUpperCase()
+    return family.boom.some(b => bc.includes(b))
+  })
+}, [soundLibrary, selectedFamily])
+
+// Tags les plus fréquents dans la famille (pour le niveau 2)
+const familyTags = useMemo(() => {
+  const freq = {}
+  familySounds.forEach(sound => {
+    ;(sound.tags || []).forEach(tag => {
+      if (tag.length > 2) freq[tag] = (freq[tag] || 0) + 1
+    })
+  })
+  return Object.entries(freq)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 24)
+    .map(([tag]) => tag)
+}, [familySounds])
+
+const filteredSounds = useMemo(() => {
+  // Base : sons de la famille (ou tous si pas de famille)
+  let results = familySounds
+
+  // Recherche floue sur cette base
+  if (search.trim()) {
+    const localFuse = new Fuse(results, {
+      keys: [
+        { name: 'label',        weight: 0.35 },
+        { name: 'tags',         weight: 0.25 },
+        { name: 'description',  weight: 0.20 },
+        { name: 'searchString', weight: 0.15 },
+        { name: 'boomCategory', weight: 0.05 },
+      ],
+      threshold: 0.4,
+      ignoreLocation: true,
+      minMatchCharLength: 2,
+    })
+    results = localFuse.search(search.trim()).map(r => r.item)
+  }
+
+  // Filtre par tags sélectionnés
+  if (activeTags.length > 0) {
+    results = results.filter(sound =>
+      activeTags.every(tag => (sound.tags || []).includes(tag))
+    )
+  }
+
+  return results
+}, [familySounds, search, activeTags])
+
+  const selectFamily = (familyId) => {
+    if (selectedFamily === familyId) {
+      setSelectedFamily(null)
+      setActiveTags([])
+    } else {
+      setSelectedFamily(familyId)
+      setActiveTags([])
+    }
+  }
+
+  const toggleTag = (tag) => {
+    setActiveTags(prev =>
+      prev.includes(tag) ? prev.filter(t => t !== tag) : [...prev, tag]
+    )
+  }
+
+  const handleUploadSound = async (sound) => {
+    if (!adminPassword) {
+      alert('Mot de passe admin requis pour uploader')
+      return
+    }
+    setUploadingId(sound.id)
+    try {
+      const fileRes = await fetch(`/api/preview-sound?path=${encodeURIComponent(sound.localPath)}`)
+      if (!fileRes.ok) throw new Error('Impossible de lire le fichier local')
+      const fileBlob = await fileRes.blob()
+      const file = new File([fileBlob], sound.filename || `${sound.id}.wav`)
+
+      const formData = new FormData()
+      formData.append('file', file, sound.filename || `${sound.id}.mp3`)
+      formData.append('password', adminPassword)
+      formData.append('filename', sound.filename || `${sound.id}.mp3`)
+
+      const uploadRes = await fetch('/api/upload-audio', {
+        method: 'POST',
+        body: formData,
+      })
+      if (!uploadRes.ok) {
+        const err = await uploadRes.json()
+        throw new Error(err.error || 'Upload échoué')
+      }
+      const { publicUrl } = await uploadRes.json()
+
+      const saveRes = await fetch('/api/upload-sound', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          password: adminPassword,
+          soundEntry: { ...sound, url: publicUrl },
+        }),
+      })
+      if (!saveRes.ok) throw new Error('Mise à jour index échouée')
+
+      if (onSoundsImported) onSoundsImported([{ ...sound, url: publicUrl }])
+      alert(`✅ "${sound.label}" uploadé avec succès !`)
+    } catch (err) {
+      alert(`❌ Erreur : ${err.message}`)
+    } finally {
+      setUploadingId(null)
+    }
   }
 
   const playSoundPreview = (sound, e) => {
     e.stopPropagation()
 
-    // Arrêter le son en cours
     clearTimeout(timerRef.current)
     if (howlRef.current) { howlRef.current.stop(); howlRef.current.unload(); howlRef.current = null }
 
-    // Si c'est le même son → juste stop
     if (playingId === sound.id) { setPlayingId(null); return }
 
-    if (!sound.url) {
-      console.warn('Son sans URL Supabase :', sound.id)
+    let src = null
+    let format = undefined
+    if (sound.url) {
+      src = sound.url
+    } else if (sound.localPath) {
+      src = `http://localhost:3001/api/preview-sound?path=${encodeURIComponent(sound.localPath)}`
+      // Déduire le format depuis l'extension du fichier original
+      const ext = sound.localPath.split('.').pop().toLowerCase()
+      format = ext === 'aif' ? ['aiff'] : [ext]
+    }
+
+    if (!src) {
+      console.warn('Son sans URL ni localPath :', sound.id)
       return
     }
 
     const howl = new Howl({
-      src: [sound.url],
-      html5: true, // streaming — pas de décodage complet pour le preview
+      src: [src],
+      ...(format && { format }),
+      html5: true,
       volume: 0.6,
       onloaderror: () => { setPlayingId(null); howlRef.current = null },
       onend: () => { setPlayingId(null); howlRef.current = null },
@@ -101,7 +217,6 @@ function SoundLibraryPicker({
     howlRef.current = howl
     setPlayingId(sound.id)
 
-    // Limiter le preview à 8 secondes
     timerRef.current = setTimeout(() => {
       if (howlRef.current) { howlRef.current.stop(); howlRef.current.unload(); howlRef.current = null }
       setPlayingId(null)
@@ -220,9 +335,63 @@ function SoundLibraryPicker({
 
           {/* Filtres */}
           <div style={{ marginBottom: '0.75rem', flexShrink: 0 }}>
-            <FilterRow label="Catégorie" filters={FILTER_CATEGORIES} active={activeFilters.categories} color="#5a7af0" onToggle={v => toggleFilter('categories', v)} />
-            <FilterRow label="Ambiance" filters={FILTER_MOOD} active={activeFilters.mood} color="#22a06b" onToggle={v => toggleFilter('mood', v)} />
-            <FilterRow label="Intensité" filters={FILTER_INTENSITY} active={activeFilters.intensity} color="#e05c2a" onToggle={v => toggleFilter('intensity', v)} />
+
+            {/* Niveau 1 — Familles */}
+            <div style={{ display: 'flex', gap: '0.4rem', flexWrap: 'wrap', marginBottom: '0.6rem' }}>
+              {FAMILIES.map(family => (
+                <button
+                  key={family.id}
+                  onClick={() => selectFamily(family.id)}
+                  style={{
+                    padding: '0.3rem 0.75rem',
+                    fontSize: '0.78rem',
+                    borderRadius: '999px',
+                    border: `1px solid ${selectedFamily === family.id ? '#5a7af0' : '#e0e0e0'}`,
+                    background: selectedFamily === family.id ? '#5a7af0' : 'transparent',
+                    color: selectedFamily === family.id ? '#fff' : '#555',
+                    cursor: 'pointer',
+                    fontWeight: selectedFamily === family.id ? 600 : 400,
+                    transition: 'all 0.12s',
+                  }}
+                >
+                  {family.label}
+                </button>
+              ))}
+            </div>
+
+            {/* Niveau 2 — Tags contextuels (apparaît seulement si une famille est sélectionnée) */}
+            {selectedFamily && familyTags.length > 0 && (
+              <div style={{
+                padding: '0.5rem 0.65rem',
+                background: 'rgba(90,122,240,0.05)',
+                borderRadius: '8px',
+                border: '1px solid rgba(90,122,240,0.15)',
+              }}>
+                <div style={{ fontSize: '0.68rem', color: '#aaa', marginBottom: '0.4rem' }}>
+                  Tags dans cette catégorie
+                </div>
+                <div style={{ display: 'flex', gap: '0.35rem', flexWrap: 'wrap' }}>
+                  {familyTags.map(tag => (
+                    <button
+                      key={tag}
+                      onClick={() => toggleTag(tag)}
+                      style={{
+                        padding: '0.18rem 0.55rem',
+                        fontSize: '0.72rem',
+                        borderRadius: '999px',
+                        border: `1px solid ${activeTags.includes(tag) ? '#22a06b' : '#ddd'}`,
+                        background: activeTags.includes(tag) ? '#22a06b' : 'transparent',
+                        color: activeTags.includes(tag) ? '#fff' : '#666',
+                        cursor: 'pointer',
+                        transition: 'all 0.1s',
+                      }}
+                    >
+                      {tag}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
 
           {/* Résultats */}
@@ -300,26 +469,48 @@ function SoundLibraryPicker({
                         </div>
                       </div>
 
-                      {/* Ajouter */}
-                      <button
-                        onClick={() => handleAddSound(sound)}
-                        style={{
-                          padding: '0.35rem 0.75rem',
-                          fontSize: '0.78rem',
-                          fontWeight: 500,
-                          background: '#111',
-                          color: '#fff',
-                          border: 'none',
-                          borderRadius: '6px',
-                          cursor: 'pointer',
-                          flexShrink: 0,
-                          transition: 'background 0.12s',
-                        }}
-                        onMouseEnter={e => e.currentTarget.style.background = '#333'}
-                        onMouseLeave={e => e.currentTarget.style.background = '#111'}
-                      >
-                        + Ajouter
-                      </button>
+                      {/* Ajouter / Upload */}
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', flexShrink: 0 }}>
+                        {!sound.url && sound.localPath && (
+                          <button
+                            onClick={(e) => { e.stopPropagation(); handleUploadSound(sound) }}
+                            disabled={uploadingId === sound.id}
+                            style={{
+                              padding: '0.25rem 0.6rem',
+                              fontSize: '0.72rem',
+                              fontWeight: 500,
+                              background: uploadingId === sound.id ? '#888' : '#e05c2a',
+                              color: '#fff',
+                              border: 'none',
+                              borderRadius: '6px',
+                              cursor: uploadingId === sound.id ? 'not-allowed' : 'pointer',
+                              whiteSpace: 'nowrap',
+                            }}
+                          >
+                            {uploadingId === sound.id ? '⏳' : '↑ Upload'}
+                          </button>
+                        )}
+                        <button
+                          onClick={() => handleAddSound(sound)}
+                          disabled={!sound.url}
+                          title={!sound.url ? 'Uploadez ce son d\'abord' : ''}
+                          style={{
+                            padding: '0.35rem 0.75rem',
+                            fontSize: '0.78rem',
+                            fontWeight: 500,
+                            background: sound.url ? '#111' : '#ccc',
+                            color: '#fff',
+                            border: 'none',
+                            borderRadius: '6px',
+                            cursor: sound.url ? 'pointer' : 'not-allowed',
+                            transition: 'background 0.12s',
+                          }}
+                          onMouseEnter={e => { if (sound.url) e.currentTarget.style.background = '#333' }}
+                          onMouseLeave={e => { if (sound.url) e.currentTarget.style.background = '#111' }}
+                        >
+                          + Ajouter
+                        </button>
+                      </div>
                     </div>
                   )
                 })}
@@ -349,31 +540,5 @@ function SoundLibraryPicker({
   )
 }
 
-function FilterRow({ label, filters, active, color, onToggle }) {
-  return (
-    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.4rem', flexWrap: 'wrap' }}>
-      <span style={{ fontSize: '0.72rem', color: '#bbb', minWidth: '60px', flexShrink: 0 }}>{label}</span>
-      {filters.map(f => (
-        <button
-          key={f}
-          onClick={() => onToggle(f)}
-          style={{
-            padding: '0.2rem 0.6rem',
-            fontSize: '0.72rem',
-            borderRadius: '999px',
-            border: `1px solid ${active.includes(f) ? color : '#e0e0e0'}`,
-            background: active.includes(f) ? color : 'transparent',
-            color: active.includes(f) ? '#fff' : '#666',
-            cursor: 'pointer',
-            transition: 'all 0.12s',
-            fontWeight: active.includes(f) ? 500 : 400,
-          }}
-        >
-          {f}
-        </button>
-      ))}
-    </div>
-  )
-}
 
 export default SoundLibraryPicker

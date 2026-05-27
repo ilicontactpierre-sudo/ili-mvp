@@ -22,13 +22,14 @@ class AudioEngine {
     if (event.action === 'volume')  return this.setSoundVolume(event)
   }
 
-  playSound({ soundId, volume = 1, loop }) {
+  playSound({ soundId, volume = 1, loop, trimStart, trimEnd }) {
     if (!soundId || this.playingSounds.has(soundId)) return
     const howl = this.howlMap.get(soundId)
     if (!howl) return
     howl.loop(Boolean(loop))
     howl.volume(volume)
-    howl.play()
+    const spriteName = this._applyTrimSprite(howl, soundId, trimStart, trimEnd)
+    spriteName ? howl.play(spriteName) : howl.play()
     this.playingSounds.set(soundId, { howl, volume })
   }
 
@@ -45,28 +46,24 @@ class AudioEngine {
     if (howl) howl.stop()
   }
 
-  fadeInSound({ soundId, volume = 1, duration = 400, loop }) {
+  fadeInSound({ soundId, volume = 1, duration = 400, loop, trimStart, trimEnd }) {
     if (!soundId) return
     const howl = this.howlMap.get(soundId)
     if (!howl) return
-
-    // Invalide tout fadeOut en attente
     const token = Symbol()
     this._fadeTokens.set(soundId, token)
-
-    // Retire les listeners fade existants pour éviter tout conflit
     howl.off('fade')
-
+    // Appliquer le sprite de trim si défini
+    const spriteName = this._applyTrimSprite(howl, soundId, trimStart, trimEnd)
     if (this.playingSounds.has(soundId)) {
       const current = howl.volume()
       howl.fade(current, volume, duration)
     } else {
       howl.loop(Boolean(loop))
       howl.volume(0)
-      howl.play()
+      const playId = spriteName ? howl.play(spriteName) : howl.play()
       howl.fade(0, volume, duration)
     }
-
     this.playingSounds.set(soundId, { howl, volume })
   }
 
@@ -122,7 +119,18 @@ class AudioEngine {
     })
     this.playingSounds.clear()
   }
-
+  _applyTrimSprite(howl, soundId, trimStart, trimEnd) {
+      if (trimStart == null && trimEnd == null) return null
+      const start = trimStart || 0
+      // trimEnd en ms — si absent, on laisse jouer jusqu'à la fin
+      if (trimEnd == null) return null
+      const duration = trimEnd - start
+      if (duration <= 0) return null
+      const spriteName = `trim_${soundId}`
+      howl._sprite = howl._sprite || {}
+      howl._sprite[spriteName] = [start, duration]
+      return spriteName
+    }
   wait(ms) {
     return new Promise((resolve) => window.setTimeout(resolve, ms))
   }

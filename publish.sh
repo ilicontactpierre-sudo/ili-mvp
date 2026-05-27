@@ -16,7 +16,11 @@ if ! git rev-parse --git-dir > /dev/null 2>&1; then
     exit 1
 fi
 
-# Récupérer le message de commit (paramètre optionnel) - dès le début
+# Détecter la branche courante automatiquement
+CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+echo "🌿 Branche courante : $CURRENT_BRANCH"
+
+# Récupérer le message de commit (paramètre optionnel)
 COMMIT_MSG=$1
 if [ -z "$COMMIT_MSG" ]; then
     COMMIT_MSG="feat: publish changes $(date +'%Y-%m-%d %H:%M')"
@@ -26,42 +30,40 @@ fi
 if [ -n "$(git status --porcelain)" ]; then
     echo "📦 Ajout des fichiers modifiés..."
     git add .
-
     echo "💾 Création du commit..."
     git commit -m "$COMMIT_MSG"
-
     if [ $? -ne 0 ]; then
         echo "❌ Échec du commit. Vérifie tes fichiers."
         exit 1
     fi
 fi
 
-# Maintenant synchroniser avec le remote
+# Synchroniser avec le remote
 echo "🔄 Synchronisation avec GitHub..."
 git fetch origin
+
 if [ $? -ne 0 ]; then
     echo "❌ Échec de la récupération du remote. Vérifie ta connexion réseau."
     exit 1
 fi
 
-read remote_ahead local_ahead < <(git rev-list --left-right --count origin/main...HEAD 2>/dev/null || echo "0 0")
+read remote_ahead local_ahead < <(git rev-list --left-right --count origin/$CURRENT_BRANCH...HEAD 2>/dev/null || echo "0 0")
 
 if [ "$remote_ahead" -gt 0 ] && [ "$local_ahead" -eq 0 ]; then
     echo "🔄 Ta branche locale est en retard de $remote_ahead commit(s). Pull en cours..."
-    git pull --ff-only origin main
+    git pull --ff-only origin $CURRENT_BRANCH
     if [ $? -ne 0 ]; then
         echo "❌ Échec du pull. Intègre les changements distants manuellement."
         exit 1
     fi
 elif [ "$remote_ahead" -gt 0 ] && [ "$local_ahead" -gt 0 ]; then
     echo "⚡ La branche locale et distante ont divergé. Rebase en cours..."
-    git pull --rebase origin main
+    git pull --rebase origin $CURRENT_BRANCH
     if [ $? -ne 0 ]; then
         echo "❌ Le rebase a échoué (il y a probablement des conflits)."
         echo "   Résous les conflits manuellement :"
-        echo "     git status          (pour voir les fichiers en conflit)"
-        echo "     # ... répare les conflits ..."
-        echo "     git add .           (ajoute les fichiers résolus)"
+        echo "     git status"
+        echo "     git add ."
         echo "     git rebase --continue"
         exit 1
     fi
@@ -69,7 +71,7 @@ fi
 
 # Pousser vers GitHub
 echo "📤 Envoi vers GitHub..."
-git push origin main
+git push origin $CURRENT_BRANCH
 
 if [ $? -ne 0 ]; then
     echo "❌ Échec du push. Vérifie ta connexion et tes permissions."
@@ -78,7 +80,7 @@ fi
 
 echo ""
 echo "✅ Changements publiés avec succès !"
-echo "🌐 Vercel va automatiquement redéployer."
+echo "🌐 Vercel va automatiquement redéployer depuis la branche $CURRENT_BRANCH."
 echo "⏱️ Attends 1-2 minutes, puis rafraîchis ta page (Ctrl+Shift+R)"
 echo ""
 echo "🔍 Tu peux suivre le déploiement ici :"
