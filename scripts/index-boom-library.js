@@ -253,8 +253,8 @@ async function main() {
     // Ignorer les fichiers > 500MB
     try {
       const fileStat = fs.statSync(filePath)
-      if (fileStat.size > 500 * 1024 * 1024) {
-        console.log(`⏭  Ignoré (${(fileStat.size / 1024 / 1024 / 1024).toFixed(1)}GB) : ${path.basename(filePath)}`)
+      if (fileStat.size > 200 * 1024 * 1024) {
+        console.log(`⏭  Ignoré (${(fileStat.size / 1024 / 1024).toFixed(0)}MB) : ${path.basename(filePath)}`)
         skipped++
         continue
       }
