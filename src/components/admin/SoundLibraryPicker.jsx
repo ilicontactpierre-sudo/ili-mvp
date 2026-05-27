@@ -137,21 +137,26 @@ const filteredSounds = useMemo(() => {
   const playSoundPreview = (sound, e) => {
     e.stopPropagation()
 
-    // Arrêter le son en cours
     clearTimeout(timerRef.current)
     if (howlRef.current) { howlRef.current.stop(); howlRef.current.unload(); howlRef.current = null }
 
-    // Si c'est le même son → juste stop
     if (playingId === sound.id) { setPlayingId(null); return }
 
-    if (!sound.url) {
-      console.warn('Son sans URL Supabase :', sound.id)
+    let src = null
+    if (sound.url) {
+      src = sound.url
+    } else if (sound.localPath) {
+      src = `/api/preview-sound?path=${encodeURIComponent(sound.localPath)}`
+    }
+
+    if (!src) {
+      console.warn('Son sans URL ni localPath :', sound.id)
       return
     }
 
     const howl = new Howl({
-      src: [sound.url],
-      html5: true, // streaming — pas de décodage complet pour le preview
+      src: [src],
+      html5: true,
       volume: 0.6,
       onloaderror: () => { setPlayingId(null); howlRef.current = null },
       onend: () => { setPlayingId(null); howlRef.current = null },
@@ -160,7 +165,6 @@ const filteredSounds = useMemo(() => {
     howlRef.current = howl
     setPlayingId(sound.id)
 
-    // Limiter le preview à 8 secondes
     timerRef.current = setTimeout(() => {
       if (howlRef.current) { howlRef.current.stop(); howlRef.current.unload(); howlRef.current = null }
       setPlayingId(null)
