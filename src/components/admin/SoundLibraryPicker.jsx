@@ -15,12 +15,12 @@ import SoundImporter from './SoundImporter'
 import Fuse from 'fuse.js'
 
 const FAMILIES = [
-  { id: 'nature',    label: '🌿 Nature',    boom: ['RAIN','WIND','WATER','NATURE','FIRE','WEATHER','THUNDER','SNOW','ICE'] },
-  { id: 'urbain',    label: '🏙 Urbain',    boom: ['CITY','TRAFFIC','CROWD','ROOM','INTERIOR','EXTERIOR','AMBIENCE','SHOP','RESTAURANT','BAR'] },
-  { id: 'impact',    label: '⚡ Impact',    boom: ['WEAPON','IMPACT','EXPLOSION','METAL','WOOD','STONE','GLASS','CLOTH','PAPER','HIT','CRASH','BREAK'] },
-  { id: 'musique',   label: '🎵 Musique',   boom: ['MUSIC','STING','DRONE','TONE','JINGLE'] },
-  { id: 'interface', label: '🖥 Interface', boom: ['USER INTERFACE','MACHINE','VEHICLE','ELECTRONIC','COMPUTER','BUTTON','BEEP','CLICK','NOTIFICATION'] },
-  { id: 'voix',      label: '🎭 Voix',      boom: ['VOICE','DIALOGUE','FOLEY','HUMAN','BREATH','FOOTSTEP'] },
+  { id: 'nature',     label: '🌿 Nature',      boom: ['NATURE','WATER','BIRDS','ANIMALS','CREATURE','CREATURES','VEGETATION','WEATHER','WIND','RAIN','ROCKS','EXTERIOR'] },
+  { id: 'humain',     label: '🧍 Humain',      boom: ['HUMAN','VOICES','PEOPLE','CROWDS','MOVEMENT','SPORTS','GORE','CLOTH','LEATHER','FOOTSTEP'] },
+  { id: 'objets',     label: '📦 Objets',      boom: ['OBJECTS','DOORS','METAL','WOOD','GLASS','PLASTIC','PAPER','CHAINS','TOOLS','DRAWERS','FOOD','DRINK','TOYS','GAMES','LEATHER'] },
+  { id: 'machines',   label: '⚙️ Machines',    boom: ['MACHINES','MECHANICAL','VEHICLES','AIRCRAFT','TRAINS','ENGINEERING','COMPUTERS','COMMUNICATIONS','GUNS','WEAPONS','HISTORICAL'] },
+  { id: 'design',     label: '✨ Design',       boom: ['DESIGNED','SWOOSHES','MAGIC','SCIFI','CARTOON','CINEMATIC','EXPLOSION','USER INTERFACE','INTERFACE'] },
+  { id: 'musique',    label: '🎵 Musique',      boom: ['MUSICAL','INSTRUMENTS','CINEMATIC TRAILERS'] },
 ]
 
 function SoundLibraryPicker({
