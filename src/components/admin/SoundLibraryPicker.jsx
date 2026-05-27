@@ -135,6 +135,52 @@ const filteredSounds = useMemo(() => {
     )
   }
 
+  const handleUploadSound = async (sound) => {
+    if (!adminPassword) {
+      alert('Mot de passe admin requis pour uploader')
+      return
+    }
+    setUploadingId(sound.id)
+    try {
+      const fileRes = await fetch(`/api/preview-sound?path=${encodeURIComponent(sound.localPath)}`)
+      if (!fileRes.ok) throw new Error('Impossible de lire le fichier local')
+      const fileBlob = await fileRes.blob()
+      const file = new File([fileBlob], sound.filename || `${sound.id}.wav`)
+
+      const formData = new FormData()
+      formData.append('file', file, sound.filename || `${sound.id}.mp3`)
+      formData.append('password', adminPassword)
+      formData.append('filename', sound.filename || `${sound.id}.mp3`)
+
+      const uploadRes = await fetch('/api/upload-audio', {
+        method: 'POST',
+        body: formData,
+      })
+      if (!uploadRes.ok) {
+        const err = await uploadRes.json()
+        throw new Error(err.error || 'Upload échoué')
+      }
+      const { publicUrl } = await uploadRes.json()
+
+      const saveRes = await fetch('/api/upload-sound', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          password: adminPassword,
+          soundEntry: { ...sound, url: publicUrl },
+        }),
+      })
+      if (!saveRes.ok) throw new Error('Mise à jour index échouée')
+
+      if (onSoundsImported) onSoundsImported([{ ...sound, url: publicUrl }])
+      alert(`✅ "${sound.label}" uploadé avec succès !`)
+    } catch (err) {
+      alert(`❌ Erreur : ${err.message}`)
+    } finally {
+      setUploadingId(null)
+    }
+  }
+
   const playSoundPreview = (sound, e) => {
     e.stopPropagation()
 
