@@ -135,18 +135,27 @@ const filteredSounds = useMemo(() => {
     )
   }
 
-  const handleUploadSound = async (sound) => {
+const fileInputRef = useRef(null)
+  const pendingUploadSound = useRef(null)
+
+  const handleUploadSound = (sound) => {
     if (!adminPassword) {
       alert('Mot de passe admin requis pour uploader')
       return
     }
+    pendingUploadSound.current = sound
+    fileInputRef.current?.click()
+  }
+
+  const handleFileSelected = async (e) => {
+    const file = e.target.files?.[0]
+    if (!file) return
+    const sound = pendingUploadSound.current
+    if (!sound) return
+    e.target.value = '' // reset pour permettre de resélectionner le même fichier
+
     setUploadingId(sound.id)
     try {
-      const fileRes = await fetch(`/api/preview-sound?path=${encodeURIComponent(sound.localPath)}`)
-      if (!fileRes.ok) throw new Error('Impossible de lire le fichier local')
-      const fileBlob = await fileRes.blob()
-      const file = new File([fileBlob], sound.filename || `${sound.id}.wav`)
-
       const formData = new FormData()
       formData.append('file', file, sound.filename || `${sound.id}.mp3`)
       formData.append('password', adminPassword)
@@ -173,11 +182,12 @@ const filteredSounds = useMemo(() => {
       if (!saveRes.ok) throw new Error('Mise à jour index échouée')
 
       if (onSoundsImported) onSoundsImported([{ ...sound, url: publicUrl }])
-      alert(`✅ "${sound.label}" uploadé avec succès !`)
+      alert(`✅ "${sound.label}" uploadé !`)
     } catch (err) {
       alert(`❌ Erreur : ${err.message}`)
     } finally {
       setUploadingId(null)
+      pendingUploadSound.current = null
     }
   }
 
