@@ -16,7 +16,7 @@ function HomePage() {
         if (!response.ok) throw new Error('Failed to fetch stories');
         const data = await response.json();
         const storiesArray = Array.isArray(data) ? data : (Array.isArray(data.stories) ? data.stories : [])
-        setStories(storiesArray);
+        setStories(storiesArray.filter(s => !s.hidden));
       } catch (error) {
         console.error('Error loading stories:', error);
         setStories([]);
