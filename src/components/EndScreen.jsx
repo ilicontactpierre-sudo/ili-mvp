@@ -57,9 +57,11 @@ function EndScreen({ title, author, formUrl, bookUrl }) {
             background: lineColor,
           }}
         />
+
         <p style={{ opacity: 0.65, fontSize: '0.95rem', letterSpacing: '0.02em' }}>
           {title} — {author}
         </p>
+
         {formUrl && (
           
             href={formUrl}
@@ -76,10 +78,10 @@ function EndScreen({ title, author, formUrl, bookUrl }) {
               fontSize: '1rem',
               fontWeight: 600,
             }}
-          >
             Partager mon avis
           </a>
         )}
+
         {bookUrl && (
           
             href={bookUrl}
@@ -122,6 +124,7 @@ function EndScreen({ title, author, formUrl, bookUrl }) {
             Trouver le livre en librairie
           </a>
         )}
+
         <button
           type="button"
           onClick={handleReturnHome}
