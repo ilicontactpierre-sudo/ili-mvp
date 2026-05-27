@@ -15,6 +15,7 @@
  *   npm install @supabase/supabase-js lamejs dotenv
  */
 
+
 import fs from 'fs'
 import path from 'path'
 import { createReadStream } from 'fs'
@@ -188,6 +189,7 @@ function parseMetadata(filePath) {
     filename: filename.replace(/\.wav$/i, '.mp3'),
     originalFilename: filename,
     originalPath: filePath,
+    localPath: filePath,
     label,
     description,
     tags,
