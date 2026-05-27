@@ -19,6 +19,7 @@ import fs from 'fs'
 import path from 'path'
 import { createReadStream } from 'fs'
 import dotenv from 'dotenv'
+import { enrichSoundEntry } from './audio-dictionary.js'
 dotenv.config()
 
 const INDEX_PATH = path.resolve('./public/sounds/sounds-index.json')
