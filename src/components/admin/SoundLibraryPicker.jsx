@@ -166,8 +166,8 @@ const fileInputRef = useRef(null)
         body: formData,
       })
       if (!uploadRes.ok) {
-        const err = await uploadRes.json()
-        throw new Error(err.error || 'Upload échoué')
+        const text = await uploadRes.text()
+        throw new Error(`Upload échoué (${uploadRes.status}) : ${text.slice(0, 200)}`)
       }
       const { publicUrl } = await uploadRes.json()
 
