@@ -262,9 +262,30 @@ async function main() {
   let errors = 0
 
   for (const filePath of wavFiles) {
-    const buffer = fs.readFileSync(filePath)
-    let meta
+    // Ignorer les fichiers > 500MB
+    try {
+      const fileStat = fs.statSync(filePath)
+      if (fileStat.size > 500 * 1024 * 1024) {
+        console.log(`⏭  Ignoré (${(fileStat.size / 1024 / 1024 / 1024).toFixed(1)}GB) : ${path.basename(filePath)}`)
+        skipped++
+        continue
+      }
+    } catch (err) {
+      console.error(`❌ Fichier inaccessible : ${path.basename(filePath)}`)
+      errors++
+      continue
+    }
 
+    let buffer
+    try {
+      buffer = fs.readFileSync(filePath)
+    } catch (err) {
+      console.error(`❌ Lecture impossible : ${path.basename(filePath)} — ${err.message}`)
+      errors++
+      continue
+    }
+
+    let meta
     try {
       meta = parseMetadata(filePath)
     } catch (err) {
