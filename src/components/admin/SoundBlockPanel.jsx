@@ -475,7 +475,7 @@ function SoundBlockPanel({
         </div>
 
           {/* Trim */}
-                  {sound && sound.duration > 0 && (
+                  {sound && (
                     <div>
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.4rem' }}>
                         <label style={{ fontSize: '0.75rem', color: '#888' }}>Points de trim</label>
