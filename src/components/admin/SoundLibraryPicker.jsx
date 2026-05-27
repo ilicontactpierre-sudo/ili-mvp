@@ -38,6 +38,7 @@ function SoundLibraryPicker({
   const [activeTags, setActiveTags] = useState([])             // tags sélectionnés (niveau 2)
   const [playingId, setPlayingId] = useState(null)
   const [showImporter, setShowImporter] = useState(false)
+  const [uploadingId, setUploadingId] = useState(null)
   const howlRef = useRef(null)
   const timerRef = useRef(null)
 
