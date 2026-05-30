@@ -666,8 +666,8 @@ function SoundBlockPanel({
         }
       `}</style>
 
-      {/* Picker de remplacement de son */}
-      {showSoundPicker && soundLibrary && (
+      {/* Picker de remplacement de son — rendu via portail hors du panel */}
+      {showSoundPicker && soundLibrary && createPortal(
         <SoundLibraryPicker
           soundLibrary={soundLibrary}
           segments={segments}
@@ -677,7 +677,6 @@ function SoundBlockPanel({
           adminPassword={adminPassword}
           initialSearch={sound ? sound.label : ''}
           onAddSound={(soundData) => {
-            // On ne crée pas un nouveau bloc, on remplace juste le soundId
             const updated = { ...editedTrack, soundId: soundData.soundId }
             setEditedTrack(updated)
             if (onRealTimeUpdate) onRealTimeUpdate(updated)
@@ -686,7 +685,8 @@ function SoundBlockPanel({
           }}
           onSoundsImported={() => {}}
           onClose={() => setShowSoundPicker(false)}
-        />
+        />,
+        document.body
       )}
     </div>
   )
