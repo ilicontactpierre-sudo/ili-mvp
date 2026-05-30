@@ -177,7 +177,28 @@ export default function ReaderSettings({
       `
       document.body.style.backgroundSize = '20px 20px, 20px 20px, 20px 20px'
       document.body.style.backgroundAttachment = 'fixed'
-      document.body.style.animation = 'synthwave-flicker 3s ease-in-out infinite'
+      // Injecter le keyframe dans le head si pas déjà présent
+      if (!document.getElementById('synthwave-style')) {
+        const styleEl = document.createElement('style')
+        styleEl.id = 'synthwave-style'
+        styleEl.textContent = `
+          @keyframes synthwave-flicker {
+            0%   { opacity: 1; }
+            5%   { opacity: 0.75; }
+            6%   { opacity: 1; }
+            40%  { opacity: 1; }
+            41%  { opacity: 0.6; }
+            42%  { opacity: 1; }
+            43%  { opacity: 0.8; }
+            44%  { opacity: 1; }
+            80%  { opacity: 1; }
+            81%  { opacity: 0.7; }
+            82%  { opacity: 1; }
+          }
+        `
+        document.head.appendChild(styleEl)
+      }
+      document.body.style.animation = 'synthwave-flicker 4s step-end infinite'
     } else if (isDark) {
       root.style.setProperty('--color-bg', '#080809')
       root.style.setProperty('--color-text-focus', '#ffffff')
