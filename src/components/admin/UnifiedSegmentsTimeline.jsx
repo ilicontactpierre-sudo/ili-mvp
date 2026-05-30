@@ -1999,7 +1999,11 @@ const handleTextSelection = useCallback(() => {
               backgroundColor: 'rgba(0,0,0,0.3)',
               zIndex: 1000
             }}
-            onClick={closePanel}
+            onClick={(e) => {
+              // Ne pas fermer si le picker de son est ouvert (il gère son propre overlay)
+              if (e.target.closest('[data-sound-picker]')) return
+              closePanel()
+            }}
           />
           <SoundBlockPanel
             soundTrack={selectedSoundTrack}
