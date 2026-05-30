@@ -313,7 +313,7 @@ const EMOJI_DICT = {
   // ── CONCEPTS ABSTRAITS ───────────────────────────────────────────────────
   'vie': '🌱', 'vies': '🌱', 'vivant': '🌱', 'vivante': '🌱',
   'mort': '💀', 'destin': '🎯', 'destins': '🎯',
-  'magie': '✨', 'magique': '✨', 'sorts': '🪄', 'charme': '🪄',
+  'magie': '✨', 'magique': '✨', 'sorts': '🪄',
   'mystère': '🔮', 'mystères': '🔮', 'mystérieux': '🔮', 'mystérieuse': '🔮',
   'danger': '⚠️', 'dangereux': '⚠️', 'dangereuse': '⚠️',
   'alerte':'🚨','alertes':'🚨',
