@@ -181,8 +181,21 @@ function SoundBlockPanel({
         paddingBottom: '0.75rem',
         borderBottom: `1px solid ${color}30`
       }}>
-        <h3 style={{ margin: 0, fontSize: '1rem', color: color, fontWeight: '600' }}>
+        <h3
+          onClick={() => setShowSoundPicker(true)}
+          title="Cliquer pour changer le son"
+          style={{
+            margin: 0,
+            fontSize: '1rem',
+            color: color,
+            fontWeight: '600',
+            cursor: 'pointer',
+            textDecoration: 'underline dotted',
+            textUnderlineOffset: '3px',
+          }}
+        >
           {sound ? sound.label.substring(0, 30) : soundTrack.soundId}
+          <span style={{ fontSize: '0.7rem', marginLeft: '0.4rem', opacity: 0.6 }}>✎</span>
         </h3>
         <button
           onClick={onClose}
