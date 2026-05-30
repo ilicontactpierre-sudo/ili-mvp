@@ -352,8 +352,29 @@ const fileInputRef = useRef(null)
           {/* Filtres */}
           <div style={{ marginBottom: '0.75rem', flexShrink: 0 }}>
 
-            {/* Niveau 1 — Familles */}
-            <div style={{ display: 'flex', gap: '0.4rem', flexWrap: 'wrap', marginBottom: '0.6rem' }}>
+            {/* Niveau 1 — Familles + filtre Supabase */}
+            <div style={{ display: 'flex', gap: '0.4rem', flexWrap: 'wrap', marginBottom: '0.6rem', alignItems: 'center' }}>
+              <button
+                onClick={() => setOnlyUploaded(prev => !prev)}
+                title={onlyUploaded ? 'Afficher tous les sons' : 'Afficher uniquement les sons uploadés sur Supabase'}
+                style={{
+                  width: '30px',
+                  height: '30px',
+                  borderRadius: '999px',
+                  border: `1px solid ${onlyUploaded ? '#22a06b' : '#e0e0e0'}`,
+                  background: onlyUploaded ? '#22a06b' : 'transparent',
+                  color: onlyUploaded ? '#fff' : '#888',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontSize: '0.85rem',
+                  flexShrink: 0,
+                  transition: 'all 0.12s',
+                }}
+              >
+                ☁️
+              </button>
               {FAMILIES.map(family => (
                 <button
                   key={family.id}
