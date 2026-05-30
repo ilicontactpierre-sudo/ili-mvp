@@ -295,7 +295,7 @@ const EMOJI_DICT = {
   'horloge': '🕐', 'pendule': '🕰️',
   'médaille': '🏅', 'médailles': '🏅', 'trophée': '🏆', 'trophées': '🏆',
   'téléphone': '📱', 'téléphones': '📱',
-  'ordinateur': '💻', 'ordinateurs': '💻','verre':'','champagne':'🍾',
+  'ordinateur': '💻', 'ordinateurs': '💻','verre':'🥛','verres':'🥛','champagne':'🍾',
   
 
   // ── LUMIÈRE & OBSCURITÉ ──────────────────────────────────────────────────
