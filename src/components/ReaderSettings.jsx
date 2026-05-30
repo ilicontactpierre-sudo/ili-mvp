@@ -529,21 +529,7 @@ export default function ReaderSettings({
       `}</style>
 
       {/* ── Overlay fond Synthwave animé ── */}
-      {showSynthwaveBg && (
-        <div style={{
-          position: 'fixed',
-          inset: 0,
-          zIndex: -1,
-          backgroundImage: `
-            radial-gradient(circle, rgba(255,0,127,0.5) 1px, transparent 1px),
-            radial-gradient(circle, rgba(0,240,255,0.4) 1px, transparent 1px),
-            radial-gradient(circle, rgba(157,0,255,0.35) 1px, transparent 1px)
-          `,
-          backgroundSize: '20px 20px',
-          animation: 'synthwave-flicker 4s step-end infinite',
-          pointerEvents: 'none',
-        }} />
-      )}
+      {showSynthwaveBg && <SynthwaveBackground />}
       {/* ── Bouton roue crantée ── */}
       <button
       ref={gearRef}
