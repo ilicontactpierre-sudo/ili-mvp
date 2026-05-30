@@ -519,23 +519,23 @@ const fileInputRef = useRef(null)
                         )}
                         <button
                           onClick={() => handleAddSound(sound)}
-                          disabled={!sound.url}
-                          title={!sound.url ? 'Uploadez ce son d\'abord' : ''}
+                          title={!sound.url ? 'Son non uploadé — le bloc sera grisé' : ''}
                           style={{
                             padding: '0.35rem 0.75rem',
                             fontSize: '0.78rem',
                             fontWeight: 500,
-                            background: sound.url ? '#111' : '#ccc',
+                            background: sound.url ? '#111' : '#888',
                             color: '#fff',
-                            border: 'none',
+                            border: sound.url ? 'none' : '1px dashed #ccc',
                             borderRadius: '6px',
-                            cursor: sound.url ? 'pointer' : 'not-allowed',
+                            cursor: 'pointer',
                             transition: 'background 0.12s',
+                            opacity: sound.url ? 1 : 0.7,
                           }}
-                          onMouseEnter={e => { if (sound.url) e.currentTarget.style.background = '#333' }}
-                          onMouseLeave={e => { if (sound.url) e.currentTarget.style.background = '#111' }}
+                          onMouseEnter={e => { e.currentTarget.style.background = sound.url ? '#333' : '#666' }}
+                          onMouseLeave={e => { e.currentTarget.style.background = sound.url ? '#111' : '#888' }}
                         >
-                          + Ajouter
+                          {sound.url ? '+ Ajouter' : '+ Ajouter (⚠️)'}
                         </button>
                       </div>
                     </div>
