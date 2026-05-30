@@ -291,6 +291,7 @@ const fileInputRef = useRef(null)
         onClick={onClose}
       >
         <div
+          data-sound-picker="true"
           style={{
             backgroundColor: '#fff',
             borderRadius: '14px',
