@@ -2005,10 +2005,17 @@ const handleTextSelection = useCallback(() => {
             soundTrack={selectedSoundTrack}
             sound={selectedSound}
             segments={segments}
+            soundLibrary={soundLibrary}
+            adminPassword={adminPassword}
             onSave={handleSaveSoundTrack}
             onRealTimeUpdate={handleRealTimeUpdate}
             onClose={closePanel}
             onDelete={handleDeleteSoundTrack}
+            onSoundReplace={(updatedTrack) => {
+              handleSaveSoundTrack(updatedTrack)
+              // Mettre à jour editingSoundTrack pour que le panel reflète le nouveau son
+              setEditingSoundTrack(updatedTrack)
+            }}
           />
         </>
       )}
