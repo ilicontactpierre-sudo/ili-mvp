@@ -718,6 +718,13 @@ export default function ReaderSettings({
               >
                 DYS 2
               </button>
+              <button
+                className={`rs-dys-btn${emojiMode ? ' active' : ''}`}
+                onClick={() => { playClicSettings(); setEmojiMode(v => !v) }}
+                title="Mode visuel : remplace les mots courants par des emojis"
+              >
+                😊
+              </button>
             </div>
           </div>
 
