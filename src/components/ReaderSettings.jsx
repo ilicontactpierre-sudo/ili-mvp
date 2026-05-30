@@ -98,6 +98,80 @@ const FONT_SIZES = [
 ]
 
 // ── Composant principal ───────────────────────────────────────────────────────
+function SynthwaveBackground() {
+  const canvasRef = useRef(null)
+
+  useEffect(() => {
+    const canvas = canvasRef.current
+    if (!canvas) return
+    const ctx = canvas.getContext('2d')
+
+    const resize = () => {
+      canvas.width = window.innerWidth
+      canvas.height = window.innerHeight
+    }
+    resize()
+    window.addEventListener('resize', resize)
+
+    const COLORS = [
+      'rgba(255,0,127,0.6)',
+      'rgba(0,240,255,0.5)',
+      'rgba(157,0,255,0.5)',
+    ]
+    const GRID = 20
+
+    let frame = 0
+    let rafId
+
+    const draw = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height)
+
+      // Scintillement global : opacité qui saute brutalement
+      const flicker = Math.random() < 0.05
+        ? Math.random() * 0.4        // flash sombre soudain
+        : 0.85 + Math.random() * 0.15 // quasi pleine opacité
+
+      ctx.globalAlpha = flicker
+
+      const cols = Math.ceil(canvas.width / GRID) + 1
+      const rows = Math.ceil(canvas.height / GRID) + 1
+
+      for (let row = 0; row < rows; row++) {
+        for (let col = 0; col < cols; col++) {
+          const colorIndex = (col + row) % COLORS.length
+          ctx.fillStyle = COLORS[colorIndex]
+          ctx.beginPath()
+          ctx.arc(col * GRID, row * GRID, 1, 0, Math.PI * 2)
+          ctx.fill()
+        }
+      }
+
+      ctx.globalAlpha = 1
+      frame++
+      rafId = requestAnimationFrame(draw)
+    }
+
+    draw()
+
+    return () => {
+      cancelAnimationFrame(rafId)
+      window.removeEventListener('resize', resize)
+    }
+  }, [])
+
+  return (
+    <canvas
+      ref={canvasRef}
+      style={{
+        position: 'fixed',
+        inset: 0,
+        zIndex: -1,
+        pointerEvents: 'none',
+      }}
+    />
+  )
+}
+
 export default function ReaderSettings({
   storyId,
   segments = [],
