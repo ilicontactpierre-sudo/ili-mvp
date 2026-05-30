@@ -126,7 +126,8 @@ const EMOJI_DICT = {
   'frappais': '👊', 'frappait': '👊', 'frapper': '👊', 'frappé': '👊',
   'embrasse': '🤗', 'embrasses': '🤗', 'embrassons': '🤗', 'embrassez': '🤗',
   'embrassent': '🤗', 'embrassait': '🤗', 'embrasser': '🤗', 'embrassé': '🤗',
-  'serre': '🤗', 'serres': '🤗', 'serrons': '🤗', 'serrez': '🤗', 'serrent': '🤗',
+  'serre': '🤝', 'serres': '🤝', 'serons': '🤝', 'serrez': '🤝', 'serrent': '🤝',
+  'serrais': '🤝', 'serrait': '🤝', 'serrer': '🤝', 'serré': '🤝',
 
   // ── NATURE ───────────────────────────────────────────────────────────────
   'soleil': '☀️', 'soleils': '☀️', 'ensoleillé': '☀️', 'ensoleillée': '☀️',
