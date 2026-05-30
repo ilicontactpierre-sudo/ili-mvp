@@ -246,7 +246,7 @@ const EMOJI_DICT = {
   'nuit': '🌙', 'nuits': '🌙', 'minuit': '🌙',
   'jour': '📅', 'jours': '📅', 'journée': '📅', 'journées': '📅',
   'semaine': '📅', 'semaines': '📅', 'mois': '📅', 'année': '📅', 'années': '📅',
-  'printemps': '🌸', 'été': '☀️', 'automne': '🍂', 'hiver': '❄️',
+  'printemps': '🌸', 'automne': '🍂', 'hiver': '❄️',
   'hier': '⏮️', 'demain': '⏭️', 'maintenant': '⏱️', 'toujours': '♾️',
   'jamais': '❌', 'parfois': '🔄', 'souvent': '🔄',
   'horloge': '🕐', 'horloges': '🕐', 'montre': '⌚', 'montres': '⌚',
