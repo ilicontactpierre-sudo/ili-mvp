@@ -42,6 +42,9 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle' 
   const [dys2, setDys2] = useState(() => {
     try { return localStorage.getItem('ili_dys2') === 'true' } catch { return false }
   })
+  const [emojiMode, setEmojiMode] = useState(() => {
+    try { return localStorage.getItem('ili_emoji') === 'true' } catch { return false }
+  })
   // Écouter les changements de DYS en temps réel (via polling léger)
   useEffect(() => {
     const interval = setInterval(() => {
