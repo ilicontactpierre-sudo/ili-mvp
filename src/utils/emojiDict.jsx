@@ -351,7 +351,7 @@ const EMOJI_DICT = {
   'sport': '⚽', 'sports': '⚽', 'foot': '⚽', 'football': '⚽',
   'tennis': '🎾', 'natation': '🏊', 'boxe': '🥊', 'lutte': '🤼',
   'chasse': '🏹', 'pêche': '🎣', 'escalade': '🧗',
-  'jeu': '🎮', 'jeux': '🎮', 'partie': '🎲', 'parties': '🎲',
+  'jeu': '🎮', 'jeux': '🎮',
   'gagne': '🏆', 'gagnes': '🏆', 'gagnons': '🏆', 'gagnez': '🏆', 'gagnent': '🏆',
   'gagnais': '🏆', 'gagnait': '🏆', 'gagner': '🏆', 'gagné': '🏆',
   'perd': '😔', 'perds': '😔', 'perdons': '😔', 'perdez': '😔', 'perdent': '😔',
