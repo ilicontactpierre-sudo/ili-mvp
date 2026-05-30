@@ -1530,13 +1530,6 @@ const handleTextSelection = useCallback(() => {
   )
 ) : null
 
-console.log('DEBUG sound lookup:', {
-  soundId: selectedSoundTrack?.soundId,
-  found: !!selectedSound,
-  librarySize: soundLibrary.length,
-  firstLibraryId: soundLibrary[0]?.id,
-})
-
   const closePanel = () => {
     setEditingSoundTrack(null)
     setSelectedSoundIds(new Set())
