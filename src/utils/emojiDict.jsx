@@ -315,6 +315,7 @@ const EMOJI_DICT = {
   'magie': '✨', 'magique': '✨', 'sort': '🪄', 'sorts': '🪄', 'charme': '🪄',
   'mystère': '🔮', 'mystères': '🔮', 'mystérieux': '🔮', 'mystérieuse': '🔮',
   'danger': '⚠️', 'dangereux': '⚠️', 'dangereuse': '⚠️',
+  'alerte':'🚨','alertes':'🚨',
   'guerre': '⚔️', 'guerres': '⚔️', 'combat': '⚔️', 'combats': '⚔️',
   'paix': '☮️', 'paisible': '☮️', 'paisibles': '☮️',
   'victoire': '🏆', 'victoires': '🏆', 'défaite': '💔', 'défaites': '💔',
