@@ -153,6 +153,7 @@ export default function ReaderSettings({
     document.body.style.backgroundImage = 'none'
     document.body.style.backgroundAttachment = 'auto'
     document.body.style.animation = 'none'
+    setShowSynthwaveBg(isSynthwave)
     root.style.setProperty('--font-primary', "'Lora', Georgia, 'Times New Roman', serif")
     root.style.setProperty('--blur-amount', '3px')
     if (isToutdoux) {
