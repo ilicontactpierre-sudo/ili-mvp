@@ -234,25 +234,35 @@ const fileInputRef = useRef(null)
   }
 
   const handleAddSound = (sound) => {
-    const seg = segments[segmentIndex]
-    const effectiveSegmentId = (segmentIndex !== undefined && seg)
-      ? (seg.id || seg._id || `seg_${segmentIndex}`)
-      : null
-    if (!effectiveSegmentId) { console.error('Segment cible introuvable'); return }
+  const seg = segments[segmentIndex]
+  const effectiveSegmentId = (segmentIndex !== undefined && seg)
+    ? (seg.id || seg._id || `seg_${segmentIndex}`)
+    : null
+  if (!effectiveSegmentId) { console.error('Segment cible introuvable'); return }
 
-    onAddSound({
-      soundId: sound.id,
-      startSegmentId: effectiveSegmentId,
-      endSegmentId: effectiveSegmentId,
-      column: column !== undefined ? column : 0,
-      volume: 0.5,
-      fadeIn: 0,
-      fadeOut: 0,
-      delay: 0,
-      loop: sound.loop || false,
-      muted: false,
-    })
+  const hasMissingUrl = !sound.url
+
+  if (hasMissingUrl) {
+    const confirmAdd = window.confirm(
+      `⚠️ "${sound.label}" n'a pas encore été uploadé sur Supabase.\n\nVoulez-vous quand même créer un bloc son (grisé) pour réserver l'emplacement ?\n\nVous pourrez uploader le fichier plus tard.`
+    )
+    if (!confirmAdd) return
   }
+
+  onAddSound({
+    soundId: sound.id,
+    startSegmentId: effectiveSegmentId,
+    endSegmentId: effectiveSegmentId,
+    column: column !== undefined ? column : 0,
+    volume: 0.5,
+    fadeIn: 0,
+    fadeOut: 0,
+    delay: 0,
+    loop: sound.loop || false,
+    muted: hasMissingUrl ? true : false,
+    broken: hasMissingUrl,
+  })
+}
 
   const formatDuration = (s) => {
     if (!s || s <= 0) return null
