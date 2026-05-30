@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { CATEGORY_COLORS } from './constants'
 import WaveformTrimmer from './WaveformTrimmer'
+import SoundLibraryPicker from './SoundLibraryPicker'
 
 // Fonction pour obtenir une couleur de son
 function getSoundColor(sound) {
