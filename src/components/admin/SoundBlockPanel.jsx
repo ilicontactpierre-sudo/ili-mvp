@@ -70,12 +70,16 @@ function SoundBlockPanel({
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === 'Escape') {
-        onClose()
+        if (showSoundPicker) {
+          setShowSoundPicker(false)
+        } else {
+          onClose()
+        }
       }
     }
     document.addEventListener('keydown', handleKeyDown)
     return () => document.removeEventListener('keydown', handleKeyDown)
-  }, [onClose])
+  }, [onClose, showSoundPicker])
 
   const handleChange = useCallback((field, value) => {
     setEditedTrack(prev => {
