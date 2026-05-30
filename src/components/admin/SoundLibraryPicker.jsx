@@ -94,11 +94,8 @@ const familyTags = useMemo(() => {
 }, [familySounds])
 
 const filteredSounds = useMemo(() => {
-  // Base : sons de la famille (ou tous si pas de famille)
   let results = familySounds
-
-  // Recherche floue sur cette base
-  if (search.trim()) {
+  if (search.trim() && fuse) {
     const localFuse = new Fuse(results, {
       keys: [
         { name: 'label',        weight: 0.35 },
@@ -113,16 +110,13 @@ const filteredSounds = useMemo(() => {
     })
     results = localFuse.search(search.trim()).map(r => r.item)
   }
-
-  // Filtre par tags sélectionnés
   if (activeTags.length > 0) {
     results = results.filter(sound =>
       activeTags.every(tag => (sound.tags || []).includes(tag))
     )
   }
-
   return results
-}, [familySounds, search, activeTags])
+}, [familySounds, search, activeTags, fuse])
 
   const selectFamily = (familyId) => {
     if (selectedFamily === familyId) {
