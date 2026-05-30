@@ -41,7 +41,7 @@ const EMOJI_DICT = {
   'tête': '🧠', 'têtes': '🧠',
   'cerveau': '🧠', 'cerveaux': '🧠',
   'visage': '😶', 'visages': '😶', 'face': '😶',
-  'oeil': '👁️', 'yeux': '👁️', 'regard': '👁️', 'regards': '👁️',
+  'oeil': '👁️', 'yeux': '👀', 'regard': '👁️', 'regards': '👁️',
   'bouche': '👄', 'bouches': '👄', 'lèvre': '👄', 'lèvres': '👄',
   'nez': '👃', 'oreille': '👂', 'oreilles': '👂',
   'main': '✋', 'mains': '✋', 'poing': '✊', 'poings': '✊',
