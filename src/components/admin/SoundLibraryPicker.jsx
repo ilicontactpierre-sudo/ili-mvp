@@ -95,28 +95,29 @@ const familyTags = useMemo(() => {
 
 const filteredSounds = useMemo(() => {
   let results = familySounds
-  if (search.trim() && fuse) {
-    const localFuse = new Fuse(results, {
-      keys: [
-        { name: 'label',        weight: 0.35 },
-        { name: 'tags',         weight: 0.25 },
-        { name: 'description',  weight: 0.20 },
-        { name: 'searchString', weight: 0.15 },
-        { name: 'boomCategory', weight: 0.05 },
-      ],
-      threshold: 0.4,
-      ignoreLocation: true,
-      minMatchCharLength: 2,
+
+  if (search.trim()) {
+    // Filtrage simple sans Fuse pour éviter de bloquer le thread
+    const terms = search.trim().toLowerCase().split(/\s+/)
+    results = results.filter(sound => {
+      const haystack = [
+        sound.label || '',
+        ...(sound.tags || []),
+        sound.description || '',
+        sound.boomCategory || '',
+      ].join(' ').toLowerCase()
+      return terms.every(term => haystack.includes(term))
     })
-    results = localFuse.search(search.trim()).map(r => r.item)
   }
+
   if (activeTags.length > 0) {
     results = results.filter(sound =>
       activeTags.every(tag => (sound.tags || []).includes(tag))
     )
   }
+
   return results
-}, [familySounds, search, activeTags, fuse])
+}, [familySounds, search, activeTags])
 
   const selectFamily = (familyId) => {
     if (selectedFamily === familyId) {
