@@ -54,7 +54,7 @@ const EMOJI_DICT = {
   'dent': '🦷', 'dents': '🦷',
   'cheveu': '💇', 'cheveux': '💇', 'chevelure': '💇',
   'ventre': '🤰', 'estomac': '🤢',
-  'peau': '🫀', 'chair': '🫀', 'geste':'👋',
+   'geste':'👋',
 
   // ── ACTIONS QUOTIDIENNES ─────────────────────────────────────────────────
   'mange': '🍽️', 'manges': '🍽️', 'mangeons': '🍽️', 'mangez': '🍽️', 'mangent': '🍽️',
