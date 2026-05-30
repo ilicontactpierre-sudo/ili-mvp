@@ -50,8 +50,10 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle' 
     const interval = setInterval(() => {
       const d1 = window.__iliDys1 ?? (localStorage.getItem('ili_dys1') === 'true')
       const d2 = window.__iliDys2 ?? (localStorage.getItem('ili_dys2') === 'true')
+      const em = window.__iliEmoji ?? (localStorage.getItem('ili_emoji') === 'true')
       setDys1(prev => prev !== d1 ? d1 : prev)
       setDys2(prev => prev !== d2 ? d2 : prev)
+      setEmojiMode(prev => prev !== em ? em : prev)
     }, 150)
     return () => clearInterval(interval)
   }, [])
@@ -366,12 +368,24 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle' 
             >
               {segment.breakAt != null && segment.breakAt > 0 && segment.breakAt < segment.text?.length ? (
                 <>
-                  {dys1 ? applyBionicReading(segment.text.slice(0, segment.breakAt).trim()) : renderMarkdown(segment.text.slice(0, segment.breakAt).trim(), segment)}
+                  {emojiMode
+                    ? applyEmojiMode(segment.text.slice(0, segment.breakAt).trim())
+                    : dys1
+                      ? applyBionicReading(segment.text.slice(0, segment.breakAt).trim())
+                      : renderMarkdown(segment.text.slice(0, segment.breakAt).trim(), segment)}
                   <br /><br />
-                  {dys1 ? applyBionicReading(segment.text.slice(segment.breakAt).trim()) : renderMarkdown(segment.text.slice(segment.breakAt).trim(), segment)}
+                  {emojiMode
+                    ? applyEmojiMode(segment.text.slice(segment.breakAt).trim())
+                    : dys1
+                      ? applyBionicReading(segment.text.slice(segment.breakAt).trim())
+                      : renderMarkdown(segment.text.slice(segment.breakAt).trim(), segment)}
                 </>
               ) : (
-                dys1 ? applyBionicReading(segment.text) : renderMarkdown(segment.text, segment)
+                emojiMode
+                  ? applyEmojiMode(segment.text)
+                  : dys1
+                    ? applyBionicReading(segment.text)
+                    : renderMarkdown(segment.text, segment)
               )}
             </p>
           )
