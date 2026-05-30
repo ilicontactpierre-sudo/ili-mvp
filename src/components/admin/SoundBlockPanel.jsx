@@ -17,19 +17,22 @@ function SoundBlockPanel({
   soundTrack, 
   sound, 
   segments,
+  soundLibrary,
+  adminPassword,
   onSave, 
   onRealTimeUpdate,
   onClose,
-  onDelete
+  onDelete,
+  onSoundReplace,
 }) {
   const [editedTrack, setEditedTrack] = useState({ ...soundTrack })
   const [showDelayInput, setShowDelayInput] = useState(false)
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false)
   const [isAnimating, setIsAnimating] = useState(false)
   const [showTrimmer, setShowTrimmer] = useState(false)
+  const [showSoundPicker, setShowSoundPicker] = useState(false)
   const panelRef = useRef(null)
   const animationRef = useRef(null)
-
   const color = getSoundColor(sound)
 
   useEffect(() => {
