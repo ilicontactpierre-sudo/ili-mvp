@@ -172,12 +172,13 @@ export default function ReaderSettings({
       root.style.setProperty('--font-primary', "'VT323', 'Courier New', monospace")
       root.style.setProperty('--blur-amount', '2px')
       document.body.style.backgroundImage = `
-        radial-gradient(circle, rgba(255,0,127,0.35) 1px, transparent 1px),
-        radial-gradient(circle, rgba(0,240,255,0.25) 1px, transparent 1px),
-        radial-gradient(circle, rgba(157,0,255,0.2) 1px, transparent 1px)
+        radial-gradient(circle, rgba(255,0,127,0.5) 1px, transparent 1px),
+        radial-gradient(circle, rgba(0,240,255,0.4) 1px, transparent 1px),
+        radial-gradient(circle, rgba(157,0,255,0.35) 1px, transparent 1px)
       `
-      document.body.style.backgroundSize = '20px 20px'
+      document.body.style.backgroundSize = '20px 20px, 20px 20px, 20px 20px'
       document.body.style.backgroundAttachment = 'fixed'
+      document.body.style.animation = 'synthwave-flicker 3s ease-in-out infinite'
     } else if (isDark) {
       root.style.setProperty('--color-bg', '#080809')
       root.style.setProperty('--color-text-focus', '#ffffff')
