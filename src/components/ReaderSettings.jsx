@@ -155,17 +155,15 @@ export default function ReaderSettings({
     root.style.setProperty('--font-primary', "'Lora', Georgia, 'Times New Roman', serif")
     root.style.setProperty('--blur-amount', '3px')
     if (isToutdoux) {
-      root.style.setProperty('--color-bg', '#f0e8d5')
-      root.style.setProperty('--color-text-focus', '#3a3228')
-      root.style.setProperty('--color-text-blur', 'rgba(58, 50, 40, 0.22)')
+      root.style.setProperty('--color-bg', '#e8dcc8')
+      root.style.setProperty('--color-text-focus', '#2e2318')
+      root.style.setProperty('--color-text-blur', 'rgba(46, 35, 24, 0.22)')
       root.style.setProperty('--font-primary', "'Playfair Display', Georgia, serif")
       root.style.setProperty('--blur-amount', '2px')
-      document.body.style.backgroundImage = `
-        url('https://www.transparenttextures.com/patterns/old-mathematics.png'),
-        url('https://www.transparenttextures.com/patterns/natural-paper.png')
-      `
-      document.body.style.backgroundSize = '200px 200px, 400px 400px'
+      document.body.style.backgroundImage = "url('/textures/paper.png')"
+      document.body.style.backgroundSize = 'cover'
       document.body.style.backgroundAttachment = 'fixed'
+      document.body.style.backgroundPosition = 'center'
     } else if (isSynthwave) {
       root.style.setProperty('--color-bg', '#000000')
       root.style.setProperty('--color-text-focus', '#ffffff')
