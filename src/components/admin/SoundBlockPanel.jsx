@@ -663,8 +663,30 @@ function SoundBlockPanel({
           to { transform: rotate(360deg); }
         }
       `}</style>
+
+      {/* Picker de remplacement de son */}
+      {showSoundPicker && soundLibrary && (
+        <SoundLibraryPicker
+          soundLibrary={soundLibrary}
+          segments={segments}
+          segmentIndex={segments.findIndex(s => s.id === editedTrack.startSegmentId || s._id === editedTrack.startSegmentId)}
+          segmentId={editedTrack.startSegmentId}
+          column={editedTrack.column}
+          adminPassword={adminPassword}
+          initialSearch={sound ? sound.label : ''}
+          onAddSound={(soundData) => {
+            // On ne crée pas un nouveau bloc, on remplace juste le soundId
+            const updated = { ...editedTrack, soundId: soundData.soundId }
+            setEditedTrack(updated)
+            if (onRealTimeUpdate) onRealTimeUpdate(updated)
+            if (onSoundReplace) onSoundReplace(updated)
+            setShowSoundPicker(false)
+          }}
+          onSoundsImported={() => {}}
+          onClose={() => setShowSoundPicker(false)}
+        />
+      )}
     </div>
   )
 }
-
 export default SoundBlockPanel
