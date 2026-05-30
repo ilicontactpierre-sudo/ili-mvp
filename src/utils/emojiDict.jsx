@@ -248,7 +248,7 @@ const EMOJI_DICT = {
   'hier': '⏮️', 'demain': '⏭️', 'maintenant': '⏱️', 'toujours': '♾️',
   'jamais': '❌', 'parfois': '🔄', 'souvent': '🔄',
   'horloge': '🕐', 'horloges': '🕐', 'montre': '⌚', 'montres': '⌚',
-  'heure': '🕐', 'heures': '🕐', 'minute': '⏱️', 'minutes': '⏱️',
+  'heure': '🕰️', 'heures': '🕰️', 'minute': 'M⏱️', 'minutes': 'M⏱️',
 
   // ── RELATIONS SOCIALES ───────────────────────────────────────────────────
   'ami': '👫', 'amie': '👫', 'amis': '👫', 'amies': '👫', 'amitié': '👫',
