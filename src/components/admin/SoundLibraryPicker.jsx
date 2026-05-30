@@ -35,11 +35,12 @@ function SoundLibraryPicker({
   initialSearch,
 }) {
   const [search, setSearch] = useState(initialSearch || '')
-  const [selectedFamily, setSelectedFamily] = useState(null)   // id de famille ou null
-  const [activeTags, setActiveTags] = useState([])             // tags sélectionnés (niveau 2)
+  const [selectedFamily, setSelectedFamily] = useState(null)
+  const [activeTags, setActiveTags] = useState([])
   const [playingId, setPlayingId] = useState(null)
   const [showImporter, setShowImporter] = useState(false)
   const [uploadingId, setUploadingId] = useState(null)
+  const [onlyUploaded, setOnlyUploaded] = useState(false)
   const howlRef = useRef(null)
   const timerRef = useRef(null)
 
@@ -50,23 +51,6 @@ function SoundLibraryPicker({
       if (howlRef.current) { howlRef.current.stop(); howlRef.current.unload() }
     }
   }, [])
-
-  const [fuse, setFuse] = useState(null)
-  useEffect(() => {
-    const instance = new Fuse(soundLibrary, {
-      keys: [
-        { name: 'label',        weight: 0.35 },
-        { name: 'tags',         weight: 0.25 },
-        { name: 'description',  weight: 0.20 },
-        { name: 'searchString', weight: 0.15 },
-        { name: 'boomCategory', weight: 0.05 },
-      ],
-      threshold: 0.4,
-      ignoreLocation: true,
-      minMatchCharLength: 2,
-    })
-    setFuse(instance)
-  }, [soundLibrary])
 
   // Sons appartenant à la famille sélectionnée
 const familySounds = useMemo(() => {
