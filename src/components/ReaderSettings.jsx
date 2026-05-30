@@ -287,6 +287,17 @@ export default function ReaderSettings({
   return (
     <>
       <style>{`
+        @keyframes synthwave-flicker {
+          0%   { opacity: 1; }
+          7%   { opacity: 0.92; }
+          14%  { opacity: 1; }
+          28%  { opacity: 0.96; }
+          42%  { opacity: 1; }
+          57%  { opacity: 0.88; }
+          71%  { opacity: 1; }
+          85%  { opacity: 0.95; }
+          100% { opacity: 1; }
+        }
         @keyframes settings-out {
           from { opacity: 1; transform: scale(1)    translateY(0); }
           to   { opacity: 0; transform: scale(0.92) translateY(-6px); }
