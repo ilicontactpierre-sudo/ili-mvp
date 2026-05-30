@@ -151,6 +151,7 @@ export default function ReaderSettings({
     const root = document.documentElement
     document.body.style.backgroundImage = 'none'
     document.body.style.backgroundAttachment = 'auto'
+    document.body.style.animation = 'none'
     root.style.setProperty('--font-primary', "'Lora', Georgia, 'Times New Roman', serif")
     root.style.setProperty('--blur-amount', '3px')
     if (isToutdoux) {
