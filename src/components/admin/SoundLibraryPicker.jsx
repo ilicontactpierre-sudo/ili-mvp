@@ -51,18 +51,22 @@ function SoundLibraryPicker({
     }
   }, [])
 
-  const fuse = useMemo(() => new Fuse(soundLibrary, {
-    keys: [
-      { name: 'label',       weight: 0.35 },
-      { name: 'tags',        weight: 0.25 },
-      { name: 'description', weight: 0.20 },
-      { name: 'searchString', weight: 0.15 },
-      { name: 'boomCategory', weight: 0.05 },
-    ],
-    threshold: 0.4,      // 0 = exact, 1 = tout accepter — 0.4 est un bon équilibre
-    ignoreLocation: true, // cherche dans tout le champ, pas seulement au début
-    minMatchCharLength: 2,
-  }), [soundLibrary])
+  const [fuse, setFuse] = useState(null)
+  useEffect(() => {
+    const instance = new Fuse(soundLibrary, {
+      keys: [
+        { name: 'label',        weight: 0.35 },
+        { name: 'tags',         weight: 0.25 },
+        { name: 'description',  weight: 0.20 },
+        { name: 'searchString', weight: 0.15 },
+        { name: 'boomCategory', weight: 0.05 },
+      ],
+      threshold: 0.4,
+      ignoreLocation: true,
+      minMatchCharLength: 2,
+    })
+    setFuse(instance)
+  }, [soundLibrary])
 
   // Sons appartenant à la famille sélectionnée
 const familySounds = useMemo(() => {
