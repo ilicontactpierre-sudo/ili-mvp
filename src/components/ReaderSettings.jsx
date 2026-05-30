@@ -299,9 +299,11 @@ export default function ReaderSettings({
     }
     window.__iliDys1 = dys1
     window.__iliDys2 = dys2
+    window.__iliEmoji = emojiMode
     try { localStorage.setItem('ili_dys1', String(dys1)) } catch {}
     try { localStorage.setItem('ili_dys2', String(dys2)) } catch {}
-  }, [dys1, dys2])
+    try { localStorage.setItem('ili_emoji', String(emojiMode)) } catch {}
+  }, [dys1, dys2, emojiMode])
 
   // ── Fermer si clic en dehors ────────────────────────────────────────────────
   useEffect(() => {
