@@ -82,18 +82,11 @@ function SoundBlockPanel({
   }, [onClose, showSoundPicker])
 
   const handleChange = useCallback((field, value) => {
-    setEditedTrack(prev => {
-      const updated = {
-        ...prev,
-        [field]: value
-      }
-      // Sauvegarde en temps réel
-      if (onRealTimeUpdate) {
-        onRealTimeUpdate(updated)
-      }
-      return updated
-    })
-  }, [onRealTimeUpdate])
+    setEditedTrack(prev => ({
+      ...prev,
+      [field]: value
+    }))
+  }, [])
 
   const handleClose = useCallback(() => {
     // Sauvegarde finale si nécessaire
