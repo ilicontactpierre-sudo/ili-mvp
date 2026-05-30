@@ -956,7 +956,18 @@ function AdminPage() {
             </div>
           </div>
 
-          {/* 4. PublishPanel */}
+          {/* 4. OrchestrationPanel */}
+          {segments.length > 0 && (
+            <OrchestrationPanel
+              segments={segments}
+              soundLibrary={soundLibrary}
+              soundTracks={soundTracks}
+              onSoundTracksChange={setSoundTracks}
+              onSaveToHistory={() => saveToHistory(segments, soundTracks, vfxTracks)}
+            />
+          )}
+
+          {/* 5. PublishPanel */}
           <PublishPanel
             title={storyTitle}
             author={storyAuthor}
