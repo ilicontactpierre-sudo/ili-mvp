@@ -125,6 +125,7 @@ export default function ReaderSettings({
   const [isOpen, setIsOpen]         = useState(false)
   const [isClosing, setIsClosing]   = useState(false)
   const [showChapters, setShowChapters] = useState(false)
+  const [showSynthwaveBg, setShowSynthwaveBg] = useState(() => loadTheme().isSynthwave)
 
   // ── Thème — initialisé depuis localStorage ──────────────────────────────────
   const [isDark, setIsDark]           = useState(() => loadTheme().isDark)
