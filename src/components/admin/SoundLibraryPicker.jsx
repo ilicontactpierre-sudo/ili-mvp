@@ -32,8 +32,9 @@ function SoundLibraryPicker({
   onClose,
   adminPassword,
   onSoundsImported,
+  initialSearch,
 }) {
-  const [search, setSearch] = useState('')
+  const [search, setSearch] = useState(initialSearch || '')
   const [selectedFamily, setSelectedFamily] = useState(null)   // id de famille ou null
   const [activeTags, setActiveTags] = useState([])             // tags sélectionnés (niveau 2)
   const [playingId, setPlayingId] = useState(null)
