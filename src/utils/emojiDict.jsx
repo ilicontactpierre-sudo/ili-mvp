@@ -27,7 +27,7 @@ const EMOJI_DICT = {
   'fier': '😤', 'fière': '😤', 'fierté': '😤', 'orgueilleux': '😤',
   'ennui': '😴', 'ennuyeux': '😴', 'ennuyeuse': '😴', 'ennuyé': '😴',
   'solitude': '🥺', 'seul': '🥺', 'seule': '🥺', 'seuls': '🥺', 'seules': '🥺',
-  'rire': '😂', 'rit': '😂', 'ris': '😂', 'rions': '😂', 'riez': '😂', 'rient': '😂',
+  'rire': '😂','rires': '😂', 'rit': '😂', 'ris': '😂', 'rions': '😂', 'riez': '😂', 'rient': '😂',
   'riais': '😂', 'riait': '😂', 'ri': '😂', 'sourire': '😊', 'sourit': '😊',
   'sourire': '😊', 'souris': '😊', 'sourions': '😊', 'souriez': '😊', 'sourient': '😊',
   'espoir': '🌟', 'espère': '🌟', 'espères': '🌟', 'espérons': '🌟', 'espérez': '🌟',
