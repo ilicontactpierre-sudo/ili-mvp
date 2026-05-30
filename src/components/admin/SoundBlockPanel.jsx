@@ -56,13 +56,14 @@ function SoundBlockPanel({
   // Fermer si clic en dehors
   useEffect(() => {
     const handleClickOutside = (e) => {
+      if (showSoundPicker) return
       if (panelRef.current && !panelRef.current.contains(e.target)) {
         onClose()
       }
     }
     document.addEventListener('mousedown', handleClickOutside)
     return () => document.removeEventListener('mousedown', handleClickOutside)
-  }, [onClose])
+  }, [onClose, showSoundPicker])
 
   // Fermer avec Escape
   useEffect(() => {
