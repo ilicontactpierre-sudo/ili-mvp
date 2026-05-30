@@ -346,7 +346,7 @@ const EMOJI_DICT = {
   'théâtre': '🎭', 'scène': '🎭', 'acteur': '🎭', 'actrice': '🎭',
   'film': '🎬', 'films': '🎬', 'cinéma': '🎬',
   'photo': '📷', 'photos': '📷', 'photographie': '📷', 'spectacle': '🎭','show': '🎭',
-  'jazz':'🎷♫⋆♪',
+  'jazz':'🎷♫♪',
   
 
 
