@@ -6,6 +6,7 @@ import DraftManager from '../components/admin/DraftManager'
 import StoryLoader from '../components/admin/StoryLoader'
 import StoryPreviewModal from '../components/admin/StoryPreviewModal'
 import PublishPanel from '../components/admin/PublishPanel'
+import OrchestrationPanel from '../components/admin/OrchestrationPanel'
 
 function AdminPage() {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
