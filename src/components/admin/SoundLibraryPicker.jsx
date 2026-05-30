@@ -100,12 +100,8 @@ const filteredSounds = useMemo(() => {
     )
   }
 
-  if (onlyUploaded) {
-    results = results.filter(sound => !!sound.url)
-  }
-
   return results
-}, [familySounds, search, activeTags, onlyUploaded])
+}, [familySounds, search, activeTags])
 
   const selectFamily = (familyId) => {
     if (selectedFamily === familyId) {
