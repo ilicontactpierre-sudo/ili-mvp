@@ -1,6 +1,7 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import './StoryReader.css'
 import { renderMarkdown } from '../utils/renderMarkdown'
+import { applyEmojiMode } from '../utils/emojiDict'
 import { getVfxClass } from './admin/constants'
 import hapticEngine from '../engine/HapticEngine'
 
