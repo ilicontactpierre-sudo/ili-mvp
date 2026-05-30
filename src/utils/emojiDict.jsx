@@ -90,8 +90,6 @@ const EMOJI_DICT = {
   'sentais': '👃', 'sentait': '👃', 'sentir': '👃',
   'pense': '💭', 'penses': '💭', 'pensons': '💭', 'pensez': '💭', 'pensent': '💭',
   'pensais': '💭', 'pensait': '💭', 'penser': '💭', 'pensé': '💭',
-  'sait': '🧠', 'sais': '🧠', 'savons': '🧠', 'savez': '🧠', 'savent': '🧠',
-  'savais': '🧠', 'savait': '🧠', 'savoir': '🧠', 'su': '🧠',
   'comprend': '💡', 'comprends': '💡', 'comprenons': '💡', 'comprenez': '💡',
   'comprennent': '💡', 'compris': '💡', 'comprendre': '💡',
   'travaille': '💼', 'travailles': '💼', 'travaillons': '💼', 'travaillez': '💼',
