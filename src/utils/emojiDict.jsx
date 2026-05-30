@@ -9,6 +9,7 @@ const EMOJI_DICT = {
   'aimais': '❤️', 'aimait': '❤️', 'aimaient': '❤️', 'aimé': '❤️', 'aimée': '❤️',
   'aimait': '❤️', 'aimer': '❤️', 'aimera': '❤️', 'aimerait': '❤️',
   'amour': '❤️', 'amours': '❤️', 'amoureux': '😍', 'amoureuse': '😍',
+  'admirer':'💛','admire':'💛','admirent':'💛','admiré':'💛','admirée':'💛','admirées':'💛','admirés':'💛',
   'joie': '😊', 'joyeux': '😊', 'joyeuse': '😊', 'joyeuses': '😊', 'joyeusement': '😊',
   'heureux': '😊', 'heureuse': '😊', 'heureuses': '😊', 'bonheur': '😊',
   'triste': '😢', 'tristes': '😢', 'tristesse': '😢', 'tristement': '😢',
