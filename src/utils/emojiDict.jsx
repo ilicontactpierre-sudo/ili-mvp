@@ -345,7 +345,8 @@ const EMOJI_DICT = {
   'sculpture': '🗿', 'sculptures': '🗿',
   'théâtre': '🎭', 'scène': '🎭', 'acteur': '🎭', 'actrice': '🎭',
   'film': '🎬', 'films': '🎬', 'cinéma': '🎬',
-  'photo': '📷', 'photos': '📷', 'photographie': '📷',
+  'photo': '📷', 'photos': '📷', 'photographie': '📷', 'spectacle': '🎭',
+
 
   // ── SPORTS & JEUX ────────────────────────────────────────────────────────
   'sport': '⚽', 'sports': '⚽', 'foot': '⚽', 'football': '⚽',
