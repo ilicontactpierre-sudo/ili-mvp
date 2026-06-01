@@ -1009,7 +1009,7 @@ if (breakAt !== null) {
   console.log('BREAK AT', segIndex, breakAt, text.length, text.substring(0, 40))
 }
       return { 
-        id: `seg_${segIndex}_${text.length}`,
+        id: `seg_${Date.now()}_${segIndex}_${Math.random().toString(36).slice(2, 7)}`,
         lines, 
         text, 
         breakAt, 
