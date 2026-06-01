@@ -1,0 +1,187 @@
+{
+  "id": "dorian-g-test-gamification",
+  "title": "Dorian g test gamification",
+  "author": "O Wild",
+  "published": true,
+  "sounds": [],
+  "segments": [
+    {
+      "id": "seg_1780339244790_0_evx8u",
+      "lines": [
+        "Chapitre I"
+      ],
+      "text": "Chapitre I",
+      "breakAt": null,
+      "isLeader": true,
+      "isChapter": true,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1780339244790_1_ukuiu",
+      "lines": [
+        "L’atelier était plein de l’odeur puissante des roses, et quand une légère brise d’été souffla parmi les arbres du jardin, il vint par la porte ouverte, la senteur lourde des lilas et le parfum plus subtil des églantiers."
+      ],
+      "text": "L’atelier était plein de l’odeur puissante des roses, et quand une légère brise d’été souffla parmi les arbres du jardin, il vint par la porte ouverte, la senteur lourde des lilas et le parfum plus subtil des églantiers.",
+      "breakAt": null,
+      "isLeader": true,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1780339244790_2_cp5p6",
+      "lines": [
+        "D’un coin du divan fait de sacs persans sur lequel il était étendu, fumant, selon sa coutume, d’innombrables cigarettes,"
+      ],
+      "text": "D’un coin du divan fait de sacs persans sur lequel il était étendu, fumant, selon sa coutume, d’innombrables cigarettes,",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "text": "",
+      "id": "seg_1780339254441",
+      "gameMode": {
+        "type": "code",
+        "answer": "1919",
+        "prompt": "C koi le Kode?",
+        "hint": "Indice...",
+        "errorMessage": "Et non"
+      },
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1780339244791_3_19hke",
+      "lines": [
+        "lord Henry Wotton pouvait tout juste apercevoir le rayonnement des douces fleurs couleur de miel d’un aubour dont les tremblantes branches semblaient à peine pouvoir supporter le poids d’une aussi flamboyante splendeur ; et de temps à autre, les ombres fantastiques des oiseaux fuyants passaient sur les longs rideaux de tussor tendus devant la large fenêtre,"
+      ],
+      "text": "lord Henry Wotton pouvait tout juste apercevoir le rayonnement des douces fleurs couleur de miel d’un aubour dont les tremblantes branches semblaient à peine pouvoir supporter le poids d’une aussi flamboyante splendeur ; et de temps à autre, les ombres fantastiques des oiseaux fuyants passaient sur les longs rideaux de tussor tendus devant la large fenêtre,",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1780339244791_3_19hke_overflow_4",
+      "lines": [
+        "produisant une sorte d’effet japonais momentané, le faisant penser à ces peintres de Tokyo à la figure de jade pallide, qui, par le moyen d’un art nécessairement immobile, tentent d’exprimer le sens de la vitesse et du mouvement. Le murmure monotone des abeilles cherchant leur chemin dans les longues herbes non fauchées ou voltigeant autour des poudreuses baies dorées d’un chèvrefeuille isolé,"
+      ],
+      "text": "produisant une sorte d’effet japonais momentané, le faisant penser à ces peintres de Tokyo à la figure de jade pallide, qui, par le moyen d’un art nécessairement immobile, tentent d’exprimer le sens de la vitesse et du mouvement. Le murmure monotone des abeilles cherchant leur chemin dans les longues herbes non fauchées ou voltigeant autour des poudreuses baies dorées d’un chèvrefeuille isolé,",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "text": "test avec le texte",
+      "id": "seg_1780339322452",
+      "breakAt": null,
+      "gameMode": {
+        "type": "code",
+        "answer": "1920",
+        "prompt": "le coke bordel",
+        "hint": "Plus 1",
+        "errorMessage": "toujours pas"
+      },
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1780339244791_3_19hke_overflow_5",
+      "lines": [
+        "faisait plus oppressant encore ce grand calme. Le sourd grondement de Londres semblait comme la note bourdonnante d’un orgue éloigné."
+      ],
+      "text": "faisait plus oppressant encore ce grand calme. Le sourd grondement de Londres semblait comme la note bourdonnante d’un orgue éloigné.",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1780339244791_4_hvms2",
+      "lines": [
+        "Au milieu de la chambre sur un chevalet droit, s’érigeait le portrait grandeur naturelle d’un jeune homme d’une extraordinaire beauté,"
+      ],
+      "text": "Au milieu de la chambre sur un chevalet droit, s’érigeait le portrait grandeur naturelle d’un jeune homme d’une extraordinaire beauté,",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1780339244791_5_7oj2m",
+      "lines": [
+        "et en face, était assis, un peu plus loin, le peintre lui-même, Basil Hallward, dont la disparition soudaine quelques années auparavant, avait causé un grand émoi public et donné naissance à tant de conjectures."
+      ],
+      "text": "et en face, était assis, un peu plus loin, le peintre lui-même, Basil Hallward, dont la disparition soudaine quelques années auparavant, avait causé un grand émoi public et donné naissance à tant de conjectures.",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1780339244791_6_d3pdf",
+      "lines": [
+        "Comme le peintre regardait la gracieuse et charmante figure que son art avait si subtilement reproduite, un sourire de plaisir passa sur sa face et parut s’y attarder."
+      ],
+      "text": "Comme le peintre regardait la gracieuse et charmante figure que son art avait si subtilement reproduite, un sourire de plaisir passa sur sa face et parut s’y attarder.",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1780339244791_7_c7e8r",
+      "lines": [
+        "Mais il tressaillit soudain, et fermant les yeux, mit les doigts sur ses paupières comme s’il eût voulu emprisonner dans son cerveau quelque étrange rêve dont il eût craint de se réveiller."
+      ],
+      "text": "Mais il tressaillit soudain, et fermant les yeux, mit les doigts sur ses paupières comme s’il eût voulu emprisonner dans son cerveau quelque étrange rêve dont il eût craint de se réveiller.",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1780339244791_8_d59hw",
+      "lines": [
+        "– Ceci est votre meilleure œuvre, Basil, la meilleure chose que vous ayez jamais faite,"
+      ],
+      "text": "– Ceci est votre meilleure œuvre, Basil, la meilleure chose que vous ayez jamais faite,",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1780339244791_9_6s8b8",
+      "lines": [
+        "dit lord Henry languissamment. Il faut l’envoyer l’année prochaine à l’exposition Grosvenor. L’Académie est trop grande et trop vulgaire."
+      ],
+      "text": "dit lord Henry languissamment. Il faut l’envoyer l’année prochaine à l’exposition Grosvenor. L’Académie est trop grande et trop vulgaire.",
+      "breakAt": 92,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1780339244791_10_2zek1",
+      "lines": [
+        "Chaque fois que j’y suis allé, il y avait là tant de monde qu’il m’a été impossible de voir les tableaux,"
+      ],
+      "text": "Chaque fois que j’y suis allé, il y avait là tant de monde qu’il m’a été impossible de voir les tableaux,",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1780339244791_11_o9y1t",
+      "lines": [
+        "ce qui était épouvantable, ou tant de tableaux que je n’ai pu y voir le monde, ce qui était encore plus horrible."
+      ],
+      "text": "ce qui était épouvantable, ou tant de tableaux que je n’ai pu y voir le monde, ce qui était encore plus horrible.",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1780339244791_12_cjq1u",
+      "lines": [
+        "Grosvenor est encore le seul endroit convenable…"
+      ],
+      "text": "Grosvenor est encore le seul endroit convenable…",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    }
+  ],
+  "soundTracks": [],
+  "vfxTracks": []
+}
