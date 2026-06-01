@@ -147,6 +147,18 @@
       "audioEvents": []
     },
     {
+      "text": "",
+      "id": "seg_1780354260023",
+      "gameMode": {
+        "type": "timer",
+        "seconds": 13,
+        "prompt": "La bombe est amorcée....",
+        "hint": "Tu penses y arriver ?",
+        "expireMessage": "Too Late Baby"
+      },
+      "audioEvents": []
+    },
+    {
       "id": "seg_1780339244791_6_d3pdf",
       "lines": [
         "Comme le peintre regardait la gracieuse et charmante figure que son art avait si subtilement reproduite, un sourire de plaisir passa sur sa face et parut s’y attarder."
