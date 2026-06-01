@@ -1,94 +1,172 @@
 import { useState, useEffect, useRef } from 'react'
 
+// ─── Courbes d'animation premium ─────────────────────────────────────────────
+const EASE = {
+  out:    'cubic-bezier(0.16, 1, 0.3, 1)',       // spring out
+  inOut:  'cubic-bezier(0.76, 0, 0.24, 1)',       // S-curve
+  in:     'cubic-bezier(0.55, 0, 1, 0.45)',       // ease in sharp
+  spring: 'cubic-bezier(0.34, 1.56, 0.64, 1)',    // léger overshoot
+}
+
+// ─── Hook : monte → visible → descend ────────────────────────────────────────
+function useReveal(delay = 0) {
+  const [phase, setPhase] = useState('hidden') // hidden → entering → visible → leaving
+  useEffect(() => {
+    const t1 = setTimeout(() => setPhase('entering'), delay)
+    const t2 = setTimeout(() => setPhase('visible'), delay + 20)
+    return () => { clearTimeout(t1); clearTimeout(t2) }
+  }, [delay])
+  return phase
+}
+
 // ─── Overlay principal ────────────────────────────────────────────────────────
 function GameOverlay({ gameMode, onResolved }) {
+  const [leaving, setLeaving] = useState(false)
   const [visible, setVisible] = useState(false)
 
-  // Entrée douce
   useEffect(() => {
-    const t = setTimeout(() => setVisible(true), 30)
+    const t = setTimeout(() => setVisible(true), 40)
     return () => clearTimeout(t)
   }, [])
 
   const handleResolved = () => {
+    setLeaving(true)
     setVisible(false)
-    setTimeout(onResolved, 420)
+    setTimeout(onResolved, 680)
   }
 
   const type = gameMode?.type
 
   return (
-    <div
-      style={{
-        position: 'fixed',
-        inset: 0,
-        zIndex: 200,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: 'var(--color-bg, #f5f0e8)',
-        opacity: visible ? 1 : 0,
-        transition: 'opacity 400ms cubic-bezier(0.16, 1, 0.3, 1)',
-        padding: '2rem',
-        boxSizing: 'border-box',
-      }}
-    >
-      {type === 'image'   && <GameImage   data={gameMode} onResolved={handleResolved} />}
-      {type === 'message' && <GameMessage data={gameMode} onResolved={handleResolved} />}
-      {type === 'code'    && <GameCode    data={gameMode} onResolved={handleResolved} />}
-      {type === 'riddle'  && <GameRiddle  data={gameMode} onResolved={handleResolved} />}
-      {type === 'timer'   && <GameTimer   data={gameMode} onResolved={handleResolved} />}
+    <>
+      <style>{GLOBAL_KEYFRAMES}</style>
+      <div
+        style={{
+          position: 'fixed',
+          inset: 0,
+          zIndex: 200,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          backgroundColor: 'var(--color-bg, #f5f0e8)',
+          opacity: visible && !leaving ? 1 : 0,
+          transform: leaving
+            ? 'scale(1.015)'
+            : visible ? 'scale(1)' : 'scale(0.985)',
+          transition: `opacity 640ms ${EASE.inOut}, transform 640ms ${EASE.inOut}`,
+          padding: '2rem',
+          boxSizing: 'border-box',
+          willChange: 'opacity, transform',
+        }}
+      >
+        {type === 'image'   && <GameImage   data={gameMode} onResolved={handleResolved} />}
+        {type === 'message' && <GameMessage data={gameMode} onResolved={handleResolved} />}
+        {type === 'code'    && <GameCode    data={gameMode} onResolved={handleResolved} />}
+        {type === 'riddle'  && <GameRiddle  data={gameMode} onResolved={handleResolved} />}
+        {type === 'timer'   && <GameTimer   data={gameMode} onResolved={handleResolved} />}
+      </div>
+    </>
+  )
+}
+
+// ─── Keyframes globaux ────────────────────────────────────────────────────────
+const GLOBAL_KEYFRAMES = `
+  @keyframes game-blink {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0; }
+  }
+  @keyframes game-shake {
+    0%   { transform: translateX(0); }
+    15%  { transform: translateX(-10px); }
+    30%  { transform: translateX(9px); }
+    45%  { transform: translateX(-6px); }
+    60%  { transform: translateX(5px); }
+    75%  { transform: translateX(-3px); }
+    100% { transform: translateX(0); }
+  }
+  @keyframes game-fade-up {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes game-success-pop {
+    0%   { transform: scale(1); }
+    40%  { transform: scale(1.06); }
+    70%  { transform: scale(0.97); }
+    100% { transform: scale(1); }
+  }
+`
+
+// ─── Wrapper animé commun ─────────────────────────────────────────────────────
+function AnimatedWrapper({ children, style = {} }) {
+  const [mounted, setMounted] = useState(false)
+  useEffect(() => { const t = setTimeout(() => setMounted(true), 60); return () => clearTimeout(t) }, [])
+  return (
+    <div style={{
+      width: '100%',
+      maxWidth: '480px',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      gap: '2rem',
+      fontFamily: 'var(--font-primary, Georgia, serif)',
+      opacity: mounted ? 1 : 0,
+      transform: mounted ? 'translateY(0)' : 'translateY(22px)',
+      transition: `opacity 700ms ${EASE.out}, transform 700ms ${EASE.out}`,
+      ...style,
+    }}>
+      {children}
     </div>
   )
 }
 
-// ─── Styles communs ───────────────────────────────────────────────────────────
-const sharedStyles = {
-  wrapper: {
-    width: '100%',
-    maxWidth: '480px',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    gap: '2rem',
-    fontFamily: 'var(--font-primary, Georgia, serif)',
-  },
-  caption: {
-    fontSize: 'clamp(0.85rem, 2vw, 1rem)',
-    color: 'var(--color-text-focus, #222)',
-    textAlign: 'center',
-    lineHeight: 1.6,
-    opacity: 0.75,
-    fontStyle: 'italic',
-  },
-  continueBtn: {
-    background: 'none',
-    border: '1px solid var(--color-text-focus, #222)',
-    color: 'var(--color-text-focus, #222)',
-    fontFamily: 'var(--font-primary, Georgia, serif)',
-    fontSize: '0.85rem',
-    letterSpacing: '0.08em',
-    padding: '0.6rem 1.8rem',
-    borderRadius: '2px',
-    cursor: 'pointer',
-    opacity: 0.7,
-    transition: 'opacity 0.2s ease',
-  },
-  hint: {
-    fontSize: '0.75rem',
-    color: 'var(--color-text-focus, #222)',
-    opacity: 0.4,
-    textAlign: 'center',
-    letterSpacing: '0.05em',
-  },
-  errorMsg: {
-    fontSize: '0.8rem',
-    color: '#c0392b',
-    opacity: 0.85,
-    textAlign: 'center',
-    minHeight: '1.2em',
-    fontStyle: 'italic',
-  },
+// ─── Bouton continuer ─────────────────────────────────────────────────────────
+function ContinueBtn({ onClick, label = 'continuer', delay = 0 }) {
+  const [ready, setReady] = useState(false)
+  const [hovered, setHovered] = useState(false)
+  useEffect(() => { const t = setTimeout(() => setReady(true), delay); return () => clearTimeout(t) }, [delay])
+  return (
+    <button
+      onClick={onClick}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      style={{
+        background: 'none',
+        border: '1px solid var(--color-text-focus, #222)',
+        color: 'var(--color-text-focus, #222)',
+        fontFamily: 'var(--font-primary, Georgia, serif)',
+        fontSize: '0.82rem',
+        letterSpacing: '0.1em',
+        padding: '0.65rem 2.2rem',
+        borderRadius: '2px',
+        cursor: 'pointer',
+        opacity: ready ? (hovered ? 1 : 0.55) : 0,
+        transform: ready ? 'translateY(0)' : 'translateY(10px)',
+        transition: `opacity 500ms ${EASE.out}, transform 500ms ${EASE.out}`,
+      }}
+    >
+      {label}
+    </button>
+  )
+}
+
+// ─── Hint animé ──────────────────────────────────────────────────────────────
+function Hint({ children, delay = 400 }) {
+  const [show, setShow] = useState(false)
+  useEffect(() => { const t = setTimeout(() => setShow(true), delay); return () => clearTimeout(t) }, [delay])
+  return (
+    <p style={{
+      fontSize: '0.72rem',
+      color: 'var(--color-text-focus, #222)',
+      opacity: show ? 0.35 : 0,
+      textAlign: 'center',
+      letterSpacing: '0.06em',
+      margin: 0,
+      transform: show ? 'translateY(0)' : 'translateY(8px)',
+      transition: `opacity 600ms ${EASE.inOut}, transform 600ms ${EASE.inOut}`,
+    }}>
+      {children}
+    </p>
+  )
 }
 
 // ─── Type : Image ─────────────────────────────────────────────────────────────
@@ -96,41 +174,46 @@ function GameImage({ data, onResolved }) {
   const [imgLoaded, setImgLoaded] = useState(false)
 
   return (
-    <div style={{ ...sharedStyles.wrapper, gap: '1.5rem' }}>
-      <div
-        style={{
-          width: '100%',
-          maxWidth: '420px',
-          borderRadius: '4px',
-          overflow: 'hidden',
-          boxShadow: '0 8px 40px rgba(0,0,0,0.18)',
-          opacity: imgLoaded ? 1 : 0,
-          transition: 'opacity 600ms ease',
-        }}
-      >
+    <AnimatedWrapper style={{ gap: '1.8rem' }}>
+      <div style={{
+        width: '100%',
+        maxWidth: '420px',
+        borderRadius: '3px',
+        overflow: 'hidden',
+        boxShadow: '0 12px 60px rgba(0,0,0,0.14)',
+        opacity: imgLoaded ? 1 : 0,
+        transform: imgLoaded ? 'scale(1) translateY(0)' : 'scale(0.97) translateY(12px)',
+        transition: `opacity 800ms ${EASE.out}, transform 900ms ${EASE.out}`,
+      }}>
         <img
           src={data.imageUrl}
           alt={data.caption || ''}
           onLoad={() => setImgLoaded(true)}
-          style={{
-            width: '100%',
-            height: 'auto',
-            display: 'block',
-          }}
+          style={{ width: '100%', height: 'auto', display: 'block' }}
         />
       </div>
       {data.caption && (
-        <p style={sharedStyles.caption}>{data.caption}</p>
+        <p style={{
+          fontSize: 'clamp(0.82rem, 1.8vw, 0.95rem)',
+          color: 'var(--color-text-focus, #222)',
+          textAlign: 'center',
+          lineHeight: 1.65,
+          opacity: imgLoaded ? 0.6 : 0,
+          fontStyle: 'italic',
+          margin: 0,
+          transition: `opacity 700ms ${EASE.inOut} 300ms`,
+        }}>
+          {data.caption}
+        </p>
       )}
-      <button
-        style={sharedStyles.continueBtn}
-        onClick={onResolved}
-        onMouseEnter={e => e.currentTarget.style.opacity = '1'}
-        onMouseLeave={e => e.currentTarget.style.opacity = '0.7'}
-      >
-        continuer
-      </button>
-    </div>
+      <div style={{
+        opacity: imgLoaded ? 1 : 0,
+        transform: imgLoaded ? 'translateY(0)' : 'translateY(10px)',
+        transition: `opacity 600ms ${EASE.out} 500ms, transform 600ms ${EASE.out} 500ms`,
+      }}>
+        <ContinueBtn onClick={onResolved} delay={600} />
+      </div>
+    </AnimatedWrapper>
   )
 }
 
@@ -140,23 +223,18 @@ function GameMessage({ data, onResolved }) {
   const [done, setDone] = useState(false)
   const indexRef = useRef(0)
   const text = data.text || ''
-  const speed = data.speed === 'rapide' ? 25 : data.speed === 'lent' ? 80 : 45
+  const speed = data.speed === 'rapide' ? 22 : data.speed === 'lent' ? 75 : 40
 
   useEffect(() => {
     if (!text) { setDone(true); return }
     const interval = setInterval(() => {
-      if (indexRef.current >= text.length) {
-        clearInterval(interval)
-        setDone(true)
-        return
-      }
+      if (indexRef.current >= text.length) { clearInterval(interval); setDone(true); return }
       setDisplayed(text.slice(0, indexRef.current + 1))
       indexRef.current += 1
     }, speed)
     return () => clearInterval(interval)
   }, [text, speed])
 
-  // Clic pendant l'animation → afficher tout d'un coup
   const handleClick = () => {
     if (!done) {
       indexRef.current = text.length
@@ -168,78 +246,64 @@ function GameMessage({ data, onResolved }) {
   }
 
   return (
-    <div
-      style={{ ...sharedStyles.wrapper, cursor: 'pointer' }}
-      onClick={handleClick}
-    >
+    <AnimatedWrapper style={{ cursor: 'pointer' }} onClick={handleClick}>
       <div
+        onClick={handleClick}
         style={{
           width: '100%',
           maxWidth: '420px',
-          padding: '2rem',
+          padding: '2rem 2.2rem',
           border: '1px solid var(--color-text-focus, #222)',
           borderRadius: '2px',
           boxSizing: 'border-box',
           position: 'relative',
+          cursor: 'pointer',
         }}
       >
-        {/* Label interface selon le style */}
         {data.interface && (
-          <div
-            style={{
-              position: 'absolute',
-              top: '-0.6em',
-              left: '1.5rem',
-              backgroundColor: 'var(--color-bg, #f5f0e8)',
-              padding: '0 0.4rem',
-              fontSize: '0.65rem',
-              letterSpacing: '0.12em',
-              opacity: 0.5,
-              textTransform: 'uppercase',
-            }}
-          >
+          <div style={{
+            position: 'absolute',
+            top: '-0.6em',
+            left: '1.5rem',
+            backgroundColor: 'var(--color-bg, #f5f0e8)',
+            padding: '0 0.5rem',
+            fontSize: '0.62rem',
+            letterSpacing: '0.14em',
+            opacity: 0.45,
+            textTransform: 'uppercase',
+            fontFamily: 'var(--font-primary, Georgia, serif)',
+          }}>
             {data.interface}
           </div>
         )}
-        <p
-          style={{
-            margin: 0,
-            fontSize: data.interface === 'terminal' ? '0.85rem' : '1rem',
-            fontFamily: data.interface === 'terminal'
-              ? "'Courier New', monospace"
-              : 'var(--font-primary, Georgia, serif)',
-            lineHeight: 1.7,
-            color: 'var(--color-text-focus, #222)',
-            whiteSpace: 'pre-wrap',
-            wordBreak: 'break-word',
-          }}
-        >
+        <p style={{
+          margin: 0,
+          fontSize: data.interface === 'terminal' ? '0.85rem' : '1rem',
+          fontFamily: data.interface === 'terminal' ? "'Courier New', monospace" : 'var(--font-primary, Georgia, serif)',
+          lineHeight: 1.75,
+          color: 'var(--color-text-focus, #222)',
+          whiteSpace: 'pre-wrap',
+          wordBreak: 'break-word',
+          minHeight: '1.75em',
+        }}>
           {displayed}
           {!done && (
-            <span
-              style={{
-                display: 'inline-block',
-                width: '2px',
-                height: '1em',
-                backgroundColor: 'var(--color-text-focus, #222)',
-                marginLeft: '2px',
-                verticalAlign: 'text-bottom',
-                animation: 'game-blink 0.7s step-end infinite',
-              }}
-            />
+            <span style={{
+              display: 'inline-block',
+              width: '1.5px',
+              height: '1em',
+              backgroundColor: 'var(--color-text-focus, #222)',
+              marginLeft: '2px',
+              verticalAlign: 'text-bottom',
+              animation: 'game-blink 0.65s step-end infinite',
+            }} />
           )}
         </p>
       </div>
-      <p style={sharedStyles.hint}>
+      <Hint delay={done ? 0 : text.length * speed + 200}>
         {done ? '— appuyer pour continuer —' : '— appuyer pour accélérer —'}
-      </p>
-      <style>{`
-        @keyframes game-blink {
-          0%, 100% { opacity: 1; }
-          50% { opacity: 0; }
-        }
-      `}</style>
-    </div>
+      </Hint>
+    </AnimatedWrapper>
   )
 }
 
@@ -257,133 +321,120 @@ function GameCode({ data, onResolved }) {
     const next = input + char
     setInput(next)
     setError('')
-    if (next.length === maxLength) {
-      validate(next)
-    }
+    if (next.length === maxLength) validate(next)
   }
 
-  const handleDelete = () => {
-    setInput(prev => prev.slice(0, -1))
-    setError('')
-  }
+  const handleDelete = () => { setInput(prev => prev.slice(0, -1)); setError('') }
 
   const validate = (value) => {
     const correct = String(data.answer || '').trim()
-    const caseSensitive = data.caseSensitive !== false
-    const attempt = caseSensitive ? value : value.toLowerCase()
-    const target  = caseSensitive ? correct : correct.toLowerCase()
-    if (attempt === target) {
+    const cs = data.caseSensitive !== false
+    if ((cs ? value : value.toLowerCase()) === (cs ? correct : correct.toLowerCase())) {
       setSuccess(true)
-      setTimeout(onResolved, 800)
+      setTimeout(onResolved, 900)
     } else {
       setShake(true)
       setError(data.errorMessage || 'Code incorrect')
-      setTimeout(() => { setShake(false); setInput('') }, 600)
+      setTimeout(() => { setShake(false); setInput('') }, 700)
     }
   }
 
-  const digits = isNumeric
-    ? ['1','2','3','4','5','6','7','8','9','*','0','#']
-    : null
+  const digits = isNumeric ? ['1','2','3','4','5','6','7','8','9','*','0','#'] : null
 
   return (
-    <div style={sharedStyles.wrapper}>
+    <AnimatedWrapper>
       {data.prompt && (
-        <p style={{ ...sharedStyles.caption, fontStyle: 'normal', opacity: 0.85 }}>
+        <p style={{
+          fontSize: 'clamp(0.88rem, 2vw, 1rem)',
+          color: 'var(--color-text-focus, #222)',
+          textAlign: 'center',
+          lineHeight: 1.6,
+          opacity: 0.8,
+          margin: 0,
+        }}>
           {data.prompt}
         </p>
       )}
 
-      {/* Affichage du code saisi */}
-      <div
-        style={{
-          display: 'flex',
-          gap: '0.6rem',
-          animation: shake ? 'game-shake 0.4s ease' : 'none',
-        }}
-      >
-        {Array.from({ length: maxLength }).map((_, i) => (
-          <div
-            key={i}
-            style={{
-              width: '2.6rem',
-              height: '3.2rem',
-              border: `1px solid ${success ? '#27ae60' : error ? '#c0392b' : 'var(--color-text-focus, #222)'}`,
+      {/* Cases du code */}
+      <div style={{
+        display: 'flex',
+        gap: '0.55rem',
+        animation: shake ? `game-shake 0.55s ${EASE.inOut}` : 'none',
+      }}>
+        {Array.from({ length: maxLength }).map((_, i) => {
+          const filled = i < input.length
+          const isActive = i === input.length
+          return (
+            <div key={i} style={{
+              width: '2.8rem',
+              height: '3.4rem',
+              border: `1px solid`,
+              borderColor: success
+                ? 'rgba(39,174,96,0.7)'
+                : error
+                  ? 'rgba(192,57,43,0.6)'
+                  : filled || isActive
+                    ? 'var(--color-text-focus, #222)'
+                    : 'rgba(0,0,0,0.2)',
               borderRadius: '2px',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              fontSize: '1.4rem',
+              fontSize: '1.5rem',
               fontFamily: 'var(--font-primary, Georgia, serif)',
               color: 'var(--color-text-focus, #222)',
-              transition: 'border-color 0.2s ease',
-              backgroundColor: success ? 'rgba(39,174,96,0.06)' : 'transparent',
-            }}
-          >
-            {input[i] ? (isNumeric ? input[i] : '•') : ''}
-          </div>
-        ))}
+              backgroundColor: success
+                ? 'rgba(39,174,96,0.05)'
+                : filled ? 'rgba(0,0,0,0.02)' : 'transparent',
+              transition: `all 220ms ${EASE.out}`,
+              animation: success && filled ? `game-success-pop 500ms ${EASE.spring} ${i * 60}ms both` : 'none',
+            }}>
+              {input[i] ? (isNumeric ? input[i] : '•') : ''}
+            </div>
+          )
+        })}
       </div>
 
-      {/* Clavier numérique (si code numérique) */}
+      {/* Clavier numérique */}
       {digits && !success && (
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(3, 1fr)',
-            gap: '0.6rem',
-            width: '100%',
-            maxWidth: '220px',
-          }}
-        >
-          {digits.map((d) => (
-            <button
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(3, 1fr)',
+          gap: '0.5rem',
+          width: '100%',
+          maxWidth: '210px',
+        }}>
+          {digits.map((d, i) => (
+            <KeypadBtn
               key={d}
+              label={d === '#' ? '⌫' : d === '*' ? '✕' : d}
               onClick={() => {
                 if (d === '#') handleDelete()
                 else if (d === '*') setInput('')
                 else handleKey(d)
               }}
-              style={{
-                padding: '0.9rem',
-                border: '1px solid var(--color-text-focus, #222)',
-                borderRadius: '2px',
-                background: 'none',
-                fontFamily: 'var(--font-primary, Georgia, serif)',
-                fontSize: d === '#' || d === '*' ? '0.75rem' : '1.1rem',
-                color: 'var(--color-text-focus, #222)',
-                cursor: 'pointer',
-                opacity: 0.7,
-                transition: 'opacity 0.15s ease, background-color 0.15s ease',
-              }}
-              onMouseEnter={e => { e.currentTarget.style.opacity = '1'; e.currentTarget.style.backgroundColor = 'rgba(0,0,0,0.04)' }}
-              onMouseLeave={e => { e.currentTarget.style.opacity = '0.7'; e.currentTarget.style.backgroundColor = 'transparent' }}
-            >
-              {d === '#' ? '⌫' : d === '*' ? '✕' : d}
-            </button>
+              delay={i * 18}
+              small={d === '#' || d === '*'}
+            />
           ))}
         </div>
       )}
 
-      {/* Champ texte (si code alphanumérique) */}
+      {/* Champ texte alphanumérique */}
       {!digits && !success && (
         <input
           type="text"
           value={input}
-          onChange={e => {
-            const val = e.target.value.slice(0, maxLength)
-            setInput(val)
-            setError('')
-            if (val.length === maxLength) validate(val)
-          }}
+          onChange={e => { const v = e.target.value.slice(0, maxLength); setInput(v); setError(''); if (v.length === maxLength) validate(v) }}
           onKeyDown={e => { if (e.key === 'Enter') validate(input) }}
           autoFocus
           placeholder={data.placeholder || ''}
           style={{
             width: '100%',
             maxWidth: '280px',
-            padding: '0.75rem 1rem',
-            border: `1px solid ${error ? '#c0392b' : 'var(--color-text-focus, #222)'}`,
+            padding: '0.8rem 1rem',
+            border: `1px solid ${error ? 'rgba(192,57,43,0.6)' : 'var(--color-text-focus, #222)'}`,
             borderRadius: '2px',
             background: 'none',
             fontFamily: 'var(--font-primary, Georgia, serif)',
@@ -392,26 +443,62 @@ function GameCode({ data, onResolved }) {
             textAlign: 'center',
             outline: 'none',
             boxSizing: 'border-box',
-            transition: 'border-color 0.2s ease',
+            transition: `border-color 300ms ${EASE.inOut}`,
           }}
         />
       )}
 
-      {data.hint && !error && !success && (
-        <p style={sharedStyles.hint}>{data.hint}</p>
-      )}
-      <p style={sharedStyles.errorMsg}>{error}</p>
+      {data.hint && !error && !success && <Hint>{data.hint}</Hint>}
 
-      <style>{`
-        @keyframes game-shake {
-          0%, 100% { transform: translateX(0); }
-          20%       { transform: translateX(-8px); }
-          40%       { transform: translateX(8px); }
-          60%       { transform: translateX(-5px); }
-          80%       { transform: translateX(5px); }
-        }
-      `}</style>
-    </div>
+      <p style={{
+        fontSize: '0.78rem',
+        color: '#c0392b',
+        opacity: error ? 0.85 : 0,
+        textAlign: 'center',
+        minHeight: '1em',
+        fontStyle: 'italic',
+        margin: 0,
+        transition: `opacity 250ms ${EASE.out}`,
+      }}>
+        {error}
+      </p>
+    </AnimatedWrapper>
+  )
+}
+
+// ─── Touche de clavier ────────────────────────────────────────────────────────
+function KeypadBtn({ label, onClick, delay = 0, small = false }) {
+  const [ready, setReady] = useState(false)
+  const [pressed, setPressed] = useState(false)
+  const [hovered, setHovered] = useState(false)
+  useEffect(() => { const t = setTimeout(() => setReady(true), delay + 80); return () => clearTimeout(t) }, [delay])
+
+  return (
+    <button
+      onClick={() => { setPressed(true); setTimeout(() => setPressed(false), 150); onClick() }}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      style={{
+        padding: '0.95rem',
+        border: '1px solid var(--color-text-focus, #222)',
+        borderRadius: '2px',
+        background: pressed
+          ? 'rgba(0,0,0,0.08)'
+          : hovered ? 'rgba(0,0,0,0.03)' : 'none',
+        fontFamily: 'var(--font-primary, Georgia, serif)',
+        fontSize: small ? '0.7rem' : '1.1rem',
+        color: 'var(--color-text-focus, #222)',
+        cursor: 'pointer',
+        opacity: ready ? (hovered ? 0.9 : 0.65) : 0,
+        transform: ready
+          ? pressed ? 'scale(0.93)' : 'translateY(0)'
+          : 'translateY(8px)',
+        transition: `opacity 350ms ${EASE.out}, transform ${pressed ? '80ms' : `350ms ${EASE.out}`}, background-color 150ms ease`,
+        willChange: 'transform',
+      }}
+    >
+      {label}
+    </button>
   )
 }
 
@@ -423,16 +510,12 @@ function GameRiddle({ data, onResolved }) {
 
   const validate = () => {
     const correct = String(data.answer || '').trim()
-    const caseSensitive = data.caseSensitive === true
-    const attempt = caseSensitive ? input.trim() : input.trim().toLowerCase()
-    const target  = caseSensitive ? correct : correct.toLowerCase()
-
-    // Support de réponses multiples séparées par "|"
-    const accepted = target.split('|').map(s => s.trim())
-
+    const cs = data.caseSensitive === true
+    const attempt = cs ? input.trim() : input.trim().toLowerCase()
+    const accepted = (cs ? correct : correct.toLowerCase()).split('|').map(s => s.trim())
     if (accepted.includes(attempt)) {
       setSuccess(true)
-      setTimeout(onResolved, 800)
+      setTimeout(onResolved, 900)
     } else {
       setError(data.errorMessage || 'Ce n\'est pas ça…')
       setTimeout(() => setError(''), 2500)
@@ -440,16 +523,16 @@ function GameRiddle({ data, onResolved }) {
   }
 
   return (
-    <div style={sharedStyles.wrapper}>
+    <AnimatedWrapper>
       {data.question && (
-        <p
-          style={{
-            ...sharedStyles.caption,
-            fontStyle: 'normal',
-            opacity: 1,
-            fontSize: 'clamp(1rem, 2.5vw, 1.2rem)',
-          }}
-        >
+        <p style={{
+          fontSize: 'clamp(1rem, 2.5vw, 1.18rem)',
+          color: 'var(--color-text-focus, #222)',
+          textAlign: 'center',
+          lineHeight: 1.65,
+          opacity: 0.92,
+          margin: 0,
+        }}>
           {data.question}
         </p>
       )}
@@ -465,49 +548,50 @@ function GameRiddle({ data, onResolved }) {
         style={{
           width: '100%',
           maxWidth: '320px',
-          padding: '0.75rem 1rem',
-          border: `1px solid ${success ? '#27ae60' : error ? '#c0392b' : 'var(--color-text-focus, #222)'}`,
+          padding: '0.8rem 1rem',
+          border: `1px solid ${success ? 'rgba(39,174,96,0.7)' : error ? 'rgba(192,57,43,0.6)' : 'var(--color-text-focus, #222)'}`,
           borderRadius: '2px',
-          background: 'none',
+          background: success ? 'rgba(39,174,96,0.04)' : 'none',
           fontFamily: 'var(--font-primary, Georgia, serif)',
           fontSize: '1rem',
           color: 'var(--color-text-focus, #222)',
           textAlign: 'center',
           outline: 'none',
           boxSizing: 'border-box',
-          transition: 'border-color 0.2s ease',
+          transition: `border-color 350ms ${EASE.inOut}, background-color 350ms ${EASE.inOut}`,
         }}
       />
 
-      {data.hint && !error && !success && (
-        <p style={sharedStyles.hint}>{data.hint}</p>
-      )}
-      <p style={sharedStyles.errorMsg}>{error}</p>
+      {data.hint && !error && !success && <Hint>{data.hint}</Hint>}
 
-      {!success && (
-        <button
-          style={sharedStyles.continueBtn}
-          onClick={validate}
-          onMouseEnter={e => e.currentTarget.style.opacity = '1'}
-          onMouseLeave={e => e.currentTarget.style.opacity = '0.7'}
-        >
-          valider
-        </button>
-      )}
-    </div>
+      <p style={{
+        fontSize: '0.78rem',
+        color: '#c0392b',
+        opacity: error ? 0.8 : 0,
+        textAlign: 'center',
+        minHeight: '1em',
+        fontStyle: 'italic',
+        margin: '-0.5rem 0 0',
+        transition: `opacity 250ms ${EASE.out}`,
+      }}>
+        {error}
+      </p>
+
+      {!success && <ContinueBtn onClick={validate} label="valider" delay={300} />}
+    </AnimatedWrapper>
   )
 }
 
 // ─── Type : Minuteur ─────────────────────────────────────────────────────────
 function GameTimer({ data, onResolved }) {
-  const total   = data.seconds || 30
+  const total = data.seconds || 30
   const [remaining, setRemaining] = useState(total)
-  const [expired, setExpired]     = useState(false)
+  const [expired, setExpired] = useState(false)
 
   useEffect(() => {
     if (remaining <= 0) {
       setExpired(true)
-      setTimeout(onResolved, 1200)
+      setTimeout(onResolved, 1400)
       return
     }
     const t = setTimeout(() => setRemaining(r => r - 1), 1000)
@@ -515,69 +599,74 @@ function GameTimer({ data, onResolved }) {
   }, [remaining])
 
   const pct = remaining / total
-  const radius = 54
+  const radius = 52
   const circumference = 2 * Math.PI * radius
   const strokeDashoffset = circumference * (1 - pct)
-
-  const color = pct > 0.5 ? 'var(--color-text-focus, #222)'
-    : pct > 0.25 ? '#e67e22'
-    : '#c0392b'
+  const color = pct > 0.5
+    ? 'var(--color-text-focus, #222)'
+    : pct > 0.25 ? '#d4820a' : '#c0392b'
 
   return (
-    <div style={{ ...sharedStyles.wrapper, gap: '1.5rem' }}>
+    <AnimatedWrapper style={{ gap: '1.6rem' }}>
       {data.prompt && (
-        <p style={{ ...sharedStyles.caption, fontStyle: 'normal', opacity: 0.85 }}>
+        <p style={{
+          fontSize: 'clamp(0.88rem, 2vw, 1rem)',
+          color: 'var(--color-text-focus, #222)',
+          textAlign: 'center',
+          lineHeight: 1.6,
+          opacity: 0.75,
+          margin: 0,
+        }}>
           {data.prompt}
         </p>
       )}
 
-      <div style={{ position: 'relative', width: '130px', height: '130px' }}>
-        <svg width="130" height="130" style={{ transform: 'rotate(-90deg)' }}>
-          {/* Fond */}
-          <circle
-            cx="65" cy="65" r={radius}
-            fill="none"
-            stroke="var(--color-text-focus, #222)"
-            strokeWidth="1"
-            opacity="0.12"
-          />
-          {/* Arc animé */}
-          <circle
-            cx="65" cy="65" r={radius}
-            fill="none"
-            stroke={color}
-            strokeWidth="2"
+      <div style={{ position: 'relative', width: '126px', height: '126px' }}>
+        <svg width="126" height="126" style={{ transform: 'rotate(-90deg)' }}>
+          <circle cx="63" cy="63" r={radius}
+            fill="none" stroke="var(--color-text-focus, #222)"
+            strokeWidth="1" opacity="0.1" />
+          <circle cx="63" cy="63" r={radius}
+            fill="none" stroke={color}
+            strokeWidth="1.5"
             strokeDasharray={circumference}
             strokeDashoffset={strokeDashoffset}
             strokeLinecap="round"
-            style={{ transition: 'stroke-dashoffset 0.8s linear, stroke 0.5s ease' }}
+            style={{ transition: `stroke-dashoffset 0.95s ${EASE.inOut}, stroke 0.8s ${EASE.inOut}` }}
           />
         </svg>
-        <div
-          style={{
-            position: 'absolute',
-            inset: 0,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            fontFamily: 'var(--font-primary, Georgia, serif)',
-            fontSize: remaining < 10 ? '2.4rem' : '2rem',
-            color,
-            transition: 'color 0.5s ease, font-size 0.2s ease',
-          }}
-        >
+        <div style={{
+          position: 'absolute',
+          inset: 0,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          fontFamily: 'var(--font-primary, Georgia, serif)',
+          fontSize: remaining < 10 ? '2.6rem' : '2.1rem',
+          color,
+          letterSpacing: '-0.02em',
+          transition: `color 0.8s ${EASE.inOut}, font-size 300ms ${EASE.spring}`,
+        }}>
           {expired ? '—' : remaining}
         </div>
       </div>
 
-      {expired ? (
-        <p style={{ ...sharedStyles.caption, opacity: 0.6 }}>
-          {data.expireMessage || 'Le temps est écoulé.'}
-        </p>
-      ) : (
-        data.hint && <p style={sharedStyles.hint}>{data.hint}</p>
-      )}
-    </div>
+      <p style={{
+        fontSize: 'clamp(0.82rem, 1.8vw, 0.92rem)',
+        color: 'var(--color-text-focus, #222)',
+        textAlign: 'center',
+        lineHeight: 1.6,
+        opacity: expired ? 0.55 : 0,
+        fontStyle: 'italic',
+        margin: 0,
+        transform: expired ? 'translateY(0)' : 'translateY(8px)',
+        transition: `opacity 700ms ${EASE.out}, transform 700ms ${EASE.out}`,
+      }}>
+        {data.expireMessage || 'Le temps est écoulé.'}
+      </p>
+
+      {!expired && data.hint && <Hint delay={600}>{data.hint}</Hint>}
+    </AnimatedWrapper>
   )
 }
 
