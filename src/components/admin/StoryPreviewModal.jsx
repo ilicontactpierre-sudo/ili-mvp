@@ -3,6 +3,7 @@ import StoryReader from '../StoryReader'
 import StartScreen from '../StartScreen'
 import EndScreen from '../EndScreen'
 import AudioEngine from '../../engine/AudioEngine'
+import GameOverlay from '../GameOverlay'
 
 function StoryPreviewModal({ isOpen, storyData, onClose }) {
   const [isStarted, setIsStarted] = useState(false)
