@@ -165,7 +165,8 @@ function FormRiddle({ data, onChange }) {
         </label>
       </div>
     </>
-  
+  )
+}
 
 function FormTimer({ data, onChange }) {
   return (
