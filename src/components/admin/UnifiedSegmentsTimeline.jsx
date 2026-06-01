@@ -1156,8 +1156,12 @@ function UnifiedSegmentsTimeline({
     
     updatedSegments.splice(index, 2, mergedSegment)
     
-    const seg1Id = segments[index].id || segments[index]._id
-    const seg2Id = segments[index + 1].id || segments[index + 1]._id
+    const seg1Id = (typeof segments[index] === 'object' && segments[index] !== null)
+      ? (segments[index].id || segments[index]._id)
+      : null
+    const seg2Id = (typeof segments[index + 1] === 'object' && segments[index + 1] !== null)
+      ? (segments[index + 1].id || segments[index + 1]._id)
+      : null
     
     const updatedTracks = soundTracks.map(track => {
       if (track.startSegmentId === seg2Id) {
