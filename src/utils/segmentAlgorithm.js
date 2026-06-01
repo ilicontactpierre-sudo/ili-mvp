@@ -1168,6 +1168,88 @@ if (breakAt !== null) {
 }
 
 // ══════════════════════════════════════════════════════════════════════════════
+// PHASE 8b — GARDE-FOU AFFICHAGE : coupe les segments > MAX_DISPLAY_CHARS
+// ══════════════════════════════════════════════════════════════════════════════
+/**
+ * Subdivise les segments dont le texte dépasse MAX_DISPLAY_CHARS.
+ * Coupe au dernier point de ponctuation fort avant la limite,
+ * ou à défaut au dernier espace.
+ * Préserve toutes les métadonnées (id unique, isLeader, breakAt, etc.)
+ */
+function enforceDisplayLimit(serializedSegments) {
+  const result = []
+
+  for (const seg of serializedSegments) {
+    if (seg.text.length <= CONFIG.MAX_DISPLAY_CHARS) {
+      result.push(seg)
+      continue
+    }
+
+    // Découper récursivement jusqu'à ce que tous les morceaux soient dans la limite
+    let remaining = seg.text
+    let isFirst = true
+
+    while (remaining.length > CONFIG.MAX_DISPLAY_CHARS) {
+      const slice = remaining.substring(0, CONFIG.MAX_DISPLAY_CHARS)
+
+      // Chercher le dernier point de ponctuation fort dans la slice
+      let cutPos = -1
+      for (let i = slice.length - 1; i >= Math.floor(slice.length * 0.5); i--) {
+        if ('.!?…;:,'.includes(slice[i]) && slice[i + 1] === ' ') {
+          cutPos = i + 1
+          break
+        }
+      }
+
+      // Fallback : dernier espace
+      if (cutPos <= 0) {
+        for (let i = slice.length - 1; i >= 0; i--) {
+          if (slice[i] === ' ') {
+            cutPos = i
+            break
+          }
+        }
+      }
+
+      // Fallback ultime : couper brutalement à la limite
+      if (cutPos <= 0) cutPos = CONFIG.MAX_DISPLAY_CHARS
+
+      const partText = remaining.substring(0, cutPos).trim()
+      remaining = remaining.substring(cutPos).trim()
+
+      if (!partText) continue
+
+      result.push({
+        ...seg,
+        id: isFirst
+          ? seg.id
+          : `${seg.id}_overflow_${result.length}`,
+        text: partText,
+        lines: [partText],
+        breakAt: null,
+        isLeader: isFirst ? seg.isLeader : false,
+      })
+
+      isFirst = false
+    }
+
+    // Dernier morceau
+    if (remaining) {
+      result.push({
+        ...seg,
+        id: `${seg.id}_overflow_${result.length}`,
+        text: remaining,
+        lines: [remaining],
+        breakAt: null,
+        isLeader: false,
+      })
+    }
+  }
+
+  return result
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
 // FONCTION PRINCIPALE — export public
 // ══════════════════════════════════════════════════════════════════════════════
 /**
@@ -1191,7 +1273,8 @@ export function segmentText(text, granularity = 5) {
   const rawSegments  = composeSegments(scoredUnits, beats, g)
   const withWeakCuts = splitOnWeakPunctuation(rawSegments, scoredUnits, g)
   const balanced     = enforceRhythmCadence(withWeakCuts)
-  return serializeSegments(balanced)
+  const serialized   = serializeSegments(balanced)
+  return enforceDisplayLimit(serialized)
 }
 
 export default segmentText
