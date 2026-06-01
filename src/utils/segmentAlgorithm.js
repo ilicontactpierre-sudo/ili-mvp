@@ -54,6 +54,14 @@ const CONFIG = {
     'rit', 'tombe', 'crie', 'hurle', 'court', 'fuit', 'disparaît',
     'arrive', 'entre', 'sort', 'part', 'revient', 'ouvre', 'ferme',
   ],
+  // Probabilité de coupe sur virgule selon le contexte [0..1]
+  COMMA_CUT_BASE_PROB: 0.22,
+  // Probabilité de coupe sur point-virgule [0..1]
+  SEMICOLON_CUT_PROB: 0.52,
+  // Probabilité de coupe sur deux-points [0..1]
+  COLON_CUT_PROB: 0.72,
+  // Longueur minimale de chaque côté d'une coupe sur ponctuation faible
+  MIN_PART_LENGTH_FOR_WEAK_CUT: 28,
   // Nombre max d'unités par segment selon la granularité (1→10)
   maxUnitsForGranularity(g) {
     return Math.min(8, Math.floor(1 + (g - 1) * 0.60))
