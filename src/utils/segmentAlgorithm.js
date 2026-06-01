@@ -22,8 +22,10 @@
 // CONFIG
 // ══════════════════════════════════════════════════════════════════════════════
 const CONFIG = {
-  // Limite absolue de caractères par segment (espaces compris)
+  // Limite absolue de caractères par segment (espaces compris) — découpage algo
   MAX_CHARS: 254,
+  // Limite absolue de caractères affichables par segment (taille M)
+  MAX_DISPLAY_CHARS: 940,
   // Seuil pour qu'une unité soit "courte" (isolation potentielle)
   SHORT_UNIT_THRESHOLD: 75,
   // Seuil pour qu'une unité soit "très courte" (beat fort)
@@ -55,11 +57,11 @@ const CONFIG = {
     'arrive', 'entre', 'sort', 'part', 'revient', 'ouvre', 'ferme',
   ],
   // Probabilité de coupe sur virgule selon le contexte [0..1]
-  COMMA_CUT_BASE_PROB: 0.22,
+  COMMA_CUT_BASE_PROB: 0.30,
   // Probabilité de coupe sur point-virgule [0..1]
-  SEMICOLON_CUT_PROB: 0.52,
+  SEMICOLON_CUT_PROB: 0.32,
   // Probabilité de coupe sur deux-points [0..1]
-  COLON_CUT_PROB: 0.72,
+  COLON_CUT_PROB: 0.42,
   // Longueur minimale de chaque côté d'une coupe sur ponctuation faible
   MIN_PART_LENGTH_FOR_WEAK_CUT: 28,
   // Nombre max d'unités par segment selon la granularité (1→10)
