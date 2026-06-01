@@ -208,7 +208,7 @@ export default function ReaderSettings({
 
   // ── Police — initialisée depuis localStorage ────────────────────────────────
   const [fontSizeIndex, setFontSizeIndex] = useState(() => {
-    try { return parseInt(localStorage.getItem('ili_font_size') || '2') } catch { return 2 }
+    try { return parseInt(localStorage.getItem('ili_font_size') || '1') } catch { return 1 }
   })
   const [dys1, setDys1] = useState(() => {
     try { return localStorage.getItem('ili_dys1') === 'true' } catch { return false }
