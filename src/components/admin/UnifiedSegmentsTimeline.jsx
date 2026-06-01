@@ -1186,8 +1186,14 @@ function UnifiedSegmentsTimeline({
     if (!part1 || !part2) return
     
     const updatedSegments = [...segments]
-    const newSeg1 = typeof segment === 'string' ? part1 : { ...segment, text: part1 }
-    const newSeg2 = typeof segment === 'string' ? part2 : { ...segment, text: part2 }
+    const newId1 = `seg_${Date.now()}_a_${Math.random().toString(36).slice(2, 7)}`
+    const newId2 = `seg_${Date.now()}_b_${Math.random().toString(36).slice(2, 7)}`
+    const newSeg1 = typeof segment === 'string'
+      ? { text: part1, id: newId1, breakAt: null }
+      : { ...segment, text: part1, id: newId1, breakAt: null }
+    const newSeg2 = typeof segment === 'string'
+      ? { text: part2, id: newId2, breakAt: null }
+      : { ...segment, text: part2, id: newId2, breakAt: null, audioEvents: [], isLeader: false }
     
     updatedSegments.splice(index, 1, newSeg1, newSeg2)
     onSegmentsChange(updatedSegments)
