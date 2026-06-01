@@ -158,7 +158,8 @@ function GameOverlay({ gameMode, onResolved }) {
           willChange: 'opacity, transform',
         }}
       >
-        {type === 'image'   && <GameImage   data={gameMode} onResolved={handleResolved} />}
+        {type === 'image'    && <GameImage    data={gameMode} onResolved={handleResolved} />}
+        {type === 'document' && <GameDocument data={gameMode} onResolved={handleResolved} />} 
         {type === 'message' && <GameMessage data={gameMode} onResolved={handleResolved} />}
         {type === 'code'    && <GameCode    data={gameMode} onResolved={handleResolved} />}
         {type === 'riddle'  && <GameRiddle  data={gameMode} onResolved={handleResolved} />}
