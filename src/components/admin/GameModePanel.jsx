@@ -14,7 +14,8 @@ const DEFAULTS = {
   message: { type: 'message', text: '', interface: 'sms', speed: 'normal' },
   code:    { type: 'code',    answer: '', prompt: '', hint: '', errorMessage: '' },
   riddle:  { type: 'riddle',  question: '', answer: '', hint: '', placeholder: '', caseSensitive: false, errorMessage: '' },
-  timer:   { type: 'timer',   seconds: 30, prompt: '', hint: '', expireMessage: '' },
+  timer:    { type: 'timer',    seconds: 30, prompt: '', hint: '', expireMessage: '' },
+  document: { type: 'document', style: 'letter', title: '', body: '', date: '', stamp: '', from: '', to: '' },
 }
 
 function Field({ label, hint, children }) {
