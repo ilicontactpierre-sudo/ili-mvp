@@ -613,21 +613,60 @@ function KeypadBtn({ label, onClick, delay = 0, small = false }) {
 function GameRiddle({ data, onResolved }) {
   const [input, setInput] = useState('')
   const [error, setError] = useState('')
+  const [errorType, setErrorType] = useState('wrong') // 'wrong' | 'close' | 'decoy'
   const [success, setSuccess] = useState(false)
+  const { playTock, playSuccess, playError } = useKeySound()
 
   const validate = () => {
-    const correct = String(data.answer || '').trim()
+    const raw = String(data.answer || '').trim()
     const cs = data.caseSensitive === true
     const attempt = cs ? input.trim() : input.trim().toLowerCase()
-    const accepted = (cs ? correct : correct.toLowerCase()).split('|').map(s => s.trim())
+    const accepted = (cs ? raw : raw.toLowerCase()).split('|').map(s => s.trim())
+
+    // ── Succès ──
     if (accepted.includes(attempt)) {
+      playSuccess()
       setSuccess(true)
       setTimeout(onResolved, 900)
-    } else {
-      setError(data.errorMessage || 'Ce n\'est pas ça…')
-      setTimeout(() => setError(''), 2500)
+      return
     }
+
+    // ── Faux indice (decoy) — message personnalisé par l'auteur ──
+    const decoys = data.decoys || []
+    const matchedDecoy = decoys.find(d => {
+      const dKey = cs ? d.key : d.key.toLowerCase()
+      return dKey === attempt
+    })
+    if (matchedDecoy) {
+      playError()
+      setErrorType('decoy')
+      setError(matchedDecoy.message)
+      setTimeout(() => setError(''), 3500)
+      return
+    }
+
+    // ── Réponse presque juste (Levenshtein ≤ 2) ──
+    const isClose = accepted.some(a => levenshtein(attempt, a) <= 2 && attempt.length > 2)
+    if (isClose) {
+      playError()
+      setErrorType('close')
+      setError(data.closeMessage || 'Presque…')
+      setTimeout(() => setError(''), 3000)
+      return
+    }
+
+    // ── Mauvaise réponse standard ──
+    playError()
+    setErrorType('wrong')
+    setError(data.errorMessage || 'Ce n\'est pas ça…')
+    setTimeout(() => setError(''), 2500)
   }
+
+  const errorColor = errorType === 'close'
+    ? '#d4820a'
+    : errorType === 'decoy'
+      ? '#7b5ea7'
+      : '#c0392b'
 
   return (
     <AnimatedWrapper>
@@ -656,7 +695,11 @@ function GameRiddle({ data, onResolved }) {
           width: '100%',
           maxWidth: '320px',
           padding: '0.8rem 1rem',
-          border: `1px solid ${success ? 'rgba(39,174,96,0.7)' : error ? 'rgba(192,57,43,0.6)' : 'var(--color-text-focus, #222)'}`,
+          border: `1px solid ${
+            success ? 'rgba(39,174,96,0.7)'
+            : error ? errorColor
+            : 'var(--color-text-focus, #222)'
+          }`,
           borderRadius: '2px',
           background: success ? 'rgba(39,174,96,0.04)' : 'none',
           fontFamily: 'var(--font-primary, Georgia, serif)',
@@ -673,13 +716,15 @@ function GameRiddle({ data, onResolved }) {
 
       <p style={{
         fontSize: '0.78rem',
-        color: '#c0392b',
-        opacity: error ? 0.8 : 0,
+        color: errorColor,
+        opacity: error ? 0.9 : 0,
         textAlign: 'center',
         minHeight: '1em',
-        fontStyle: 'italic',
+        fontStyle: errorType === 'close' || errorType === 'decoy' ? 'normal' : 'italic',
+        fontWeight: errorType === 'decoy' ? 500 : 400,
         margin: '-0.5rem 0 0',
-        transition: `opacity 250ms ${EASE.out}`,
+        letterSpacing: errorType === 'close' ? '0.06em' : 'normal',
+        transition: `opacity 250ms ${EASE.out}, color 300ms ${EASE.inOut}`,
       }}>
         {error}
       </p>
@@ -688,6 +733,7 @@ function GameRiddle({ data, onResolved }) {
     </AnimatedWrapper>
   )
 }
+
 
 // ─── Type : Minuteur ─────────────────────────────────────────────────────────
 function GameTimer({ data, onResolved }) {
