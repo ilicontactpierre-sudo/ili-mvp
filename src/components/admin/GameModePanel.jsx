@@ -141,6 +141,21 @@ function FormRiddle({ data, onChange }) {
         <input style={inputStyle} type="text" value={data.errorMessage || ''}  placeholder="Ce n'est pas ça…"
           onChange={e => onChange({ ...data, errorMessage: e.target.value })} />
       </Field>
+      <Field label="Message si réponse proche" hint="Affiché si la réponse est à 1-2 caractères de la bonne">
+        <input style={inputStyle} type="text" value={data.closeMessage || ''} placeholder="Presque…"
+          onChange={e => onChange({ ...data, closeMessage: e.target.value })} />
+      </Field>
+      <Field label="Faux indices (decoys)" hint='Format JSON : [{"key":"phoenix","message":"L\'orthographe trahit l\'étranger."}]'>
+        <textarea style={textareaStyle} value={data.decoysRaw || ''} placeholder='[{"key":"...", "message":"..."}]'
+          onChange={e => {
+            try {
+              const parsed = JSON.parse(e.target.value)
+              onChange({ ...data, decoys: parsed, decoysRaw: e.target.value })
+            } catch {
+              onChange({ ...data, decoysRaw: e.target.value })
+            }
+          }} />
+      </Field>
       <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
         <input type="checkbox" id="caseSensitive" checked={!!data.caseSensitive}
           onChange={e => onChange({ ...data, caseSensitive: e.target.checked })}
