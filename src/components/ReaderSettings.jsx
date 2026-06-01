@@ -687,20 +687,20 @@ export default function ReaderSettings({
                 className="rs-btn"
                 onClick={() => setFontSizeIndex(i => Math.max(0, i - 1))}
                 disabled={fontSizeIndex === 0}
-                style={{ opacity: fontSizeIndex === 0 ? 0.3 : 1 }}
+                style={{ opacity: fontSizeIndex === 0 ? 0.3 : 1, fontSize: '1.2rem', fontWeight: 300 }}
                 title="Réduire"
               >
-                <IconFontSmall />
+                −
               </button>
               <span className="rs-font-label">{FONT_SIZES[fontSizeIndex].label}</span>
               <button
                 className="rs-btn"
                 onClick={() => setFontSizeIndex(i => Math.min(FONT_SIZES.length - 1, i + 1))}
                 disabled={fontSizeIndex === FONT_SIZES.length - 1}
-                style={{ opacity: fontSizeIndex === FONT_SIZES.length - 1 ? 0.3 : 1 }}
+                style={{ opacity: fontSizeIndex === FONT_SIZES.length - 1 ? 0.3 : 1, fontSize: '1.2rem', fontWeight: 300 }}
                 title="Agrandir"
               >
-                <IconFontLarge />
+                +
               </button>
             </div>
             <div className="rs-dys-row">
