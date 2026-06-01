@@ -917,6 +917,7 @@ function UnifiedSegmentsTimeline({
 
   // ── Chapitres ──────────────────────────────────────────────
   const [collapsedChapters, setCollapsedChapters] = useState(new Set())
+  const [gameModePanel, setGameModePanel] = useState(null) // index du segment ou null
 
   // ── Drag & drop segments ────────────────────────────────────
   const [isDraggingSegment, setIsDraggingSegment] = useState(false)
@@ -2045,6 +2046,7 @@ const handleTextSelection = useCallback(() => {
                     // Handle drag
                     onDragHandleMouseDown: (e) => handleSegmentDragStart(e, index),
                     isDragging: isBeingDragged,
+                    onGameMode: (idx) => setGameModePanel(idx),
                   }}
                 />
                 {index < segments.length - 1 && (
