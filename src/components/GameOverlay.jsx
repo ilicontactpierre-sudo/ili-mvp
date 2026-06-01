@@ -1,5 +1,89 @@
 import { useState, useEffect, useRef } from 'react'
 
+// ─── Sons digicode (Web Audio API) ───────────────────────────────────────────
+function useKeySound() {
+  const ctxRef = useRef(null)
+
+  const getCtx = () => {
+    if (!ctxRef.current) {
+      ctxRef.current = new (window.AudioContext || window.webkitAudioContext)()
+    }
+    return ctxRef.current
+  }
+
+  const playTock = () => {
+    try {
+      const ctx = getCtx()
+      const osc = ctx.createOscillator()
+      const gain = ctx.createGain()
+      osc.connect(gain)
+      gain.connect(ctx.destination)
+      osc.type = 'sine'
+      osc.frequency.setValueAtTime(820, ctx.currentTime)
+      osc.frequency.exponentialRampToValueAtTime(600, ctx.currentTime + 0.06)
+      gain.gain.setValueAtTime(0.18, ctx.currentTime)
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.08)
+      osc.start(ctx.currentTime)
+      osc.stop(ctx.currentTime + 0.09)
+    } catch {}
+  }
+
+  const playSuccess = () => {
+    try {
+      const ctx = getCtx()
+      const freqs = [660, 880, 1100]
+      freqs.forEach((freq, i) => {
+        const osc = ctx.createOscillator()
+        const gain = ctx.createGain()
+        osc.connect(gain)
+        gain.connect(ctx.destination)
+        osc.type = 'sine'
+        osc.frequency.setValueAtTime(freq, ctx.currentTime + i * 0.1)
+        gain.gain.setValueAtTime(0.13, ctx.currentTime + i * 0.1)
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + i * 0.1 + 0.18)
+        osc.start(ctx.currentTime + i * 0.1)
+        osc.stop(ctx.currentTime + i * 0.1 + 0.2)
+      })
+    } catch {}
+  }
+
+  const playError = () => {
+    try {
+      const ctx = getCtx()
+      const osc = ctx.createOscillator()
+      const gain = ctx.createGain()
+      osc.connect(gain)
+      gain.connect(ctx.destination)
+      osc.type = 'sawtooth'
+      osc.frequency.setValueAtTime(220, ctx.currentTime)
+      osc.frequency.exponentialRampToValueAtTime(140, ctx.currentTime + 0.22)
+      gain.gain.setValueAtTime(0.14, ctx.currentTime)
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.25)
+      osc.start(ctx.currentTime)
+      osc.stop(ctx.currentTime + 0.26)
+    } catch {}
+  }
+
+  const playDelete = () => {
+    try {
+      const ctx = getCtx()
+      const osc = ctx.createOscillator()
+      const gain = ctx.createGain()
+      osc.connect(gain)
+      gain.connect(ctx.destination)
+      osc.type = 'sine'
+      osc.frequency.setValueAtTime(400, ctx.currentTime)
+      osc.frequency.exponentialRampToValueAtTime(280, ctx.currentTime + 0.07)
+      gain.gain.setValueAtTime(0.1, ctx.currentTime)
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.09)
+      osc.start(ctx.currentTime)
+      osc.stop(ctx.currentTime + 0.1)
+    } catch {}
+  }
+
+  return { playTock, playSuccess, playError, playDelete }
+}
+
 // ─── Courbes d'animation premium ─────────────────────────────────────────────
 const EASE = {
   out:    'cubic-bezier(0.16, 1, 0.3, 1)',       // spring out
@@ -313,26 +397,34 @@ function GameCode({ data, onResolved }) {
   const [error, setError] = useState('')
   const [shake, setShake] = useState(false)
   const [success, setSuccess] = useState(false)
+  const { playTock, playSuccess, playError, playDelete } = useKeySound()
   const maxLength = String(data.answer || '').length || 6
   const isNumeric = /^\d+$/.test(String(data.answer || ''))
 
   const handleKey = (char) => {
     if (input.length >= maxLength) return
+    playTock()
     const next = input + char
     setInput(next)
     setError('')
     if (next.length === maxLength) validate(next)
   }
 
-  const handleDelete = () => { setInput(prev => prev.slice(0, -1)); setError('') }
+  const handleDelete = () => {
+    playDelete()
+    setInput(prev => prev.slice(0, -1))
+    setError('')
+  }
 
   const validate = (value) => {
     const correct = String(data.answer || '').trim()
     const cs = data.caseSensitive !== false
     if ((cs ? value : value.toLowerCase()) === (cs ? correct : correct.toLowerCase())) {
+      playSuccess()
       setSuccess(true)
       setTimeout(onResolved, 900)
     } else {
+      playError()
       setShake(true)
       setError(data.errorMessage || 'Code incorrect')
       setTimeout(() => { setShake(false); setInput('') }, 700)
