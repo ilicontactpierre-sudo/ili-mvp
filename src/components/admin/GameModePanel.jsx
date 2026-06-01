@@ -1,0 +1,326 @@
+import { useState, useEffect } from 'react'
+
+const GAME_TYPES = [
+  { value: 'image',   label: '🖼  Image / Cinématique' },
+  { value: 'message', label: '💬  Message animé' },
+  { value: 'code',    label: '🔢  Code / Digicode' },
+  { value: 'riddle',  label: '🧩  Énigme texte libre' },
+  { value: 'timer',   label: '⏱  Minuteur' },
+]
+
+const DEFAULTS = {
+  image:   { type: 'image',   imageUrl: '', caption: '' },
+  message: { type: 'message', text: '', interface: 'sms', speed: 'normal' },
+  code:    { type: 'code',    answer: '', prompt: '', hint: '', errorMessage: '' },
+  riddle:  { type: 'riddle',  question: '', answer: '', hint: '', placeholder: '', caseSensitive: false, errorMessage: '' },
+  timer:   { type: 'timer',   seconds: 30, prompt: '', hint: '', expireMessage: '' },
+}
+
+function Field({ label, hint, children }) {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.3rem' }}>
+      <label style={{ fontSize: '0.78rem', fontWeight: 600, color: 'rgba(255,255,255,0.6)', letterSpacing: '0.04em' }}>
+        {label}
+      </label>
+      {children}
+      {hint && (
+        <span style={{ fontSize: '0.7rem', color: 'rgba(255,255,255,0.3)', fontStyle: 'italic' }}>{hint}</span>
+      )}
+    </div>
+  )
+}
+
+const inputStyle = {
+  padding: '0.5rem 0.75rem',
+  fontSize: '0.85rem',
+  backgroundColor: 'rgba(255,255,255,0.06)',
+  color: 'rgba(255,255,255,0.9)',
+  border: '1px solid rgba(255,255,255,0.12)',
+  borderRadius: '6px',
+  outline: 'none',
+  fontFamily: 'inherit',
+  width: '100%',
+  boxSizing: 'border-box',
+}
+
+const textareaStyle = {
+  ...inputStyle,
+  resize: 'vertical',
+  minHeight: '72px',
+  lineHeight: 1.5,
+}
+
+// ─── Formulaires par type ────────────────────────────────────────────────────
+
+function FormImage({ data, onChange }) {
+  return (
+    <>
+      <Field label="URL de l'image *" hint="Lien direct vers une image (jpg, png, webp…)">
+        <input style={inputStyle} type="url" value={data.imageUrl || ''} placeholder="https://…"
+          onChange={e => onChange({ ...data, imageUrl: e.target.value })} />
+      </Field>
+      <Field label="Légende" hint="Texte affiché sous l'image (optionnel)">
+        <input style={inputStyle} type="text" value={data.caption || ''} placeholder="Ex : Document retrouvé le 14 mars…"
+          onChange={e => onChange({ ...data, caption: e.target.value })} />
+      </Field>
+    </>
+  )
+}
+
+function FormMessage({ data, onChange }) {
+  return (
+    <>
+      <Field label="Texte du message *">
+        <textarea style={textareaStyle} value={data.text || ''} placeholder="Le message s'affichera lettre par lettre…"
+          onChange={e => onChange({ ...data, text: e.target.value })} />
+      </Field>
+      <Field label="Interface visuelle">
+        <select style={inputStyle} value={data.interface || 'sms'}
+          onChange={e => onChange({ ...data, interface: e.target.value })}>
+          <option value="sms">SMS</option>
+          <option value="email">Email</option>
+          <option value="terminal">Terminal</option>
+          <option value="">Aucune</option>
+        </select>
+      </Field>
+      <Field label="Vitesse d'affichage">
+        <select style={inputStyle} value={data.speed || 'normal'}
+          onChange={e => onChange({ ...data, speed: e.target.value })}>
+          <option value="lent">Lent</option>
+          <option value="normal">Normal</option>
+          <option value="rapide">Rapide</option>
+        </select>
+      </Field>
+    </>
+  )
+}
+
+function FormCode({ data, onChange }) {
+  return (
+    <>
+      <Field label="Réponse correcte *" hint="Chiffres uniquement → clavier numérique. Lettres → champ texte.">
+        <input style={inputStyle} type="text" value={data.answer || ''} placeholder="Ex : 1984"
+          onChange={e => onChange({ ...data, answer: e.target.value })} />
+      </Field>
+      <Field label="Invite (texte au-dessus du code)">
+        <input style={inputStyle} type="text" value={data.prompt || ''} placeholder="Ex : Entrez le code d'accès"
+          onChange={e => onChange({ ...data, prompt: e.target.value })} />
+      </Field>
+      <Field label="Indice">
+        <input style={inputStyle} type="text" value={data.hint || ''} placeholder="Ex : La date sur la lettre…"
+          onChange={e => onChange({ ...data, hint: e.target.value })} />
+      </Field>
+      <Field label="Message d'erreur">
+        <input style={inputStyle} type="text" value={data.errorMessage || ''} placeholder="Ex : Code incorrect"
+          onChange={e => onChange({ ...data, errorMessage: e.target.value })} />
+      </Field>
+    </>
+  )
+}
+
+function FormRiddle({ data, onChange }) {
+  return (
+    <>
+      <Field label="Question *">
+        <textarea style={textareaStyle} value={data.question || ''} placeholder="Ex : Quel est le nom de jeune fille de la mère ?"
+          onChange={e => onChange({ ...data, question: e.target.value })} />
+      </Field>
+      <Field label="Réponse correcte *" hint="Plusieurs réponses acceptées : sépare-les par | (ex : chat|chaton|le chat)">
+        <input style={inputStyle} type="text" value={data.answer || ''} placeholder="Ex : miroir|le miroir"
+          onChange={e => onChange({ ...data, answer: e.target.value })} />
+      </Field>
+      <Field label="Placeholder du champ">
+        <input style={inputStyle} type="text" value={data.placeholder || ''} placeholder="votre réponse…"
+          onChange={e => onChange({ ...data, placeholder: e.target.value })} />
+      </Field>
+      <Field label="Indice">
+        <input style={inputStyle} type="text" value={data.hint || ''} placeholder="Optionnel"
+          onChange={e => onChange({ ...data, hint: e.target.value })} />
+      </Field>
+      <Field label="Message d'erreur">
+        <input style={inputStyle} type="text" value={data.errorMessage || ''}  placeholder="Ce n'est pas ça…"
+          onChange={e => onChange({ ...data, errorMessage: e.target.value })} />
+      </Field>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+        <input type="checkbox" id="caseSensitive" checked={!!data.caseSensitive}
+          onChange={e => onChange({ ...data, caseSensitive: e.target.checked })}
+          style={{ accentColor: '#a78bfa' }} />
+        <label htmlFor="caseSensitive" style={{ fontSize: '0.8rem', color: 'rgba(255,255,255,0.6)', cursor: 'pointer' }}>
+          Sensible à la casse
+        </label>
+      </div>
+    </>
+  )
+}
+
+function FormTimer({ data, onChange }) {
+  return (
+    <>
+      <Field label="Durée (secondes) *">
+        <input style={inputStyle} type="number" min="5" max="300" value={data.seconds || 30}
+          onChange={e => onChange({ ...data, seconds: parseInt(e.target.value) || 30 })} />
+      </Field>
+      <Field label="Texte affiché pendant le compte à rebours">
+        <input style={inputStyle} type="text" value={data.prompt || ''} placeholder="Ex : La bombe est amorcée…"
+          onChange={e => onChange({ ...data, prompt: e.target.value })} />
+      </Field>
+      <Field label="Message quand le temps est écoulé">
+        <input style={inputStyle} type="text" value={data.expireMessage || ''} placeholder="Ex : Le temps est écoulé."
+          onChange={e => onChange({ ...data, expireMessage: e.target.value })} />
+      </Field>
+      <Field label="Indice">
+        <input style={inputStyle} type="text" value={data.hint || ''} placeholder="Optionnel"
+          onChange={e => onChange({ ...data, hint: e.target.value })} />
+      </Field>
+    </>
+  )
+}
+
+// ─── Panel principal ─────────────────────────────────────────────────────────
+
+function GameModePanel({ segment, segmentIndex, onSave, onDelete, onClose }) {
+  const existing = segment?.gameMode ?? null
+  const [type, setType] = useState(existing?.type || 'code')
+  const [data, setData] = useState(existing || DEFAULTS['code'])
+
+  // Quand on change de type, réinitialiser avec les défauts du nouveau type
+  const handleTypeChange = (newType) => {
+    setType(newType)
+    setData(DEFAULTS[newType])
+  }
+
+  const handleSave = () => {
+    if (!data.type) return
+    onSave(segmentIndex, data)
+    onClose()
+  }
+
+  const handleDelete = () => {
+    onDelete(segmentIndex)
+    onClose()
+  }
+
+  return (
+    <>
+      {/* Overlay sombre */}
+      <div
+        style={{
+          position: 'fixed', inset: 0,
+          backgroundColor: 'rgba(0,0,0,0.5)',
+          zIndex: 1000,
+        }}
+        onClick={onClose}
+      />
+
+      {/* Panel */}
+      <div
+        style={{
+          position: 'fixed',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          zIndex: 1001,
+          width: '90%',
+          maxWidth: '460px',
+          maxHeight: '85vh',
+          overflowY: 'auto',
+          backgroundColor: '#1a1a1e',
+          border: '1px solid rgba(255,255,255,0.1)',
+          borderRadius: '12px',
+          padding: '1.5rem',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '1.25rem',
+          boxShadow: '0 24px 64px rgba(0,0,0,0.5)',
+          fontFamily: 'system-ui, sans-serif',
+        }}
+        onClick={e => e.stopPropagation()}
+      >
+        {/* En-tête */}
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <div>
+            <div style={{ fontSize: '0.7rem', color: 'rgba(255,255,255,0.35)', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: '0.2rem' }}>
+              Segment {segmentIndex + 1}
+            </div>
+            <h3 style={{ margin: 0, fontSize: '1rem', fontWeight: 600, color: 'rgba(255,255,255,0.9)' }}>
+              🎮 Mode Gamification
+            </h3>
+          </div>
+          <button onClick={onClose} style={{ background: 'none', border: 'none', color: 'rgba(255,255,255,0.4)', fontSize: '1.2rem', cursor: 'pointer', padding: '0.25rem' }}>✕</button>
+        </div>
+
+        {/* Sélecteur de type */}
+        <Field label="Type d'interaction">
+          <select
+            style={inputStyle}
+            value={type}
+            onChange={e => handleTypeChange(e.target.value)}
+          >
+            {GAME_TYPES.map(t => (
+              <option key={t.value} value={t.value}>{t.label}</option>
+            ))}
+          </select>
+        </Field>
+
+        {/* Formulaire selon le type */}
+        {type === 'image'   && <FormImage   data={data} onChange={setData} />}
+        {type === 'message' && <FormMessage data={data} onChange={setData} />}
+        {type === 'code'    && <FormCode    data={data} onChange={setData} />}
+        {type === 'riddle'  && <FormRiddle  data={data} onChange={setData} />}
+        {type === 'timer'   && <FormTimer   data={data} onChange={setData} />}
+
+        {/* Actions */}
+        <div style={{ display: 'flex', gap: '0.75rem', marginTop: '0.5rem', paddingTop: '1rem', borderTop: '1px solid rgba(255,255,255,0.08)' }}>
+          <button
+            onClick={handleSave}
+            style={{
+              flex: 1,
+              padding: '0.7rem',
+              backgroundColor: '#a78bfa',
+              color: '#fff',
+              border: 'none',
+              borderRadius: '6px',
+              fontSize: '0.875rem',
+              fontWeight: 600,
+              cursor: 'pointer',
+            }}
+          >
+            Enregistrer
+          </button>
+          {existing && (
+            <button
+              onClick={handleDelete}
+              style={{
+                padding: '0.7rem 1rem',
+                backgroundColor: 'rgba(220,38,38,0.15)',
+                color: 'rgba(220,38,38,0.9)',
+                border: '1px solid rgba(220,38,38,0.2)',
+                borderRadius: '6px',
+                fontSize: '0.875rem',
+                cursor: 'pointer',
+              }}
+            >
+              Supprimer
+            </button>
+          )}
+          <button
+            onClick={onClose}
+            style={{
+              padding: '0.7rem 1rem',
+              backgroundColor: 'rgba(255,255,255,0.06)',
+              color: 'rgba(255,255,255,0.5)',
+              border: '1px solid rgba(255,255,255,0.1)',
+              borderRadius: '6px',
+              fontSize: '0.875rem',
+              cursor: 'pointer',
+            }}
+          >
+            Annuler
+          </button>
+        </div>
+      </div>
+    </>
+  )
+}
+
+export default GameModePanel
