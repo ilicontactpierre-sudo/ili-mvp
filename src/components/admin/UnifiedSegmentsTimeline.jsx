@@ -95,6 +95,7 @@ function SegmentTimelineRow({
   onVfxDragTargetChange,
   onDragHandleMouseDown,
   isDragging,
+  onGameMode,
 }) {
   console.log('segment', index, segment)
   const containerRef = useRef(null)
