@@ -309,13 +309,22 @@ function StoryPage() {
     )
   }
 
+  const currentSegment = segments[currentIndex]
+  const activeGameMode = currentSegment?.gameMode ?? null
+
   return (
     <div
       style={{ minHeight: '100vh' }}
-      onClick={handleScreenClick}
-      onTouchStart={handleTouchStart}
-      onTouchEnd={handleTouchEnd}
+      onClick={!activeGameMode ? handleScreenClick : undefined}
+      onTouchStart={!activeGameMode ? handleTouchStart : undefined}
+      onTouchEnd={!activeGameMode ? handleTouchEnd : undefined}
     >
+      {activeGameMode && (
+        <GameOverlay
+          gameMode={activeGameMode}
+          onResolved={goToNext}
+        />
+      )}
       <StoryReader storyData={story} currentIndex={currentIndex} jumpPhase={jumpPhase} />
       <ReaderSettings
         storyId={story?.id}
