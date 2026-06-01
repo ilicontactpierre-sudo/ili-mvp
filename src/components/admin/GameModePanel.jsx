@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react'
 
 const GAME_TYPES = [
-  { value: 'image',   label: '🖼  Image / Cinématique' },
-  { value: 'message', label: '💬  Message animé' },
-  { value: 'code',    label: '🔢  Code / Digicode' },
-  { value: 'riddle',  label: '🧩  Énigme texte libre' },
-  { value: 'timer',   label: '⏱  Minuteur' },
+  { value: 'image',    label: '🖼  Image / Cinématique' },
+  { value: 'document', label: '📄  Document / Artefact' },
+  { value: 'message',  label: '💬  Message animé' },
+  { value: 'code',     label: '🔢  Code / Digicode' },
+  { value: 'riddle',   label: '🧩  Énigme texte libre' },
+  { value: 'timer',    label: '⏱  Minuteur' },
 ]
 
 const DEFAULTS = {
