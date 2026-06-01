@@ -454,48 +454,7 @@ function SegmentTimelineRow({
           🎮
         </button>
       </div>
-          style={{
-            background: 'none',
-            border: 'none',
-            cursor: 'pointer',
-            padding: '0 1px',
-            fontSize: '0.65rem',
-            lineHeight: 1,
-            color: (hovered || isSelected) ? '#4CAF50' : 'rgba(0,0,0,0.12)',
-            flexShrink: 0,
-            transition: 'color 0.2s ease',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            width: '14px',
-            height: '14px',
-          }}
-        >
-          ＋
-        </button>
-        <button
-          onClick={(e) => { e.stopPropagation(); onDelete(index); }}
-          title="Supprimer le segment"
-          style={{
-            background: 'none',
-            border: 'none',
-            cursor: 'pointer',
-            padding: '0 1px',
-            fontSize: '0.6rem',
-            lineHeight: 1,
-            color: (hovered || isSelected) ? '#f44336' : 'rgba(0,0,0,0.12)',
-            flexShrink: 0,
-            transition: 'color 0.2s ease',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            width: '14px',
-            height: '14px',
-          }}
-        >
-          ✕
-        </button>
-      </div>
+          
         {/* Numéro du segment — cliquable si chapitre pour collapse/expand */}
         <span
           onClick={isChapter ? (e) => { e.stopPropagation(); e.preventDefault(); onToggleChapter(index, e.shiftKey) } : undefined}
@@ -2235,6 +2194,27 @@ const handleTextSelection = useCallback(() => {
           50% { opacity: 0.5; }
         }
       `}</style>
+
+      {gameModePanel !== null && (
+        <GameModePanel
+          segment={segments[gameModePanel]}
+          segmentIndex={gameModePanel}
+          onSave={(idx, gameMode) => {
+            const updated = [...segments]
+            updated[idx] = { ...updated[idx], gameMode }
+            onSegmentsChange(updated)
+            if (onSaveToHistory) onSaveToHistory()
+          }}
+          onDelete={(idx) => {
+            const updated = [...segments]
+            const { gameMode, ...rest } = updated[idx]
+            updated[idx] = rest
+            onSegmentsChange(updated)
+            if (onSaveToHistory) onSaveToHistory()
+          }}
+          onClose={() => setGameModePanel(null)}
+        />
+      )}
     </div>
   )
 }
