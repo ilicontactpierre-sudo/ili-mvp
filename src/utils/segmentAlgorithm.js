@@ -25,7 +25,7 @@ const CONFIG = {
   // Limite absolue de caractères par segment (espaces compris) — découpage algo
   MAX_CHARS: 254,
   // Limite absolue de caractères affichables par segment (taille M)
-  MAX_DISPLAY_CHARS: 940,
+  MAX_DISPLAY_CHARS: 400,
   // Seuil pour qu'une unité soit "courte" (isolation potentielle)
   SHORT_UNIT_THRESHOLD: 75,
   // Seuil pour qu'une unité soit "très courte" (beat fort)
