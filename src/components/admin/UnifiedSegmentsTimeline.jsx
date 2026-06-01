@@ -1163,15 +1163,13 @@ function UnifiedSegmentsTimeline({
       ? (segments[index + 1].id || segments[index + 1]._id)
       : null
     
-    const updatedTracks = soundTracks.map(track => {
-      if (track.startSegmentId === seg2Id) {
-        return { ...track, startSegmentId: seg1Id }
-      }
-      if (track.endSegmentId === seg2Id) {
-        return { ...track, endSegmentId: seg1Id }
-      }
-      return track
-    })
+    const updatedTracks = seg1Id && seg2Id
+      ? soundTracks.map(track => {
+          if (track.startSegmentId === seg2Id) return { ...track, startSegmentId: seg1Id }
+          if (track.endSegmentId === seg2Id) return { ...track, endSegmentId: seg1Id }
+          return track
+        })
+      : soundTracks
     
     onSegmentsChange(updatedSegments)
     onSoundTracksChange(updatedTracks)
