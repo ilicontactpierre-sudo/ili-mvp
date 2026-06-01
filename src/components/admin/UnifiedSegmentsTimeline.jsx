@@ -6,6 +6,7 @@ import { SEGMENT_HEIGHT, COLUMN_COUNT, COLUMN_WIDTH, VFX_COLUMN_COUNT, VFX_COLUM
 import VfxBlock from './VfxBlock'
 import VfxBlockPanel from './VfxBlockPanel'
 import FormatToolbar from './FormatToolbar'
+import GameModePanel from './GameModePanel'
 import { renderMarkdown } from '../../utils/renderMarkdown'
 
 const getSegmentText = (segment) => {
