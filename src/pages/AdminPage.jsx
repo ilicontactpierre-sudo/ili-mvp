@@ -239,7 +239,9 @@ function AdminPage() {
       return;
     }
 
-    const segmentToCut = segments[index];
+    const segmentToCut = typeof segments[index] === 'string'
+      ? segments[index]
+      : (segments[index]?.text || '')
     if (cursorPosition === 0 || cursorPosition >= segmentToCut.length) {
       alert("La position de coupe doit être à l'intérieur du texte du segment.");
       return;
