@@ -123,18 +123,63 @@ function GameOverlay({ gameMode, onResolved }) {
   const [leaving, setLeaving] = useState(false)
   const [visible, setVisible] = useState(false)
 
+  // ── Mémoire : clé unique par gameMode ──
+  const memoryKey = `ili_game_${JSON.stringify({ t: gameMode?.type, a: gameMode?.answer ?? gameMode?.seconds ?? gameMode?.imageUrl ?? '' })}`
+  const alreadySolved = (() => {
+    try { return sessionStorage.getItem(memoryKey) === '1' } catch { return false }
+  })()
+
   useEffect(() => {
     const t = setTimeout(() => setVisible(true), 40)
     return () => clearTimeout(t)
   }, [])
 
   const handleResolved = () => {
+    try { sessionStorage.setItem(memoryKey, '1') } catch {}
     setLeaving(true)
     setVisible(false)
     setTimeout(onResolved, 680)
   }
 
   const type = gameMode?.type
+
+  // ── Mode "déjà vu" ──
+  if (alreadySolved) {
+    return (
+      <>
+        <style>{GLOBAL_KEYFRAMES}</style>
+        <div style={{
+          position: 'fixed',
+          inset: 0,
+          zIndex: 200,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          backgroundColor: 'var(--color-bg, #f5f0e8)',
+          opacity: visible && !leaving ? 1 : 0,
+          transform: leaving ? 'scale(1.015)' : visible ? 'scale(1)' : 'scale(0.985)',
+          transition: `opacity 640ms ${EASE.inOut}, transform 640ms ${EASE.inOut}`,
+          padding: '2rem',
+          boxSizing: 'border-box',
+        }}>
+          <AnimatedWrapper style={{ gap: '1.4rem' }}>
+            <p style={{
+              fontSize: '0.78rem',
+              color: 'var(--color-text-focus, #222)',
+              opacity: 0.4,
+              textAlign: 'center',
+              letterSpacing: '0.08em',
+              fontStyle: 'italic',
+              margin: 0,
+            }}>
+              {gameMode?.alreadySolvedMessage || 'vous connaissez déjà la réponse'}
+            </p>
+            <ContinueBtn onClick={handleResolved} label="continuer" delay={200} />
+          </AnimatedWrapper>
+        </div>
+      </>
+    )
+  }
 
   return (
     <>
