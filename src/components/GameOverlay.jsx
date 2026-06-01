@@ -735,6 +735,183 @@ function GameRiddle({ data, onResolved }) {
   )
 }
 
+// ─── Type : Document / Artefact ──────────────────────────────────────────────
+function GameDocument({ data, onResolved }) {
+  const [revealed, setRevealed] = useState(false)
+  useEffect(() => { const t = setTimeout(() => setRevealed(true), 120); return () => clearTimeout(t) }, [])
+
+  const styles = {
+    letter: {
+      bg: '#f5f0e0',
+      color: '#1a1410',
+      font: 'Georgia, serif',
+      border: '1px solid rgba(0,0,0,0.12)',
+      shadow: '0 4px 32px rgba(0,0,0,0.18), 0 1px 4px rgba(0,0,0,0.1), inset 0 0 60px rgba(0,0,0,0.03)',
+      titleSize: '0.72rem',
+      bodySize: '0.95rem',
+      lineHeight: 1.85,
+    },
+    telegram: {
+      bg: '#f0ead6',
+      color: '#1a1410',
+      font: "'Courier New', monospace",
+      border: '2px solid rgba(0,0,0,0.2)',
+      shadow: '0 4px 24px rgba(0,0,0,0.2)',
+      titleSize: '0.68rem',
+      bodySize: '0.88rem',
+      lineHeight: 1.6,
+    },
+    note: {
+      bg: '#fefce8',
+      color: '#1c1917',
+      font: "'Georgia', cursive",
+      border: '1px solid rgba(0,0,0,0.08)',
+      shadow: '2px 3px 12px rgba(0,0,0,0.15), -1px -1px 4px rgba(0,0,0,0.06)',
+      titleSize: '0.72rem',
+      bodySize: '1rem',
+      lineHeight: 2,
+    },
+    card: {
+      bg: '#1a1a2e',
+      color: '#e8e0d0',
+      font: 'system-ui, sans-serif',
+      border: '1px solid rgba(255,255,255,0.15)',
+      shadow: '0 8px 40px rgba(0,0,0,0.4)',
+      titleSize: '0.62rem',
+      bodySize: '0.88rem',
+      lineHeight: 1.5,
+    },
+    newspaper: {
+      bg: '#f2ead8',
+      color: '#111',
+      font: 'Georgia, serif',
+      border: '2px solid #111',
+      shadow: '3px 3px 0 rgba(0,0,0,0.15)',
+      titleSize: '0.68rem',
+      bodySize: '0.9rem',
+      lineHeight: 1.7,
+    },
+  }
+
+  const s = styles[data.style] || styles.letter
+  const isTelegram = data.style === 'telegram'
+  const isCard = data.style === 'card'
+  const isNewspaper = data.style === 'newspaper'
+
+  return (
+    <AnimatedWrapper style={{ gap: '1.8rem', maxWidth: '520px' }}>
+      <div style={{
+        width: '100%',
+        backgroundColor: s.bg,
+        color: s.color,
+        fontFamily: s.font,
+        border: s.border,
+        borderRadius: isCard ? '8px' : isNewspaper ? '0' : '2px',
+        boxShadow: s.shadow,
+        padding: isCard ? '2rem' : '2.8rem 3rem',
+        boxSizing: 'border-box',
+        position: 'relative',
+        overflow: 'hidden',
+        opacity: revealed ? 1 : 0,
+        transform: revealed ? 'translateY(0) rotate(0deg)' : 'translateY(16px) rotate(-0.5deg)',
+        transition: `opacity 800ms ${EASE.out}, transform 900ms ${EASE.out}`,
+      }}>
+
+        {/* Texture grain subtile */}
+        <div style={{
+          position: 'absolute', inset: 0, pointerEvents: 'none', zIndex: 0,
+          backgroundImage: 'url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'200\' height=\'200\'%3E%3Cfilter id=\'n\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.75\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3CfeColorMatrix type=\'saturate\' values=\'0\'/%3E%3C/filter%3E%3Crect width=\'200\' height=\'200\' filter=\'url(%23n)\' opacity=\'0.04\'/%3E%3C/svg%3E")',
+          opacity: 0.6,
+        }} />
+
+        {/* Contenu */}
+        <div style={{ position: 'relative', zIndex: 1 }}>
+
+          {/* En-tête selon le style */}
+          {isTelegram && (
+            <div style={{ textAlign: 'center', borderBottom: '2px solid currentColor', paddingBottom: '0.75rem', marginBottom: '1.2rem' }}>
+              <div style={{ fontSize: '0.6rem', letterSpacing: '0.2em', opacity: 0.5, marginBottom: '0.2rem' }}>— TÉLÉGRAMME —</div>
+              {data.date && <div style={{ fontSize: s.titleSize, letterSpacing: '0.1em', opacity: 0.65 }}>{data.date}</div>}
+            </div>
+          )}
+
+          {isNewspaper && data.title && (
+            <div style={{ textAlign: 'center', borderBottom: '3px solid #111', borderTop: '1px solid #111', padding: '0.5rem 0', marginBottom: '1rem' }}>
+              <div style={{ fontSize: '1.1rem', fontWeight: 700, letterSpacing: '0.04em', lineHeight: 1.2 }}>{data.title}</div>
+            </div>
+          )}
+
+          {!isTelegram && !isNewspaper && (
+            <div style={{ marginBottom: '1.5rem' }}>
+              {data.date && (
+                <div style={{ fontSize: s.titleSize, letterSpacing: '0.06em', opacity: 0.55, marginBottom: '0.3rem', textAlign: isCard ? 'center' : 'right' }}>
+                  {data.date}
+                </div>
+              )}
+              {data.title && (
+                <div style={{ fontSize: s.titleSize, letterSpacing: '0.1em', textTransform: 'uppercase', opacity: 0.6, fontWeight: 600, textAlign: isCard ? 'center' : 'left' }}>
+                  {data.title}
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* De / À */}
+          {(data.from || data.to) && !isCard && (
+            <div style={{ fontSize: s.titleSize, opacity: 0.6, marginBottom: '1rem', lineHeight: 1.6 }}>
+              {data.from && <div>De : {data.from}</div>}
+              {data.to   && <div>À : {data.to}</div>}
+            </div>
+          )}
+
+          {/* Corps */}
+          <p style={{
+            margin: 0,
+            fontSize: s.bodySize,
+            lineHeight: s.lineHeight,
+            whiteSpace: 'pre-wrap',
+            wordBreak: 'break-word',
+            textAlign: isCard ? 'center' : 'left',
+          }}>
+            {data.body}
+          </p>
+
+          {/* Signature */}
+          {data.from && !isTelegram && !isCard && (
+            <div style={{ marginTop: '1.8rem', fontSize: s.titleSize, opacity: 0.55, textAlign: 'right' }}>
+              {data.from}
+            </div>
+          )}
+        </div>
+
+        {/* Tampon en diagonale */}
+        {data.stamp && (
+          <div style={{
+            position: 'absolute',
+            top: '50%', left: '50%',
+            transform: 'translate(-50%, -50%) rotate(-18deg)',
+            fontSize: 'clamp(1.2rem, 4vw, 1.8rem)',
+            fontWeight: 800,
+            letterSpacing: '0.12em',
+            color: data.style === 'card' ? 'rgba(255,80,80,0.55)' : 'rgba(180,20,20,0.22)',
+            border: `3px solid ${data.style === 'card' ? 'rgba(255,80,80,0.4)' : 'rgba(180,20,20,0.18)'}`,
+            padding: '0.3rem 0.8rem',
+            borderRadius: '4px',
+            pointerEvents: 'none',
+            userSelect: 'none',
+            textTransform: 'uppercase',
+            whiteSpace: 'nowrap',
+            zIndex: 2,
+          }}>
+            {data.stamp}
+          </div>
+        )}
+      </div>
+
+      <ContinueBtn onClick={onResolved} delay={800} />
+    </AnimatedWrapper>
+  )
+}
 
 // ─── Type : Minuteur ─────────────────────────────────────────────────────────
 function GameTimer({ data, onResolved }) {
