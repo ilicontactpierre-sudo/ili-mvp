@@ -856,6 +856,144 @@ function composeSegments(scoredUnits, beats, granularity) {
 }
 
 // ══════════════════════════════════════════════════════════════════════════════
+// PHASE 6b — COUPE INTRA-UNITÉ sur ponctuation faible (, ; :)
+// ══════════════════════════════════════════════════════════════════════════════
+/**
+ * Tente de subdiviser certains segments en coupant sur , ; :
+ * selon des probabilités contextuelles et un pseudo-aléatoire déterministe.
+ *
+ * Règles :
+ *  - Inactif si granularité >= 8
+ *  - Jamais deux coupes consécutives sur la même unité
+ *  - Chaque morceau doit faire >= MIN_PART_LENGTH_FOR_WEAK_CUT chars
+ *  - La coupe sur , exige un contexte dramatique (tension ou action)
+ *  - Les segments déjà isolés (1 unité courte) ne sont pas redécoupés
+ */
+function splitOnWeakPunctuation(composedSegments, scoredUnits, granularity) {
+  if (granularity >= 8) return composedSegments
+
+  // Pseudo-random déterministe basé sur le contenu
+  const pseudoRandom = (seed) => ((seed * 2654435761) >>> 0) / 4294967296
+
+  const result = []
+
+  for (let segIdx = 0; segIdx < composedSegments.length; segIdx++) {
+    const group = composedSegments[segIdx]
+
+    // Ne pas re-découper un segment déjà court (1 unité, < 60 chars)
+    if (group.length === 1 && group[0].text.length < 60) {
+      result.push(group)
+      continue
+    }
+
+    // Travailler sur le texte fusionné du segment
+    const fullText = group.map(u => u.text).join(' ')
+
+    // Trouver tous les candidats de coupe (, ; :) dans le texte fusionné
+    // On cherche dans l'ordre du texte, on ne coupe qu'une seule fois par segment
+    // (la coupe la plus "méritante")
+    const candidates = []
+
+    let pos = 0
+    for (const unit of group) {
+      const t = unit.text
+      for (let i = 0; i < t.length; i++) {
+        const char = t[i]
+        const globalPos = pos + i
+
+        if (char === ':') {
+          const before = fullText.substring(0, globalPos).trim()
+          const after  = fullText.substring(globalPos + 1).trim()
+          if (
+            before.length >= CONFIG.MIN_PART_LENGTH_FOR_WEAK_CUT &&
+            after.length  >= CONFIG.MIN_PART_LENGTH_FOR_WEAK_CUT
+          ) {
+            // Score : élevé si ce qui suit est court (révélation)
+            const revealBonus = after.length < 60 ? 0.25 : 0
+            const seed = segIdx * 1000 + globalPos
+            const prob = Math.min(0.95, CONFIG.COLON_CUT_PROB + revealBonus)
+            candidates.push({ pos: globalPos, char, prob, seed, before, after })
+          }
+        }
+
+        if (char === ';') {
+          const before = fullText.substring(0, globalPos).trim()
+          const after  = fullText.substring(globalPos + 1).trim()
+          if (
+            before.length >= CONFIG.MIN_PART_LENGTH_FOR_WEAK_CUT &&
+            after.length  >= CONFIG.MIN_PART_LENGTH_FOR_WEAK_CUT
+          ) {
+            const seed = segIdx * 1000 + globalPos + 100000
+            candidates.push({ pos: globalPos, char, prob: CONFIG.SEMICOLON_CUT_PROB, seed, before, after })
+          }
+        }
+
+        if (char === ',') {
+          const before = fullText.substring(0, globalPos).trim()
+          const after  = fullText.substring(globalPos + 1).trim()
+          if (
+            before.length >= CONFIG.MIN_PART_LENGTH_FOR_WEAK_CUT * 1.5 && // seuil plus haut pour virgule
+            after.length  >= CONFIG.MIN_PART_LENGTH_FOR_WEAK_CUT
+          ) {
+            // La virgule n'est éligible que si le contexte est dramatique
+            const unitScore = unit.scores
+            const hasTension  = unitScore && unitScore.tension > 0.25
+            const hasAction    = CONFIG.ACTION_VERBS.some(v => t.toLowerCase().includes(v))
+            const hasTensWord  = CONFIG.TENSION_WORDS.some(w => t.toLowerCase().includes(w))
+            const contextScore = (hasTension ? 0.12 : 0) + (hasAction ? 0.08 : 0) + (hasTensWord ? 0.06 : 0)
+            const prob = CONFIG.COMMA_CUT_BASE_PROB + contextScore
+            const seed = segIdx * 1000 + globalPos + 200000
+            candidates.push({ pos: globalPos, char, prob, seed, before, after })
+          }
+        }
+      }
+      pos += unit.text.length + 1 // +1 pour l'espace de fusion
+    }
+
+    if (candidates.length === 0) {
+      result.push(group)
+      continue
+    }
+
+    // Choisir le candidat le plus méritant qui passe le tirage
+    // Priorité : ':' > ';' > ',' — parmi ceux qui passent leur probabilité
+    const priority = { ':': 3, ';': 2, ',': 1 }
+    const eligible = candidates
+      .filter(c => pseudoRandom(c.seed) < c.prob)
+      .sort((a, b) => priority[b.char] - priority[a.char])
+
+    if (eligible.length === 0) {
+      result.push(group)
+      continue
+    }
+
+    // Prendre le premier éligible (le plus prioritaire)
+    const cut = eligible[0]
+
+    // Construire deux pseudo-unités textuelles
+    // On conserve la ponctuation de coupe à la fin du premier morceau
+    const textA = fullText.substring(0, cut.pos + 1).trim() // inclut , ; :
+    const textB = fullText.substring(cut.pos + 1).trim()
+
+    if (!textA || !textB) {
+      result.push(group)
+      continue
+    }
+
+    // Créer deux groupes synthétiques (une unité chacun)
+    // On réutilise les scores de la première unité du groupe d'origine
+    const baseUnit = group[0]
+    const unitA = { ...baseUnit, text: textA }
+    const unitB = { ...baseUnit, text: textB, isFirstOfParagraph: false }
+
+    result.push([unitA])
+    result.push([unitB])
+  }
+
+  return result
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
 // PHASE 7 — CADENCE : anti-monotonie et équilibrage global
 // ══════════════════════════════════════════════════════════════════════════════
 /**
@@ -1049,8 +1187,8 @@ export function segmentText(text, granularity = 5) {
   const scoredUnits  = scoreUnits(typedUnits)
   const beats        = detectBeats(scoredUnits)
   const rawSegments  = composeSegments(scoredUnits, beats, g)
-  const balanced     = enforceRhythmCadence(rawSegments)
-
+  const withWeakCuts = splitOnWeakPunctuation(rawSegments, scoredUnits, g)
+  const balanced     = enforceRhythmCadence(withWeakCuts)
   return serializeSegments(balanced)
 }
 
