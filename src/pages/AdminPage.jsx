@@ -249,8 +249,13 @@ function AdminPage() {
 
     setSegments(prevSegments => {
       const newSegments = [...prevSegments];
-      const part1 = segmentToCut.substring(0, cursorPosition);
-      const part2 = segmentToCut.substring(cursorPosition);
+      const original = prevSegments[index]
+      const part1 = typeof original === 'string'
+        ? original.substring(0, cursorPosition)
+        : { ...original, text: original.text.substring(0, cursorPosition), id: `seg_${Date.now()}_a`, breakAt: null }
+      const part2 = typeof original === 'string'
+        ? original.substring(cursorPosition)
+        : { ...original, text: original.text.substring(cursorPosition), id: `seg_${Date.now()}_b`, breakAt: null, audioEvents: [] }
       newSegments.splice(index, 1, part1, part2);
       saveToHistory(newSegments)
       return newSegments;
