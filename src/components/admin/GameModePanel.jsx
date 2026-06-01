@@ -116,6 +116,10 @@ function FormCode({ data, onChange }) {
         <input style={inputStyle} type="text" value={data.errorMessage || ''} placeholder="Ex : Code incorrect"
           onChange={e => onChange({ ...data, errorMessage: e.target.value })} />
       </Field>
+      <Field label="Message si déjà résolu" hint="Affiché si le lecteur repasse sur ce segment">
+        <input style={inputStyle} type="text" value={data.alreadySolvedMessage || ''} placeholder="vous connaissez déjà la réponse"
+          onChange={e => onChange({ ...data, alreadySolvedMessage: e.target.value })} />
+      </Field>
     </>
   )
 }
