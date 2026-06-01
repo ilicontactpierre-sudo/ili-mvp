@@ -170,6 +170,47 @@ function FormRiddle({ data, onChange }) {
   )
 }
 
+function FormDocument({ data, onChange }) {
+  return (
+    <>
+      <Field label="Style du document">
+        <select style={inputStyle} value={data.style || 'letter'}
+          onChange={e => onChange({ ...data, style: e.target.value })}>
+          <option value="letter">Lettre officielle</option>
+          <option value="telegram">Télégramme</option>
+          <option value="note">Note manuscrite</option>
+          <option value="card">Carte / Badge</option>
+          <option value="newspaper">Coupure de presse</option>
+        </select>
+      </Field>
+      <Field label="Titre / Objet">
+        <input style={inputStyle} type="text" value={data.title || ''} placeholder="Ex : CONFIDENTIEL — Ordre de mission"
+          onChange={e => onChange({ ...data, title: e.target.value })} />
+      </Field>
+      <Field label="Corps du document *">
+        <textarea style={{ ...textareaStyle, minHeight: '120px' }} value={data.body || ''} placeholder="Texte principal du document…"
+          onChange={e => onChange({ ...data, body: e.target.value })} />
+      </Field>
+      <Field label="De (expéditeur)">
+        <input style={inputStyle} type="text" value={data.from || ''} placeholder="Ex : Commissaire Moreau"
+          onChange={e => onChange({ ...data, from: e.target.value })} />
+      </Field>
+      <Field label="À (destinataire)">
+        <input style={inputStyle} type="text" value={data.to || ''} placeholder="Ex : Agent Duval"
+          onChange={e => onChange({ ...data, to: e.target.value })} />
+      </Field>
+      <Field label="Date">
+        <input style={inputStyle} type="text" value={data.date || ''} placeholder="Ex : Paris, le 14 mars 1943"
+          onChange={e => onChange({ ...data, date: e.target.value })} />
+      </Field>
+      <Field label="Tampon / Mention" hint="Texte du tampon en diagonale (ex : URGENT, CLASSIFIÉ, ANNULÉ)">
+        <input style={inputStyle} type="text" value={data.stamp || ''} placeholder="Ex : CLASSIFIÉ"
+          onChange={e => onChange({ ...data, stamp: e.target.value })} />
+      </Field>
+    </>
+  )
+}
+
 function FormTimer({ data, onChange }) {
   return (
     <>
