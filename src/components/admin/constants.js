@@ -96,6 +96,18 @@ export function createSoundTrack(soundId, startSegmentId, endSegmentId, column =
     ...overrides
   }
 }
+
+// ============================================================
+// GAME MODE — Gamification
+// ============================================================
+export const GAME_TYPES = {
+  image:   { label: '🖼  Image / Cinématique',  hasAnswer: false },
+  message: { label: '💬  Message animé',         hasAnswer: false },
+  code:    { label: '🔢  Code / Digicode',        hasAnswer: true  },
+  riddle:  { label: '🧩  Énigme texte libre',     hasAnswer: true  },
+  timer:   { label: '⏱  Minuteur',               hasAnswer: false },
+}
+
 // ============================================================
 // VFX — Effets visuels
 // ============================================================
