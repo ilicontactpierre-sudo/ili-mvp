@@ -918,6 +918,16 @@ function GameTimer({ data, onResolved }) {
   const total = data.seconds || 30
   const [remaining, setRemaining] = useState(total)
   const [expired, setExpired] = useState(false)
+  const [pulse, setPulse] = useState(false)
+
+  // Respiration quand il reste moins de 10 secondes
+  useEffect(() => {
+    if (remaining >= 10 || expired) { setPulse(false); return }
+    const interval = setInterval(() => {
+      setPulse(p => !p)
+    }, 600 + remaining * 30) // s'accélère progressivement
+    return () => clearInterval(interval)
+  }, [remaining, expired])
 
   useEffect(() => {
     if (remaining <= 0) {
