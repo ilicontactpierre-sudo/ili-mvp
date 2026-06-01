@@ -145,7 +145,7 @@ function FormRiddle({ data, onChange }) {
         <input style={inputStyle} type="text" value={data.closeMessage || ''} placeholder="Presque…"
           onChange={e => onChange({ ...data, closeMessage: e.target.value })} />
       </Field>
-      <Field label="Faux indices (decoys)" hint='Format JSON : [{"key":"phoenix","message":"L\'orthographe trahit l\'étranger."}]'>
+      <Field label="Faux indices (decoys)" hint="Format JSON : [{&quot;key&quot;:&quot;phoenix&quot;, &quot;message&quot;:&quot;Réponse narrative personnalisée&quot;}]">
         <textarea style={textareaStyle} value={data.decoysRaw || ''} placeholder='[{"key":"...", "message":"..."}]'
           onChange={e => {
             try {
