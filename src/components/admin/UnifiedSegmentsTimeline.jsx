@@ -1212,12 +1212,32 @@ function UnifiedSegmentsTimeline({
     const segmentToDelete = segments[index]
     const segId = segmentToDelete.id || segmentToDelete._id
     
-    const updatedTracks = soundTracks.filter(track => track.startSegmentId !== segId)
     const updatedSegments = [...segments]
     updatedSegments.splice(index, 1)
-    
+
+    // Nettoyer les soundTracks qui référencent ce segment
+    const updatedTracks = soundTracks
+      .filter(track => track.startSegmentId !== segId)
+      .map(track => ({
+        ...track,
+        endSegmentId: track.endSegmentId === segId
+          ? (updatedSegments[index] ? (updatedSegments[index].id || updatedSegments[index]._id) : track.startSegmentId)
+          : track.endSegmentId
+      }))
+
+    // Nettoyer les vfxTracks qui référencent ce segment
+    const updatedVfxTracks = (vfxTracks || [])
+      .filter(track => track.startSegmentId !== segId)
+      .map(track => ({
+        ...track,
+        endSegmentId: track.endSegmentId === segId
+          ? (updatedSegments[index] ? (updatedSegments[index].id || updatedSegments[index]._id) : track.startSegmentId)
+          : track.endSegmentId
+      }))
+
     onSegmentsChange(updatedSegments)
     onSoundTracksChange(updatedTracks)
+    if (onVfxTracksChange) onVfxTracksChange(updatedVfxTracks)
     if (onSaveToHistory) onSaveToHistory()
   }, [segments, soundTracks, onSegmentsChange, onSoundTracksChange, onSaveToHistory])
 
