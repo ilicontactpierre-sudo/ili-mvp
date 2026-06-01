@@ -962,7 +962,11 @@ function GameTimer({ data, onResolved }) {
         </p>
       )}
 
-      <div style={{ position: 'relative', width: '126px', height: '126px' }}>
+      <div style={{
+        position: 'relative', width: '126px', height: '126px',
+        opacity: pulse ? 0.88 : 1,
+        transition: `opacity ${600 + remaining * 30}ms ${EASE.inOut}`,
+      }}>
         <svg width="126" height="126" style={{ transform: 'rotate(-90deg)' }}>
           <circle cx="63" cy="63" r={radius}
             fill="none" stroke="var(--color-text-focus, #222)"
