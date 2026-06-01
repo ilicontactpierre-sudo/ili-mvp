@@ -234,7 +234,15 @@ function StoryPreviewModal({ isOpen, storyData, onClose }) {
             />
           )}
           {isStarted && !isFinished && (
-            <StoryReader storyData={storyData} currentIndex={currentIndex} />
+            <>
+              <StoryReader storyData={storyData} currentIndex={currentIndex} />
+              {activeGameMode && (
+                <GameOverlay
+                  gameMode={activeGameMode}
+                  onResolved={goToNext}
+                />
+              )}
+            </>
           )}
           {isFinished && (
             <EndScreen
