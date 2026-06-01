@@ -59,6 +59,17 @@
       "audioEvents": []
     },
     {
+      "text": "",
+      "id": "seg_1780353456663",
+      "gameMode": {
+        "type": "message",
+        "text": "test du message animé via SMS pour voir ce que ça fait. Je ne sais pas trop à quoi m'attendre mais bon... Peut être que c'est cool ! Qui sait... ?",
+        "interface": "sms",
+        "speed": "normal"
+      },
+      "audioEvents": []
+    },
+    {
       "id": "seg_1780339244791_3_19hke_overflow_4",
       "lines": [
         "produisant une sorte d’effet japonais momentané, le faisant penser à ces peintres de Tokyo à la figure de jade pallide, qui, par le moyen d’un art nécessairement immobile, tentent d’exprimer le sens de la vitesse et du mouvement. Le murmure monotone des abeilles cherchant leur chemin dans les longues herbes non fauchées ou voltigeant autour des poudreuses baies dorées d’un chèvrefeuille isolé,"
@@ -73,11 +84,10 @@
       "id": "seg_1780339322452",
       "breakAt": null,
       "gameMode": {
-        "type": "code",
-        "answer": "1920",
-        "prompt": "le coke bordel",
-        "hint": "Plus 1",
-        "errorMessage": "toujours pas"
+        "type": "message",
+        "text": "Pour voir, j'essaie aussi la version mail. Curieux de voir ce que ça fait...\n\nEt j'essaie d'aller à la ligne pour voir.",
+        "interface": "email",
+        "speed": "normal"
       },
       "audioEvents": []
     },
@@ -92,6 +102,17 @@
       "audioEvents": []
     },
     {
+      "text": "",
+      "id": "seg_1780353594265",
+      "gameMode": {
+        "type": "message",
+        "text": "Et dernier test avec le terminal. Comme ça, j'aurai tout vu ! Enfin, tout vu si ça fonctionne lol. Aller Tchao.",
+        "interface": "terminal",
+        "speed": "normal"
+      },
+      "audioEvents": []
+    },
+    {
       "id": "seg_1780339244791_4_hvms2",
       "lines": [
         "Au milieu de la chambre sur un chevalet droit, s’érigeait le portrait grandeur naturelle d’un jeune homme d’une extraordinaire beauté,"
@@ -99,6 +120,20 @@
       "text": "Au milieu de la chambre sur un chevalet droit, s’érigeait le portrait grandeur naturelle d’un jeune homme d’une extraordinaire beauté,",
       "breakAt": null,
       "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "text": "",
+      "id": "seg_1780353632411",
+      "gameMode": {
+        "type": "riddle",
+        "question": "Comment essayer le mode \"Enigme texte libre\" ? ",
+        "answer": "En essayant/en faisant/je ne sais pas",
+        "hint": "Indice... Ou pas.",
+        "placeholder": "Je ne sais pas quoi mettre dans Placeholder.",
+        "caseSensitive": false,
+        "errorMessage": "Oups, c'est raté"
+      },
       "audioEvents": []
     },
     {
