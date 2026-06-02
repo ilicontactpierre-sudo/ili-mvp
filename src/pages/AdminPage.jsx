@@ -767,7 +767,7 @@ function AdminPage() {
 
           {/* 3. Section "Créer / Éditer" */}
           <div style={{
-            padding: '2rem',
+            padding: isMobile ? '1rem' : '2rem',
             border: '1px solid #eee',
             borderRadius: '8px',
             boxShadow: '0 4px 8px rgba(0,0,0,0.05)',
