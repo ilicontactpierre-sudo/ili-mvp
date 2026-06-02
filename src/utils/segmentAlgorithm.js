@@ -1170,6 +1170,100 @@ if (breakAt !== null) {
 }
 
 // ══════════════════════════════════════════════════════════════════════════════
+// PHASE 7b — ANTI-BLOCS : évite deux segments larges consécutifs
+// ══════════════════════════════════════════════════════════════════════════════
+/**
+ * Quand deux segments consécutifs dépassent tous les deux LARGE_SEGMENT_THRESHOLD,
+ * tente de couper le second au premier point de ponctuation fort disponible
+ * entre 40% et 75% de sa longueur.
+ * Si aucun point de coupe n'est trouvé, insère un split au dernier espace
+ * avant 60% du texte.
+ */
+function breakConsecutiveLargeSegments(serializedSegments) {
+  const T = CONFIG.LARGE_SEGMENT_THRESHOLD
+  const result = []
+
+  for (let i = 0; i < serializedSegments.length; i++) {
+    const seg = serializedSegments[i]
+    const prev = result[result.length - 1]
+
+    const isLarge = seg.text.length > T
+    const prevIsLarge = prev && prev.text.length > T
+
+    if (!isLarge || !prevIsLarge) {
+      result.push(seg)
+      continue
+    }
+
+    // Chercher un point de coupe dans [40%..75%] du texte
+    const text = seg.text
+    const start = Math.floor(text.length * 0.40)
+    const end   = Math.floor(text.length * 0.75)
+
+    let cutPos = -1
+    for (let j = start; j < end; j++) {
+      const char = text[j]
+      const next = text[j + 1]
+      if ('.!?…'.includes(char) && (next === ' ' || next === undefined)) {
+        cutPos = j + 1
+        break
+      }
+    }
+
+    // Fallback : ponctuation faible
+    if (cutPos === -1) {
+      for (let j = start; j < end; j++) {
+        const char = text[j]
+        const next = text[j + 1]
+        if (';:,'.includes(char) && (next === ' ' || next === undefined)) {
+          cutPos = j + 1
+          break
+        }
+      }
+    }
+
+    // Fallback ultime : dernier espace avant 60%
+    if (cutPos === -1) {
+      const hardLimit = Math.floor(text.length * 0.60)
+      for (let j = hardLimit; j >= start; j--) {
+        if (text[j] === ' ') { cutPos = j; break }
+      }
+    }
+
+    if (cutPos <= 0) {
+      // Aucune coupe trouvée, on garde tel quel
+      result.push(seg)
+      continue
+    }
+
+    const textA = text.substring(0, cutPos).trim()
+    const textB = text.substring(cutPos).trim()
+
+    if (!textA || !textB) {
+      result.push(seg)
+      continue
+    }
+
+    result.push({
+      ...seg,
+      text: textA,
+      lines: [textA],
+      breakAt: null,
+    })
+    result.push({
+      ...seg,
+      id: `${seg.id}_split`,
+      text: textB,
+      lines: [textB],
+      breakAt: null,
+      isLeader: false,
+    })
+  }
+
+  return result
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
 // PHASE 8b — GARDE-FOU AFFICHAGE : coupe les segments > MAX_DISPLAY_CHARS
 // ══════════════════════════════════════════════════════════════════════════════
 /**
