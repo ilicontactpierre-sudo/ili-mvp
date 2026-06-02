@@ -969,25 +969,234 @@ function AdminPage() {
                     borderTop: '1px solid #eee', 
                     paddingTop: '1.5rem'
                   }}>
-                    <div style={{ height: '600px', marginBottom: '2rem' }}>
-                      <UnifiedSegmentsTimeline
-                        segments={segments}
-                        soundTracks={soundTracks}
-                        soundLibrary={soundLibrary}
-                        vfxTracks={vfxTracks}
-                        onSegmentsChange={setSegments}
-                        onSoundTracksChange={setSoundTracks}
-                        onVfxTracksChange={setVfxTracks}
-                        onSaveToHistory={() => saveToHistory(segments, soundTracks, vfxTracks)}
-                        adminPassword={password}
-                        onSoundsImported={(newSounds) => {
-                          fetch('/sounds/sounds-index.json')
-                            .then(res => res.json())
-                            .then(data => setSoundLibrary(data))
-                            .catch(err => console.error('Erreur rechargement bibliothèque:', err))
-                        }}
-                      />
-                    </div>
+                    {isMobile ? (
+                      /* ── Vue mobile : liste simple des segments ── */
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', marginBottom: '1rem' }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.25rem' }}>
+                          <span style={{ fontSize: '0.85rem', fontWeight: 600, color: '#555' }}>
+                            Segments ({segments.length})
+                          </span>
+                          <span style={{ fontSize: '0.72rem', color: '#aaa' }}>
+                            Double-tap pour éditer
+                          </span>
+                        </div>
+                        {segments.map((segment, index) => {
+                          const text = typeof segment === 'string' ? segment : (segment?.text || '')
+                          const [mobileEditing, setMobileEditing] = useState(false)
+                          const [mobileText, setMobileText] = useState(text)
+                          return (
+                            <div
+                              key={segment?.id || index}
+                              style={{
+                                border: '1px solid #e0e0e0',
+                                borderRadius: '8px',
+                                backgroundColor: index % 2 === 0 ? '#fff' : '#fafafa',
+                                overflow: 'hidden'
+                              }}
+                            >
+                              {/* Numéro + boutons */}
+                              <div style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '0.4rem',
+                                padding: '0.4rem 0.6rem',
+                                borderBottom: '1px solid #f0f0f0',
+                                backgroundColor: '#f8f9fa'
+                              }}>
+                                <span style={{ fontSize: '0.7rem', color: '#999', fontWeight: 700, minWidth: '24px' }}>
+                                  #{index + 1}
+                                </span>
+                                {segment?.isChapter && (
+                                  <span style={{ fontSize: '0.65rem', color: '#8B5CF6', fontWeight: 600 }}>★ Ch.</span>
+                                )}
+                                {segment?.isLeader && !segment?.isChapter && (
+                                  <span style={{ fontSize: '0.65rem', color: '#F97316' }}>◆</span>
+                                )}
+                                <div style={{ flex: 1 }} />
+                                {/* Bouton éditer */}
+                                <button
+                                  onClick={() => {
+                                    setMobileText(text)
+                                    setMobileEditing(true)
+                                  }}
+                                  style={{
+                                    padding: '0.25rem 0.6rem',
+                                    fontSize: '0.72rem',
+                                    backgroundColor: '#007bff',
+                                    color: '#fff',
+                                    border: 'none',
+                                    borderRadius: '4px',
+                                    cursor: 'pointer'
+                                  }}
+                                >
+                                  ✏️
+                                </button>
+                                {/* Bouton ajouter après */}
+                                <button
+                                  onClick={() => {
+                                    const updated = [...segments]
+                                    updated.splice(index + 1, 0, { text: '', id: `seg_${Date.now()}` })
+                                    setSegments(updated)
+                                    saveToHistory(updated, soundTracks, vfxTracks)
+                                  }}
+                                  style={{
+                                    padding: '0.25rem 0.5rem',
+                                    fontSize: '0.72rem',
+                                    backgroundColor: '#28a745',
+                                    color: '#fff',
+                                    border: 'none',
+                                    borderRadius: '4px',
+                                    cursor: 'pointer'
+                                  }}
+                                >
+                                  ＋
+                                </button>
+                                {/* Bouton supprimer */}
+                                <button
+                                  onClick={() => {
+                                    const updated = [...segments]
+                                    updated.splice(index, 1)
+                                    setSegments(updated)
+                                    saveToHistory(updated, soundTracks, vfxTracks)
+                                  }}
+                                  style={{
+                                    padding: '0.25rem 0.5rem',
+                                    fontSize: '0.72rem',
+                                    backgroundColor: 'rgba(220,53,69,0.1)',
+                                    color: '#dc3545',
+                                    border: '1px solid rgba(220,53,69,0.2)',
+                                    borderRadius: '4px',
+                                    cursor: 'pointer'
+                                  }}
+                                >
+                                  ✕
+                                </button>
+                              </div>
+                              {/* Texte ou textarea */}
+                              <div style={{ padding: '0.5rem 0.75rem' }}>
+                                {mobileEditing ? (
+                                  <div>
+                                    <textarea
+                                      autoFocus
+                                      value={mobileText}
+                                      onChange={(e) => setMobileText(e.target.value)}
+                                      style={{
+                                        width: '100%',
+                                        minHeight: '80px',
+                                        padding: '0.4rem',
+                                        fontSize: '0.85rem',
+                                        border: '1px solid #2196F3',
+                                        borderRadius: '4px',
+                                        resize: 'vertical',
+                                        boxSizing: 'border-box',
+                                        fontFamily: 'inherit',
+                                        lineHeight: '1.4'
+                                      }}
+                                    />
+                                    <div style={{ display: 'flex', gap: '0.4rem', marginTop: '0.4rem' }}>
+                                      <button
+                                        onClick={() => {
+                                          const updated = [...segments]
+                                          updated[index] = typeof segments[index] === 'string'
+                                            ? mobileText
+                                            : { ...segments[index], text: mobileText }
+                                          setSegments(updated)
+                                          saveToHistory(updated, soundTracks, vfxTracks)
+                                          setMobileEditing(false)
+                                        }}
+                                        style={{
+                                          flex: 1,
+                                          padding: '0.4rem',
+                                          fontSize: '0.8rem',
+                                          backgroundColor: '#28a745',
+                                          color: '#fff',
+                                          border: 'none',
+                                          borderRadius: '4px',
+                                          cursor: 'pointer'
+                                        }}
+                                      >
+                                        ✓ Valider
+                                      </button>
+                                      <button
+                                        onClick={() => setMobileEditing(false)}
+                                        style={{
+                                          padding: '0.4rem 0.75rem',
+                                          fontSize: '0.8rem',
+                                          backgroundColor: '#f8f9fa',
+                                          color: '#555',
+                                          border: '1px solid #ddd',
+                                          borderRadius: '4px',
+                                          cursor: 'pointer'
+                                        }}
+                                      >
+                                        Annuler
+                                      </button>
+                                    </div>
+                                  </div>
+                                ) : (
+                                  <p style={{
+                                    margin: 0,
+                                    fontSize: '0.85rem',
+                                    lineHeight: '1.4',
+                                    color: text ? '#333' : '#bbb',
+                                    fontStyle: text ? 'normal' : 'italic',
+                                    whiteSpace: 'pre-wrap',
+                                    wordBreak: 'break-word'
+                                  }}>
+                                    {text || 'Segment vide…'}
+                                  </p>
+                                )}
+                              </div>
+                              {/* Sons associés (lecture seule, résumé) */}
+                              {segment?.audioEvents && segment.audioEvents.length > 0 && (
+                                <div style={{
+                                  padding: '0.3rem 0.75rem',
+                                  borderTop: '1px solid #f0f0f0',
+                                  fontSize: '0.7rem',
+                                  color: '#888',
+                                  backgroundColor: '#f8f9fa'
+                                }}>
+                                  🔊 {segment.audioEvents.length} événement(s) audio
+                                </div>
+                              )}
+                            </div>
+                          )
+                        })}
+                        {/* Note d'information */}
+                        <div style={{
+                          marginTop: '0.5rem',
+                          padding: '0.75rem',
+                          backgroundColor: '#fff8e1',
+                          border: '1px solid #ffe082',
+                          borderRadius: '6px',
+                          fontSize: '0.78rem',
+                          color: '#795548',
+                          lineHeight: 1.4
+                        }}>
+                          💡 La timeline audio et les effets VFX sont disponibles sur ordinateur uniquement.
+                        </div>
+                      </div>
+                    ) : (
+                      <div style={{ height: '600px', marginBottom: '2rem' }}>
+                        <UnifiedSegmentsTimeline
+                          segments={segments}
+                          soundTracks={soundTracks}
+                          soundLibrary={soundLibrary}
+                          vfxTracks={vfxTracks}
+                          onSegmentsChange={setSegments}
+                          onSoundTracksChange={setSoundTracks}
+                          onVfxTracksChange={setVfxTracks}
+                          onSaveToHistory={() => saveToHistory(segments, soundTracks, vfxTracks)}
+                          adminPassword={password}
+                          onSoundsImported={(newSounds) => {
+                            fetch('/sounds/sounds-index.json')
+                              .then(res => res.json())
+                              .then(data => setSoundLibrary(data))
+                              .catch(err => console.error('Erreur rechargement bibliothèque:', err))
+                          }}
+                        />
+                      </div>
+                    )}
                   </div>
                 </>
               )}
