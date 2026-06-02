@@ -202,7 +202,10 @@ function StoryPage() {
     if (Date.now() < ignoreAdvanceUntilRef.current) {
       return
     }
-    touchStartY.current = event.changedTouches[0]?.clientY ?? null
+    const touch = event.changedTouches[0]
+    touchStartY.current = touch?.clientY ?? null
+    touchStartX.current = touch?.clientX ?? null
+    touchDidScrollRef.current = false
   }
 
   function handleTouchEnd(event) {
