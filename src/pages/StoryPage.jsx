@@ -208,30 +208,44 @@ function StoryPage() {
     touchDidScrollRef.current = false
   }
 
+  function handleTouchMove(event) {
+    if (touchStartY.current === null) return
+    const touch = event.changedTouches[0]
+    const deltaY = Math.abs((touch?.clientY ?? touchStartY.current) - touchStartY.current)
+    const deltaX = Math.abs((touch?.clientX ?? touchStartX.current) - touchStartX.current)
+    // Dès que le doigt bouge de plus de 6px verticalement, on considère que c'est un scroll
+    if (deltaY > 6 && deltaY > deltaX) {
+      touchDidScrollRef.current = true
+    }
+  }
+
   function handleTouchEnd(event) {
     if (Date.now() < ignoreAdvanceUntilRef.current) {
       touchStartY.current = null
+      touchDidScrollRef.current = false
       return
     }
-
-    if (touchStartY.current === null) {
-      return
-    }
+    if (touchStartY.current === null) return
 
     const touchEndY = event.changedTouches[0]?.clientY ?? touchStartY.current
     const deltaY = touchEndY - touchStartY.current
+    const didScroll = touchDidScrollRef.current
+
     touchStartY.current = null
+    touchStartX.current = null
+    touchDidScrollRef.current = false
 
-    if (Math.abs(deltaY) < 50) {
+    // C'était un scroll : bloquer le tap qui suivrait
+    if (didScroll) return
+
+    // C'était un swipe intentionnel (ancien comportement)
+    if (Math.abs(deltaY) >= 50) {
+      if (deltaY < 0) goToNext()
+      else goToPrevious()
       return
     }
 
-    if (deltaY < 0) {
-      goToNext()
-      return
-    }
-
-    goToPrevious()
+    // Petit mouvement ou tap franc : laisser le onClick gérer
   }
 
   if (isLoading) {
