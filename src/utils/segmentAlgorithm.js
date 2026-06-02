@@ -428,6 +428,8 @@ function splitLongLine(line) {
         remaining[i - 1] !== '…' &&
         (next === ' ' || next === undefined)
       ) {
+        // Ne pas couper sur un point non-conclusif
+        if (char === '.' && isNonSentenceDot(remaining, i)) continue
         bestCut = i + 1
         break
       }
