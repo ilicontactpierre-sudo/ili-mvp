@@ -333,8 +333,13 @@ function StoryPage() {
   return (
     <div
       style={{ minHeight: '100vh' }}
-      onClick={!activeGameMode ? handleScreenClick : undefined}
+      onClick={!activeGameMode ? (e) => {
+        // Si le dernier touch était un scroll, absorber le click fantôme
+        if (touchDidScrollRef.current) return
+        handleScreenClick(e)
+      } : undefined}
       onTouchStart={!activeGameMode ? handleTouchStart : undefined}
+      onTouchMove={!activeGameMode ? handleTouchMove : undefined}
       onTouchEnd={!activeGameMode ? handleTouchEnd : undefined}
     >
       {activeGameMode && (
