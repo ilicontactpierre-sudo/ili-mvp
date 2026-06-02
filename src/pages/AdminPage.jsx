@@ -864,7 +864,7 @@ function AdminPage() {
                 )}
               </div>
 
-              <div style={{ display: 'flex', gap: '0.5rem', marginTop: '1rem' }}>
+              <div style={{ display: 'flex', flexDirection: isMobile ? 'column' : 'row', gap: '0.5rem', marginTop: '1rem' }}>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.35rem', flex: 1 }}>
                   <button
                     onClick={handleCutText}
