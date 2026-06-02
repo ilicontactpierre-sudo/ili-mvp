@@ -189,8 +189,20 @@ function splitIntoSentences(text) {
 
   // Découpe au niveau des frontières de phrases
   // Lookahead : majuscule, guillemet ouvrant, tiret de dialogue
-  const parts = t.split(/(?<=[.!?»])\s+(?=[A-ZÀ-Ÿ«"—\-])/)
-
+  // On découpe manuellement pour pouvoir filtrer les faux positifs (abréviations, etc.)
+  const rawParts = []
+  let lastCut = 0
+  const sentenceEndRe = /[.!?»]\s+(?=[A-ZÀ-Ÿ«"—\-])/g
+  let m
+  while ((m = sentenceEndRe.exec(t)) !== null) {
+    const dotPos = m.index
+    // Ignorer si c'est un point non-conclusif
+    if (t[dotPos] === '.' && isNonSentenceDot(t, dotPos)) continue
+    rawParts.push(t.substring(lastCut, dotPos + 1).trim())
+    lastCut = m.index + m[0].length
+  }
+  rawParts.push(t.substring(lastCut).trim())
+  const parts = rawParts.filter(Boolean)
   const result = []
   for (const part of parts) {
     if (part.trim()) result.push(part.trim())
