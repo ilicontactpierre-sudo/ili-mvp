@@ -238,3 +238,10 @@
   -webkit-touch-callout: none;
   user-select: none;
 }
+
+/* Segment focusé scrollable si le contenu dépasse la hauteur disponible */
+.story-reader__segment--focus {
+  max-height: 80vh;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
