@@ -255,6 +255,8 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle' 
     <main
       className="story-reader"
       aria-live="polite"
+      onWheel={(e) => e.stopPropagation()}
+      onTouchMove={(e) => e.stopPropagation()}
       style={{
         filter: jumpPhase === 'out' ? 'blur(12px)' : 'blur(0px)',
         opacity: jumpPhase === 'out' ? 0 : 1,
