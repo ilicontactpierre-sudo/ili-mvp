@@ -64,6 +64,8 @@ const CONFIG = {
   COLON_CUT_PROB: 0.42,
   // Longueur minimale de chaque côté d'une coupe sur ponctuation faible
   MIN_PART_LENGTH_FOR_WEAK_CUT: 28,
+  // Seuil au-dessus duquel un segment est considéré "grand"
+  LARGE_SEGMENT_THRESHOLD: 350,
   // Nombre max d'unités par segment selon la granularité (1→10)
   maxUnitsForGranularity(g) {
     return Math.min(8, Math.floor(1 + (g - 1) * 0.60))
