@@ -354,6 +354,7 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle' 
                 fontFamily: segment.fontFamily || 'inherit',
                 ...(segment.isChapter ? { textAlign: 'center' } : {}),
                 ...(isHidden ? { pointerEvents: 'none' } : {}),
+                ...(isFocused ? { touchAction: 'pan-y' } : {}),
                 ...((() => {
                   if (!isFocused || !storyData?.vfxTracks) return {}
                   const flashTrack = storyData.vfxTracks.find(t => {
