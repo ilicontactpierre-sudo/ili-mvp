@@ -255,8 +255,18 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle' 
     <main
       className="story-reader"
       aria-live="polite"
-      onWheel={(e) => e.stopPropagation()}
-      onTouchMove={(e) => e.stopPropagation()}
+      onWheel={(e) => {
+        // Laisser passer le scroll si la cible est le segment focusé
+        const focused = e.currentTarget.querySelector('.story-reader__segment--focus')
+        if (focused && focused.contains(e.target)) return
+        e.stopPropagation()
+        e.preventDefault()
+      }}
+      onTouchMove={(e) => {
+        const focused = e.currentTarget.querySelector('.story-reader__segment--focus')
+        if (focused && focused.contains(e.target)) return
+        e.stopPropagation()
+      }}
       style={{
         filter: jumpPhase === 'out' ? 'blur(12px)' : 'blur(0px)',
         opacity: jumpPhase === 'out' ? 0 : 1,
