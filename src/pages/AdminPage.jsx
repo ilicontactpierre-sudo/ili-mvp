@@ -733,8 +733,8 @@ function AdminPage() {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        padding: '2rem',
-        paddingBottom: '4rem',
+        padding: isMobile ? '0.75rem' : '2rem',
+        paddingBottom: isMobile ? '3rem' : '4rem',
         flex: 1
       }}>
         <div style={{ 
