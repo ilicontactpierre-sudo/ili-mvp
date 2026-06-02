@@ -64,7 +64,7 @@ function EndScreen({ title, author, formUrl, bookUrl }) {
         <div style={{ marginTop: '2.2rem', display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
           {/* Substack — newsletter */}
           <a
-            href="https://votre-substack.substack.com"
+            href="https://iliofficial.substack.com/"
             target="_blank"
             rel="noreferrer"
             style={{
