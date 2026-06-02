@@ -109,15 +109,6 @@ const FAKE_PARAGRAPH_MARKER = '---FAKE_PARAGRAPH_BREAK---'
  *   - Espaces multiples      → espace simple
  *   - Trim de chaque ligne   (sans supprimer les sauts de ligne natifs)
  */
-function normalizeText(text) {
-  return text
-    .replace(/\.{3,}/g, '…')
-    .replace(/\.{2}/g, '…')
-    .replace(/[ \t]{2,}/g, ' ')
-    .split('\n')
-    .map(line => line.trim())
-    .join('\n')
-}
 
 // ══════════════════════════════════════════════════════════════════════════════
 // EXCEPTIONS — Points ne terminant PAS une phrase
@@ -157,6 +148,16 @@ function isNonSentenceDot(text, dotPos) {
   }
 
   return false
+}
+
+function normalizeText(text) {
+  return text
+    .replace(/\.{3,}/g, '…')
+    .replace(/\.{2}/g, '…')
+    .replace(/[ \t]{2,}/g, ' ')
+    .split('\n')
+    .map(line => line.trim())
+    .join('\n')
 }
 
 // ══════════════════════════════════════════════════════════════════════════════
