@@ -47,6 +47,25 @@
   opacity: 1;
   filter: blur(0);
   transform: none;
+  /* Scroll interne si le contenu dépasse */
+  max-height: 78vh;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  /* Scrollbar discrète */
+  scrollbar-width: thin;
+  scrollbar-color: rgba(128,128,128,0.25) transparent;
+  pointer-events: auto;
+}
+
+.story-reader__segment--focus::-webkit-scrollbar {
+  width: 3px;
+}
+.story-reader__segment--focus::-webkit-scrollbar-track {
+  background: transparent;
+}
+.story-reader__segment--focus::-webkit-scrollbar-thumb {
+  background: rgba(128,128,128,0.30);
+  border-radius: 2px;
 }
 
 .story-reader__segment--blur {
