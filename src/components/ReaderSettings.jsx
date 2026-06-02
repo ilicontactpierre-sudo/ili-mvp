@@ -313,6 +313,7 @@ export default function ReaderSettings({
       menuRef.current && !menuRef.current.contains(e.target) &&
       gearRef.current && !gearRef.current.contains(e.target)
     ) {
+      e.stopPropagation()
       setIsClosing(true)
       setShowChapters(false)
       setTimeout(() => {
