@@ -57,10 +57,85 @@ function EndScreen({ title, author, formUrl, bookUrl }) {
             background: lineColor,
           }}
         />
-
         <p style={{ opacity: 0.65, fontSize: '0.95rem', letterSpacing: '0.02em' }}>
           {title} — {author}
         </p>
+
+        {/* ── Soutien au projet ── */}
+        <div style={{ marginTop: '2.2rem', display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
+          {/* Substack — newsletter */}
+          
+            href="https://votre-substack.substack.com"
+            target="_blank"
+            rel="noreferrer"
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '0.6rem',
+              marginInline: 'auto',
+              width: 'fit-content',
+              padding: '0.85rem 1.6rem',
+              borderRadius: '999px',
+              background: 'var(--color-text-focus)',
+              color: 'var(--color-bg)',
+              textDecoration: 'none',
+              fontSize: '0.95rem',
+              fontFamily: 'var(--font-primary)',
+              fontWeight: 600,
+              letterSpacing: '0.02em',
+            }}
+          >
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M22.539 8.242H1.46V5.406h21.08v2.836zM1.46 10.812V24L12 18.11 22.54 24V10.812H1.46zM22.54 0H1.46v2.836h21.08V0z"/>
+            </svg>
+            Être prévenu de la prochaine histoire
+          </a>
+
+          {/* Ko-fi — soutien */}
+          
+            href="https://ko-fi.com/votre-compte"
+            target="_blank"
+            rel="noreferrer"
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '0.6rem',
+              marginInline: 'auto',
+              width: 'fit-content',
+              padding: '0.75rem 1.35rem',
+              borderRadius: '999px',
+              border: '1px solid ' + btnBorder,
+              background: 'transparent',
+              color: btnColor,
+              textDecoration: 'none',
+              fontSize: '0.95rem',
+              fontFamily: 'var(--font-primary)',
+              letterSpacing: '0.03em',
+              transition: 'color 400ms ease, border-color 400ms ease, background 400ms ease',
+            }}
+            onMouseEnter={function(e) {
+              e.currentTarget.style.color = btnHoverColor
+              e.currentTarget.style.borderColor = btnHoverBorder
+              e.currentTarget.style.background = 'color-mix(in srgb, var(--color-text-focus) 6%, transparent)'
+            }}
+            onMouseLeave={function(e) {
+              e.currentTarget.style.color = btnColor
+              e.currentTarget.style.borderColor = btnBorder
+              e.currentTarget.style.background = 'transparent'
+            }}
+          >
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M18 8h1a4 4 0 0 1 0 8h-1"/>
+              <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/>
+              <line x1="6" y1="1" x2="6" y2="4"/>
+              <line x1="10" y1="1" x2="10" y2="4"/>
+              <line x1="14" y1="1" x2="14" y2="4"/>
+            </svg>
+            Soutenir le projet
+          </a>
+        </div>
 
         {formUrl && (
           <a
