@@ -93,7 +93,7 @@ function EndScreen({ title, author, formUrl, bookUrl }) {
 
           {/* Ko-fi — soutien */}
           <a
-            href="https://ko-fi.com/votre-compte"
+            href="https://ko-fi.com/iliapp"
             target="_blank"
             rel="noreferrer"
             style={{
