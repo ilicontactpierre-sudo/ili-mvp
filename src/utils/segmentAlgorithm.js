@@ -120,6 +120,46 @@ function normalizeText(text) {
 }
 
 // ══════════════════════════════════════════════════════════════════════════════
+// EXCEPTIONS — Points ne terminant PAS une phrase
+// ══════════════════════════════════════════════════════════════════════════════
+
+// Titres de civilité et abréviations courantes (toujours suivis d'un point)
+const ABBREV_EXCEPTIONS = new Set([
+  'm', 'mme', 'mlle', 'dr', 'me', 'pr', 'prof',
+  'cf', 'p', 'vol', 'chap', 'art', 'etc', 'c.-à-d', 'ibid', 'op',
+])
+
+/**
+ * Retourne true si le point à la position `dotPos` dans `text`
+ * ne termine PAS une phrase (abréviation, sigle, nombre, URL).
+ */
+function isNonSentenceDot(text, dotPos) {
+  const before = text.substring(0, dotPos)
+  const after  = text.substring(dotPos + 1)
+
+  // 1. Nombre décimal : chiffre.chiffre  → "3.14", "19.99"
+  if (/\d$/.test(before) && /^\d/.test(after)) return true
+
+  // 2. URL / adresse IP : mot.mot sans espace après  → "mon.site.com", "192.168.1.1"
+  if (/\S$/.test(before) && /^\S/.test(after)) return true
+
+  // 3. Sigle avec points : lettre majuscule isolée  → "S.N.C.F.", "U.S.A."
+  if (/\b[A-Z]$/.test(before) && /^[A-Z]\./.test(after)) return true
+  // Dernière lettre d'un sigle déjà en cours → "S.N.C.F" suivi de "."
+  if (/(?:\b[A-Z]\.)+[A-Z]$/.test(before)) return true
+
+  // 4. Abréviation courante / titre de civilité
+  //    Récupère le dernier mot avant le point (sans ponctuation)
+  const wordMatch = before.match(/\b([a-zA-ZÀ-ÿ.-]+)$/)
+  if (wordMatch) {
+    const word = wordMatch[1].toLowerCase().replace(/\.$/, '')
+    if (ABBREV_EXCEPTIONS.has(word)) return true
+  }
+
+  return false
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
 // PHASE 1 — DÉCOUPE EN PHRASES ATOMIQUES
 // ══════════════════════════════════════════════════════════════════════════════
 /**
