@@ -1370,7 +1370,8 @@ export function segmentText(text, granularity = 5) {
   const withWeakCuts = splitOnWeakPunctuation(rawSegments, scoredUnits, g)
   const balanced     = enforceRhythmCadence(withWeakCuts)
   const serialized   = serializeSegments(balanced)
-  return enforceDisplayLimit(serialized)
+  const noLargeBlocs = breakConsecutiveLargeSegments(serialized)
+  return enforceDisplayLimit(noLargeBlocs)
 }
 
 export default segmentText
