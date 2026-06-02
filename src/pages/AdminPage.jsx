@@ -831,19 +831,37 @@ function AdminPage() {
                 <label htmlFor="granularity-slider" style={{ display: 'block', marginBottom: '0.5rem' }}>
                   Granularité : {granularity}/10
                 </label>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                  <span style={{ fontSize: '0.75rem', color: '#555', whiteSpace: 'nowrap' }}>1 = segments très courts et percutants</span>
-                  <input
-                    type="range"
-                    id="granularity-slider"
-                    min="1"
-                    max="10"
-                    value={granularity}
-                    onChange={(e) => setGranularity(Number(e.target.value))}
-                    style={{ flex: 1 }}
-                  />
-                  <span style={{ fontSize: '0.75rem', color: '#555', whiteSpace: 'nowrap' }}>10 = segments larges et respirés</span>
-                </div>
+                {isMobile ? (
+                  <div>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.4rem' }}>
+                      <span style={{ fontSize: '0.7rem', color: '#888' }}>Courts ①</span>
+                      <span style={{ fontSize: '0.7rem', color: '#888' }}>Larges ⑩</span>
+                    </div>
+                    <input
+                      type="range"
+                      id="granularity-slider"
+                      min="1"
+                      max="10"
+                      value={granularity}
+                      onChange={(e) => setGranularity(Number(e.target.value))}
+                      style={{ width: '100%', accentColor: '#28a745' }}
+                    />
+                  </div>
+                ) : (
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                    <span style={{ fontSize: '0.75rem', color: '#555', whiteSpace: 'nowrap' }}>1 = segments très courts et percutants</span>
+                    <input
+                      type="range"
+                      id="granularity-slider"
+                      min="1"
+                      max="10"
+                      value={granularity}
+                      onChange={(e) => setGranularity(Number(e.target.value))}
+                      style={{ flex: 1 }}
+                    />
+                    <span style={{ fontSize: '0.75rem', color: '#555', whiteSpace: 'nowrap' }}>10 = segments larges et respirés</span>
+                  </div>
+                )}
               </div>
 
               <div style={{ display: 'flex', gap: '0.5rem', marginTop: '1rem' }}>
