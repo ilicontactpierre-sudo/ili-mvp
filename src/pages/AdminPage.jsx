@@ -21,6 +21,7 @@ function useIsMobile() {
 }
 
 function AdminPage() {
+  const isMobile = useIsMobile()
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
