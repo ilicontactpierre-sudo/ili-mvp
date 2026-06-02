@@ -8,6 +8,18 @@ import StoryPreviewModal from '../components/admin/StoryPreviewModal'
 import PublishPanel from '../components/admin/PublishPanel'
 import OrchestrationPanel from '../components/admin/OrchestrationPanel'
 
+// ── Hook mobile ──────────────────────────────────────────────────────────────
+function useIsMobile() {
+  const [isMobile, setIsMobile] = useState(false)
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768)
+    check()
+    window.addEventListener('resize', check)
+    return () => window.removeEventListener('resize', check)
+  }, [])
+  return isMobile
+}
+
 function AdminPage() {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [password, setPassword] = useState('')
