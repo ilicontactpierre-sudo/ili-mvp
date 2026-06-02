@@ -198,11 +198,10 @@ function StoryPage() {
     }
   }
 
-  function handleTouchStart(event) {
+  ffunction handleTouchStart(event) {
     if (Date.now() < ignoreAdvanceUntilRef.current) {
       return
     }
-
     touchStartY.current = event.changedTouches[0]?.clientY ?? null
   }
 
