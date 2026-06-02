@@ -46,7 +46,6 @@ function EndScreen({ title, author, formUrl, bookUrl }) {
       }}
     >
       <div />
-
       <section style={{ width: '100%', maxWidth: '38rem', margin: '0 auto' }}>
         <div
           style={{
@@ -64,7 +63,7 @@ function EndScreen({ title, author, formUrl, bookUrl }) {
         {/* ── Soutien au projet ── */}
         <div style={{ marginTop: '2.2rem', display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
           {/* Substack — newsletter */}
-          
+          <a
             href="https://votre-substack.substack.com"
             target="_blank"
             rel="noreferrer"
@@ -93,7 +92,7 @@ function EndScreen({ title, author, formUrl, bookUrl }) {
           </a>
 
           {/* Ko-fi — soutien */}
-          
+          <a
             href="https://ko-fi.com/votre-compte"
             target="_blank"
             rel="noreferrer"
@@ -232,7 +231,7 @@ function EndScreen({ title, author, formUrl, bookUrl }) {
           Choisir une autre histoire
         </button>
       </section>
-
+      
       <div style={{
         alignSelf: 'end',
         opacity: 0.3,
