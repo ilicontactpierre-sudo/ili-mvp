@@ -198,7 +198,7 @@ function StoryPage() {
     }
   }
 
-  ffunction handleTouchStart(event) {
+  function handleTouchStart(event) {
     if (Date.now() < ignoreAdvanceUntilRef.current) {
       return
     }
