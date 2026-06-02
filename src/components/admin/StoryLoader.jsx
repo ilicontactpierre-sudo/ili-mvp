@@ -415,49 +415,60 @@ function StoryLoader({ onLoadStory, onPreviewStory }) {
                     </div>
 
                     {/* Actions */}
-                    <div style={{ display: 'flex', gap: '0.5rem', flexShrink: 0 }}>
-                      <button
-                        onClick={() => handlePreview(story.id)}
-                        style={{
-                          padding: '0.375rem 0.75rem',
-                          backgroundColor: 'var(--color-bg-accent)',
-                          color: 'var(--color-text)',
-                          border: '1px solid var(--color-border)',
-                          borderRadius: '4px',
-                          cursor: 'pointer',
-                          fontSize: '0.8125rem'
-                        }}
-                      >
-                        👁 Aperçu
-                      </button>
+                    <div style={{
+                      display: 'flex',
+                      flexDirection: 'column',
+                      gap: '0.35rem',
+                      flexShrink: 0,
+                    }}>
                       <button
                         onClick={() => handleEdit(story.id)}
                         style={{
-                          padding: '0.375rem 0.75rem',
+                          padding: '0.4rem 0.75rem',
                           backgroundColor: 'var(--color-primary)',
                           color: 'white',
                           border: 'none',
                           borderRadius: '4px',
                           cursor: 'pointer',
-                          fontSize: '0.8125rem'
+                          fontSize: '0.8rem',
+                          whiteSpace: 'nowrap'
                         }}
                       >
                         ✏️ Modifier
                       </button>
-                      <button
-                        onClick={() => handleDeleteClick(story.id)}
-                        style={{
-                          padding: '0.375rem 0.75rem',
-                          backgroundColor: 'rgba(220,53,69,0.15)',
-                          color: '#dc3545',
-                          border: '1px solid rgba(220,53,69,0.2)',
-                          borderRadius: '4px',
-                          cursor: 'pointer',
-                          fontSize: '0.8125rem'
-                        }}
-                      >
-                        🗑️
-                      </button>
+                      <div style={{ display: 'flex', gap: '0.35rem' }}>
+                        <button
+                          onClick={() => handlePreview(story.id)}
+                          style={{
+                            flex: 1,
+                            padding: '0.35rem 0.5rem',
+                            backgroundColor: 'var(--color-bg-accent)',
+                            color: 'var(--color-text)',
+                            border: '1px solid var(--color-border)',
+                            borderRadius: '4px',
+                            cursor: 'pointer',
+                            fontSize: '0.78rem',
+                            whiteSpace: 'nowrap'
+                          }}
+                        >
+                          👁
+                        </button>
+                        <button
+                          onClick={() => handleDeleteClick(story.id)}
+                          style={{
+                            flex: 1,
+                            padding: '0.35rem 0.5rem',
+                            backgroundColor: 'rgba(220,53,69,0.15)',
+                            color: '#dc3545',
+                            border: '1px solid rgba(220,53,69,0.2)',
+                            borderRadius: '4px',
+                            cursor: 'pointer',
+                            fontSize: '0.78rem'
+                          }}
+                        >
+                          🗑️
+                        </button>
+                      </div>
                     </div>
                   </div>
                 )
