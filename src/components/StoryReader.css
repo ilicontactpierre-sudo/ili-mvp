@@ -2,6 +2,9 @@
   height: 100vh;
   overflow: hidden;
   position: relative;
+  /* Bloquer le scroll natif de la page entière */
+  overscroll-behavior: none;
+  touch-action: none;
 }
 
 .story-reader__track {
