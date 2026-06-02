@@ -25,6 +25,8 @@ function StoryPage() {
   const [isLoading, setIsLoading] = useState(true)
   const [errorType, setErrorType] = useState('')
   const touchStartY = useRef(null)
+  const touchStartX = useRef(null)
+  const touchDidScrollRef = useRef(false)
   const preloadedSoundsRef = useRef(new Map())
   const audioEngineRef = useRef(null)
   const ignoreAdvanceUntilRef = useRef(0)
