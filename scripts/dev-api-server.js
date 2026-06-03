@@ -69,26 +69,17 @@ app.get('/api/preview-sound', (req, res) => {
 })
 
 // ── /api/upload-audio ────────────────────────────────────────────────────────
-app.post('/api/upload-audio', async (req, res) => {
-  // Lire le body brut (multipart)
-  const chunks = []
-  for await (const chunk of req) chunks.push(chunk)
-  const body = Buffer.concat(chunks)
-
-  const contentType = req.headers['content-type'] || ''
-  const boundaryMatch = contentType.match(/boundary=(.+)$/)
-  if (!boundaryMatch) return res.status(400).json({ error: 'No boundary' })
-  const boundary = boundaryMatch[1].trim()
-
-  const parts = parseMultipart(body, boundary)
-  const { password, filename, file: fileBuffer } = parts
+app.post('/api/upload-audio', express.json({ limit: '20mb' }), async (req, res) => {
+  const { password, filename, fileBase64 } = req.body ?? {}
 
   if (!password || password !== process.env.ADMIN_PASSWORD) {
     return res.status(401).json({ error: 'Non autorisé' })
   }
-  if (!filename || !fileBuffer) {
-    return res.status(400).json({ error: 'Fichier ou nom manquant' })
+  if (!filename || !fileBase64) {
+    return res.status(400).json({ error: 'filename et fileBase64 requis' })
   }
+
+  const fileBuffer = Buffer.from(fileBase64, 'base64')
 
   const supabase = createClient(
     process.env.SUPABASE_URL,
