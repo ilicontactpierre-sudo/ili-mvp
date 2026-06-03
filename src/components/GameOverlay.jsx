@@ -572,20 +572,17 @@ function GameFilmstrip({ data, onResolved }) {
 // ─── Type : Minuteur ─────────────────────────────────────────────────────────
 function GameTimer({ data, onResolved }) {
   const total = data.seconds || 30
+  const timerStyle = data.timerStyle || 'arc'
+  const resetOnTap = data.resetOnTap || false
+
   const [remaining, setRemaining] = useState(total)
   const [expired, setExpired] = useState(false)
   const [pulse, setPulse] = useState(false)
+  const [resetFlash, setResetFlash] = useState(false)
 
-  // Respiration quand il reste moins de 10 secondes
+  // Compte à rebours
   useEffect(() => {
-    if (remaining >= 10 || expired) { setPulse(false); return }
-    const interval = setInterval(() => {
-      setPulse(p => !p)
-    }, 600 + remaining * 30) // s'accélère progressivement
-    return () => clearInterval(interval)
-  }, [remaining, expired])
-
-  useEffect(() => {
+    if (expired) return
     if (remaining <= 0) {
       setExpired(true)
       setTimeout(onResolved, 1400)
@@ -593,80 +590,148 @@ function GameTimer({ data, onResolved }) {
     }
     const t = setTimeout(() => setRemaining(r => r - 1), 1000)
     return () => clearTimeout(t)
-  }, [remaining])
+  }, [remaining, expired])
+
+  // Respiration sous 10s
+  useEffect(() => {
+    if (remaining >= 10 || expired) { setPulse(false); return }
+    const interval = setInterval(() => setPulse(p => !p), 600 + remaining * 30)
+    return () => clearInterval(interval)
+  }, [remaining, expired])
+
+  // Reset au tap
+  const handleTap = () => {
+    if (!resetOnTap || expired) return
+    setRemaining(total)
+    setResetFlash(true)
+    setTimeout(() => setResetFlash(false), 400)
+  }
 
   const pct = remaining / total
-  const radius = 52
-  const circumference = 2 * Math.PI * radius
-  const strokeDashoffset = circumference * (1 - pct)
   const color = pct > 0.5
     ? 'var(--color-text-focus, #222)'
     : pct > 0.25 ? '#d4820a' : '#c0392b'
 
   return (
-    <AnimatedWrapper style={{ gap: '1.6rem' }}>
+    <AnimatedWrapper
+      style={{ gap: '1.6rem', cursor: resetOnTap && !expired ? 'pointer' : 'default' }}
+      onClick={handleTap}
+    >
       {data.prompt && (
         <p style={{
           fontSize: 'clamp(0.88rem, 2vw, 1rem)',
           color: 'var(--color-text-focus, #222)',
-          textAlign: 'center',
-          lineHeight: 1.6,
-          opacity: 0.75,
-          margin: 0,
+          textAlign: 'center', lineHeight: 1.6,
+          opacity: 0.75, margin: 0,
         }}>
           {data.prompt}
         </p>
       )}
 
-      <div style={{
-        position: 'relative', width: '126px', height: '126px',
-        opacity: pulse ? 0.88 : 1,
-        transition: `opacity ${600 + remaining * 30}ms ${EASE.inOut}`,
-      }}>
-        <svg width="126" height="126" style={{ transform: 'rotate(-90deg)' }}>
-          <circle cx="63" cy="63" r={radius}
-            fill="none" stroke="var(--color-text-focus, #222)"
-            strokeWidth="1" opacity="0.1" />
-          <circle cx="63" cy="63" r={radius}
-            fill="none" stroke={color}
-            strokeWidth="1.5"
-            strokeDasharray={circumference}
-            strokeDashoffset={strokeDashoffset}
-            strokeLinecap="round"
-            style={{ transition: `stroke-dashoffset 0.95s ${EASE.inOut}, stroke 0.8s ${EASE.inOut}` }}
-          />
-        </svg>
+      {/* Flash reset */}
+      {resetFlash && (
         <div style={{
-          position: 'absolute',
-          inset: 0,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          fontFamily: 'var(--font-primary, Georgia, serif)',
-          fontSize: remaining < 10 ? '2.6rem' : '2.1rem',
-          color,
-          letterSpacing: '-0.02em',
-          transition: `color 0.8s ${EASE.inOut}, font-size 300ms ${EASE.spring}`,
-        }}>
-          {expired ? '—' : remaining}
-        </div>
-      </div>
+          position: 'fixed', inset: 0, zIndex: 300,
+          backgroundColor: 'var(--color-text-focus, #222)',
+          opacity: 0.06, pointerEvents: 'none',
+          animation: `game-fade-up 400ms ${EASE.out}`,
+        }} />
+      )}
 
+      {/* Arc SVG */}
+      {timerStyle === 'arc' && (
+        <div style={{
+          position: 'relative', width: '126px', height: '126px',
+          opacity: pulse ? 0.88 : 1,
+          transition: `opacity ${600 + remaining * 30}ms ${EASE.inOut}`,
+        }}>
+          <svg width="126" height="126" style={{ transform: 'rotate(-90deg)' }}>
+            <circle cx="63" cy="63" r="52" fill="none"
+              stroke="var(--color-text-focus, #222)" strokeWidth="1" opacity="0.1" />
+            <circle cx="63" cy="63" r="52" fill="none"
+              stroke={color} strokeWidth="1.5"
+              strokeDasharray={2 * Math.PI * 52}
+              strokeDashoffset={2 * Math.PI * 52 * (1 - pct)}
+              strokeLinecap="round"
+              style={{ transition: `stroke-dashoffset 0.95s ${EASE.inOut}, stroke 0.8s ${EASE.inOut}` }}
+            />
+          </svg>
+          <div style={{
+            position: 'absolute', inset: 0,
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            fontFamily: 'var(--font-primary, Georgia, serif)',
+            fontSize: remaining < 10 ? '2.6rem' : '2.1rem',
+            color, letterSpacing: '-0.02em',
+            transition: `color 0.8s ${EASE.inOut}, font-size 300ms ${EASE.spring}`,
+          }}>
+            {expired ? '—' : remaining}
+          </div>
+        </div>
+      )}
+
+      {/* Barre de progression */}
+      {timerStyle === 'bar' && (
+        <div style={{ width: '100%', maxWidth: '320px', display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+          <div style={{
+            width: '100%', height: '2px',
+            backgroundColor: 'rgba(0,0,0,0.1)', borderRadius: '999px', overflow: 'hidden',
+          }}>
+            <div style={{
+              height: '100%',
+              width: `${pct * 100}%`,
+              backgroundColor: color,
+              borderRadius: '999px',
+              transition: `width 0.95s ${EASE.inOut}, background-color 0.8s ${EASE.inOut}`,
+              opacity: pulse ? 0.7 : 1,
+            }} />
+          </div>
+          <div style={{
+            textAlign: 'center',
+            fontFamily: 'var(--font-primary, Georgia, serif)',
+            fontSize: '1.6rem', color, letterSpacing: '-0.02em',
+            transition: `color 0.8s ${EASE.inOut}`,
+          }}>
+            {expired ? '—' : remaining}
+          </div>
+        </div>
+      )}
+
+      {/* Rétro */}
+      {timerStyle === 'retro' && (
+        <div style={{
+          fontFamily: "'Courier New', monospace",
+          fontSize: 'clamp(3rem, 10vw, 5rem)',
+          color, letterSpacing: '0.1em',
+          opacity: pulse ? 0.7 : 1,
+          transition: `opacity ${600 + remaining * 30}ms ${EASE.inOut}, color 0.8s ${EASE.inOut}`,
+          textShadow: `0 0 20px ${color}44`,
+        }}>
+          {expired ? '--' : String(Math.floor(remaining / 60)).padStart(2,'0') + ':' + String(remaining % 60).padStart(2,'0')}
+        </div>
+      )}
+
+      {/* Invisible */}
+      {timerStyle === 'hidden' && !expired && (
+        <div style={{ height: '60px' }} />
+      )}
+
+      {/* Message expiration */}
       <p style={{
         fontSize: 'clamp(0.82rem, 1.8vw, 0.92rem)',
         color: 'var(--color-text-focus, #222)',
-        textAlign: 'center',
-        lineHeight: 1.6,
-        opacity: expired ? 0.55 : 0,
-        fontStyle: 'italic',
-        margin: 0,
+        textAlign: 'center', lineHeight: 1.6,
+        opacity: expired ? 0.55 : 0, fontStyle: 'italic', margin: 0,
         transform: expired ? 'translateY(0)' : 'translateY(8px)',
         transition: `opacity 700ms ${EASE.out}, transform 700ms ${EASE.out}`,
       }}>
         {data.expireMessage || 'Le temps est écoulé.'}
       </p>
 
-      {!expired && data.hint && <Hint delay={600}>{data.hint}</Hint>}
+      {/* Hint reset */}
+      {resetOnTap && !expired && (
+        <Hint delay={800}>— toucher pour recommencer —</Hint>
+      )}
+      {!resetOnTap && !expired && data.hint && <Hint delay={600}>{data.hint}</Hint>}
     </AnimatedWrapper>
   )
 }
