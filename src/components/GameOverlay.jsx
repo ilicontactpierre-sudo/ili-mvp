@@ -737,4 +737,157 @@ function GameTimer({ data, onResolved }) {
   )
 }
 
+// ─── Type : Séquence ─────────────────────────────────────────────────────────
+function GameSequence({ data, onResolved }) {
+  const correct = data.items || []
+  const { playTock, playSuccess, playError } = useKeySound()
+
+  // Mélanger au montage
+  const [items, setItems] = useState(() => {
+    const shuffled = [...correct]
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]]
+    }
+    // Si identique à la solution après mélange, déplacer le premier
+    if (shuffled.join() === correct.join() && shuffled.length > 1) {
+      const tmp = shuffled[0]
+      shuffled[0] = shuffled[1]
+      shuffled[1] = tmp
+    }
+    return shuffled
+  })
+
+  const [success, setSuccess] = useState(false)
+  const [errorIdx, setErrorIdx] = useState(null)
+
+  const isCorrect = items.join('|||') === correct.join('|||')
+
+  const move = (i, dir) => {
+    if (success) return
+    const next = [...items]
+    const target = i + dir
+    if (target < 0 || target >= next.length) return
+    playTock();
+    [next[i], next[target]] = [next[target], next[i]]
+    setItems(next)
+    setErrorIdx(null)
+  }
+
+  const validate = () => {
+    if (isCorrect) {
+      playSuccess()
+      setSuccess(true)
+      setTimeout(onResolved, 1000)
+    } else {
+      playError()
+      // Trouver le premier élément mal placé
+      const first = items.findIndex((item, i) => item !== correct[i])
+      setErrorIdx(first)
+      setTimeout(() => setErrorIdx(null), 800)
+    }
+  }
+
+  return (
+    <AnimatedWrapper>
+      {data.prompt && (
+        <p style={{
+          fontSize: 'clamp(0.88rem, 2vw, 1rem)',
+          color: 'var(--color-text-focus, #222)',
+          textAlign: 'center', lineHeight: 1.6,
+          opacity: 0.8, margin: 0,
+        }}>
+          {data.prompt}
+        </p>
+      )}
+
+      <div style={{ width: '100%', maxWidth: '380px', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+        {items.map((item, i) => {
+          const isWrong = errorIdx === i
+          const isGood  = success && item === correct[i]
+          return (
+            <div
+              key={i}
+              style={{
+                display: 'flex', alignItems: 'center', gap: '0.6rem',
+                padding: '0.7rem 0.9rem',
+                border: `1px solid ${isWrong ? 'rgba(192,57,43,0.6)' : isGood ? 'rgba(39,174,96,0.5)' : 'var(--color-text-focus, #222)'}`,
+                borderRadius: '2px',
+                backgroundColor: isWrong
+                  ? 'rgba(192,57,43,0.04)'
+                  : isGood ? 'rgba(39,174,96,0.04)' : 'transparent',
+                animation: isWrong ? `game-shake 0.4s ${EASE.inOut}` : 'none',
+                transition: `border-color 300ms ${EASE.inOut}, background-color 300ms ${EASE.inOut}`,
+              }}
+            >
+              {/* Numéro */}
+              <span style={{
+                fontSize: '0.65rem', color: 'var(--color-text-focus, #222)',
+                opacity: 0.3, minWidth: '1rem', textAlign: 'center',
+                fontFamily: 'monospace',
+              }}>
+                {i + 1}
+              </span>
+
+              {/* Texte */}
+              <span style={{
+                flex: 1,
+                fontSize: 'clamp(0.85rem, 2vw, 0.95rem)',
+                color: 'var(--color-text-focus, #222)',
+                fontFamily: 'var(--font-primary, Georgia, serif)',
+                lineHeight: 1.4,
+              }}>
+                {item}
+              </span>
+
+              {/* Boutons ↑↓ */}
+              {!success && (
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
+                  <button
+                    onClick={() => move(i, -1)}
+                    disabled={i === 0}
+                    style={{
+                      background: 'none', border: 'none', cursor: i === 0 ? 'default' : 'pointer',
+                      fontSize: '0.7rem', color: 'var(--color-text-focus, #222)',
+                      opacity: i === 0 ? 0.15 : 0.5, padding: '1px 4px',
+                      transition: 'opacity 0.15s ease',
+                      lineHeight: 1,
+                    }}
+                    onMouseEnter={e => { if (i > 0) e.currentTarget.style.opacity = '1' }}
+                    onMouseLeave={e => { if (i > 0) e.currentTarget.style.opacity = '0.5' }}
+                  >▲</button>
+                  <button
+                    onClick={() => move(i, 1)}
+                    disabled={i === items.length - 1}
+                    style={{
+                      background: 'none', border: 'none', cursor: i === items.length - 1 ? 'default' : 'pointer',
+                      fontSize: '0.7rem', color: 'var(--color-text-focus, #222)',
+                      opacity: i === items.length - 1 ? 0.15 : 0.5, padding: '1px 4px',
+                      transition: 'opacity 0.15s ease',
+                      lineHeight: 1,
+                    }}
+                    onMouseEnter={e => { if (i < items.length - 1) e.currentTarget.style.opacity = '1' }}
+                    onMouseLeave={e => { if (i < items.length - 1) e.currentTarget.style.opacity = '0.5' }}
+                  >▼</button>
+                </div>
+              )}
+            </div>
+          )
+        })}
+      </div>
+
+      {!success && <ContinueBtn onClick={validate} label="valider" delay={300} />}
+
+      {success && (
+        <p style={{
+          fontSize: '0.88rem', color: 'var(--color-text-focus, #222)',
+          opacity: 0.6, fontStyle: 'italic', margin: 0, textAlign: 'center',
+        }}>
+          {data.successMessage || 'Exact.'}
+        </p>
+      )}
+    </AnimatedWrapper>
+  )
+}
+
 export default GameOverlay
