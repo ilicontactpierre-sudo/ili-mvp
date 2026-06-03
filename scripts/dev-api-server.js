@@ -111,76 +111,42 @@ app.post('/api/upload-audio', async (req, res) => {
 // ── /api/upload-sound ────────────────────────────────────────────────────────
 app.post('/api/upload-sound', express.json(), async (req, res) => {
   const { password, soundEntry } = req.body ?? {}
-
   if (!password || password !== process.env.ADMIN_PASSWORD) {
     return res.status(401).json({ error: 'Non autorisé' })
   }
   if (!soundEntry?.id || !soundEntry?.url) {
     return res.status(400).json({ error: 'soundEntry invalide — id et url requis' })
   }
-
-  const {
-    GITHUB_TOKEN,
-    GITHUB_OWNER,
-    GITHUB_REPO,
-    GITHUB_BRANCH = 'main',
-  } = process.env
-
-  if (!GITHUB_TOKEN || !GITHUB_OWNER || !GITHUB_REPO) {
-    return res.status(500).json({ error: 'Variables GitHub manquantes dans .env' })
+  const supabase = createClient(
+    process.env.SUPABASE_URL,
+    process.env.SUPABASE_SERVICE_KEY
+  )
+  const row = {
+    id:               soundEntry.id,
+    filename:         soundEntry.filename        || null,
+    label:            soundEntry.label           || soundEntry.id,
+    url:              soundEntry.url,
+    local_path:       soundEntry.localPath       || null,
+    description:      soundEntry.description     || null,
+    tags:             soundEntry.tags            ?? [],
+    categories:       soundEntry.categories      ?? [],
+    boom_category:    soundEntry.boomCategory    || null,
+    boom_subcategory: soundEntry.boomSubcategory || null,
+    cat_id:           soundEntry.catId           || null,
+    library:          soundEntry.library         || null,
+    mood:             soundEntry.mood            ?? [],
+    loop:             soundEntry.loop            ?? false,
+    duration:         soundEntry.duration        ?? 0,
+    intensity:        soundEntry.intensity       || null,
+    tempo:            soundEntry.tempo           || null,
+    search_string:    soundEntry.searchString    || null,
   }
-
-  const filePath = 'public/sounds/sounds-index.json'
-  const apiBase  = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}`
-  const ghHeaders = {
-    Authorization:  `token ${GITHUB_TOKEN}`,
-    Accept:         'application/vnd.github.v3+json',
-    'Content-Type': 'application/json',
-  }
-
   try {
-    // Récupérer le SHA et le contenu actuel
-    const getRes = await fetch(
-      `${apiBase}/contents/${filePath}?ref=${GITHUB_BRANCH}`,
-      { headers: ghHeaders }
-    )
-    if (!getRes.ok) throw new Error(`GitHub GET échoué : ${getRes.status}`)
-    const getJson = await getRes.json()
-    const sha = getJson.sha
-    const currentIndex = JSON.parse(
-      Buffer.from(getJson.content, 'base64').toString('utf-8')
-    )
-
-    // Ajouter ou mettre à jour l'entrée
-    const exists = currentIndex.find(s => s.id === soundEntry.id)
-    const updatedIndex = exists
-      ? currentIndex.map(s => s.id === soundEntry.id ? soundEntry : s)
-      : [...currentIndex, soundEntry]
-
-    // Pousser sur GitHub
-    const content = Buffer.from(JSON.stringify(updatedIndex, null, 2)).toString('base64')
-    const putRes = await fetch(`${apiBase}/contents/${filePath}`, {
-      method: 'PUT',
-      headers: ghHeaders,
-      body: JSON.stringify({
-        message: `sounds: ${exists ? 'update' : 'add'} ${soundEntry.id}`,
-        content,
-        sha,
-        branch: GITHUB_BRANCH,
-      }),
-    })
-    if (!putRes.ok) {
-      const err = await putRes.json()
-      throw new Error(`GitHub PUT échoué : ${JSON.stringify(err)}`)
-    }
-
-    // Mettre à jour aussi le fichier local pour que l'admin voit le changement immédiatement
-    fs.writeFileSync(
-      './public/sounds/sounds-index.json',
-      JSON.stringify(updatedIndex, null, 2)
-    )
-
-    return res.status(200).json({ success: true, action: exists ? 'updated' : 'added' })
+    const { error } = await supabase
+      .from('sounds')
+      .upsert(row, { onConflict: 'id' })
+    if (error) throw new Error(error.message)
+    return res.status(200).json({ success: true, action: 'upserted' })
   } catch (err) {
     console.error('upload-sound error:', err)
     return res.status(500).json({ error: err.message })
