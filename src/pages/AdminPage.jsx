@@ -1364,6 +1364,13 @@ function AdminPage() {
                           </span>
                           <span style={{ fontSize: '0.72rem', color: '#aaa' }}>
                             Double-tap pour éditer
+                              {(() => {
+                            window._mobileTrackUpdate = (updated) => {
+                              setSoundTracks(updated)
+                              saveToHistory(segments, updated, vfxTracks)
+                            }
+                            return null
+                          })()}
                           </span>
                         </div>
                         {segments.map((segment, index) => (
