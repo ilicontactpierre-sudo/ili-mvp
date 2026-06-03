@@ -20,6 +20,159 @@ function useIsMobile() {
   return isMobile
 }
 
+// ── Composant carte segment pour mobile ───────────────────────────────────────
+function MobileSegmentCard({ segment, index, segments, setSegments, soundTracks, vfxTracks, saveToHistory }) {
+  const [mobileEditing, setMobileEditing] = useState(false)
+  const text = typeof segment === 'string' ? segment : (segment?.text || '')
+  const [mobileText, setMobileText] = useState(text)
+
+  // Sync si le texte change de l'extérieur
+  useEffect(() => {
+    if (!mobileEditing) {
+      setMobileText(typeof segment === 'string' ? segment : (segment?.text || ''))
+    }
+  }, [segment, mobileEditing])
+
+  return (
+    <div
+      style={{
+        border: '1px solid #e0e0e0',
+        borderRadius: '8px',
+        backgroundColor: index % 2 === 0 ? '#fff' : '#fafafa',
+        overflow: 'hidden'
+      }}
+    >
+      {/* Barre du haut : numéro + boutons */}
+      <div style={{
+        display: 'flex',
+        alignItems: 'center',
+        gap: '0.4rem',
+        padding: '0.4rem 0.6rem',
+        borderBottom: '1px solid #f0f0f0',
+        backgroundColor: '#f8f9fa'
+      }}>
+        <span style={{ fontSize: '0.7rem', color: '#999', fontWeight: 700, minWidth: '24px' }}>
+          #{index + 1}
+        </span>
+        {segment?.isChapter && (
+          <span style={{ fontSize: '0.65rem', color: '#8B5CF6', fontWeight: 600 }}>★ Ch.</span>
+        )}
+        {segment?.isLeader && !segment?.isChapter && (
+          <span style={{ fontSize: '0.65rem', color: '#F97316' }}>◆</span>
+        )}
+        <div style={{ flex: 1 }} />
+        <button
+          onClick={() => { setMobileText(text); setMobileEditing(true) }}
+          style={{
+            padding: '0.25rem 0.6rem', fontSize: '0.72rem',
+            backgroundColor: '#007bff', color: '#fff',
+            border: 'none', borderRadius: '4px', cursor: 'pointer'
+          }}
+        >
+          ✏️
+        </button>
+        <button
+          onClick={() => {
+            const updated = [...segments]
+            updated.splice(index + 1, 0, { text: '', id: `seg_${Date.now()}` })
+            setSegments(updated)
+            saveToHistory(updated, soundTracks, vfxTracks)
+          }}
+          style={{
+            padding: '0.25rem 0.5rem', fontSize: '0.72rem',
+            backgroundColor: '#28a745', color: '#fff',
+            border: 'none', borderRadius: '4px', cursor: 'pointer'
+          }}
+        >
+          ＋
+        </button>
+        <button
+          onClick={() => {
+            const updated = [...segments]
+            updated.splice(index, 1)
+            setSegments(updated)
+            saveToHistory(updated, soundTracks, vfxTracks)
+          }}
+          style={{
+            padding: '0.25rem 0.5rem', fontSize: '0.72rem',
+            backgroundColor: 'rgba(220,53,69,0.1)', color: '#dc3545',
+            border: '1px solid rgba(220,53,69,0.2)', borderRadius: '4px', cursor: 'pointer'
+          }}
+        >
+          ✕
+        </button>
+      </div>
+
+      {/* Corps : texte ou textarea */}
+      <div style={{ padding: '0.5rem 0.75rem' }}>
+        {mobileEditing ? (
+          <div>
+            <textarea
+              autoFocus
+              value={mobileText}
+              onChange={(e) => setMobileText(e.target.value)}
+              style={{
+                width: '100%', minHeight: '80px', padding: '0.4rem',
+                fontSize: '0.85rem', border: '1px solid #2196F3',
+                borderRadius: '4px', resize: 'vertical',
+                boxSizing: 'border-box', fontFamily: 'inherit', lineHeight: '1.4'
+              }}
+            />
+            <div style={{ display: 'flex', gap: '0.4rem', marginTop: '0.4rem' }}>
+              <button
+                onClick={() => {
+                  const updated = [...segments]
+                  updated[index] = typeof segments[index] === 'string'
+                    ? mobileText
+                    : { ...segments[index], text: mobileText }
+                  setSegments(updated)
+                  saveToHistory(updated, soundTracks, vfxTracks)
+                  setMobileEditing(false)
+                }}
+                style={{
+                  flex: 1, padding: '0.4rem', fontSize: '0.8rem',
+                  backgroundColor: '#28a745', color: '#fff',
+                  border: 'none', borderRadius: '4px', cursor: 'pointer'
+                }}
+              >
+                ✓ Valider
+              </button>
+              <button
+                onClick={() => setMobileEditing(false)}
+                style={{
+                  padding: '0.4rem 0.75rem', fontSize: '0.8rem',
+                  backgroundColor: '#f8f9fa', color: '#555',
+                  border: '1px solid #ddd', borderRadius: '4px', cursor: 'pointer'
+                }}
+              >
+                Annuler
+              </button>
+            </div>
+          </div>
+        ) : (
+          <p style={{
+            margin: 0, fontSize: '0.85rem', lineHeight: '1.4',
+            color: text ? '#333' : '#bbb', fontStyle: text ? 'normal' : 'italic',
+            whiteSpace: 'pre-wrap', wordBreak: 'break-word'
+          }}>
+            {text || 'Segment vide…'}
+          </p>
+        )}
+      </div>
+
+      {/* Résumé audio si présent */}
+      {segment?.audioEvents && segment.audioEvents.length > 0 && (
+        <div style={{
+          padding: '0.3rem 0.75rem', borderTop: '1px solid #f0f0f0',
+          fontSize: '0.7rem', color: '#888', backgroundColor: '#f8f9fa'
+        }}>
+          🔊 {segment.audioEvents.length} événement(s) audio
+        </div>
+      )}
+    </div>
+  )
+}
+
 function AdminPage() {
   const isMobile = useIsMobile()
   const [isAuthenticated, setIsAuthenticated] = useState(false)
