@@ -307,11 +307,50 @@ function OrchestrationPanel({
       newTracks.push(newTrack)
     })
 
+// Créer aussi les blocs grisés pour les sons non uploadés
+    diagnosis.missing.forEach(({ block, ghostSound }) => {
+      if (!block || !ghostSound) return
+      const startIdx = block.startSegment - 1
+      const endIdx = block.endSegment - 1
+      if (startIdx < 0 || startIdx >= segments.length) return
+      if (endIdx < 0 || endIdx >= segments.length) return
+      const startSeg = segments[startIdx]
+      const endSeg = segments[endIdx]
+      const startSegmentId = startSeg?.id || `seg_${startIdx}`
+      const endSegmentId = endSeg?.id || `seg_${endIdx}`
+      const allTracks = [...soundTracks, ...newTracks]
+      let col = 0
+      for (let c = 0; c < 6; c++) {
+        const conflict = allTracks.some(track => {
+          const ts = segments.findIndex(s => (s.id || `seg_${segments.indexOf(s)}`) === track.startSegmentId)
+          const te = segments.findIndex(s => (s.id || `seg_${segments.indexOf(s)}`) === track.endSegmentId)
+          const teResolved = te !== -1 ? te : ts
+          return track.column === c && ts <= startIdx && teResolved >= startIdx
+        })
+        if (!conflict) { col = c; break }
+      }
+      newTracks.push({
+        id: `st_${Date.now()}_${Math.random().toString(36).substr(2, 9)}_ghost_${newTracks.length}`,
+        soundId: ghostSound.id,
+        startSegmentId,
+        endSegmentId,
+        column: col,
+        volume: block.volume ?? 0.5,
+        loop: block.loop ?? false,
+        fadeIn: block.fadeIn ?? 0,
+        fadeOut: block.fadeOut ?? 0,
+        delay: block.delay ?? 0,
+        muted: true,
+        broken: true,
+        _orchestrationNote: block.note || '',
+        _orchestrationKeyword: block.keyword || '',
+      })
+    })
+
     if (newTracks.length === 0) {
       setApplyStatus('error')
       return
     }
-
     // Ajouter aux tracks existants
     onSoundTracksChange([...soundTracks, ...newTracks])
     if (onSaveToHistory) onSaveToHistory()
