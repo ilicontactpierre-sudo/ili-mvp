@@ -101,6 +101,84 @@ function FormImage({ data, onChange }) {
         <input style={inputStyle} type="text" value={data.caption || ''} placeholder="Ex : Document retrouvé le 14 mars…"
           onChange={e => onChange({ ...data, caption: e.target.value })} />
       </Field>
+      <Field label="Animation d'apparition">
+        <select style={inputStyle} value={data.animation || 'fade'}
+          onChange={e => onChange({ ...data, animation: e.target.value })}>
+          <option value="fade">Fondu simple</option>
+          <option value="pixels">Pixels aléatoires</option>
+          <option value="develop">Développement photo</option>
+          <option value="scan">Scan vertical</option>
+          <option value="shards">Éclats de verre</option>
+          <option value="fog">Brume qui se lève</option>
+        </select>
+      </Field>
+    </>
+  )
+}
+
+function FormFilmstrip({ data, onChange }) {
+  const images = data.images || ['', '', '']
+  const updateImage = (i, val) => {
+    const next = [...images]
+    next[i] = val
+    onChange({ ...data, images: next })
+  }
+  const addImage = () => onChange({ ...data, images: [...images, ''] })
+  const removeImage = (i) => {
+    const next = images.filter((_, idx) => idx !== i)
+    onChange({ ...data, images: next })
+  }
+  return (
+    <>
+      <Field label="Images (3 à 5)" hint="Une URL par image — elles défileront dans l'ordre">
+        {images.map((url, i) => (
+          <div key={i} style={{ display: 'flex', gap: '0.5rem', marginBottom: '0.4rem' }}>
+            <input style={{ ...inputStyle, flex: 1 }} type="url" value={url} placeholder={`Image ${i + 1}…`}
+  onChange={e => updateImage(i, e.target.value)} />
+
+          <a
+            href="https://supabase.com/dashboard/project/bdwliagkmdofyuuysppg/storage/files/buckets/Images"
+            target="_blank"
+            rel="noreferrer"
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              padding: '0 0.6rem',
+              backgroundColor: 'rgba(62,207,142,0.15)',
+              color: 'rgba(62,207,142,0.9)',
+              border: '1px solid rgba(62,207,142,0.25)',
+              borderRadius: '6px',
+              fontSize: '0.72rem',
+              textDecoration: 'none',
+              whiteSpace: 'nowrap',
+            }}
+          >
+            SB
+          </a>
+
+            {images.length > 2 && (
+              <button onClick={() => removeImage(i)} style={{
+                background: 'none', border: '1px solid rgba(220,38,38,0.3)',
+                color: 'rgba(220,38,38,0.7)', borderRadius: '6px',
+                padding: '0 0.6rem', cursor: 'pointer', fontSize: '0.75rem',
+              }}>✕</button>
+            )}
+          </div>
+        ))}
+        {images.length < 5 && (
+          <button onClick={addImage} style={{
+            marginTop: '0.3rem', background: 'none',
+            border: '1px dashed rgba(255,255,255,0.15)', color: 'rgba(255,255,255,0.4)',
+            borderRadius: '6px', padding: '0.4rem 0.75rem', cursor: 'pointer', fontSize: '0.78rem', width: '100%',
+          }}>
+            + Ajouter une image
+          </button>
+        )}
+      </Field>
+      <Field label="Durée par image (ms)">
+        <input style={inputStyle} type="number" min="800" max="8000" step="100" value={data.interval || 2500}
+          onChange={e => onChange({ ...data, interval: parseInt(e.target.value) || 2500 })} />
+      </Field>
     </>
   )
 }
