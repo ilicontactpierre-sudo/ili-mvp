@@ -740,6 +740,158 @@ function GameTimer({ data, onResolved }) {
   )
 }
 
+// ─── Type : Crypte ───────────────────────────────────────────────────────────
+function GameCrypte({ data, onResolved }) {
+  const [input, setInput] = useState('')
+  const [error, setError] = useState('')
+  const [success, setSuccess] = useState(false)
+  const [revealed, setRevealed] = useState(false)
+  const { playSuccess, playError } = useKeySound()
+
+  // Apparition du texte chiffré lettre par lettre
+  const encoded = data.encoded || ''
+  const [displayedEncoded, setDisplayedEncoded] = useState('')
+  const indexRef = useRef(0)
+
+  useEffect(() => {
+    if (!encoded) return
+    const interval = setInterval(() => {
+      if (indexRef.current >= encoded.length) {
+        clearInterval(interval)
+        setRevealed(true)
+        return
+      }
+      setDisplayedEncoded(encoded.slice(0, indexRef.current + 1))
+      indexRef.current += 1
+    }, 55)
+    return () => clearInterval(interval)
+  }, [encoded])
+
+  const validate = () => {
+    const correct = String(data.answer || '').trim().toLowerCase()
+    const attempt = input.trim().toLowerCase()
+    if (attempt === correct) {
+      playSuccess()
+      setSuccess(true)
+      setTimeout(onResolved, 900)
+    } else {
+      playError()
+      setError(data.errorMessage || 'Ce n\'est pas le bon déchiffrement.')
+      setTimeout(() => setError(''), 2500)
+    }
+  }
+
+  const cipherLabel = {
+    caesar:  `César +${data.shift || 3}`,
+    mirror:  'Miroir (A↔Z)',
+    reverse: 'Texte inversé',
+  }[data.cipher] || ''
+
+  return (
+    <AnimatedWrapper>
+      {data.prompt && (
+        <p style={{
+          fontSize: 'clamp(0.85rem, 2vw, 0.95rem)',
+          color: 'var(--color-text-focus, #222)',
+          textAlign: 'center', lineHeight: 1.6,
+          opacity: 0.7, margin: 0, fontStyle: 'italic',
+        }}>
+          {data.prompt}
+        </p>
+      )}
+
+      {/* Texte chiffré */}
+      <div style={{
+        width: '100%', maxWidth: '420px',
+        padding: '1.4rem 1.6rem',
+        border: '1px solid var(--color-text-focus, #222)',
+        borderRadius: '2px',
+        boxSizing: 'border-box',
+        position: 'relative',
+      }}>
+        {/* Label chiffrement */}
+        <div style={{
+          position: 'absolute', top: '-0.6em', left: '1.2rem',
+          backgroundColor: 'var(--color-bg, #f5f0e8)',
+          padding: '0 0.4rem',
+          fontSize: '0.6rem', letterSpacing: '0.14em',
+          opacity: 0.4, textTransform: 'uppercase',
+          fontFamily: 'monospace',
+        }}>
+          {cipherLabel}
+        </div>
+        <p style={{
+          margin: 0,
+          fontFamily: 'monospace',
+          fontSize: 'clamp(1rem, 2.5vw, 1.3rem)',
+          letterSpacing: '0.18em',
+          color: 'var(--color-text-focus, #222)',
+          textAlign: 'center',
+          lineHeight: 1.6,
+          wordBreak: 'break-all',
+        }}>
+          {displayedEncoded}
+          {!revealed && (
+            <span style={{
+              display: 'inline-block',
+              width: '1.5px', height: '1em',
+              backgroundColor: 'var(--color-text-focus, #222)',
+              marginLeft: '2px',
+              verticalAlign: 'text-bottom',
+              animation: 'game-blink 0.65s step-end infinite',
+            }} />
+          )}
+        </p>
+      </div>
+
+      {/* Champ de réponse */}
+      {revealed && (
+        <input
+          type="text"
+          value={input}
+          onChange={e => { setInput(e.target.value); setError('') }}
+          onKeyDown={e => { if (e.key === 'Enter') validate() }}
+          autoFocus
+          disabled={success}
+          placeholder="votre déchiffrement…"
+          style={{
+            width: '100%', maxWidth: '320px',
+            padding: '0.8rem 1rem',
+            border: `1px solid ${success ? 'rgba(39,174,96,0.7)' : error ? 'rgba(192,57,43,0.6)' : 'var(--color-text-focus, #222)'}`,
+            borderRadius: '2px',
+            background: success ? 'rgba(39,174,96,0.04)' : 'none',
+            fontFamily: 'var(--font-primary, Georgia, serif)',
+            fontSize: '1rem',
+            color: 'var(--color-text-focus, #222)',
+            textAlign: 'center',
+            outline: 'none',
+            boxSizing: 'border-box',
+            transition: `border-color 350ms ${EASE.inOut}, background-color 350ms ${EASE.inOut}`,
+          }}
+        />
+      )}
+
+      {data.hint && !error && !success && revealed && (
+        <Hint>{data.hint}</Hint>
+      )}
+
+      <p style={{
+        fontSize: '0.78rem', color: '#c0392b',
+        opacity: error ? 0.85 : 0,
+        textAlign: 'center', minHeight: '1em',
+        fontStyle: 'italic', margin: 0,
+        transition: `opacity 250ms ${EASE.out}`,
+      }}>
+        {error}
+      </p>
+
+      {revealed && !success && (
+        <ContinueBtn onClick={validate} label="déchiffrer" delay={200} />
+      )}
+    </AnimatedWrapper>
+  )
+}
+
 // ─── Type : Écho ─────────────────────────────────────────────────────────────
 function GameEcho({ data, onResolved }) {
   const phrase = data.phrase || ''
