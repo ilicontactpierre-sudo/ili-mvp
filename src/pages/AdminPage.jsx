@@ -451,12 +451,42 @@ function AdminPage() {
   // État pour l'aperçu
   const [isPreviewOpen, setIsPreviewOpen] = useState(false)
 
-  // Charger la bibliothèque sonore au montage
+  // Charger la bibliothèque sonore depuis Supabase au montage
   useEffect(() => {
-    fetch('/sounds/sounds-index.json')
+    const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL
+    const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY
+    fetch(`${SUPABASE_URL}/rest/v1/sounds?select=*&order=label.asc`, {
+      headers: {
+        'apikey': SUPABASE_ANON_KEY,
+        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+      }
+    })
       .then(res => res.json())
-      .then(data => setSoundLibrary(data))
-      .catch(err => console.error('Erreur chargement bibliothèque sonore:', err))
+      .then(rows => {
+        // Convertir les colonnes snake_case de Supabase vers le format camelCase attendu
+        const sounds = rows.map(r => ({
+          id:              r.id,
+          filename:        r.filename,
+          label:           r.label,
+          url:             r.url,
+          localPath:       r.local_path,
+          description:     r.description,
+          tags:            r.tags            ?? [],
+          categories:      r.categories      ?? [],
+          boomCategory:    r.boom_category,
+          boomSubcategory: r.boom_subcategory,
+          catId:           r.cat_id,
+          library:         r.library,
+          mood:            r.mood            ?? [],
+          loop:            r.loop            ?? false,
+          duration:        r.duration        ?? 0,
+          intensity:       r.intensity,
+          tempo:           r.tempo,
+          searchString:    r.search_string,
+        }))
+        setSoundLibrary(sounds)
+      })
+      .catch(err => console.error('Erreur chargement bibliothèque sonore Supabase:', err))
   }, [])
 
   // Sons filtrés (mémoïsé)
