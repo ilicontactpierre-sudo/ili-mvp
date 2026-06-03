@@ -7,6 +7,7 @@ import StoryLoader from '../components/admin/StoryLoader'
 import StoryPreviewModal from '../components/admin/StoryPreviewModal'
 import PublishPanel from '../components/admin/PublishPanel'
 import OrchestrationPanel from '../components/admin/OrchestrationPanel'
+import GameModePanel from '../components/admin/GameModePanel'
 
 // ── Hook mobile ──────────────────────────────────────────────────────────────
 function useIsMobile() {
@@ -1394,6 +1395,15 @@ function AdminPage() {
                     {isMobile ? (
                       /* ── Vue mobile : liste simple des segments ── */
                       <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', marginBottom: '1rem' }}>
+                        {/* Conteneur scrollable */}
+                        <div style={{
+                          height: '60vh',
+                          overflowY: 'auto',
+                          border: '1px solid #e0e0e0',
+                          borderRadius: '8px',
+                          padding: '6px',
+                          backgroundColor: '#f8f9fa',
+                        }}>
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.25rem' }}>
                           <span style={{ fontSize: '0.85rem', fontWeight: 600, color: '#555' }}>
                             Segments ({segments.length})
@@ -1427,6 +1437,7 @@ function AdminPage() {
                           />
                         ))}
                                
+                        </div>{/* fin conteneur scrollable */}
                         {/* Note d'information */}
                         <div style={{
                           marginTop: '0.5rem',
