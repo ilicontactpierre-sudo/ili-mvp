@@ -140,30 +140,68 @@ const fileInputRef = useRef(null)
     fileInputRef.current?.click()
   }
 
-  const handleFileSelected = async (e) => {
+const handleFileSelected = async (e) => {
     const file = e.target.files?.[0]
     if (!file) return
     const sound = pendingUploadSound.current
     if (!sound) return
-    e.target.value = '' // reset pour permettre de resélectionner le même fichier
-
+    e.target.value = ''
     setUploadingId(sound.id)
     try {
-      const formData = new FormData()
-      formData.append('file', file, sound.filename || `${sound.id}.mp3`)
-      formData.append('password', adminPassword)
-      formData.append('filename', sound.filename || `${sound.id}.mp3`)
+      const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL
+      const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY
 
-      const uploadRes = await fetch('/api/upload-audio', {
+      // 1. Compression MP3 via FFmpeg WASM
+      if (!ffmpegRef.current) ffmpegRef.current = new FFmpeg()
+      const ffmpeg = ffmpegRef.current
+
+      if (!ffmpegLoadedRef.current) {
+        const baseURL = 'https://unpkg.com/@ffmpeg/core@0.12.6/dist/esm'
+        await ffmpeg.load({
+          coreURL: await toBlobURL(`${baseURL}/ffmpeg-core.js`, 'text/javascript'),
+          wasmURL: await toBlobURL(`${baseURL}/ffmpeg-core.wasm`, 'application/wasm'),
+        })
+        ffmpegLoadedRef.current = true
+      }
+
+      const inputExt = file.name.split('.').pop().toLowerCase()
+      const inputName = `input.${inputExt}`
+      const outputName = `${sound.id}.mp3`
+
+      await ffmpeg.writeFile(inputName, await fetchFile(file))
+      await ffmpeg.exec([
+        '-i', inputName,
+        '-codec:a', 'libmp3lame',
+        '-qscale:a', '4',   // qualité VBR ~165 kbps, bon compromis taille/qualité
+        '-ar', '44100',
+        outputName
+      ])
+      const mp3Data = await ffmpeg.readFile(outputName)
+      const mp3Blob = new Blob([mp3Data.buffer], { type: 'audio/mpeg' })
+
+      // 2. Upload direct vers Supabase Storage
+      const uploadPath = outputName
+      const storageUrl = `${SUPABASE_URL}/storage/v1/object/sounds/${encodeURIComponent(uploadPath)}`
+
+      const uploadRes = await fetch(storageUrl, {
         method: 'POST',
-        body: formData,
+        headers: {
+          'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+          'Content-Type': 'audio/mpeg',
+          'x-upsert': 'true',
+        },
+        body: mp3Blob,
       })
+
       if (!uploadRes.ok) {
         const text = await uploadRes.text()
-        throw new Error(`Upload échoué (${uploadRes.status}) : ${text.slice(0, 200)}`)
+        throw new Error(`Upload Supabase échoué (${uploadRes.status}) : ${text.slice(0, 200)}`)
       }
-      const { publicUrl } = await uploadRes.json()
 
+      // 3. URL publique
+      const publicUrl = `${SUPABASE_URL}/storage/v1/object/public/sounds/${encodeURIComponent(uploadPath)}`
+
+      // 4. Enregistrer dans la table Supabase
       const saveRes = await fetch('/api/upload-sound', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -172,10 +210,13 @@ const fileInputRef = useRef(null)
           soundEntry: { ...sound, url: publicUrl },
         }),
       })
-      if (!saveRes.ok) throw new Error('Mise à jour index échouée')
+      if (!saveRes.ok) {
+        const err = await saveRes.json()
+        throw new Error(`Mise à jour index échouée : ${err.error || saveRes.status}`)
+      }
 
       if (onSoundsImported) onSoundsImported([{ ...sound, url: publicUrl }])
-      alert(`✅ "${sound.label}" uploadé !`)
+      alert(`✅ "${sound.label}" compressé et uploadé !`)
     } catch (err) {
       alert(`❌ Erreur : ${err.message}`)
     } finally {
