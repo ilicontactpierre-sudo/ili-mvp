@@ -439,8 +439,9 @@ function GameModePanel({ segment, segmentIndex, onSave, onDelete, onClose }) {
         </Field>
 
         {/* Formulaire selon le type */}
-        {type === 'image'    && <FormImage    data={data} onChange={setData} />}
-        {type === 'document' && <FormDocument data={data} onChange={setData} />}
+        {type === 'image'     && <FormImage     data={data} onChange={setData} />}
+        {type === 'filmstrip' && <FormFilmstrip data={data} onChange={setData} />}
+        {type === 'document'  && <FormDocument  data={data} onChange={setData} />}
         {type === 'message'  && <FormMessage  data={data} onChange={setData} />}
         {type === 'code'    && <FormCode    data={data} onChange={setData} />}
         {type === 'riddle'  && <FormRiddle  data={data} onChange={setData} />}
