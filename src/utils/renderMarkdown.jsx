@@ -8,7 +8,17 @@ import { applyBionicReading } from './bionicReading.jsx'
 export function renderMarkdown(text, segment, isDysMode = false) {
   if (!text) return null
 
-  let content = isDysMode ? applyBionicReading(text) : text
+  // ── Substitution des tags {{journal:clé}} ──
+  const resolvedText = text.replace(/\{\{journal:([^}]+)\}\}/g, (_, key) => {
+    try {
+      const val = sessionStorage.getItem(`ili_journal_${key.trim()}`)
+      return val ? `"${val}"` : '…'
+    } catch {
+      return '…'
+    }
+  })
+
+  let content = isDysMode ? applyBionicReading(resolvedText) : resolvedText
 
   if (segment?.strikethrough) content = <s>{content}</s>
   if (segment?.underline)     content = <u>{content}</u>
