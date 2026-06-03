@@ -37,18 +37,6 @@
       "audioEvents": []
     },
     {
-      "text": "",
-      "id": "seg_1780339254441",
-      "gameMode": {
-        "type": "code",
-        "answer": "1919",
-        "prompt": "C koi le Kode?",
-        "hint": "Indice...",
-        "errorMessage": "Et non"
-      },
-      "audioEvents": []
-    },
-    {
       "id": "seg_1780339244791_3_19hke",
       "lines": [
         "lord Henry Wotton pouvait tout juste apercevoir le rayonnement des douces fleurs couleur de miel d’un aubour dont les tremblantes branches semblaient à peine pouvoir supporter le poids d’une aussi flamboyante splendeur ; et de temps à autre, les ombres fantastiques des oiseaux fuyants passaient sur les longs rideaux de tussor tendus devant la large fenêtre,"
@@ -62,10 +50,27 @@
       "text": "",
       "id": "seg_1780353456663",
       "gameMode": {
-        "type": "message",
-        "text": "test du message animé via SMS pour voir ce que ça fait. Je ne sais pas trop à quoi m'attendre mais bon... Peut être que c'est cool ! Qui sait... ?",
-        "interface": "sms",
-        "speed": "normal"
+        "type": "timer",
+        "seconds": 5,
+        "prompt": "Don't move",
+        "hint": "",
+        "expireMessage": "Ok go",
+        "timerStyle": "bar",
+        "resetOnTap": true
+      },
+      "audioEvents": []
+    },
+    {
+      "text": "",
+      "id": "seg_1780498407940",
+      "gameMode": {
+        "type": "timer",
+        "seconds": 5,
+        "prompt": "Toujours pas bouger",
+        "hint": "",
+        "expireMessage": "Ok go go gogoGO",
+        "timerStyle": "bar",
+        "resetOnTap": true
       },
       "audioEvents": []
     },
@@ -84,10 +89,15 @@
       "id": "seg_1780339322452",
       "breakAt": null,
       "gameMode": {
-        "type": "message",
-        "text": "Pour voir, j'essaie aussi la version mail. Curieux de voir ce que ça fait...\n\nEt j'essaie d'aller à la ligne pour voir.",
-        "interface": "email",
-        "speed": "normal"
+        "type": "sequence",
+        "items": [
+          "1",
+          "2",
+          "3",
+          "4"
+        ],
+        "prompt": "Range dans le bon ordre",
+        "successMessage": "Nickel bébé"
       },
       "audioEvents": []
     },
@@ -105,10 +115,11 @@
       "text": "",
       "id": "seg_1780353594265",
       "gameMode": {
-        "type": "message",
-        "text": "Et dernier test avec le terminal. Comme ça, j'aurai tout vu ! Enfin, tout vu si ça fonctionne lol. Aller Tchao.",
-        "interface": "terminal",
-        "speed": "normal"
+        "type": "journal",
+        "prompt": "Tu aimerais quelle couleur ?",
+        "placeholder": "Placeholder du champ.. comprend pas",
+        "memoryKey": "couleur",
+        "continueLabel": "Ok... C'est moche, mais Ok."
       },
       "audioEvents": []
     },
@@ -117,7 +128,7 @@
       "lines": [
         "Au milieu de la chambre sur un chevalet droit, s’érigeait le portrait grandeur naturelle d’un jeune homme d’une extraordinaire beauté,"
       ],
-      "text": "Au milieu de la chambre sur un chevalet droit, s’érigeait le portrait grandeur naturelle d’un jeune homme d’une extraordinaire beauté,",
+      "text": "Au milieu de la chambre sur un chevalet droit {{journal:couleur}}, s’érigeait le portrait grandeur naturelle d’un jeune homme d’une extraordinaire beauté,",
       "breakAt": null,
       "isLeader": false,
       "audioEvents": []
@@ -126,13 +137,10 @@
       "text": "",
       "id": "seg_1780353632411",
       "gameMode": {
-        "type": "riddle",
-        "question": "Comment essayer le mode \"Enigme texte libre\" ? ",
-        "answer": "En essayant/en faisant/je ne sais pas",
-        "hint": "Indice... Ou pas.",
-        "placeholder": "Je ne sais pas quoi mettre dans Placeholder.",
-        "caseSensitive": false,
-        "errorMessage": "Oups, c'est raté"
+        "type": "echo",
+        "phrase": "Coucou papa maman pipi caca",
+        "prompt": "Il faut recopier ça...",
+        "successMessage": "Bravo, tu es pas si débile"
       },
       "audioEvents": []
     },
@@ -166,6 +174,51 @@
       "text": "Comme le peintre regardait la gracieuse et charmante figure que son art avait si subtilement reproduite, un sourire de plaisir passa sur sa face et parut s’y attarder.",
       "breakAt": null,
       "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "text": "",
+      "id": "seg_1780498642298",
+      "gameMode": {
+        "type": "crypte",
+        "cipher": "caesar",
+        "shift": 1,
+        "encoded": "Détbs",
+        "answer": "César",
+        "hint": "+1",
+        "errorMessage": "Essaie encore, Sherlock",
+        "prompt": "Quel mot se cache ?"
+      },
+      "audioEvents": []
+    },
+    {
+      "text": "",
+      "id": "seg_1780498703014",
+      "gameMode": {
+        "type": "crypte",
+        "cipher": "mirror",
+        "shift": 3,
+        "encoded": "Nrilri",
+        "answer": "Miroir",
+        "hint": "dans l'autre sens",
+        "errorMessage": "Hum... non",
+        "prompt": "Un peu plus dur..."
+      },
+      "audioEvents": []
+    },
+    {
+      "text": "",
+      "id": "seg_1780498779837",
+      "gameMode": {
+        "type": "crypte",
+        "cipher": "reverse",
+        "shift": 3,
+        "encoded": "ésrevni etxet el ceva rioriM",
+        "answer": "Miroir avec le texte inversé",
+        "hint": "à l'envers et contre tous",
+        "errorMessage": "Oh no",
+        "prompt": "Miroir inversé"
+      },
       "audioEvents": []
     },
     {
@@ -227,8 +280,315 @@
       "breakAt": null,
       "isLeader": false,
       "audioEvents": []
+    },
+    {
+      "id": "seg_1780498952914_0_v3yt1",
+      "lines": [
+        "– Et comment lady Brandon vous parla-t-elle de ce merveilleux jeune homme, demanda l’ami. Je sais qu’elle a la marotte de donner un précis rapide de chacun de ses invités."
+      ],
+      "text": "– Et comment lady Brandon vous parla-t-elle de ce merveilleux jeune homme, demanda l’ami. Je sais qu’elle a la marotte de donner un précis rapide de chacun de ses invités.",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1780498952914_1_64nzv",
+      "lines": [
+        "Je me souviens qu’elle me présenta une fois à un apoplectique et truculent gentleman, couvert d’ordres et de rubans et sur lui, me souffla à l’oreille, sur un mode tragique,"
+      ],
+      "text": "Je me souviens qu’elle me présenta une fois à un apoplectique et truculent gentleman, couvert d’ordres et de rubans et sur lui, me souffla à l’oreille, sur un mode tragique,",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1780498952914_2_cb0ey",
+      "lines": [
+        "les plus abasourdissants détails, qui durent être perçus de chaque personne alors dans le salon."
+      ],
+      "text": "les plus abasourdissants détails, qui durent être perçus de chaque personne alors dans le salon.",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1780498952914_3_ymfw1",
+      "lines": [
+        "Cela me mit en fuite ; j’aime connaître les gens par moi-même… Lady Brandon traite exactement ses invités comme un commissaire-priseur ses marchandises. Elle explique les manies et coutumes de chacun, mais oublie naturellement tout ce qui pourrait vous intéresser au personnage."
+      ],
+      "text": "Cela me mit en fuite ; j’aime connaître les gens par moi-même… Lady Brandon traite exactement ses invités comme un commissaire-priseur ses marchandises. Elle explique les manies et coutumes de chacun, mais oublie naturellement tout ce qui pourrait vous intéresser au personnage.",
+      "breakAt": 152,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1780498952914_4_6wrvi",
+      "lines": [
+        "– Pauvre lady Brandon ! Vous êtes dur pour elle, observa nonchalamment Hallward."
+      ],
+      "text": "– Pauvre lady Brandon ! Vous êtes dur pour elle, observa nonchalamment Hallward.",
+      "breakAt": 23,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1780498952914_5_8wmzp",
+      "lines": [
+        "– Mon cher ami, elle essaya de fonder un salon et elle ne réussit qu’à ouvrir un restaurant. Comment pourrais-je l’admirer ?… Mais,"
+      ],
+      "text": "– Mon cher ami, elle essaya de fonder un salon et elle ne réussit qu’à ouvrir un restaurant. Comment pourrais-je l’admirer ?… Mais,",
+      "breakAt": null,
+      "isLeader": true,
+      "isChapter": true,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1780498952914_6_2nvrj",
+      "lines": [
+        "dites-moi, que vous confia-t-elle sur Mr Dorian Gray ?"
+      ],
+      "text": "dites-moi, que vous confia-t-elle sur Mr Dorian Gray ?",
+      "breakAt": null,
+      "isLeader": true,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1780498952914_7_yyr44",
+      "lines": [
+        "– Oh ! quelque chose de très vague dans ce genre : « Charmant garçon !"
+      ],
+      "text": "– Oh ! quelque chose de très vague dans ce genre : « Charmant garçon !",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1780498952914_8_gbq9e",
+      "lines": [
+        "Sa pauvre chère mère et moi, étions inséparables."
+      ],
+      "text": "Sa pauvre chère mère et moi, étions inséparables.",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1780498952914_9_5wq5d",
+      "lines": [
+        "Tout à fait oublié ce qu’il fait, ou plutôt, je crains… qu’il ne fasse rien !"
+      ],
+      "text": "Tout à fait oublié ce qu’il fait, ou plutôt, je crains… qu’il ne fasse rien !",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1780498952914_10_w1zf0",
+      "lines": [
+        "Ah ! si, il joue du piano… Ne serait-ce pas plutôt du violon, mon cher Mr Gray ? »"
+      ],
+      "text": "Ah ! si, il joue du piano… Ne serait-ce pas plutôt du violon, mon cher Mr Gray ? »",
+      "breakAt": null,
+      "isLeader": false,
+      "isChapter": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1780498952914_11_zte8o",
+      "lines": [
+        "Nous ne pûmes tous deux nous empêcher de rire et du coup nous devînmes amis."
+      ],
+      "text": "Nous ne pûmes tous deux nous empêcher de rire et du coup nous devînmes amis.",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1780498952914_12_433t1",
+      "lines": [
+        "– L’hilarité n’est pas du tout un mauvais commencement d’amitié,"
+      ],
+      "text": "– L’hilarité n’est pas du tout un mauvais commencement d’amitié,",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1780498952914_13_f0cv7",
+      "lines": [
+        "et c’est loin d’en être une mauvaise fin, dit le jeune lord en cueillant une autre marguerite."
+      ],
+      "text": "et c’est loin d’en être une mauvaise fin, dit le jeune lord en cueillant une autre marguerite.",
+      "breakAt": null,
+      "isLeader": false,
+      "isChapter": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1780498952914_14_6n4ux",
+      "lines": [
+        "Hallward secoua la tête…"
+      ],
+      "text": "Hallward secoua la tête…",
+      "breakAt": null,
+      "isLeader": false,
+      "isChapter": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1780498952914_15_8335s",
+      "lines": [
+        "– Vous ne pouvez comprendre, Harry, murmura-t-il, quelle sorte d’amitié ou quelle sorte de haine cela peut devenir, dans ce cas particulier.",
+        "Vous n’aimez personne, ou, si vous le préférez, personne ne vous intéresse."
+      ],
+      "text": "– Vous ne pouvez comprendre, Harry, murmura-t-il, quelle sorte d’amitié ou quelle sorte de haine cela peut devenir, dans ce cas particulier. Vous n’aimez personne, ou, si vous le préférez, personne ne vous intéresse.",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1780498952914_16_vvq9z",
+      "lines": [
+        "– Comme vous êtes injuste ! s’écria lord Henry, mettant en arrière son chapeau et regardant au ciel les petits nuages, qui, comme les floches d’écheveau d’une blanche soie luisante, fuyaient dans le bleu profond de turquoise de ce ciel d’été."
+      ],
+      "text": "– Comme vous êtes injuste ! s’écria lord Henry, mettant en arrière son chapeau et regardant au ciel les petits nuages, qui, comme les floches d’écheveau d’une blanche soie luisante, fuyaient dans le bleu profond de turquoise de ce ciel d’été.",
+      "breakAt": null,
+      "isLeader": false,
+      "isChapter": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1780498952914_17_qnbia",
+      "lines": [
+        "« Oui, horriblement injuste !… J’établis une grande différence entre les gens. Je choisis mes amis pour leur bonne mine, mes simples camarades pour leur caractère, et mes ennemis pour leur intelligence ; un homme ne saurait"
+      ],
+      "text": "« Oui, horriblement injuste !… J’établis une grande différence entre les gens. Je choisis mes amis pour leur bonne mine, mes simples camarades pour leur caractère, et mes ennemis pour leur intelligence ; un homme ne saurait",
+      "breakAt": 79,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1780498952914_18_2oijq",
+      "lines": [
+        "trop attacher d’importance au choix de ses ennemis ; je n’en ai point un seul"
+      ],
+      "text": "trop attacher d’importance au choix de ses ennemis ; je n’en ai point un seul",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
     }
   ],
   "soundTracks": [],
-  "vfxTracks": []
+  "vfxTracks": [
+    {
+      "id": "vfx_1780498886669_e36hhf6v0",
+      "type": "shake",
+      "mode": "normal",
+      "loop": false,
+      "color": "rgba(200, 0, 0, 0.12)",
+      "column": 0,
+      "startSegmentId": "seg_1780339244791_7_c7e8r",
+      "endSegmentId": "seg_1780339244791_7_c7e8r"
+    },
+    {
+      "id": "vfx_1780498893241_g5uljjfjj",
+      "type": "tremble",
+      "mode": "rapide",
+      "loop": false,
+      "color": "rgba(200, 0, 0, 0.12)",
+      "column": 0,
+      "startSegmentId": "seg_1780339244791_8_d59hw",
+      "endSegmentId": "seg_1780339244791_8_d59hw"
+    },
+    {
+      "id": "vfx_1780498899764_kzisdrnat",
+      "type": "typewriter",
+      "mode": "normal",
+      "loop": false,
+      "color": "rgba(200, 0, 0, 0.12)",
+      "column": 0,
+      "startSegmentId": "seg_1780339244791_9_6s8b8",
+      "endSegmentId": "seg_1780339244791_9_6s8b8"
+    },
+    {
+      "id": "vfx_1780498907086_rf2bzm27q",
+      "type": "erased",
+      "mode": "normal",
+      "loop": false,
+      "color": "rgba(200, 0, 0, 0.12)",
+      "column": 0,
+      "startSegmentId": "seg_1780339244791_10_2zek1",
+      "endSegmentId": "seg_1780339244791_10_2zek1"
+    },
+    {
+      "id": "vfx_1780498916377_2gzfhypgx",
+      "type": "glitch",
+      "mode": "normal",
+      "loop": false,
+      "color": "rgba(200, 0, 0, 0.12)",
+      "column": 0,
+      "startSegmentId": "seg_1780339244791_11_o9y1t",
+      "endSegmentId": "seg_1780339244791_11_o9y1t"
+    },
+    {
+      "id": "vfx_1780498926185_8ehtk85k0",
+      "type": "ink",
+      "mode": "moyen",
+      "loop": false,
+      "color": "rgba(200, 0, 0, 0.12)",
+      "column": 0,
+      "startSegmentId": "seg_1780339244791_12_cjq1u",
+      "endSegmentId": "seg_1780339244791_12_cjq1u"
+    },
+    {
+      "id": "vfx_1780498959596_gui7aeedc",
+      "type": "flicker",
+      "mode": "",
+      "loop": false,
+      "color": "rgba(200, 0, 0, 0.12)",
+      "column": 0,
+      "startSegmentId": "seg_1780498952914_0_v3yt1",
+      "endSegmentId": "seg_1780498952914_0_v3yt1"
+    },
+    {
+      "id": "vfx_1780498967035_7b8xmvitl",
+      "type": "flash",
+      "mode": "lent",
+      "loop": false,
+      "color": "rgba(200, 0, 0, 0.12)",
+      "column": 0,
+      "startSegmentId": "seg_1780498952914_1_64nzv",
+      "endSegmentId": "seg_1780498952914_1_64nzv"
+    },
+    {
+      "id": "vfx_1780498976710_c0syws8m2",
+      "type": "vignette",
+      "mode": "",
+      "loop": false,
+      "color": "rgba(200, 0, 0, 0.12)",
+      "column": 0,
+      "startSegmentId": "seg_1780498952914_2_cb0ey",
+      "endSegmentId": "seg_1780498952914_2_cb0ey"
+    },
+    {
+      "id": "vfx_1780498982531_bybi1venf",
+      "type": "scanlines",
+      "mode": "normal",
+      "loop": false,
+      "color": "rgba(200, 0, 0, 0.12)",
+      "column": 0,
+      "startSegmentId": "seg_1780498952914_3_ymfw1",
+      "endSegmentId": "seg_1780498952914_3_ymfw1"
+    },
+    {
+      "id": "vfx_1780498988753_ugzrvjnk9",
+      "type": "static",
+      "mode": "",
+      "loop": false,
+      "color": "rgba(200, 0, 0, 0.12)",
+      "column": 0,
+      "startSegmentId": "seg_1780498952914_4_6wrvi",
+      "endSegmentId": "seg_1780498952914_4_6wrvi"
+    }
+  ]
 }
