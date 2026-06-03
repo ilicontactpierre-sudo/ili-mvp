@@ -212,7 +212,7 @@ function GameOverlay({ gameMode, onResolved }) {
         {type === 'timer'    && <GameTimer    data={gameMode} onResolved={handleResolved} />}
         {type === 'sequence' && <GameSequence data={gameMode} onResolved={handleResolved} />}
         {type === 'journal'  && <GameJournal  data={gameMode} onResolved={handleResolved} />}
-      {type === 'echo'     && <GameEcho     data={gameMode} onResolved={handleResolved} />}
+        {type === 'echo'     && <GameEcho     data={gameMode} onResolved={handleResolved} />}
       </div>
     </>
   )
@@ -735,6 +735,148 @@ function GameTimer({ data, onResolved }) {
         <Hint delay={800}>— toucher pour recommencer —</Hint>
       )}
       {!resetOnTap && !expired && data.hint && <Hint delay={600}>{data.hint}</Hint>}
+    </AnimatedWrapper>
+  )
+}
+
+// ─── Type : Écho ─────────────────────────────────────────────────────────────
+function GameEcho({ data, onResolved }) {
+  const phrase = data.phrase || ''
+  const [input, setInput] = useState('')
+  const [success, setSuccess] = useState(false)
+  const [errorAt, setErrorAt] = useState(null)
+  const { playTock, playSuccess, playError } = useKeySound()
+
+  // Comparaison en temps réel caractère par caractère
+  const progress = (() => {
+    let i = 0
+    while (i < input.length && i < phrase.length && input[i] === phrase[i]) i++
+    return i
+  })()
+
+  const isError = input.length > 0 && input[progress] !== undefined && input[progress] !== phrase[progress]
+
+  const handleChange = (e) => {
+    const val = e.target.value
+    // Bloquer si le caractère tapé est faux
+    if (val.length > input.length) {
+      const newChar = val[val.length - 1]
+      const expected = phrase[val.length - 1]
+      if (newChar !== expected) {
+        playError()
+        setErrorAt(val.length - 1)
+        setTimeout(() => setErrorAt(null), 400)
+        return // bloquer la saisie incorrecte
+      }
+      playTock()
+    }
+    setInput(val)
+    setErrorAt(null)
+
+    if (val === phrase) {
+      playSuccess()
+      setSuccess(true)
+      setTimeout(onResolved, 1100)
+    }
+  }
+
+  // Pourcentage de progression
+  const pct = phrase.length > 0 ? progress / phrase.length : 0
+
+  return (
+    <AnimatedWrapper>
+      {data.prompt && (
+        <p style={{
+          fontSize: '0.78rem',
+          color: 'var(--color-text-focus, #222)',
+          textAlign: 'center', lineHeight: 1.6,
+          opacity: 0.5, margin: 0,
+          letterSpacing: '0.06em',
+          textTransform: 'uppercase',
+        }}>
+          {data.prompt}
+        </p>
+      )}
+
+      {/* Phrase à recopier — les caractères déjà tapés s'estompent */}
+      <div style={{
+        width: '100%', maxWidth: '420px',
+        fontFamily: 'var(--font-primary, Georgia, serif)',
+        fontSize: 'clamp(1rem, 2.5vw, 1.2rem)',
+        lineHeight: 1.8, textAlign: 'center',
+        letterSpacing: '0.01em',
+        userSelect: 'none',
+      }}>
+        {phrase.split('').map((char, i) => {
+          const done = i < progress
+          const current = i === progress
+          const isErr = errorAt === i
+          return (
+            <span key={i} style={{
+              color: isErr
+                ? '#c0392b'
+                : done
+                  ? 'var(--color-text-focus, #222)'
+                  : 'var(--color-text-focus, #222)',
+              opacity: isErr ? 1 : done ? 0.25 : current ? 1 : 0.55,
+              borderBottom: current && !success ? '1px solid var(--color-text-focus, #222)' : 'none',
+              transition: `opacity 150ms ease`,
+              animation: isErr ? `game-shake 0.3s ${EASE.inOut}` : 'none',
+            }}>
+              {char}
+            </span>
+          )
+        })}
+      </div>
+
+      {/* Barre de progression fine */}
+      <div style={{
+        width: '100%', maxWidth: '420px',
+        height: '1px',
+        backgroundColor: 'rgba(0,0,0,0.08)',
+        borderRadius: '999px',
+        overflow: 'hidden',
+      }}>
+        <div style={{
+          height: '100%',
+          width: `${pct * 100}%`,
+          backgroundColor: success ? 'rgba(39,174,96,0.6)' : 'var(--color-text-focus, #222)',
+          opacity: 0.4,
+          borderRadius: '999px',
+          transition: `width 150ms ${EASE.out}, background-color 500ms ${EASE.inOut}`,
+        }} />
+      </div>
+
+      {/* Champ de saisie invisible — juste pour capturer le clavier */}
+      <input
+        autoFocus
+        value={input}
+        onChange={handleChange}
+        disabled={success}
+        style={{
+          position: 'absolute',
+          opacity: 0,
+          pointerEvents: success ? 'none' : 'auto',
+          width: '1px', height: '1px',
+          top: 0, left: 0,
+        }}
+      />
+
+      {/* Tap pour focus sur mobile */}
+      {!success && (
+        <Hint delay={600}>— touchez l'écran pour commencer à écrire —</Hint>
+      )}
+
+      {success && (
+        <p style={{
+          fontSize: '0.88rem',
+          color: 'var(--color-text-focus, #222)',
+          opacity: 0.6, fontStyle: 'italic',
+          margin: 0, textAlign: 'center',
+        }}>
+          {data.successMessage || 'Vous vous en souviendrez.'}
+        </p>
+      )}
     </AnimatedWrapper>
   )
 }
