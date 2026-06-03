@@ -331,6 +331,61 @@ function FormDocument({ data, onChange }) {
   )
 }
 
+function FormSequence({ data, onChange }) {
+  const items = data.items || ['', '', '']
+  const update = (i, val) => {
+    const next = [...items]
+    next[i] = val
+    onChange({ ...data, items: next })
+  }
+  const add = () => items.length < 6 && onChange({ ...data, items: [...items, ''] })
+  const remove = (i) => {
+    if (items.length <= 2) return
+    onChange({ ...data, items: items.filter((_, idx) => idx !== i) })
+  }
+  return (
+    <>
+      <Field label="Éléments à remettre dans l'ordre *" hint="L'ordre dans lequel tu les entres est la réponse correcte">
+        {items.map((item, i) => (
+          <div key={i} style={{ display: 'flex', gap: '0.5rem', marginBottom: '0.4rem', alignItems: 'center' }}>
+            <span style={{ fontSize: '0.72rem', color: 'rgba(255,255,255,0.3)', minWidth: '1rem', textAlign: 'right' }}>{i + 1}</span>
+            <input style={{ ...inputStyle, flex: 1 }} type="text" value={item}
+              placeholder={`Élément ${i + 1}…`}
+              onChange={e => update(i, e.target.value)} />
+            {items.length > 2 && (
+              <button onClick={() => remove(i)} style={{
+                background: 'none', border: '1px solid rgba(220,38,38,0.3)',
+                color: 'rgba(220,38,38,0.7)', borderRadius: '6px',
+                padding: '0 0.6rem', cursor: 'pointer', fontSize: '0.75rem', height: '100%',
+              }}>✕</button>
+            )}
+          </div>
+        ))}
+        {items.length < 6 && (
+          <button onClick={add} style={{
+            marginTop: '0.3rem', background: 'none',
+            border: '1px dashed rgba(255,255,255,0.15)', color: 'rgba(255,255,255,0.4)',
+            borderRadius: '6px', padding: '0.4rem 0.75rem',
+            cursor: 'pointer', fontSize: '0.78rem', width: '100%',
+          }}>
+            + Ajouter un élément
+          </button>
+        )}
+      </Field>
+      <Field label="Invite" hint="Texte affiché au-dessus de la séquence">
+        <input style={inputStyle} type="text" value={data.prompt || ''}
+          placeholder="Ex : Remettez les événements dans l'ordre…"
+          onChange={e => onChange({ ...data, prompt: e.target.value })} />
+      </Field>
+      <Field label="Message de succès">
+        <input style={inputStyle} type="text" value={data.successMessage || ''}
+          placeholder="Ex : Exact."
+          onChange={e => onChange({ ...data, successMessage: e.target.value })} />
+      </Field>
+    </>
+  )
+}
+
 function FormTimer({ data, onChange }) {
   return (
     <>
