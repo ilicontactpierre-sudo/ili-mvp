@@ -8,6 +8,7 @@ const GAME_TYPES = [
   { value: 'code',     label: '🔢  Code / Digicode' },
   { value: 'riddle',   label: '🧩  Énigme texte libre' },
   { value: 'timer',    label: '⏱  Minuteur' },
+  { value: 'sequence', label: '🔀  Séquence à reconstituer' },
 ]
 
 const DEFAULTS = {
