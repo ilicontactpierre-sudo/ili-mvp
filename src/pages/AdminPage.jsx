@@ -1394,15 +1394,6 @@ function AdminPage() {
                     {isMobile ? (
                       /* ── Vue mobile : liste simple des segments ── */
                       <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', marginBottom: '1rem' }}>
-                        {/* Conteneur scrollable */}
-                        <div style={{
-                          height: '60vh',
-                          overflowY: 'auto',
-                          border: '1px solid #e0e0e0',
-                          borderRadius: '8px',
-                          padding: '6px',
-                          backgroundColor: '#f8f9fa',
-                        }}>
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.25rem' }}>
                           <span style={{ fontSize: '0.85rem', fontWeight: 600, color: '#555' }}>
                             Segments ({segments.length})
@@ -1698,6 +1689,30 @@ function AdminPage() {
             </div>
           </div>
         </div>
+      )}
+
+      {/* GameModePanel mobile */}
+      {gameModePanel !== null && (
+        <GameModePanel
+          segment={segments[gameModePanel]}
+          segmentIndex={gameModePanel}
+          onSave={(idx, gameMode) => {
+            const updated = [...segments]
+            updated[idx] = { ...updated[idx], gameMode }
+            setSegments(updated)
+            saveToHistory(updated, soundTracks, vfxTracks)
+            setGameModePanel(null)
+          }}
+          onDelete={(idx) => {
+            const updated = [...segments]
+            const { gameMode, ...rest } = updated[idx]
+            updated[idx] = rest
+            setSegments(updated)
+            saveToHistory(updated, soundTracks, vfxTracks)
+            setGameModePanel(null)
+          }}
+          onClose={() => setGameModePanel(null)}
+        />
       )}
 
       {/* StoryPreviewModal */}
