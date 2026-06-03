@@ -11,7 +11,7 @@ const app = express()
 // IMPORTANT : doit être déclaré AVANT les routes qui en ont besoin
 app.use((req, res, next) => {
   if (req.headers['content-type']?.includes('application/json')) {
-    express.json()(req, res, next)
+    express.json({ limit: '20mb' })(req, res, next)
   } else {
     next()
   }
