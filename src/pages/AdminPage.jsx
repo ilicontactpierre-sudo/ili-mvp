@@ -818,23 +818,59 @@ function AdminPage() {
 
   // Ouvrir l'aperçu depuis StoryLoader
   const handlePreviewStory = (storyData) => {
-    // Construire les sons utilisés
-    const usedSoundIds = new Set(
-      (storyData.soundTracks || []).map(t => t.soundId)
-    )
-    const sounds = soundLibrary.filter(s => usedSoundIds.has(s.id))
-    
-    setIsPreviewOpen(true)
-    // Stocker les données d'aperçu dans un ref ou state temporaire
-    setPreviewStoryData({
-      ...storyData,
-      sounds
-    })
-  }
+  // Construire les sons utilisés
+  const usedSoundIds = new Set(
+    (storyData.soundTracks || []).map(t => t.soundId)
+  )
+  const sounds = soundLibrary.filter(s => usedSoundIds.has(s.id))
+  
+  setIsPreviewOpen(true)
+  // Stocker les données d'aperçu dans un ref ou state temporaire
+  setPreviewStoryData({
+    ...storyData,
+    sounds
+  })
+}
 
   // Données pour l'aperçu
   const [previewStoryData, setPreviewStoryData] = useState(null)
+  // États partagés mobile/desktop pour chapitres + gameMode
+  const [collapsedChapters, setCollapsedChapters] = useState(new Set())
+  const [gameModePanel, setGameModePanel] = useState(null)
 
+  const hiddenSegments = useMemo(() => {
+    const hidden = new Set()
+    let currentChapterCollapsed = false
+    for (let i = 0; i < segments.length; i++) {
+      if (segments[i]?.isChapter === true) {
+        currentChapterCollapsed = collapsedChapters.has(i)
+      } else if (currentChapterCollapsed) {
+        hidden.add(i)
+      }
+    }
+    return hidden
+  }, [segments, collapsedChapters])
+
+  const handleToggleChapter = useCallback((index) => {
+    setCollapsedChapters(prev => {
+      const next = new Set(prev)
+      if (next.has(index)) next.delete(index)
+      else next.add(index)
+      return next
+    })
+  }, [])
+
+  const handleToggleIsLeader = useCallback((index) => {
+    const segment = segments[index]
+    if (!segment) return
+    const updated = [...segments]
+    updated[index] = typeof segment === 'string'
+      ? { text: segment, isLeader: true }
+      : { ...segment, isLeader: !segment.isLeader }
+    setSegments(updated)
+    saveToHistory(updated, soundTracks, vfxTracks)
+  }, [segments, soundTracks, vfxTracks])
+  
   // Construire les données pour l'aperçu en temps réel
   const getCurrentStoryData = () => {
     const usedSoundIds = new Set(
