@@ -315,46 +315,163 @@ function Hint({ children, delay = 400 }) {
   )
 }
 
-// ─── Type : Image ─────────────────────────────────────────────────────────────
+// ─── Animations d'apparition image ───────────────────────────────────────────
+function useImageAnimation(animation, imgLoaded) {
+  const canvasRef = useRef(null)
+  const [done, setDone] = useState(false)
+
+  useEffect(() => {
+    if (!imgLoaded || !canvasRef.current) return
+    const canvas = canvasRef.current
+    const ctx = canvas.getContext('2d')
+    const img = new window.Image()
+    img.crossOrigin = 'anonymous'
+    img.src = canvas.dataset.src
+
+    img.onload = () => {
+      canvas.width  = img.naturalWidth
+      canvas.height = img.naturalHeight
+
+      if (animation === 'pixels') {
+        // Pixels aléatoires
+        ctx.drawImage(img, 0, 0)
+        const total = canvas.width * canvas.height
+        const batchSize = Math.ceil(total / 60)
+        const indices = Array.from({ length: total }, (_, i) => i)
+        for (let i = indices.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [indices[i], indices[j]] = [indices[j], indices[i]]
+        }
+        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height)
+        ctx.clearRect(0, 0, canvas.width, canvas.height)
+        const scratch = ctx.createImageData(canvas.width, canvas.height)
+        let step = 0
+        const tick = () => {
+          const start = step * batchSize
+          const end = Math.min(start + batchSize, total)
+          for (let k = start; k < end; k++) {
+            const px = indices[k] * 4
+            scratch.data[px]   = imageData.data[px]
+            scratch.data[px+1] = imageData.data[px+1]
+            scratch.data[px+2] = imageData.data[px+2]
+            scratch.data[px+3] = imageData.data[px+3]
+          }
+          ctx.putImageData(scratch, 0, 0)
+          step++
+          if (step * batchSize < total) requestAnimationFrame(tick)
+          else setDone(true)
+        }
+        requestAnimationFrame(tick)
+
+      } else if (animation === 'scan') {
+        // Scan vertical
+        ctx.drawImage(img, 0, 0)
+        const lineData = ctx.getImageData(0, 0, canvas.width, canvas.height)
+        ctx.clearRect(0, 0, canvas.width, canvas.height)
+        let y = 0
+        const step = Math.ceil(canvas.height / 80)
+        const tick = () => {
+          ctx.putImageData(lineData, 0, 0, 0, 0, canvas.width, y)
+          y += step
+          if (y < canvas.height) requestAnimationFrame(tick)
+          else { ctx.putImageData(lineData, 0, 0); setDone(true) }
+        }
+        requestAnimationFrame(tick)
+
+      } else {
+        // fade / develop / shards / fog → CSS uniquement
+        ctx.drawImage(img, 0, 0)
+        setDone(true)
+      }
+    }
+  }, [imgLoaded, animation])
+
+  return { canvasRef, done }
+}
+
 function GameImage({ data, onResolved }) {
   const [imgLoaded, setImgLoaded] = useState(false)
+  const [cssVisible, setCssVisible] = useState(false)
+  const animation = data.animation || 'fade'
+  const useCanvas = animation === 'pixels' || animation === 'scan'
+  const { canvasRef, done } = useImageAnimation(useCanvas ? animation : null, imgLoaded)
+
+  useEffect(() => {
+    if (!imgLoaded) return
+    if (!useCanvas) setTimeout(() => setCssVisible(true), 60)
+  }, [imgLoaded, useCanvas])
+
+  // Styles CSS selon animation
+  const getImgStyle = () => {
+    const base = { width: '100%', height: 'auto', display: 'block' }
+    if (animation === 'develop') return {
+      ...base,
+      filter: cssVisible ? 'saturate(1) brightness(1)' : 'saturate(0) brightness(2)',
+      transition: `filter 1800ms ${EASE.inOut}`,
+    }
+    if (animation === 'fog') return {
+      ...base,
+      opacity: cssVisible ? 1 : 0,
+      filter: cssVisible ? 'blur(0px)' : 'blur(18px)',
+      transition: `opacity 1400ms ${EASE.inOut}, filter 1600ms ${EASE.inOut}`,
+    }
+    if (animation === 'shards') return {
+      ...base,
+      opacity: cssVisible ? 1 : 0,
+      clipPath: cssVisible ? 'polygon(0 0,100% 0,100% 100%,0 100%)' : 'polygon(50% 50%,50% 50%,50% 50%,50% 50%)',
+      transition: `opacity 400ms ${EASE.out}, clip-path 900ms ${EASE.spring}`,
+    }
+    // fade par défaut
+    return {
+      ...base,
+      opacity: cssVisible ? 1 : 0,
+      transition: `opacity 900ms ${EASE.inOut}`,
+    }
+  }
+
+  const isVisible = useCanvas ? done : cssVisible
 
   return (
     <AnimatedWrapper style={{ gap: '1.8rem' }}>
       <div style={{
-        width: '100%',
-        maxWidth: '420px',
-        borderRadius: '3px',
-        overflow: 'hidden',
+        width: '100%', maxWidth: '420px',
+        borderRadius: '3px', overflow: 'hidden',
         boxShadow: '0 12px 60px rgba(0,0,0,0.14)',
-        opacity: imgLoaded ? 1 : 0,
-        transform: imgLoaded ? 'scale(1) translateY(0)' : 'scale(0.97) translateY(12px)',
-        transition: `opacity 800ms ${EASE.out}, transform 900ms ${EASE.out}`,
       }}>
+        {/* Image cachée pour déclencher onLoad */}
         <img
-          src={data.imageUrl}
-          alt={data.caption || ''}
+          src={data.imageUrl} alt=""
           onLoad={() => setImgLoaded(true)}
-          style={{ width: '100%', height: 'auto', display: 'block' }}
+          style={{ display: 'none' }}
         />
+        {useCanvas ? (
+          <canvas
+            ref={canvasRef}
+            data-src={data.imageUrl}
+            style={{ width: '100%', height: 'auto', display: 'block' }}
+          />
+        ) : (
+          <img
+            src={data.imageUrl}
+            alt={data.caption || ''}
+            style={getImgStyle()}
+          />
+        )}
       </div>
       {data.caption && (
         <p style={{
           fontSize: 'clamp(0.82rem, 1.8vw, 0.95rem)',
           color: 'var(--color-text-focus, #222)',
-          textAlign: 'center',
-          lineHeight: 1.65,
-          opacity: imgLoaded ? 0.6 : 0,
-          fontStyle: 'italic',
-          margin: 0,
-          transition: `opacity 700ms ${EASE.inOut} 300ms`,
+          textAlign: 'center', lineHeight: 1.65,
+          opacity: isVisible ? 0.6 : 0, fontStyle: 'italic', margin: 0,
+          transition: `opacity 700ms ${EASE.inOut} 400ms`,
         }}>
           {data.caption}
         </p>
       )}
       <div style={{
-        opacity: imgLoaded ? 1 : 0,
-        transform: imgLoaded ? 'translateY(0)' : 'translateY(10px)',
+        opacity: isVisible ? 1 : 0,
+        transform: isVisible ? 'translateY(0)' : 'translateY(10px)',
         transition: `opacity 600ms ${EASE.out} 500ms, transform 600ms ${EASE.out} 500ms`,
       }}>
         <ContinueBtn onClick={onResolved} delay={600} />
@@ -363,599 +480,92 @@ function GameImage({ data, onResolved }) {
   )
 }
 
-// ─── Type : Message animé lettre par lettre ───────────────────────────────────
-function GameMessage({ data, onResolved }) {
-  const [displayed, setDisplayed] = useState('')
-  const [done, setDone] = useState(false)
-  const indexRef = useRef(0)
-  const text = data.text || ''
-  const speed = data.speed === 'rapide' ? 22 : data.speed === 'lent' ? 75 : 40
+// ─── Type : Pellicule ─────────────────────────────────────────────────────────
+function GameFilmstrip({ data, onResolved }) {
+  const images = (data.images || []).filter(Boolean)
+  const [current, setCurrent] = useState(0)
+  const [phase, setPhase] = useState('dark') // dark → reveal → hold → dark
+  const [allDone, setAllDone] = useState(false)
+  const interval = data.interval || 2500
 
   useEffect(() => {
-    if (!text) { setDone(true); return }
-    const interval = setInterval(() => {
-      if (indexRef.current >= text.length) { clearInterval(interval); setDone(true); return }
-      setDisplayed(text.slice(0, indexRef.current + 1))
-      indexRef.current += 1
-    }, speed)
-    return () => clearInterval(interval)
-  }, [text, speed])
+    // dark → reveal
+    const t1 = setTimeout(() => setPhase('reveal'), 300)
+    return () => clearTimeout(t1)
+  }, [current])
 
-  const handleClick = () => {
-    if (!done) {
-      indexRef.current = text.length
-      setDisplayed(text)
-      setDone(true)
-    } else {
-      onResolved()
-    }
-  }
+  useEffect(() => {
+    if (phase !== 'reveal') return
+    // reveal → hold → dark → next
+    const t1 = setTimeout(() => setPhase('hold'), 800)
+    const t2 = setTimeout(() => setPhase('dark'), interval)
+    const t3 = setTimeout(() => {
+      if (current < images.length - 1) {
+        setCurrent(c => c + 1)
+        setPhase('dark')
+      } else {
+        setAllDone(true)
+      }
+    }, interval + 400)
+    return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3) }
+  }, [phase, current, images.length, interval])
 
-  return (
-    <AnimatedWrapper style={{ cursor: 'pointer' }} onClick={handleClick}>
-      <div
-        onClick={handleClick}
-        style={{
-          width: '100%',
-          maxWidth: '420px',
-          padding: '2rem 2.2rem',
-          border: '1px solid var(--color-text-focus, #222)',
-          borderRadius: '2px',
-          boxSizing: 'border-box',
-          position: 'relative',
-          cursor: 'pointer',
-        }}
-      >
-        {data.interface && (
-          <div style={{
-            position: 'absolute',
-            top: '-0.6em',
-            left: '1.5rem',
-            backgroundColor: 'var(--color-bg, #f5f0e8)',
-            padding: '0 0.5rem',
-            fontSize: '0.62rem',
-            letterSpacing: '0.14em',
-            opacity: 0.45,
-            textTransform: 'uppercase',
-            fontFamily: 'var(--font-primary, Georgia, serif)',
-          }}>
-            {data.interface}
-          </div>
-        )}
-        <p style={{
-          margin: 0,
-          fontSize: data.interface === 'terminal' ? '0.85rem' : '1rem',
-          fontFamily: data.interface === 'terminal' ? "'Courier New', monospace" : 'var(--font-primary, Georgia, serif)',
-          lineHeight: 1.75,
-          color: 'var(--color-text-focus, #222)',
-          whiteSpace: 'pre-wrap',
-          wordBreak: 'break-word',
-          minHeight: '1.75em',
-        }}>
-          {displayed}
-          {!done && (
-            <span style={{
-              display: 'inline-block',
-              width: '1.5px',
-              height: '1em',
-              backgroundColor: 'var(--color-text-focus, #222)',
-              marginLeft: '2px',
-              verticalAlign: 'text-bottom',
-              animation: 'game-blink 0.65s step-end infinite',
-            }} />
-          )}
-        </p>
-      </div>
-      <Hint delay={done ? 0 : text.length * speed + 200}>
-        {done ? '— appuyer pour continuer —' : '— appuyer pour accélérer —'}
-      </Hint>
-    </AnimatedWrapper>
-  )
-}
-
-// ─── Type : Code / Digicode ───────────────────────────────────────────────────
-function GameCode({ data, onResolved }) {
-  const [input, setInput] = useState('')
-  const [error, setError] = useState('')
-  const [shake, setShake] = useState(false)
-  const [success, setSuccess] = useState(false)
-  const { playTock, playSuccess, playError, playDelete } = useKeySound()
-  const maxLength = String(data.answer || '').length || 6
-  const isNumeric = /^\d+$/.test(String(data.answer || ''))
-
-  const handleKey = (char) => {
-    if (input.length >= maxLength) return
-    playTock()
-    const next = input + char
-    setInput(next)
-    setError('')
-    if (next.length === maxLength) validate(next)
-  }
-
-  const handleDelete = () => {
-    playDelete()
-    setInput(prev => prev.slice(0, -1))
-    setError('')
-  }
-
-  const validate = (value) => {
-    const correct = String(data.answer || '').trim()
-    const cs = data.caseSensitive !== false
-    if ((cs ? value : value.toLowerCase()) === (cs ? correct : correct.toLowerCase())) {
-      playSuccess()
-      setSuccess(true)
-      setTimeout(onResolved, 900)
-    } else {
-      playError()
-      setShake(true)
-      setError(data.errorMessage || 'Code incorrect')
-      setTimeout(() => { setShake(false); setInput('') }, 700)
-    }
-  }
-
-  const digits = isNumeric ? ['1','2','3','4','5','6','7','8','9','*','0','#'] : null
+  const opacity = phase === 'dark' ? 0 : 1
+  const brightness = phase === 'hold' ? 1 : 0.85
 
   return (
-    <AnimatedWrapper>
-      {data.prompt && (
-        <p style={{
-          fontSize: 'clamp(0.88rem, 2vw, 1rem)',
-          color: 'var(--color-text-focus, #222)',
-          textAlign: 'center',
-          lineHeight: 1.6,
-          opacity: 0.8,
-          margin: 0,
-        }}>
-          {data.prompt}
-        </p>
-      )}
-
-      {/* Cases du code */}
+    <div style={{
+      width: '100%', maxWidth: '480px',
+      display: 'flex', flexDirection: 'column',
+      alignItems: 'center', gap: '1.8rem',
+      fontFamily: 'var(--font-primary, Georgia, serif)',
+    }}>
       <div style={{
-        display: 'flex',
-        gap: '0.55rem',
-        animation: shake ? `game-shake 0.55s ${EASE.inOut}` : 'none',
+        width: '100%', position: 'relative',
+        borderRadius: '2px', overflow: 'hidden',
+        boxShadow: '0 16px 64px rgba(0,0,0,0.3)',
+        backgroundColor: '#000',
+        minHeight: '200px',
       }}>
-        {Array.from({ length: maxLength }).map((_, i) => {
-          const filled = i < input.length
-          const isActive = i === input.length
-          return (
-            <div key={i} style={{
-              width: '2.8rem',
-              height: '3.4rem',
-              border: `1px solid`,
-              borderColor: success
-                ? 'rgba(39,174,96,0.7)'
-                : error
-                  ? 'rgba(192,57,43,0.6)'
-                  : filled || isActive
-                    ? 'var(--color-text-focus, #222)'
-                    : 'rgba(0,0,0,0.2)',
-              borderRadius: '2px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              fontSize: '1.5rem',
-              fontFamily: 'var(--font-primary, Georgia, serif)',
-              color: 'var(--color-text-focus, #222)',
-              backgroundColor: success
-                ? 'rgba(39,174,96,0.05)'
-                : filled ? 'rgba(0,0,0,0.02)' : 'transparent',
-              transition: `all 220ms ${EASE.out}`,
-              animation: success && filled ? `game-success-pop 500ms ${EASE.spring} ${i * 60}ms both` : 'none',
-            }}>
-              {input[i] ? (isNumeric ? input[i] : '•') : ''}
-            </div>
-          )
-        })}
-      </div>
-
-      {/* Clavier numérique */}
-      {digits && !success && (
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(3, 1fr)',
-          gap: '0.5rem',
-          width: '100%',
-          maxWidth: '210px',
-        }}>
-          {digits.map((d, i) => (
-            <KeypadBtn
-              key={d}
-              label={d === '#' ? '⌫' : d === '*' ? '✕' : d}
-              onClick={() => {
-                if (d === '#') handleDelete()
-                else if (d === '*') setInput('')
-                else handleKey(d)
-              }}
-              delay={i * 18}
-              small={d === '#' || d === '*'}
-            />
-          ))}
-        </div>
-      )}
-
-      {/* Champ texte alphanumérique */}
-      {!digits && !success && (
-        <input
-          type="text"
-          value={input}
-          onChange={e => { const v = e.target.value.slice(0, maxLength); setInput(v); setError(''); if (v.length === maxLength) validate(v) }}
-          onKeyDown={e => { if (e.key === 'Enter') validate(input) }}
-          autoFocus
-          placeholder={data.placeholder || ''}
-          style={{
-            width: '100%',
-            maxWidth: '280px',
-            padding: '0.8rem 1rem',
-            border: `1px solid ${error ? 'rgba(192,57,43,0.6)' : 'var(--color-text-focus, #222)'}`,
-            borderRadius: '2px',
-            background: 'none',
-            fontFamily: 'var(--font-primary, Georgia, serif)',
-            fontSize: '1rem',
-            color: 'var(--color-text-focus, #222)',
-            textAlign: 'center',
-            outline: 'none',
-            boxSizing: 'border-box',
-            transition: `border-color 300ms ${EASE.inOut}`,
-          }}
-        />
-      )}
-
-      {data.hint && !error && !success && <Hint>{data.hint}</Hint>}
-
-      <p style={{
-        fontSize: '0.78rem',
-        color: '#c0392b',
-        opacity: error ? 0.85 : 0,
-        textAlign: 'center',
-        minHeight: '1em',
-        fontStyle: 'italic',
-        margin: 0,
-        transition: `opacity 250ms ${EASE.out}`,
-      }}>
-        {error}
-      </p>
-    </AnimatedWrapper>
-  )
-}
-
-// ─── Touche de clavier ────────────────────────────────────────────────────────
-function KeypadBtn({ label, onClick, delay = 0, small = false }) {
-  const [ready, setReady] = useState(false)
-  const [pressed, setPressed] = useState(false)
-  const [hovered, setHovered] = useState(false)
-  useEffect(() => { const t = setTimeout(() => setReady(true), delay + 80); return () => clearTimeout(t) }, [delay])
-
-  return (
-    <button
-      onClick={() => { setPressed(true); setTimeout(() => setPressed(false), 150); onClick() }}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      style={{
-        padding: '0.95rem',
-        border: '1px solid var(--color-text-focus, #222)',
-        borderRadius: '2px',
-        background: pressed
-          ? 'rgba(0,0,0,0.08)'
-          : hovered ? 'rgba(0,0,0,0.03)' : 'none',
-        fontFamily: 'var(--font-primary, Georgia, serif)',
-        fontSize: small ? '0.7rem' : '1.1rem',
-        color: 'var(--color-text-focus, #222)',
-        cursor: 'pointer',
-        opacity: ready ? (hovered ? 0.9 : 0.65) : 0,
-        transform: ready
-          ? pressed ? 'scale(0.93)' : 'translateY(0)'
-          : 'translateY(8px)',
-        transition: `opacity 350ms ${EASE.out}, transform ${pressed ? '80ms' : `350ms ${EASE.out}`}, background-color 150ms ease`,
-        willChange: 'transform',
-      }}
-    >
-      {label}
-    </button>
-  )
-}
-
-// ─── Type : Énigme / Réponse libre ───────────────────────────────────────────
-function GameRiddle({ data, onResolved }) {
-  const [input, setInput] = useState('')
-  const [error, setError] = useState('')
-  const [errorType, setErrorType] = useState('wrong') // 'wrong' | 'close' | 'decoy'
-  const [success, setSuccess] = useState(false)
-  const { playTock, playSuccess, playError } = useKeySound()
-
-  const validate = () => {
-    const raw = String(data.answer || '').trim()
-    const cs = data.caseSensitive === true
-    const attempt = cs ? input.trim() : input.trim().toLowerCase()
-    const accepted = (cs ? raw : raw.toLowerCase()).split('|').map(s => s.trim())
-
-    // ── Succès ──
-    if (accepted.includes(attempt)) {
-      playSuccess()
-      setSuccess(true)
-      setTimeout(onResolved, 900)
-      return
-    }
-
-    // ── Faux indice (decoy) — message personnalisé par l'auteur ──
-    const decoys = data.decoys || []
-    const matchedDecoy = decoys.find(d => {
-      const dKey = cs ? d.key : d.key.toLowerCase()
-      return dKey === attempt
-    })
-    if (matchedDecoy) {
-      playError()
-      setErrorType('decoy')
-      setError(matchedDecoy.message)
-      setTimeout(() => setError(''), 3500)
-      return
-    }
-
-    // ── Réponse presque juste (Levenshtein ≤ 2) ──
-    const isClose = accepted.some(a => levenshtein(attempt, a) <= 2 && attempt.length > 2)
-    if (isClose) {
-      playError()
-      setErrorType('close')
-      setError(data.closeMessage || 'Presque…')
-      setTimeout(() => setError(''), 3000)
-      return
-    }
-
-    // ── Mauvaise réponse standard ──
-    playError()
-    setErrorType('wrong')
-    setError(data.errorMessage || 'Ce n\'est pas ça…')
-    setTimeout(() => setError(''), 2500)
-  }
-
-  const errorColor = errorType === 'close'
-    ? '#d4820a'
-    : errorType === 'decoy'
-      ? '#7b5ea7'
-      : '#c0392b'
-
-  return (
-    <AnimatedWrapper>
-      {data.question && (
-        <p style={{
-          fontSize: 'clamp(1rem, 2.5vw, 1.18rem)',
-          color: 'var(--color-text-focus, #222)',
-          textAlign: 'center',
-          lineHeight: 1.65,
-          opacity: 0.92,
-          margin: 0,
-        }}>
-          {data.question}
-        </p>
-      )}
-
-      <input
-        type="text"
-        value={input}
-        onChange={e => { setInput(e.target.value); setError('') }}
-        onKeyDown={e => { if (e.key === 'Enter') validate() }}
-        autoFocus
-        disabled={success}
-        placeholder={data.placeholder || 'votre réponse…'}
-        style={{
-          width: '100%',
-          maxWidth: '320px',
-          padding: '0.8rem 1rem',
-          border: `1px solid ${
-            success ? 'rgba(39,174,96,0.7)'
-            : error ? errorColor
-            : 'var(--color-text-focus, #222)'
-          }`,
-          borderRadius: '2px',
-          background: success ? 'rgba(39,174,96,0.04)' : 'none',
-          fontFamily: 'var(--font-primary, Georgia, serif)',
-          fontSize: '1rem',
-          color: 'var(--color-text-focus, #222)',
-          textAlign: 'center',
-          outline: 'none',
-          boxSizing: 'border-box',
-          transition: `border-color 350ms ${EASE.inOut}, background-color 350ms ${EASE.inOut}`,
-        }}
-      />
-
-      {data.hint && !error && !success && <Hint>{data.hint}</Hint>}
-
-      <p style={{
-        fontSize: '0.78rem',
-        color: errorColor,
-        opacity: error ? 0.9 : 0,
-        textAlign: 'center',
-        minHeight: '1em',
-        fontStyle: errorType === 'close' || errorType === 'decoy' ? 'normal' : 'italic',
-        fontWeight: errorType === 'decoy' ? 500 : 400,
-        margin: '-0.5rem 0 0',
-        letterSpacing: errorType === 'close' ? '0.06em' : 'normal',
-        transition: `opacity 250ms ${EASE.out}, color 300ms ${EASE.inOut}`,
-      }}>
-        {error}
-      </p>
-
-      {!success && <ContinueBtn onClick={validate} label="valider" delay={300} />}
-    </AnimatedWrapper>
-  )
-}
-
-// ─── Type : Document / Artefact ──────────────────────────────────────────────
-function GameDocument({ data, onResolved }) {
-  const [revealed, setRevealed] = useState(false)
-  useEffect(() => { const t = setTimeout(() => setRevealed(true), 120); return () => clearTimeout(t) }, [])
-
-  const styles = {
-    letter: {
-      bg: '#f5f0e0',
-      color: '#1a1410',
-      font: 'Georgia, serif',
-      border: '1px solid rgba(0,0,0,0.12)',
-      shadow: '0 4px 32px rgba(0,0,0,0.18), 0 1px 4px rgba(0,0,0,0.1), inset 0 0 60px rgba(0,0,0,0.03)',
-      titleSize: '0.72rem',
-      bodySize: '0.95rem',
-      lineHeight: 1.85,
-    },
-    telegram: {
-      bg: '#f0ead6',
-      color: '#1a1410',
-      font: "'Courier New', monospace",
-      border: '2px solid rgba(0,0,0,0.2)',
-      shadow: '0 4px 24px rgba(0,0,0,0.2)',
-      titleSize: '0.68rem',
-      bodySize: '0.88rem',
-      lineHeight: 1.6,
-    },
-    note: {
-      bg: '#fefce8',
-      color: '#1c1917',
-      font: "'Georgia', cursive",
-      border: '1px solid rgba(0,0,0,0.08)',
-      shadow: '2px 3px 12px rgba(0,0,0,0.15), -1px -1px 4px rgba(0,0,0,0.06)',
-      titleSize: '0.72rem',
-      bodySize: '1rem',
-      lineHeight: 2,
-    },
-    card: {
-      bg: '#1a1a2e',
-      color: '#e8e0d0',
-      font: 'system-ui, sans-serif',
-      border: '1px solid rgba(255,255,255,0.15)',
-      shadow: '0 8px 40px rgba(0,0,0,0.4)',
-      titleSize: '0.62rem',
-      bodySize: '0.88rem',
-      lineHeight: 1.5,
-    },
-    newspaper: {
-      bg: '#f2ead8',
-      color: '#111',
-      font: 'Georgia, serif',
-      border: '2px solid #111',
-      shadow: '3px 3px 0 rgba(0,0,0,0.15)',
-      titleSize: '0.68rem',
-      bodySize: '0.9rem',
-      lineHeight: 1.7,
-    },
-  }
-
-  const s = styles[data.style] || styles.letter
-  const isTelegram = data.style === 'telegram'
-  const isCard = data.style === 'card'
-  const isNewspaper = data.style === 'newspaper'
-
-  return (
-    <AnimatedWrapper style={{ gap: '1.8rem', maxWidth: '520px' }}>
-      <div style={{
-        width: '100%',
-        backgroundColor: s.bg,
-        color: s.color,
-        fontFamily: s.font,
-        border: s.border,
-        borderRadius: isCard ? '8px' : isNewspaper ? '0' : '2px',
-        boxShadow: s.shadow,
-        padding: isCard ? '2rem' : '2.8rem 3rem',
-        boxSizing: 'border-box',
-        position: 'relative',
-        overflow: 'hidden',
-        opacity: revealed ? 1 : 0,
-        transform: revealed ? 'translateY(0) rotate(0deg)' : 'translateY(16px) rotate(-0.5deg)',
-        transition: `opacity 800ms ${EASE.out}, transform 900ms ${EASE.out}`,
-      }}>
-
-        {/* Texture grain subtile */}
-        <div style={{
-          position: 'absolute', inset: 0, pointerEvents: 'none', zIndex: 0,
-          backgroundImage: 'url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'200\' height=\'200\'%3E%3Cfilter id=\'n\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.75\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3CfeColorMatrix type=\'saturate\' values=\'0\'/%3E%3C/filter%3E%3Crect width=\'200\' height=\'200\' filter=\'url(%23n)\' opacity=\'0.04\'/%3E%3C/svg%3E")',
-          opacity: 0.6,
-        }} />
-
-        {/* Contenu */}
-        <div style={{ position: 'relative', zIndex: 1 }}>
-
-          {/* En-tête selon le style */}
-          {isTelegram && (
-            <div style={{ textAlign: 'center', borderBottom: '2px solid currentColor', paddingBottom: '0.75rem', marginBottom: '1.2rem' }}>
-              <div style={{ fontSize: '0.6rem', letterSpacing: '0.2em', opacity: 0.5, marginBottom: '0.2rem' }}>— TÉLÉGRAMME —</div>
-              {data.date && <div style={{ fontSize: s.titleSize, letterSpacing: '0.1em', opacity: 0.65 }}>{data.date}</div>}
-            </div>
-          )}
-
-          {isNewspaper && data.title && (
-            <div style={{ textAlign: 'center', borderBottom: '3px solid #111', borderTop: '1px solid #111', padding: '0.5rem 0', marginBottom: '1rem' }}>
-              <div style={{ fontSize: '1.1rem', fontWeight: 700, letterSpacing: '0.04em', lineHeight: 1.2 }}>{data.title}</div>
-            </div>
-          )}
-
-          {!isTelegram && !isNewspaper && (
-            <div style={{ marginBottom: '1.5rem' }}>
-              {data.date && (
-                <div style={{ fontSize: s.titleSize, letterSpacing: '0.06em', opacity: 0.55, marginBottom: '0.3rem', textAlign: isCard ? 'center' : 'right' }}>
-                  {data.date}
-                </div>
-              )}
-              {data.title && (
-                <div style={{ fontSize: s.titleSize, letterSpacing: '0.1em', textTransform: 'uppercase', opacity: 0.6, fontWeight: 600, textAlign: isCard ? 'center' : 'left' }}>
-                  {data.title}
-                </div>
-              )}
-            </div>
-          )}
-
-          {/* De / À */}
-          {(data.from || data.to) && !isCard && (
-            <div style={{ fontSize: s.titleSize, opacity: 0.6, marginBottom: '1rem', lineHeight: 1.6 }}>
-              {data.from && <div>De : {data.from}</div>}
-              {data.to   && <div>À : {data.to}</div>}
-            </div>
-          )}
-
-          {/* Corps */}
-          <p style={{
-            margin: 0,
-            fontSize: s.bodySize,
-            lineHeight: s.lineHeight,
-            whiteSpace: 'pre-wrap',
-            wordBreak: 'break-word',
-            textAlign: isCard ? 'center' : 'left',
-          }}>
-            {data.body}
-          </p>
-
-          {/* Signature */}
-          {data.from && !isTelegram && !isCard && (
-            <div style={{ marginTop: '1.8rem', fontSize: s.titleSize, opacity: 0.55, textAlign: 'right' }}>
-              {data.from}
-            </div>
-          )}
-        </div>
-
-        {/* Tampon en diagonale */}
-        {data.stamp && (
-          <div style={{
-            position: 'absolute',
-            top: '50%', left: '50%',
-            transform: 'translate(-50%, -50%) rotate(-18deg)',
-            fontSize: 'clamp(1.2rem, 4vw, 1.8rem)',
-            fontWeight: 800,
-            letterSpacing: '0.12em',
-            color: data.style === 'card' ? 'rgba(255,80,80,0.55)' : 'rgba(180,20,20,0.22)',
-            border: `3px solid ${data.style === 'card' ? 'rgba(255,80,80,0.4)' : 'rgba(180,20,20,0.18)'}`,
-            padding: '0.3rem 0.8rem',
-            borderRadius: '4px',
-            pointerEvents: 'none',
-            userSelect: 'none',
-            textTransform: 'uppercase',
-            whiteSpace: 'nowrap',
-            zIndex: 2,
-          }}>
-            {data.stamp}
-          </div>
+        {images[current] && (
+          <img
+            key={current}
+            src={images[current]}
+            alt=""
+            style={{
+              width: '100%', height: 'auto', display: 'block',
+              opacity,
+              filter: `brightness(${brightness}) sepia(0.15)`,
+              transition: `opacity 800ms ${EASE.inOut}, filter 1200ms ${EASE.inOut}`,
+            }}
+          />
         )}
+        {/* Compteur */}
+        <div style={{
+          position: 'absolute', bottom: '0.75rem', right: '0.75rem',
+          fontSize: '0.65rem', letterSpacing: '0.1em',
+          color: 'rgba(255,255,255,0.5)', fontFamily: 'monospace',
+        }}>
+          {current + 1} / {images.length}
+        </div>
       </div>
 
-      <ContinueBtn onClick={onResolved} delay={800} />
-    </AnimatedWrapper>
+      {/* Points de progression */}
+      <div style={{ display: 'flex', gap: '0.4rem' }}>
+        {images.map((_, i) => (
+          <div key={i} style={{
+            width: i === current ? '1.4rem' : '0.35rem',
+            height: '0.35rem',
+            borderRadius: '999px',
+            backgroundColor: 'var(--color-text-focus, #222)',
+            opacity: i <= current ? 0.7 : 0.2,
+            transition: `all 500ms ${EASE.inOut}`,
+          }} />
+        ))}
+      </div>
+
+      {allDone && <ContinueBtn onClick={onResolved} delay={200} />}
+    </div>
   )
 }
 
