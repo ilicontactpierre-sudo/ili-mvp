@@ -333,6 +333,33 @@ function FormDocument({ data, onChange }) {
   )
 }
 
+function FormJournal({ data, onChange }) {
+  return (
+    <>
+      <Field label="Invitation *" hint="La question ou l'invitation à écrire">
+        <textarea style={textareaStyle} value={data.prompt || ''}
+          placeholder="Ex : Qu'auriez-vous fait à sa place ?"
+          onChange={e => onChange({ ...data, prompt: e.target.value })} />
+      </Field>
+      <Field label="Placeholder du champ">
+        <input style={inputStyle} type="text" value={data.placeholder || ''}
+          placeholder="Ex : Écrivez ici…"
+          onChange={e => onChange({ ...data, placeholder: e.target.value })} />
+      </Field>
+      <Field label="Clé mémoire" hint="Identifiant unique pour rappeler cette réponse plus tard (ex : choix_porte)">
+        <input style={inputStyle} type="text" value={data.memoryKey || ''}
+          placeholder="Ex : choix_porte"
+          onChange={e => onChange({ ...data, memoryKey: e.target.value.replace(/\s/g, '_') })} />
+      </Field>
+      <Field label="Texte du bouton continuer">
+        <input style={inputStyle} type="text" value={data.continueLabel || ''}
+          placeholder="Ex : Je me souviendrai de ça"
+          onChange={e => onChange({ ...data, continueLabel: e.target.value })} />
+      </Field>
+    </>
+  )
+}
+
 function FormSequence({ data, onChange }) {
   const items = data.items || ['', '', '']
   const update = (i, val) => {
