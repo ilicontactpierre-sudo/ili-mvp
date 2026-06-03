@@ -179,27 +179,31 @@ const handleFileSelected = async (e) => {
       const mp3Data = await ffmpeg.readFile(outputName)
       const mp3Blob = new Blob([mp3Data.buffer], { type: 'audio/mpeg' })
 
-      // 2. Upload direct vers Supabase Storage
-      const uploadPath = outputName
-      const storageUrl = `${SUPABASE_URL}/storage/v1/object/sounds/${encodeURIComponent(uploadPath)}`
-
-      const uploadRes = await fetch(storageUrl, {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
-          'Content-Type': 'audio/mpeg',
-          'x-upsert': 'true',
-        },
-        body: mp3Blob,
+      // 2. Convertir en base64 pour envoi via Vercel
+      const base64 = await new Promise((resolve, reject) => {
+        const reader = new FileReader()
+        reader.onload = () => resolve(reader.result.split(',')[1])
+        reader.onerror = reject
+        reader.readAsDataURL(mp3Blob)
       })
 
+      // 3. Upload via /api/upload-audio (utilise la clé service Supabase, pas de RLS)
+      const uploadRes = await fetch('/api/upload-audio', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          password: adminPassword,
+          filename: outputName,
+          fileBase64: base64,
+        }),
+      })
       if (!uploadRes.ok) {
         const text = await uploadRes.text()
-        throw new Error(`Upload Supabase échoué (${uploadRes.status}) : ${text.slice(0, 200)}`)
+        throw new Error(`Upload échoué (${uploadRes.status}) : ${text.slice(0, 200)}`)
       }
-
-      // 3. URL publique
-      const publicUrl = `${SUPABASE_URL}/storage/v1/object/public/sounds/${encodeURIComponent(uploadPath)}`
+      const uploadData = await uploadRes.json()
+      // 4. URL publique retournée par l'API
+      const publicUrl = uploadData.publicUrl
 
       // 4. Enregistrer dans la table Supabase
       const saveRes = await fetch('/api/upload-sound', {
