@@ -37,20 +37,6 @@
       "audioEvents": []
     },
     {
-      "text": "",
-      "id": "seg_1780339254441",
-      "gameMode": {
-        "type": "filmstrip",
-        "images": [
-          "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/Images/DSC_1900.jpg",
-          "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/Images/the_lion_king_simba_art_dark.jpg",
-          "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/Images/DSC_1900.jpg"
-        ],
-        "interval": 2500
-      },
-      "audioEvents": []
-    },
-    {
       "id": "seg_1780339244791_3_19hke",
       "lines": [
         "lord Henry Wotton pouvait tout juste apercevoir le rayonnement des douces fleurs couleur de miel d’un aubour dont les tremblantes branches semblaient à peine pouvoir supporter le poids d’une aussi flamboyante splendeur ; et de temps à autre, les ombres fantastiques des oiseaux fuyants passaient sur les longs rideaux de tussor tendus devant la large fenêtre,"
@@ -404,6 +390,7 @@
       "text": "Ah ! si, il joue du piano… Ne serait-ce pas plutôt du violon, mon cher Mr Gray ? »",
       "breakAt": null,
       "isLeader": false,
+      "isChapter": false,
       "audioEvents": []
     },
     {
@@ -434,6 +421,7 @@
       "text": "et c’est loin d’en être une mauvaise fin, dit le jeune lord en cueillant une autre marguerite.",
       "breakAt": null,
       "isLeader": false,
+      "isChapter": false,
       "audioEvents": []
     },
     {
@@ -444,6 +432,7 @@
       "text": "Hallward secoua la tête…",
       "breakAt": null,
       "isLeader": false,
+      "isChapter": false,
       "audioEvents": []
     },
     {
@@ -465,6 +454,7 @@
       "text": "– Comme vous êtes injuste ! s’écria lord Henry, mettant en arrière son chapeau et regardant au ciel les petits nuages, qui, comme les floches d’écheveau d’une blanche soie luisante, fuyaient dans le bleu profond de turquoise de ce ciel d’été.",
       "breakAt": null,
       "isLeader": false,
+      "isChapter": false,
       "audioEvents": []
     },
     {
