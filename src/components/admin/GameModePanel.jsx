@@ -23,6 +23,7 @@ const DEFAULTS = {
   filmstrip: { type: 'filmstrip', images: [], interval: 2500 },
   sequence:  { type: 'sequence',  items: ['', '', ''], prompt: '', successMessage: '' },
   journal:   { type: 'journal',   prompt: '', placeholder: '', memoryKey: '', continueLabel: '' },
+  echo:      { type: 'echo',      phrase: '', prompt: '', successMessage: '' },
 }
 
 function Field({ label, hint, children }) {
