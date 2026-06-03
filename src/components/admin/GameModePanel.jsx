@@ -11,6 +11,7 @@ const GAME_TYPES = [
   { value: 'sequence', label: '🔀  Séquence à reconstituer' },
   { value: 'journal',  label: '✍️  Journal / Écriture libre' },
   { value: 'echo',     label: '🔁  Écho / Recopie rituelle' },
+  { value: 'crypte',   label: '🔐  Crypte / Déchiffrement' },
 ]
 
 const DEFAULTS = {
