@@ -860,6 +860,35 @@ function AdminPage() {
     })
   }, [])
 
+  const handleToggleIsChapter = useCallback((index) => {
+    const segment = segments[index]
+    if (!segment) return
+    const wasChapter = segment?.isChapter === true
+    const updated = [...segments]
+    if (!wasChapter) {
+      updated[index] = typeof segment === 'string'
+        ? { text: segment, isChapter: true, isLeader: true }
+        : { ...segment, isChapter: true, isLeader: true }
+      if (index + 1 < segments.length) {
+        const next = segments[index + 1]
+        updated[index + 1] = typeof next === 'string'
+          ? { text: next, isLeader: true }
+          : { ...next, isLeader: true }
+      }
+    } else {
+      updated[index] = typeof segment === 'string'
+        ? { text: segment, isChapter: false }
+        : { ...segment, isChapter: false }
+      setCollapsedChapters(prev => {
+        const next = new Set(prev)
+        next.delete(index)
+        return next
+      })
+    }
+    setSegments(updated)
+    saveToHistory(updated, soundTracks, vfxTracks)
+  }, [segments, soundTracks, vfxTracks])
+  
   const handleToggleIsLeader = useCallback((index) => {
     const segment = segments[index]
     if (!segment) return
