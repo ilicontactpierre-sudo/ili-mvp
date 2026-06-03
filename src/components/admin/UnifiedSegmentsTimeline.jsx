@@ -2326,11 +2326,127 @@ const handleTextSelection = useCallback(() => {
         </div>
       )}
       <style>{`
-        @keyframes ili-placeholder-pulse {
-          0%, 100% { opacity: 1; }
-          50% { opacity: 0.5; }
-        }
-      `}</style>
+          @keyframes ili-placeholder-pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+          }
+        `}</style>
+      </div>{/* fin scroll */}
+
+      {/* ── Minimap ── */}
+      {(() => {
+        // Construire la liste des points d'intérêt (chapitres + leaders)
+        const total = segments.length
+        if (total === 0) return null
+
+        const points = segments.reduce((acc, seg, i) => {
+          if (seg?.isChapter || seg?.isLeader) {
+            acc.push({
+              index: i,
+              isChapter: seg.isChapter === true,
+              isLeader: seg.isLeader === true && seg.isChapter !== true,
+              label: getSegmentText(seg).slice(0, 18) || `Seg. ${i + 1}`,
+            })
+          }
+          return acc
+        }, [])
+
+        const MINIMAP_H = 'calc(100% - 0px)'
+        const DOT_H = 6
+
+        return (
+          <div
+            style={{
+              width: '28px',
+              flexShrink: 0,
+              position: 'relative',
+              backgroundColor: '#f8f9fa',
+              borderLeft: '1px solid #e8e8e8',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              userSelect: 'none',
+            }}
+            onMouseLeave={() => setMinimapHovered(null)}
+          >
+            {/* Curseur de position actuelle */}
+            <div
+              style={{
+                position: 'absolute',
+                left: 0,
+                right: 0,
+                height: '2px',
+                backgroundColor: '#6366f1',
+                top: `calc(${scrollRatio * 100}% - 1px)`,
+                transition: 'top 0.1s ease',
+                zIndex: 2,
+                pointerEvents: 'none',
+              }}
+            />
+
+            {/* Points d'intérêt */}
+            {points.map(pt => {
+              const topPct = (pt.index / Math.max(total - 1, 1)) * 100
+              const isHov = minimapHovered === pt.index
+              return (
+                <div
+                  key={pt.index}
+                  onClick={() => scrollToSegment(pt.index)}
+                  onMouseEnter={() => setMinimapHovered(pt.index)}
+                  style={{
+                    position: 'absolute',
+                    top: `calc(${topPct}% - ${DOT_H / 2}px)`,
+                    left: '4px',
+                    right: '4px',
+                    height: `${DOT_H}px`,
+                    backgroundColor: pt.isChapter ? '#8B5CF6' : '#F97316',
+                    borderRadius: '2px',
+                    cursor: 'pointer',
+                    transition: 'transform 0.1s ease, opacity 0.1s ease',
+                    transform: isHov ? 'scaleX(1.15)' : 'scaleX(1)',
+                    opacity: isHov ? 1 : 0.65,
+                    zIndex: 1,
+                  }}
+                />
+              )
+            })}
+
+            {/* Tooltip au survol */}
+            {minimapHovered !== null && (() => {
+              const pt = points.find(p => p.index === minimapHovered)
+              if (!pt) return null
+              const topPct = (pt.index / Math.max(total - 1, 1)) * 100
+              return (
+                <div
+                  style={{
+                    position: 'absolute',
+                    right: '32px',
+                    top: `calc(${topPct}% - 12px)`,
+                    backgroundColor: '#1a1a2e',
+                    color: '#fff',
+                    fontSize: '0.68rem',
+                    padding: '3px 7px',
+                    borderRadius: '4px',
+                    whiteSpace: 'nowrap',
+                    pointerEvents: 'none',
+                    zIndex: 10,
+                    maxWidth: '160px',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                  }}
+                >
+                  <span style={{ color: pt.isChapter ? '#c4b5fd' : '#fdba74' }}>
+                    {pt.isChapter ? '★' : '◆'}
+                  </span>
+                  {' '}{pt.index + 1}. {pt.label}
+                </div>
+              )
+            })()}
+          </div>
+        )
+      })()}
+
+      </div>{/* fin zone scrollable + minimap */}
 
       {gameModePanel !== null && (
         <GameModePanel
