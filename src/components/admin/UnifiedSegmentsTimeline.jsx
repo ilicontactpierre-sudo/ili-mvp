@@ -877,6 +877,8 @@ function UnifiedSegmentsTimeline({
   // ── Chapitres ──────────────────────────────────────────────
   const [collapsedChapters, setCollapsedChapters] = useState(new Set())
   const [gameModePanel, setGameModePanel] = useState(null) // index du segment ou null
+  const [gotoInput, setGotoInput] = useState('')
+  const [minimapHovered, setMinimapHovered] = useState(null)
 
   // ── Drag & drop segments ────────────────────────────────────
   const [isDraggingSegment, setIsDraggingSegment] = useState(false)
