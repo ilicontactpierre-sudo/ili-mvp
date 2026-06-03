@@ -111,8 +111,6 @@ app.post('/api/upload-audio', async (req, res) => {
 // ── /api/upload-sound ────────────────────────────────────────────────────────
 app.post('/api/upload-sound', express.json(), async (req, res) => {
   const { password, soundEntry } = req.body ?? {}
-  console.log('[upload-sound] reçu password:', JSON.stringify(password))
-  console.log('[upload-sound] ADMIN_PASSWORD env:', JSON.stringify(process.env.ADMIN_PASSWORD))
   if (!password || password !== process.env.ADMIN_PASSWORD) {
     return res.status(401).json({ error: 'Non autorisé' })
   }
