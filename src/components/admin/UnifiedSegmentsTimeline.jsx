@@ -1854,7 +1854,117 @@ const handleTextSelection = useCallback(() => {
         backgroundColor: '#fff'
       }}
     >
-      {/* Header */}
+      {/* Barre de navigation "Aller à" */}
+      <div style={{
+        display: 'flex',
+        alignItems: 'center',
+        gap: '6px',
+        padding: '6px 10px',
+        backgroundColor: '#f0f4ff',
+        borderBottom: '1px solid #ddd',
+        flexShrink: 0,
+        flexWrap: 'wrap',
+      }}>
+        {/* Input numéro de segment */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+          <input
+            type="number"
+            min="1"
+            max={segments.length}
+            placeholder="--"
+            value={gotoInput}
+            onChange={e => setGotoInput(e.target.value)}
+            onKeyDown={e => {
+              if (e.key === 'Enter') {
+                const n = parseInt(gotoInput)
+                if (n >= 1 && n <= segments.length) {
+                  scrollToSegment(n - 1)
+                  setGotoInput('')
+                }
+              }
+            }}
+            style={{
+              width: '48px',
+              padding: '3px 6px',
+              fontSize: '0.8rem',
+              border: '1px solid #ccc',
+              borderRadius: '4px',
+              textAlign: 'center',
+              outline: 'none',
+            }}
+          />
+          <span style={{ fontSize: '0.78rem', color: '#888' }}>
+            / {segments.length}
+          </span>
+          <button
+            onClick={() => {
+              const n = parseInt(gotoInput)
+              if (n >= 1 && n <= segments.length) {
+                scrollToSegment(n - 1)
+                setGotoInput('')
+              }
+            }}
+            style={{
+              padding: '3px 8px',
+              fontSize: '0.75rem',
+              backgroundColor: '#6366f1',
+              color: '#fff',
+              border: 'none',
+              borderRadius: '4px',
+              cursor: 'pointer',
+            }}
+          >↵</button>
+        </div>
+
+        {/* Séparateur */}
+        <div style={{ width: '1px', height: '20px', backgroundColor: '#ddd', flexShrink: 0 }} />
+
+        {/* Liste des chapitres cliquables */}
+        <div style={{
+          display: 'flex',
+          gap: '4px',
+          flexWrap: 'wrap',
+          flex: 1,
+          alignItems: 'center',
+        }}>
+          {segments.reduce((acc, seg, i) => {
+            if (seg?.isChapter) {
+              const chapterText = getSegmentText(seg)
+              const label = chapterText.length > 22
+                ? chapterText.slice(0, 22) + '…'
+                : chapterText || `Ch. ${i + 1}`
+              acc.push(
+                <button
+                  key={i}
+                  onClick={() => scrollToSegment(i)}
+                  title={chapterText}
+                  style={{
+                    padding: '2px 8px',
+                    fontSize: '0.72rem',
+                    backgroundColor: 'rgba(139,92,246,0.1)',
+                    color: '#7C3AED',
+                    border: '1px solid rgba(139,92,246,0.25)',
+                    borderRadius: '12px',
+                    cursor: 'pointer',
+                    whiteSpace: 'nowrap',
+                    fontWeight: 500,
+                  }}
+                >
+                  ★ {label}
+                </button>
+              )
+            }
+            return acc
+          }, [])}
+          {segments.filter(s => s?.isChapter).length === 0 && (
+            <span style={{ fontSize: '0.72rem', color: '#bbb', fontStyle: 'italic' }}>
+              Aucun chapitre défini
+            </span>
+          )}
+        </div>
+      </div>
+
+      {/* Header colonnes */}
       <div style={{
         display: 'flex',
         padding: '0.75rem 0',
