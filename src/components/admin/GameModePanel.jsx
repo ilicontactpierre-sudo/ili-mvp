@@ -19,6 +19,7 @@ const DEFAULTS = {
   timer:    { type: 'timer',    seconds: 30, prompt: '', hint: '', expireMessage: '' },
   document:  { type: 'document',  style: 'letter', title: '', body: '', date: '', stamp: '', from: '', to: '' },
   filmstrip: { type: 'filmstrip', images: [], interval: 2500 },
+  sequence:  { type: 'sequence',  items: ['', '', ''], prompt: '', successMessage: '' },
 }
 
 function Field({ label, hint, children }) {
