@@ -216,7 +216,6 @@ function OrchestrationPanel({
     // Diagnostic : pour chaque bloc, chercher le son correspondant
     const found = []
     const missing = []
-
     parsed.forEach((block, idx) => {
       if (!block.keyword) {
         missing.push({ index: idx, keyword: '(manquant)', reason: 'Pas de champ keyword' })
@@ -224,7 +223,6 @@ function OrchestrationPanel({
       }
       const matches = findSoundsByKeyword(block.keyword, soundLibrary)
       const uploaded = matches.filter(s => s.url && s.url.startsWith('http'))
-
       if (matches.length === 0) {
         missing.push({
           index: idx,
@@ -238,7 +236,9 @@ function OrchestrationPanel({
           keyword: block.keyword,
           reason: `${matches.length} son(s) trouvé(s) mais aucun n'est uploadé sur Supabase`,
           candidates: matches.slice(0, 3).map(s => s.label),
-          type: block.type
+          type: block.type,
+          // On garde quand même un son candidat pour créer le bloc grisé
+          ghostSound: pickRandom(matches),
         })
       } else {
         found.push({
