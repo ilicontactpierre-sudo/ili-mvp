@@ -552,6 +552,7 @@ function GameModePanel({ segment, segmentIndex, onSave, onDelete, onClose }) {
         {type === 'riddle'  && <FormRiddle  data={data} onChange={setData} />}
         {type === 'timer'    && <FormTimer    data={data} onChange={setData} />}
         {type === 'sequence' && <FormSequence data={data} onChange={setData} />}
+        {type === 'journal'  && <FormJournal  data={data} onChange={setData} />}
 
         {/* Actions */}
         <div style={{ display: 'flex', gap: '0.75rem', marginTop: '0.5rem', paddingTop: '1rem', borderTop: '1px solid rgba(255,255,255,0.08)' }}>
