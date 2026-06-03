@@ -58,8 +58,40 @@ function FormImage({ data, onChange }) {
   return (
     <>
       <Field label="URL de l'image *" hint="Lien direct vers une image (jpg, png, webp…)">
-        <input style={inputStyle} type="url" value={data.imageUrl || ''} placeholder="https://…"
-          onChange={e => onChange({ ...data, imageUrl: e.target.value })} />
+        <div style={{ display: 'flex', gap: '0.5rem' }}>
+          <input style={{ ...inputStyle, flex: 1 }} type="url" value={data.imageUrl || ''} placeholder="https://…"
+            onChange={e => onChange({ ...data, imageUrl: e.target.value })} />
+          
+            href="https://supabase.com/dashboard/project/bdwliagkmdofyuuysppg/storage/files/buckets/Images"
+            target="_blank"
+            rel="noreferrer"
+            title="Ouvrir Supabase Storage pour uploader une image"
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              padding: '0 0.75rem',
+              backgroundColor: 'rgba(62,207,142,0.15)',
+              color: 'rgba(62,207,142,0.9)',
+              border: '1px solid rgba(62,207,142,0.25)',
+              borderRadius: '6px',
+              fontSize: '0.75rem',
+              fontWeight: 600,
+              letterSpacing: '0.04em',
+              textDecoration: 'none',
+              whiteSpace: 'nowrap',
+              cursor: 'pointer',
+              transition: 'background-color 0.2s ease',
+            }}
+            onMouseEnter={e => e.currentTarget.style.backgroundColor = 'rgba(62,207,142,0.25)'}
+            onMouseLeave={e => e.currentTarget.style.backgroundColor = 'rgba(62,207,142,0.15)'}
+          >
+            ↗ Supabase
+          </a>
+        </div>
+        <span style={{ fontSize: '0.7rem', color: 'rgba(255,255,255,0.3)', fontStyle: 'italic' }}>
+          Upload sur Supabase → clic droit sur le fichier → "Copy URL" → colle ici
+        </span>
       </Field>
       <Field label="Légende" hint="Texte affiché sous l'image (optionnel)">
         <input style={inputStyle} type="text" value={data.caption || ''} placeholder="Ex : Document retrouvé le 14 mars…"
