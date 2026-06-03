@@ -40,11 +40,13 @@
       "text": "",
       "id": "seg_1780339254441",
       "gameMode": {
-        "type": "code",
-        "answer": "1919",
-        "prompt": "C koi le Kode?",
-        "hint": "Indice...",
-        "errorMessage": "Et non"
+        "type": "filmstrip",
+        "images": [
+          "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/Images/DSC_1900.jpg",
+          "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/Images/the_lion_king_simba_art_dark.jpg",
+          "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/Images/DSC_1900.jpg"
+        ],
+        "interval": 2500
       },
       "audioEvents": []
     },
@@ -62,10 +64,27 @@
       "text": "",
       "id": "seg_1780353456663",
       "gameMode": {
-        "type": "message",
-        "text": "test du message animé via SMS pour voir ce que ça fait. Je ne sais pas trop à quoi m'attendre mais bon... Peut être que c'est cool ! Qui sait... ?",
-        "interface": "sms",
-        "speed": "normal"
+        "type": "timer",
+        "seconds": 5,
+        "prompt": "Don't move",
+        "hint": "",
+        "expireMessage": "Ok go",
+        "timerStyle": "bar",
+        "resetOnTap": true
+      },
+      "audioEvents": []
+    },
+    {
+      "text": "",
+      "id": "seg_1780498407940",
+      "gameMode": {
+        "type": "timer",
+        "seconds": 5,
+        "prompt": "Toujours pas bouger",
+        "hint": "",
+        "expireMessage": "Ok go go gogoGO",
+        "timerStyle": "bar",
+        "resetOnTap": true
       },
       "audioEvents": []
     },
@@ -84,10 +103,15 @@
       "id": "seg_1780339322452",
       "breakAt": null,
       "gameMode": {
-        "type": "message",
-        "text": "Pour voir, j'essaie aussi la version mail. Curieux de voir ce que ça fait...\n\nEt j'essaie d'aller à la ligne pour voir.",
-        "interface": "email",
-        "speed": "normal"
+        "type": "sequence",
+        "items": [
+          "1",
+          "2",
+          "3",
+          "4"
+        ],
+        "prompt": "Range dans le bon ordre",
+        "successMessage": "Nickel bébé"
       },
       "audioEvents": []
     },
@@ -105,10 +129,11 @@
       "text": "",
       "id": "seg_1780353594265",
       "gameMode": {
-        "type": "message",
-        "text": "Et dernier test avec le terminal. Comme ça, j'aurai tout vu ! Enfin, tout vu si ça fonctionne lol. Aller Tchao.",
-        "interface": "terminal",
-        "speed": "normal"
+        "type": "journal",
+        "prompt": "Tu aimerais quelle couleur ?",
+        "placeholder": "Placeholder du champ.. comprend pas",
+        "memoryKey": "couleur",
+        "continueLabel": "Ok... C'est moche, mais Ok."
       },
       "audioEvents": []
     },
@@ -117,7 +142,7 @@
       "lines": [
         "Au milieu de la chambre sur un chevalet droit, s’érigeait le portrait grandeur naturelle d’un jeune homme d’une extraordinaire beauté,"
       ],
-      "text": "Au milieu de la chambre sur un chevalet droit, s’érigeait le portrait grandeur naturelle d’un jeune homme d’une extraordinaire beauté,",
+      "text": "Au milieu de la chambre sur un chevalet droit {{journal:couleur}}, s’érigeait le portrait grandeur naturelle d’un jeune homme d’une extraordinaire beauté,",
       "breakAt": null,
       "isLeader": false,
       "audioEvents": []
@@ -126,13 +151,10 @@
       "text": "",
       "id": "seg_1780353632411",
       "gameMode": {
-        "type": "riddle",
-        "question": "Comment essayer le mode \"Enigme texte libre\" ? ",
-        "answer": "En essayant/en faisant/je ne sais pas",
-        "hint": "Indice... Ou pas.",
-        "placeholder": "Je ne sais pas quoi mettre dans Placeholder.",
-        "caseSensitive": false,
-        "errorMessage": "Oups, c'est raté"
+        "type": "echo",
+        "phrase": "Coucou papa maman pipi caca",
+        "prompt": "Il faut recopier ça...",
+        "successMessage": "Bravo, tu es pas si débile"
       },
       "audioEvents": []
     },
@@ -166,6 +188,51 @@
       "text": "Comme le peintre regardait la gracieuse et charmante figure que son art avait si subtilement reproduite, un sourire de plaisir passa sur sa face et parut s’y attarder.",
       "breakAt": null,
       "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "text": "",
+      "id": "seg_1780498642298",
+      "gameMode": {
+        "type": "crypte",
+        "cipher": "caesar",
+        "shift": 1,
+        "encoded": "Détbs",
+        "answer": "César",
+        "hint": "+1",
+        "errorMessage": "Essaie encore, Sherlock",
+        "prompt": "Quel mot se cache ?"
+      },
+      "audioEvents": []
+    },
+    {
+      "text": "",
+      "id": "seg_1780498703014",
+      "gameMode": {
+        "type": "crypte",
+        "cipher": "mirror",
+        "shift": 3,
+        "encoded": "Nrilri",
+        "answer": "Miroir",
+        "hint": "dans l'autre sens",
+        "errorMessage": "Hum... non",
+        "prompt": "Un peu plus dur..."
+      },
+      "audioEvents": []
+    },
+    {
+      "text": "",
+      "id": "seg_1780498779837",
+      "gameMode": {
+        "type": "crypte",
+        "cipher": "reverse",
+        "shift": 3,
+        "encoded": "ésrevni etxet el ceva rioriM",
+        "answer": "Miroir avec le texte inversé",
+        "hint": "à l'envers et contre tous",
+        "errorMessage": "Oh no",
+        "prompt": "Miroir inversé"
+      },
       "audioEvents": []
     },
     {
