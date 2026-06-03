@@ -10,6 +10,7 @@ const GAME_TYPES = [
   { value: 'timer',    label: '⏱  Minuteur' },
   { value: 'sequence', label: '🔀  Séquence à reconstituer' },
   { value: 'journal',  label: '✍️  Journal / Écriture libre' },
+  { value: 'echo',     label: '🔁  Écho / Recopie rituelle' },
 ]
 
 const DEFAULTS = {
