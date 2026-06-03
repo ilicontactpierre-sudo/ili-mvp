@@ -9,6 +9,7 @@ export default defineConfig({
     proxy: {
       '/api/preview-sound': 'http://localhost:3001',
       '/api/upload-sound':  'http://localhost:3001',
+      '/api/upload-audio':  'http://localhost:3001',
     },
     headers: {
       'Cross-Origin-Opener-Policy': 'same-origin',
