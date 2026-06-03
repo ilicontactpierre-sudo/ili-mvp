@@ -1060,6 +1060,28 @@ function UnifiedSegmentsTimeline({
 
   const containerRef = useRef(null)
   const scrollContainerRef = useRef(null)
+  const [scrollRatio, setScrollRatio] = useState(0)
+
+  const scrollToSegment = useCallback((index) => {
+    const scrollEl = scrollContainerRef.current
+    if (!scrollEl) return
+    let cumY = 0
+    for (let i = 0; i < index; i++) {
+      cumY += (rowHeights[i] || SEGMENT_HEIGHT) + 8
+    }
+    scrollEl.scrollTo({ top: cumY, behavior: 'smooth' })
+  }, [rowHeights])
+
+  useEffect(() => {
+    const el = scrollContainerRef.current
+    if (!el) return
+    const onScroll = () => {
+      const max = el.scrollHeight - el.clientHeight
+      setScrollRatio(max > 0 ? el.scrollTop / max : 0)
+    }
+    el.addEventListener('scroll', onScroll, { passive: true })
+    return () => el.removeEventListener('scroll', onScroll)
+  }, [])
   const dividerRef = useRef(null)
   const rowRefs = useRef([])
 
