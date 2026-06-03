@@ -1383,6 +1383,11 @@ function AdminPage() {
                             soundTracks={soundTracks}
                             vfxTracks={vfxTracks}
                             saveToHistory={saveToHistory}
+                            collapsedChapters={collapsedChapters}
+                            onToggleChapter={handleToggleChapter}
+                            onToggleIsLeader={handleToggleIsLeader}
+                            onGameMode={(idx) => setGameModePanel(idx)}
+                            isHidden={hiddenSegments.has(index)}
                           />
                         ))}
                                
