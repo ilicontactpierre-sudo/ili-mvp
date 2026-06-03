@@ -195,6 +195,9 @@ app.listen(3001, () => {
   console.log('   POST /api/upload-sound   → mise à jour index GitHub\n')
 })
 
+// Maintenir le process actif
+process.stdin.resume()
+
 // ── Helpers multipart ────────────────────────────────────────────────────────
 function parseMultipart(buffer, boundary) {
   const result = {}
