@@ -211,7 +211,7 @@ function GameOverlay({ gameMode, onResolved }) {
         {type === 'riddle'  && <GameRiddle  data={gameMode} onResolved={handleResolved} />}
         {type === 'timer'    && <GameTimer    data={gameMode} onResolved={handleResolved} />}
         {type === 'sequence' && <GameSequence data={gameMode} onResolved={handleResolved} />}
-      {type === 'journal'  && <GameJournal  data={gameMode} onResolved={handleResolved} />}
+        {type === 'journal'  && <GameJournal  data={gameMode} onResolved={handleResolved} />}
       </div>
     </>
   )
@@ -734,6 +734,90 @@ function GameTimer({ data, onResolved }) {
         <Hint delay={800}>— toucher pour recommencer —</Hint>
       )}
       {!resetOnTap && !expired && data.hint && <Hint delay={600}>{data.hint}</Hint>}
+    </AnimatedWrapper>
+  )
+}
+
+// ─── Type : Journal ───────────────────────────────────────────────────────────
+function GameJournal({ data, onResolved }) {
+  const [text, setText] = useState('')
+  const [saved, setSaved] = useState(false)
+  const minLength = 3
+
+  const handleContinue = () => {
+    if (text.trim().length < minLength) return
+    // Stocker en sessionStorage avec la clé définie par l'auteur
+    if (data.memoryKey) {
+      try {
+        sessionStorage.setItem(`ili_journal_${data.memoryKey}`, text.trim())
+      } catch {}
+    }
+    setSaved(true)
+    setTimeout(onResolved, 900)
+  }
+
+  return (
+    <AnimatedWrapper>
+      {data.prompt && (
+        <p style={{
+          fontSize: 'clamp(0.95rem, 2.5vw, 1.15rem)',
+          color: 'var(--color-text-focus, #222)',
+          textAlign: 'center', lineHeight: 1.7,
+          opacity: 0.9, margin: 0,
+          fontStyle: 'italic',
+        }}>
+          {data.prompt}
+        </p>
+      )}
+
+      <div style={{ width: '100%', maxWidth: '400px', position: 'relative' }}>
+        <textarea
+          autoFocus
+          value={text}
+          onChange={e => setText(e.target.value)}
+          disabled={saved}
+          placeholder={data.placeholder || 'Écrivez ici…'}
+          rows={5}
+          style={{
+            width: '100%',
+            padding: '1.1rem 1.2rem',
+            border: `1px solid ${saved ? 'rgba(39,174,96,0.5)' : 'var(--color-text-focus, #222)'}`,
+            borderRadius: '2px',
+            background: saved ? 'rgba(39,174,96,0.03)' : 'none',
+            fontFamily: 'var(--font-primary, Georgia, serif)',
+            fontSize: '1rem',
+            color: 'var(--color-text-focus, #222)',
+            lineHeight: 1.75,
+            outline: 'none',
+            resize: 'none',
+            boxSizing: 'border-box',
+            transition: `border-color 400ms ${EASE.inOut}, background-color 400ms ${EASE.inOut}`,
+          }}
+        />
+        {/* Compteur de caractères discret */}
+        <div style={{
+          position: 'absolute', bottom: '0.5rem', right: '0.75rem',
+          fontSize: '0.65rem', opacity: text.length > 0 ? 0.3 : 0,
+          color: 'var(--color-text-focus, #222)',
+          transition: 'opacity 300ms ease',
+          fontFamily: 'monospace',
+          pointerEvents: 'none',
+        }}>
+          {text.length}
+        </div>
+      </div>
+
+      {!saved && (
+        <ContinueBtn
+          onClick={handleContinue}
+          label={data.continueLabel || 'je me souviendrai de ça'}
+          delay={400}
+        />
+      )}
+
+      {text.trim().length > 0 && text.trim().length < minLength && !saved && (
+        <Hint>continuez…</Hint>
+      )}
     </AnimatedWrapper>
   )
 }
