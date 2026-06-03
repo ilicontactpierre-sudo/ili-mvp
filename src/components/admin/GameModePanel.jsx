@@ -9,6 +9,7 @@ const GAME_TYPES = [
   { value: 'riddle',   label: '🧩  Énigme texte libre' },
   { value: 'timer',    label: '⏱  Minuteur' },
   { value: 'sequence', label: '🔀  Séquence à reconstituer' },
+  { value: 'journal',  label: '✍️  Journal / Écriture libre' },
 ]
 
 const DEFAULTS = {
