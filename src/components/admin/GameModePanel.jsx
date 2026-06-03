@@ -15,7 +15,8 @@ const DEFAULTS = {
   code:    { type: 'code',    answer: '', prompt: '', hint: '', errorMessage: '' },
   riddle:  { type: 'riddle',  question: '', answer: '', hint: '', placeholder: '', caseSensitive: false, errorMessage: '' },
   timer:    { type: 'timer',    seconds: 30, prompt: '', hint: '', expireMessage: '' },
-  document: { type: 'document', style: 'letter', title: '', body: '', date: '', stamp: '', from: '', to: '' },
+  document:  { type: 'document',  style: 'letter', title: '', body: '', date: '', stamp: '', from: '', to: '' },
+  filmstrip: { type: 'filmstrip', images: [], interval: 2500 },
 }
 
 function Field({ label, hint, children }) {
