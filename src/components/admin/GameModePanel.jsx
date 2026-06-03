@@ -336,6 +336,25 @@ function FormTimer({ data, onChange }) {
         <input style={inputStyle} type="number" min="5" max="300" value={data.seconds || 30}
           onChange={e => onChange({ ...data, seconds: parseInt(e.target.value) || 30 })} />
       </Field>
+      <Field label="Forme du minuteur">
+        <select style={inputStyle} value={data.timerStyle || 'arc'}
+          onChange={e => onChange({ ...data, timerStyle: e.target.value })}>
+          <option value="arc">Arc SVG</option>
+          <option value="bar">Barre de progression</option>
+          <option value="retro">Compte à rebours rétro</option>
+          <option value="hidden">Invisible (écran vide)</option>
+        </select>
+      </Field>
+      <Field label="Reset au tap" hint="Si activé, toucher l'écran repart le compteur">
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+          <input type="checkbox" id="timerReset" checked={!!data.resetOnTap}
+            onChange={e => onChange({ ...data, resetOnTap: e.target.checked })}
+            style={{ accentColor: '#a78bfa' }} />
+          <label htmlFor="timerReset" style={{ fontSize: '0.8rem', color: 'rgba(255,255,255,0.6)', cursor: 'pointer' }}>
+            Activer le reset au tap
+          </label>
+        </div>
+      </Field>
       <Field label="Texte affiché pendant le compte à rebours">
         <input style={inputStyle} type="text" value={data.prompt || ''} placeholder="Ex : La bombe est amorcée…"
           onChange={e => onChange({ ...data, prompt: e.target.value })} />
