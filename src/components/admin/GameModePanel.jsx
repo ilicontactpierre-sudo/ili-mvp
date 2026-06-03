@@ -25,6 +25,7 @@ const DEFAULTS = {
   sequence:  { type: 'sequence',  items: ['', '', ''], prompt: '', successMessage: '' },
   journal:   { type: 'journal',   prompt: '', placeholder: '', memoryKey: '', continueLabel: '' },
   echo:      { type: 'echo',      phrase: '', prompt: '', successMessage: '' },
+  crypte:    { type: 'crypte',    cipher: 'caesar', shift: 3, encoded: '', answer: '', hint: '', errorMessage: '' },
 }
 
 function Field({ label, hint, children }) {
