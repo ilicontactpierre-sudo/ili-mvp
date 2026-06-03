@@ -21,56 +21,153 @@ function useIsMobile() {
 }
 
 // ── Composant carte segment pour mobile ───────────────────────────────────────
-function MobileSegmentCard({ segment, index, segments, setSegments, soundTracks, vfxTracks, saveToHistory }) {
+function MobileSegmentCard({
+  segment, index, segments, setSegments,
+  soundTracks, vfxTracks, saveToHistory,
+  collapsedChapters, onToggleChapter,
+  onToggleIsLeader, onGameMode,
+  isHidden,
+}) {
   const [mobileEditing, setMobileEditing] = useState(false)
   const text = typeof segment === 'string' ? segment : (segment?.text || '')
   const [mobileText, setMobileText] = useState(text)
 
-  // Sync si le texte change de l'extérieur
   useEffect(() => {
     if (!mobileEditing) {
       setMobileText(typeof segment === 'string' ? segment : (segment?.text || ''))
     }
   }, [segment, mobileEditing])
 
+  const isChapter  = segment?.isChapter === true
+  const isLeader   = segment?.isLeader === true
+  const isCollapsed = collapsedChapters?.has(index)
+
+  // Sons qui démarrent sur ce segment
+  const myTracks = soundTracks.filter(t => {
+    const startIdx = segments.findIndex(s => s.id === t.startSegmentId || s._id === t.startSegmentId)
+    return startIdx === index
+  })
+  const hasVfx   = false // vfxTracks ne sont pas éditables sur mobile — indicateur seulement
+  const hasGame  = !!segment?.gameMode
+
+  // Couleurs de statut
+  const borderColor = isChapter ? '#8B5CF6' : isLeader ? '#F97316' : '#e0e0e0'
+  const bgColor     = isChapter ? '#f5f3ff' : isLeader ? '#fff7ed' : (index % 2 === 0 ? '#fff' : '#fafafa')
+
+  if (isHidden) return null
+
   return (
-    <div
-      style={{
-        border: '1px solid #e0e0e0',
-        borderRadius: '8px',
-        backgroundColor: index % 2 === 0 ? '#fff' : '#fafafa',
-        overflow: 'hidden'
-      }}
-    >
-      {/* Barre du haut : numéro + boutons */}
+    <div style={{
+      border: `1px solid ${borderColor}`,
+      borderLeft: `3px solid ${borderColor}`,
+      borderRadius: '8px',
+      backgroundColor: bgColor,
+      overflow: 'hidden',
+      marginBottom: '2px',
+    }}>
+      {/* ── Barre supérieure ── */}
       <div style={{
-        display: 'flex',
-        alignItems: 'center',
-        gap: '0.4rem',
-        padding: '0.4rem 0.6rem',
+        display: 'flex', alignItems: 'center', gap: '4px',
+        padding: '5px 8px',
         borderBottom: '1px solid #f0f0f0',
-        backgroundColor: '#f8f9fa'
+        backgroundColor: isChapter ? '#ede9fe' : isLeader ? '#ffedd5' : '#f8f9fa',
+        minHeight: '36px',
       }}>
-        <span style={{ fontSize: '0.7rem', color: '#999', fontWeight: 700, minWidth: '24px' }}>
-          #{index + 1}
+
+        {/* Numéro — cliquable si chapitre */}
+        <span
+          onClick={isChapter ? () => onToggleChapter(index) : undefined}
+          style={{
+            fontSize: '0.68rem', fontWeight: 700,
+            color: isChapter ? '#8B5CF6' : '#999',
+            minWidth: '22px', cursor: isChapter ? 'pointer' : 'default',
+            userSelect: 'none', display: 'flex', alignItems: 'center', gap: '2px',
+          }}
+        >
+          {isChapter && (
+            <span style={{
+              fontSize: '0.5rem',
+              display: 'inline-block',
+              transform: isCollapsed ? 'rotate(-90deg)' : 'rotate(0deg)',
+              transition: 'transform 0.2s ease',
+            }}>▼</span>
+          )}
+          {index + 1}
         </span>
-        {segment?.isChapter && (
-          <span style={{ fontSize: '0.65rem', color: '#8B5CF6', fontWeight: 600 }}>★ Ch.</span>
+
+        {/* Badge chapitre */}
+        {isChapter && (
+          <span style={{
+            fontSize: '0.6rem', color: '#8B5CF6', fontWeight: 600,
+            backgroundColor: 'rgba(139,92,246,0.12)',
+            borderRadius: '3px', padding: '1px 5px',
+          }}>★ Ch.</span>
         )}
-        {segment?.isLeader && !segment?.isChapter && (
-          <span style={{ fontSize: '0.65rem', color: '#F97316' }}>◆</span>
-        )}
+
+        {/* Indicateurs sons/vfx/game */}
+        <div style={{ display: 'flex', gap: '3px', alignItems: 'center' }}>
+          {myTracks.length > 0 && (
+            <span style={{
+              fontSize: '0.58rem', backgroundColor: 'rgba(23,162,184,0.12)',
+              color: '#17a2b8', borderRadius: '3px', padding: '1px 5px',
+              fontWeight: 600,
+            }}>
+              🔊 {myTracks.length}
+            </span>
+          )}
+          {segment?.vfxTracks?.length > 0 && (
+            <span style={{
+              fontSize: '0.58rem', backgroundColor: 'rgba(124,80,220,0.12)',
+              color: '#7C50DC', borderRadius: '3px', padding: '1px 5px',
+            }}>VFX</span>
+          )}
+          {hasGame && (
+            <span style={{
+              fontSize: '0.58rem', backgroundColor: 'rgba(167,139,250,0.15)',
+              color: '#7C3AED', borderRadius: '3px', padding: '1px 5px',
+            }}>🎮</span>
+          )}
+        </div>
+
         <div style={{ flex: 1 }} />
+
+        {/* Toggle leader */}
+        <button
+          onClick={() => onToggleIsLeader(index)}
+          title={isLeader ? 'Retirer le statut leader' : 'Marquer comme leader'}
+          style={{
+            background: 'none', border: 'none', cursor: 'pointer',
+            fontSize: '0.75rem', padding: '2px 4px',
+            color: isLeader ? '#F97316' : 'rgba(0,0,0,0.2)',
+          }}
+        >
+          {isLeader ? '◆' : '◇'}
+        </button>
+
+        {/* Bouton gamification */}
+        <button
+          onClick={() => onGameMode(index)}
+          title={hasGame ? 'Modifier la gamification' : 'Ajouter une gamification'}
+          style={{
+            background: 'none', border: 'none', cursor: 'pointer',
+            fontSize: '0.75rem', padding: '2px 4px',
+            color: hasGame ? '#a78bfa' : 'rgba(0,0,0,0.18)',
+          }}
+        >
+          🎮
+        </button>
+
+        {/* Bouton éditer */}
         <button
           onClick={() => { setMobileText(text); setMobileEditing(true) }}
           style={{
-            padding: '0.25rem 0.6rem', fontSize: '0.72rem',
+            padding: '3px 8px', fontSize: '0.7rem',
             backgroundColor: '#007bff', color: '#fff',
-            border: 'none', borderRadius: '4px', cursor: 'pointer'
+            border: 'none', borderRadius: '4px', cursor: 'pointer',
           }}
-        >
-          ✏️
-        </button>
+        >✏️</button>
+
+        {/* Bouton ajouter après */}
         <button
           onClick={() => {
             const updated = [...segments]
@@ -79,13 +176,13 @@ function MobileSegmentCard({ segment, index, segments, setSegments, soundTracks,
             saveToHistory(updated, soundTracks, vfxTracks)
           }}
           style={{
-            padding: '0.25rem 0.5rem', fontSize: '0.72rem',
+            padding: '3px 7px', fontSize: '0.7rem',
             backgroundColor: '#28a745', color: '#fff',
-            border: 'none', borderRadius: '4px', cursor: 'pointer'
+            border: 'none', borderRadius: '4px', cursor: 'pointer',
           }}
-        >
-          ＋
-        </button>
+        >＋</button>
+
+        {/* Bouton supprimer */}
         <button
           onClick={() => {
             const updated = [...segments]
@@ -94,17 +191,15 @@ function MobileSegmentCard({ segment, index, segments, setSegments, soundTracks,
             saveToHistory(updated, soundTracks, vfxTracks)
           }}
           style={{
-            padding: '0.25rem 0.5rem', fontSize: '0.72rem',
+            padding: '3px 7px', fontSize: '0.7rem',
             backgroundColor: 'rgba(220,53,69,0.1)', color: '#dc3545',
-            border: '1px solid rgba(220,53,69,0.2)', borderRadius: '4px', cursor: 'pointer'
+            border: '1px solid rgba(220,53,69,0.2)', borderRadius: '4px', cursor: 'pointer',
           }}
-        >
-          ✕
-        </button>
+        >✕</button>
       </div>
 
-      {/* Corps : texte ou textarea */}
-      <div style={{ padding: '0.5rem 0.75rem' }}>
+      {/* ── Corps : texte ── */}
+      <div style={{ padding: '6px 10px' }}>
         {mobileEditing ? (
           <div>
             <textarea
@@ -112,13 +207,13 @@ function MobileSegmentCard({ segment, index, segments, setSegments, soundTracks,
               value={mobileText}
               onChange={(e) => setMobileText(e.target.value)}
               style={{
-                width: '100%', minHeight: '80px', padding: '0.4rem',
+                width: '100%', minHeight: '72px', padding: '6px',
                 fontSize: '0.85rem', border: '1px solid #2196F3',
                 borderRadius: '4px', resize: 'vertical',
-                boxSizing: 'border-box', fontFamily: 'inherit', lineHeight: '1.4'
+                boxSizing: 'border-box', fontFamily: 'inherit', lineHeight: '1.4',
               }}
             />
-            <div style={{ display: 'flex', gap: '0.4rem', marginTop: '0.4rem' }}>
+            <div style={{ display: 'flex', gap: '6px', marginTop: '6px' }}>
               <button
                 onClick={() => {
                   const updated = [...segments]
@@ -130,43 +225,181 @@ function MobileSegmentCard({ segment, index, segments, setSegments, soundTracks,
                   setMobileEditing(false)
                 }}
                 style={{
-                  flex: 1, padding: '0.4rem', fontSize: '0.8rem',
+                  flex: 1, padding: '6px', fontSize: '0.8rem',
                   backgroundColor: '#28a745', color: '#fff',
-                  border: 'none', borderRadius: '4px', cursor: 'pointer'
+                  border: 'none', borderRadius: '4px', cursor: 'pointer',
                 }}
-              >
-                ✓ Valider
-              </button>
+              >✓ Valider</button>
               <button
                 onClick={() => setMobileEditing(false)}
                 style={{
-                  padding: '0.4rem 0.75rem', fontSize: '0.8rem',
+                  padding: '6px 12px', fontSize: '0.8rem',
                   backgroundColor: '#f8f9fa', color: '#555',
-                  border: '1px solid #ddd', borderRadius: '4px', cursor: 'pointer'
+                  border: '1px solid #ddd', borderRadius: '4px', cursor: 'pointer',
                 }}
-              >
-                Annuler
-              </button>
+              >Annuler</button>
             </div>
           </div>
         ) : (
           <p style={{
-            margin: 0, fontSize: '0.85rem', lineHeight: '1.4',
-            color: text ? '#333' : '#bbb', fontStyle: text ? 'normal' : 'italic',
-            whiteSpace: 'pre-wrap', wordBreak: 'break-word'
+            margin: 0, fontSize: '0.82rem', lineHeight: '1.4',
+            color: text ? '#333' : '#bbb',
+            fontStyle: text ? 'normal' : 'italic',
+            whiteSpace: 'pre-wrap', wordBreak: 'break-word',
           }}>
             {text || 'Segment vide…'}
           </p>
         )}
       </div>
 
-      {/* Résumé audio si présent */}
-      {segment?.audioEvents && segment.audioEvents.length > 0 && (
+      {/* ── Blocs sons éditables ── */}
+      {myTracks.map((track, ti) => {
+        const soundName = track.soundId || '—'
+        const endIdx = segments.findIndex(s => s.id === track.endSegmentId || s._id === track.endSegmentId)
+        const startIdx = index
+        const span = endIdx >= startIdx ? endIdx - startIdx + 1 : 1
+        return (
+          <div key={track.id} style={{
+            margin: '0 8px 6px',
+            padding: '6px 8px',
+            backgroundColor: 'rgba(23,162,184,0.06)',
+            border: '1px solid rgba(23,162,184,0.2)',
+            borderRadius: '6px',
+            fontSize: '0.75rem',
+          }}>
+            {/* Nom + durée */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '6px' }}>
+              <span style={{ fontWeight: 600, color: '#17a2b8', flex: 1, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                🔊 {soundName}
+              </span>
+              <span style={{ color: '#888', fontSize: '0.68rem', flexShrink: 0 }}>
+                {span} seg.
+              </span>
+            </div>
+
+            {/* Ligne volume */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '4px' }}>
+              <span style={{ color: '#666', minWidth: '52px' }}>Vol.</span>
+              <input
+                type="range" min="0" max="1" step="0.05"
+                value={track.volume ?? 0.5}
+                onChange={(e) => {
+                  const updated = soundTracks.map(t =>
+                    t.id === track.id ? { ...t, volume: parseFloat(e.target.value) } : t
+                  )
+                  // remonter via setSegments n'est pas dispo ici → passer par prop
+                  // on fait remonter via saveToHistory trick
+                  window._mobileTrackUpdate && window._mobileTrackUpdate(updated)
+                }}
+                style={{ flex: 1, accentColor: '#17a2b8' }}
+              />
+              <span style={{ color: '#666', minWidth: '28px', textAlign: 'right' }}>
+                {Math.round((track.volume ?? 0.5) * 100)}%
+              </span>
+            </div>
+
+            {/* Fade in */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '4px' }}>
+              <span style={{ color: '#666', minWidth: '52px' }}>Fade in</span>
+              <input
+                type="range" min="0" max="3000" step="100"
+                value={track.fadeIn ?? 0}
+                onChange={(e) => {
+                  const updated = soundTracks.map(t =>
+                    t.id === track.id ? { ...t, fadeIn: parseInt(e.target.value) } : t
+                  )
+                  window._mobileTrackUpdate && window._mobileTrackUpdate(updated)
+                }}
+                style={{ flex: 1, accentColor: '#17a2b8' }}
+              />
+              <span style={{ color: '#666', minWidth: '28px', textAlign: 'right' }}>
+                {((track.fadeIn ?? 0) / 1000).toFixed(1)}s
+              </span>
+            </div>
+
+            {/* Fade out */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+              <span style={{ color: '#666', minWidth: '52px' }}>Fade out</span>
+              <input
+                type="range" min="0" max="3000" step="100"
+                value={track.fadeOut ?? 0}
+                onChange={(e) => {
+                  const updated = soundTracks.map(t =>
+                    t.id === track.id ? { ...t, fadeOut: parseInt(e.target.value) } : t
+                  )
+                  window._mobileTrackUpdate && window._mobileTrackUpdate(updated)
+                }}
+                style={{ flex: 1, accentColor: '#17a2b8' }}
+              />
+              <span style={{ color: '#666', minWidth: '28px', textAlign: 'right' }}>
+                {((track.fadeOut ?? 0) / 1000).toFixed(1)}s
+              </span>
+            </div>
+
+            {/* Étendue : boutons − et + pour changer endSegmentId */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginTop: '6px', paddingTop: '5px', borderTop: '1px solid rgba(23,162,184,0.15)' }}>
+              <span style={{ color: '#666', flex: 1 }}>Étendue : seg. {startIdx + 1} → {endIdx >= 0 ? endIdx + 1 : startIdx + 1}</span>
+              <button
+                onClick={() => {
+                  if (endIdx <= startIdx) return
+                  const newEndSeg = segments[endIdx - 1]
+                  if (!newEndSeg) return
+                  const updated = soundTracks.map(t =>
+                    t.id === track.id ? { ...t, endSegmentId: newEndSeg.id || newEndSeg._id } : t
+                  )
+                  window._mobileTrackUpdate && window._mobileTrackUpdate(updated)
+                }}
+                style={{
+                  padding: '2px 8px', fontSize: '0.8rem',
+                  backgroundColor: '#f0f0f0', border: '1px solid #ddd',
+                  borderRadius: '3px', cursor: 'pointer',
+                }}
+              >−</button>
+              <button
+                onClick={() => {
+                  const newEndIdx = endIdx + 1
+                  if (newEndIdx >= segments.length) return
+                  const newEndSeg = segments[newEndIdx]
+                  if (!newEndSeg) return
+                  const updated = soundTracks.map(t =>
+                    t.id === track.id ? { ...t, endSegmentId: newEndSeg.id || newEndSeg._id } : t
+                  )
+                  window._mobileTrackUpdate && window._mobileTrackUpdate(updated)
+                }}
+                style={{
+                  padding: '2px 8px', fontSize: '0.8rem',
+                  backgroundColor: '#f0f0f0', border: '1px solid #ddd',
+                  borderRadius: '3px', cursor: 'pointer',
+                }}
+              >＋</button>
+            </div>
+          </div>
+        )
+      })}
+
+      {/* ── Résumé gameMode ── */}
+      {hasGame && (
         <div style={{
-          padding: '0.3rem 0.75rem', borderTop: '1px solid #f0f0f0',
-          fontSize: '0.7rem', color: '#888', backgroundColor: '#f8f9fa'
+          margin: '0 8px 6px',
+          padding: '5px 8px',
+          backgroundColor: 'rgba(167,139,250,0.08)',
+          border: '1px solid rgba(167,139,250,0.2)',
+          borderRadius: '6px',
+          fontSize: '0.72rem', color: '#7C3AED',
+          display: 'flex', alignItems: 'center', gap: '6px',
         }}>
-          🔊 {segment.audioEvents.length} événement(s) audio
+          <span>🎮 {segment.gameMode.type}</span>
+          {segment.gameMode.answer && (
+            <span style={{ color: '#999' }}>— rép. : {segment.gameMode.answer}</span>
+          )}
+          <button
+            onClick={() => onGameMode(index)}
+            style={{
+              marginLeft: 'auto', padding: '2px 7px', fontSize: '0.68rem',
+              backgroundColor: 'rgba(167,139,250,0.15)', color: '#7C3AED',
+              border: '1px solid rgba(167,139,250,0.25)', borderRadius: '3px', cursor: 'pointer',
+            }}
+          >Modifier</button>
         </div>
       )}
     </div>
