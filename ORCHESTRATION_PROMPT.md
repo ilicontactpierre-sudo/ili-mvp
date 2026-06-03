@@ -89,21 +89,29 @@ Sons qui marquent un changement de scène ou de temporalité. Exemples : `sweep`
 
 ## Vocabulaire disponible dans la bibliothèque
 
-La bibliothèque contient des milliers de sons. Voici un échantillon du vocabulaire disponible pour t'aider à choisir des keywords pertinents. Ce n'est pas une liste exhaustive — tu peux utiliser d'autres mots précis en anglais si l'intention est claire.
+⚠️ RÈGLE ABSOLUE SUR LES KEYWORDS — LIS CECI AVANT TOUT.
 
-**Nature & météo :** rain, wind, thunder, storm, lightning, snow, ice, hailstorm, fire, flame, crackle, spark, ocean, wave, river, waterfall, splash, drip, pour, bubble, steam, smoke, forest, jungle, grass, leaves, tree, birdsong, bird, wolf, insect, horse, dog, creature, monster, ghost
+Le keyword que tu choisis n'est pas un mot sémantique libre. C'est une clé de
+recherche textuelle qui doit apparaître mot pour mot dans les données des sons.
+Le système fait un `.includes(keyword)` sur les champs `searchString`, `tags`
+et `label` de chaque son.
 
-**Urbain & intérieur :** city, crowd, traffic, street, car, engine, horn, train, plane, helicopter, boat, ship, door, footstep, step, clock, bell, phone, glass, wood, metal, alarm, siren, radio, static, office, church, tunnel, cave, restaurant, indoor, outdoor, night, dawn, dusk
+Conséquence directe : un keyword absent des données retourne 0 résultat et le
+bloc est ignoré. Inventer un mot comme `crowd` ou `night` sans vérifier qu'il
+existe dans la bibliothèque = bloc perdu.
 
-**Corps humain :** breath, breathing, heartbeat, scream, whisper, laugh, cry, cough, inhale, exhale, voice, talking, murmur, heartbeat, gasp
+La liste complète du vocabulaire disponible est fournie à la fin de ce prompt
+dans la section `--- VOCABULAIRE DE LA BIBLIOTHÈQUE ---`. Tu dois choisir tes
+keywords exclusivement dans cette liste.
 
-**Action & tension :** explosion, gunshot, shot, punch, fight, sword, blade, impact, crash, blast, shockwave, alarm, tension, horror, danger, chase, sweep, whoosh, rise, riser
-
-**Ambiance & mood :** dark, mystery, calm, peaceful, epic, dramatic, romantic, sad, happy, fear, magic, drone, hum, buzz
-
-**Instruments & musique :** piano, violin, guitar, drum, bass, trumpet, flute, choir, orchestra, jazz, military, saxophone, carillon, accordion, xylophone
-
-**Sci-fi & design :** digital, electronic, robot, computer, interface, portal, laser, spaceship
+Stratégie recommandée :
+- Pour chaque bloc, identifie l'intention (ex: foule nocturne menaçante)
+- Cherche dans le vocabulaire fourni les mots qui s'en approchent le mieux
+- Préfère des mots suffisamment spécifiques pour cibler le bon type de son,
+  mais suffisamment présents pour avoir des résultats (ex: `footstep` plutôt
+  que `marchant`, `tension` plutôt que `anxiété`)
+- Si tu hésites entre deux mots, choisis celui qui est le plus court et le plus
+  générique : il matchera plus de sons
 
 ---
 
