@@ -46,6 +46,8 @@ function SoundLibraryPicker({
   const [onlyUploaded, setOnlyUploaded] = useState(false)
   const howlRef = useRef(null)
   const timerRef = useRef(null)
+  const ffmpegRef = useRef(null)
+  const ffmpegLoadedRef = useRef(false)
 
   // Nettoyer le son au démontage
   useEffect(() => {
