@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react'
 
 const GAME_TYPES = [
-  { value: 'image',    label: '🖼  Image / Cinématique' },
+  { value: 'image',     label: '🖼  Image / Cinématique' },
+  { value: 'filmstrip', label: '🎞  Pellicule' },
   { value: 'document', label: '📄  Document / Artefact' },
   { value: 'message',  label: '💬  Message animé' },
   { value: 'code',     label: '🔢  Code / Digicode' },
