@@ -693,6 +693,7 @@ function GameModePanel({ segment, segmentIndex, onSave, onDelete, onClose }) {
         {type === 'sequence' && <FormSequence data={data} onChange={setData} />}
         {type === 'journal'  && <FormJournal  data={data} onChange={setData} />}
         {type === 'echo'     && <FormEcho     data={data} onChange={setData} />}
+        {type === 'crypte'   && <FormCrypte   data={data} onChange={setData} />}
 
         {/* Actions */}
         <div style={{ display: 'flex', gap: '0.75rem', marginTop: '0.5rem', paddingTop: '1rem', borderTop: '1px solid rgba(255,255,255,0.08)' }}>
