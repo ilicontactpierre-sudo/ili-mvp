@@ -488,34 +488,37 @@ function GameImage({ data, onResolved }) {
 function GameFilmstrip({ data, onResolved }) {
   const images = (data.images || []).filter(Boolean)
   const [current, setCurrent] = useState(0)
-  const [phase, setPhase] = useState('dark') // dark → reveal → hold → dark
+  const [visible, setVisible] = useState(false)
   const [allDone, setAllDone] = useState(false)
-  const interval = data.interval || 2500
+  const duration = data.interval || 2500
+  const timerRef = useRef(null)
+
+  const clearTimers = () => {
+    if (timerRef.current) clearTimeout(timerRef.current)
+  }
 
   useEffect(() => {
-    // dark → reveal
-    const t1 = setTimeout(() => setPhase('reveal'), 300)
-    return () => clearTimeout(t1)
+    clearTimers()
+    // Fade in
+    timerRef.current = setTimeout(() => {
+      setVisible(true)
+      // Après la durée d'affichage → fade out puis image suivante
+      timerRef.current = setTimeout(() => {
+        setVisible(false)
+        timerRef.current = setTimeout(() => {
+          if (current < images.length - 1) {
+            setCurrent(c => c + 1)
+          } else {
+            setAllDone(true)
+          }
+        }, 900) // durée du fade out avant de changer
+      }, duration)
+    }, 300)
+    return clearTimers
   }, [current])
 
-  useEffect(() => {
-    if (phase !== 'reveal') return
-    // reveal → hold → dark → next
-    const t1 = setTimeout(() => setPhase('hold'), 800)
-    const t2 = setTimeout(() => setPhase('dark'), interval)
-    const t3 = setTimeout(() => {
-      if (current < images.length - 1) {
-        setCurrent(c => c + 1)
-        setPhase('dark')
-      } else {
-        setAllDone(true)
-      }
-    }, interval + 400)
-    return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3) }
-  }, [phase, current, images.length, interval])
-
-  const opacity = phase === 'dark' ? 0 : 1
-  const brightness = phase === 'hold' ? 1 : 0.85
+  const opacity = visible ? 1 : 0
+  const brightness = visible ? 1 : 0.85
 
   return (
     <div style={{
