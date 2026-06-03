@@ -115,6 +115,29 @@ function OrchestrationPanel({
       lines.push('(Claude peut quand même proposer des keywords — ils seront uploadés ensuite)')
     }
 
+    // Vocabulaire réel de la bibliothèque pour guider Claude
+    const vocabSet = new Set()
+    soundLibrary.forEach(sound => {
+      if (sound.searchString) {
+        sound.searchString.split(/\s+/).forEach(word => {
+          const w = word.toLowerCase().replace(/[^a-záàâéèêëîïôùûüç]/gi, '').trim()
+          if (w.length > 3) vocabSet.add(w)
+        })
+      }
+      ;(sound.tags || []).forEach(tag => {
+        if (tag.length > 2) vocabSet.add(tag.toLowerCase())
+      })
+    })
+    const vocab = [...vocabSet].sort()
+
+    lines.push('')
+    lines.push('--- VOCABULAIRE DE LA BIBLIOTHÈQUE ---')
+    lines.push('⚠️ Chaque keyword que tu choisis DOIT être un mot présent dans cette liste.')
+    lines.push('Le système cherche ce mot textuellement dans les données des sons.')
+    lines.push('Un mot absent de cette liste retournera 0 résultat et sera ignoré.')
+    lines.push('')
+    lines.push(vocab.join(', '))
+
     const text = lines.join('\n')
     setExportText(text)
 
