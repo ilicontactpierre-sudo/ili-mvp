@@ -1133,14 +1133,18 @@ function AdminPage() {
                             Double-tap pour éditer
                           </span>
                         </div>
-                        {segments.map((segment, index) => {
-                          const text = typeof segment === 'string' ? segment : (segment?.text || '')
-                          const [mobileEditing, setMobileEditing] = useState(false)
-                          const [mobileText, setMobileText] = useState(text)
-                          return (
-                            <div
-                              key={segment?.id || index}
-                              style={{
+                        {segments.map((segment, index) => (
+                          <MobileSegmentCard
+                            key={segment?.id || index}
+                            segment={segment}
+                            index={index}
+                            segments={segments}
+                            setSegments={setSegments}
+                            soundTracks={soundTracks}
+                            vfxTracks={vfxTracks}
+                            saveToHistory={saveToHistory}
+                          />
+                        ))}
                                 border: '1px solid #e0e0e0',
                                 borderRadius: '8px',
                                 backgroundColor: index % 2 === 0 ? '#fff' : '#fafafa',
