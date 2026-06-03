@@ -1516,37 +1516,24 @@ function AdminPage() {
                           onSoundsImported={() => {
                             const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL
                             const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY
-                            fetch(`${SUPABASE_URL}/rest/v1/sounds?select=*&order=label.asc`, {
+                            const localPromise = fetch('/sounds/sounds-index.json').then(r => r.json()).catch(() => [])
+                            const supabasePromise = fetch(`${SUPABASE_URL}/rest/v1/sounds?select=id,url&order=label.asc`, {
                               headers: {
                                 'apikey': SUPABASE_ANON_KEY,
                                 'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
                               }
+                            }).then(r => r.json()).catch(() => [])
+                            Promise.all([localPromise, supabasePromise]).then(([localSounds, supabaseRows]) => {
+                              const urlMap = {}
+                              if (Array.isArray(supabaseRows)) {
+                                supabaseRows.forEach(r => { if (r.id && r.url) urlMap[r.id] = r.url })
+                              }
+                              const merged = (Array.isArray(localSounds) ? localSounds : []).map(sound => ({
+                                ...sound,
+                                url: urlMap[sound.id] || sound.url || null,
+                              }))
+                              setSoundLibrary(merged)
                             })
-                              .then(res => res.json())
-                              .then(rows => {
-                                const sounds = rows.map(r => ({
-                                  id:              r.id,
-                                  filename:        r.filename,
-                                  label:           r.label,
-                                  url:             r.url,
-                                  localPath:       r.local_path,
-                                  description:     r.description,
-                                  tags:            r.tags            ?? [],
-                                  categories:      r.categories      ?? [],
-                                  boomCategory:    r.boom_category,
-                                  boomSubcategory: r.boom_subcategory,
-                                  catId:           r.cat_id,
-                                  library:         r.library,
-                                  mood:            r.mood            ?? [],
-                                  loop:            r.loop            ?? false,
-                                  duration:        r.duration        ?? 0,
-                                  intensity:       r.intensity,
-                                  tempo:           r.tempo,
-                                  searchString:    r.search_string,
-                                }))
-                                setSoundLibrary(sounds)
-                              })
-                              .catch(err => console.error('Erreur rechargement bibliothèque:', err))
                           }}
                         />
                       </div>
