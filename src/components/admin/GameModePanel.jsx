@@ -346,10 +346,26 @@ function FormJournal({ data, onChange }) {
           placeholder="Ex : Écrivez ici…"
           onChange={e => onChange({ ...data, placeholder: e.target.value })} />
       </Field>
-      <Field label="Clé mémoire" hint="Identifiant unique pour rappeler cette réponse plus tard (ex : choix_porte)">
+      <Field label="Clé mémoire" hint="Identifiant unique pour rappeler cette réponse plus tard">
         <input style={inputStyle} type="text" value={data.memoryKey || ''}
           placeholder="Ex : choix_porte"
           onChange={e => onChange({ ...data, memoryKey: e.target.value.replace(/\s/g, '_') })} />
+        {data.memoryKey && (
+          <span style={{
+            fontSize: '0.72rem',
+            fontFamily: 'monospace',
+            color: 'rgba(167,139,250,0.8)',
+            backgroundColor: 'rgba(167,139,250,0.08)',
+            border: '1px solid rgba(167,139,250,0.15)',
+            borderRadius: '4px',
+            padding: '0.3rem 0.6rem',
+            marginTop: '0.2rem',
+            display: 'inline-block',
+            userSelect: 'all',
+          }}>
+            {`{{journal:${data.memoryKey}}}`}
+          </span>
+        )}
       </Field>
       <Field label="Texte du bouton continuer">
         <input style={inputStyle} type="text" value={data.continueLabel || ''}
