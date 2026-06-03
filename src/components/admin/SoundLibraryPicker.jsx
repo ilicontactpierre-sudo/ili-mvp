@@ -202,7 +202,6 @@ const handleFileSelected = async (e) => {
       const publicUrl = `${SUPABASE_URL}/storage/v1/object/public/sounds/${encodeURIComponent(uploadPath)}`
 
       // 4. Enregistrer dans la table Supabase
-      console.log('[upload-sound] password envoyé :', adminPassword)
       const saveRes = await fetch('/api/upload-sound', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
