@@ -2446,7 +2446,7 @@ const handleTextSelection = useCallback(() => {
         )
       })()}
 
-      </div>{/* fin zone scrollable + minimap */}
+      { /* fin zone scrollable + minimap */}
 
       {gameModePanel !== null && (
         <GameModePanel
