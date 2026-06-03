@@ -209,7 +209,8 @@ function GameOverlay({ gameMode, onResolved }) {
         {type === 'message' && <GameMessage data={gameMode} onResolved={handleResolved} />}
         {type === 'code'    && <GameCode    data={gameMode} onResolved={handleResolved} />}
         {type === 'riddle'  && <GameRiddle  data={gameMode} onResolved={handleResolved} />}
-        {type === 'timer'   && <GameTimer   data={gameMode} onResolved={handleResolved} />}
+        {type === 'timer'    && <GameTimer    data={gameMode} onResolved={handleResolved} />}
+      {type === 'sequence' && <GameSequence data={gameMode} onResolved={handleResolved} />}
       </div>
     </>
   )
