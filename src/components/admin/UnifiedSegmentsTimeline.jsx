@@ -2027,6 +2027,9 @@ const handleTextSelection = useCallback(() => {
         </div>
       </div>
 
+      {/* Zone scrollable + minimap */}
+      <div style={{ flex: 1, display: 'flex', overflow: 'hidden', position: 'relative' }}>
+
       {/* Contenu scrollable unifié */}
       <div 
         ref={scrollContainerRef}
