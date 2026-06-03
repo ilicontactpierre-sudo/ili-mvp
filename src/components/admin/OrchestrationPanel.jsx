@@ -636,14 +636,13 @@ function OrchestrationPanel({
             )}
 
             {/* Bouton appliquer */}
-            {diagnosis.found.length > 0 && (
+            {(diagnosis.found.length > 0 || diagnosis.missing.some(m => m.ghostSound)) && (
               <div style={{ ...s.row, marginTop: '1rem' }}>
                 <button
                   onClick={handleApply}
                   style={s.btn('success')}
                 >
-                  ✦ Appliquer {diagnosis.found.length} bloc(s) sur la timeline
-                  {diagnosis.missing.length > 0 && ` (${diagnosis.missing.length} ignoré(s))`}
+                  ✦ Appliquer{diagnosis.found.length > 0 ? ` ${diagnosis.found.length} bloc(s)` : ''}{diagnosis.missing.some(m => m.ghostSound) ? ` + ${diagnosis.missing.filter(m => m.ghostSound).length} bloc(s) grisé(s)` : ''} sur la timeline
                 </button>
               </div>
             )}
