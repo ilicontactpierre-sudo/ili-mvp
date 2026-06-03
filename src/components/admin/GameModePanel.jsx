@@ -337,6 +337,103 @@ function FormDocument({ data, onChange }) {
   )
 }
 
+// ─── Utilitaires de chiffrement (admin) ──────────────────────────────────────
+function caesarEncode(text, shift) {
+  return text.split('').map(c => {
+    if (/[a-z]/.test(c)) return String.fromCharCode(((c.charCodeAt(0) - 97 + shift) % 26) + 97)
+    if (/[A-Z]/.test(c)) return String.fromCharCode(((c.charCodeAt(0) - 65 + shift) % 26) + 65)
+    return c
+  }).join('')
+}
+function mirrorEncode(text) {
+  return text.split('').map(c => {
+    if (/[a-z]/.test(c)) return String.fromCharCode(219 - c.charCodeAt(0))
+    if (/[A-Z]/.test(c)) return String.fromCharCode(155 - c.charCodeAt(0))
+    return c
+  }).join('')
+}
+function reverseEncode(text) { return text.split('').reverse().join('') }
+
+function FormCrypte({ data, onChange }) {
+  const autoEncode = (answer, cipher, shift) => {
+    if (!answer) return ''
+    if (cipher === 'caesar') return caesarEncode(answer, parseInt(shift) || 3)
+    if (cipher === 'mirror') return mirrorEncode(answer)
+    if (cipher === 'reverse') return reverseEncode(answer)
+    return answer
+  }
+
+  const handleAnswerChange = (val) => {
+    const encoded = autoEncode(val, data.cipher, data.shift)
+    onChange({ ...data, answer: val, encoded })
+  }
+  const handleCipherChange = (val) => {
+    const encoded = autoEncode(data.answer, val, data.shift)
+    onChange({ ...data, cipher: val, encoded })
+  }
+  const handleShiftChange = (val) => {
+    const encoded = autoEncode(data.answer, data.cipher, val)
+    onChange({ ...data, shift: parseInt(val) || 3, encoded })
+  }
+
+  return (
+    <>
+      <Field label="Type de chiffrement">
+        <select style={inputStyle} value={data.cipher || 'caesar'}
+          onChange={e => handleCipherChange(e.target.value)}>
+          <option value="caesar">César (décalage alphabétique)</option>
+          <option value="mirror">Miroir (A↔Z, B↔Y…)</option>
+          <option value="reverse">Miroir (texte inversé)</option>
+        </select>
+      </Field>
+      {data.cipher === 'caesar' && (
+        <Field label="Décalage" hint="Entre 1 et 25 — ex : 3 signifie A→D, B→E…">
+          <input style={inputStyle} type="number" min="1" max="25"
+            value={data.shift || 3}
+            onChange={e => handleShiftChange(e.target.value)} />
+        </Field>
+      )}
+      <Field label="Réponse correcte (en clair) *" hint="Le texte chiffré sera généré automatiquement">
+        <input style={inputStyle} type="text" value={data.answer || ''}
+          placeholder="Ex : lumière"
+          onChange={e => handleAnswerChange(e.target.value)} />
+      </Field>
+      {data.encoded && (
+        <Field label="Texte chiffré (généré automatiquement)">
+          <div style={{
+            padding: '0.6rem 0.75rem',
+            backgroundColor: 'rgba(167,139,250,0.08)',
+            border: '1px solid rgba(167,139,250,0.2)',
+            borderRadius: '6px',
+            fontFamily: 'monospace',
+            fontSize: '0.95rem',
+            color: 'rgba(167,139,250,0.9)',
+            letterSpacing: '0.1em',
+            userSelect: 'all',
+          }}>
+            {data.encoded}
+          </div>
+        </Field>
+      )}
+      <Field label="Invite" hint="Texte affiché au-dessus du message chiffré">
+        <input style={inputStyle} type="text" value={data.prompt || ''}
+          placeholder="Ex : Ce message a été intercepté…"
+          onChange={e => onChange({ ...data, prompt: e.target.value })} />
+      </Field>
+      <Field label="Indice">
+        <input style={inputStyle} type="text" value={data.hint || ''}
+          placeholder="Ex : La clé se trouve au chapitre 2."
+          onChange={e => onChange({ ...data, hint: e.target.value })} />
+      </Field>
+      <Field label="Message d'erreur">
+        <input style={inputStyle} type="text" value={data.errorMessage || ''}
+          placeholder="Ex : Ce n'est pas le bon déchiffrement."
+          onChange={e => onChange({ ...data, errorMessage: e.target.value })} />
+      </Field>
+    </>
+  )
+}
+
 function FormEcho({ data, onChange }) {
   return (
     <>
