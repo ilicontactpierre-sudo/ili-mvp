@@ -4,6 +4,7 @@ function DraftManager({
   title,
   author,
   slug,
+  bookUrl,
   segments,
   soundTracks,
   vfxTracks,
