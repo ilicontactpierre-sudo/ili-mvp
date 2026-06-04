@@ -131,6 +131,77 @@ class AudioEngine {
       howl._sprite[spriteName] = [start, duration]
       return spriteName
     }
+  onSegmentChange(currentIndex, soundTracks = [], segments = []) {
+    const getIndex = (segmentId) =>
+      segments.findIndex(s => s.id === segmentId || s._id === segmentId)
+
+    // Sons qui doivent être actifs à ce segment
+    const activeTracks = soundTracks.filter(track => {
+      if (track.muted || track.broken) return false
+      const startIdx = getIndex(track.startSegmentId)
+      const endIdx = getIndex(track.endSegmentId)
+      const end = endIdx !== -1 ? endIdx : startIdx
+      return startIdx !== -1 && currentIndex >= startIdx && currentIndex <= end
+    })
+
+    const activeIds = new Set(activeTracks.map(t => t.soundId))
+
+    // Arrêter les sons qui ne doivent plus jouer
+    this.playingSounds.forEach((_, soundId) => {
+      if (!activeIds.has(soundId)) {
+        this.fadeOutSound({ soundId, duration: 800 })
+      }
+    })
+
+    // Démarrer ou mettre à jour les sons actifs
+    activeTracks.forEach(track => {
+      const startIdx = getIndex(track.startSegmentId)
+      const endIdx = getIndex(track.endSegmentId)
+      const end = endIdx !== -1 ? endIdx : startIdx
+      const isFirstSegment = currentIndex === startIdx
+      const isLastSegment = currentIndex === end
+      const fadeInMs = (track.fadeIn || 0) * 1000
+      const fadeOutMs = (track.fadeOut || 0) * 1000
+      const delayMs = (track.delay || 0) * 1000
+
+      if (!this.playingSounds.has(track.soundId)) {
+        // Son pas encore en train de jouer → démarrer
+        if (isFirstSegment) {
+          if (fadeInMs > 0) {
+            setTimeout(() => {
+              this.fadeInSound({
+                soundId: track.soundId,
+                volume: track.volume ?? 0.5,
+                duration: fadeInMs,
+                loop: track.loop ?? false,
+              })
+            }, delayMs)
+          } else {
+            setTimeout(() => {
+              this.playSound({
+                soundId: track.soundId,
+                volume: track.volume ?? 0.5,
+                loop: track.loop ?? false,
+              })
+            }, delayMs)
+          }
+        } else {
+          // On arrive en milieu de bloc (ex: démarrage depuis un segment non-zéro)
+          this.playSound({
+            soundId: track.soundId,
+            volume: track.volume ?? 0.5,
+            loop: track.loop ?? false,
+          })
+        }
+      }
+
+      // Déclencher le fadeOut sur le dernier segment du bloc
+      if (isLastSegment && fadeOutMs > 0 && this.playingSounds.has(track.soundId)) {
+        this.fadeOutSound({ soundId: track.soundId, duration: fadeOutMs })
+      }
+    })
+  }
+
   wait(ms) {
     return new Promise((resolve) => window.setTimeout(resolve, ms))
   }
