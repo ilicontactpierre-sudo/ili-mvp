@@ -167,6 +167,7 @@ class AudioEngine {
           if (fadeInMs > 0) {
             setTimeout(() => {
               this.fadeInSound({
+                trackId: track.id,
                 soundId: track.soundId,
                 volume: track.volume ?? 0.5,
                 duration: fadeInMs,
@@ -176,6 +177,7 @@ class AudioEngine {
           } else {
             setTimeout(() => {
               this.playSound({
+                trackId: track.id,
                 soundId: track.soundId,
                 volume: track.volume ?? 0.5,
                 loop: track.loop ?? false,
@@ -185,16 +187,17 @@ class AudioEngine {
         } else {
           // On arrive en milieu de bloc (ex: démarrage depuis un segment non-zéro)
           this.playSound({
+            trackId: track.id,
             soundId: track.soundId,
             volume: track.volume ?? 0.5,
             loop: track.loop ?? false,
           })
         }
       }
-
       // Déclencher le fadeOut sur le dernier segment du bloc
-      if (isLastSegment && fadeOutMs > 0 && this.playingSounds.has(track.soundId)) {
-        this.fadeOutSound({ soundId: track.soundId, duration: fadeOutMs })
+      const trackKey = track.id || track.soundId
+      if (isLastSegment && fadeOutMs > 0 && this.playingSounds.has(trackKey)) {
+        this.fadeOutSound({ trackId: track.id, soundId: track.soundId, duration: fadeOutMs })
       }
     })
   }
