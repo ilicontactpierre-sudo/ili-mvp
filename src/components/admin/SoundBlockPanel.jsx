@@ -754,8 +754,7 @@ function SoundBlockPanel({
           segmentId={editedTrack.startSegmentId}
           column={editedTrack.column}
           adminPassword={adminPassword}
-          initialSearch={sound ? sound.label : ''}
-          onAddSound={(soundData) => {
+          initialSearch={pickerInitialSearch || (sound ? sound.label : '')}          onAddSound={(soundData) => {
             const updated = { ...editedTrack, soundId: soundData.soundId }
             setEditedTrack(updated)
             if (onRealTimeUpdate) onRealTimeUpdate(updated)
