@@ -1538,9 +1538,6 @@ function AdminPage() {
                                 return { ...rest, muted: false }
                               }))
                             }
-                              const urlMap = {}
-                              updatedSounds.forEach(s => { if (s.id && s.url) urlMap[s.id] = s.url })
-                              }
                           }}
                         />
                       </div>
