@@ -13,6 +13,11 @@
       "id": "ca_concert_hall_03_medium_audience_atmo_05_front_lr",
       "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/ca_concert_hall_03_medium_audience_atmo_05_front_lr.mp3",
       "loop": false
+    },
+    {
+      "id": "muscstngr_synth_soft_light_beam_spacy_danger_01_b00m_one",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/muscstngr_synth_soft_light_beam_spacy_danger_01_b00m_one.mp3",
+      "loop": false
     }
   ],
   "segments": [
@@ -39,7 +44,7 @@
         {
           "action": "fadeIn",
           "soundId": "ca_concert_hall_03_medium_audience_atmo_05_front_lr",
-          "volume": 0.3,
+          "volume": 0.8,
           "duration": 4,
           "delay": 0,
           "loop": true
@@ -338,7 +343,16 @@
       "text": "Comme les deux fiancés appartenaient, l'un à la religion catholique, l'autre à la religion réformée, on avait été obligé de s'adresser pour la dispense à Grégoire XIII, qui tenait alors le siège de Rome.",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "fadeIn",
+          "soundId": "muscstngr_synth_soft_light_beam_spacy_danger_01_b00m_one",
+          "volume": 0.27,
+          "duration": 4,
+          "delay": 0,
+          "loop": true
+        }
+      ]
     },
     {
       "id": "seg_1780524495637_30_q80tp",
@@ -488,7 +502,13 @@
       "text": "monsieur, notre bon maître, n'allez pas à Paris, car si vous y allez vous mourrez, vous et tous ceux qui iront avec vous»;",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "fadeOut",
+          "soundId": "muscstngr_synth_soft_light_beam_spacy_danger_01_b00m_one",
+          "duration": 5
+        }
+      ]
     },
     {
       "id": "seg_1780524495637_45_f7x8k",
@@ -879,14 +899,16 @@
       "startSegmentId": "seg_1780524495636_1_ddw4e",
       "endSegmentId": "seg_1780524495637_11_fkpfw",
       "column": 0,
-      "volume": 0.3,
+      "volume": 0.8,
       "loop": true,
       "fadeIn": 4,
       "fadeOut": 4,
       "delay": 0,
       "muted": false,
       "_orchestrationNote": "Foule nocturne grondante autour du Louvre — présence humaine menaçante qui pose la scène",
-      "_orchestrationKeyword": "crowd"
+      "_orchestrationKeyword": "crowd",
+      "trimStart": 5470,
+      "trimEnd": 5730
     },
     {
       "id": "st_1780554345512_d6qqf97v3_1",
@@ -978,7 +1000,7 @@
       "fadeIn": 4,
       "fadeOut": 5,
       "delay": 0,
-      "muted": true,
+      "muted": false,
       "broken": true,
       "_orchestrationNote": "Charles IX et Coligny — le roi imprévisible, Catherine inquiète, le complot silencieux",
       "_orchestrationKeyword": "mystery"
