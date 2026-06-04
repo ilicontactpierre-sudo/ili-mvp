@@ -680,7 +680,17 @@ function SoundBlockPanel({
             if (onSoundReplace) onSoundReplace(updated)
             setShowSoundPicker(false)
           }}
-          onSoundsImported={() => {}}
+          onSoundsImported={(updatedSounds) => {
+            if (!updatedSounds?.length) return
+            const s = updatedSounds[0]
+            if (s.id === editedTrack.soundId && s.url) {
+              const updated = { ...editedTrack, muted: false, broken: undefined }
+              delete updated.broken
+              setEditedTrack(updated)
+              if (onRealTimeUpdate) onRealTimeUpdate(updated)
+              if (onSoundReplace) onSoundReplace(updated)
+            }
+          }}
           onClose={() => setShowSoundPicker(false)}
         />,
         document.body
