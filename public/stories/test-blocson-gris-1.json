@@ -1,0 +1,80 @@
+{
+  "id": "test-blocson-gris-1",
+  "title": "Test Blocson grisé 1",
+  "author": "Test Blocson grisé 1",
+  "published": true,
+  "sounds": [
+    {
+      "id": "airblow_balloon_air_squeak_random_sequence_01_b00m_one",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/airblow_balloon_air_squeak_random_sequence_01_b00m_one.mp3",
+      "loop": false
+    }
+  ],
+  "segments": [
+    {
+      "id": "seg_1780563755312_a_hhj9u",
+      "lines": [
+        "azezae"
+      ],
+      "text": "aze",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": [
+        {
+          "action": "play",
+          "soundId": "airblow_balloon_air_squeak_random_sequence_01_b00m_one",
+          "volume": 0.5,
+          "delay": 0,
+          "loop": false
+        }
+      ]
+    },
+    {
+      "id": "seg_1780563755312_b_gdyms",
+      "lines": [
+        "azezae"
+      ],
+      "text": "zae",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": [
+        {
+          "action": "play",
+          "soundId": "airblow_balloon_air_squeak_random_sequence_01_b00m_one",
+          "volume": 0.5,
+          "delay": 0,
+          "loop": false
+        }
+      ]
+    }
+  ],
+  "soundTracks": [
+    {
+      "id": "st_1780564012368_4kdhw3xiy",
+      "soundId": "airblow_balloon_air_squeak_random_sequence_01_b00m_one",
+      "startSegmentId": "seg_1780563755312_a_hhj9u",
+      "endSegmentId": "seg_1780563755312_a_hhj9u",
+      "column": 0,
+      "volume": 0.5,
+      "fadeIn": 0,
+      "fadeOut": 0,
+      "delay": 0,
+      "loop": false,
+      "muted": false
+    },
+    {
+      "id": "st_1780564039133_wv97d4r1o",
+      "soundId": "airblow_balloon_air_squeak_random_sequence_01_b00m_one",
+      "startSegmentId": "seg_1780563755312_b_gdyms",
+      "endSegmentId": "seg_1780563755312_b_gdyms",
+      "column": 1,
+      "volume": 0.5,
+      "fadeIn": 0,
+      "fadeOut": 0,
+      "delay": 0,
+      "loop": false,
+      "muted": false
+    }
+  ],
+  "vfxTracks": []
+}
