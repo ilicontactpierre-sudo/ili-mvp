@@ -1514,15 +1514,21 @@ function AdminPage() {
                           onSaveToHistory={() => saveToHistory(segments, soundTracks, vfxTracks)}
                           adminPassword={password}
                           onSoundsImported={(updatedSounds) => {
-                            // Mise à jour immédiate : patch uniquement les sons modifiés
                             if (Array.isArray(updatedSounds) && updatedSounds.length > 0) {
-                              setSoundLibrary(prev => {
-                                const urlMap = {}
-                                updatedSounds.forEach(s => { if (s.id && s.url) urlMap[s.id] = s.url })
-                                return prev.map(sound =>
-                                  urlMap[sound.id] ? { ...sound, url: urlMap[sound.id] } : sound
-                                )
-                              })
+                              // 1. Mettre à jour soundLibrary
+                              const urlMap = {}
+                              updatedSounds.forEach(s => { if (s.id && s.url) urlMap[s.id] = s.url })
+                              setSoundLibrary(prev => prev.map(sound =>
+                                urlMap[sound.id] ? { ...sound, url: urlMap[sound.id] } : sound
+                              ))
+                              // 2. Mettre à jour les soundTracks : retirer muted/broken si le son a une URL
+                              setSoundTracks(prev => prev.map(track => {
+                                if (urlMap[track.soundId]) {
+                                  const { broken, ...rest } = track
+                                  return { ...rest, muted: false }
+                                }
+                                return track
+                              }))
                             }
                           }}
                         />
