@@ -2228,7 +2228,46 @@ const handleTextSelection = useCallback(() => {
           column={showSoundPicker.column}
           adminPassword={adminPassword}
           onSoundsImported={(newSounds) => {
+            if (!newSounds?.length) return
+            const urlMap = {}
+            newSounds.forEach(s => { if (s.id && s.url) urlMap[s.id] = s.url })
+            // Mettre à jour la soundLibrary
             if (onSoundsImported) onSoundsImported(newSounds)
+            // Patch ou création des tracks
+            setSoundTracksWithHistory(prev => {
+              const patched = prev.map(track => {
+                if (!urlMap[track.soundId]) return track
+                const { broken, ...rest } = track
+                return { ...rest, muted: false }
+              })
+              // Vérifier si un track non-broken existe déjà pour ce son sur ce segment
+              const { segmentIndex, column } = showSoundPicker || {}
+              const seg = segmentIndex !== undefined ? segments[segmentIndex] : null
+              const segId = seg?.id || seg?._id || (segmentIndex !== undefined ? `seg_${segmentIndex}` : null)
+              for (const s of newSounds) {
+                if (!segId) continue
+                const alreadyExists = patched.some(
+                  t => t.soundId === s.id && t.startSegmentId === segId
+                )
+                if (!alreadyExists) {
+                  patched.push({
+                    id: `st_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+                    soundId: s.id,
+                    startSegmentId: segId,
+                    endSegmentId: segId,
+                    column: column ?? 0,
+                    volume: 0.5,
+                    fadeIn: 0,
+                    fadeOut: 0,
+                    delay: 0,
+                    loop: s.loop || false,
+                    muted: false,
+                  })
+                }
+              }
+              return patched
+            })
+            setShowSoundPicker(false)
           }}
           onAddSound={(soundData) => {
             console.log('onAddSound called with soundData:', soundData)
