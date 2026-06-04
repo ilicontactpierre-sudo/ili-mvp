@@ -60,25 +60,30 @@ class AudioEngine {
     if (howl) howl.stop()
   }
 
-  fadeInSound({ trackId, soundId, volume = 1, duration = 400, loop, trimStart, trimEnd }) {
+  fadeInSound({ trackId, soundId, volume = 1, duration = 400, loop, loopCrossfade, trimStart, trimEnd }) {
     if (!soundId) return
     const key = trackId || soundId
     const howl = this.howlMap.get(soundId)
     if (!howl) return
     const token = Symbol()
     this._fadeTokens.set(key, token)
-    const spriteName = this._applyTrimSprite(howl, soundId, trimStart, trimEnd)
+    const crossfadeMs = this._crossfadeMs(loop, loopCrossfade)
     if (this.playingSounds.has(key)) {
       const state = this.playingSounds.get(key)
       const current = howl.volume(undefined, state.instanceId)
       howl.fade(current, volume, duration, state.instanceId)
       this.playingSounds.set(key, { ...state, volume })
     } else {
-      const instanceId = spriteName ? howl.play(spriteName) : howl.play()
-      howl.loop(Boolean(loop), instanceId)
+      const instanceId = this._playInstance(howl, soundId, trimStart, trimEnd)
+      howl.loop(false, instanceId)
       howl.volume(0, instanceId)
       howl.fade(0, volume, duration, instanceId)
-      this.playingSounds.set(key, { howl, soundId, volume, instanceId })
+      this.playingSounds.set(key, { howl, soundId, volume, instanceId, loop, loopCrossfade, trimStart, trimEnd })
+      if (loop && crossfadeMs > 0) {
+        this._scheduleLoopCrossfade(key, howl, soundId, volume, crossfadeMs, trimStart, trimEnd, loopCrossfade)
+      } else if (loop) {
+        howl.loop(true, instanceId)
+      }
     }
   }
 
