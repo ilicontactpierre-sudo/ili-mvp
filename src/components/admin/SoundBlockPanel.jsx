@@ -25,6 +25,7 @@ function SoundBlockPanel({
   onClose,
   onDelete,
   onSoundReplace,
+  onSoundsImported,
 }) {
   const [editedTrack, setEditedTrack] = useState({ ...soundTrack })
   const [showDelayInput, setShowDelayInput] = useState(false)
