@@ -43,6 +43,7 @@ function SoundLibraryPicker({
   const [playingId, setPlayingId] = useState(null)
   const [showImporter, setShowImporter] = useState(false)
   const [uploadingId, setUploadingId] = useState(null)
+  const [deletingId, setDeletingId] = useState(null)
   const [onlyUploaded, setOnlyUploaded] = useState(false)
   // URLs uploadées pendant cette session (pour mettre à jour l'UI sans attendre le re-render parent)
   const [localSoundOverrides, setLocalSoundOverrides] = useState({})
