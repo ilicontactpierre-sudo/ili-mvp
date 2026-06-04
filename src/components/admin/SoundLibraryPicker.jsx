@@ -298,6 +298,40 @@ const handleFileSelected = async (e) => {
     }
   }
 
+  const handleDeleteSound = async (sound, e) => {
+    e.stopPropagation()
+    if (!adminPassword) { alert('Mot de passe admin requis'); return }
+    if (!window.confirm(`Supprimer "${sound.label}" de Supabase ?\n\nLe fichier audio et son entrée seront définitivement supprimés.`)) return
+    setDeletingId(sound.id)
+    try {
+      const res = await fetch('/api/delete-sound', {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          password: adminPassword,
+          soundId: sound.id,
+          filename: `${sound.id}.mp3`,
+        }),
+      })
+      if (!res.ok) {
+        const err = await res.json()
+        throw new Error(err.error || res.status)
+      }
+      // Mettre à jour l'UI : retirer l'URL localement
+      setLocalSoundOverrides(prev => {
+        const next = { ...prev }
+        delete next[sound.id]
+        return next
+      })
+      if (onSoundsImported) onSoundsImported([{ ...sound, url: null }])
+      alert(`✅ "${sound.label}" supprimé de Supabase.`)
+    } catch (err) {
+      alert(`❌ Erreur : ${err.message}`)
+    } finally {
+      setDeletingId(null)
+    }
+  }
+
   const playSoundPreview = (sound, e) => {
     e.stopPropagation()
 
