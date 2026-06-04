@@ -145,18 +145,20 @@ class AudioEngine {
     })
     this.playingSounds.clear()
   }
-  _applyTrimSprite(howl, soundId, trimStart, trimEnd) {
-      if (trimStart == null && trimEnd == null) return null
-      const start = trimStart || 0
-      // trimEnd en ms — si absent, on laisse jouer jusqu'à la fin
-      if (trimEnd == null) return null
-      const duration = trimEnd - start
-      if (duration <= 0) return null
-      const spriteName = `trim_${soundId}`
-      howl._sprite = howl._sprite || {}
-      howl._sprite[spriteName] = [start, duration]
-      return spriteName
-    }
+  _applyTrimSprite(howl, soundId, trimStart, trimEnd, trackId) {
+    const start = trimStart || 0
+    const hasStart = start > 0
+    const totalDurationMs = (howl.duration() || 0) * 1000
+    const end = (trimEnd != null && trimEnd > start) ? trimEnd : totalDurationMs
+    if (!hasStart && trimEnd == null) return null
+    const duration = end - start
+    if (duration <= 0) return null
+    // Utiliser trackId pour éviter les collisions entre blocs du même son
+    const spriteName = `trim_${trackId || soundId}_${start}_${end}`
+    howl._sprite = howl._sprite || {}
+    howl._sprite[spriteName] = [start, duration]
+    return spriteName
+  }
   _playInstance(howl, soundId, trimStart, trimEnd) {
     const spriteName = this._applyTrimSprite(howl, soundId, trimStart, trimEnd)
     return spriteName ? howl.play(spriteName) : howl.play()
