@@ -256,6 +256,7 @@ class AudioEngine {
                 volume: track.volume ?? 0.5,
                 duration: fadeInMs,
                 loop: track.loop ?? false,
+                loopCrossfade: track.loopCrossfade,
                 trimStart: track.trimStart,
                 trimEnd: track.trimEnd,
               })
@@ -267,6 +268,7 @@ class AudioEngine {
                 soundId: track.soundId,
                 volume: track.volume ?? 0.5,
                 loop: track.loop ?? false,
+                loopCrossfade: track.loopCrossfade,
                 trimStart: track.trimStart,
                 trimEnd: track.trimEnd,
               })
@@ -279,6 +281,7 @@ class AudioEngine {
             soundId: track.soundId,
             volume: track.volume ?? 0.5,
             loop: track.loop ?? false,
+            loopCrossfade: track.loopCrossfade,
             trimStart: track.trimStart,
             trimEnd: track.trimEnd,
           })
