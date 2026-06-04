@@ -482,6 +482,18 @@ function AdminPage() {
         url: urlMap[sound.id] || sound.url || null,
       }))
       setSoundLibrary(merged)
+      // Synchroniser muted/broken sur les soundTracks selon les URLs réelles
+      setSoundTracks(prev => prev.map(track => {
+        const hasUrl = !!urlMap[track.soundId]
+        if (hasUrl && (track.muted || track.broken)) {
+          const { broken, ...rest } = track
+          return { ...rest, muted: false }
+        }
+        if (!hasUrl && !track.muted) {
+          return { ...track, muted: true, broken: true }
+        }
+        return track
+      }))
     })
   }, [])
 
