@@ -193,7 +193,7 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle',
       const focusedNode = segmentRefs.current[currentIndex]
       if (!focusedNode) return
 
-      const viewportHeight = viewportHeight || window.innerHeight
+      const vh = viewportHeight || window.innerHeight
       // On réserve toujours STICKY_HEIGHT quand un chapitre est visible (focused ou sticky)
       // Ça évite le saut quand on passe de sticky à gone
       const reservedH = chapterMode !== 'gone' ? STICKY_HEIGHT : 0
