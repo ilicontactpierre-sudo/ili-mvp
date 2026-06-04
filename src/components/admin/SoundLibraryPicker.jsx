@@ -224,7 +224,6 @@ const handleFileSelected = async (e) => {
       // il dé-grise le broken existant, ou crée un nouveau track si besoin.
       if (onSoundsImported) onSoundsImported([updatedSound])
       alert(`✅ "${sound.label}" uploadé et ajouté au bloc !`)
-      alert(`✅ "${sound.label}" uploadé et ajouté au bloc !`)
     } catch (err) {
       alert(`❌ Erreur : ${err.message}`)
     } finally {
