@@ -466,7 +466,7 @@ const handleFileSelected = async (e) => {
             <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
               {/* Bouton import */}
               <button
-                onClick={() => setShowImporter(true)}
+                onClick={(e) => { e.stopPropagation(); setShowImporter(true) }}
                 style={{
                   padding: '0.4rem 0.9rem',
                   fontSize: '0.8rem',
