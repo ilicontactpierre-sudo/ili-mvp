@@ -253,7 +253,10 @@ function SoundBlockPanel({
           </div>
           {soundTrack._orchestrationKeyword && (
             <button
-              onClick={() => setShowSoundPicker(true)}
+              onClick={() => {
+                setPickerInitialSearch(soundTrack._orchestrationKeyword || '')
+                setShowSoundPicker(true)
+              }}
               title="Rechercher avec ce keyword"
               style={{
                 alignSelf: 'flex-start',
