@@ -3,7 +3,18 @@
   "title": "test-orchestration",
   "author": "test-orchestration",
   "published": true,
-  "sounds": [],
+  "sounds": [
+    {
+      "id": "airblow_balloon_air_release_fart_rumble_01_b00m_one",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/airblow_balloon_air_release_fart_rumble_01_b00m_one.mp3",
+      "loop": false
+    },
+    {
+      "id": "ca_concert_hall_03_medium_audience_atmo_05_front_lr",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/ca_concert_hall_03_medium_audience_atmo_05_front_lr.mp3",
+      "loop": false
+    }
+  ],
   "segments": [
     {
       "id": "seg_1780524495636_0_0j519",
@@ -24,7 +35,16 @@
       "text": "Le lundi, dix-huitième jour du mois d'août 1572, il y avait grande fête au Louvre.",
       "breakAt": null,
       "isLeader": true,
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "fadeIn",
+          "soundId": "ca_concert_hall_03_medium_audience_atmo_05_front_lr",
+          "volume": 0.3,
+          "duration": 4,
+          "delay": 0,
+          "loop": true
+        }
+      ]
     },
     {
       "id": "seg_1780524495636_2_lw6vv",
@@ -54,7 +74,15 @@
       "text": "les places et les rues attenantes, habituellement si solitaires, dès que neuf heures sonnaient à Saint-Germain-l'Auxerrois,",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "play",
+          "soundId": "airblow_balloon_air_release_fart_rumble_01_b00m_one",
+          "volume": 0.65,
+          "delay": 1,
+          "loop": false
+        }
+      ]
     },
     {
       "id": "seg_1780524495636_5_gvg26",
@@ -124,7 +152,13 @@
       "text": "huitaine, et à laquelle il serait convié et s'ébattrait de tout son coeur.",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "fadeOut",
+          "soundId": "ca_concert_hall_03_medium_audience_atmo_05_front_lr",
+          "duration": 4
+        }
+      ]
     },
     {
       "id": "seg_1780524495637_12_cw1vj",
@@ -838,17 +872,277 @@
       "audioEvents": []
     }
   ],
-  "soundTracks": [],
-  "vfxTracks": [
+  "soundTracks": [
     {
-      "id": "vfx_1780524549203_q3ejxlo4j",
-      "type": "shake",
-      "mode": "normal",
-      "loop": false,
-      "color": "rgba(200, 0, 0, 0.12)",
+      "id": "st_1780554345512_9039pyntk_0",
+      "soundId": "ca_concert_hall_03_medium_audience_atmo_05_front_lr",
+      "startSegmentId": "seg_1780524495636_1_ddw4e",
+      "endSegmentId": "seg_1780524495637_11_fkpfw",
       "column": 0,
-      "startSegmentId": "seg_1780524495636_0_0j519",
-      "endSegmentId": "seg_1780524495636_0_0j519"
+      "volume": 0.3,
+      "loop": true,
+      "fadeIn": 4,
+      "fadeOut": 4,
+      "delay": 0,
+      "muted": false,
+      "_orchestrationNote": "Foule nocturne grondante autour du Louvre — présence humaine menaçante qui pose la scène",
+      "_orchestrationKeyword": "crowd"
+    },
+    {
+      "id": "st_1780554345512_d6qqf97v3_1",
+      "soundId": "airblow_balloon_air_release_fart_rumble_01_b00m_one",
+      "startSegmentId": "seg_1780524495636_4_5rqae",
+      "endSegmentId": "seg_1780524495636_4_5rqae",
+      "column": 1,
+      "volume": 0.65,
+      "loop": false,
+      "fadeIn": 0,
+      "fadeOut": 0,
+      "delay": 1,
+      "muted": false,
+      "_orchestrationNote": "Neuf heures sonnant à Saint-Germain-l'Auxerrois — ancrage temporel précis",
+      "_orchestrationKeyword": "bell"
+    },
+    {
+      "id": "st_1780554345512_0rc6zaoe9_ghost_2",
+      "soundId": "crwdloop_male_crowd_evoke_04_whisper_01_b00m_one",
+      "startSegmentId": "seg_1780524495636_6_z2dix",
+      "endSegmentId": "seg_1780524495637_13_t5tlx",
+      "column": 1,
+      "volume": 0.25,
+      "loop": true,
+      "fadeIn": 3,
+      "fadeOut": 3,
+      "delay": 0,
+      "muted": true,
+      "broken": true,
+      "_orchestrationNote": "Murmure collectif de la masse — la mer sombre et houleuse du peuple parisien",
+      "_orchestrationKeyword": "murmur"
+    },
+    {
+      "id": "st_1780554345512_xzu1oenzr_ghost_3",
+      "soundId": "muscinst_suspense_chords_taps_double_01_b00m_one",
+      "startSegmentId": "seg_1780524495637_14_zgil8",
+      "endSegmentId": "seg_1780524495637_27_wa2ip",
+      "column": 0,
+      "volume": 0.28,
+      "loop": true,
+      "fadeIn": 5,
+      "fadeOut": 5,
+      "delay": 0,
+      "muted": true,
+      "broken": true,
+      "_orchestrationNote": "Accumulation des soupçons et des morts suspectes — tension sourde sous la fête royale",
+      "_orchestrationKeyword": "tension"
+    },
+    {
+      "id": "st_1780554345512_vb00drtbi_ghost_4",
+      "soundId": "ca_aula_03_medium_audience_atmo_silence_03_front_lr",
+      "startSegmentId": "seg_1780524495637_20_6zdjg",
+      "endSegmentId": "seg_1780524495637_21_yz90s",
+      "column": 1,
+      "volume": 0.62,
+      "loop": false,
+      "fadeIn": 0,
+      "fadeOut": 0,
+      "delay": 0,
+      "muted": true,
+      "broken": true,
+      "_orchestrationNote": "On dit tout bas — le secret de l'empoisonnement de Jeanne de Navarre qui circule",
+      "_orchestrationKeyword": "whisper"
+    },
+    {
+      "id": "st_1780554345512_krxzk2g46_ghost_5",
+      "soundId": "dsgnerie_musical_pad_pathway_hell_01_b00m_one",
+      "startSegmentId": "seg_1780524495637_21_yz90s",
+      "endSegmentId": "seg_1780524495637_28_6yuz6",
+      "column": 2,
+      "volume": 0.25,
+      "loop": true,
+      "fadeIn": 3,
+      "fadeOut": 4,
+      "delay": 0,
+      "muted": true,
+      "broken": true,
+      "_orchestrationNote": "Révélation du crime — atmosphère sombre pendant l'évocation de l'empoisonnement",
+      "_orchestrationKeyword": "dark"
+    },
+    {
+      "id": "st_1780554345512_mw113al39_ghost_6",
+      "soundId": "muscstngr_synth_soft_light_beam_spacy_danger_01_b00m_one",
+      "startSegmentId": "seg_1780524495637_29_yx7un",
+      "endSegmentId": "seg_1780524495637_44_iynrr",
+      "column": 0,
+      "volume": 0.27,
+      "loop": true,
+      "fadeIn": 4,
+      "fadeOut": 5,
+      "delay": 0,
+      "muted": true,
+      "broken": true,
+      "_orchestrationNote": "Charles IX et Coligny — le roi imprévisible, Catherine inquiète, le complot silencieux",
+      "_orchestrationKeyword": "mystery"
+    },
+    {
+      "id": "st_1780554345512_xp356gnct_ghost_7",
+      "soundId": "creahmn_swine_man_sleep_02_b00m_one",
+      "startSegmentId": "seg_1780524495637_43_tjwp1",
+      "endSegmentId": "seg_1780524495637_43_tjwp1",
+      "column": 1,
+      "volume": 0.68,
+      "loop": false,
+      "fadeIn": 0,
+      "fadeOut": 0,
+      "delay": 0,
+      "muted": true,
+      "broken": true,
+      "_orchestrationNote": "La paysanne qui se jette aux pieds de Coligny en criant — ponctuation dramatique soudaine",
+      "_orchestrationKeyword": "scream"
+    },
+    {
+      "id": "st_1780554345512_ox2tcui5f_ghost_8",
+      "soundId": "ambcnst_suburban_small_construction_site_ground_works_distant_machines_running_s",
+      "startSegmentId": "seg_1780524495637_45_f7x8k",
+      "endSegmentId": "seg_1780524495637_54_4lxx5",
+      "column": 0,
+      "volume": 0.26,
+      "loop": true,
+      "fadeIn": 4,
+      "fadeOut": 5,
+      "delay": 0,
+      "muted": true,
+      "broken": true,
+      "_orchestrationNote": "Les soupçons qui s'éteignent — bourdon sourd pendant la fausse rassurance des huguenots",
+      "_orchestrationKeyword": "drone"
+    },
+    {
+      "id": "st_1780554345512_95xhyuxeo_ghost_9",
+      "soundId": "ambsprt_boulder_gym_activity_01_b00m_one",
+      "startSegmentId": "seg_1780524495637_55_oa2z3",
+      "endSegmentId": "seg_1780524495638_69_erov8",
+      "column": 0,
+      "volume": 0.18,
+      "loop": true,
+      "fadeIn": 3,
+      "fadeOut": 4,
+      "delay": 0,
+      "muted": true,
+      "broken": true,
+      "_orchestrationNote": "Grandes salles du Louvre — résonance palatiale pour les portraits et la fête en surface",
+      "_orchestrationKeyword": "indoor"
+    },
+    {
+      "id": "st_1780554345512_f4mxxtipd_ghost_10",
+      "soundId": "winddsgn_wind_machine_short_hard_01_b00m_one",
+      "startSegmentId": "seg_1780524495637_55_oa2z3",
+      "endSegmentId": "seg_1780524495638_64_7iy4q",
+      "column": 1,
+      "volume": 0.3,
+      "loop": true,
+      "fadeIn": 3,
+      "fadeOut": 4,
+      "delay": 0,
+      "muted": true,
+      "broken": true,
+      "_orchestrationNote": "La fête royale en surface — musique brillante qui couvre les sourires et les haines",
+      "_orchestrationKeyword": "orchestra"
+    },
+    {
+      "id": "st_1780554345512_b9fjlvy8s_ghost_11",
+      "soundId": "cfck_step_grass_sweetener_dry_leaves_lime_tree_flower_many_hard",
+      "startSegmentId": "seg_1780524495637_62_xdlwn",
+      "endSegmentId": "seg_1780524495637_62_xdlwn",
+      "column": 2,
+      "volume": 0.62,
+      "loop": false,
+      "fadeIn": 0,
+      "fadeOut": 0,
+      "delay": 0,
+      "muted": true,
+      "broken": true,
+      "_orchestrationNote": "Henri de Navarre qui va et vient parmi les groupes — pas discrets sur le plancher du Louvre",
+      "_orchestrationKeyword": "footstep"
+    },
+    {
+      "id": "st_1780554345512_2jk3rtzdk_ghost_12",
+      "soundId": "hmnhart_flowing_pulse_slow_down_01_b00m_one",
+      "startSegmentId": "seg_1780524495638_67_dqrzt",
+      "endSegmentId": "seg_1780524495638_69_erov8",
+      "column": 1,
+      "volume": 0.4,
+      "loop": false,
+      "fadeIn": 2,
+      "fadeOut": 3,
+      "delay": 0,
+      "muted": true,
+      "broken": true,
+      "_orchestrationNote": "Le nuage sombre sur le front d'Henri — battement sourd, mémoire de sa mère empoisonnée",
+      "_orchestrationKeyword": "heartbeat"
+    },
+    {
+      "id": "st_1780554345513_f5hjw6jag_ghost_13",
+      "soundId": "dsgnmisc_gate_slam_small_01_b00m_one",
+      "startSegmentId": "seg_1780524495638_70_dwg6u",
+      "endSegmentId": "seg_1780524495638_81_gpd8x",
+      "column": 0,
+      "volume": 0.3,
+      "loop": true,
+      "fadeIn": 4,
+      "fadeOut": 5,
+      "delay": 0,
+      "muted": true,
+      "broken": true,
+      "_orchestrationNote": "Portrait du duc de Guise — grandeur hautaine, serment solennel, l'ange exterminateur",
+      "_orchestrationKeyword": "dramatic"
+    },
+    {
+      "id": "st_1780554345513_5ogxp8q83_ghost_14",
+      "soundId": "plasfric_lifeform_prop-violin_bow_lever_arch_file_screech_growl_b00m_mock",
+      "startSegmentId": "seg_1780524495638_76_779l1",
+      "endSegmentId": "seg_1780524495638_82_1f4w7",
+      "column": 1,
+      "volume": 0.28,
+      "loop": true,
+      "fadeIn": 5,
+      "fadeOut": 6,
+      "delay": 0,
+      "muted": true,
+      "broken": true,
+      "_orchestrationNote": "Le serment de Guise sur le corps de son père — violon sombre portant la vengeance comme destin",
+      "_orchestrationKeyword": "violin"
+    },
+    {
+      "id": "st_1780554345513_dxylii0ml_ghost_15",
+      "soundId": "ctds2_hit_drum_epic_godslayer",
+      "startSegmentId": "seg_1780524495638_77_6y59g",
+      "endSegmentId": "seg_1780524495638_77_6y59g",
+      "column": 2,
+      "volume": 0.7,
+      "loop": false,
+      "fadeIn": 0,
+      "fadeOut": 0,
+      "delay": 0,
+      "muted": true,
+      "broken": true,
+      "_orchestrationNote": "Le serment solennel — impact bref et lourd marquant la bascule vers la Saint-Barthélemy",
+      "_orchestrationKeyword": "impact"
+    },
+    {
+      "id": "st_1780554345513_hwku72tnd_ghost_16",
+      "soundId": "dsgnstngr_sci_fi_chiming_horrific_wind_01_b00m_one",
+      "startSegmentId": "seg_1780524495638_79_wm63k",
+      "endSegmentId": "seg_1780524495638_82_1f4w7",
+      "column": 2,
+      "volume": 0.25,
+      "loop": true,
+      "fadeIn": 3,
+      "fadeOut": 6,
+      "delay": 0,
+      "muted": true,
+      "broken": true,
+      "_orchestrationNote": "Clôture du chapitre — la soirée des étonnements annonce silencieusement la nuit à venir",
+      "_orchestrationKeyword": "horror"
     }
-  ]
+  ],
+  "vfxTracks": []
 }
