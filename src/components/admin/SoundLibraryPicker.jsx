@@ -219,13 +219,14 @@ const handleFileSelected = async (e) => {
         throw new Error(`Mise à jour index échouée : ${err.error || saveRes.status}`)
       }
 
-      if (onSoundsImported) onSoundsImported([{ ...sound, url: publicUrl }])
-      // Mettre à jour immédiatement le son dans la liste locale sans attendre le rechargement parent
       const updatedSound = { ...sound, url: publicUrl }
-      // Force la mise à jour dans soundLibrary local via une mutation douce
+      if (onSoundsImported) onSoundsImported([updatedSound])
+      // Mettre à jour immédiatement le son dans la liste locale
       const idx = soundLibrary.findIndex(s => s.id === sound.id)
       if (idx !== -1) soundLibrary[idx] = updatedSound
-      alert(`✅ "${sound.label}" compressé et uploadé !`)
+      // Ajouter automatiquement le son au bloc courant
+      handleAddSound(updatedSound)
+      alert(`✅ "${sound.label}" uploadé et ajouté au bloc !`)
     } catch (err) {
       alert(`❌ Erreur : ${err.message}`)
     } finally {
