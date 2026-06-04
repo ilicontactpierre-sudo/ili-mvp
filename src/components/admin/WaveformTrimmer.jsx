@@ -58,9 +58,15 @@ const [realDurationMs, setRealDurationMs] = useState((sound.duration || 0) * 100
         const audioCtx = new AudioContext()
         const audioBuffer = await audioCtx.decodeAudioData(arrayBuffer)
         audioCtx.close()
-
         if (cancelled) return
-
+        // Utiliser la durée réelle du fichier (pas les métadonnées Supabase)
+        const realMs = audioBuffer.duration * 1000
+        setRealDurationMs(realMs)
+        // Ajuster trimEnd si initialEnd était basé sur la mauvaise durée
+        setTrimEnd(prev => {
+          const wasDefault = !initialEnd || Math.abs(prev - (sound.duration || 0) * 1000) < 50
+          return wasDefault ? realMs : Math.min(prev, realMs)
+        })
         // Moyenner les canaux et sous-échantillonner en N points
         const N = 600
         const data = audioBuffer.getChannelData(0)
