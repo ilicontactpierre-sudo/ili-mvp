@@ -754,7 +754,7 @@ const handleFileSelected = async (e) => {
       </div>
 
       {/* Importer */}
-      {showImporter && (
+      {showImporter && createPortal(
         <SoundImporter
           adminPassword={adminPassword}
           onSoundsImported={(newSounds) => {
@@ -762,7 +762,8 @@ const handleFileSelected = async (e) => {
             if (onSoundsImported) onSoundsImported(newSounds)
           }}
           onClose={() => setShowImporter(false)}
-        />
+        />,
+        document.body
       )}
     </>
   )
