@@ -90,13 +90,15 @@ rl.question(`Nom du checkpoint (sans le préfixe '${prefix}-') : `, (answer) => 
     const status = getBranchSyncStatus(currentBranch)
 
     if (status.remoteExists && status.behind > 0) {
-      if (status.ahead > 0) {
-        console.error('La branche locale a divergé de origin/' + currentBranch + '. Résous d\'abord le conflit puis relance checkpoint.')
-        process.exit(1)
-      }
+    if (status.ahead > 0) {
+      console.log(`La branche a divergé (${status.ahead} commit(s) locaux, ${status.behind} sur origin). Merge automatique en cours...`)
+      run(`git merge --no-edit origin/${currentBranch}`)
+      console.log('Merge effectué. Poursuite du checkpoint...')
+    } else {
       console.log(`La branche locale est en retard de ${status.behind} commit(s). Fast-forward depuis origin/${currentBranch}...`)
       run(`git merge --ff-only origin/${currentBranch}`)
     }
+  }
 
     console.log('\nÉtape 2/5 : ajout des changements pour le checkpoint')
     run('git add .')
