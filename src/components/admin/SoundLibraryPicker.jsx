@@ -197,6 +197,11 @@ const fileInputRef = useRef(null)
       return
     }
     pendingUploadSound.current = sound
+    // Copier le nom du fichier dans le presse-papier pour faciliter la recherche
+    if (sound.localPath) {
+      const filename = sound.localPath.split('/').pop().split('\\').pop()
+      navigator.clipboard.writeText(filename).catch(() => {})
+    }
     fileInputRef.current?.click()
   }
 
