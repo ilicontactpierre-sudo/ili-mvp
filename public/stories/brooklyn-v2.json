@@ -5,13 +5,18 @@
   "published": true,
   "sounds": [
     {
+      "id": "clothmvmt_small_light_cloth_whoosh_02_b00m_one",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/clothmvmt_small_light_cloth_whoosh_02_b00m_one.mp3",
+      "loop": false
+    },
+    {
       "id": "ca_concert_hall_03_medium_audience_atmo_05_front_lr",
-      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/ca_concert_hall_03_medium_audience_atmo_05_front_lr.mp3",
+      "url": "/sounds/CA CONCERT HALL 03 Medium Audience Atmo 05 FRONT LR.mp3",
       "loop": false
     },
     {
       "id": "muscinst_suspense_chords_taps_double_01_b00m_one",
-      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/muscinst_suspense_chords_taps_double_01_b00m_one.mp3",
+      "url": "/sounds/MUSCInst_Suspense Chords Taps Double 01_B00M_ONE.mp3",
       "loop": false
     }
   ],
@@ -25,7 +30,15 @@
       "breakAt": null,
       "isLeader": true,
       "isChapter": true,
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "play",
+          "soundId": "clothmvmt_small_light_cloth_whoosh_02_b00m_one",
+          "volume": 0.5,
+          "delay": 0,
+          "loop": false
+        }
+      ]
     },
     {
       "id": "seg_1780580540900_1_xlmuf",
@@ -830,7 +843,32 @@
       "broken": true,
       "_orchestrationNote": "Drone sombre final — pas besoin de parler, ils savent tous les deux. La musique porte le poids de ce qui ne peut pas être dit",
       "_orchestrationKeyword": "dark"
+    },
+    {
+      "id": "st_1780609301037_k2pgt4vbf",
+      "soundId": "clothmvmt_small_light_cloth_whoosh_02_b00m_one",
+      "startSegmentId": "seg_1780580540900_0_vb9x8",
+      "endSegmentId": "seg_1780580540900_0_vb9x8",
+      "column": 2,
+      "volume": 0.5,
+      "fadeIn": 0,
+      "fadeOut": 0,
+      "delay": 0,
+      "loop": false,
+      "muted": false,
+      "broken": false
     }
   ],
-  "vfxTracks": []
+  "vfxTracks": [
+    {
+      "id": "vfx_1780609305961_oa0fbd0wa",
+      "type": "shake",
+      "mode": "normal",
+      "loop": false,
+      "color": "rgba(200, 0, 0, 0.12)",
+      "column": 0,
+      "startSegmentId": "seg_1780580540900_0_vb9x8",
+      "endSegmentId": "seg_1780580540900_0_vb9x8"
+    }
+  ]
 }
