@@ -301,7 +301,7 @@ function SoundImporter({ adminPassword, onSoundsImported, onClose }) {
       position: 'fixed', inset: 0,
       background: 'rgba(0,0,0,0.72)',
       display: 'flex', alignItems: 'center', justifyContent: 'center',
-      zIndex: 1100,
+      zIndex: 3000,
       padding: '1rem',
     }}
       onClick={globalStatus === 'processing' ? undefined : onClose}
