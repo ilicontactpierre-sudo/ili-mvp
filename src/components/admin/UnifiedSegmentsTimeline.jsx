@@ -2209,9 +2209,9 @@ const handleTextSelection = useCallback(() => {
             onRealTimeUpdate={handleRealTimeUpdate}
             onClose={closePanel}
             onDelete={handleDeleteSoundTrack}
+            onSoundsImported={onSoundsImported}
             onSoundReplace={(updatedTrack) => {
               handleSaveSoundTrack(updatedTrack)
-              // Mettre à jour editingSoundTrack pour que le panel reflète le nouveau son
               setEditingSoundTrack(updatedTrack)
             }}
           />
