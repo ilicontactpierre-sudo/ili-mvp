@@ -22,15 +22,17 @@ class AudioEngine {
     if (event.action === 'volume')  return this.setSoundVolume(event)
   }
 
-  playSound({ soundId, volume = 1, loop, trimStart, trimEnd }) {
-    if (!soundId || this.playingSounds.has(soundId)) return
+  playSound({ trackId, soundId, volume = 1, loop, trimStart, trimEnd }) {
+    if (!soundId) return
+    const key = trackId || soundId
+    if (this.playingSounds.has(key)) return
     const howl = this.howlMap.get(soundId)
     if (!howl) return
     howl.loop(Boolean(loop))
     howl.volume(volume)
     const spriteName = this._applyTrimSprite(howl, soundId, trimStart, trimEnd)
     spriteName ? howl.play(spriteName) : howl.play()
-    this.playingSounds.set(soundId, { howl, volume })
+    this.playingSounds.set(key, { howl, soundId, volume })
   }
 
   stopSound(soundId) {
