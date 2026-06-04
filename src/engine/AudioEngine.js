@@ -58,18 +58,19 @@ class AudioEngine {
     if (!howl) return
     const token = Symbol()
     this._fadeTokens.set(key, token)
-    howl.off('fade')
     const spriteName = this._applyTrimSprite(howl, soundId, trimStart, trimEnd)
     if (this.playingSounds.has(key)) {
-      const current = howl.volume()
-      howl.fade(current, volume, duration)
+      const state = this.playingSounds.get(key)
+      const current = howl.volume(undefined, state.instanceId)
+      howl.fade(current, volume, duration, state.instanceId)
+      this.playingSounds.set(key, { ...state, volume })
     } else {
-      howl.loop(Boolean(loop))
-      howl.volume(0)
-      const playId = spriteName ? howl.play(spriteName) : howl.play()
-      howl.fade(0, volume, duration)
+      const instanceId = spriteName ? howl.play(spriteName) : howl.play()
+      howl.loop(Boolean(loop), instanceId)
+      howl.volume(0, instanceId)
+      howl.fade(0, volume, duration, instanceId)
+      this.playingSounds.set(key, { howl, soundId, volume, instanceId })
     }
-    this.playingSounds.set(key, { howl, soundId, volume })
   }
 
   fadeOutSound({ trackId, soundId, duration = 400 }) {
