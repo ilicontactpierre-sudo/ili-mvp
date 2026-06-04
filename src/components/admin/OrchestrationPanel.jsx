@@ -298,11 +298,10 @@ function OrchestrationPanel({
         column: col,
         volume: block.volume ?? 0.5,
         loop: block.loop ?? false,
-        fadeIn: block.fadeIn ?? 0,
-        fadeOut: block.fadeOut ?? 0,
-        delay: block.delay ?? 0,
+        fadeIn: Math.round((block.fadeIn ?? 0) * 1000),
+        fadeOut: Math.round((block.fadeOut ?? 0) * 1000),
+        delay: Math.round((block.delay ?? 0) * 1000),
         muted: false,
-        // Métadonnée pour retrouver l'intention (non utilisée par le Player)
         _orchestrationNote: block.note || '',
         _orchestrationKeyword: block.keyword || '',
       }
