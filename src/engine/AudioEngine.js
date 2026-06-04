@@ -184,6 +184,8 @@ class AudioEngine {
                 volume: track.volume ?? 0.5,
                 duration: fadeInMs,
                 loop: track.loop ?? false,
+                trimStart: track.trimStart,
+                trimEnd: track.trimEnd,
               })
             }, delayMs)
           } else {
@@ -193,6 +195,8 @@ class AudioEngine {
                 soundId: track.soundId,
                 volume: track.volume ?? 0.5,
                 loop: track.loop ?? false,
+                trimStart: track.trimStart,
+                trimEnd: track.trimEnd,
               })
             }, delayMs)
           }
@@ -203,6 +207,8 @@ class AudioEngine {
             soundId: track.soundId,
             volume: track.volume ?? 0.5,
             loop: track.loop ?? false,
+            trimStart: track.trimStart,
+            trimEnd: track.trimEnd,
           })
         }
       }
