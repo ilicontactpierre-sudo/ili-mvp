@@ -10,6 +10,13 @@ Démarre le serveur de développement Vite en local.
 npm run dev
 ```
 
+### `npm run dev:clean`
+Tue les processus Vite et API éventuellement bloqués, puis redémarre proprement.
+À utiliser quand le port 5173 est occupé au démarrage.
+```bash
+npm run dev:clean
+```
+
 ### `npm run build`
 Compile le projet pour la production.
 ```bash
