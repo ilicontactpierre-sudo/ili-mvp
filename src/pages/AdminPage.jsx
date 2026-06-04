@@ -1513,27 +1513,17 @@ function AdminPage() {
                           onVfxTracksChange={setVfxTracks}
                           onSaveToHistory={() => saveToHistory(segments, soundTracks, vfxTracks)}
                           adminPassword={password}
-                          onSoundsImported={() => {
-                            const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL
-                            const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY
-                            const localPromise = fetch('/sounds/sounds-index.json').then(r => r.json()).catch(() => [])
-                            const supabasePromise = fetch(`${SUPABASE_URL}/rest/v1/sounds?select=id,url&order=label.asc`, {
-                              headers: {
-                                'apikey': SUPABASE_ANON_KEY,
-                                'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
-                              }
-                            }).then(r => r.json()).catch(() => [])
-                            Promise.all([localPromise, supabasePromise]).then(([localSounds, supabaseRows]) => {
-                              const urlMap = {}
-                              if (Array.isArray(supabaseRows)) {
-                                supabaseRows.forEach(r => { if (r.id && r.url) urlMap[r.id] = r.url })
-                              }
-                              const merged = (Array.isArray(localSounds) ? localSounds : []).map(sound => ({
-                                ...sound,
-                                url: urlMap[sound.id] || sound.url || null,
-                              }))
-                              setSoundLibrary(merged)
-                            })
+                          onSoundsImported={(updatedSounds) => {
+                            // Mise à jour immédiate : patch uniquement les sons modifiés
+                            if (Array.isArray(updatedSounds) && updatedSounds.length > 0) {
+                              setSoundLibrary(prev => {
+                                const urlMap = {}
+                                updatedSounds.forEach(s => { if (s.id && s.url) urlMap[s.id] = s.url })
+                                return prev.map(sound =>
+                                  urlMap[sound.id] ? { ...sound, url: urlMap[sound.id] } : sound
+                                )
+                              })
+                            }
                           }}
                         />
                       </div>
