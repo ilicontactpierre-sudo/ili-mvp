@@ -161,7 +161,7 @@ class AudioEngine {
       const fadeOutMs = (track.fadeOut || 0) * 1000
       const delayMs = (track.delay || 0) * 1000
 
-      if (!this.playingSounds.has(track.soundId)) {
+      if (!this.playingSounds.has(track.id || track.soundId)) {
         // Son pas encore en train de jouer → démarrer
         if (isFirstSegment) {
           if (fadeInMs > 0) {
