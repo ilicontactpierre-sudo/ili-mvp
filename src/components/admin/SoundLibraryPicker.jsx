@@ -696,6 +696,28 @@ const handleFileSelected = async (e) => {
                             {uploadingId === sound.id ? '⏳' : '↑ Upload'}
                           </button>
                         )}
+                        {sound.url && (
+                          <button
+                            onClick={(e) => handleDeleteSound(sound, e)}
+                            disabled={deletingId === sound.id}
+                            title="Supprimer de Supabase"
+                            style={{
+                              padding: '0.35rem 0.5rem',
+                              fontSize: '0.78rem',
+                              background: 'transparent',
+                              color: '#dc3545',
+                              border: '1px solid #dc354560',
+                              borderRadius: '6px',
+                              cursor: deletingId === sound.id ? 'not-allowed' : 'pointer',
+                              transition: 'all 0.12s',
+                              opacity: deletingId === sound.id ? 0.5 : 1,
+                            }}
+                            onMouseEnter={e => { e.currentTarget.style.background = '#dc354515' }}
+                            onMouseLeave={e => { e.currentTarget.style.background = 'transparent' }}
+                          >
+                            {deletingId === sound.id ? '⏳' : '🗑'}
+                          </button>
+                        )}
                         <button
                           onClick={() => handleAddSound(sound)}
                           title={!sound.url ? 'Son non uploadé — le bloc sera grisé' : ''}
