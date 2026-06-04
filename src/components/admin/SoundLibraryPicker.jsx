@@ -437,7 +437,7 @@ const handleFileSelected = async (e) => {
           display: 'flex', alignItems: 'center', justifyContent: 'center',
           zIndex: 2000,
         }}
-        onClick={onClose}
+        onClick={showImporter ? undefined : onClose}
       >
         <div
           data-sound-picker="true"
