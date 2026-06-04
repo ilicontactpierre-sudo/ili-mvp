@@ -25,6 +25,9 @@ export default async function handler(req, res) {
     process.env.SUPABASE_SERVICE_KEY
   )
 
+  // Supprimer le fichier s'il existe déjà — Supabase refuse createSignedUploadUrl sur un fichier existant
+  await supabase.storage.from('sounds').remove([filename])
+
   const { data, error } = await supabase.storage
     .from('sounds')
     .createSignedUploadUrl(filename)
