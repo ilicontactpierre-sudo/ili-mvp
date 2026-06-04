@@ -11,6 +11,7 @@ export default defineConfig({
       '/api/upload-sound':   'http://localhost:3001',
       '/api/upload-audio':   'http://localhost:3001',
       '/api/get-upload-url': 'http://localhost:3001',
+      '/api/publish':        'http://localhost:3001',
     },
     headers: {
       'Cross-Origin-Opener-Policy': 'same-origin',
