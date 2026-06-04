@@ -220,10 +220,18 @@ const handleFileSelected = async (e) => {
       }
 
       const updatedSound = { ...sound, url: publicUrl }
-      // Ajouter automatiquement le son au bloc courant
-      handleAddSound(updatedSound)
-      // Notifier le parent EN DERNIER pour déclencher le re-render proprement
+      // Si un track grisé avec ce soundId existe déjà sur le segment courant,
+      // on ne crée pas de nouveau track — onSoundsImported le dé-grira.
+      // On appelle handleAddSound uniquement s'il n'y a pas de track broken existant.
+      const seg = segments[segmentIndex]
+      const currentSegId = seg?.id || seg?._id || `seg_${segmentIndex}`
+      const hasBrokenTrack = false // sera évalué par onSoundsImported via setSoundTracks
+      // Note : on ne peut pas accéder aux soundTracks ici (pas dans le scope du picker),
+      // donc on délègue entièrement à onSoundsImported le soin de dé-griser OU créer.
       if (onSoundsImported) onSoundsImported([updatedSound])
+      // handleAddSound n'est appelé que si onSoundsImported ne trouve pas de broken track —
+      // mais comme on ne peut pas le savoir ici, on ne l'appelle plus du tout à l'upload.
+      // Le parent (UnifiedSegmentsTimeline) gère la création ou le patch via onSoundsImported.
       alert(`✅ "${sound.label}" uploadé et ajouté au bloc !`)
     } catch (err) {
       alert(`❌ Erreur : ${err.message}`)
