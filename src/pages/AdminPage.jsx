@@ -481,6 +481,8 @@ function AdminPage() {
         ...sound,
         url: urlMap[sound.id] || null,
       }))
+      console.log('urlMap Supabase:', urlMap)
+      console.log('Exemple son merged:', merged[0])
       setSoundLibrary(merged)
       // Synchroniser muted/broken sur les soundTracks selon les URLs réelles
       setSoundTracks(prev => prev.map(track => {
