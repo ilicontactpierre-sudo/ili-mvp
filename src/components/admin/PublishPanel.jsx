@@ -179,11 +179,7 @@ function PublishPanel({
   // Publier automatiquement
   const handleAutoPublish = async () => {
     // Vérifier si on est en local
-    if (isLocalDev) {
-      setShowLocalMessage(true)
-      setTimeout(() => setShowLocalMessage(false), 5000)
-      return
-    }
+    // Publication activée en local et en prod via Express / Vercel
 
     // Vérifier les prérequis
     if (!title || !slug || segments.length === 0) {
