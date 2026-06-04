@@ -22,17 +22,26 @@ class AudioEngine {
     if (event.action === 'volume')  return this.setSoundVolume(event)
   }
 
-  playSound({ trackId, soundId, volume = 1, loop, trimStart, trimEnd }) {
+  playSound({ trackId, soundId, volume = 1, loop, loopCrossfade, trimStart, trimEnd }) {
     if (!soundId) return
     const key = trackId || soundId
     if (this.playingSounds.has(key)) return
     const howl = this.howlMap.get(soundId)
     if (!howl) return
-    const spriteName = this._applyTrimSprite(howl, soundId, trimStart, trimEnd)
-    const instanceId = spriteName ? howl.play(spriteName) : howl.play()
-    howl.loop(Boolean(loop), instanceId)
-    howl.volume(volume, instanceId)
-    this.playingSounds.set(key, { howl, soundId, volume, instanceId })
+    const crossfadeMs = this._crossfadeMs(loop, loopCrossfade)
+    if (loop && crossfadeMs > 0) {
+      // Loop manuelle avec crossfade
+      const instanceId = this._playInstance(howl, soundId, trimStart, trimEnd)
+      howl.loop(false, instanceId)
+      howl.volume(volume, instanceId)
+      this.playingSounds.set(key, { howl, soundId, volume, instanceId, loop, loopCrossfade, trimStart, trimEnd })
+      this._scheduleLoopCrossfade(key, howl, soundId, volume, crossfadeMs, trimStart, trimEnd, loopCrossfade)
+    } else {
+      const instanceId = this._playInstance(howl, soundId, trimStart, trimEnd)
+      howl.loop(Boolean(loop), instanceId)
+      howl.volume(volume, instanceId)
+      this.playingSounds.set(key, { howl, soundId, volume, instanceId, loop, loopCrossfade, trimStart, trimEnd })
+    }
   }
 
   stopSound(soundId, trackId) {
