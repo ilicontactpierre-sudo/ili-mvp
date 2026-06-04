@@ -237,8 +237,8 @@ function OrchestrationPanel({
           reason: `${matches.length} son(s) trouvé(s) mais aucun n'est uploadé sur Supabase`,
           candidates: matches.slice(0, 3).map(s => s.label),
           type: block.type,
-          // On garde quand même un son candidat pour créer le bloc grisé
           ghostSound: pickRandom(matches),
+          block,
         })
       } else {
         found.push({
