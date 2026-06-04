@@ -175,9 +175,12 @@ class AudioEngine {
       ? (trimEnd - (trimStart || 0))
       : ((howl.duration() || 0) * 1000 - (trimStart || 0))
 
-    console.log('[crossfade]', { soundId, durationMs, crossfadeMs, trimStart, trimEnd, howlDuration: howl.duration() })
-    if (durationMs <= crossfadeMs) return // sécurité : son trop court
-    console.log('[crossfade] timeout programmé dans', durationMs - crossfadeMs, 'ms')
+    if (durationMs <= crossfadeMs) {
+      // Son trop court pour le crossfade choisi → loop native sans fondu
+      const state = this.playingSounds.get(key)
+      if (state) howl.loop(true, state.instanceId)
+      return
+    }
 
     // Programmer le crossfade avant la fin
     const timeout = setTimeout(() => {
