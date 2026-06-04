@@ -16,12 +16,15 @@ function StoryPreviewModal({ isOpen, storyData, onClose }) {
   const segments = storyData?.segments || []
   const lastIndex = Math.max(segments.length - 1, 0)
 
+  const [startFromInput, setStartFromInput] = useState('')
+
   // Réinitialiser l'état quand le modal s'ouvre
   useEffect(() => {
     if (isOpen) {
       setIsStarted(false)
       setCurrentIndex(0)
       setIsFinished(false)
+      setStartFromInput('')
       audioEngineRef.current = null
       ignoreAdvanceUntilRef.current = 0
       touchStartYRef.current = null
