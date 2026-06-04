@@ -47,10 +47,9 @@
       "isChapter": true,
       "audioEvents": [
         {
-          "action": "fadeIn",
+          "action": "play",
           "soundId": "ambrest_restaurant_cafe_crowded_b00m_one",
-          "volume": 0.45,
-          "duration": 4,
+          "volume": 0.5,
           "delay": 0,
           "loop": false
         }
@@ -510,13 +509,7 @@
         "interface": "sms",
         "speed": "normal"
       },
-      "audioEvents": [
-        {
-          "action": "fadeOut",
-          "soundId": "ambrest_restaurant_cafe_crowded_b00m_one",
-          "duration": 179
-        }
-      ]
+      "audioEvents": []
     },
     {
       "id": "seg_1780580540900_41_tuhbb",
@@ -627,22 +620,6 @@
       "muted": false,
       "_orchestrationNote": "Nappe de tension qui monte imperceptiblement depuis la montre absente — le silence dramatique s'installe, la musique de jazz a disparu",
       "_orchestrationKeyword": "tension"
-    },
-    {
-      "id": "st_1780580598593_b5wxfugkl_ghost_4",
-      "soundId": "ambrest_restaurant_cafe_crowded_b00m_one",
-      "startSegmentId": "seg_1780580540900_0_vb9x8",
-      "endSegmentId": "seg_1780580551864",
-      "column": 0,
-      "volume": 0.45,
-      "loop": false,
-      "fadeIn": 4,
-      "fadeOut": 179,
-      "delay": 0,
-      "muted": false,
-      "broken": true,
-      "_orchestrationNote": "Ambiance feutrée de restaurant chic parisien, murmures de conversations, vaisselle discrète — cocon intime qui enveloppe toute la scène de célébration",
-      "_orchestrationKeyword": "restaurant"
     },
     {
       "id": "st_1780580598593_gk3z0vvj6_ghost_5",
@@ -761,6 +738,20 @@
       "broken": true,
       "_orchestrationNote": "Drone sombre final — pas besoin de parler, ils savent tous les deux. La musique porte le poids de ce qui ne peut pas être dit",
       "_orchestrationKeyword": "dark"
+    },
+    {
+      "id": "st_1780610168998_e0veiq2yg",
+      "soundId": "ambrest_restaurant_cafe_crowded_b00m_one",
+      "startSegmentId": "seg_1780580540900_0_vb9x8",
+      "endSegmentId": "seg_1780580551864",
+      "column": 3,
+      "volume": 0.5,
+      "fadeIn": 0,
+      "fadeOut": 0,
+      "delay": 0,
+      "loop": false,
+      "muted": false,
+      "broken": false
     }
   ],
   "vfxTracks": []
