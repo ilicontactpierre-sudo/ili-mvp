@@ -150,8 +150,12 @@ function StoryPage() {
     if (!isStarted || !audioEngineRef.current || !segments[currentIndex]) {
       return
     }
-
+    // Système legacy audioEvents (garde la compatibilité avec les vieilles histoires)
     audioEngineRef.current.executeEvents(segments[currentIndex].audioEvents ?? [])
+    // Système soundTracks (nouveau modèle timeline)
+    if (story?.soundTracks?.length) {
+      audioEngineRef.current.onSegmentChange(currentIndex, story.soundTracks, segments)
+    }
   }, [currentIndex, isStarted])
 
   useEffect(() => {
