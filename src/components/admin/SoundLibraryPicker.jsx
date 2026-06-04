@@ -220,12 +220,10 @@ const handleFileSelected = async (e) => {
       }
 
       const updatedSound = { ...sound, url: publicUrl }
-      if (onSoundsImported) onSoundsImported([updatedSound])
-      // Mettre à jour immédiatement le son dans la liste locale
-      const idx = soundLibrary.findIndex(s => s.id === sound.id)
-      if (idx !== -1) soundLibrary[idx] = updatedSound
       // Ajouter automatiquement le son au bloc courant
       handleAddSound(updatedSound)
+      // Notifier le parent EN DERNIER pour déclencher le re-render proprement
+      if (onSoundsImported) onSoundsImported([updatedSound])
       alert(`✅ "${sound.label}" uploadé et ajouté au bloc !`)
     } catch (err) {
       alert(`❌ Erreur : ${err.message}`)
