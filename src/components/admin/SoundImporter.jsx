@@ -106,7 +106,8 @@ async function encodeToMp3(audioBuffer, bitrate = BITRATE) {
 // ─────────────────────────────────────────────────────────────
 
 function SoundImporter({ adminPassword, onSoundsImported, onClose }) {
-  const [files, setFiles] = useState([]) // [{ file, status, progress, result, error, meta }]
+  console.log('🎵 SoundImporter rendu')
+  const [files, setFiles] = useState([])  
   const [isDragging, setIsDragging] = useState(false)
   const [globalStatus, setGlobalStatus] = useState('idle') // idle | processing | done
   const inputRef = useRef(null)
