@@ -40,8 +40,10 @@ class AudioEngine {
     this._fadeTokens.delete(key)
     const soundState = this.playingSounds.get(key)
     if (soundState) {
-      soundState.howl.off('fade')
-      soundState.howl.stop()
+      soundState.howl.off('fade', soundState.instanceId)
+      soundState.instanceId != null
+        ? soundState.howl.stop(soundState.instanceId)
+        : soundState.howl.stop()
       this.playingSounds.delete(key)
       return
     }
