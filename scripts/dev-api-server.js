@@ -144,12 +144,43 @@ app.post('/api/upload-sound', express.json(), async (req, res) => {
   }
 })
 
+// ── /api/get-upload-url ──────────────────────────────────────────────────────
+app.post('/api/get-upload-url', express.json(), async (req, res) => {
+  const { password, filename } = req.body ?? {}
+  if (!password || password !== process.env.ADMIN_PASSWORD) {
+    return res.status(401).json({ error: 'Non autorisé' })
+  }
+  if (!filename) {
+    return res.status(400).json({ error: 'filename requis' })
+  }
+  const supabase = createClient(
+    process.env.SUPABASE_URL,
+    process.env.SUPABASE_SERVICE_KEY
+  )
+  // Supprimer le fichier s'il existe déjà (pour contourner le conflit Supabase)
+  await supabase.storage.from('sounds').remove([filename])
+  const { data, error } = await supabase.storage
+    .from('sounds')
+    .createSignedUploadUrl(filename)
+  if (error) {
+    console.error('get-upload-url error:', error)
+    return res.status(500).json({ error: error.message })
+  }
+  const { data: urlData } = supabase.storage
+    .from('sounds')
+    .getPublicUrl(filename)
+  return res.status(200).json({
+    signedUrl: data.signedUrl,
+    publicUrl: urlData.publicUrl,
+  })
+})
 // ── Démarrage ────────────────────────────────────────────────────────────────
 app.listen(3001, () => {
   console.log('\n🔧 Serveur API local prêt sur http://localhost:3001')
-  console.log('   GET  /api/preview-sound  → lecture fichiers locaux')
-  console.log('   POST /api/upload-audio   → compression + upload Supabase')
-  console.log('   POST /api/upload-sound   → mise à jour index GitHub\n')
+  console.log('   GET  /api/preview-sound    → lecture fichiers locaux')
+  console.log('   POST /api/get-upload-url   → URL signée Supabase')
+  console.log('   POST /api/upload-audio     → compression + upload Supabase')
+  console.log('   POST /api/upload-sound     → mise à jour index Supabase\n')
 })
 
 // Maintenir le process actif
