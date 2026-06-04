@@ -141,16 +141,7 @@ function SoundBlockPanel({
     lastSegment: segments?.[segments?.length - 1]
   })
 
-  // Style du fader vertical
-  const verticalSliderStyle = {
-    writingMode: 'vertical-lr',
-    direction: 'ltr',
-    WebkitAppearance: 'slider-vertical',
-    appearance: 'slider-vertical',
-    height: '120px',
-    width: '30px',
-    accentColor: color
-  }
+  // (supprimé — volume maintenant horizontal)
 
   return (
     <div 
@@ -242,9 +233,14 @@ function SoundBlockPanel({
       {/* Contrôles */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
         
-        {/* VOLUME - Fader vertical */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-          <span style={{ fontSize: '0.75rem', color: '#888', writingMode: 'horizontal-tb' }}>Vol.</span>
+        {/* VOLUME - Fader horizontal */}
+        <div>
+          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.25rem' }}>
+            <label style={{ fontSize: '0.75rem', color: '#888' }}>Volume</label>
+            <span style={{ fontSize: '0.75rem', color: color }}>
+              {Math.round((editedTrack.volume || 0) * 100)}%
+            </span>
+          </div>
           <input
             type="range"
             min="0"
@@ -252,11 +248,8 @@ function SoundBlockPanel({
             step="0.05"
             value={editedTrack.volume || 0.5}
             onChange={(e) => handleChange('volume', parseFloat(e.target.value))}
-            style={verticalSliderStyle}
+            style={{ width: '100%', accentColor: color }}
           />
-          <span style={{ fontSize: '0.8rem', color: color, minWidth: '40px' }}>
-            {Math.round((editedTrack.volume || 0) * 100)}%
-          </span>
         </div>
 
         {/* Boutons Loop / Mute / Delay */}
@@ -264,7 +257,14 @@ function SoundBlockPanel({
           
           {/* LOOP */}
           <button
-            onClick={() => handleChange('loop', !editedTrack.loop)}
+            onClick={() => {
+              const newLoop = !editedTrack.loop
+              handleChange('loop', newLoop)
+              // Activer crossfade par défaut si on passe en loop
+              if (newLoop && editedTrack.loopCrossfade == null) {
+                handleChange('loopCrossfade', 'medium')
+              }
+            }}
             style={{
               background: 'none',
               border: `1px solid ${color}${isAnimating ? '80' : '40'}`,
