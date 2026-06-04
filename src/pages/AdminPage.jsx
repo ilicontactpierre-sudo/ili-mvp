@@ -1532,11 +1532,33 @@ function AdminPage() {
                               setSoundLibrary(prev => prev.map(sound =>
                                 urlMap[sound.id] ? { ...sound, url: urlMap[sound.id] } : sound
                               ))
-                              setSoundTracks(prev => prev.map(track => {
-                                if (!urlMap[track.soundId]) return track
-                                const { broken, ...rest } = track
-                                return { ...rest, muted: false }
-                              }))
+                              setSoundTracks(prev => {
+                                // 1. Dé-griser tous les tracks concernés
+                                const patched = prev.map(track => {
+                                  if (!urlMap[track.soundId]) return track
+                                  const { broken, ...rest } = track
+                                  return { ...rest, muted: false }
+                                })
+                                // 2. Supprimer les doublons : si un même soundId a un track
+                                // non-broken ET un track broken sur le même segment, garder
+                                // uniquement le non-broken
+                                const seen = new Map() // clé: `${soundId}|${startSegmentId}`
+                                const deduped = []
+                                // Passe 1 : indexer les tracks non-broken
+                                for (const t of patched) {
+                                  if (!t.broken) {
+                                    seen.set(`${t.soundId}|${t.startSegmentId}`, true)
+                                  }
+                                }
+                                // Passe 2 : filtrer les broken en doublon
+                                for (const t of patched) {
+                                  if (t.broken && seen.has(`${t.soundId}|${t.startSegmentId}`)) {
+                                    continue // doublon grisé → on le supprime
+                                  }
+                                  deduped.push(t)
+                                }
+                                return deduped
+                              })
                             }
                           }}
                         />
