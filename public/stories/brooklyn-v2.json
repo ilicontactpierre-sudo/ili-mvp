@@ -5,18 +5,33 @@
   "published": true,
   "sounds": [
     {
-      "id": "clothmvmt_small_light_cloth_whoosh_02_b00m_one",
-      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/clothmvmt_small_light_cloth_whoosh_02_b00m_one.mp3",
+      "id": "ambrest_restaurant_cafe_crowded_b00m_one",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/ambrest_restaurant_cafe_crowded_b00m_one.mp3",
       "loop": false
     },
     {
-      "id": "ca_concert_hall_03_medium_audience_atmo_05_front_lr",
-      "url": "/sounds/CA CONCERT HALL 03 Medium Audience Atmo 05 FRONT LR.mp3",
+      "id": "crwdlaff_laughter_small_group_women_gloat_01_b00m_one",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/crwdlaff_laughter_small_group_women_gloat_01_b00m_one.mp3",
+      "loop": false
+    },
+    {
+      "id": "foodgware_champagne_glass_empty_clink_01_b00m_one",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/foodgware_champagne_glass_empty_clink_01_b00m_one.mp3",
       "loop": false
     },
     {
       "id": "muscinst_suspense_chords_taps_double_01_b00m_one",
       "url": "/sounds/MUSCInst_Suspense Chords Taps Double 01_B00M_ONE.mp3",
+      "loop": false
+    },
+    {
+      "id": "muscstngr_bass_low_sub_tension_01_b00m_one",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/muscstngr_bass_low_sub_tension_01_b00m_one.mp3",
+      "loop": false
+    },
+    {
+      "id": "tuba_skinny_-_jubilee_stomp_-_royal_street_ii",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/tuba_skinny_-_jubilee_stomp_-_royal_street_ii.mp3",
       "loop": false
     }
   ],
@@ -32,11 +47,12 @@
       "isChapter": true,
       "audioEvents": [
         {
-          "action": "play",
-          "soundId": "clothmvmt_small_light_cloth_whoosh_02_b00m_one",
-          "volume": 0.5,
+          "action": "fadeIn",
+          "soundId": "ambrest_restaurant_cafe_crowded_b00m_one",
+          "volume": 0.28,
+          "duration": 4,
           "delay": 0,
-          "loop": false
+          "loop": true
         }
       ]
     },
@@ -48,7 +64,23 @@
       "text": "- À nos six années ici, et surtout, à ta fin de mission ! \"Well done\" comme on dit !",
       "breakAt": 57,
       "isLeader": true,
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "fadeIn",
+          "soundId": "tuba_skinny_-_jubilee_stomp_-_royal_street_ii",
+          "volume": 0.22,
+          "duration": 3,
+          "delay": 0,
+          "loop": true
+        },
+        {
+          "action": "play",
+          "soundId": "foodgware_champagne_glass_empty_clink_01_b00m_one",
+          "volume": 0.65,
+          "delay": 1000,
+          "loop": false
+        }
+      ]
     },
     {
       "id": "seg_1780580540900_2_yzknq",
@@ -335,7 +367,20 @@
       "text": "Leurs rires complices couvrent le groupe de jazz.",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "fadeOut",
+          "soundId": "tuba_skinny_-_jubilee_stomp_-_royal_street_ii",
+          "duration": 300
+        },
+        {
+          "action": "play",
+          "soundId": "crwdlaff_laughter_small_group_women_gloat_01_b00m_one",
+          "volume": 0.68,
+          "delay": 0,
+          "loop": false
+        }
+      ]
     },
     {
       "id": "seg_1780580540900_29_ftu4j",
@@ -405,16 +450,7 @@
       "text": "leur bar préféré, là où tout à commencé.",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": [
-        {
-          "action": "fadeIn",
-          "soundId": "ca_concert_hall_03_medium_audience_atmo_05_front_lr",
-          "volume": 0.18,
-          "duration": 4,
-          "delay": 0,
-          "loop": true
-        }
-      ]
+      "audioEvents": []
     },
     {
       "id": "seg_1780580540900_37_vtwgf",
@@ -437,7 +473,7 @@
       "audioEvents": [
         {
           "action": "fadeIn",
-          "soundId": "muscinst_suspense_chords_taps_double_01_b00m_one",
+          "soundId": "muscstngr_bass_low_sub_tension_01_b00m_one",
           "volume": 0.3,
           "duration": 5,
           "delay": 0,
@@ -463,16 +499,7 @@
       "text": "plus précisément sur sa montre qui orne son poignet…",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": [
-        {
-          "action": "fadeIn",
-          "soundId": "muscinst_suspense_chords_taps_double_01_b00m_one",
-          "volume": 0.35,
-          "duration": 2,
-          "delay": 0,
-          "loop": true
-        }
-      ]
+      "audioEvents": []
     },
     {
       "text": "",
@@ -486,8 +513,8 @@
       "audioEvents": [
         {
           "action": "fadeOut",
-          "soundId": "ca_concert_hall_03_medium_audience_atmo_05_front_lr",
-          "duration": 3
+          "soundId": "ambrest_restaurant_cafe_crowded_b00m_one",
+          "duration": 179
         }
       ]
     },
@@ -564,13 +591,8 @@
       "audioEvents": [
         {
           "action": "fadeOut",
-          "soundId": "muscinst_suspense_chords_taps_double_01_b00m_one",
-          "duration": 4
-        },
-        {
-          "action": "fadeOut",
-          "soundId": "muscinst_suspense_chords_taps_double_01_b00m_one",
-          "duration": 5
+          "soundId": "muscstngr_bass_low_sub_tension_01_b00m_one",
+          "duration": 400
         }
       ]
     }
@@ -592,85 +614,55 @@
       "_orchestrationKeyword": "piano"
     },
     {
-      "id": "st_1780580598592_ji9o7uj1x_1",
-      "soundId": "ca_concert_hall_03_medium_audience_atmo_05_front_lr",
-      "startSegmentId": "seg_1780580540900_36_izz8o",
-      "endSegmentId": "seg_1780580551864",
-      "column": 0,
-      "volume": 0.18,
-      "loop": true,
-      "fadeIn": 4,
-      "fadeOut": 3,
-      "delay": 0,
-      "muted": false,
-      "_orchestrationNote": "Ambiance de bar feutré au Winchester — plus intime, plus silencieuse que le restaurant, la nuit enveloppe le couple",
-      "_orchestrationKeyword": "calm"
-    },
-    {
       "id": "st_1780580598592_qf4u9zbq9_2",
-      "soundId": "muscinst_suspense_chords_taps_double_01_b00m_one",
+      "soundId": "muscstngr_bass_low_sub_tension_01_b00m_one",
       "startSegmentId": "seg_1780580540900_38_k75a8",
       "endSegmentId": "seg_1780580540900_47_tbcm5",
       "column": 1,
       "volume": 0.3,
       "loop": true,
       "fadeIn": 5,
-      "fadeOut": 4,
+      "fadeOut": 400,
       "delay": 0,
       "muted": false,
       "_orchestrationNote": "Nappe de tension qui monte imperceptiblement depuis la montre absente — le silence dramatique s'installe, la musique de jazz a disparu",
       "_orchestrationKeyword": "tension"
     },
     {
-      "id": "st_1780580598592_zaug61z5i_3",
-      "soundId": "muscinst_suspense_chords_taps_double_01_b00m_one",
-      "startSegmentId": "seg_1780580540900_40_9fbwa",
-      "endSegmentId": "seg_1780580540900_47_tbcm5",
-      "column": 2,
-      "volume": 0.35,
-      "loop": true,
-      "fadeIn": 2,
-      "fadeOut": 5,
-      "delay": 0,
-      "muted": false,
-      "_orchestrationNote": "Accord de suspense qui se superpose à la tension — les deux regards convergent vers la montre de Rob, le silence entre eux devient assourdissant",
-      "_orchestrationKeyword": "suspense"
-    },
-    {
       "id": "st_1780580598593_b5wxfugkl_ghost_4",
-      "soundId": "amburbn_downtown_small_square_restaurants_night_belgium_v2_b00m_3ds05_2_0",
+      "soundId": "ambrest_restaurant_cafe_crowded_b00m_one",
       "startSegmentId": "seg_1780580540900_0_vb9x8",
-      "endSegmentId": "seg_1780580540900_32_wyseh",
+      "endSegmentId": "seg_1780580551864",
       "column": 0,
       "volume": 0.28,
       "loop": true,
       "fadeIn": 4,
-      "fadeOut": 5,
+      "fadeOut": 179,
       "delay": 0,
-      "muted": true,
+      "muted": false,
       "broken": true,
       "_orchestrationNote": "Ambiance feutrée de restaurant chic parisien, murmures de conversations, vaisselle discrète — cocon intime qui enveloppe toute la scène de célébration",
       "_orchestrationKeyword": "restaurant"
     },
     {
       "id": "st_1780580598593_gk3z0vvj6_ghost_5",
-      "soundId": "swsh_shaker_jazz_stick_hit_01_b00m_one",
+      "soundId": "tuba_skinny_-_jubilee_stomp_-_royal_street_ii",
       "startSegmentId": "seg_1780580540900_1_xlmuf",
       "endSegmentId": "seg_1780580540900_28_klo5u",
       "column": 1,
       "volume": 0.22,
       "loop": true,
       "fadeIn": 3,
-      "fadeOut": 6,
+      "fadeOut": 300,
       "delay": 0,
-      "muted": true,
+      "muted": false,
       "broken": true,
       "_orchestrationNote": "Groupe de jazz en fond, vivant mais discret — cité explicitement au segment 29, présent dès le début comme contexte sonore du bar",
       "_orchestrationKeyword": "jazz"
     },
     {
       "id": "st_1780580598593_tle8gb4lv_ghost_6",
-      "soundId": "foodgware_champagne_glass_empty_rattle_sequence_long_02_b00m_one",
+      "soundId": "foodgware_champagne_glass_empty_clink_01_b00m_one",
       "startSegmentId": "seg_1780580540900_1_xlmuf",
       "endSegmentId": "seg_1780580540900_1_xlmuf",
       "column": 2,
@@ -678,79 +670,17 @@
       "loop": false,
       "fadeIn": 0,
       "fadeOut": 0,
-      "delay": 0,
-      "muted": true,
+      "delay": 1000,
+      "muted": false,
       "broken": true,
       "_orchestrationNote": "Tintement de verres au moment du toast d'ouverture",
-      "_orchestrationKeyword": "champagne"
-    },
-    {
-      "id": "st_1780580598593_ud25vudpx_ghost_7",
-      "soundId": "ca_marquee_01_big_audience_shouting_01_rear_lr",
-      "startSegmentId": "seg_1780580540900_13_dt0yb",
-      "endSegmentId": "seg_1780580540900_13_dt0yb",
-      "column": 2,
-      "volume": 0.6,
-      "loop": false,
-      "fadeIn": 0,
-      "fadeOut": 0,
-      "delay": 0,
-      "muted": true,
-      "broken": true,
-      "_orchestrationNote": "Rob lève son verre au premier remerciement de Rim — geste rituel qui se répète",
-      "_orchestrationKeyword": "clinking"
-    },
-    {
-      "id": "st_1780580598593_simklfnjd_ghost_8",
-      "soundId": "ca_theater_03_young_audience_atmo_mumble_20_rear_lr",
-      "startSegmentId": "seg_1780580540900_8_lxfs5",
-      "endSegmentId": "seg_1780580540900_8_lxfs5",
-      "column": 2,
-      "volume": 0.7,
-      "loop": false,
-      "fadeIn": 0,
-      "fadeOut": 0,
-      "delay": 0,
-      "muted": true,
-      "broken": true,
-      "_orchestrationNote": "Rob éclate de rire — son franc et généreux, ponctuation de joie pure",
-      "_orchestrationKeyword": "laugh"
-    },
-    {
-      "id": "st_1780580598593_8occ7rfgv_ghost_9",
-      "soundId": "mlds_courtyard_busy_04_5_0",
-      "startSegmentId": "seg_1780580540900_15_tubtj",
-      "endSegmentId": "seg_1780580540900_15_tubtj",
-      "column": 2,
-      "volume": 0.58,
-      "loop": false,
-      "fadeIn": 0,
-      "fadeOut": 0,
-      "delay": 0,
-      "muted": true,
-      "broken": true,
-      "_orchestrationNote": "Second lever de verre avec signe de croix — même rituel, légèrement plus solennel",
-      "_orchestrationKeyword": "clinking"
-    },
-    {
-      "id": "st_1780580598593_bsxw6cp8m_ghost_10",
-      "soundId": "ca_marquee_01_big_audience_atmo_singing_16_rear_lr",
-      "startSegmentId": "seg_1780580540900_17_jbttr",
-      "endSegmentId": "seg_1780580540900_17_jbttr",
-      "column": 2,
-      "volume": 0.58,
-      "loop": false,
-      "fadeIn": 0,
-      "fadeOut": 0,
-      "delay": 0,
-      "muted": true,
-      "broken": true,
-      "_orchestrationNote": "Troisième lever de verre, signe de croix — la répétition crée un rituel comique et touchant",
-      "_orchestrationKeyword": "clinking"
+      "_orchestrationKeyword": "champagne",
+      "trimStart": 0,
+      "trimEnd": 3950
     },
     {
       "id": "st_1780580598593_66eii9dnd_ghost_11",
-      "soundId": "bt_toy_evil_laughing_pillow",
+      "soundId": "crwdlaff_laughter_small_group_women_gloat_01_b00m_one",
       "startSegmentId": "seg_1780580540900_28_klo5u",
       "endSegmentId": "seg_1780580540900_28_klo5u",
       "column": 2,
@@ -759,10 +689,12 @@
       "fadeIn": 0,
       "fadeOut": 0,
       "delay": 0,
-      "muted": true,
+      "muted": false,
       "broken": true,
       "_orchestrationNote": "Rires complices qui couvrent le groupe de jazz — moment de complicité maximale, pic de légèreté avant la bascule",
-      "_orchestrationKeyword": "laugh"
+      "_orchestrationKeyword": "laugh",
+      "trimStart": 0,
+      "trimEnd": 4625
     },
     {
       "id": "st_1780580598593_z5iwizg0j_ghost_12",
@@ -778,23 +710,9 @@
       "muted": true,
       "broken": true,
       "_orchestrationNote": "Ils boivent à leurs santés — dernier toast, dernier moment de légèreté complète",
-      "_orchestrationKeyword": "glass"
-    },
-    {
-      "id": "st_1780580598593_o4lg9wlji_ghost_13",
-      "soundId": "vehtruck_van_freeway_drive_by_single_01_b00m_one",
-      "startSegmentId": "seg_1780580540900_32_wyseh",
-      "endSegmentId": "seg_1780580540900_36_izz8o",
-      "column": 1,
-      "volume": 0.2,
-      "loop": true,
-      "fadeIn": 3,
-      "fadeOut": 3,
-      "delay": 0,
-      "muted": true,
-      "broken": true,
-      "_orchestrationNote": "Rue nocturne parisienne, trafic léger — transition entre le restaurant et le Winchester, l'extérieur entre brièvement",
-      "_orchestrationKeyword": "street"
+      "_orchestrationKeyword": "glass",
+      "trimStart": 0,
+      "trimEnd": 7932
     },
     {
       "id": "st_1780580598593_bg8bp16l6_ghost_14",
@@ -830,45 +748,20 @@
     },
     {
       "id": "st_1780580598593_wese629yq_ghost_16",
-      "soundId": "dsgnstngr_large_metal_impact_deep_harsh_01_b00m_one",
+      "soundId": "dsgnboom_dark_outer_space_shadow_01_b00m_one",
       "startSegmentId": "seg_1780580540900_43_3h4tb",
       "endSegmentId": "seg_1780580540900_47_tbcm5",
       "column": 0,
       "volume": 0.38,
       "loop": true,
       "fadeIn": 2,
-      "fadeOut": 6,
+      "fadeOut": 300,
       "delay": 0,
       "muted": true,
       "broken": true,
       "_orchestrationNote": "Drone sombre final — pas besoin de parler, ils savent tous les deux. La musique porte le poids de ce qui ne peut pas être dit",
       "_orchestrationKeyword": "dark"
-    },
-    {
-      "id": "st_1780609301037_k2pgt4vbf",
-      "soundId": "clothmvmt_small_light_cloth_whoosh_02_b00m_one",
-      "startSegmentId": "seg_1780580540900_0_vb9x8",
-      "endSegmentId": "seg_1780580540900_0_vb9x8",
-      "column": 2,
-      "volume": 0.5,
-      "fadeIn": 0,
-      "fadeOut": 0,
-      "delay": 0,
-      "loop": false,
-      "muted": false,
-      "broken": false
     }
   ],
-  "vfxTracks": [
-    {
-      "id": "vfx_1780609305961_oa0fbd0wa",
-      "type": "shake",
-      "mode": "normal",
-      "loop": false,
-      "color": "rgba(200, 0, 0, 0.12)",
-      "column": 0,
-      "startSegmentId": "seg_1780580540900_0_vb9x8",
-      "endSegmentId": "seg_1780580540900_0_vb9x8"
-    }
-  ]
+  "vfxTracks": []
 }
