@@ -32,7 +32,7 @@ function applyBionicReading(text) {
   })
 }
 
-function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle' }) {
+function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle', viewportHeight }) {
   const segments = storyData ? storyData.segments : []
   const [loadedStory, setLoadedStory] = useState(null)
   // ── Lire les options DYS depuis window (mis à jour par ReaderSettings) ──
