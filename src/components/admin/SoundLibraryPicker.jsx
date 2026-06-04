@@ -220,8 +220,10 @@ const handleFileSelected = async (e) => {
       }
 
       const updatedSound = { ...sound, url: publicUrl }
-      // On ne crée PAS de track ici — onSoundsImported s'en charge :
-      // il dé-grise le broken existant, ou crée un nouveau track si besoin.
+      // Mettre à jour la soundLibrary locale du picker immédiatement
+      // (la prop soundLibrary ne sera pas re-rendue tant que le picker est ouvert)
+      setLocalSoundOverrides(prev => ({ ...prev, [sound.id]: publicUrl }))
+      // Notifier le parent pour créer/dé-griser le track
       if (onSoundsImported) onSoundsImported([updatedSound])
       alert(`✅ "${sound.label}" uploadé et ajouté au bloc !`)
     } catch (err) {
