@@ -462,7 +462,7 @@ function AdminPage() {
       .catch(() => [])
 
     // 2. Charger les sons uploadés sur Supabase (pour récupérer leurs URLs)
-    const supabasePromise = fetch(`${SUPABASE_URL}/rest/v1/sounds?select=id,url&order=label.asc`, {
+    const supabasePromise = fetch(`${SUPABASE_URL}/rest/v1/sounds?select=*&order=label.asc`, {
       headers: {
         'apikey': SUPABASE_ANON_KEY,
         'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
