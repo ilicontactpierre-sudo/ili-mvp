@@ -75,11 +75,12 @@ function DraftManager({
       title: title || 'Sans titre',
       author: author || '',
       slug: slug || '',
+      bookUrl: bookUrl || '',
       segments: segments || [],
       soundTracks: soundTracks || [],
       vfxTracks: vfxTracks || [],
     }
-  }, [title, author, slug, segments, soundTracks, vfxTracks])
+  }, [title, author, slug, bookUrl, segments, soundTracks, vfxTracks])
 
   // Sauvegarder dans localStorage
   const saveDraft = useCallback((label) => {
