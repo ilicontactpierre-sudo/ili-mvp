@@ -479,7 +479,7 @@ function AdminPage() {
       }
       const merged = (Array.isArray(localSounds) ? localSounds : []).map(sound => ({
         ...sound,
-        url: urlMap[sound.id] || sound.url || null,
+        url: urlMap[sound.id] || null,
       }))
       setSoundLibrary(merged)
       // Synchroniser muted/broken sur les soundTracks selon les URLs réelles
