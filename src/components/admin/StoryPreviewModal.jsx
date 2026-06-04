@@ -191,6 +191,44 @@ function StoryPreviewModal({ isOpen, storyData, onClose }) {
         ✕ Fermer
       </button>
 
+      {!isStarted && (
+        <div style={{
+          position: 'absolute',
+          bottom: '3rem',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '0.5rem',
+          zIndex: 10001,
+        }}>
+          <span style={{ color: 'rgba(255,255,255,0.6)', fontSize: '0.8rem', whiteSpace: 'nowrap' }}>
+            Démarrer au segment
+          </span>
+          <input
+            type="number"
+            min="1"
+            max={segments.length}
+            value={startFromInput}
+            onChange={e => setStartFromInput(e.target.value)}
+            placeholder="1"
+            style={{
+              width: '64px',
+              padding: '0.4rem 0.6rem',
+              fontSize: '0.85rem',
+              border: '1px solid rgba(255,255,255,0.3)',
+              borderRadius: '6px',
+              backgroundColor: 'rgba(255,255,255,0.1)',
+              color: 'white',
+              textAlign: 'center',
+              outline: 'none',
+            }}
+          />
+          <span style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.8rem' }}>
+            / {segments.length}
+          </span>
+        </div>
+      )}
       <div
         style={{
           width: '375px',
