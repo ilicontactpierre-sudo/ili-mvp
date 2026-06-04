@@ -70,29 +70,23 @@ class AudioEngine {
     this.playingSounds.set(key, { howl, soundId, volume })
   }
 
-  fadeOutSound({ soundId, duration = 400 }) {
+  fadeOutSound({ trackId, soundId, duration = 400 }) {
     if (!soundId) return
-    const soundState = this.playingSounds.get(soundId)
+    const key = trackId || soundId
+    const soundState = this.playingSounds.get(key)
     const howl = soundState?.howl ?? this.howlMap.get(soundId)
     if (!howl) return
-
     const token = Symbol()
-    this._fadeTokens.set(soundId, token)
-
-    // Retire tous les listeners fade existants AVANT d'en poser un nouveau
-    // Cela évite que le listener capte un fade parasite (ex: annulation)
+    this._fadeTokens.set(key, token)
     howl.off('fade')
-
     const fromVolume = howl.volume()
-
     howl.once('fade', () => {
-      if (this._fadeTokens.get(soundId) === token) {
+      if (this._fadeTokens.get(key) === token) {
         howl.stop()
-        this.playingSounds.delete(soundId)
-        this._fadeTokens.delete(soundId)
+        this.playingSounds.delete(key)
+        this._fadeTokens.delete(key)
       }
     })
-
     howl.fade(fromVolume, 0, duration)
   }
 
