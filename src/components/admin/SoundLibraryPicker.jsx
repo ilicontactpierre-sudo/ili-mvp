@@ -87,22 +87,72 @@ const familyTags = useMemo(() => {
 const filteredSounds = useMemo(() => {
   let results = familySounds
   if (search.trim()) {
-    // Découpe sur virgules ET espaces : "cook, cooking, cut" → ['cook','cooking','cut']
-    const terms = search.trim().toLowerCase().split(/[\s,]+/).filter(Boolean)
-    // Score : un point par terme trouvé dans le haystack
+
+    // Mots de contexte "ambiance" — modifient le scoring durée
+    const AMBIENCE_TRIGGERS = [
+      'ambiance', 'ambience', 'ambient', 'atmosphere', 'atmosphère',
+      'fond', 'background', 'bruit de fond', 'room', 'room tone'
+    ]
+
+    // Découpe sur virgules ET espaces
+    const rawTerms = search.trim().toLowerCase().split(/[\s,]+/).filter(Boolean)
+    const isAmbienceSearch = rawTerms.some(t => AMBIENCE_TRIGGERS.includes(t))
+
     const scored = results.map(sound => {
-      const haystack = [
-        sound.label || '',
-        ...(sound.tags || []),
-        sound.description || '',
-        sound.boomCategory || '',
-        sound.boomSubcategory || '',
-        sound.searchString || '',
-      ].join(' ').toLowerCase()
-      const score = terms.reduce((acc, term) => acc + (haystack.includes(term) ? 1 : 0), 0)
+      const label        = (sound.label || '').toLowerCase()
+      const labelWords   = label.split(/[\s_\-]+/)
+      const tags         = (sound.tags || []).map(t => t.toLowerCase())
+      const searchStr    = (sound.searchString || '').toLowerCase()
+      const description  = (sound.description || '').toLowerCase()
+      const boomCat      = ((sound.boomCategory || '') + ' ' + (sound.boomSubcategory || '')).toLowerCase()
+
+      let score = 0
+
+      rawTerms.forEach(term => {
+        // Tags — champ le plus intentionnel
+        if (tags.some(tag => tag === term))          score += 6  // exact
+        if (tags.some(tag => tag.includes(term)))    score += 5  // partiel
+
+        // Label — descriptif et universel
+        if (labelWords.some(w => w === term))        score += 4  // exact sur un mot
+        if (label.includes(term))                    score += 3  // partiel
+
+        // SearchString — synonymes FR/EN
+        if (searchStr.includes(term))                score += 3
+
+        // Description — phrase naturelle
+        if (description.includes(term))              score += 2
+
+        // BoomCategory — catégorie large
+        if (boomCat.includes(term))                  score += 1
+      })
+
+      // Multiplicateur de couverture : récompense les sons qui matchent
+      // beaucoup de termes différents (plutôt qu'un seul terme répété)
+      const termsCovered = rawTerms.filter(term =>
+        tags.some(t => t.includes(term)) ||
+        label.includes(term) ||
+        searchStr.includes(term) ||
+        description.includes(term) ||
+        boomCat.includes(term)
+      ).length
+      const coverageRatio = rawTerms.length > 0 ? termsCovered / rawTerms.length : 0
+      // Multiplicateur entre 0.4 (0 terme couvert) et 1.0 (tous couverts)
+      score *= (0.4 + coverageRatio * 0.6)
+
+      // Bonus/pénalité durée si recherche "ambiance" détectée
+      if (isAmbienceSearch) {
+        const dur = sound.duration || 0
+        if (dur > 60)      score += 8
+        else if (dur > 30) score += 5
+        else if (dur > 10) score += 3
+        else if (dur > 5)  score += 1
+        else               score -= 3
+      }
+
       return { sound, score }
     })
-    // Garder uniquement les sons avec au moins 1 terme trouvé, triés par score décroissant
+
     results = scored
       .filter(({ score }) => score > 0)
       .sort((a, b) => b.score - a.score)
