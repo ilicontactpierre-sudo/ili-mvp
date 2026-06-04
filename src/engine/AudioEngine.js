@@ -79,18 +79,22 @@ class AudioEngine {
     const soundState = this.playingSounds.get(key)
     const howl = soundState?.howl ?? this.howlMap.get(soundId)
     if (!howl) return
+    const instanceId = soundState?.instanceId
     const token = Symbol()
     this._fadeTokens.set(key, token)
-    howl.off('fade')
-    const fromVolume = howl.volume()
+    const fromVolume = instanceId != null
+      ? howl.volume(undefined, instanceId)
+      : howl.volume()
     howl.once('fade', () => {
       if (this._fadeTokens.get(key) === token) {
-        howl.stop()
+        instanceId != null ? howl.stop(instanceId) : howl.stop()
         this.playingSounds.delete(key)
         this._fadeTokens.delete(key)
       }
-    })
-    howl.fade(fromVolume, 0, duration)
+    }, instanceId)
+    instanceId != null
+      ? howl.fade(fromVolume, 0, duration, instanceId)
+      : howl.fade(fromVolume, 0, duration)
   }
 
   setSoundVolume({ trackId, soundId, volume = 1, duration }) {
