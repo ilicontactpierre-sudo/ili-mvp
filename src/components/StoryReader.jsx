@@ -197,7 +197,7 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle',
       // On réserve toujours STICKY_HEIGHT quand un chapitre est visible (focused ou sticky)
       // Ça évite le saut quand on passe de sticky à gone
       const reservedH = chapterMode !== 'gone' ? STICKY_HEIGHT : 0
-      const availableH = viewportHeight - reservedH
+      const availableH = vh - reservedH
       const PADDING = 28
 
       let leaderIndex = -1
