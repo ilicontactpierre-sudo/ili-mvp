@@ -90,9 +90,10 @@ class AudioEngine {
     howl.fade(fromVolume, 0, duration)
   }
 
-  setSoundVolume({ soundId, volume = 1, duration }) {
-    if (!soundId || !this.playingSounds.has(soundId)) return
-    const soundState = this.playingSounds.get(soundId)
+  setSoundVolume({ trackId, soundId, volume = 1, duration }) {
+    const key = trackId || soundId
+    if (!soundId || !this.playingSounds.has(key)) return
+    const soundState = this.playingSounds.get(key)
     const currentVolume = soundState.howl.volume()
     if (duration && duration > 0) {
       soundState.howl.fade(currentVolume, volume, duration)
