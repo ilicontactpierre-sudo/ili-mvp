@@ -258,7 +258,9 @@ function OrchestrationPanel({
   // ── Application de l'orchestration ──────────────────────────────────────────
 
   const handleApply = useCallback(() => {
-    if (!diagnosis || diagnosis.found.length === 0) return
+    if (!diagnosis) return
+    const hasAnything = diagnosis.found.length > 0 || diagnosis.missing.some(m => m.ghostSound)
+    if (!hasAnything) return
 
     const newTracks = []
 
