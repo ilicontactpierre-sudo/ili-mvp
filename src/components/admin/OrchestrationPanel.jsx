@@ -228,7 +228,8 @@ function OrchestrationPanel({
           index: idx,
           keyword: block.keyword,
           reason: 'Aucun son trouvé dans la bibliothèque pour ce keyword',
-          type: block.type
+          type: block.type,
+          block,
         })
       } else if (uploaded.length === 0) {
         missing.push({
