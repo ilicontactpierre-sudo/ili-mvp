@@ -310,6 +310,13 @@ const handleFileSelected = async (e) => {
   })
 }
 
+  // Fusionner la soundLibrary prop avec les URLs uploadées localement
+  const getSoundUrl = (soundId) => localSoundOverrides[soundId] || null
+  const enrichSound = (sound) => {
+    const localUrl = getSoundUrl(sound.id)
+    return localUrl ? { ...sound, url: localUrl } : sound
+  }
+
   const formatDuration = (s) => {
     if (!s || s <= 0) return null
     const m = Math.floor(s / 60)
