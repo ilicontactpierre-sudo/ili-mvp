@@ -252,7 +252,6 @@ class AudioEngine {
 
       if (!this.playingSounds.has(track.id || track.soundId)) {
         // Son pas encore en train de jouer → démarrer
-        console.log('[onSegmentChange] track:', { id: track.id, loop: track.loop, loopCrossfade: track.loopCrossfade, trimStart: track.trimStart, trimEnd: track.trimEnd })
         if (isFirstSegment) {
           if (fadeInMs > 0) {
             setTimeout(() => {
