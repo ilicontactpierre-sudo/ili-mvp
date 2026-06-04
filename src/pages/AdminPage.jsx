@@ -1529,6 +1529,17 @@ function AdminPage() {
                             if (Array.isArray(updatedSounds) && updatedSounds.length > 0) {
                               const urlMap = {}
                               updatedSounds.forEach(s => { if (s.id && s.url) urlMap[s.id] = s.url })
+                              setSoundLibrary(prev => prev.map(sound =>
+                                urlMap[sound.id] ? { ...sound, url: urlMap[sound.id] } : sound
+                              ))
+                              setSoundTracks(prev => prev.map(track => {
+                                if (!urlMap[track.soundId]) return track
+                                const { broken, ...rest } = track
+                                return { ...rest, muted: false }
+                              }))
+                            }
+                              const urlMap = {}
+                              updatedSounds.forEach(s => { if (s.id && s.url) urlMap[s.id] = s.url })
                               // 1. Mettre à jour soundLibrary
                               setSoundLibrary(prev => prev.map(sound =>
                                 urlMap[sound.id] ? { ...sound, url: urlMap[sound.id] } : sound
