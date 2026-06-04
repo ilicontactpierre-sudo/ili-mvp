@@ -262,7 +262,8 @@ const handleFileSelected = async (e) => {
         throw new Error(`Upload Supabase échoué (${uploadRes.status}) : ${text.slice(0, 200)}`)
       }
 
-      // 4. URL publique retournée par get-upload-url
+// 4. URL publique retournée par get-upload-url
+      // 5. Enregistrer dans la table Supabase
       const saveRes = await fetch('/api/upload-sound', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
