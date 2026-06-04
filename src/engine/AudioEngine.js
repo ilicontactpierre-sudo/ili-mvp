@@ -35,13 +35,14 @@ class AudioEngine {
     this.playingSounds.set(key, { howl, soundId, volume })
   }
 
-  stopSound(soundId) {
-    this._fadeTokens.delete(soundId)
-    const soundState = this.playingSounds.get(soundId)
+  stopSound(soundId, trackId) {
+    const key = trackId || soundId
+    this._fadeTokens.delete(key)
+    const soundState = this.playingSounds.get(key)
     if (soundState) {
       soundState.howl.off('fade')
       soundState.howl.stop()
-      this.playingSounds.delete(soundId)
+      this.playingSounds.delete(key)
       return
     }
     const howl = this.howlMap.get(soundId)
