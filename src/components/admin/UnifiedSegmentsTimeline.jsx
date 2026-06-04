@@ -2237,33 +2237,36 @@ const handleTextSelection = useCallback(() => {
             const { segmentIndex, column } = showSoundPicker || {}
             const seg = segmentIndex !== undefined ? segments[segmentIndex] : null
             const segId = seg?.id || seg?._id || (segmentIndex !== undefined ? `seg_${segmentIndex}` : null)
-            const patched = soundTracks.map(track => {
-              if (!urlMap[track.soundId]) return track
-              const { broken, ...rest } = track
-              return { ...rest, muted: false }
-            })
-            for (const s of newSounds) {
-              if (!segId) continue
-              const alreadyExists = patched.some(
-                t => t.soundId === s.id && t.startSegmentId === segId && !t.broken
-              )
-              if (!alreadyExists) {
-                patched.push({
-                  id: `st_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
-                  soundId: s.id,
-                  startSegmentId: segId,
-                  endSegmentId: segId,
-                  column: column ?? 0,
-                  volume: 0.5,
-                  fadeIn: 0,
-                  fadeOut: 0,
-                  delay: 0,
-                  loop: s.loop || false,
-                  muted: false,
-                })
+            // Utiliser la forme fonctionnelle pour lire les soundTracks à jour
+            onSoundTracksChange(prev => {
+              const patched = prev.map(track => {
+                if (!urlMap[track.soundId]) return track
+                const { broken, ...rest } = track
+                return { ...rest, muted: false }
+              })
+              for (const s of newSounds) {
+                if (!segId) continue
+                const alreadyExists = patched.some(
+                  t => t.soundId === s.id && t.startSegmentId === segId && !t.broken
+                )
+                if (!alreadyExists) {
+                  patched.push({
+                    id: `st_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+                    soundId: s.id,
+                    startSegmentId: segId,
+                    endSegmentId: segId,
+                    column: column ?? 0,
+                    volume: 0.5,
+                    fadeIn: 0,
+                    fadeOut: 0,
+                    delay: 0,
+                    loop: s.loop || false,
+                    muted: false,
+                  })
+                }
               }
-            }
-            onSoundTracksChange(patched)
+              return patched
+            })
             if (onSaveToHistory) onSaveToHistory()
             setShowSoundPicker(false)
           }}
