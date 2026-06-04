@@ -220,6 +220,11 @@ const handleFileSelected = async (e) => {
       }
 
       if (onSoundsImported) onSoundsImported([{ ...sound, url: publicUrl }])
+      // Mettre à jour immédiatement le son dans la liste locale sans attendre le rechargement parent
+      const updatedSound = { ...sound, url: publicUrl }
+      // Force la mise à jour dans soundLibrary local via une mutation douce
+      const idx = soundLibrary.findIndex(s => s.id === sound.id)
+      if (idx !== -1) soundLibrary[idx] = updatedSound
       alert(`✅ "${sound.label}" compressé et uploadé !`)
     } catch (err) {
       alert(`❌ Erreur : ${err.message}`)
