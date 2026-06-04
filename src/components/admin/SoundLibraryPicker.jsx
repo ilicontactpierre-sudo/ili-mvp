@@ -263,6 +263,7 @@ const handleFileSelected = async (e) => {
       }
 
       // 4. URL publique retournée par get-upload-url
+      const saveRes = await fetch('/api/upload-sound', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
