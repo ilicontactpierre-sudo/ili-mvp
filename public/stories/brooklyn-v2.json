@@ -1,0 +1,836 @@
+{
+  "id": "brooklyn-v2",
+  "title": "Brooklyn",
+  "author": "Pierre Delaup",
+  "published": true,
+  "sounds": [
+    {
+      "id": "ca_concert_hall_03_medium_audience_atmo_05_front_lr",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/ca_concert_hall_03_medium_audience_atmo_05_front_lr.mp3",
+      "loop": false
+    },
+    {
+      "id": "muscinst_suspense_chords_taps_double_01_b00m_one",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/muscinst_suspense_chords_taps_double_01_b00m_one.mp3",
+      "loop": false
+    }
+  ],
+  "segments": [
+    {
+      "id": "seg_1780580540900_0_vb9x8",
+      "lines": [
+        "CHAPITRE 01 - Ensemble"
+      ],
+      "text": "CHAPITRE 01 - Ensemble",
+      "breakAt": null,
+      "isLeader": true,
+      "isChapter": true,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1780580540900_1_xlmuf",
+      "lines": [
+        "- À nos six années ici, et surtout, à ta fin de mission ! \"Well done\" comme on dit !"
+      ],
+      "text": "- À nos six années ici, et surtout, à ta fin de mission ! \"Well done\" comme on dit !",
+      "breakAt": 57,
+      "isLeader": true,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1780580540900_2_yzknq",
+      "lines": [
+        "- Merci mon cœur…"
+      ],
+      "text": "- Merci mon cœur…",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1780580540900_3_hbi4y",
+      "lines": [
+        "Rob continue sur sa lancée : « Un discours, un discours, un discours ! »."
+      ],
+      "text": "Rob continue sur sa lancée : « Un discours, un discours, un discours ! ».",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1780580540900_4_hhfdm",
+      "lines": [
+        "Rim se redresse et se lève d’un air solennel,"
+      ],
+      "text": "Rim se redresse et se lève d’un air solennel,",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1780580540900_5_idm10",
+      "lines": [
+        "son verre brandit vers le ciel."
+      ],
+      "text": "son verre brandit vers le ciel.",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1780580540900_6_701dl",
+      "lines": [
+        "Quand elle voit une partie des clients la dévisager avec étonnement,"
+      ],
+      "text": "Quand elle voit une partie des clients la dévisager avec étonnement,",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1780580540900_7_y6wtw",
+      "lines": [
+        "elle se ravise faisant petit geste à tous ces spectateurs inattendus, comme pour signifier que le show est déjà fini."
+      ],
+      "text": "elle se ravise faisant petit geste à tous ces spectateurs inattendus, comme pour signifier que le show est déjà fini.",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1780580540900_8_lxfs5",
+      "lines": [
+        "Rob éclate de rire."
+      ],
+      "text": "Rob éclate de rire.",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1780580540900_9_jc9w5",
+      "lines": [
+        "Ses yeux la dévisages avec un amour sans équivoque."
+      ],
+      "text": "Ses yeux la dévisages avec un amour sans équivoque.",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1780580540900_10_2iem4",
+      "lines": [
+        "Il décide de simuler une interview, tendant à Rim sa coupe de champagne comme on tend un micro,"
+      ],
+      "text": "Il décide de simuler une interview, tendant à Rim sa coupe de champagne comme on tend un micro,",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1780580540900_11_ovg59",
+      "lines": [
+        "sa main droite sur sa fausse oreillette."
+      ],
+      "text": "sa main droite sur sa fausse oreillette.",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1780580540900_12_2f21x",
+      "lines": [
+        "- Un petit mot peut être pour nos téléspectateurs qui vous admirent tant ?"
+      ],
+      "text": "- Un petit mot peut être pour nos téléspectateurs qui vous admirent tant ?",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1780580540900_13_dt0yb",
+      "lines": [
+        "- J’aimerai d’abord remercier toute ma famille qui a su ne pas croire en moi et me donner la force. »",
+        "Rob lève son verre."
+      ],
+      "text": "- J’aimerai d’abord remercier toute ma famille qui a su ne pas croire en moi et me donner la force. » Rob lève son verre.",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1780580540900_14_c63z7",
+      "lines": [
+        "- Remercier ma chienne, Agatha, partie trop tôt,"
+      ],
+      "text": "- Remercier ma chienne, Agatha, partie trop tôt,",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1780580540900_15_tubtj",
+      "lines": [
+        "qui me manque terriblement, et sans qui ça n'aurait pas été la même. Rob lève son verre faisant un signe de croix."
+      ],
+      "text": "qui me manque terriblement, et sans qui ça n'aurait pas été la même. Rob lève son verre faisant un signe de croix.",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1780580540900_16_2oodb",
+      "lines": [
+        "- Je remercie aussi Marcel, notre raison d’être,"
+      ],
+      "text": "- Je remercie aussi Marcel, notre raison d’être,",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1780580540900_17_jbttr",
+      "lines": [
+        "qui nous unis pour la vie, et sans qui nos nuits existeraient encore. Rob lève son verre faisant, là encore, un signe de croix."
+      ],
+      "text": "qui nous unis pour la vie, et sans qui nos nuits existeraient encore. Rob lève son verre faisant, là encore, un signe de croix.",
+      "breakAt": 69,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1780580540900_18_7en8m",
+      "lines": [
+        "- Et enfin je remercie Rob Corpe, grâce à qui ces six années sont passées si vite,"
+      ],
+      "text": "- Et enfin je remercie Rob Corpe, grâce à qui ces six années sont passées si vite,",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1780580540900_19_uzj5c",
+      "lines": [
+        "et avec qui je souhaite passer toutes mes heures à venir… Rob se lève et l’embrasse."
+      ],
+      "text": "et avec qui je souhaite passer toutes mes heures à venir… Rob se lève et l’embrasse.",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": [
+        {
+          "action": "fadeIn",
+          "soundId": "muscinst_suspense_chords_taps_double_01_b00m_one",
+          "volume": 0.32,
+          "duration": 3,
+          "delay": 0,
+          "loop": true
+        }
+      ]
+    },
+    {
+      "id": "seg_1780580540900_20_qqc92",
+      "lines": [
+        "Il ne lui dira pas ce soir, mais il sait qu’elle sait : lui aussi rêve de passer le reste de sa vie à ses côtés."
+      ],
+      "text": "Il ne lui dira pas ce soir, mais il sait qu’elle sait : lui aussi rêve de passer le reste de sa vie à ses côtés.",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1780580540900_21_748c6",
+      "lines": [
+        "Rim a l’oeil humide et le sourire apaisé."
+      ],
+      "text": "Rim a l’oeil humide et le sourire apaisé.",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1780580540900_22_h8wz0",
+      "lines": [
+        "L’émotion du moment, se dit-elle.",
+        "Ou peut- être parce que c’est déjà son 4ème verre."
+      ],
+      "text": "L’émotion du moment, se dit-elle. Ou peut- être parce que c’est déjà son 4ème verre.",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1780580540900_23_ysa6x",
+      "lines": [
+        "Qui sait…"
+      ],
+      "text": "Qui sait…",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": [
+        {
+          "action": "fadeOut",
+          "soundId": "muscinst_suspense_chords_taps_double_01_b00m_one",
+          "duration": 4
+        }
+      ]
+    },
+    {
+      "id": "seg_1780580540900_24_45c94",
+      "lines": [
+        "« Ils disent tous que ça va me manquer… Le terrain,"
+      ],
+      "text": "« Ils disent tous que ça va me manquer… Le terrain,",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1780580540900_25_mk128",
+      "lines": [
+        "l'adrénaline, les collègues, le danger. »"
+      ],
+      "text": "l'adrénaline, les collègues, le danger. »",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1780580540900_26_ra01g",
+      "lines": [
+        "Elle fait une de ces grimaces sur-jouées dont elle seule a le secret."
+      ],
+      "text": "Elle fait une de ces grimaces sur-jouées dont elle seule a le secret.",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1780580540900_27_42lvw",
+      "lines": [
+        "- C'est mal te connaitre !"
+      ],
+      "text": "- C'est mal te connaitre !",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1780580540900_28_klo5u",
+      "lines": [
+        "Leurs rires complices couvrent le groupe de jazz."
+      ],
+      "text": "Leurs rires complices couvrent le groupe de jazz.",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1780580540900_29_ftu4j",
+      "lines": [
+        "- J'ai juste hâte que tu termines aussi, et après, Hasta la vista baby, let's go pour la vraie vie !"
+      ],
+      "text": "- J'ai juste hâte que tu termines aussi, et après, Hasta la vista baby, let's go pour la vraie vie !",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1780580540900_30_xfd8t",
+      "lines": [
+        "Ils boivent à leurs santés; une gorgée à l’espoir d’une vie heureuse. Car ils le savent tous les deux,"
+      ],
+      "text": "Ils boivent à leurs santés; une gorgée à l’espoir d’une vie heureuse. Car ils le savent tous les deux,",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1780580540900_31_5p49f",
+      "lines": [
+        "les 18 jours qui arrivent seront surement les jours les plus longs de leur vie."
+      ],
+      "text": "les 18 jours qui arrivent seront surement les jours les plus longs de leur vie.",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1780580540900_32_wyseh",
+      "lines": [
+        "Il est l’heure de partir s’ils veulent profiter encore un peu de leur soirée avant la fin de la baby-sitter."
+      ],
+      "text": "Il est l’heure de partir s’ils veulent profiter encore un peu de leur soirée avant la fin de la baby-sitter.",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1780580540900_34_mcqah",
+      "lines": [
+        "Les deux regardent la note avec un petit soupire : c’est pas donné."
+      ],
+      "text": "Les deux regardent la note avec un petit soupire : c’est pas donné.",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1780580540900_35_fd7te",
+      "lines": [
+        "Ils décident de prendre un dernier verre au Winchester,"
+      ],
+      "text": "Ils décident de prendre un dernier verre au Winchester,",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1780580540900_36_izz8o",
+      "lines": [
+        "leur bar préféré, là où tout à commencé."
+      ],
+      "text": "leur bar préféré, là où tout à commencé.",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": [
+        {
+          "action": "fadeIn",
+          "soundId": "ca_concert_hall_03_medium_audience_atmo_05_front_lr",
+          "volume": 0.18,
+          "duration": 4,
+          "delay": 0,
+          "loop": true
+        }
+      ]
+    },
+    {
+      "id": "seg_1780580540900_37_vtwgf",
+      "lines": [
+        "Machinalement Rim s’empresse de regarder son poignet."
+      ],
+      "text": "Machinalement Rim s’empresse de regarder son poignet.",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1780580540900_38_k75a8",
+      "lines": [
+        "Sur sa peau, un léger bronzage laisse deviner une montre longtemps portée."
+      ],
+      "text": "Sur sa peau, un léger bronzage laisse deviner une montre longtemps portée.",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": [
+        {
+          "action": "fadeIn",
+          "soundId": "muscinst_suspense_chords_taps_double_01_b00m_one",
+          "volume": 0.3,
+          "duration": 5,
+          "delay": 0,
+          "loop": true
+        }
+      ]
+    },
+    {
+      "id": "seg_1780580540900_39_rue51",
+      "lines": [
+        "Elle se fige et pose lentement son regard sur Rob : il a lui aussi les yeux braqués sur son poignet,"
+      ],
+      "text": "Elle se fige et pose lentement son regard sur Rob : il a lui aussi les yeux braqués sur son poignet,",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1780580540900_40_9fbwa",
+      "lines": [
+        "plus précisément sur sa montre qui orne son poignet…"
+      ],
+      "text": "plus précisément sur sa montre qui orne son poignet…",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": [
+        {
+          "action": "fadeIn",
+          "soundId": "muscinst_suspense_chords_taps_double_01_b00m_one",
+          "volume": 0.35,
+          "duration": 2,
+          "delay": 0,
+          "loop": true
+        }
+      ]
+    },
+    {
+      "text": "",
+      "id": "seg_1780580551864",
+      "gameMode": {
+        "type": "message",
+        "text": "Vous avez un nouveau message.",
+        "interface": "sms",
+        "speed": "normal"
+      },
+      "audioEvents": [
+        {
+          "action": "fadeOut",
+          "soundId": "ca_concert_hall_03_medium_audience_atmo_05_front_lr",
+          "duration": 3
+        }
+      ]
+    },
+    {
+      "id": "seg_1780580540900_41_tuhbb",
+      "lines": [
+        "\"Rdv au QG immédiatement. Prévoir pour plusieurs nuits. Alertes inhabituelles sur zones à risques.\""
+      ],
+      "text": "\"Rdv au QG immédiatement. Prévoir pour plusieurs nuits. Alertes inhabituelles sur zones à risques.\"",
+      "breakAt": null,
+      "isLeader": true,
+      "fontFamily": "'Roboto', sans-serif",
+      "italic": true,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1780580540900_42_0j24n",
+      "lines": [
+        "Elle connaît ce petit rictus sur son visage, elle le connait par cœur."
+      ],
+      "text": "Elle connaît ce petit rictus sur son visage, elle le connait par cœur.",
+      "breakAt": null,
+      "isLeader": true,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1780580540900_43_3h4tb",
+      "lines": [
+        "Rob lève les yeux vers elle."
+      ],
+      "text": "Rob lève les yeux vers elle.",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1780580540900_44_ppjxj",
+      "lines": [
+        "Pas besoin de parler, elle sait qu’elle rentre seule."
+      ],
+      "text": "Pas besoin de parler, elle sait qu’elle rentre seule.",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1780580540900_45_bggac",
+      "lines": [
+        "Elle serre son poignet nu aussi fort que se serre son cœur à cet instant."
+      ],
+      "text": "Elle serre son poignet nu aussi fort que se serre son cœur à cet instant.",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1780580540900_46_k6ty1",
+      "lines": [
+        "Ils avaient peut-être raison les collègues, on ne sort pas indemne de ce genre de carrière… Et ce que Rob ne dit pas, c’est qu’il le sait et qu’il en a peur."
+      ],
+      "text": "Ils avaient peut-être raison les collègues, on ne sort pas indemne de ce genre de carrière… Et ce que Rob ne dit pas, c’est qu’il le sait et qu’il en a peur.",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1780580540900_47_tbcm5",
+      "lines": [
+        "Dans 18 jours, tout ça, c’est fini pour lui aussi."
+      ],
+      "text": "Dans 18 jours, tout ça, c’est fini pour lui aussi.",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": [
+        {
+          "action": "fadeOut",
+          "soundId": "muscinst_suspense_chords_taps_double_01_b00m_one",
+          "duration": 4
+        },
+        {
+          "action": "fadeOut",
+          "soundId": "muscinst_suspense_chords_taps_double_01_b00m_one",
+          "duration": 5
+        }
+      ]
+    }
+  ],
+  "soundTracks": [
+    {
+      "id": "st_1780580598592_pi4enin77_0",
+      "soundId": "muscinst_suspense_chords_taps_double_01_b00m_one",
+      "startSegmentId": "seg_1780580540900_19_uzj5c",
+      "endSegmentId": "seg_1780580540900_23_ysa6x",
+      "column": 0,
+      "volume": 0.32,
+      "loop": true,
+      "fadeIn": 3,
+      "fadeOut": 4,
+      "delay": 0,
+      "muted": false,
+      "_orchestrationNote": "Mélodie de piano douce qui monte sur le moment du baiser et de l'émotion partagée — complète le jazz sans le couvrir",
+      "_orchestrationKeyword": "piano"
+    },
+    {
+      "id": "st_1780580598592_ji9o7uj1x_1",
+      "soundId": "ca_concert_hall_03_medium_audience_atmo_05_front_lr",
+      "startSegmentId": "seg_1780580540900_36_izz8o",
+      "endSegmentId": "seg_1780580551864",
+      "column": 0,
+      "volume": 0.18,
+      "loop": true,
+      "fadeIn": 4,
+      "fadeOut": 3,
+      "delay": 0,
+      "muted": false,
+      "_orchestrationNote": "Ambiance de bar feutré au Winchester — plus intime, plus silencieuse que le restaurant, la nuit enveloppe le couple",
+      "_orchestrationKeyword": "calm"
+    },
+    {
+      "id": "st_1780580598592_qf4u9zbq9_2",
+      "soundId": "muscinst_suspense_chords_taps_double_01_b00m_one",
+      "startSegmentId": "seg_1780580540900_38_k75a8",
+      "endSegmentId": "seg_1780580540900_47_tbcm5",
+      "column": 1,
+      "volume": 0.3,
+      "loop": true,
+      "fadeIn": 5,
+      "fadeOut": 4,
+      "delay": 0,
+      "muted": false,
+      "_orchestrationNote": "Nappe de tension qui monte imperceptiblement depuis la montre absente — le silence dramatique s'installe, la musique de jazz a disparu",
+      "_orchestrationKeyword": "tension"
+    },
+    {
+      "id": "st_1780580598592_zaug61z5i_3",
+      "soundId": "muscinst_suspense_chords_taps_double_01_b00m_one",
+      "startSegmentId": "seg_1780580540900_40_9fbwa",
+      "endSegmentId": "seg_1780580540900_47_tbcm5",
+      "column": 2,
+      "volume": 0.35,
+      "loop": true,
+      "fadeIn": 2,
+      "fadeOut": 5,
+      "delay": 0,
+      "muted": false,
+      "_orchestrationNote": "Accord de suspense qui se superpose à la tension — les deux regards convergent vers la montre de Rob, le silence entre eux devient assourdissant",
+      "_orchestrationKeyword": "suspense"
+    },
+    {
+      "id": "st_1780580598593_b5wxfugkl_ghost_4",
+      "soundId": "amburbn_downtown_small_square_restaurants_night_belgium_v2_b00m_3ds05_2_0",
+      "startSegmentId": "seg_1780580540900_0_vb9x8",
+      "endSegmentId": "seg_1780580540900_32_wyseh",
+      "column": 0,
+      "volume": 0.28,
+      "loop": true,
+      "fadeIn": 4,
+      "fadeOut": 5,
+      "delay": 0,
+      "muted": true,
+      "broken": true,
+      "_orchestrationNote": "Ambiance feutrée de restaurant chic parisien, murmures de conversations, vaisselle discrète — cocon intime qui enveloppe toute la scène de célébration",
+      "_orchestrationKeyword": "restaurant"
+    },
+    {
+      "id": "st_1780580598593_gk3z0vvj6_ghost_5",
+      "soundId": "swsh_shaker_jazz_stick_hit_01_b00m_one",
+      "startSegmentId": "seg_1780580540900_1_xlmuf",
+      "endSegmentId": "seg_1780580540900_28_klo5u",
+      "column": 1,
+      "volume": 0.22,
+      "loop": true,
+      "fadeIn": 3,
+      "fadeOut": 6,
+      "delay": 0,
+      "muted": true,
+      "broken": true,
+      "_orchestrationNote": "Groupe de jazz en fond, vivant mais discret — cité explicitement au segment 29, présent dès le début comme contexte sonore du bar",
+      "_orchestrationKeyword": "jazz"
+    },
+    {
+      "id": "st_1780580598593_tle8gb4lv_ghost_6",
+      "soundId": "foodgware_champagne_glass_empty_rattle_sequence_long_02_b00m_one",
+      "startSegmentId": "seg_1780580540900_1_xlmuf",
+      "endSegmentId": "seg_1780580540900_1_xlmuf",
+      "column": 2,
+      "volume": 0.65,
+      "loop": false,
+      "fadeIn": 0,
+      "fadeOut": 0,
+      "delay": 0,
+      "muted": true,
+      "broken": true,
+      "_orchestrationNote": "Tintement de verres au moment du toast d'ouverture",
+      "_orchestrationKeyword": "champagne"
+    },
+    {
+      "id": "st_1780580598593_ud25vudpx_ghost_7",
+      "soundId": "ca_marquee_01_big_audience_shouting_01_rear_lr",
+      "startSegmentId": "seg_1780580540900_13_dt0yb",
+      "endSegmentId": "seg_1780580540900_13_dt0yb",
+      "column": 2,
+      "volume": 0.6,
+      "loop": false,
+      "fadeIn": 0,
+      "fadeOut": 0,
+      "delay": 0,
+      "muted": true,
+      "broken": true,
+      "_orchestrationNote": "Rob lève son verre au premier remerciement de Rim — geste rituel qui se répète",
+      "_orchestrationKeyword": "clinking"
+    },
+    {
+      "id": "st_1780580598593_simklfnjd_ghost_8",
+      "soundId": "ca_theater_03_young_audience_atmo_mumble_20_rear_lr",
+      "startSegmentId": "seg_1780580540900_8_lxfs5",
+      "endSegmentId": "seg_1780580540900_8_lxfs5",
+      "column": 2,
+      "volume": 0.7,
+      "loop": false,
+      "fadeIn": 0,
+      "fadeOut": 0,
+      "delay": 0,
+      "muted": true,
+      "broken": true,
+      "_orchestrationNote": "Rob éclate de rire — son franc et généreux, ponctuation de joie pure",
+      "_orchestrationKeyword": "laugh"
+    },
+    {
+      "id": "st_1780580598593_8occ7rfgv_ghost_9",
+      "soundId": "mlds_courtyard_busy_04_5_0",
+      "startSegmentId": "seg_1780580540900_15_tubtj",
+      "endSegmentId": "seg_1780580540900_15_tubtj",
+      "column": 2,
+      "volume": 0.58,
+      "loop": false,
+      "fadeIn": 0,
+      "fadeOut": 0,
+      "delay": 0,
+      "muted": true,
+      "broken": true,
+      "_orchestrationNote": "Second lever de verre avec signe de croix — même rituel, légèrement plus solennel",
+      "_orchestrationKeyword": "clinking"
+    },
+    {
+      "id": "st_1780580598593_bsxw6cp8m_ghost_10",
+      "soundId": "ca_marquee_01_big_audience_atmo_singing_16_rear_lr",
+      "startSegmentId": "seg_1780580540900_17_jbttr",
+      "endSegmentId": "seg_1780580540900_17_jbttr",
+      "column": 2,
+      "volume": 0.58,
+      "loop": false,
+      "fadeIn": 0,
+      "fadeOut": 0,
+      "delay": 0,
+      "muted": true,
+      "broken": true,
+      "_orchestrationNote": "Troisième lever de verre, signe de croix — la répétition crée un rituel comique et touchant",
+      "_orchestrationKeyword": "clinking"
+    },
+    {
+      "id": "st_1780580598593_66eii9dnd_ghost_11",
+      "soundId": "bt_toy_evil_laughing_pillow",
+      "startSegmentId": "seg_1780580540900_28_klo5u",
+      "endSegmentId": "seg_1780580540900_28_klo5u",
+      "column": 2,
+      "volume": 0.68,
+      "loop": false,
+      "fadeIn": 0,
+      "fadeOut": 0,
+      "delay": 0,
+      "muted": true,
+      "broken": true,
+      "_orchestrationNote": "Rires complices qui couvrent le groupe de jazz — moment de complicité maximale, pic de légèreté avant la bascule",
+      "_orchestrationKeyword": "laugh"
+    },
+    {
+      "id": "st_1780580598593_z5iwizg0j_ghost_12",
+      "soundId": "ueck_urban_explosion_spot_06_zoom_h6_02",
+      "startSegmentId": "seg_1780580540900_30_xfd8t",
+      "endSegmentId": "seg_1780580540900_30_xfd8t",
+      "column": 1,
+      "volume": 0.62,
+      "loop": false,
+      "fadeIn": 0,
+      "fadeOut": 0,
+      "delay": 0,
+      "muted": true,
+      "broken": true,
+      "_orchestrationNote": "Ils boivent à leurs santés — dernier toast, dernier moment de légèreté complète",
+      "_orchestrationKeyword": "glass"
+    },
+    {
+      "id": "st_1780580598593_o4lg9wlji_ghost_13",
+      "soundId": "vehtruck_van_freeway_drive_by_single_01_b00m_one",
+      "startSegmentId": "seg_1780580540900_32_wyseh",
+      "endSegmentId": "seg_1780580540900_36_izz8o",
+      "column": 1,
+      "volume": 0.2,
+      "loop": true,
+      "fadeIn": 3,
+      "fadeOut": 3,
+      "delay": 0,
+      "muted": true,
+      "broken": true,
+      "_orchestrationNote": "Rue nocturne parisienne, trafic léger — transition entre le restaurant et le Winchester, l'extérieur entre brièvement",
+      "_orchestrationKeyword": "street"
+    },
+    {
+      "id": "st_1780580598593_bg8bp16l6_ghost_14",
+      "soundId": "alrmelec_digital_ring_steady_low_loop_01_b00m_one",
+      "startSegmentId": "seg_1780580540900_37_vtwgf",
+      "endSegmentId": "seg_1780580540900_37_vtwgf",
+      "column": 1,
+      "volume": 0.65,
+      "loop": false,
+      "fadeIn": 0,
+      "fadeOut": 0,
+      "delay": 0,
+      "muted": true,
+      "broken": true,
+      "_orchestrationNote": "Le geste de regarder le poignet — un tic devenu réflexe, la montre absente résonne comme un son qu'on entend pas",
+      "_orchestrationKeyword": "clock"
+    },
+    {
+      "id": "st_1780580598593_aqt3sgkls_ghost_15",
+      "soundId": "comcell_flip_phone_alarm_01_b00m_one_3",
+      "startSegmentId": "seg_1780580540900_41_tuhbb",
+      "endSegmentId": "seg_1780580540900_41_tuhbb",
+      "column": 0,
+      "volume": 0.72,
+      "loop": false,
+      "fadeIn": 0,
+      "fadeOut": 0,
+      "delay": 0,
+      "muted": true,
+      "broken": true,
+      "_orchestrationNote": "Le message sur la montre connectée — signal discret mais dévastateur, le son du monde professionnel qui brise l'instant privé",
+      "_orchestrationKeyword": "alarm"
+    },
+    {
+      "id": "st_1780580598593_wese629yq_ghost_16",
+      "soundId": "dsgnstngr_large_metal_impact_deep_harsh_01_b00m_one",
+      "startSegmentId": "seg_1780580540900_43_3h4tb",
+      "endSegmentId": "seg_1780580540900_47_tbcm5",
+      "column": 0,
+      "volume": 0.38,
+      "loop": true,
+      "fadeIn": 2,
+      "fadeOut": 6,
+      "delay": 0,
+      "muted": true,
+      "broken": true,
+      "_orchestrationNote": "Drone sombre final — pas besoin de parler, ils savent tous les deux. La musique porte le poids de ce qui ne peut pas être dit",
+      "_orchestrationKeyword": "dark"
+    }
+  ],
+  "vfxTracks": []
+}
