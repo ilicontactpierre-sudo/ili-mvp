@@ -683,6 +683,8 @@ function SoundBlockPanel({
           }}
           onSoundsImported={(updatedSounds) => {
             if (!updatedSounds?.length) return
+            // Remonter vers AdminPage pour mettre à jour soundLibrary
+            if (onSoundsImported) onSoundsImported(updatedSounds)
             const s = updatedSounds[0]
             if (s.id === editedTrack.soundId && s.url) {
               const updated = { ...editedTrack, muted: false, broken: undefined }
