@@ -86,19 +86,27 @@ const familyTags = useMemo(() => {
 
 const filteredSounds = useMemo(() => {
   let results = familySounds
-
   if (search.trim()) {
-    // Filtrage simple sans Fuse pour éviter de bloquer le thread
-    const terms = search.trim().toLowerCase().split(/\s+/)
-    results = results.filter(sound => {
+    // Découpe sur virgules ET espaces : "cook, cooking, cut" → ['cook','cooking','cut']
+    const terms = search.trim().toLowerCase().split(/[\s,]+/).filter(Boolean)
+    // Score : un point par terme trouvé dans le haystack
+    const scored = results.map(sound => {
       const haystack = [
         sound.label || '',
         ...(sound.tags || []),
         sound.description || '',
         sound.boomCategory || '',
+        sound.boomSubcategory || '',
+        sound.searchString || '',
       ].join(' ').toLowerCase()
-      return terms.every(term => haystack.includes(term))
+      const score = terms.reduce((acc, term) => acc + (haystack.includes(term) ? 1 : 0), 0)
+      return { sound, score }
     })
+    // Garder uniquement les sons avec au moins 1 terme trouvé, triés par score décroissant
+    results = scored
+      .filter(({ score }) => score > 0)
+      .sort((a, b) => b.score - a.score)
+      .map(({ sound }) => sound)
   }
 
   if (activeTags.length > 0) {
