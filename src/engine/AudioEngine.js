@@ -74,7 +74,7 @@ class AudioEngine {
       howl.fade(current, volume, duration, state.instanceId)
       this.playingSounds.set(key, { ...state, volume })
     } else {
-      const instanceId = this._playInstance(howl, soundId, trimStart, trimEnd)
+      const instanceId = this._playInstance(howl, soundId, trimStart, trimEnd, key)
       howl.loop(false, instanceId)
       howl.volume(0, instanceId)
       howl.fade(0, volume, duration, instanceId)
