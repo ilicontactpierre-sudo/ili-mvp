@@ -155,6 +155,62 @@ class AudioEngine {
       howl._sprite[spriteName] = [start, duration]
       return spriteName
     }
+  _playInstance(howl, soundId, trimStart, trimEnd) {
+    const spriteName = this._applyTrimSprite(howl, soundId, trimStart, trimEnd)
+    return spriteName ? howl.play(spriteName) : howl.play()
+  }
+
+  _crossfadeMs(loop, loopCrossfade) {
+    if (!loop) return 0
+    if (loopCrossfade === 'none') return 0
+    if (loopCrossfade === 'long') return 1800
+    return 600 // 'medium' ou défaut
+  }
+
+  _scheduleLoopCrossfade(key, howl, soundId, volume, crossfadeMs, trimStart, trimEnd, loopCrossfade) {
+    // Calcule la durée de lecture (en tenant compte du trim)
+    const durationMs = trimEnd != null
+      ? (trimEnd - (trimStart || 0))
+      : ((howl.duration() || 0) * 1000 - (trimStart || 0))
+
+    if (durationMs <= crossfadeMs) return // sécurité : son trop court
+
+    // Programmer le crossfade avant la fin
+    const timeout = setTimeout(() => {
+      const state = this.playingSounds.get(key)
+      if (!state) return // son arrêté entretemps
+
+      // Fade out sur l'instance en cours
+      howl.fade(volume, 0, crossfadeMs, state.instanceId)
+
+      // Lancer la nouvelle instance immédiatement avec fade in
+      const newInstanceId = this._playInstance(howl, soundId, trimStart, trimEnd)
+      howl.loop(false, newInstanceId)
+      howl.volume(0, newInstanceId)
+      howl.fade(0, volume, crossfadeMs, newInstanceId)
+
+      // Mettre à jour l'état avec la nouvelle instance
+      this.playingSounds.set(key, { ...state, instanceId: newInstanceId })
+
+      // Arrêter l'ancienne instance après le crossfade
+      const oldInstanceId = state.instanceId
+      setTimeout(() => {
+        howl.stop(oldInstanceId)
+      }, crossfadeMs)
+
+      // Replanifier pour le prochain cycle
+      this._scheduleLoopCrossfade(key, howl, soundId, volume, crossfadeMs, trimStart, trimEnd, loopCrossfade)
+
+    }, durationMs - crossfadeMs)
+
+    // Stocker le timeout pour pouvoir l'annuler si stopSound est appelé
+    const state = this.playingSounds.get(key)
+    if (state) {
+      if (state._loopTimeout) clearTimeout(state._loopTimeout)
+      this.playingSounds.set(key, { ...state, _loopTimeout: timeout })
+    }
+  }
+
   onSegmentChange(currentIndex, soundTracks = [], segments = []) {
     const getIndex = (segmentId) =>
       segments.findIndex(s => s.id === segmentId || s._id === segmentId)
