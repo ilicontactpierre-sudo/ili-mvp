@@ -7,9 +7,10 @@ export default defineConfig({
       allow: ['.', '/Volumes/TM 14Go/KONTAKT Instruments/SAMPLE LIBRARY/SOUND DESIGN/BOOM LIBRARY']
     },
     proxy: {
-      '/api/preview-sound': 'http://localhost:3001',
-      '/api/upload-sound':  'http://localhost:3001',
-      '/api/upload-audio':  'http://localhost:3001',
+      '/api/preview-sound':  'http://localhost:3001',
+      '/api/upload-sound':   'http://localhost:3001',
+      '/api/upload-audio':   'http://localhost:3001',
+      '/api/get-upload-url': 'http://localhost:3001',
     },
     headers: {
       'Cross-Origin-Opener-Policy': 'same-origin',
