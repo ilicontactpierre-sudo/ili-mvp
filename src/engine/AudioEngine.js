@@ -49,16 +49,16 @@ class AudioEngine {
     if (howl) howl.stop()
   }
 
-  fadeInSound({ soundId, volume = 1, duration = 400, loop, trimStart, trimEnd }) {
+  fadeInSound({ trackId, soundId, volume = 1, duration = 400, loop, trimStart, trimEnd }) {
     if (!soundId) return
+    const key = trackId || soundId
     const howl = this.howlMap.get(soundId)
     if (!howl) return
     const token = Symbol()
-    this._fadeTokens.set(soundId, token)
+    this._fadeTokens.set(key, token)
     howl.off('fade')
-    // Appliquer le sprite de trim si défini
     const spriteName = this._applyTrimSprite(howl, soundId, trimStart, trimEnd)
-    if (this.playingSounds.has(soundId)) {
+    if (this.playingSounds.has(key)) {
       const current = howl.volume()
       howl.fade(current, volume, duration)
     } else {
@@ -67,7 +67,7 @@ class AudioEngine {
       const playId = spriteName ? howl.play(spriteName) : howl.play()
       howl.fade(0, volume, duration)
     }
-    this.playingSounds.set(soundId, { howl, volume })
+    this.playingSounds.set(key, { howl, soundId, volume })
   }
 
   fadeOutSound({ soundId, duration = 400 }) {
