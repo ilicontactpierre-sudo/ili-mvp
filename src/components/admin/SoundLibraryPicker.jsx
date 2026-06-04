@@ -588,24 +588,30 @@ const handleFileSelected = async (e) => {
                       onMouseLeave={e => { if (!isPlaying) e.currentTarget.style.background = '#fafafa' }}
                     >
                       {/* Play button */}
-                      <button
-                        onClick={e => playSoundPreview(sound, e)}
-                        style={{
-                          width: '30px', height: '30px',
-                          borderRadius: '50%',
-                          background: isPlaying ? '#5a7af0' : '#e8e8e8',
-                          color: isPlaying ? '#fff' : '#555',
-                          border: 'none',
-                          cursor: 'pointer',
-                          fontSize: '0.7rem',
-                          display: 'flex', alignItems: 'center', justifyContent: 'center',
-                          flexShrink: 0,
-                          transition: 'all 0.15s',
-                        }}
-                        title={isPlaying ? 'Arrêter' : 'Écouter'}
-                      >
-                        {isPlaying ? '■' : '▶'}
-                      </button>
+                      {(() => {
+                        const canPreview = !!sound.url || import.meta.env.DEV
+                        return (
+                          <button
+                            onClick={e => canPreview ? playSoundPreview(sound, e) : e.stopPropagation()}
+                            disabled={!canPreview}
+                            style={{
+                              width: '30px', height: '30px',
+                              borderRadius: '50%',
+                              background: !canPreview ? '#f0f0f0' : isPlaying ? '#5a7af0' : '#e8e8e8',
+                              color: !canPreview ? '#ccc' : isPlaying ? '#fff' : '#555',
+                              border: 'none',
+                              cursor: canPreview ? 'pointer' : 'not-allowed',
+                              fontSize: '0.7rem',
+                              display: 'flex', alignItems: 'center', justifyContent: 'center',
+                              flexShrink: 0,
+                              transition: 'all 0.15s',
+                            }}
+                            title={!canPreview ? 'Prévisualisation indisponible en ligne — uploadez le son sur Supabase pour l\'écouter' : isPlaying ? 'Arrêter' : 'Écouter'}
+                          >
+                            {!canPreview ? '—' : isPlaying ? '■' : '▶'}
+                          </button>
+                        )
+                      })()}
 
                       {/* Info */}
                       <div style={{ flex: 1, minWidth: 0 }}>
