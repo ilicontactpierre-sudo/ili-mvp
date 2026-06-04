@@ -117,6 +117,8 @@ function StoryPreviewModal({ isOpen, storyData, onClose }) {
     audioEngineRef.current = new AudioEngine(preloadedHowlMap)
     ignoreAdvanceUntilRef.current = Date.now() + 600
     touchStartYRef.current = null
+    const startIndex = Math.max(0, Math.min(segments.length - 1, parseInt(startFromInput) - 1 || 0))
+    setCurrentIndex(startIndex)
     setIsStarted(true)
   }
 
