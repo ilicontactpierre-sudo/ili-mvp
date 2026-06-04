@@ -27,10 +27,11 @@ export default function WaveformTrimmer({ sound, initialStart = 0, initialEnd, o
   const animRef     = useRef(null)
   const dragging    = useRef(null)   // 'start' | 'end' | null
 
-  const durationMs  = (sound.duration || 0) * 1000
+const [realDurationMs, setRealDurationMs] = useState((sound.duration || 0) * 1000)
+  const durationMs = realDurationMs
   const [trimStart, setTrimStart] = useState(initialStart)
-  const [trimEnd,   setTrimEnd]   = useState(initialEnd ?? durationMs)
-  const [peaks,     setPeaks]     = useState(null)   // Float32Array normalisée
+  const [trimEnd,   setTrimEnd]   = useState(initialEnd ?? realDurationMs)
+  const [peaks,     setPeaks]     = useState(null)
   const [loading,   setLoading]   = useState(true)
   const [error,     setError]     = useState(null)
   const [playhead,  setPlayhead]  = useState(null)   // position ms pendant preview
