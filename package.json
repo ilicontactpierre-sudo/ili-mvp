@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "concurrently \"node scripts/dev-api-server.js\" \"vite\"",
+    "dev:clean": "pkill -f 'node scripts/dev-api-server.js'; pkill -f vite; sleep 1 && concurrently \"node scripts/dev-api-server.js\" \"vite\"",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
