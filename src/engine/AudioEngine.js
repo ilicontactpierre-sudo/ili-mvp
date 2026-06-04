@@ -142,12 +142,11 @@ class AudioEngine {
       return startIdx !== -1 && currentIndex >= startIdx && currentIndex <= end
     })
 
-    const activeIds = new Set(activeTracks.map(t => t.soundId))
-
+    const activeKeys = new Set(activeTracks.map(t => t.id || t.soundId))
     // Arrêter les sons qui ne doivent plus jouer
-    this.playingSounds.forEach((_, soundId) => {
-      if (!activeIds.has(soundId)) {
-        this.fadeOutSound({ soundId, duration: 800 })
+    this.playingSounds.forEach((state, key) => {
+      if (!activeKeys.has(key)) {
+        this.fadeOutSound({ trackId: key, soundId: state.soundId, duration: 800 })
       }
     })
 
