@@ -4,6 +4,9 @@ import { execSync } from 'node:child_process'
 import readline from 'node:readline'
 import { stdin as input, stdout as output } from 'node:process'
 
+process.env.GIT_EDITOR = 'true'
+process.env.GIT_MERGE_AUTOEDIT = 'no'
+
 function formatDate(date) {
   const year = date.getFullYear()
   const month = String(date.getMonth() + 1).padStart(2, '0')
