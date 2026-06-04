@@ -33,6 +33,7 @@ function SoundBlockPanel({
   const [isAnimating, setIsAnimating] = useState(false)
   const [showTrimmer, setShowTrimmer] = useState(false)
   const [showSoundPicker, setShowSoundPicker] = useState(false)
+  const [pickerInitialSearch, setPickerInitialSearch] = useState('')
   const panelRef = useRef(null)
   const animationRef = useRef(null)
   const color = getSoundColor(sound)
@@ -173,8 +174,8 @@ function SoundBlockPanel({
         borderBottom: `1px solid ${color}30`
       }}>
         <h3
-          onClick={() => setShowSoundPicker(true)}
-          title="Cliquer pour changer le son"
+          onClick={() => { setPickerInitialSearch(''); setShowSoundPicker(true) }}
+              title="Cliquer pour changer le son"
           style={{
             margin: 0,
             fontSize: '1rem',
@@ -226,6 +227,48 @@ function SoundBlockPanel({
           </div>
           {sound.tags?.length > 0 && (
             <div style={{ color: '#888' }}>{sound.tags.slice(0, 5).join(', ')}</div>
+          )}
+        </div>
+      )}
+      {/* Note d'orchestration Claude */}
+      {soundTrack._orchestrationNote && (
+        <div style={{
+          marginBottom: '1rem',
+          padding: '0.5rem 0.75rem',
+          backgroundColor: 'rgba(79,70,229,0.08)',
+          border: '1px solid rgba(79,70,229,0.2)',
+          borderRadius: '6px',
+          fontSize: '0.73rem',
+          color: 'rgba(200,200,255,0.75)',
+          lineHeight: 1.5,
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '0.35rem',
+        }}>
+          <div style={{ opacity: 0.55, fontSize: '0.65rem', letterSpacing: '0.05em', textTransform: 'uppercase' }}>
+            Note Claude
+          </div>
+          <div style={{ fontStyle: 'italic' }}>
+            {soundTrack._orchestrationNote}
+          </div>
+          {soundTrack._orchestrationKeyword && (
+            <button
+              onClick={() => setShowSoundPicker(true)}
+              title="Rechercher avec ce keyword"
+              style={{
+                alignSelf: 'flex-start',
+                marginTop: '0.1rem',
+                padding: '0.2rem 0.55rem',
+                fontSize: '0.68rem',
+                background: 'rgba(79,70,229,0.2)',
+                border: '1px solid rgba(79,70,229,0.35)',
+                borderRadius: '4px',
+                color: 'rgba(180,180,255,0.9)',
+                cursor: 'pointer',
+              }}
+            >
+              🔍 Chercher «&nbsp;{soundTrack._orchestrationKeyword}&nbsp;»
+            </button>
           )}
         </div>
       )}
