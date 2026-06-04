@@ -239,34 +239,30 @@ const handleFileSelected = async (e) => {
       const mp3Data = await ffmpeg.readFile(outputName)
       const mp3Blob = new Blob([mp3Data.buffer], { type: 'audio/mpeg' })
 
-      // 2. Convertir en base64 pour envoi via Vercel
-      const base64 = await new Promise((resolve, reject) => {
-        const reader = new FileReader()
-        reader.onload = () => resolve(reader.result.split(',')[1])
-        reader.onerror = reject
-        reader.readAsDataURL(mp3Blob)
-      })
-
-      // 3. Upload via /api/upload-audio (utilise la clé service Supabase, pas de RLS)
-      const uploadRes = await fetch('/api/upload-audio', {
+      // 2. Demander une URL signée à Vercel (payload minuscule — juste le nom de fichier)
+      const signedRes = await fetch('/api/get-upload-url', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          password: adminPassword,
-          filename: outputName,
-          fileBase64: base64,
-        }),
+        body: JSON.stringify({ password: adminPassword, filename: outputName }),
+      })
+      if (!signedRes.ok) {
+        const text = await signedRes.text()
+        throw new Error(`URL signée échouée (${signedRes.status}) : ${text.slice(0, 200)}`)
+      }
+      const { signedUrl, publicUrl } = await signedRes.json()
+
+      // 3. Upload binaire direct vers Supabase — Vercel ne voit plus le fichier
+      const uploadRes = await fetch(signedUrl, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'audio/mpeg' },
+        body: mp3Blob,
       })
       if (!uploadRes.ok) {
         const text = await uploadRes.text()
-        throw new Error(`Upload échoué (${uploadRes.status}) : ${text.slice(0, 200)}`)
+        throw new Error(`Upload Supabase échoué (${uploadRes.status}) : ${text.slice(0, 200)}`)
       }
-      const uploadData = await uploadRes.json()
-      // 4. URL publique retournée par l'API
-      const publicUrl = uploadData.publicUrl
 
-      // 4. Enregistrer dans la table Supabase
-      const saveRes = await fetch('/api/upload-sound', {
+      // 4. URL publique retournée par get-upload-url
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
