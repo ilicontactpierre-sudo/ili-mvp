@@ -127,7 +127,8 @@ class AudioEngine {
 
   stopAll(duration = 0) {
     this._fadeTokens.clear()
-    this.playingSounds.forEach(({ howl, instanceId }) => {
+    this.playingSounds.forEach(({ howl, instanceId, _loopTimeout }) => {
+      if (_loopTimeout) clearTimeout(_loopTimeout)
       if (duration > 0) {
         const fromVolume = instanceId != null
           ? howl.volume(undefined, instanceId)
