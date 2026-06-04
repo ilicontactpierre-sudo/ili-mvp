@@ -28,11 +28,11 @@ class AudioEngine {
     if (this.playingSounds.has(key)) return
     const howl = this.howlMap.get(soundId)
     if (!howl) return
-    howl.loop(Boolean(loop))
-    howl.volume(volume)
     const spriteName = this._applyTrimSprite(howl, soundId, trimStart, trimEnd)
-    spriteName ? howl.play(spriteName) : howl.play()
-    this.playingSounds.set(key, { howl, soundId, volume })
+    const instanceId = spriteName ? howl.play(spriteName) : howl.play()
+    howl.loop(Boolean(loop), instanceId)
+    howl.volume(volume, instanceId)
+    this.playingSounds.set(key, { howl, soundId, volume, instanceId })
   }
 
   stopSound(soundId, trackId) {
