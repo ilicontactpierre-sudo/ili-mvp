@@ -33,24 +33,34 @@ function DraftManager({
       if (savedHistory) {
         setHistory(JSON.parse(savedHistory))
       }
-
-      // Vérifier s'il existe un brouillon
-      const savedDraft = localStorage.getItem(draftKey)
-      if (savedDraft) {
-        const draft = JSON.parse(savedDraft)
-        setDraftInfo(draft)
+      // Chercher tous les brouillons disponibles dans localStorage
+      // (pas seulement celui du slug courant qui peut être vide au chargement)
+      const allDrafts = []
+      for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i)
+        if (!key.startsWith('ili_draft_')) continue
+        try {
+          const draft = JSON.parse(localStorage.getItem(key))
+          if (draft && draft.savedAt && draft.segments?.length > 0) {
+            allDrafts.push(draft)
+          }
+        } catch {}
+      }
+      // Trier par date décroissante et prendre le plus récent
+      allDrafts.sort((a, b) => new Date(b.savedAt) - new Date(a.savedAt))
+      if (allDrafts.length > 0) {
+        setDraftInfo(allDrafts[0])
         setShowDraftBanner(true)
       }
     } catch (err) {
       console.error('Erreur chargement brouillon:', err)
     }
-
     return () => {
       if (autoSaveTimerRef.current) {
         clearTimeout(autoSaveTimerRef.current)
       }
     }
-  }, [draftKey, historyKey])
+  }, [historyKey])
 
   // Fermer le dropdown histoire quand on clic en dehors
   useEffect(() => {
