@@ -43,5 +43,10 @@
     "id": "test-orchestration",
     "title": "test-orchestration",
     "author": "test-orchestration"
+  },
+  {
+    "id": "test-blocson-gris-1",
+    "title": "Test Blocson grisé 1",
+    "author": "Test Blocson grisé 1"
   }
 ]
