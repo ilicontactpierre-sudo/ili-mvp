@@ -175,7 +175,9 @@ class AudioEngine {
       ? (trimEnd - (trimStart || 0))
       : ((howl.duration() || 0) * 1000 - (trimStart || 0))
 
+    console.log('[crossfade]', { soundId, durationMs, crossfadeMs, trimStart, trimEnd, howlDuration: howl.duration() })
     if (durationMs <= crossfadeMs) return // sécurité : son trop court
+    console.log('[crossfade] timeout programmé dans', durationMs - crossfadeMs, 'ms')
 
     // Programmer le crossfade avant la fin
     const timeout = setTimeout(() => {
