@@ -2233,11 +2233,27 @@ const handleTextSelection = useCallback(() => {
           onAddSound={(soundData) => {
             console.log('onAddSound called with soundData:', soundData)
             console.log('showSoundPicker was:', showSoundPicker)
-            const newTrack = {
-              id: `st_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
-              ...soundData
+            // Si un track grisé (broken) avec ce soundId existe déjà sur ce segment,
+            // on le dé-grise plutôt que d'en créer un doublon
+            const existingBrokenIdx = soundTracks.findIndex(
+              t => t.soundId === soundData.soundId &&
+                   t.broken === true &&
+                   t.startSegmentId === soundData.startSegmentId
+            )
+            let updatedTracks
+            if (existingBrokenIdx !== -1) {
+              updatedTracks = soundTracks.map((t, i) => {
+                if (i !== existingBrokenIdx) return t
+                const { broken, ...rest } = t
+                return { ...rest, muted: false, column: soundData.column ?? t.column }
+              })
+            } else {
+              const newTrack = {
+                id: `st_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+                ...soundData
+              }
+              updatedTracks = [...soundTracks, newTrack]
             }
-            const updatedTracks = [...soundTracks, newTrack]
             onSoundTracksChange(updatedTracks)
             if (onSaveToHistory) onSaveToHistory()
             setShowSoundPicker(false)
