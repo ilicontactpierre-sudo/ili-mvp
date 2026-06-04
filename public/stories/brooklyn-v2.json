@@ -49,10 +49,10 @@
         {
           "action": "fadeIn",
           "soundId": "ambrest_restaurant_cafe_crowded_b00m_one",
-          "volume": 0.28,
+          "volume": 0.45,
           "duration": 4,
           "delay": 0,
-          "loop": true
+          "loop": false
         }
       ]
     },
@@ -68,7 +68,7 @@
         {
           "action": "fadeIn",
           "soundId": "tuba_skinny_-_jubilee_stomp_-_royal_street_ii",
-          "volume": 0.22,
+          "volume": 0.5,
           "duration": 3,
           "delay": 0,
           "loop": true
@@ -634,8 +634,8 @@
       "startSegmentId": "seg_1780580540900_0_vb9x8",
       "endSegmentId": "seg_1780580551864",
       "column": 0,
-      "volume": 0.28,
-      "loop": true,
+      "volume": 0.45,
+      "loop": false,
       "fadeIn": 4,
       "fadeOut": 179,
       "delay": 0,
@@ -650,7 +650,7 @@
       "startSegmentId": "seg_1780580540900_1_xlmuf",
       "endSegmentId": "seg_1780580540900_28_klo5u",
       "column": 1,
-      "volume": 0.22,
+      "volume": 0.5,
       "loop": true,
       "fadeIn": 3,
       "fadeOut": 300,
