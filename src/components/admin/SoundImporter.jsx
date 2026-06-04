@@ -191,22 +191,29 @@ function SoundImporter({ adminPassword, onSoundsImported, onClose }) {
     const slug = slugify(file.name)
     const filename = `${slug}.mp3`
 
-    // 5. Upload vers Supabase via Vercel Function (service_role key côté serveur)
+    // 5. Demander une URL signée à Vercel, puis upload binaire direct vers Supabase
     const blob = new Blob([mp3Buffer], { type: 'audio/mpeg' })
-    const formData = new FormData()
-    formData.append('file', blob, filename)
-    formData.append('password', adminPassword)
-    formData.append('filename', filename)
 
-    const uploadRes = await fetch('/api/upload-audio', {
+    const signedRes = await fetch('/api/get-upload-url', {
       method: 'POST',
-      body: formData,
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ password: adminPassword, filename }),
+    })
+    if (!signedRes.ok) {
+      const signedErr = await signedRes.json()
+      throw new Error(`URL signée : ${signedErr.error}`)
+    }
+    const { signedUrl, publicUrl } = await signedRes.json()
+
+    const uploadRes = await fetch(signedUrl, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'audio/mpeg' },
+      body: blob,
     })
     if (!uploadRes.ok) {
-      const uploadErr = await uploadRes.json()
-      throw new Error(`Upload Supabase : ${uploadErr.error}`)
+      const text = await uploadRes.text()
+      throw new Error(`Upload Supabase : ${uploadRes.status} — ${text.slice(0, 200)}`)
     }
-    const { publicUrl } = await uploadRes.json()
     if (abortRef.current) throw new Error('Annulé')
     updateEntry(index, { progress: 85 })
 
