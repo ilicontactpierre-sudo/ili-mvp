@@ -1560,6 +1560,7 @@ function AdminPage() {
                                   }
                                   deduped.push(t)
                                 }
+                                console.log('[onSoundsImported AdminPage] soundTracks après patch:', deduped)
                                 return deduped
                               })
                             }
