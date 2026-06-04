@@ -474,16 +474,40 @@ function AdminPage() {
     // 3. Fusionner : le JSON local est la base, Supabase enrichit avec l'URL
     Promise.all([localPromise, supabasePromise]).then(([localSounds, supabaseRows]) => {
       const urlMap = {}
+      const supabaseFullMap = {}
       if (Array.isArray(supabaseRows)) {
-        supabaseRows.forEach(r => { if (r.id && r.url) urlMap[r.id] = r.url })
+        supabaseRows.forEach(r => {
+          if (r.id && r.url) urlMap[r.id] = r.url
+          if (r.id) supabaseFullMap[r.id] = r
+        })
       }
-      const merged = (Array.isArray(localSounds) ? localSounds : []).map(sound => ({
+      const localArray = Array.isArray(localSounds) ? localSounds : []
+      const localIds = new Set(localArray.map(s => s.id))
+      // Sons du JSON local enrichis avec l'URL Supabase
+      const merged = localArray.map(sound => ({
         ...sound,
         url: urlMap[sound.id] || null,
       }))
-      console.log('urlMap Supabase:', urlMap)
-      console.log('Exemple son merged:', merged[0])
-      setSoundLibrary(merged)
+      // Sons uploadés sur Supabase mais absents du JSON local (imports manuels)
+      const supabaseOnly = supabaseRows
+        .filter(r => r.id && r.url && !localIds.has(r.id))
+        .map(r => ({
+          id: r.id,
+          label: r.label || r.id,
+          url: r.url,
+          filename: r.filename || null,
+          tags: r.tags || [],
+          categories: r.categories || [],
+          boomCategory: r.boom_category || null,
+          boomSubcategory: r.boom_subcategory || null,
+          duration: r.duration || 0,
+          loop: r.loop || false,
+          mood: r.mood || [],
+          description: r.description || null,
+          searchString: r.search_string || null,
+        }))
+      const all = [...merged, ...supabaseOnly]
+      setSoundLibrary(all)
       // Synchroniser muted/broken sur les soundTracks selon les URLs réelles
       setSoundTracks(prev => prev.map(track => {
         const hasUrl = !!urlMap[track.soundId]
