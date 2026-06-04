@@ -379,6 +379,41 @@ function SoundBlockPanel({
           </div>
         </div>
 
+        {/* CROSSFADE LOOP — visible seulement si loop actif */}
+        {editedTrack.loop && (
+          <div>
+            <label style={{ fontSize: '0.75rem', color: '#888', display: 'block', marginBottom: '0.4rem' }}>
+              Crossfade loop
+            </label>
+            <div style={{ display: 'flex', gap: '6px' }}>
+              {[
+                { value: 'none',   label: 'Aucun',  ms: 0 },
+                { value: 'medium', label: 'Fondu',  ms: 600 },
+                { value: 'long',   label: 'Long',   ms: 1800 },
+              ].map(opt => (
+                <button
+                  key={opt.value}
+                  onClick={() => handleChange('loopCrossfade', opt.value)}
+                  style={{
+                    flex: 1,
+                    padding: '0.35rem 0',
+                    fontSize: '0.72rem',
+                    fontWeight: 500,
+                    borderRadius: '6px',
+                    border: `1px solid ${(editedTrack.loopCrossfade ?? 'medium') === opt.value ? color : '#333'}`,
+                    background: (editedTrack.loopCrossfade ?? 'medium') === opt.value ? `${color}22` : 'transparent',
+                    color: (editedTrack.loopCrossfade ?? 'medium') === opt.value ? color : '#666',
+                    cursor: 'pointer',
+                    transition: 'all 0.15s',
+                  }}
+                >
+                  {opt.label}
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+
         {/* Segments début et fin sur la même ligne */}
         <div style={{ display: 'flex', gap: '1rem', alignItems: 'flex-end' }}>
           {/* Segment de début */}
