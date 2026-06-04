@@ -86,10 +86,11 @@ function StoryPreviewModal({ isOpen, storyData, onClose }) {
     return () => window.removeEventListener('keydown', handleKeyDown)
   }, [isOpen, goToNext, goToPrevious, handleClose])
 
-  // Exécuter les événements audio au changement de segment
+  // Exécuter les soundTracks au changement de segment
   useEffect(() => {
-    if (!isStarted || !audioEngineRef.current || !segments[currentIndex]) return
-    audioEngineRef.current.executeEvents(segments[currentIndex].audioEvents || [])
+    if (!isStarted || !audioEngineRef.current) return
+    const soundTracks = storyData?.soundTracks || []
+    audioEngineRef.current.onSegmentChange(currentIndex, soundTracks, segments)
   }, [currentIndex, isStarted])
 
   // Arrêter l'audio à la fin
