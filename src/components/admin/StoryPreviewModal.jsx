@@ -236,7 +236,7 @@ function StoryPreviewModal({ isOpen, storyData, onClose }) {
           )}
           {isStarted && !isFinished && (
             <>
-              <StoryReader storyData={storyData} currentIndex={currentIndex} />
+              <StoryReader storyData={storyData} currentIndex={currentIndex} viewportHeight={844} />
               {activeGameMode && (
                 <GameOverlay
                   gameMode={activeGameMode}
