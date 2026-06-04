@@ -44,6 +44,8 @@ function SoundLibraryPicker({
   const [showImporter, setShowImporter] = useState(false)
   const [uploadingId, setUploadingId] = useState(null)
   const [onlyUploaded, setOnlyUploaded] = useState(false)
+  // URLs uploadées pendant cette session (pour mettre à jour l'UI sans attendre le re-render parent)
+  const [localSoundOverrides, setLocalSoundOverrides] = useState({})
   const howlRef = useRef(null)
   const timerRef = useRef(null)
   const ffmpegRef = useRef(null)
