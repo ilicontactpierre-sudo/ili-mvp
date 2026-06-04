@@ -1527,20 +1527,37 @@ function AdminPage() {
                           adminPassword={password}
                           onSoundsImported={(updatedSounds) => {
                             if (Array.isArray(updatedSounds) && updatedSounds.length > 0) {
-                              // 1. Mettre à jour soundLibrary
                               const urlMap = {}
                               updatedSounds.forEach(s => { if (s.id && s.url) urlMap[s.id] = s.url })
+                              // 1. Mettre à jour soundLibrary
                               setSoundLibrary(prev => prev.map(sound =>
                                 urlMap[sound.id] ? { ...sound, url: urlMap[sound.id] } : sound
                               ))
-                              // 2. Mettre à jour les soundTracks : retirer muted/broken si le son a une URL
-                              setSoundTracks(prev => prev.map(track => {
-                                if (urlMap[track.soundId]) {
-                                  const { broken, ...rest } = track
-                                  return { ...rest, muted: false }
-                                }
-                                return track
-                              }))
+                              // 2. Mettre à jour les soundTracks en utilisant le setter fonctionnel
+                              // pour éviter que onSaveToHistory (closure) écrase ce changement
+                              setSoundTracks(prev => {
+                                const updated = prev.map(track => {
+                                  if (urlMap[track.soundId]) {
+                                    const { broken, ...rest } = track
+                                    return { ...rest, muted: false }
+                                  }
+                                  return track
+                                })
+                                // Sauvegarder l'historique avec les valeurs à jour
+                                setHistory(h => {
+                                  const snapshot = {
+                                    segments,
+                                    soundTracks: updated,
+                                    vfxTracks,
+                                  }
+                                  const newHistory = h.slice(0, historyIndex + 1)
+                                  newHistory.push(JSON.parse(JSON.stringify(snapshot)))
+                                  if (newHistory.length > MAX_HISTORY) newHistory.shift()
+                                  setHistoryIndex(newHistory.length - 1)
+                                  return newHistory
+                                })
+                                return updated
+                              })
                             }
                           }}
                         />
