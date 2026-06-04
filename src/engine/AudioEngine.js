@@ -159,8 +159,8 @@ class AudioEngine {
     howl._sprite[spriteName] = [start, duration]
     return spriteName
   }
-  _playInstance(howl, soundId, trimStart, trimEnd) {
-    const spriteName = this._applyTrimSprite(howl, soundId, trimStart, trimEnd)
+  _playInstance(howl, soundId, trimStart, trimEnd, trackId) {
+    const spriteName = this._applyTrimSprite(howl, soundId, trimStart, trimEnd, trackId)
     return spriteName ? howl.play(spriteName) : howl.play()
   }
 
