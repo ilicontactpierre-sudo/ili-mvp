@@ -281,8 +281,9 @@ const handleFileSelected = async (e) => {
     ? (seg.id || seg._id || `seg_${segmentIndex}`)
     : null
   if (!effectiveSegmentId) { console.error('Segment cible introuvable'); return }
-
-  const hasMissingUrl = !sound.url
+  // Vérifier l'URL dans soundLibrary en temps réel (peut avoir été uploadé depuis l'ouverture)
+  const freshSound = soundLibrary.find(s => s.id === sound.id) || sound
+  const hasMissingUrl = !freshSound.url
 
   if (hasMissingUrl) {
     const confirmAdd = window.confirm(
