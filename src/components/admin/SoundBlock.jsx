@@ -289,70 +289,57 @@ const dragStartRef = useRef(null)
         const startIdx = rs.startSegment
         const endIdx = rs.endSegment
         
-        // Recalculer la position absolue du bloc en temps réel depuis le DOM
         const timelineRoot = blockRef.current?.closest('[data-timeline-root]')
         const timelineRect = timelineRoot?.getBoundingClientRect()
         const currentScrollTop = timelineRoot ? timelineRoot.scrollTop : 0
-        
-        // Position du curseur dans le contenu scrollable
         const cursorAbsoluteY = e.clientY - (timelineRect?.top ?? 0) + currentScrollTop
-        
+
+        // LOG 1 — position curseur et contexte général
+        console.log(`[RESIZE ${isResizing.toUpperCase()}] clientY=${e.clientY} | timelineTop=${timelineRect?.top?.toFixed(0)} | scrollTop=${currentScrollTop} | cursorAbsoluteY=${cursorAbsoluteY.toFixed(0)} | startIdx=${startIdx} | endIdx=${endIdx} | totalRows=${currentRowHeights.length}`)
+
         if (isResizing === 'bottom') {
-          // On cherche le segment dont le bas est le plus proche du curseur
           const absoluteBottom = cursorAbsoluteY
-          
-          // Trouver le segment qui correspond à cette position
           let accumulated = 0
           let newEndIndex = startIdx
           
           for (let i = 0; i < currentRowHeights.length; i++) {
             const rowHeight = currentRowHeights[i] || SEGMENT_HEIGHT
-            const rowTotal = rowHeight + 8 // chaque ligne a un séparateur de 8px en bas
-            
-            // Vérifier si la position du curseur est dans ce segment
+            const rowTotal = rowHeight + 8
             if (absoluteBottom <= accumulated + rowHeight) {
-              // Le curseur est dans ce segment — on prend ce segment si curseur > mi-hauteur
               const midPoint = accumulated + rowHeight / 2
               newEndIndex = absoluteBottom >= midPoint ? i : Math.max(startIdx, i - 1)
+              // LOG 2 — segment trouvé pour bottom
+              console.log(`  [BOTTOM] curseur dans segment i=${i} | accumulated=${accumulated.toFixed(0)} | rowHeight=${rowHeight} | midPoint=${midPoint.toFixed(0)} | newEndIndex=${newEndIndex}`)
               break
             }
-            
             accumulated += rowTotal
             newEndIndex = i
           }
-          
-          // S'assurer qu'on a au moins 1 segment et qu'on ne dépasse pas les limites
           newEndIndex = Math.max(startIdx, Math.min(currentRowHeights.length - 1, newEndIndex))
-          
           const newEndSegmentId = segmentsRef.current[newEndIndex]?.id || segmentsRef.current[newEndIndex]?._id
           onResize(soundTrack.id, null, newEndSegmentId)
           
         } else if (isResizing === 'top') {
-          // Position du curseur dans le contenu scrollable (déjà calculée)
           const absoluteTop = cursorAbsoluteY
-          
-          // Trouver le segment qui correspond à cette position
           let accumulated = 0
           let newStartIndex = startIdx
+
+          // LOG 3 — snapshot des 5 premières hauteurs pour vérifier rowHeights
+          console.log(`  [TOP] absoluteTop=${absoluteTop.toFixed(0)} | rowHeights[0..4]=${currentRowHeights.slice(0,5).map(h=>h?.toFixed?.(0)??h).join(',')}`)
           
           for (let i = 0; i < currentRowHeights.length; i++) {
             const rowHeight = currentRowHeights[i] || SEGMENT_HEIGHT
             const rowTotal = rowHeight + 8
-            
-            // Vérifier si la position du curseur est dans ce segment
             if (absoluteTop <= accumulated + rowHeight) {
-              // Le curseur est dans ce segment
               const midPoint = accumulated + rowHeight / 2
               newStartIndex = absoluteTop <= midPoint ? i : Math.min(endIdx, i + 1)
+              // LOG 4 — segment trouvé pour top
+              console.log(`  [TOP] curseur dans segment i=${i} | accumulated=${accumulated.toFixed(0)} | rowHeight=${rowHeight} | midPoint=${midPoint.toFixed(0)} | newStartIndex=${newStartIndex}`)
               break
             }
-            
             accumulated += rowTotal
           }
-          
-          // S'assurer qu'on ne dépasse pas le segment de fin et qu'on reste >= 0
           newStartIndex = Math.max(0, Math.min(endIdx, newStartIndex))
-          
           const newStartSegmentId = segmentsRef.current[newStartIndex]?.id || segmentsRef.current[newStartIndex]?._id
           onResize(soundTrack.id, newStartSegmentId, null)
         }
