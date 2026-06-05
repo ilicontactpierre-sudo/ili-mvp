@@ -460,6 +460,151 @@ function SoundBlockPanel({
           </div>
         )}
 
+        {/* ── SPATIALISATION ───────────────────────────────────────── */}
+        <div>
+          <label style={{ fontSize: '0.75rem', color: '#888', display: 'block', marginBottom: '0.6rem' }}>
+            Spatialisation
+          </label>
+
+          {/* Scène stéréo interactive */}
+          {(() => {
+            const panValue = editedTrack.pan ?? 0
+            const isPanStatic = (editedTrack.panMode ?? 'static') === 'static'
+            // Position du point : 0% = gauche, 50% = centre, 100% = droite
+            const dotPercent = ((panValue + 1) / 2) * 100
+
+            return (
+              <div style={{ marginBottom: '0.6rem' }}>
+                {/* Barre stéréo — cliquable et draggable */}
+                <div
+                  style={{
+                    position: 'relative',
+                    height: '28px',
+                    borderRadius: '6px',
+                    background: 'rgba(255,255,255,0.06)',
+                    border: `1px solid ${color}30`,
+                    cursor: isPanStatic ? 'ew-resize' : 'default',
+                    userSelect: 'none',
+                    overflow: 'visible',
+                  }}
+                  onMouseDown={isPanStatic ? (e) => {
+                    const rect = e.currentTarget.getBoundingClientRect()
+                    const onMove = (ev) => {
+                      const x = Math.max(0, Math.min(1, (ev.clientX - rect.left) / rect.width))
+                      const newPan = parseFloat((x * 2 - 1).toFixed(2))
+                      handleChange('pan', newPan)
+                    }
+                    const onUp = () => {
+                      window.removeEventListener('mousemove', onMove)
+                      window.removeEventListener('mouseup', onUp)
+                    }
+                    onMove(e)
+                    window.addEventListener('mousemove', onMove)
+                    window.addEventListener('mouseup', onUp)
+                  } : undefined}
+                >
+                  {/* Label L / R */}
+                  <span style={{ position: 'absolute', left: '6px', top: '50%', transform: 'translateY(-50%)', fontSize: '0.6rem', color: '#555', fontWeight: 700, letterSpacing: '0.05em' }}>L</span>
+                  <span style={{ position: 'absolute', right: '6px', top: '50%', transform: 'translateY(-50%)', fontSize: '0.6rem', color: '#555', fontWeight: 700, letterSpacing: '0.05em' }}>R</span>
+
+                  {/* Ligne centrale */}
+                  <div style={{
+                    position: 'absolute',
+                    left: '50%',
+                    top: '20%',
+                    width: '1px',
+                    height: '60%',
+                    background: `${color}25`,
+                    transform: 'translateX(-50%)',
+                  }} />
+
+                  {/* Point de position — visible seulement en mode static */}
+                  {isPanStatic && (
+                    <div style={{
+                      position: 'absolute',
+                      left: `${dotPercent}%`,
+                      top: '50%',
+                      transform: 'translate(-50%, -50%)',
+                      width: '14px',
+                      height: '14px',
+                      borderRadius: '50%',
+                      background: color,
+                      boxShadow: `0 0 8px ${color}80`,
+                      transition: 'left 0.05s',
+                      pointerEvents: 'none',
+                    }} />
+                  )}
+
+                  {/* Indicateur de preset animé (icône flèche) */}
+                  {!isPanStatic && (
+                    <div style={{
+                      position: 'absolute',
+                      inset: 0,
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      fontSize: '0.65rem',
+                      color: color,
+                      opacity: 0.8,
+                      letterSpacing: '0.04em',
+                    }}>
+                      {editedTrack.panMode === 'sweep-lr'       && '← · · ·→'}
+                      {editedTrack.panMode === 'sweep-rl'       && '←· · · →'}
+                      {editedTrack.panMode === 'oscillate-slow' && '↔  lent'}
+                      {editedTrack.panMode === 'oscillate-fast' && '↔ rapide'}
+                      {editedTrack.panMode === 'converge'       && '→ · | · ←'}
+                      {editedTrack.panMode === 'diverge'        && '← · | · →'}
+                    </div>
+                  )}
+                </div>
+
+                {/* Valeur pan en mode static */}
+                {isPanStatic && (
+                  <div style={{ textAlign: 'center', marginTop: '0.25rem', fontSize: '0.68rem', color: panValue === 0 ? '#555' : color }}>
+                    {panValue === 0 ? 'Centre' : panValue > 0 ? `+${panValue.toFixed(2)} Droite` : `${panValue.toFixed(2)} Gauche`}
+                  </div>
+                )}
+              </div>
+            )
+          })()}
+
+          {/* Sélecteur de mode */}
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '5px' }}>
+            {[
+              { value: 'static',          label: '⦿ Fixe' },
+              { value: 'sweep-lr',        label: 'G→D' },
+              { value: 'sweep-rl',        label: 'D→G' },
+              { value: 'oscillate-slow',  label: '↔ Lent' },
+              { value: 'oscillate-fast',  label: '↔ Vite' },
+              { value: 'converge',        label: '⇒|⇐' },
+              { value: 'diverge',         label: '⇐|⇒' },
+            ].map(opt => {
+              const isActive = (editedTrack.panMode ?? 'static') === opt.value
+              return (
+                <button
+                  key={opt.value}
+                  onClick={() => handleChange('panMode', opt.value)}
+                  style={{
+                    padding: '0.25rem 0.5rem',
+                    fontSize: '0.68rem',
+                    fontWeight: 500,
+                    borderRadius: '5px',
+                    border: `1px solid ${isActive ? color : '#333'}`,
+                    background: isActive ? `${color}22` : 'transparent',
+                    color: isActive ? color : '#555',
+                    cursor: 'pointer',
+                    transition: 'all 0.12s',
+                    letterSpacing: '0.02em',
+                  }}
+                >
+                  {opt.label}
+                </button>
+              )
+            })}
+          </div>
+        </div>
+        {/* ─────────────────────────────────────────────────────────── */}
+
         {/* Segments début et fin sur la même ligne */}
         <div style={{ display: 'flex', gap: '1rem', alignItems: 'flex-end' }}>
           {/* Segment de début */}
