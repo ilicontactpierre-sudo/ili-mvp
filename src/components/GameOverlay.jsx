@@ -595,14 +595,16 @@ function GameFilmstrip({ data, onResolved }) {
             }}
           />
         )}
-        {/* Compteur */}
-        <div style={{
-          position: 'absolute', bottom: '0.75rem', right: '0.75rem',
-          fontSize: '0.65rem', letterSpacing: '0.1em',
-          color: 'rgba(255,255,255,0.5)', fontFamily: 'monospace',
-        }}>
-          {current + 1} / {images.length}
-        </div>
+        {/* Compteur — masquable via data.showCounter */}
+        {data.showCounter !== false && (
+          <div style={{
+            position: 'absolute', bottom: '0.75rem', right: '0.75rem',
+            fontSize: '0.65rem', letterSpacing: '0.1em',
+            color: 'rgba(255,255,255,0.5)', fontFamily: 'monospace',
+          }}>
+            {current + 1} / {images.length}
+          </div>
+        )}
       </div>
 
       {/* Points de progression */}
