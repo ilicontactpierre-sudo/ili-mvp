@@ -3,7 +3,13 @@
   "title": "test G 1",
   "author": "test G 1",
   "published": true,
-  "sounds": [],
+  "sounds": [
+    {
+      "id": "surprising_meeting",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/surprising_meeting.mp3",
+      "loop": false
+    }
+  ],
   "segments": [
     {
       "id": "seg_1780644725421_0_svqlf",
@@ -644,44 +650,319 @@
       "audioEvents": []
     },
     {
-      "text": "Vol = \nPan =\nPan fx =\nSeg = \nFi = \nFo = \nDel = ",
+      "text": "Son à L, s'arrêt next seg\nVol = \nPan = -100\nPan fx =\nSeg = \nFi = \nFo = 300\nDel = ",
       "id": "seg_1780646840116",
+      "audioEvents": [
+        {
+          "action": "play",
+          "soundId": "surprising_meeting",
+          "volume": 0.5,
+          "delay": 0,
+          "loop": false
+        },
+        {
+          "action": "fadeOut",
+          "soundId": "surprising_meeting",
+          "duration": 300
+        }
+      ],
+      "breakAt": null
+    },
+    {
+      "text": "Son s'arrête avec fo 300",
+      "id": "seg_1780646839822",
       "audioEvents": [],
       "breakAt": null
     },
     {
-      "text": "",
-      "id": "seg_1780646839822",
-      "audioEvents": []
-    },
-    {
-      "text": "",
+      "text": "Vol = \nPan =\nPan fx = G-D\nSeg = \nFi = \nFo = \nDel = ",
       "id": "seg_1780646839689",
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "play",
+          "soundId": "surprising_meeting",
+          "volume": 0.5,
+          "delay": 0,
+          "loop": false
+        }
+      ],
+      "breakAt": null
     },
     {
-      "text": "",
+      "text": "S'arrête naturellement",
       "id": "seg_1780646839555",
-      "audioEvents": []
+      "audioEvents": [],
+      "breakAt": null
     },
     {
-      "text": "",
+      "text": "Vol = \nPan =\nPan fx = D-G\nSeg = \nFi = \nFo = \nDel = ",
       "id": "seg_1780646839421",
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "play",
+          "soundId": "surprising_meeting",
+          "volume": 0.5,
+          "delay": 0,
+          "loop": false
+        }
+      ],
+      "breakAt": null
     },
     {
-      "text": "",
+      "text": "S'arrête naturellement",
       "id": "seg_1780646839291",
-      "audioEvents": []
+      "audioEvents": [],
+      "breakAt": null
     },
     {
-      "text": "",
+      "text": "Vol = \nPan =\nPan fx = <-> lent\nSeg = \nFi = \nFo = \nDel = \nCOLONE 2",
       "id": "seg_1780646839155",
+      "audioEvents": [
+        {
+          "action": "play",
+          "soundId": "surprising_meeting",
+          "volume": 0.5,
+          "delay": 0,
+          "loop": false
+        }
+      ],
+      "breakAt": null
+    },
+    {
+      "text": "Stop Nat",
+      "id": "seg_1780646839007",
+      "audioEvents": [],
+      "breakAt": null
+    },
+    {
+      "text": "Vol = \nPan =\nPan fx = <-> vite\nSeg = \nFi = \nFo = \nDel = \nCOL 3",
+      "id": "seg_1780653302192",
+      "breakAt": null,
+      "audioEvents": [
+        {
+          "action": "play",
+          "soundId": "surprising_meeting",
+          "volume": 0.5,
+          "delay": 0,
+          "loop": false
+        }
+      ]
+    },
+    {
+      "text": "Stop nat",
+      "id": "seg_1780653302071",
+      "breakAt": null,
+      "audioEvents": []
+    },
+    {
+      "text": "Vol = \nPan =\nPan fx = ->/<-\nSeg = \nFi = \nFo = \nDel = \nCOL 4",
+      "id": "seg_1780653301938",
+      "breakAt": null,
+      "audioEvents": [
+        {
+          "action": "play",
+          "soundId": "surprising_meeting",
+          "volume": 0.5,
+          "delay": 0,
+          "loop": false
+        }
+      ]
+    },
+    {
+      "text": "Stop nat",
+      "id": "seg_1780653301777",
+      "breakAt": null,
+      "audioEvents": []
+    },
+    {
+      "text": "Vol = \nPan =\nPan fx = <-/->\nSeg = \nFi = \nFo = \nDel = \nCOL 5",
+      "id": "seg_1780653301641",
+      "breakAt": null,
+      "audioEvents": [
+        {
+          "action": "play",
+          "soundId": "surprising_meeting",
+          "volume": 0.5,
+          "delay": 0,
+          "loop": false
+        }
+      ]
+    },
+    {
+      "text": "Stop nat",
+      "id": "seg_1780653301511",
+      "breakAt": null,
+      "audioEvents": []
+    },
+    {
+      "text": "Vol = \nPan =\nPan fx =\nSeg = \nTRIM = uniquement un bout du début\nFi = \nFo = \nDel = ",
+      "id": "seg_1780653301366",
+      "breakAt": null,
+      "audioEvents": [
+        {
+          "action": "play",
+          "soundId": "surprising_meeting",
+          "volume": 0.5,
+          "delay": 0,
+          "loop": false
+        }
+      ]
+    },
+    {
+      "text": "Stop nat",
+      "id": "seg_1780653301231",
+      "breakAt": null,
+      "audioEvents": []
+    },
+    {
+      "text": "Vol = \nPan =\nPan fx =\nSeg = \nTRIM = trim fin\nFi = \nFo = 400\nDel = ",
+      "id": "seg_1780653301094",
+      "breakAt": null,
+      "audioEvents": [
+        {
+          "action": "play",
+          "soundId": "surprising_meeting",
+          "volume": 0.5,
+          "delay": 0,
+          "loop": false
+        },
+        {
+          "action": "fadeOut",
+          "soundId": "surprising_meeting",
+          "duration": 400
+        }
+      ]
+    },
+    {
+      "text": "Stop fade",
+      "id": "seg_1780653300948",
+      "breakAt": null,
+      "audioEvents": []
+    },
+    {
+      "text": "Vol = \nPan =\nPan fx =\nSeg = \nTRIM =  début\nFi = 400\nFo = \nDel = ",
+      "id": "seg_1780653300787",
+      "breakAt": null,
+      "audioEvents": [
+        {
+          "action": "fadeIn",
+          "soundId": "surprising_meeting",
+          "volume": 0.5,
+          "duration": 400,
+          "delay": 0,
+          "loop": false
+        }
+      ]
+    },
+    {
+      "text": "stop nat",
+      "id": "seg_1780653300640",
+      "breakAt": null,
+      "audioEvents": []
+    },
+    {
+      "text": "Vol = \nPan =\nPan fx =\nSeg = \nTRIM = \nFi = \nFo = \nDel = \nLOOP = Fondu",
+      "id": "seg_1780653300507",
+      "breakAt": null,
+      "audioEvents": [
+        {
+          "action": "play",
+          "soundId": "surprising_meeting",
+          "volume": 0.5,
+          "delay": 0,
+          "loop": true
+        }
+      ]
+    },
+    {
+      "text": "stop nat",
+      "id": "seg_1780653605009",
+      "breakAt": null,
+      "audioEvents": []
+    },
+    {
+      "text": "Vol = \nPan =\nPan fx =\nSeg = \nTRIM = début et fin\nFi = \nFo = \nDel = \nLOOP = Fondu",
+      "id": "seg_1780653300359",
+      "breakAt": null,
+      "audioEvents": [
+        {
+          "action": "play",
+          "soundId": "surprising_meeting",
+          "volume": 0.5,
+          "delay": 0,
+          "loop": true
+        }
+      ]
+    },
+    {
+      "text": "Stop",
+      "id": "seg_1780653300213",
+      "breakAt": null,
+      "audioEvents": []
+    },
+    {
+      "text": "Vol = \nPan =\nPan fx =\nSeg = \nTRIM = début et fin\nFi = \nFo = 600\nDel = \nLOOP = Fondu",
+      "id": "seg_1780653300081",
+      "breakAt": null,
+      "audioEvents": [
+        {
+          "action": "play",
+          "soundId": "surprising_meeting",
+          "volume": 0.5,
+          "delay": 0,
+          "loop": true
+        },
+        {
+          "action": "fadeOut",
+          "soundId": "surprising_meeting",
+          "duration": 600
+        }
+      ]
+    },
+    {
+      "text": "",
+      "id": "seg_1780653299947",
+      "breakAt": null,
       "audioEvents": []
     },
     {
       "text": "",
-      "id": "seg_1780646839007",
+      "id": "seg_1780653299799",
+      "audioEvents": []
+    },
+    {
+      "text": "",
+      "id": "seg_1780653299680",
+      "audioEvents": []
+    },
+    {
+      "text": "",
+      "id": "seg_1780653299569",
+      "audioEvents": []
+    },
+    {
+      "text": "",
+      "id": "seg_1780653299437",
+      "audioEvents": []
+    },
+    {
+      "text": "",
+      "id": "seg_1780653299320",
+      "audioEvents": []
+    },
+    {
+      "text": "",
+      "id": "seg_1780653299207",
+      "audioEvents": []
+    },
+    {
+      "text": "",
+      "id": "seg_1780653298999",
+      "audioEvents": []
+    },
+    {
+      "text": "",
+      "id": "seg_1780653298851",
       "audioEvents": []
     }
   ],
@@ -698,6 +979,207 @@
       "delay": 0,
       "loop": false,
       "muted": false
+    },
+    {
+      "id": "st_1780653059143_qvide24ax",
+      "soundId": "surprising_meeting",
+      "startSegmentId": "seg_1780646840116",
+      "endSegmentId": "seg_1780646840116",
+      "column": 0,
+      "volume": 0.5,
+      "fadeIn": 0,
+      "fadeOut": 300,
+      "delay": 0,
+      "loop": false,
+      "muted": false,
+      "broken": false,
+      "pan": -1
+    },
+    {
+      "id": "st_1780653167855_bqby8gqqn",
+      "soundId": "surprising_meeting",
+      "startSegmentId": "seg_1780646839689",
+      "endSegmentId": "seg_1780646839689",
+      "column": 0,
+      "volume": 0.5,
+      "fadeIn": 0,
+      "fadeOut": 0,
+      "delay": 0,
+      "loop": false,
+      "muted": false,
+      "broken": false,
+      "panMode": "sweep-lr"
+    },
+    {
+      "id": "st_1780653218187_uq2u8cwmc",
+      "soundId": "surprising_meeting",
+      "startSegmentId": "seg_1780646839421",
+      "endSegmentId": "seg_1780646839421",
+      "column": 0,
+      "volume": 0.5,
+      "fadeIn": 0,
+      "fadeOut": 0,
+      "delay": 0,
+      "loop": false,
+      "muted": false,
+      "broken": false,
+      "panMode": "sweep-rl"
+    },
+    {
+      "id": "st_1780653257041_b0b4ngh21",
+      "soundId": "surprising_meeting",
+      "startSegmentId": "seg_1780646839155",
+      "endSegmentId": "seg_1780646839155",
+      "column": 1,
+      "volume": 0.5,
+      "fadeIn": 0,
+      "fadeOut": 0,
+      "delay": 0,
+      "loop": false,
+      "muted": false,
+      "broken": false,
+      "panMode": "oscillate-slow"
+    },
+    {
+      "id": "st_1780653326007_topm1otj6",
+      "soundId": "surprising_meeting",
+      "startSegmentId": "seg_1780653302192",
+      "endSegmentId": "seg_1780653302192",
+      "column": 2,
+      "volume": 0.5,
+      "fadeIn": 0,
+      "fadeOut": 0,
+      "delay": 0,
+      "loop": false,
+      "muted": false,
+      "broken": false
+    },
+    {
+      "id": "st_1780653358760_w85livqb2",
+      "soundId": "surprising_meeting",
+      "startSegmentId": "seg_1780653301938",
+      "endSegmentId": "seg_1780653301938",
+      "column": 3,
+      "volume": 0.5,
+      "fadeIn": 0,
+      "fadeOut": 0,
+      "delay": 0,
+      "loop": false,
+      "muted": false,
+      "broken": false,
+      "panMode": "converge"
+    },
+    {
+      "id": "st_1780653405207_15nrnjomn",
+      "soundId": "surprising_meeting",
+      "startSegmentId": "seg_1780653301641",
+      "endSegmentId": "seg_1780653301641",
+      "column": 4,
+      "volume": 0.5,
+      "fadeIn": 0,
+      "fadeOut": 0,
+      "delay": 0,
+      "loop": false,
+      "muted": false,
+      "broken": false,
+      "panMode": "diverge"
+    },
+    {
+      "id": "st_1780653439803_v1inr1etg",
+      "soundId": "surprising_meeting",
+      "startSegmentId": "seg_1780653301366",
+      "endSegmentId": "seg_1780653301366",
+      "column": 5,
+      "volume": 0.5,
+      "fadeIn": 0,
+      "fadeOut": 0,
+      "delay": 0,
+      "loop": false,
+      "muted": false,
+      "broken": false,
+      "trimStart": 1420,
+      "trimEnd": 3150
+    },
+    {
+      "id": "st_1780653521089_pslmu8e21",
+      "soundId": "surprising_meeting",
+      "startSegmentId": "seg_1780653301094",
+      "endSegmentId": "seg_1780653301094",
+      "column": 0,
+      "volume": 0.5,
+      "fadeIn": 0,
+      "fadeOut": 400,
+      "delay": 0,
+      "loop": false,
+      "muted": false,
+      "broken": false,
+      "trimStart": 0,
+      "trimEnd": 1899
+    },
+    {
+      "id": "st_1780653611126_w7hf1hwia",
+      "soundId": "surprising_meeting",
+      "startSegmentId": "seg_1780653300787",
+      "endSegmentId": "seg_1780653300787",
+      "column": 0,
+      "volume": 0.5,
+      "fadeIn": 400,
+      "fadeOut": 0,
+      "delay": 0,
+      "loop": false,
+      "muted": false,
+      "broken": false,
+      "trimStart": 1410,
+      "trimEnd": 6000
+    },
+    {
+      "id": "st_1780653669628_887sedr9p",
+      "soundId": "surprising_meeting",
+      "startSegmentId": "seg_1780653300507",
+      "endSegmentId": "seg_1780653300507",
+      "column": 0,
+      "volume": 0.5,
+      "fadeIn": 0,
+      "fadeOut": 0,
+      "delay": 0,
+      "loop": true,
+      "muted": false,
+      "broken": false,
+      "loopCrossfade": "medium"
+    },
+    {
+      "id": "st_1780653731571_xbdhua7af",
+      "soundId": "surprising_meeting",
+      "startSegmentId": "seg_1780653300359",
+      "endSegmentId": "seg_1780653300359",
+      "column": 0,
+      "volume": 0.5,
+      "fadeIn": 0,
+      "fadeOut": 0,
+      "delay": 0,
+      "loop": true,
+      "muted": false,
+      "broken": false,
+      "trimStart": 900,
+      "trimEnd": 1420,
+      "loopCrossfade": "medium"
+    },
+    {
+      "id": "st_1780653814366_pvm7e6hvq",
+      "soundId": "surprising_meeting",
+      "startSegmentId": "seg_1780653300081",
+      "endSegmentId": "seg_1780653300081",
+      "column": 0,
+      "volume": 0.5,
+      "fadeIn": 0,
+      "fadeOut": 600,
+      "delay": 0,
+      "loop": true,
+      "muted": false,
+      "broken": false,
+      "loopCrossfade": "medium",
+      "trimStart": 376,
+      "trimEnd": 5154
     }
   ],
   "vfxTracks": [
