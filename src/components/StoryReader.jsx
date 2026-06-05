@@ -8,6 +8,27 @@ import hapticEngine from '../engine/HapticEngine'
 // ── Typewriter : délais par mode ──
 const TW_DELAY = { lent: 80, normal: 45, rapide: 20 }
 
+// ── Erased : ratio de lettres effacées par mode ──
+const ERASED_RATIO = { faible: 0.2, normal: 0.4, intense: 0.65 }
+
+function renderErased(text, mode) {
+  const ratio = ERASED_RATIO[mode] ?? 0.4
+  const letters = Array.from(text)
+  // Seed pseudo-aléatoire basé sur le texte pour que ce soit stable entre renders
+  let seed = text.split('').reduce((acc, c) => acc + c.charCodeAt(0), 0)
+  const rand = () => {
+    seed = (seed * 1664525 + 1013904223) & 0xffffffff
+    return (seed >>> 0) / 0xffffffff
+  }
+  return letters.map((char, i) => {
+    const isSpace = char === ' '
+    const hide = !isSpace && rand() < ratio
+    return hide
+      ? <span key={i} className="vfx-er-hidden">{char}</span>
+      : <span key={i}>{char}</span>
+  })
+}
+
 function renderTypewriter(text, mode) {
   const delay = TW_DELAY[mode] ?? 45
   const letters = Array.from(text)
