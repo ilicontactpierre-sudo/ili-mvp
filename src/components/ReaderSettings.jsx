@@ -219,6 +219,12 @@ export default function ReaderSettings({
   const [emojiMode, setEmojiMode] = useState(() => {
     try { return localStorage.getItem('ili_emoji') === 'true' } catch { return false }
   })
+  const [gameSounds, setGameSounds] = useState(() => {
+    try {
+      const raw = localStorage.getItem('ili_game_sounds')
+      return raw ? JSON.parse(raw) : { success: false, error: false }
+    } catch { return { success: false, error: false } }
+  })
 
   const menuRef     = useRef(null)
   const gearRef     = useRef(null)
