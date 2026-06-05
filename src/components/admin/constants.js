@@ -29,7 +29,9 @@ export const DEFAULT_SOUNDTRACK = {
   fadeOut: 0,
   delay: 0,
   loop: false,
-  muted: false
+  muted: false,
+  pan: 0,
+  panMode: 'static',
 }
 
 // Fonction utilitaire pour obtenir la couleur d'un son
