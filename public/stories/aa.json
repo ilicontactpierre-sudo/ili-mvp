@@ -24,7 +24,7 @@
           "action": "fadeIn",
           "soundId": "surprising_meeting",
           "volume": 0.5,
-          "duration": 1900,
+          "duration": 2200,
           "delay": 0,
           "loop": false
         }
@@ -57,7 +57,7 @@
       "endSegmentId": "seg_1780649977837",
       "column": 0,
       "volume": 0.5,
-      "fadeIn": 1900,
+      "fadeIn": 2200,
       "fadeOut": 1900,
       "delay": 0,
       "loop": false,
