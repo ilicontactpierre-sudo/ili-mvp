@@ -135,7 +135,6 @@ function PublishPanel({
   const getUsedSounds = () => {
     const usedSoundIds = new Set(
       soundTracks
-        .filter(t => !t.muted)
         .map(t => t.soundId)
     )
     return soundLibrary
