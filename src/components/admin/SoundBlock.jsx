@@ -41,6 +41,7 @@ function SoundBlock({
   const [snapOffset, setSnapOffset] = useState({ x: 0, y: 0 })
   const [targetCell, setTargetCell] = useState({ segmentIndex: -1, column: -1 })
   const [resizeStart, setResizeStart] = useState({ y: 0, startSegment: null, endSegment: null })
+  const resizeStartRef = useRef(null)  
   const [isHovered, setIsHovered] = useState(false)
   const blockRef = useRef(null)
   const segmentsRef = useRef(segments)
