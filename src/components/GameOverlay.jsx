@@ -1296,4 +1296,556 @@ function GameSequence({ data, onResolved }) {
   )
 }
 
+// ─── Type : Message animé ─────────────────────────────────────────────────────
+function GameMessage({ data, onResolved }) {
+  const text = data.text || ''
+  const iface = data.interface || 'sms'
+  const speed = data.speed || 'normal'
+  const delay = speed === 'lent' ? 80 : speed === 'rapide' ? 18 : 38
+  const [displayed, setDisplayed] = useState('')
+  const [done, setDone] = useState(false)
+  const indexRef = useRef(0)
+
+  useEffect(() => {
+    if (!text) { setDone(true); return }
+    const interval = setInterval(() => {
+      if (indexRef.current >= text.length) {
+        clearInterval(interval)
+        setDone(true)
+        return
+      }
+      setDisplayed(text.slice(0, indexRef.current + 1))
+      indexRef.current += 1
+    }, delay)
+    return () => clearInterval(interval)
+  }, [text, delay])
+
+  const wrapperStyle = (() => {
+    if (iface === 'sms') return {
+      width: '100%', maxWidth: '340px',
+      backgroundColor: 'rgba(0,0,0,0.06)',
+      borderRadius: '18px',
+      padding: '1rem 1.2rem',
+      fontFamily: 'var(--font-primary, Georgia, serif)',
+      fontSize: 'clamp(0.92rem, 2.2vw, 1.05rem)',
+      lineHeight: 1.65,
+      color: 'var(--color-text-focus, #222)',
+      boxShadow: '0 4px 24px rgba(0,0,0,0.08)',
+      position: 'relative',
+    }
+    if (iface === 'email') return {
+      width: '100%', maxWidth: '420px',
+      border: '1px solid rgba(0,0,0,0.12)',
+      borderRadius: '4px',
+      padding: '1.4rem 1.6rem',
+      fontFamily: 'monospace',
+      fontSize: 'clamp(0.82rem, 1.9vw, 0.95rem)',
+      lineHeight: 1.7,
+      color: 'var(--color-text-focus, #222)',
+      backgroundColor: 'rgba(255,255,255,0.4)',
+      boxShadow: '0 4px 24px rgba(0,0,0,0.06)',
+    }
+    if (iface === 'terminal') return {
+      width: '100%', maxWidth: '420px',
+      backgroundColor: '#0d1117',
+      borderRadius: '6px',
+      padding: '1.2rem 1.4rem',
+      fontFamily: "'Courier New', monospace",
+      fontSize: 'clamp(0.82rem, 1.9vw, 0.92rem)',
+      lineHeight: 1.7,
+      color: '#39ff14',
+      boxShadow: '0 8px 32px rgba(0,0,0,0.3)',
+    }
+    // aucune interface
+    return {
+      width: '100%', maxWidth: '420px',
+      fontFamily: 'var(--font-primary, Georgia, serif)',
+      fontSize: 'clamp(0.92rem, 2.2vw, 1.05rem)',
+      lineHeight: 1.7,
+      color: 'var(--color-text-focus, #222)',
+      textAlign: 'center',
+    }
+  })()
+
+  const cursor = !done ? (
+    <span style={{
+      display: 'inline-block',
+      width: iface === 'terminal' ? '0.55em' : '1.5px',
+      height: iface === 'terminal' ? '1em' : '1em',
+      backgroundColor: iface === 'terminal' ? '#39ff14' : 'var(--color-text-focus, #222)',
+      marginLeft: '2px',
+      verticalAlign: 'text-bottom',
+      animation: 'game-blink 0.65s step-end infinite',
+    }} />
+  ) : null
+
+  return (
+    <AnimatedWrapper style={{ gap: '2rem' }}>
+      {iface === 'sms' && (
+        <div style={{ fontSize: '0.68rem', opacity: 0.35, letterSpacing: '0.08em', alignSelf: 'flex-start', marginLeft: '0.5rem' }}>
+          Message reçu
+        </div>
+      )}
+      {iface === 'email' && (
+        <div style={{ width: '100%', maxWidth: '420px', fontSize: '0.68rem', opacity: 0.35, letterSpacing: '0.06em', fontFamily: 'monospace' }}>
+          De : inconnu · À : vous
+        </div>
+      )}
+      {iface === 'terminal' && (
+        <div style={{ width: '100%', maxWidth: '420px', fontSize: '0.68rem', opacity: 0.45, letterSpacing: '0.08em', fontFamily: 'monospace', color: '#39ff14' }}>
+          $ incoming_message
+        </div>
+      )}
+      <div style={wrapperStyle}>
+        {displayed}{cursor}
+      </div>
+      {done && <ContinueBtn onClick={onResolved} delay={400} />}
+    </AnimatedWrapper>
+  )
+}
+
+// ─── Type : Document / Artefact ───────────────────────────────────────────────
+function GameDocument({ data, onResolved }) {
+  const [visible, setVisible] = useState(false)
+  useEffect(() => {
+    const t = setTimeout(() => setVisible(true), 200)
+    return () => clearTimeout(t)
+  }, [])
+
+  const style = data.style || 'letter'
+
+  const stampEl = data.stamp ? (
+    <div style={{
+      position: 'absolute',
+      top: '1.8rem', right: '1.4rem',
+      border: '2px solid rgba(180,30,30,0.55)',
+      color: 'rgba(180,30,30,0.55)',
+      padding: '0.2rem 0.5rem',
+      fontSize: '0.65rem',
+      fontFamily: 'monospace',
+      letterSpacing: '0.18em',
+      textTransform: 'uppercase',
+      transform: 'rotate(12deg)',
+      transformOrigin: 'center',
+      borderRadius: '2px',
+      pointerEvents: 'none',
+      userSelect: 'none',
+    }}>
+      {data.stamp}
+    </div>
+  ) : null
+
+  const containerBase = {
+    width: '100%', maxWidth: '420px',
+    opacity: visible ? 1 : 0,
+    transform: visible ? 'translateY(0) rotate(0deg)' : 'translateY(16px) rotate(0.5deg)',
+    transition: `opacity 700ms ${EASE.inOut}, transform 700ms ${EASE.out}`,
+    position: 'relative',
+  }
+
+  let docEl = null
+
+  if (style === 'letter') {
+    docEl = (
+      <div style={{
+        ...containerBase,
+        backgroundColor: '#faf6ef',
+        border: '1px solid rgba(0,0,0,0.1)',
+        borderRadius: '2px',
+        padding: '2rem 2.2rem',
+        boxShadow: '0 8px 40px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.06)',
+        fontFamily: 'Georgia, serif',
+        color: '#2a2118',
+        lineHeight: 1.75,
+      }}>
+        {stampEl}
+        {data.title && <div style={{ fontSize: '0.72rem', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', opacity: 0.5, marginBottom: '1.2rem' }}>{data.title}</div>}
+        {data.date && <div style={{ fontSize: '0.8rem', opacity: 0.5, marginBottom: '1rem', fontStyle: 'italic' }}>{data.date}</div>}
+        {data.to && <div style={{ fontSize: '0.82rem', marginBottom: '1.2rem' }}>À {data.to},</div>}
+        <p style={{ margin: '0 0 1.2rem', fontSize: 'clamp(0.85rem, 2vw, 0.95rem)', whiteSpace: 'pre-wrap' }}>{data.body}</p>
+        {data.from && <div style={{ fontSize: '0.82rem', opacity: 0.6, fontStyle: 'italic' }}>{data.from}</div>}
+      </div>
+    )
+  } else if (style === 'telegram') {
+    docEl = (
+      <div style={{
+        ...containerBase,
+        backgroundColor: '#f0e8d0',
+        border: '2px solid #8a7a5a',
+        borderRadius: '2px',
+        padding: '1.6rem 2rem',
+        boxShadow: '0 6px 32px rgba(0,0,0,0.15)',
+        fontFamily: "'Courier New', monospace",
+        color: '#2a2118',
+        lineHeight: 1.65,
+      }}>
+        {stampEl}
+        <div style={{ fontSize: '0.62rem', letterSpacing: '0.18em', opacity: 0.45, marginBottom: '1rem', textTransform: 'uppercase' }}>TÉLÉGRAMME</div>
+        {data.date && <div style={{ fontSize: '0.72rem', opacity: 0.45, marginBottom: '0.8rem' }}>{data.date}</div>}
+        {data.title && <div style={{ fontSize: '0.78rem', fontWeight: 700, letterSpacing: '0.08em', marginBottom: '1rem', textTransform: 'uppercase' }}>{data.title}</div>}
+        <p style={{ margin: '0 0 1rem', fontSize: 'clamp(0.82rem, 1.9vw, 0.92rem)', textTransform: 'uppercase', letterSpacing: '0.04em', whiteSpace: 'pre-wrap' }}>{data.body}</p>
+        {data.from && <div style={{ fontSize: '0.72rem', opacity: 0.5, marginTop: '0.8rem' }}>— {data.from}</div>}
+      </div>
+    )
+  } else if (style === 'note') {
+    docEl = (
+      <div style={{
+        ...containerBase,
+        backgroundColor: '#fefce8',
+        border: '1px solid rgba(0,0,0,0.08)',
+        borderRadius: '2px 2px 2px 2px',
+        padding: '1.6rem 1.8rem',
+        boxShadow: '2px 3px 12px rgba(0,0,0,0.1), 0 1px 3px rgba(0,0,0,0.06)',
+        fontFamily: 'Georgia, serif',
+        color: '#2a2118',
+        lineHeight: 1.8,
+        transform: visible ? 'rotate(-0.8deg)' : 'rotate(-0.8deg) translateY(16px)',
+      }}>
+        {stampEl}
+        {data.title && <div style={{ fontSize: '0.8rem', fontWeight: 700, opacity: 0.5, marginBottom: '0.8rem', fontStyle: 'italic' }}>{data.title}</div>}
+        <p style={{ margin: '0 0 1rem', fontSize: 'clamp(0.88rem, 2.1vw, 1rem)', whiteSpace: 'pre-wrap' }}>{data.body}</p>
+        {data.from && <div style={{ fontSize: '0.8rem', opacity: 0.5, textAlign: 'right', fontStyle: 'italic' }}>— {data.from}</div>}
+      </div>
+    )
+  } else if (style === 'newspaper') {
+    docEl = (
+      <div style={{
+        ...containerBase,
+        backgroundColor: '#f5f0e0',
+        border: '1px solid rgba(0,0,0,0.15)',
+        borderRadius: '2px',
+        padding: '1.6rem 2rem',
+        boxShadow: '0 4px 20px rgba(0,0,0,0.1)',
+        fontFamily: 'Georgia, serif',
+        color: '#1a1008',
+      }}>
+        {stampEl}
+        {data.date && <div style={{ fontSize: '0.62rem', letterSpacing: '0.1em', opacity: 0.4, borderBottom: '1px solid rgba(0,0,0,0.15)', paddingBottom: '0.5rem', marginBottom: '0.8rem', textTransform: 'uppercase' }}>{data.date}</div>}
+        {data.title && <div style={{ fontSize: 'clamp(1rem, 2.5vw, 1.2rem)', fontWeight: 700, lineHeight: 1.3, marginBottom: '0.8rem', borderBottom: '2px solid rgba(0,0,0,0.2)', paddingBottom: '0.6rem' }}>{data.title}</div>}
+        <p style={{ margin: 0, fontSize: 'clamp(0.8rem, 1.8vw, 0.9rem)', lineHeight: 1.7, textAlign: 'justify', whiteSpace: 'pre-wrap' }}>{data.body}</p>
+      </div>
+    )
+  } else {
+    // card / badge
+    docEl = (
+      <div style={{
+        ...containerBase,
+        backgroundColor: '#1a1a2e',
+        border: '1px solid rgba(255,255,255,0.12)',
+        borderRadius: '8px',
+        padding: '1.6rem 2rem',
+        boxShadow: '0 8px 32px rgba(0,0,0,0.3)',
+        color: '#fff',
+        fontFamily: 'monospace',
+      }}>
+        {stampEl}
+        {data.title && <div style={{ fontSize: '0.65rem', letterSpacing: '0.18em', opacity: 0.5, marginBottom: '0.8rem', textTransform: 'uppercase' }}>{data.title}</div>}
+        {data.from && <div style={{ fontSize: 'clamp(1rem, 2.5vw, 1.3rem)', fontWeight: 700, marginBottom: '0.4rem' }}>{data.from}</div>}
+        {data.to && <div style={{ fontSize: '0.72rem', opacity: 0.5, marginBottom: '1rem' }}>{data.to}</div>}
+        <p style={{ margin: 0, fontSize: 'clamp(0.8rem, 1.8vw, 0.88rem)', opacity: 0.75, lineHeight: 1.6, whiteSpace: 'pre-wrap' }}>{data.body}</p>
+        {data.date && <div style={{ fontSize: '0.65rem', opacity: 0.35, marginTop: '1rem', letterSpacing: '0.08em' }}>{data.date}</div>}
+      </div>
+    )
+  }
+
+  return (
+    <AnimatedWrapper style={{ gap: '2rem' }}>
+      {docEl}
+      {visible && <ContinueBtn onClick={onResolved} delay={600} />}
+    </AnimatedWrapper>
+  )
+}
+
+// ─── Type : Code / Digicode ───────────────────────────────────────────────────
+function GameCode({ data, onResolved }) {
+  const correctAnswer = String(data.answer || '')
+  const isNumeric = /^\d+$/.test(correctAnswer)
+  const [input, setInput] = useState('')
+  const [error, setError] = useState(false)
+  const [success, setSuccess] = useState(false)
+  const { playTock, playSuccess, playError, playDelete } = useKeySound()
+
+  const validate = (val) => {
+    const attempt = String(val || input)
+    if (attempt === correctAnswer) {
+      playSuccess()
+      setSuccess(true)
+      setTimeout(onResolved, 900)
+    } else {
+      playError()
+      setError(true)
+      setTimeout(() => { setError(false); setInput('') }, 700)
+    }
+  }
+
+  const handleKey = (digit) => {
+    if (success || error) return
+    playTock()
+    const next = input + digit
+    setInput(next)
+    if (next.length === correctAnswer.length) {
+      setTimeout(() => validate(next), 80)
+    }
+  }
+
+  const handleDelete = () => {
+    if (success) return
+    playDelete()
+    setInput(i => i.slice(0, -1))
+    setError(false)
+  }
+
+  // Clavier texte (non numérique)
+  const handleTextChange = (e) => {
+    if (success) return
+    setInput(e.target.value)
+    setError(false)
+  }
+
+  const handleTextSubmit = () => validate(input)
+
+  const dotColor = success ? 'rgba(39,174,96,0.9)' : error ? 'rgba(192,57,43,0.9)' : 'var(--color-text-focus, #222)'
+
+  return (
+    <AnimatedWrapper style={{ gap: '1.8rem' }}>
+      {data.prompt && (
+        <p style={{
+          fontSize: 'clamp(0.88rem, 2vw, 1rem)',
+          color: 'var(--color-text-focus, #222)',
+          textAlign: 'center', lineHeight: 1.6,
+          opacity: 0.75, margin: 0,
+        }}>
+          {data.prompt}
+        </p>
+      )}
+
+      {/* Afficheur */}
+      <div style={{
+        display: 'flex', gap: '0.7rem', alignItems: 'center', justifyContent: 'center',
+        animation: error ? `game-shake 0.4s ${EASE.inOut}` : 'none',
+      }}>
+        {isNumeric ? (
+          Array.from({ length: correctAnswer.length }).map((_, i) => (
+            <div key={i} style={{
+              width: '0.65rem', height: '0.65rem',
+              borderRadius: '50%',
+              backgroundColor: i < input.length ? dotColor : 'transparent',
+              border: `1.5px solid ${i < input.length ? dotColor : 'rgba(0,0,0,0.2)'}`,
+              transition: `background-color 150ms ease, border-color 150ms ease`,
+              transform: success && i < input.length ? 'scale(1.15)' : 'scale(1)',
+            }} />
+          ))
+        ) : (
+          <div style={{
+            fontSize: 'clamp(1.2rem, 3vw, 1.6rem)',
+            fontFamily: 'monospace',
+            letterSpacing: '0.25em',
+            color: dotColor,
+            minWidth: '6rem',
+            textAlign: 'center',
+            borderBottom: `1px solid ${dotColor}`,
+            paddingBottom: '0.25rem',
+            transition: 'color 200ms ease',
+          }}>
+            {input || '\u00a0'}
+          </div>
+        )}
+      </div>
+
+      {data.hint && !success && (
+        <Hint delay={1200}>{data.hint}</Hint>
+      )}
+
+      {/* Clavier numérique */}
+      {isNumeric && !success && (
+        <div style={{
+          display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)',
+          gap: '0.6rem', width: '100%', maxWidth: '260px',
+        }}>
+          {['1','2','3','4','5','6','7','8','9','','0','⌫'].map((k, i) => (
+            <button
+              key={i}
+              onClick={() => k === '⌫' ? handleDelete() : k ? handleKey(k) : null}
+              disabled={!k}
+              style={{
+                padding: '1rem 0',
+                border: '1px solid rgba(0,0,0,0.12)',
+                borderRadius: '4px',
+                backgroundColor: k === '⌫' ? 'rgba(0,0,0,0.04)' : !k ? 'transparent' : 'rgba(0,0,0,0.02)',
+                color: 'var(--color-text-focus, #222)',
+                fontFamily: 'var(--font-primary, Georgia, serif)',
+                fontSize: k === '⌫' ? '1rem' : '1.2rem',
+                cursor: k ? 'pointer' : 'default',
+                borderColor: !k ? 'transparent' : undefined,
+                opacity: !k ? 0 : 1,
+                transition: 'background-color 100ms ease',
+              }}
+              onMouseEnter={e => { if (k) e.currentTarget.style.backgroundColor = 'rgba(0,0,0,0.07)' }}
+              onMouseLeave={e => { if (k) e.currentTarget.style.backgroundColor = k === '⌫' ? 'rgba(0,0,0,0.04)' : 'rgba(0,0,0,0.02)' }}
+            >
+              {k}
+            </button>
+          ))}
+        </div>
+      )}
+
+      {/* Champ texte (non numérique) */}
+      {!isNumeric && !success && (
+        <>
+          <input
+            autoFocus
+            type="text"
+            value={input}
+            onChange={handleTextChange}
+            onKeyDown={e => { if (e.key === 'Enter') handleTextSubmit() }}
+            placeholder={data.placeholder || 'votre réponse…'}
+            style={{
+              width: '100%', maxWidth: '300px',
+              padding: '0.8rem 1rem',
+              border: `1px solid ${error ? 'rgba(192,57,43,0.6)' : 'var(--color-text-focus, #222)'}`,
+              borderRadius: '2px',
+              background: 'none',
+              fontFamily: 'var(--font-primary, Georgia, serif)',
+              fontSize: '1rem',
+              color: 'var(--color-text-focus, #222)',
+              textAlign: 'center',
+              outline: 'none',
+              boxSizing: 'border-box',
+              transition: `border-color 300ms ${EASE.inOut}`,
+            }}
+          />
+          <ContinueBtn onClick={handleTextSubmit} label="valider" delay={300} />
+        </>
+      )}
+
+      {data.errorMessage && error && (
+        <p style={{ fontSize: '0.78rem', color: '#c0392b', opacity: 0.85, textAlign: 'center', margin: 0, fontStyle: 'italic' }}>
+          {data.errorMessage}
+        </p>
+      )}
+    </AnimatedWrapper>
+  )
+}
+
+// ─── Type : Énigme texte libre ────────────────────────────────────────────────
+function GameRiddle({ data, onResolved }) {
+  const [input, setInput] = useState('')
+  const [status, setStatus] = useState('idle') // idle | error | close | success
+  const [feedback, setFeedback] = useState('')
+  const { playSuccess, playError } = useKeySound()
+
+  const validate = () => {
+    const raw = input.trim()
+    const attempt = data.caseSensitive ? raw : raw.toLowerCase()
+    const answers = String(data.answer || '').split('|').map(a => data.caseSensitive ? a.trim() : a.trim().toLowerCase())
+
+    if (answers.some(a => a === attempt)) {
+      playSuccess()
+      setStatus('success')
+      setTimeout(onResolved, 1000)
+      return
+    }
+
+    // Faux indices (decoys)
+    if (Array.isArray(data.decoys)) {
+      const decoy = data.decoys.find(d => (data.caseSensitive ? d.key : d.key?.toLowerCase()) === attempt)
+      if (decoy) {
+        setFeedback(decoy.message || data.errorMessage || 'Ce n\'est pas ça…')
+        setStatus('error')
+        setTimeout(() => setStatus('idle'), 3000)
+        return
+      }
+    }
+
+    // Réponse proche (Levenshtein ≤ 2)
+    const isClose = answers.some(a => levenshtein(attempt, a) <= 2)
+    if (isClose) {
+      playError()
+      setFeedback(data.closeMessage || 'Presque…')
+      setStatus('close')
+      setTimeout(() => setStatus('idle'), 2500)
+      return
+    }
+
+    playError()
+    setFeedback(data.errorMessage || 'Ce n\'est pas ça…')
+    setStatus('error')
+    setTimeout(() => setStatus('idle'), 2500)
+  }
+
+  const borderColor = status === 'success'
+    ? 'rgba(39,174,96,0.7)'
+    : status === 'error' ? 'rgba(192,57,43,0.6)'
+    : status === 'close' ? 'rgba(212,130,10,0.6)'
+    : 'var(--color-text-focus, #222)'
+
+  return (
+    <AnimatedWrapper style={{ gap: '1.8rem' }}>
+      {data.question && (
+        <p style={{
+          fontSize: 'clamp(0.95rem, 2.3vw, 1.1rem)',
+          color: 'var(--color-text-focus, #222)',
+          textAlign: 'center', lineHeight: 1.7,
+          opacity: 0.85, margin: 0,
+          fontStyle: 'italic',
+        }}>
+          {data.question}
+        </p>
+      )}
+
+      <input
+        autoFocus
+        type="text"
+        value={input}
+        onChange={e => { setInput(e.target.value); setStatus('idle'); setFeedback('') }}
+        onKeyDown={e => { if (e.key === 'Enter') validate() }}
+        disabled={status === 'success'}
+        placeholder={data.placeholder || 'votre réponse…'}
+        style={{
+          width: '100%', maxWidth: '320px',
+          padding: '0.8rem 1rem',
+          border: `1px solid ${borderColor}`,
+          borderRadius: '2px',
+          background: status === 'success' ? 'rgba(39,174,96,0.04)' : 'none',
+          fontFamily: 'var(--font-primary, Georgia, serif)',
+          fontSize: '1rem',
+          color: 'var(--color-text-focus, #222)',
+          textAlign: 'center',
+          outline: 'none',
+          boxSizing: 'border-box',
+          animation: status === 'error' ? `game-shake 0.4s ${EASE.inOut}` : 'none',
+          transition: `border-color 300ms ${EASE.inOut}, background-color 300ms ${EASE.inOut}`,
+        }}
+      />
+
+      {data.hint && status === 'idle' && <Hint delay={800}>{data.hint}</Hint>}
+
+      {feedback && status !== 'idle' && (
+        <p style={{
+          fontSize: '0.82rem',
+          color: status === 'close' ? '#d4820a' : '#c0392b',
+          opacity: 0.85, textAlign: 'center',
+          margin: 0, fontStyle: 'italic',
+          transition: `opacity 250ms ${EASE.out}`,
+        }}>
+          {feedback}
+        </p>
+      )}
+
+      {status !== 'success' && (
+        <ContinueBtn onClick={validate} label="valider" delay={300} />
+      )}
+
+      {status === 'success' && data.successMessage && (
+        <p style={{
+          fontSize: '0.88rem', color: 'var(--color-text-focus, #222)',
+          opacity: 0.6, fontStyle: 'italic', margin: 0, textAlign: 'center',
+        }}>
+          {data.successMessage}
+        </p>
+      )}
+    </AnimatedWrapper>
+  )
+}
+
 export default GameOverlay
