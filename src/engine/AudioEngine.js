@@ -84,10 +84,11 @@ class AudioEngine {
       howl.loop(false, instanceId)
       this.playingSounds.set(key, { howl, soundId, volume, instanceId, loop, loopCrossfade, trimStart, trimEnd, pan, panMode })
       console.log('🎚 fadeIn lancé', { key, instanceId, duration, volume })
-      // Attendre que l'instance soit réellement en lecture avant de lancer le fade
-      howl.once('play', () => {
+      // Howler émet 'play' globalement — on filtre manuellement par instanceId
+      const onPlay = (firedId) => {
+        if (firedId !== instanceId) return
+        howl.off('play', onPlay)
         console.log('🎚 play event reçu', { key, instanceId, soundStillActive: this.playingSounds.has(key) })
-        // Vérifier que le son n'a pas été stoppé entre-temps
         if (!this.playingSounds.has(key)) return
         if (duration > 0) {
           howl.fade(0, volume, duration, instanceId)
@@ -100,7 +101,8 @@ class AudioEngine {
           howl.loop(true, instanceId)
         }
         this._applyPan(key, pan, panMode, howl)
-      }, instanceId)
+      }
+      howl.on('play', onPlay)
     }
   }
 
