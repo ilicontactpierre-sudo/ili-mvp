@@ -294,8 +294,9 @@ class AudioEngine {
       const end = endIdx !== -1 ? endIdx : startIdx
       const isFirstSegment = currentIndex === startIdx
       const isLastSegment = currentIndex === end
-      const fadeInMs = (track.fadeIn || 0) * 1000
-      const delayMs = (track.delay || 0) * 1000
+      // fadeIn/fadeOut/delay sont stockés en ms dans le JSON (pas en secondes)
+      const fadeInMs = track.fadeIn || 0
+      const delayMs = track.delay || 0
 
       if (!this.playingSounds.has(track.id || track.soundId)) {
         // Son pas encore en train de jouer → démarrer
