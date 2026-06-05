@@ -98,7 +98,6 @@
   color: currentColor;
   margin-left: 1px;
   animation: vfx-cursor-appear-then-blink 0.7s step-end infinite;
-  animation-delay: inherit;
 }
 @keyframes vfx-cursor-blink {
   0%, 100% { opacity: 0.8; }
