@@ -151,7 +151,9 @@ function StoryPage() {
       return
     }
     // Système legacy audioEvents (garde la compatibilité avec les vieilles histoires)
-    audioEngineRef.current.executeEvents(segments[currentIndex].audioEvents ?? [])
+    const legacyEvents = segments[currentIndex].audioEvents ?? []
+    if (legacyEvents.length > 0) console.log('⚠️ audioEvents legacy détectés', legacyEvents)
+    audioEngineRef.current.executeEvents(legacyEvents)
     // Système soundTracks (nouveau modèle timeline)
     if (story?.soundTracks?.length) {
       console.log('🎵 onSegmentChange', {
