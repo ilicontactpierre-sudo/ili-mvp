@@ -84,15 +84,14 @@
   animation: vfx-letter-appear 0.01s forwards;
 }
 
-/* Curseur clignotant en fin de texte */
-.vfx-typewriter-slow::after,
-.vfx-typewriter-normal::after,
-.vfx-typewriter-fast::after {
-  content: '▋';
+/* Curseur clignotant — injecté par JS, suit la dernière lettre apparue */
+.vfx-tw-cursor {
   display: inline-block;
-  animation: vfx-cursor-blink 0.7s step-end infinite;
+  opacity: 0;
+  animation:
+    vfx-letter-appear 0.01s forwards,
+    vfx-cursor-blink 0.7s step-end infinite;
   color: currentColor;
-  opacity: 0.8;
   margin-left: 1px;
 }
 @keyframes vfx-cursor-blink {
