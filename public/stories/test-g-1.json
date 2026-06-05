@@ -480,21 +480,316 @@
       "audioEvents": []
     },
     {
-      "text": "",
+      "text": "Test d'écriture FONT",
       "id": "seg_1780644728836",
+      "breakAt": null,
+      "isChapter": true,
+      "isLeader": true,
       "audioEvents": []
     },
     {
-      "text": "",
+      "text": "Ceci est un test LORA. Ah bon ?! é ouè :) ...",
       "id": "seg_1780644728665",
+      "isLeader": true,
+      "breakAt": 23,
+      "fontFamily": "'Lora', serif",
+      "audioEvents": []
+    },
+    {
+      "text": "Ceci est un test Garamong. Ah bon ?! é ouè :) ...",
+      "id": "seg_1780644727541",
+      "breakAt": 27,
+      "fontFamily": "'EB Garamond', serif",
+      "audioEvents": []
+    },
+    {
+      "text": "Ceci est un test Roboto. Ah bon ?! é ouè :) ...",
+      "id": "seg_1780646756349",
+      "breakAt": 25,
+      "fontFamily": "'Roboto', sans-serif",
+      "audioEvents": []
+    },
+    {
+      "text": "Ceci est un test Writter. Ah bon ?! é ouè :) ...",
+      "id": "seg_1780646756231",
+      "breakAt": 26,
+      "audioEvents": []
+    },
+    {
+      "text": "Ceci est un test LORA. Ah bon ?! é ouè :) ...",
+      "id": "seg_1780646756121",
+      "breakAt": 23,
+      "fontFamily": "'Meie Script', cursive",
+      "audioEvents": []
+    },
+    {
+      "text": "TEST VFX",
+      "id": "seg_1780646755951",
+      "breakAt": null,
+      "isChapter": true,
+      "isLeader": true,
+      "audioEvents": []
+    },
+    {
+      "text": "Test du VFX Tremblement normal sans loop. OMG, ça marche ?? J'espère que oui 🤞 !",
+      "id": "seg_1780646755803",
+      "isLeader": true,
+      "breakAt": null,
+      "audioEvents": []
+    },
+    {
+      "text": "Test du VFX Tremblement normal sans loop. OMG, ça marche ?? J'espère que oui 🤞 !",
+      "id": "seg_1780647775988",
+      "breakAt": null,
+      "audioEvents": []
+    },
+    {
+      "text": "Test du VFX Tremblement continu moyen . OMG, ça marche ?? J'espère que oui 🤞 !",
+      "id": "seg_1780646842039",
+      "breakAt": null,
+      "audioEvents": []
+    },
+    {
+      "text": "Test du VFX Tapewritter normal. OMG, ça marche ?? J'espère que oui 🤞 !Test du VFX J'allonge un peu le text pour voir comment se passe cet effet. Et comment il réagit pour les phrases à la ligne comme ça.",
+      "id": "seg_1780646841904",
+      "breakAt": 146,
+      "audioEvents": []
+    },
+    {
+      "text": "Test du VFX Lettres effacées normal. OMG, ça marche ?? J'espère que oui 🤞 !Test du VFX J'allonge un peu le text pour voir comment se passe cet effet. Et comment il réagit pour les phrases à la ligne comme ça.",
+      "id": "seg_1780646841771",
+      "breakAt": 151,
+      "audioEvents": []
+    },
+    {
+      "text": "Test du VFX Glitch normal. OMG, ça marche ?? J'espère que oui 🤞 !Test du VFX J'allonge un peu le text pour voir comment se passe cet effet. Et comment il réagit pour les phrases à la ligne comme ça.",
+      "id": "seg_1780646841637",
+      "breakAt": 141,
+      "audioEvents": []
+    },
+    {
+      "text": "Test du VFX Apparition encre normal. OMG, ça marche ?? J'espère que oui 🤞 !Test du VFX J'allonge un peu le text pour voir comment se passe cet effet. Et comment il réagit pour les phrases à la ligne comme ça.",
+      "id": "seg_1780646841504",
+      "breakAt": 151,
+      "audioEvents": []
+    },
+    {
+      "text": "Test du VFX Flicker. OMG, ça marche ?? J'espère que oui 🤞 !Test du VFX J'allonge un peu le text pour voir comment se passe cet effet. Et comment il réagit pour les phrases à la ligne comme ça.",
+      "id": "seg_1780646841357",
+      "breakAt": 135,
+      "audioEvents": []
+    },
+    {
+      "text": "Test du VFX Flash Blanc moyen. OMG, ça marche ?? J'espère que oui 🤞 !Test du VFX J'allonge un peu le text pour voir comment se passe cet effet. Et comment il réagit pour les phrases à la ligne comme ça.",
+      "id": "seg_1780646841197",
+      "breakAt": 145,
+      "audioEvents": []
+    },
+    {
+      "text": "Test du VFX Vignette. OMG, ça marche ?? J'espère que oui 🤞 !Test du VFX J'allonge un peu le text pour voir comment se passe cet effet. Et comment il réagit pour les phrases à la ligne comme ça.",
+      "id": "seg_1780646841050",
+      "breakAt": 136,
+      "audioEvents": []
+    },
+    {
+      "text": "Test du VFX Scanline normal. OMG, ça marche ?? J'espère que oui 🤞 !Test du VFX J'allonge un peu le text pour voir comment se passe cet effet. Et comment il réagit pour les phrases à la ligne comme ça.",
+      "id": "seg_1780646840903",
+      "breakAt": 143,
+      "audioEvents": []
+    },
+    {
+      "text": "Test du VFX Tapewritter. OMG, ça marche ?? J'espère que oui 🤞 !Test du VFX J'allonge un peu le text pour voir comment se passe cet effet. Et comment il réagit pour les phrases à la ligne comme ça.",
+      "id": "seg_1780646840769",
+      "breakAt": 139,
+      "audioEvents": []
+    },
+    {
+      "text": "FIN du test VFX",
+      "id": "seg_1780646840636",
+      "breakAt": null,
+      "audioEvents": []
+    },
+    {
+      "text": "TEST BLOC SON",
+      "id": "seg_1780646840502",
+      "breakAt": null,
+      "isChapter": true,
+      "isLeader": true,
       "audioEvents": []
     },
     {
       "text": "",
-      "id": "seg_1780644727541",
+      "id": "seg_1780646840356",
+      "isLeader": true,
+      "audioEvents": []
+    },
+    {
+      "text": "",
+      "id": "seg_1780646840234",
+      "audioEvents": []
+    },
+    {
+      "text": "",
+      "id": "seg_1780646840116",
+      "audioEvents": []
+    },
+    {
+      "text": "",
+      "id": "seg_1780646839822",
+      "audioEvents": []
+    },
+    {
+      "text": "",
+      "id": "seg_1780646839689",
+      "audioEvents": []
+    },
+    {
+      "text": "",
+      "id": "seg_1780646839555",
+      "audioEvents": []
+    },
+    {
+      "text": "",
+      "id": "seg_1780646839421",
+      "audioEvents": []
+    },
+    {
+      "text": "",
+      "id": "seg_1780646839291",
+      "audioEvents": []
+    },
+    {
+      "text": "",
+      "id": "seg_1780646839155",
+      "audioEvents": []
+    },
+    {
+      "text": "",
+      "id": "seg_1780646839007",
       "audioEvents": []
     }
   ],
   "soundTracks": [],
-  "vfxTracks": []
+  "vfxTracks": [
+    {
+      "id": "vfx_1780646846816_2yd43ubhl",
+      "type": "shake",
+      "mode": "normal",
+      "loop": false,
+      "color": "rgba(200, 0, 0, 0.12)",
+      "column": 0,
+      "startSegmentId": "seg_1780646755803",
+      "endSegmentId": "seg_1780646755803"
+    },
+    {
+      "id": "vfx_1780647721901_857w75tlj",
+      "type": "tremble",
+      "mode": "moyen",
+      "loop": false,
+      "color": "rgba(200, 0, 0, 0.12)",
+      "column": 0,
+      "startSegmentId": "seg_1780646842039",
+      "endSegmentId": "seg_1780646842039"
+    },
+    {
+      "id": "vfx_1780647779479_akzjvov40",
+      "type": "shake",
+      "mode": "normal",
+      "loop": true,
+      "color": "rgba(200, 0, 0, 0.12)",
+      "column": 0,
+      "startSegmentId": "seg_1780647775988",
+      "endSegmentId": "seg_1780647775988"
+    },
+    {
+      "id": "vfx_1780647789288_z25vpqg1x",
+      "type": "typewriter",
+      "mode": "lent",
+      "loop": false,
+      "color": "rgba(200, 0, 0, 0.12)",
+      "column": 0,
+      "startSegmentId": "seg_1780646841904",
+      "endSegmentId": "seg_1780646841904"
+    },
+    {
+      "id": "vfx_1780647875162_wnbmrei8v",
+      "type": "erased",
+      "mode": "normal",
+      "loop": false,
+      "color": "rgba(200, 0, 0, 0.12)",
+      "column": 0,
+      "startSegmentId": "seg_1780646841771",
+      "endSegmentId": "seg_1780646841771"
+    },
+    {
+      "id": "vfx_1780647899774_jw3xtl3l9",
+      "type": "glitch",
+      "mode": "normal",
+      "loop": false,
+      "color": "rgba(200, 0, 0, 0.12)",
+      "column": 0,
+      "startSegmentId": "seg_1780646841637",
+      "endSegmentId": "seg_1780646841637"
+    },
+    {
+      "id": "vfx_1780647927268_htxnatq9e",
+      "type": "ink",
+      "mode": "lent",
+      "loop": false,
+      "color": "rgba(200, 0, 0, 0.12)",
+      "column": 0,
+      "startSegmentId": "seg_1780646841504",
+      "endSegmentId": "seg_1780646841504"
+    },
+    {
+      "id": "vfx_1780647944671_ximkr9dal",
+      "type": "flicker",
+      "mode": "",
+      "loop": false,
+      "color": "rgba(200, 0, 0, 0.12)",
+      "column": 0,
+      "startSegmentId": "seg_1780646841357",
+      "endSegmentId": "seg_1780646841357"
+    },
+    {
+      "id": "vfx_1780647964947_y1t0hvpf3",
+      "type": "flash",
+      "mode": "moyen",
+      "loop": false,
+      "color": "rgba(255, 255, 255, 0.18)",
+      "column": 0,
+      "startSegmentId": "seg_1780646841197",
+      "endSegmentId": "seg_1780646841197"
+    },
+    {
+      "id": "vfx_1780647994884_tptjcln3w",
+      "type": "vignette",
+      "mode": "",
+      "loop": false,
+      "color": "rgba(200, 0, 0, 0.12)",
+      "column": 0,
+      "startSegmentId": "seg_1780646841050",
+      "endSegmentId": "seg_1780646841050"
+    },
+    {
+      "id": "vfx_1780648017854_vqqhdayiq",
+      "type": "scanlines",
+      "mode": "normal",
+      "loop": false,
+      "color": "rgba(200, 0, 0, 0.12)",
+      "column": 0,
+      "startSegmentId": "seg_1780646840903",
+      "endSegmentId": "seg_1780646840903"
+    },
+    {
+      "id": "vfx_1780648036446_nov75kdz6",
+      "type": "static",
+      "mode": "",
+      "loop": false,
+      "color": "rgba(200, 0, 0, 0.12)",
+      "column": 0,
+      "startSegmentId": "seg_1780646840769",
+      "endSegmentId": "seg_1780646840769"
+    }
+  ]
 }
