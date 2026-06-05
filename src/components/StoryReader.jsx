@@ -395,8 +395,8 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle',
               }}
               data-vfx-text={segment.text}
             >
-{(() => {
-                // Détecte si ce segment a un VFX typewriter actif
+              {(() => {
+                // ── Typewriter actif sur ce segment ? ──
                 const twTrack = isFocused && storyData?.vfxTracks
                   ? storyData.vfxTracks.find(t => {
                       if (t.type !== 'typewriter') return false
@@ -406,41 +406,36 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle',
                       return si <= index && index <= te
                     })
                   : null
+
                 if (twTrack) {
                   return renderTypewriter(segment.text, twTrack.mode)
                 }
-              })()}
-              {!(() => {
-                const twTrack = isFocused && storyData?.vfxTracks
-                  ? storyData.vfxTracks.find(t => {
-                      if (t.type !== 'typewriter') return false
-                      const si = (storyData.segments || []).findIndex(s => s.id === t.startSegmentId || s._id === t.startSegmentId)
-                      const ei = (storyData.segments || []).findIndex(s => s.id === t.endSegmentId   || s._id === t.endSegmentId)
-                      const te = ei !== -1 ? ei : si
-                      return si <= index && index <= te
-                    })
-                  : null
-                return twTrack
-              })() && segment.breakAt != null && segment.breakAt > 0 && segment.breakAt < segment.text?.length ? (                <>
-                  {emojiMode
-                    ? applyEmojiMode(segment.text.slice(0, segment.breakAt).trim())
-                    : dys1
-                      ? applyBionicReading(segment.text.slice(0, segment.breakAt).trim())
-                      : renderMarkdown(segment.text.slice(0, segment.breakAt).trim(), segment)}
-                  <br /><br />
-                  {emojiMode
-                    ? applyEmojiMode(segment.text.slice(segment.breakAt).trim())
-                    : dys1
-                      ? applyBionicReading(segment.text.slice(segment.breakAt).trim())
-                      : renderMarkdown(segment.text.slice(segment.breakAt).trim(), segment)}
-                </>
-              ) : (
-                emojiMode
+
+                // ── Rendu normal ──
+                if (segment.breakAt != null && segment.breakAt > 0 && segment.breakAt < segment.text?.length) {
+                  return (
+                    <>
+                      {emojiMode
+                        ? applyEmojiMode(segment.text.slice(0, segment.breakAt).trim())
+                        : dys1
+                          ? applyBionicReading(segment.text.slice(0, segment.breakAt).trim())
+                          : renderMarkdown(segment.text.slice(0, segment.breakAt).trim(), segment)}
+                      <br /><br />
+                      {emojiMode
+                        ? applyEmojiMode(segment.text.slice(segment.breakAt).trim())
+                        : dys1
+                          ? applyBionicReading(segment.text.slice(segment.breakAt).trim())
+                          : renderMarkdown(segment.text.slice(segment.breakAt).trim(), segment)}
+                    </>
+                  )
+                }
+
+                return emojiMode
                   ? applyEmojiMode(segment.text)
                   : dys1
                     ? applyBionicReading(segment.text)
                     : renderMarkdown(segment.text, segment)
-              )}
+              })()}
             </p>
           )
         })}
