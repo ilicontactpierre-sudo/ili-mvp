@@ -468,6 +468,17 @@ function GameImage({ data, onResolved }) {
 
   const isVisible = useCanvas ? done : cssVisible
 
+  if (imgError || !data.imageUrl) {
+    return (
+      <AnimatedWrapper style={{ gap: '1.8rem' }}>
+        <p style={{ opacity: 0.4, fontStyle: 'italic', fontSize: '0.85rem', textAlign: 'center' }}>
+          Image non disponible
+        </p>
+        <ContinueBtn onClick={onResolved} delay={300} />
+      </AnimatedWrapper>
+    )
+  }
+
   return (
     <AnimatedWrapper style={{ gap: '1.8rem' }}>
       <div style={{
