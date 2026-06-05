@@ -177,6 +177,7 @@ function PublishPanel({
 
   // Publier automatiquement
   const handleAutoPublish = async () => {
+    console.log('🚀 Publication — vfxTracks:', vfxTracks)
     // Vérifier si on est en local
     // Publication activée en local et en prod via Express / Vercel
 
