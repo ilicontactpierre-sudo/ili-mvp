@@ -5,6 +5,22 @@ import { applyEmojiMode } from '../utils/emojiDict.jsx'
 import { getVfxClass } from './admin/constants'
 import hapticEngine from '../engine/HapticEngine'
 
+// ── Typewriter : délais par mode ──
+const TW_DELAY = { lent: 80, normal: 45, rapide: 20 }
+
+function renderTypewriter(text, mode) {
+  const delay = TW_DELAY[mode] ?? 45
+  const letters = Array.from(text)
+  return letters.map((char, i) => (
+    <span
+      key={i}
+      className="vfx-tw-letter"
+      style={{ animationDelay: `${i * delay}ms` }}
+    >
+      {char}
+    </span>
+  ))
+}
 // ── Bionic Reading : met en gras les N premières lettres de chaque mot ──
 function applyBionicReading(text) {
   if (!text) return null
