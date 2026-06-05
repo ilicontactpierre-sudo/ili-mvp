@@ -426,6 +426,7 @@ function useImageAnimation(animation, imgLoaded) {
 function GameImage({ data, onResolved }) {
   const [imgLoaded, setImgLoaded] = useState(false)
   const [cssVisible, setCssVisible] = useState(false)
+  const [imgError, setImgError] = useState(false)
   const animation = data.animation || 'fade'
   const useCanvas = animation === 'pixels' || animation === 'scan'
   const { canvasRef, done } = useImageAnimation(useCanvas ? animation : null, imgLoaded)
@@ -478,6 +479,7 @@ function GameImage({ data, onResolved }) {
         <img
           src={data.imageUrl} alt=""
           onLoad={() => setImgLoaded(true)}
+          onError={() => setImgError(true)}
           style={{ display: 'none' }}
         />
         {useCanvas ? (
