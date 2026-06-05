@@ -11,28 +11,25 @@ const TW_DELAY = { lent: 80, normal: 45, rapide: 20 }
 function renderTypewriter(text, mode) {
   const delay = TW_DELAY[mode] ?? 45
   const letters = Array.from(text)
-  const total = letters.length
-  return letters.map((char, i) => (
-    <span key={i} style={{ position: 'relative', display: 'inline' }}>
+  const lastDelay = (letters.length - 1) * delay
+  return [
+    ...letters.map((char, i) => (
       <span
+        key={i}
         className="vfx-tw-letter"
         style={{ animationDelay: `${i * delay}ms` }}
       >
         {char}
       </span>
-      <span
-        className="vfx-tw-cursor"
-        style={{
-          animationDelay: `${i * delay}ms`,
-          // La durée visible du curseur = un délai de lettre, sauf pour la dernière qui clignote indéfiniment
-          animationDuration: i < total - 1 ? `${delay}ms` : '0.7s',
-          animationIterationCount: i < total - 1 ? '1' : 'infinite',
-        }}
-      >
-        ▋
-      </span>
+    )),
+    <span
+      key="cursor"
+      className="vfx-tw-cursor"
+      style={{ animationDelay: `${lastDelay}ms` }}
+    >
+      ▋
     </span>
-  ))
+  ]
 }
 // ── Bionic Reading : met en gras les N premières lettres de chaque mot ──
 function applyBionicReading(text) {
