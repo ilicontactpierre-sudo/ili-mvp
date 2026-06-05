@@ -3,45 +3,67 @@
   "title": "aa",
   "author": "aa",
   "published": true,
-  "sounds": [],
+  "sounds": [
+    {
+      "id": "surprising_meeting",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/surprising_meeting.mp3",
+      "loop": false
+    }
+  ],
   "segments": [
     {
       "id": "seg_1780649313327_0_5ztml",
       "lines": [
         "aa"
       ],
-      "text": "aa",
+      "text": "1",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "fadeIn",
+          "soundId": "surprising_meeting",
+          "volume": 0.5,
+          "duration": 1900,
+          "delay": 0,
+          "loop": false
+        }
+      ]
     },
     {
-      "text": "",
+      "text": "2",
       "id": "seg_1780649977837",
+      "audioEvents": [
+        {
+          "action": "fadeOut",
+          "soundId": "surprising_meeting",
+          "duration": 1900
+        }
+      ],
+      "breakAt": null
+    },
+    {
+      "text": "3",
+      "id": "seg_1780659263020",
+      "breakAt": null,
       "audioEvents": []
     }
   ],
-  "soundTracks": [],
-  "vfxTracks": [
+  "soundTracks": [
     {
-      "id": "vfx_1780649376561_gm46pkmrm",
-      "type": "shake",
-      "mode": "normal",
-      "loop": false,
-      "color": "rgba(200, 0, 0, 0.12)",
-      "column": 0,
+      "id": "st_1780659270927_k0aq1cdn5",
+      "soundId": "surprising_meeting",
       "startSegmentId": "seg_1780649313327_0_5ztml",
-      "endSegmentId": "seg_1780649313327_0_5ztml"
-    },
-    {
-      "id": "vfx_1780649979024_t9yhb8cby",
-      "type": "shake",
-      "mode": "normal",
-      "loop": false,
-      "color": "rgba(200, 0, 0, 0.12)",
+      "endSegmentId": "seg_1780649977837",
       "column": 0,
-      "startSegmentId": "seg_1780649977837",
-      "endSegmentId": "seg_1780649977837"
+      "volume": 0.5,
+      "fadeIn": 1900,
+      "fadeOut": 1900,
+      "delay": 0,
+      "loop": false,
+      "muted": false,
+      "broken": false
     }
-  ]
+  ],
+  "vfxTracks": []
 }
