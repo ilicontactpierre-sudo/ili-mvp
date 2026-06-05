@@ -270,6 +270,8 @@ class AudioEngine {
                 loopCrossfade: track.loopCrossfade,
                 trimStart: track.trimStart,
                 trimEnd: track.trimEnd,
+                pan: track.pan ?? 0,
+                panMode: track.panMode ?? 'static',
               })
             }, delayMs)
           } else {
@@ -282,6 +284,8 @@ class AudioEngine {
                 loopCrossfade: track.loopCrossfade,
                 trimStart: track.trimStart,
                 trimEnd: track.trimEnd,
+                pan: track.pan ?? 0,
+                panMode: track.panMode ?? 'static',
               })
             }, delayMs)
           }
@@ -295,6 +299,8 @@ class AudioEngine {
             loopCrossfade: track.loopCrossfade,
             trimStart: track.trimStart,
             trimEnd: track.trimEnd,
+            pan: track.pan ?? 0,
+            panMode: track.panMode ?? 'static',
           })
         }
       }
