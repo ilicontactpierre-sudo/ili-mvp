@@ -23,7 +23,7 @@ class AudioEngine {
     if (event.action === 'volume')  return this.setSoundVolume(event)
   }
 
-  playSound({ trackId, soundId, volume = 1, loop, loopCrossfade, trimStart, trimEnd }) {
+  playSound({ trackId, soundId, volume = 1, loop, loopCrossfade, trimStart, trimEnd, pan = 0, panMode = 'static' }) {
     if (!soundId) return
     const key = trackId || soundId
     if (this.playingSounds.has(key)) return
@@ -34,14 +34,15 @@ class AudioEngine {
       const instanceId = this._playInstance(howl, soundId, trimStart, trimEnd, key)
       howl.loop(false, instanceId)
       howl.volume(volume, instanceId)
-      this.playingSounds.set(key, { howl, soundId, volume, instanceId, loop, loopCrossfade, trimStart, trimEnd })
+      this.playingSounds.set(key, { howl, soundId, volume, instanceId, loop, loopCrossfade, trimStart, trimEnd, pan, panMode })
       this._scheduleLoopCrossfade(key, howl, soundId, volume, crossfadeMs, trimStart, trimEnd, loopCrossfade)
     } else {
       const instanceId = this._playInstance(howl, soundId, trimStart, trimEnd, key)
       howl.loop(Boolean(loop), instanceId)
       howl.volume(volume, instanceId)
-      this.playingSounds.set(key, { howl, soundId, volume, instanceId, loop, loopCrossfade, trimStart, trimEnd })
+      this.playingSounds.set(key, { howl, soundId, volume, instanceId, loop, loopCrossfade, trimStart, trimEnd, pan, panMode })
     }
+    this._applyPan(key, pan, panMode, howl)
   }
 
   stopSound(soundId, trackId) {
@@ -61,7 +62,7 @@ class AudioEngine {
     if (howl) howl.stop()
   }
 
-  fadeInSound({ trackId, soundId, volume = 1, duration = 400, loop, loopCrossfade, trimStart, trimEnd }) {
+  fadeInSound({ trackId, soundId, volume = 1, duration = 400, loop, loopCrossfade, trimStart, trimEnd, pan = 0, panMode = 'static' }) {
     if (!soundId) return
     const key = trackId || soundId
     const howl = this.howlMap.get(soundId)
@@ -79,13 +80,14 @@ class AudioEngine {
       howl.loop(false, instanceId)
       howl.volume(0, instanceId)
       howl.fade(0, volume, duration, instanceId)
-      this.playingSounds.set(key, { howl, soundId, volume, instanceId, loop, loopCrossfade, trimStart, trimEnd })
+      this.playingSounds.set(key, { howl, soundId, volume, instanceId, loop, loopCrossfade, trimStart, trimEnd, pan, panMode })
       if (loop && crossfadeMs > 0) {
         this._scheduleLoopCrossfade(key, howl, soundId, volume, crossfadeMs, trimStart, trimEnd, loopCrossfade)
       } else if (loop) {
         howl.loop(true, instanceId)
       }
     }
+    this._applyPan(key, pan, panMode, howl)
   }
 
   fadeOutSound({ trackId, soundId, duration = 400 }) {
