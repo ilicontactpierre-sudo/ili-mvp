@@ -154,6 +154,12 @@ function StoryPage() {
     audioEngineRef.current.executeEvents(segments[currentIndex].audioEvents ?? [])
     // Système soundTracks (nouveau modèle timeline)
     if (story?.soundTracks?.length) {
+      console.log('🎵 onSegmentChange', {
+        currentIndex,
+        firstTrack: story.soundTracks[0],
+        firstSegment: segments[0]?.id,
+        matchStart: segments.findIndex(s => s.id === story.soundTracks[0]?.startSegmentId),
+      })
       audioEngineRef.current.onSegmentChange(currentIndex, story.soundTracks, segments)
     }
   }, [currentIndex, isStarted])
