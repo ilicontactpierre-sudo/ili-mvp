@@ -233,35 +233,36 @@ function SoundBlock({
   }, [soundTrack.fadeIn, soundTrack.fadeOut, blockHeight])
 
   // Effets de mouvement global
-  const dragStartRef = useRef(null)
+const dragStartRef = useRef(null)
+  // Ref pour rowHeights — toujours à jour dans les closures des event listeners
+  const rowHeightsRef = useRef(rowHeights)
+  useEffect(() => { rowHeightsRef.current = rowHeights }, [rowHeights])
+
   useEffect(() => {
     if (!isDragging && !isResizing && !isAdjustingFade) return
-
     const handleMouseMove = (e) => {
       // Drag pour changer de colonne ET de ligne
       if (isDragging) {
-        const deltaX = e.clientX - dragStart.x
-        const deltaY = e.clientY - dragStart.y
+        const ds = dragStartRef.current
+        if (!ds) return
+        const deltaX = e.clientX - ds.x
+        const deltaY = e.clientY - ds.y
         setDragOffset({ x: deltaX, y: deltaY })
-
         const timelineRoot = blockRef.current?.closest('[data-timeline-root]')
         const timelineRect = timelineRoot?.getBoundingClientRect()
         const currentScrollTop = timelineRoot ? timelineRoot.scrollTop : 0
-
-        if (timelineRect && rowHeights) {
-          // Position du CURSEUR dans le contenu scrollable — indépendant du transform du bloc
+        const currentRowHeights = rowHeightsRef.current
+        if (timelineRect && currentRowHeights) {
+          // Position du CURSEUR dans le contenu scrollable — recalculée à chaque move
           const cursorY = e.clientY - timelineRect.top + currentScrollTop
-
           const newColumn = Math.max(0, Math.min(COLUMN_COUNT - 1,
-            Math.round(dragStart.column + deltaX / COLUMN_WIDTH)))
-
+            Math.round(ds.column + deltaX / COLUMN_WIDTH)))
           // Trouver la ligne dont le centre est le plus proche du curseur
           let accumulated = 0
           let newStartIndex = 0
           let minDistance = Infinity
-
-          for (let i = 0; i < rowHeights.length; i++) {
-            const rowHeight = rowHeights[i]
+          for (let i = 0; i < currentRowHeights.length; i++) {
+            const rowHeight = currentRowHeights[i]
             const rowCenter = accumulated + rowHeight / 2
             const distance = Math.abs(cursorY - rowCenter)
             if (distance < minDistance) {
@@ -270,7 +271,6 @@ function SoundBlock({
             }
             accumulated += rowHeight + 8
           }
-
           setTargetCell({ segmentIndex: newStartIndex, column: newColumn })
           if (onDragTargetChange) {
             onDragTargetChange(newStartIndex, newColumn)
