@@ -433,6 +433,9 @@ function GameImage({ data, onResolved }) {
   useEffect(() => {
     if (!imgLoaded) return
     if (!useCanvas) setTimeout(() => setCssVisible(true), 60)
+    // Fallback : forcer l'affichage après 3s quoi qu'il arrive
+    const fallback = setTimeout(() => setCssVisible(true), 3000)
+    return () => clearTimeout(fallback)
   }, [imgLoaded, useCanvas])
 
   // Styles CSS selon animation
