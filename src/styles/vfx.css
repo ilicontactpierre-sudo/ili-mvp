@@ -84,20 +84,22 @@
   animation: vfx-letter-appear 0.01s forwards;
 }
 /* Curseur clignotant — injecté par JS, suit la dernière lettre apparue */
-@keyframes vfx-cursor-appear-then-blink {
-  0%        { opacity: 0; }
-  0.0001%   { opacity: 0.8; }
-  50%       { opacity: 0.8; }
-  50.0001%  { opacity: 0; }
-  100%      { opacity: 0; }
+@keyframes vfx-cursor-flash {
+  0%   { opacity: 0.8; }
+  100% { opacity: 0; }
+}
+
+@keyframes vfx-cursor-blink-final {
+  0%, 100% { opacity: 0.8; }
+  50%      { opacity: 0; }
 }
 
 .vfx-tw-cursor {
   display: inline-block;
   opacity: 0;
   color: currentColor;
-  margin-left: 1px;
-  animation: vfx-cursor-appear-then-blink 0.7s step-end infinite;
+  animation: vfx-cursor-flash 1ms step-end 1 forwards;
+  /* Les overrides de durée/iteration sont appliqués via style inline */
 }
 @keyframes vfx-cursor-blink {
   0%, 100% { opacity: 0.8; }
