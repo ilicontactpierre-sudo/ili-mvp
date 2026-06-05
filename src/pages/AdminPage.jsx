@@ -967,15 +967,15 @@ function AdminPage() {
   // Construire les données pour l'aperçu en temps réel
   const getCurrentStoryData = () => {
     const usedSoundIds = new Set(
-      soundTracks.filter(t => !t.muted).map(t => t.soundId)
+      soundTracks.map(t => t.soundId) // inclure aussi les muted/broken
     )
     const sounds = soundLibrary
-  .filter(s => usedSoundIds.has(s.id))
-  .map(s => ({
-    id: s.id,
-    url: s.url || (s.filename ? `/sounds/${s.filename}` : `/sounds/${s.id}.mp3`),
-    loop: s.loop || false,
-  }))
+      .filter(s => usedSoundIds.has(s.id))
+      .map(s => ({
+        id: s.id,
+        url: s.url || (s.filename ? `/sounds/${s.filename}` : `/sounds/${s.id}.mp3`),
+        loop: s.loop || false,
+      }))
     
     return {
       title: storyTitle || 'Sans titre',
