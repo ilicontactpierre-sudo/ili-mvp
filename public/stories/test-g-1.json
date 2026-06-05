@@ -1,0 +1,729 @@
+{
+  "id": "test-g-1",
+  "title": "test G 1",
+  "author": "test G 1",
+  "published": true,
+  "sounds": [
+    {
+      "id": "airblow_balloon_air_release_fart_airy_01_b00m_one",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/airblow_balloon_air_release_fart_airy_01_b00m_one.mp3",
+      "loop": false
+    },
+    {
+      "id": "lenie_2",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/lenie_2.mp3",
+      "loop": false
+    }
+  ],
+  "segments": [
+    {
+      "id": "seg_1780644725421_0_svqlf",
+      "lines": [
+        "test G 1"
+      ],
+      "text": "test Gamification",
+      "breakAt": null,
+      "isLeader": true,
+      "isChapter": true,
+      "audioEvents": []
+    },
+    {
+      "text": "IMAGE (Police normal)",
+      "id": "seg_1780644734843",
+      "isLeader": true,
+      "breakAt": null,
+      "audioEvents": []
+    },
+    {
+      "text": "",
+      "id": "seg_1780644734710",
+      "gameMode": {
+        "type": "image",
+        "imageUrl": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/Images/DSC_1900.jpg",
+        "caption": "Test Fondu simple"
+      },
+      "audioEvents": []
+    },
+    {
+      "text": "",
+      "id": "seg_1780644734562",
+      "gameMode": {
+        "type": "image",
+        "imageUrl": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/Images/DSC_1900.jpg",
+        "caption": "Pixels aléatoires",
+        "animation": "pixels"
+      },
+      "audioEvents": []
+    },
+    {
+      "text": "",
+      "id": "seg_1780644734415",
+      "gameMode": {
+        "type": "image",
+        "imageUrl": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/Images/DSC_1900.jpg",
+        "caption": "développement photo",
+        "animation": "develop"
+      },
+      "audioEvents": []
+    },
+    {
+      "text": "",
+      "id": "seg_1780644734267",
+      "gameMode": {
+        "type": "image",
+        "imageUrl": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/Images/DSC_1900.jpg",
+        "caption": "scan vertical",
+        "animation": "scan"
+      },
+      "audioEvents": []
+    },
+    {
+      "text": "",
+      "id": "seg_1780644734121",
+      "gameMode": {
+        "type": "image",
+        "imageUrl": "",
+        "caption": "éclats de verre",
+        "animation": "shards"
+      },
+      "audioEvents": []
+    },
+    {
+      "text": "",
+      "id": "seg_1780644733974",
+      "gameMode": {
+        "type": "image",
+        "imageUrl": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/Images/DSC_1900.jpg",
+        "caption": "Brume qui se lève",
+        "animation": "fog"
+      },
+      "audioEvents": []
+    },
+    {
+      "text": "Pelicule 2,5 sec (Police Gras)",
+      "id": "seg_1780644733827",
+      "breakAt": null,
+      "bold": true,
+      "audioEvents": []
+    },
+    {
+      "text": "",
+      "id": "seg_1780644733694",
+      "gameMode": {
+        "type": "filmstrip",
+        "images": [
+          "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/Images/DSC_1900.jpg",
+          "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/Images/DSC_1900.jpg",
+          "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/Images/DSC_1900.jpg",
+          "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/Images/DSC_1900.jpg"
+        ],
+        "interval": 2500
+      },
+      "audioEvents": []
+    },
+    {
+      "text": "DOCUMENTs / Artefact (police italique)",
+      "id": "seg_1780644733534",
+      "breakAt": null,
+      "italic": true,
+      "audioEvents": []
+    },
+    {
+      "text": "",
+      "id": "seg_1780644733387",
+      "gameMode": {
+        "type": "document",
+        "style": "letter",
+        "title": "Lettre officielle",
+        "body": "Ceci est un texte afin de voir ce que ça rend. Il va de soit que ce texte n'a pas grand intérêt autre que visuel... D'ailleurs, essayons d'aller à la ligne :\nÇa marche ? Je vais essayer de faire un saut de ligne :\n\nÇa marche ?",
+        "date": "Montreui, le 5 juin 2026",
+        "stamp": "TAMPON",
+        "from": "Expéditeur",
+        "to": "Destinataire"
+      },
+      "audioEvents": []
+    },
+    {
+      "text": "",
+      "id": "seg_1780644733240",
+      "gameMode": {
+        "type": "document",
+        "style": "telegram",
+        "title": "Télégramme",
+        "body": "Ceci est un texte afin de voir ce que ça rend. Il va de soit que ce texte n'a pas grand intérêt autre que visuel... D'ailleurs, essayons d'aller à la ligne :\nÇa marche ? Je vais essayer de faire un saut de ligne :\n\nÇa marche ?",
+        "date": "Montreuil, le 6 juin 2026",
+        "stamp": "Classiéfié",
+        "from": "Expéditeur",
+        "to": "Destinataire"
+      },
+      "audioEvents": []
+    },
+    {
+      "text": "",
+      "id": "seg_1780644733080",
+      "gameMode": {
+        "type": "document",
+        "style": "note",
+        "title": "Note manuscrite",
+        "body": "Ceci est un texte afin de voir ce que ça rend. Il va de soit que ce texte n'a pas grand intérêt autre que visuel... D'ailleurs, essayons d'aller à la ligne :\nÇa marche ? Je vais essayer de faire un saut de ligne :\n\nÇa marche ?",
+        "date": "Montreuil, 6 juin 2§",
+        "stamp": "tampon",
+        "from": "Expéditeur",
+        "to": "Destinataire"
+      },
+      "audioEvents": []
+    },
+    {
+      "text": "",
+      "id": "seg_1780644732946",
+      "gameMode": {
+        "type": "document",
+        "style": "card",
+        "title": "Carte / Badge",
+        "body": "Ceci est un texte afin de voir ce que ça rend. Il va de soit que ce texte n'a pas grand intérêt autre que visuel... D'ailleurs, essayons d'aller à la ligne :\nÇa marche ? Je vais essayer de faire un saut de ligne :\n\nÇa marche ?",
+        "date": "Montreuil, 04/06",
+        "stamp": "Tampon",
+        "from": "Expéditeur",
+        "to": "Destinaire"
+      },
+      "audioEvents": []
+    },
+    {
+      "text": "",
+      "id": "seg_1780644732799",
+      "gameMode": {
+        "type": "document",
+        "style": "newspaper",
+        "title": "Coupure de presse",
+        "body": "Ceci est un texte afin de voir ce que ça rend. Il va de soit que ce texte n'a pas grand intérêt autre que visuel... D'ailleurs, essayons d'aller à la ligne :\nÇa marche ? Je vais essayer de faire un saut de ligne :\n\nÇa marche ?",
+        "date": "Le 4 juin",
+        "stamp": "tampON",
+        "from": "Expérditeur",
+        "to": "Destinataire"
+      },
+      "audioEvents": []
+    },
+    {
+      "text": "Message animé (Police souligné)",
+      "id": "seg_1780644732667",
+      "breakAt": null,
+      "underline": true,
+      "audioEvents": []
+    },
+    {
+      "text": "",
+      "id": "seg_1780644732534",
+      "gameMode": {
+        "type": "message",
+        "text": "Ceci est un SMS (vitesse normal)... D'ailleurs, essayons d'aller à la ligne :\nÇa marche ? Je vais essayer de faire un saut de ligne :\n\nÇa marche ?",
+        "interface": "sms",
+        "speed": "normal"
+      },
+      "audioEvents": []
+    },
+    {
+      "text": "",
+      "id": "seg_1780644732373",
+      "gameMode": {
+        "type": "message",
+        "text": "Ceci est un EMAIL (vitesse normal)... D'ailleurs, essayons d'aller à la ligne :\nÇa marche ? Je vais essayer de faire un saut de ligne :\n\nÇa marche ?",
+        "interface": "email",
+        "speed": "normal"
+      },
+      "audioEvents": []
+    },
+    {
+      "text": "",
+      "id": "seg_1780644732226",
+      "gameMode": {
+        "type": "message",
+        "text": "Ceci est un TERMINAL (vitesse normal)... D'ailleurs, essayons d'aller à la ligne :\nÇa marche ? Je vais essayer de faire un saut de ligne :\n\nÇa marche ?",
+        "interface": "terminal",
+        "speed": "normal"
+      },
+      "audioEvents": []
+    },
+    {
+      "text": "Digicode (police barré)",
+      "id": "seg_1780644732066",
+      "isChapter": false,
+      "isLeader": false,
+      "breakAt": null,
+      "strikethrough": true,
+      "audioEvents": []
+    },
+    {
+      "text": "",
+      "id": "seg_1780644731933",
+      "gameMode": {
+        "type": "code",
+        "answer": "1234",
+        "prompt": "à 4 chiffres",
+        "hint": "Indice",
+        "errorMessage": "FAux",
+        "alreadySolvedMessage": "Tu l'as déjà fais"
+      },
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "text": "",
+      "id": "seg_1780644731786",
+      "gameMode": {
+        "type": "code",
+        "answer": "123",
+        "prompt": "à 3 chiffres",
+        "hint": "Indice",
+        "errorMessage": "faUX",
+        "alreadySolvedMessage": "Déjà fait"
+      },
+      "audioEvents": []
+    },
+    {
+      "text": "Enigme (Police Gras + Italique)",
+      "id": "seg_1780644731626",
+      "breakAt": null,
+      "italic": true,
+      "bold": true,
+      "audioEvents": []
+    },
+    {
+      "text": "",
+      "id": "seg_1780644731479",
+      "gameMode": {
+        "type": "riddle",
+        "question": "Deux plus deux ? en chiffre ou en lettre",
+        "answer": "Quatre, 4",
+        "hint": "Indice",
+        "placeholder": "Placeholder du champ (??)",
+        "caseSensitive": true,
+        "errorMessage": "FAux",
+        "closeMessage": "Déjà fais",
+        "decoysRaw": "Faux indices, c'est comme 1 + 1"
+      },
+      "audioEvents": []
+    },
+    {
+      "text": "Minuteur (Police : g + I + U)",
+      "id": "seg_1780644731332",
+      "breakAt": null,
+      "bold": true,
+      "italic": true,
+      "underline": true,
+      "audioEvents": []
+    },
+    {
+      "text": "",
+      "id": "seg_1780644731198",
+      "gameMode": {
+        "type": "timer",
+        "seconds": 3,
+        "prompt": "Arc SVG avec Reset",
+        "hint": "Indice",
+        "expireMessage": "Over",
+        "resetOnTap": true
+      },
+      "audioEvents": []
+    },
+    {
+      "text": "",
+      "id": "seg_1780644731038",
+      "gameMode": {
+        "type": "timer",
+        "seconds": 3,
+        "prompt": "Barre de progression avec Reset (sans indice)",
+        "hint": "",
+        "expireMessage": "Over",
+        "timerStyle": "bar",
+        "resetOnTap": true
+      },
+      "audioEvents": []
+    },
+    {
+      "text": "",
+      "id": "seg_1780644730891",
+      "gameMode": {
+        "type": "timer",
+        "seconds": 3,
+        "prompt": "Compte à rebours rétro  avec Reset",
+        "hint": "Indice",
+        "expireMessage": "Over",
+        "timerStyle": "retro",
+        "resetOnTap": true
+      },
+      "audioEvents": []
+    },
+    {
+      "text": "",
+      "id": "seg_1780644730731",
+      "gameMode": {
+        "type": "timer",
+        "seconds": 30,
+        "prompt": "Invisible avec Reset sans indice",
+        "hint": "",
+        "expireMessage": "Over",
+        "timerStyle": "hidden",
+        "resetOnTap": true
+      },
+      "audioEvents": []
+    },
+    {
+      "text": "Séquence à reconstruire (full police)",
+      "id": "seg_1780644730598",
+      "breakAt": null,
+      "bold": true,
+      "italic": true,
+      "underline": true,
+      "strikethrough": true,
+      "audioEvents": []
+    },
+    {
+      "text": "",
+      "id": "seg_1780644730464",
+      "gameMode": {
+        "type": "sequence",
+        "items": [
+          "Élément 1",
+          "Élément 2",
+          "Élément 3"
+        ],
+        "prompt": "1, 2, 3",
+        "successMessage": "Ok"
+      },
+      "audioEvents": []
+    },
+    {
+      "text": "Journal (écriture) avec teste de la clémémoire avant qu'elle n'aparaisse : {{journal:clé_mémoire_Ok}}",
+      "id": "seg_1780644730317",
+      "breakAt": null,
+      "audioEvents": []
+    },
+    {
+      "text": "",
+      "id": "seg_1780644730184",
+      "gameMode": {
+        "type": "journal",
+        "prompt": "Ceci est un journal... D'ailleurs, essayons d'aller à la ligne :\nÇa marche ? Je vais essayer de faire un saut de ligne :\n\nÇa marche ?",
+        "placeholder": "Placeholder du champ (??)",
+        "memoryKey": "clé_mémoire_Ok",
+        "continueLabel": "Texte du Bouton continuer"
+      },
+      "audioEvents": []
+    },
+    {
+      "text": "Journal (écriture) avec teste de la clé mémoire après qu'elle n'aparaisse : {{journal:clé_mémoire_Ok}}",
+      "id": "seg_1780644730050",
+      "breakAt": null,
+      "audioEvents": []
+    },
+    {
+      "text": "Écho / écriture Rituelle ",
+      "id": "seg_1780644729904",
+      "breakAt": null,
+      "audioEvents": []
+    },
+    {
+      "text": "",
+      "id": "seg_1780644729757",
+      "gameMode": {
+        "type": "echo",
+        "phrase": "Ceci est un écho...",
+        "prompt": "Recopie cette phrase",
+        "successMessage": "Ok"
+      },
+      "audioEvents": []
+    },
+    {
+      "text": "Message crypté",
+      "id": "seg_1780644729623",
+      "breakAt": null,
+      "audioEvents": []
+    },
+    {
+      "text": "",
+      "id": "seg_1780644729477",
+      "gameMode": {
+        "type": "crypte",
+        "cipher": "caesar",
+        "shift": 3,
+        "encoded": "févdu",
+        "answer": "césar",
+        "hint": "Indice",
+        "errorMessage": "Et non",
+        "prompt": "ce message est un \"césar\" à décoder"
+      },
+      "audioEvents": []
+    },
+    {
+      "text": "",
+      "id": "seg_1780644729343",
+      "gameMode": {
+        "type": "crypte",
+        "cipher": "mirror",
+        "shift": 3,
+        "encoded": "nrilri1",
+        "answer": "miroir1",
+        "hint": "Indice",
+        "errorMessage": "Non",
+        "prompt": "ce message est un \"miroir1\" à décoder"
+      },
+      "audioEvents": []
+    },
+    {
+      "text": "",
+      "id": "seg_1780644729210",
+      "gameMode": {
+        "type": "crypte",
+        "cipher": "reverse",
+        "shift": 3,
+        "encoded": "2riorim",
+        "answer": "miroir2",
+        "hint": "Indice",
+        "errorMessage": "Et non",
+        "prompt": "ce message est un \"miroir2\" à décoder"
+      },
+      "audioEvents": []
+    },
+    {
+      "text": "FIN des test Gamification",
+      "id": "seg_1780644729064",
+      "breakAt": null,
+      "audioEvents": []
+    },
+    {
+      "text": "Test d'écriture FONT",
+      "id": "seg_1780644728836",
+      "breakAt": null,
+      "isChapter": true,
+      "isLeader": true,
+      "audioEvents": []
+    },
+    {
+      "text": "Ceci est un test LORA. Ah bon ?! é ouè :) ...",
+      "id": "seg_1780644728665",
+      "isLeader": true,
+      "breakAt": 23,
+      "fontFamily": "'Lora', serif",
+      "audioEvents": []
+    },
+    {
+      "text": "Ceci est un test Garamong. Ah bon ?! é ouè :) ...",
+      "id": "seg_1780644727541",
+      "breakAt": 27,
+      "fontFamily": "'EB Garamond', serif",
+      "audioEvents": []
+    },
+    {
+      "text": "Ceci est un test Roboto. Ah bon ?! é ouè :) ...",
+      "id": "seg_1780646756349",
+      "breakAt": 25,
+      "fontFamily": "'Roboto', sans-serif",
+      "audioEvents": []
+    },
+    {
+      "text": "Ceci est un test Writter. Ah bon ?! é ouè :) ...",
+      "id": "seg_1780646756231",
+      "breakAt": 26,
+      "audioEvents": []
+    },
+    {
+      "text": "Ceci est un test LORA. Ah bon ?! é ouè :) ...",
+      "id": "seg_1780646756121",
+      "breakAt": 23,
+      "fontFamily": "'Meie Script', cursive",
+      "audioEvents": []
+    },
+    {
+      "text": "TEST VFX",
+      "id": "seg_1780646755951",
+      "breakAt": null,
+      "isChapter": true,
+      "isLeader": true,
+      "audioEvents": []
+    },
+    {
+      "text": "Test du VFX Tremblement normal sans loop. OMG, ça marche ?? J'espère que oui 🤞 !",
+      "id": "seg_1780646755803",
+      "isLeader": true,
+      "breakAt": null,
+      "audioEvents": []
+    },
+    {
+      "text": "Test du VFX Tremblement normal sans loop. OMG, ça marche ?? J'espère que oui 🤞 !",
+      "id": "seg_1780647775988",
+      "breakAt": null,
+      "audioEvents": []
+    },
+    {
+      "text": "Test du VFX Tremblement continu moyen . OMG, ça marche ?? J'espère que oui 🤞 !",
+      "id": "seg_1780646842039",
+      "breakAt": null,
+      "audioEvents": []
+    },
+    {
+      "text": "Test du VFX Tapewritter normal. OMG, ça marche ?? J'espère que oui 🤞 !Test du VFX J'allonge un peu le text pour voir comment se passe cet effet. Et comment il réagit pour les phrases à la ligne comme ça.",
+      "id": "seg_1780646841904",
+      "breakAt": 146,
+      "audioEvents": []
+    },
+    {
+      "text": "Test du VFX Lettres effacées normal. OMG, ça marche ?? J'espère que oui 🤞 !Test du VFX J'allonge un peu le text pour voir comment se passe cet effet. Et comment il réagit pour les phrases à la ligne comme ça.",
+      "id": "seg_1780646841771",
+      "breakAt": 151,
+      "audioEvents": []
+    },
+    {
+      "text": "Test du VFX Glitch normal. OMG, ça marche ?? J'espère que oui 🤞 !Test du VFX J'allonge un peu le text pour voir comment se passe cet effet. Et comment il réagit pour les phrases à la ligne comme ça.",
+      "id": "seg_1780646841637",
+      "breakAt": 141,
+      "audioEvents": []
+    },
+    {
+      "text": "Test du VFX Apparition encre normal. OMG, ça marche ?? J'espère que oui 🤞 !Test du VFX J'allonge un peu le text pour voir comment se passe cet effet. Et comment il réagit pour les phrases à la ligne comme ça.",
+      "id": "seg_1780646841504",
+      "breakAt": 151,
+      "audioEvents": []
+    },
+    {
+      "text": "Test du VFX Flicker. OMG, ça marche ?? J'espère que oui 🤞 !Test du VFX J'allonge un peu le text pour voir comment se passe cet effet. Et comment il réagit pour les phrases à la ligne comme ça.",
+      "id": "seg_1780646841357",
+      "breakAt": 135,
+      "audioEvents": []
+    },
+    {
+      "text": "Test du VFX Flash Blanc moyen. OMG, ça marche ?? J'espère que oui 🤞 !Test du VFX J'allonge un peu le text pour voir comment se passe cet effet. Et comment il réagit pour les phrases à la ligne comme ça.",
+      "id": "seg_1780646841197",
+      "breakAt": 145,
+      "audioEvents": []
+    },
+    {
+      "text": "Test du VFX Vignette. OMG, ça marche ?? J'espère que oui 🤞 !Test du VFX J'allonge un peu le text pour voir comment se passe cet effet. Et comment il réagit pour les phrases à la ligne comme ça.",
+      "id": "seg_1780646841050",
+      "breakAt": 136,
+      "audioEvents": []
+    },
+    {
+      "text": "Test du VFX Scanline normal. OMG, ça marche ?? J'espère que oui 🤞 !Test du VFX J'allonge un peu le text pour voir comment se passe cet effet. Et comment il réagit pour les phrases à la ligne comme ça.",
+      "id": "seg_1780646840903",
+      "breakAt": 143,
+      "audioEvents": []
+    },
+    {
+      "text": "Test du VFX Tapewritter. OMG, ça marche ?? J'espère que oui 🤞 !Test du VFX J'allonge un peu le text pour voir comment se passe cet effet. Et comment il réagit pour les phrases à la ligne comme ça.",
+      "id": "seg_1780646840769",
+      "breakAt": 139,
+      "audioEvents": []
+    },
+    {
+      "text": "FIN du test VFX",
+      "id": "seg_1780646840636",
+      "breakAt": null,
+      "audioEvents": []
+    },
+    {
+      "text": "TEST BLOC SON",
+      "id": "seg_1780646840502",
+      "breakAt": null,
+      "isChapter": true,
+      "isLeader": true,
+      "audioEvents": []
+    },
+    {
+      "text": "",
+      "id": "seg_1780646840356",
+      "isLeader": true,
+      "audioEvents": [
+        {
+          "action": "play",
+          "soundId": "airblow_balloon_air_release_fart_airy_01_b00m_one",
+          "volume": 0.5,
+          "delay": 0,
+          "loop": false
+        }
+      ]
+    },
+    {
+      "text": "",
+      "id": "seg_1780646840234",
+      "audioEvents": [
+        {
+          "action": "play",
+          "soundId": "lenie_2",
+          "volume": 0.5,
+          "delay": 0,
+          "loop": false
+        }
+      ]
+    },
+    {
+      "text": "",
+      "id": "seg_1780646840116",
+      "audioEvents": []
+    },
+    {
+      "text": "",
+      "id": "seg_1780646839822",
+      "audioEvents": []
+    },
+    {
+      "text": "",
+      "id": "seg_1780646839689",
+      "audioEvents": []
+    },
+    {
+      "text": "",
+      "id": "seg_1780646839555",
+      "audioEvents": []
+    },
+    {
+      "text": "",
+      "id": "seg_1780646839421",
+      "audioEvents": []
+    },
+    {
+      "text": "",
+      "id": "seg_1780646839291",
+      "audioEvents": []
+    },
+    {
+      "text": "",
+      "id": "seg_1780646839155",
+      "audioEvents": []
+    },
+    {
+      "text": "",
+      "id": "seg_1780646839007",
+      "audioEvents": []
+    }
+  ],
+  "soundTracks": [
+    {
+      "id": "st_1780648464012_o97ldosdi",
+      "soundId": "airblow_balloon_air_release_fart_airy_01_b00m_one",
+      "startSegmentId": "seg_1780646840356",
+      "endSegmentId": "seg_1780646840356",
+      "column": 0,
+      "volume": 0.5,
+      "fadeIn": 0,
+      "fadeOut": 0,
+      "delay": 0,
+      "loop": false,
+      "muted": false,
+      "broken": false
+    },
+    {
+      "id": "st_1780648524359_pf76hwket",
+      "soundId": "lenie_2",
+      "startSegmentId": "seg_1780646840234",
+      "endSegmentId": "seg_1780646840234",
+      "column": 0,
+      "volume": 0.5,
+      "fadeIn": 0,
+      "fadeOut": 0,
+      "delay": 0,
+      "loop": false,
+      "muted": false
+    }
+  ],
+  "vfxTracks": []
+}
