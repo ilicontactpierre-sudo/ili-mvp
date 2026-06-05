@@ -325,8 +325,8 @@ const dragStartRef = useRef(null)
           onResize(soundTrack.id, null, newEndSegmentId)
           
         } else if (isResizing === 'top') {
-          // Position absolue actuelle du haut du bloc (qui bouge quand on tire)
-          const absoluteTop = resizeStart.absoluteBlockTop + deltaY
+          // Position du curseur dans le contenu scrollable (déjà calculée)
+          const absoluteTop = cursorAbsoluteY
           
           // Trouver le segment qui correspond à cette position
           let accumulated = 0
@@ -340,13 +340,7 @@ const dragStartRef = useRef(null)
             if (absoluteTop <= accumulated + rowHeight) {
               // Le curseur est dans ce segment
               const midPoint = accumulated + rowHeight / 2
-              if (absoluteTop <= midPoint) {
-                newStartIndex = i
-              } else if (i < endIdx) {
-                newStartIndex = i + 1
-              } else {
-                newStartIndex = endIdx
-              }
+              newStartIndex = absoluteTop <= midPoint ? i : Math.min(endIdx, i + 1)
               break
             }
             
