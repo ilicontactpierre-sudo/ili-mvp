@@ -3,7 +3,13 @@
   "title": "test G 1",
   "author": "test G 1",
   "published": true,
-  "sounds": [],
+  "sounds": [
+    {
+      "id": "airblow_balloon_air_release_fart_airy_01_b00m_one",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/airblow_balloon_air_release_fart_airy_01_b00m_one.mp3",
+      "loop": false
+    }
+  ],
   "segments": [
     {
       "id": "seg_1780644725421_0_svqlf",
@@ -621,12 +627,28 @@
       "text": "",
       "id": "seg_1780646840356",
       "isLeader": true,
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "play",
+          "soundId": "airblow_balloon_air_release_fart_airy_01_b00m_one",
+          "volume": 0.5,
+          "delay": 0,
+          "loop": false
+        }
+      ]
     },
     {
       "text": "",
       "id": "seg_1780646840234",
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "play",
+          "soundId": "lenie_2",
+          "volume": 0.5,
+          "delay": 0,
+          "loop": false
+        }
+      ]
     },
     {
       "text": "",
@@ -669,7 +691,35 @@
       "audioEvents": []
     }
   ],
-  "soundTracks": [],
+  "soundTracks": [
+    {
+      "id": "st_1780648464012_o97ldosdi",
+      "soundId": "airblow_balloon_air_release_fart_airy_01_b00m_one",
+      "startSegmentId": "seg_1780646840356",
+      "endSegmentId": "seg_1780646840356",
+      "column": 0,
+      "volume": 0.5,
+      "fadeIn": 0,
+      "fadeOut": 0,
+      "delay": 0,
+      "loop": false,
+      "muted": false,
+      "broken": false
+    },
+    {
+      "id": "st_1780648524359_pf76hwket",
+      "soundId": "lenie_2",
+      "startSegmentId": "seg_1780646840234",
+      "endSegmentId": "seg_1780646840234",
+      "column": 0,
+      "volume": 0.5,
+      "fadeIn": 0,
+      "fadeOut": 0,
+      "delay": 0,
+      "loop": false,
+      "muted": false
+    }
+  ],
   "vfxTracks": [
     {
       "id": "vfx_1780646846816_2yd43ubhl",
