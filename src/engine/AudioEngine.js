@@ -274,7 +274,14 @@ class AudioEngine {
     // Arrêter les sons qui ne doivent plus jouer
     this.playingSounds.forEach((state, key) => {
       if (!activeKeys.has(key)) {
-        this.fadeOutSound({ trackId: key, soundId: state.soundId, duration: 800 })
+        // Retrouver le track pour lire son fadeOut
+        const track = soundTracks.find(t => (t.id || t.soundId) === key)
+        const fadeOutMs = (track?.fadeOut ?? 0) * 1000
+        if (fadeOutMs > 0) {
+          // Fade puis stop
+          this.fadeOutSound({ trackId: key, soundId: state.soundId, duration: fadeOutMs })
+        }
+        // fadeOut = 0 → on ne touche pas au son, il finit naturellement
       }
     })
 
@@ -286,7 +293,6 @@ class AudioEngine {
       const isFirstSegment = currentIndex === startIdx
       const isLastSegment = currentIndex === end
       const fadeInMs = (track.fadeIn || 0) * 1000
-      const fadeOutMs = (track.fadeOut || 0) * 1000
       const delayMs = (track.delay || 0) * 1000
 
       if (!this.playingSounds.has(track.id || track.soundId)) {
@@ -337,11 +343,7 @@ class AudioEngine {
           })
         }
       }
-      // Déclencher le fadeOut sur le dernier segment du bloc
-      const trackKey = track.id || track.soundId
-      if (isLastSegment && fadeOutMs > 0 && this.playingSounds.has(trackKey)) {
-        this.fadeOutSound({ trackId: track.id, soundId: track.soundId, duration: fadeOutMs })
-      }
+      // (fadeOut géré à la sortie du bloc, pas sur isLastSegment)
     })
   }
 
