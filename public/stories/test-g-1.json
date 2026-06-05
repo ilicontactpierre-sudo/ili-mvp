@@ -3,18 +3,7 @@
   "title": "test G 1",
   "author": "test G 1",
   "published": true,
-  "sounds": [
-    {
-      "id": "airblow_balloon_air_release_fart_airy_01_b00m_one",
-      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/airblow_balloon_air_release_fart_airy_01_b00m_one.mp3",
-      "loop": false
-    },
-    {
-      "id": "lenie_2",
-      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/lenie_2.mp3",
-      "loop": false
-    }
-  ],
+  "sounds": [],
   "segments": [
     {
       "id": "seg_1780644725421_0_svqlf",
@@ -53,6 +42,12 @@
         "caption": "Pixels aléatoires",
         "animation": "pixels"
       },
+      "audioEvents": []
+    },
+    {
+      "text": "Pause pour voir si ça relance l'image suivante (il reste 4 images)",
+      "id": "seg_1780651111329",
+      "breakAt": null,
       "audioEvents": []
     },
     {
@@ -629,36 +624,30 @@
       "audioEvents": []
     },
     {
-      "text": "",
+      "text": "Le son ne doit pas s'arrêter si on change de seg\nVol = \nPan =\nPan fx =\nSeg = \nFi = \nFo = \nDel = ",
       "id": "seg_1780646840356",
       "isLeader": true,
       "audioEvents": [
         {
           "action": "play",
-          "soundId": "airblow_balloon_air_release_fart_airy_01_b00m_one",
+          "soundId": "surprising_meeting",
           "volume": 0.5,
           "delay": 0,
           "loop": false
         }
-      ]
+      ],
+      "breakAt": null
     },
     {
       "text": "",
       "id": "seg_1780646840234",
-      "audioEvents": [
-        {
-          "action": "play",
-          "soundId": "lenie_2",
-          "volume": 0.5,
-          "delay": 0,
-          "loop": false
-        }
-      ]
+      "audioEvents": []
     },
     {
-      "text": "",
+      "text": "Vol = \nPan =\nPan fx =\nSeg = \nFi = \nFo = \nDel = ",
       "id": "seg_1780646840116",
-      "audioEvents": []
+      "audioEvents": [],
+      "breakAt": null
     },
     {
       "text": "",
@@ -698,24 +687,10 @@
   ],
   "soundTracks": [
     {
-      "id": "st_1780648464012_o97ldosdi",
-      "soundId": "airblow_balloon_air_release_fart_airy_01_b00m_one",
+      "id": "st_1780652672873_0k38iolju",
+      "soundId": "surprising_meeting",
       "startSegmentId": "seg_1780646840356",
       "endSegmentId": "seg_1780646840356",
-      "column": 0,
-      "volume": 0.5,
-      "fadeIn": 0,
-      "fadeOut": 0,
-      "delay": 0,
-      "loop": false,
-      "muted": false,
-      "broken": false
-    },
-    {
-      "id": "st_1780648524359_pf76hwket",
-      "soundId": "lenie_2",
-      "startSegmentId": "seg_1780646840234",
-      "endSegmentId": "seg_1780646840234",
       "column": 0,
       "volume": 0.5,
       "fadeIn": 0,
