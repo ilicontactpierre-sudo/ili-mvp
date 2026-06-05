@@ -444,8 +444,10 @@ function GameImage({ data, onResolved }) {
     const base = { width: '100%', height: 'auto', display: 'block' }
     if (animation === 'develop') return {
       ...base,
-      filter: cssVisible ? 'saturate(1) brightness(1)' : 'saturate(0) brightness(2)',
-      transition: `filter 1800ms ${EASE.inOut}`,
+      filter: cssVisible
+        ? 'saturate(1) brightness(1) contrast(1)'
+        : 'saturate(0) brightness(2.2) contrast(0.7)',
+      transition: `filter 4200ms cubic-bezier(0.37, 0, 0.63, 1)`,
     }
     if (animation === 'fog') return {
       ...base,
