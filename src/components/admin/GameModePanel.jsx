@@ -187,6 +187,14 @@ function FormFilmstrip({ data, onChange }) {
         <input style={inputStyle} type="number" min="800" max="8000" step="100" value={data.interval || 2500}
           onChange={e => onChange({ ...data, interval: parseInt(e.target.value) || 2500 })} />
       </Field>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+        <input type="checkbox" id="showCounter" checked={data.showCounter !== false}
+          onChange={e => onChange({ ...data, showCounter: e.target.checked })}
+          style={{ accentColor: '#a78bfa' }} />
+        <label htmlFor="showCounter" style={{ fontSize: '0.8rem', color: 'rgba(255,255,255,0.6)', cursor: 'pointer' }}>
+          Afficher le compteur (ex : 2 / 5)
+        </label>
+      </div>
     </>
   )
 }
