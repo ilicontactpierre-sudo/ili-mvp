@@ -48,6 +48,7 @@ class AudioEngine {
   stopSound(soundId, trackId) {
     const key = trackId || soundId
     this._fadeTokens.delete(key)
+    this._stopPanAnimation(key)
     const soundState = this.playingSounds.get(key)
     if (soundState) {
       if (soundState._loopTimeout) clearTimeout(soundState._loopTimeout)
