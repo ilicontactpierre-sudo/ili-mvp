@@ -243,6 +243,14 @@ function GameOverlay({ gameMode, onResolved }) {
 
 // ─── Keyframes globaux ────────────────────────────────────────────────────────
 const GLOBAL_KEYFRAMES = `
+  @keyframes game-shards {
+    0%   { clip-path: polygon(50% 0%, 50% 0%, 50% 100%, 50% 100%); opacity: 0; }
+    15%  { clip-path: polygon(30% 0%, 70% 0%, 85% 100%, 15% 100%); opacity: 0.6; }
+    35%  { clip-path: polygon(10% 0%, 90% 0%, 100% 80%, 0% 80%);   opacity: 0.8; }
+    55%  { clip-path: polygon(5% 10%, 95% 5%, 98% 95%, 2% 90%);    opacity: 0.9; }
+    75%  { clip-path: polygon(2% 2%, 98% 0%, 100% 98%, 0% 100%);   opacity: 0.95; }
+    100% { clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%); opacity: 1; }
+  }
   @keyframes game-blink {
     0%, 100% { opacity: 1; }
     50%       { opacity: 0; }
@@ -443,13 +451,8 @@ function GameImage({ data, onResolved }) {
     }
     if (animation === 'shards') return {
       ...base,
-      opacity: cssVisible ? 1 : 0,
-      clipPath: cssVisible
-        ? 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)'
-        : 'polygon(50% 0%, 50% 0%, 50% 100%, 50% 100%)',
-      transition: cssVisible
-        ? `opacity 200ms ${EASE.out}, clip-path 850ms ${EASE.spring}`
-        : 'none',
+      animation: cssVisible ? `game-shards 900ms ${EASE.spring} forwards` : 'none',
+      opacity: cssVisible ? undefined : 0,
     }
     // fade par défaut
     return {
