@@ -72,23 +72,34 @@ class AudioEngine {
     this._fadeTokens.set(key, token)
     const crossfadeMs = this._crossfadeMs(loop, loopCrossfade)
     if (this.playingSounds.has(key)) {
+      // Son déjà en cours : fade vers le nouveau volume
       const state = this.playingSounds.get(key)
       const current = howl.volume(undefined, state.instanceId)
       howl.fade(current, volume, duration, state.instanceId)
       this.playingSounds.set(key, { ...state, volume })
     } else {
       const instanceId = this._playInstance(howl, soundId, trimStart, trimEnd, key)
-      howl.loop(false, instanceId)
+      // Mettre à 0 immédiatement (avant que le son démarre)
       howl.volume(0, instanceId)
-      howl.fade(0, volume, duration, instanceId)
+      howl.loop(false, instanceId)
       this.playingSounds.set(key, { howl, soundId, volume, instanceId, loop, loopCrossfade, trimStart, trimEnd, pan, panMode })
-      if (loop && crossfadeMs > 0) {
-        this._scheduleLoopCrossfade(key, howl, soundId, volume, crossfadeMs, trimStart, trimEnd, loopCrossfade)
-      } else if (loop) {
-        howl.loop(true, instanceId)
-      }
+      // Attendre que l'instance soit réellement en lecture avant de lancer le fade
+      howl.once('play', () => {
+        // Vérifier que le son n'a pas été stoppé entre-temps
+        if (!this.playingSounds.has(key)) return
+        if (duration > 0) {
+          howl.fade(0, volume, duration, instanceId)
+        } else {
+          howl.volume(volume, instanceId)
+        }
+        if (loop && crossfadeMs > 0) {
+          this._scheduleLoopCrossfade(key, howl, soundId, volume, crossfadeMs, trimStart, trimEnd, loopCrossfade)
+        } else if (loop) {
+          howl.loop(true, instanceId)
+        }
+        this._applyPan(key, pan, panMode, howl)
+      }, instanceId)
     }
-    this._applyPan(key, pan, panMode, howl)
   }
 
   fadeOutSound({ trackId, soundId, duration = 400 }) {
