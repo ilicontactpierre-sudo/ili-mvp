@@ -349,6 +349,7 @@ function StoryPage() {
     >
       {activeGameMode && (
         <GameOverlay
+          key={currentIndex}
           gameMode={activeGameMode}
           onResolved={goToNext}
         />
