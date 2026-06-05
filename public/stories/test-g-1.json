@@ -609,9 +609,9 @@
       "audioEvents": []
     },
     {
-      "text": "Test du VFX Tapewritter. OMG, ça marche ?? J'espère que oui 🤞 !Test du VFX J'allonge un peu le text pour voir comment se passe cet effet. Et comment il réagit pour les phrases à la ligne comme ça.",
+      "text": "Test du VFX Parasite. OMG, ça marche ?? J'espère que oui 🤞 !Test du VFX J'allonge un peu le text pour voir comment se passe cet effet. Et comment il réagit pour les phrases à la ligne comme ça.",
       "id": "seg_1780646840769",
-      "breakAt": 139,
+      "breakAt": 136,
       "audioEvents": []
     },
     {
@@ -725,5 +725,126 @@
       "muted": false
     }
   ],
-  "vfxTracks": []
+  "vfxTracks": [
+    {
+      "id": "vfx_1780650677736_gxvshg7q3",
+      "type": "shake",
+      "mode": "normal",
+      "loop": false,
+      "color": "rgba(200, 0, 0, 0.12)",
+      "column": 0,
+      "startSegmentId": "seg_1780646755803",
+      "endSegmentId": "seg_1780646755803"
+    },
+    {
+      "id": "vfx_1780650685290_plwp3rcwh",
+      "type": "shake",
+      "mode": "normal",
+      "loop": true,
+      "color": "rgba(200, 0, 0, 0.12)",
+      "column": 0,
+      "startSegmentId": "seg_1780647775988",
+      "endSegmentId": "seg_1780647775988"
+    },
+    {
+      "id": "vfx_1780650690482_bn66xy89u",
+      "type": "tremble",
+      "mode": "moyen",
+      "loop": false,
+      "color": "rgba(200, 0, 0, 0.12)",
+      "column": 0,
+      "startSegmentId": "seg_1780646842039",
+      "endSegmentId": "seg_1780646842039"
+    },
+    {
+      "id": "vfx_1780650695780_ax27c4p8p",
+      "type": "typewriter",
+      "mode": "normal",
+      "loop": false,
+      "color": "rgba(200, 0, 0, 0.12)",
+      "column": 0,
+      "startSegmentId": "seg_1780646841904",
+      "endSegmentId": "seg_1780646841904"
+    },
+    {
+      "id": "vfx_1780650702427_0ocfoo6xx",
+      "type": "erased",
+      "mode": "normal",
+      "loop": false,
+      "color": "rgba(200, 0, 0, 0.12)",
+      "column": 0,
+      "startSegmentId": "seg_1780646841771",
+      "endSegmentId": "seg_1780646841771"
+    },
+    {
+      "id": "vfx_1780650708380_24596dirh",
+      "type": "glitch",
+      "mode": "normal",
+      "loop": false,
+      "color": "rgba(200, 0, 0, 0.12)",
+      "column": 0,
+      "startSegmentId": "seg_1780646841637",
+      "endSegmentId": "seg_1780646841637"
+    },
+    {
+      "id": "vfx_1780650718002_7ddgo6x98",
+      "type": "ink",
+      "mode": "moyen",
+      "loop": false,
+      "color": "rgba(200, 0, 0, 0.12)",
+      "column": 0,
+      "startSegmentId": "seg_1780646841504",
+      "endSegmentId": "seg_1780646841504"
+    },
+    {
+      "id": "vfx_1780650726946_b37k631es",
+      "type": "flicker",
+      "mode": "",
+      "loop": false,
+      "color": "rgba(200, 0, 0, 0.12)",
+      "column": 0,
+      "startSegmentId": "seg_1780646841357",
+      "endSegmentId": "seg_1780646841357"
+    },
+    {
+      "id": "vfx_1780650733126_oxhm2dd1f",
+      "type": "flash",
+      "mode": "moyen",
+      "loop": false,
+      "color": "rgba(255, 255, 255, 0.18)",
+      "column": 0,
+      "startSegmentId": "seg_1780646841197",
+      "endSegmentId": "seg_1780646841197"
+    },
+    {
+      "id": "vfx_1780650740467_ytx36iacz",
+      "type": "vignette",
+      "mode": "",
+      "loop": false,
+      "color": "rgba(200, 0, 0, 0.12)",
+      "column": 0,
+      "startSegmentId": "seg_1780646841050",
+      "endSegmentId": "seg_1780646841050"
+    },
+    {
+      "id": "vfx_1780650746780_v35dk5xk0",
+      "type": "scanlines",
+      "mode": "normal",
+      "loop": false,
+      "color": "rgba(200, 0, 0, 0.12)",
+      "column": 0,
+      "startSegmentId": "seg_1780646840903",
+      "endSegmentId": "seg_1780646840903"
+    },
+    {
+      "id": "vfx_1780650755255_la9xmjslv",
+      "type": "static",
+      "mode": "",
+      "loop": false,
+      "color": "rgba(200, 0, 0, 0.12)",
+      "column": 0,
+      "startSegmentId": "seg_1780646840769",
+      "endSegmentId": "seg_1780646840769"
+    }
+  ]
 }
