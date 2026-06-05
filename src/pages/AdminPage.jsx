@@ -873,6 +873,8 @@ function AdminPage() {
       setSoundTracks(reconstructed)
     }
 
+    // Restaurer les vfxTracks
+    setVfxTracks(storyData.vfxTracks || [])
     // Afficher une confirmation
     alert('Histoire chargée dans l\'éditeur.\n\nLes modifications non sauvegardées ont été remplacées.')
     
