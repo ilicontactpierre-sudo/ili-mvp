@@ -17,5 +17,16 @@
     }
   ],
   "soundTracks": [],
-  "vfxTracks": []
+  "vfxTracks": [
+    {
+      "id": "vfx_1780649376561_gm46pkmrm",
+      "type": "shake",
+      "mode": "normal",
+      "loop": false,
+      "color": "rgba(200, 0, 0, 0.12)",
+      "column": 0,
+      "startSegmentId": "seg_1780649313327_0_5ztml",
+      "endSegmentId": "seg_1780649313327_0_5ztml"
+    }
+  ]
 }
