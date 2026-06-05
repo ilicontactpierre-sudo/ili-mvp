@@ -21,7 +21,7 @@ const DEFAULTS = {
   riddle:  { type: 'riddle',  question: '', answer: '', hint: '', placeholder: '', caseSensitive: false, errorMessage: '' },
   timer:    { type: 'timer',    seconds: 30, prompt: '', hint: '', expireMessage: '' },
   document:  { type: 'document',  style: 'letter', title: '', body: '', date: '', stamp: '', from: '', to: '' },
-  filmstrip: { type: 'filmstrip', images: [], interval: 2500 },
+  filmstrip: { type: 'filmstrip', images: [], interval: 2500, showCounter: true },
   sequence:  { type: 'sequence',  items: ['', '', ''], prompt: '', successMessage: '' },
   journal:   { type: 'journal',   prompt: '', placeholder: '', memoryKey: '', continueLabel: '' },
   echo:      { type: 'echo',      phrase: '', prompt: '', successMessage: '' },
