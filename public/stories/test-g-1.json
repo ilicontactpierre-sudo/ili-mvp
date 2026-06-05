@@ -962,9 +962,10 @@
       "id": "seg_1780653299569",
       "audioEvents": [
         {
-          "action": "play",
+          "action": "fadeIn",
           "soundId": "surprising_meeting",
           "volume": 0.5,
+          "duration": 2000,
           "delay": 0,
           "loop": false
         }
@@ -1234,7 +1235,7 @@
       "endSegmentId": "seg_1780653299437",
       "column": 0,
       "volume": 0.5,
-      "fadeIn": 0,
+      "fadeIn": 2000,
       "fadeOut": 0,
       "delay": 0,
       "loop": false,
