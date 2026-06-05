@@ -619,7 +619,7 @@ function GameFilmstrip({ data, onResolved }) {
         ))}
       </div>
 
-      {allDone && <ContinueBtn onClick={onResolved} delay={200} />}
+      {/* auto-advance : pas de bouton continuer */}
     </div>
   )
 }
