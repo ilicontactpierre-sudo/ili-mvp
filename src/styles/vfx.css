@@ -147,7 +147,7 @@
 .vfx-glitch-normal,
 .vfx-glitch-intense {
   position: relative;
-  display: inline-block; /* ou block selon contexte */
+  display: block;
 }
 
 .vfx-glitch-weak::before   { animation: vfx-glitch-clip-1 4.5s infinite; }
