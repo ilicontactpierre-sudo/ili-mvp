@@ -117,30 +117,38 @@
    Le texte doit être dans data-text pour les pseudo-éléments
    ---------------------------------------------------------- */
 @keyframes vfx-glitch-clip-1 {
-  0%, 85%, 100% { clip-path: none; transform: none; opacity: 1; }
-  87%  { clip-path: polygon(0 18%, 100% 18%, 100% 36%, 0 36%); transform: translateX(-5px); opacity: 0.85; }
-  89%  { clip-path: polygon(0 55%, 100% 55%, 100% 75%, 0 75%); transform: translateX(5px);  opacity: 0.85; }
-  91%  { clip-path: polygon(0 8%,  100% 8%,  100% 22%, 0 22%); transform: translateX(-3px); opacity: 0.9; }
-  93%  { clip-path: none; transform: none; }
+  0%, 80%, 100% { clip-path: none; transform: none; opacity: 1; }
+  81%  { clip-path: polygon(0 10%, 100% 10%, 100% 28%, 0 28%); transform: translateX(-6px) skewX(-1deg); opacity: 0.9; }
+  83%  { clip-path: polygon(0 50%, 100% 50%, 100% 72%, 0 72%); transform: translateX(6px)  skewX(1deg);  opacity: 0.9; }
+  85%  { clip-path: polygon(0 5%,  100% 5%,  100% 18%, 0 18%); transform: translateX(-4px); opacity: 0.95; }
+  87%  { clip-path: polygon(0 65%, 100% 65%, 100% 80%, 0 80%); transform: translateX(4px);  opacity: 0.95; }
+  89%  { clip-path: none; transform: translateX(-1px); }
+  90%  { clip-path: none; transform: none; }
 }
-@keyframes vfx-glitch-clip-2 {
-  0%, 85%, 100% { clip-path: none; transform: none; opacity: 0; }
-  87%  { clip-path: polygon(0 55%, 100% 55%, 100% 75%, 0 75%); transform: translateX(5px);  opacity: 0.6; color: #f00a; }
-  89%  { clip-path: polygon(0 18%, 100% 18%, 100% 36%, 0 36%); transform: translateX(-5px); opacity: 0.6; color: #00fa; }
-  91%  { clip-path: none; opacity: 0; }
+
+@keyframes vfx-glitch-overlay-weak {
+  0%, 80%, 100% { clip-path: none; transform: none; opacity: 0; }
+  81%  { clip-path: polygon(0 50%, 100% 50%, 100% 72%, 0 72%); transform: translateX(6px);  opacity: 0.55; color: #ff003c; }
+  83%  { clip-path: polygon(0 10%, 100% 10%, 100% 28%, 0 28%); transform: translateX(-6px); opacity: 0.55; color: #00f0ff; }
+  85%  { clip-path: polygon(0 30%, 100% 30%, 100% 45%, 0 45%); transform: translateX(3px);  opacity: 0.4;  color: #ffe600; }
+  87%  { clip-path: none; opacity: 0; }
 }
-@keyframes vfx-glitch-clip-2-normal {
-  0%, 78%, 100% { clip-path: none; transform: none; opacity: 0; }
-  80%  { clip-path: polygon(0 55%, 100% 55%, 100% 75%, 0 75%); transform: translateX(7px);  opacity: 0.6; color: #f00a; }
-  82%  { clip-path: polygon(0 18%, 100% 18%, 100% 36%, 0 36%); transform: translateX(-7px); opacity: 0.6; color: #00fa; }
-  84%  { clip-path: none; opacity: 0; }
+
+@keyframes vfx-glitch-overlay-normal {
+  0%, 72%, 100% { clip-path: none; transform: none; opacity: 0; }
+  73%  { clip-path: polygon(0 45%, 100% 45%, 100% 68%, 0 68%); transform: translateX(8px)  skewX(2deg);  opacity: 0.6; color: #ff003c; }
+  75%  { clip-path: polygon(0 12%, 100% 12%, 100% 30%, 0 30%); transform: translateX(-8px) skewX(-2deg); opacity: 0.6; color: #00f0ff; }
+  77%  { clip-path: polygon(0 70%, 100% 70%, 100% 85%, 0 85%); transform: translateX(5px);  opacity: 0.5; color: #ffe600; }
+  79%  { clip-path: polygon(0 3%,  100% 3%,  100% 14%, 0 14%); transform: translateX(-5px); opacity: 0.5; color: #ff003c; }
+  81%  { clip-path: none; opacity: 0; }
 }
-@keyframes vfx-glitch-clip-2-intense {
-  0%, 65%, 100% { clip-path: none; transform: none; opacity: 0; }
-  67%  { clip-path: polygon(0 30%, 100% 30%, 100% 60%, 0 60%); transform: translateX(10px); opacity: 0.7; color: #f00b; }
-  69%  { clip-path: polygon(0 5%,  100% 5%,  100% 30%, 0 30%); transform: translateX(-10px);opacity: 0.7; color: #00fb; }
-  71%  { clip-path: none; opacity: 0; }
-}
+
+@keyframes vfx-glitch-overlay-intense {
+  0%, 58%, 100% { clip-path: none; transform: none; opacity: 0; }
+  59%  { clip-path: polygon(0 20%, 100% 20%, 100% 45%, 0 45%); transform: translateX(12px) skewX(3deg);  opacity: 0.7; color: #ff003c; }
+  61%  { clip-path: polygon(0 55%, 100% 55%, 100% 78%, 0 78%); transform: translateX(-12px) skewX(-3deg);opacity: 0.7; color: #00f0ff; }
+  63%  { clip-path: polygon(0 5%,  100% 5%,  100% 20%, 0 20%); transform: translateX(8px);  opacity: 0.6; color: #ffe600; }
+  65%  { clip-path: polygon(0 80%, 100% 80%, 100% 95%,
 
 /* Wrapper nécessaire : position relative + overflow visible */
 .vfx-glitch-weak,
