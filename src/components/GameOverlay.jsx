@@ -444,8 +444,12 @@ function GameImage({ data, onResolved }) {
     if (animation === 'shards') return {
       ...base,
       opacity: cssVisible ? 1 : 0,
-      clipPath: cssVisible ? 'polygon(0 0,100% 0,100% 100%,0 100%)' : 'polygon(50% 50%,50% 50%,50% 50%,50% 50%)',
-      transition: `opacity 400ms ${EASE.out}, clip-path 900ms ${EASE.spring}`,
+      clipPath: cssVisible
+        ? 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)'
+        : 'polygon(50% 0%, 50% 0%, 50% 100%, 50% 100%)',
+      transition: cssVisible
+        ? `opacity 200ms ${EASE.out}, clip-path 850ms ${EASE.spring}`
+        : 'none',
     }
     // fade par défaut
     return {
