@@ -111,19 +111,41 @@ class AudioEngine {
     const instanceId = soundState?.instanceId
     const token = Symbol()
     this._fadeTokens.set(key, token)
-    const fromVolume = instanceId != null
-      ? howl.volume(undefined, instanceId)
-      : howl.volume()
-    howl.once('fade', () => {
-      if (this._fadeTokens.get(key) === token) {
+    this._stopPanAnimation(key)
+    this.playingSounds.delete(key)
+
+    const doFade = () => {
+      if (this._fadeTokens.get(key) !== token) return
+      const fromVolume = instanceId != null
+        ? howl.volume(undefined, instanceId)
+        : howl.volume()
+      if (duration <= 0 || fromVolume === 0) {
         instanceId != null ? howl.stop(instanceId) : howl.stop()
-        this.playingSounds.delete(key)
         this._fadeTokens.delete(key)
+        return
       }
-    }, instanceId)
-    instanceId != null
-      ? howl.fade(fromVolume, 0, duration, instanceId)
-      : howl.fade(fromVolume, 0, duration)
+      howl.once('fade', () => {
+        if (this._fadeTokens.get(key) === token) {
+          instanceId != null ? howl.stop(instanceId) : howl.stop()
+          this._fadeTokens.delete(key)
+        }
+      }, instanceId)
+      instanceId != null
+        ? howl.fade(fromVolume, 0, duration, instanceId)
+        : howl.fade(fromVolume, 0, duration)
+    }
+
+    // Si le son est en état 'loading' ou en attente de play, attendre qu'il démarre
+    const state = howl.state()
+    if (state === 'loaded' && instanceId != null) {
+      const playing = howl.playing(instanceId)
+      if (!playing) {
+        // Pas encore en lecture — attendre le play ou stopper directement
+        howl.once('play', doFade, instanceId)
+        return
+      }
+    }
+    doFade()
   }
 
   setSoundVolume({ trackId, soundId, volume = 1, duration }) {
