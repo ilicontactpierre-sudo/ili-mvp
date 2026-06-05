@@ -25,7 +25,10 @@ function renderTypewriter(text, mode) {
     <span
       key="cursor"
       className="vfx-tw-cursor"
-      style={{ animationDelay: `${lastDelay}ms` }}
+      style={{
+        opacity: 0,
+        animationDelay: `${lastDelay}ms`,
+      }}
     >
       ▋
     </span>
