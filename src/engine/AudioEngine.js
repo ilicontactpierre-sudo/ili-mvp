@@ -276,14 +276,17 @@ class AudioEngine {
     // Arrêter les sons qui ne doivent plus jouer
     this.playingSounds.forEach((state, key) => {
       if (!activeKeys.has(key)) {
-        // Retrouver le track pour lire son fadeOut
-        const track = soundTracks.find(t => (t.id || t.soundId) === key)
-        const fadeOutMs = (track?.fadeOut ?? 0) * 1000
+        // Retrouver le track via la key (qui est le trackId ou le soundId)
+        const track = soundTracks.find(t => t.id === key || t.soundId === key)
+        // fadeOut déjà en ms dans le JSON
+        const fadeOutMs = track?.fadeOut ?? 0
         if (fadeOutMs > 0) {
-          // Fade puis stop
           this.fadeOutSound({ trackId: key, soundId: state.soundId, duration: fadeOutMs })
+        } else {
+          // fadeOut = 0 → laisser le son finir naturellement, juste retirer de playingSounds
+          // pour ne pas bloquer un éventuel redémarrage, mais ne pas stopper le howl
+          this.playingSounds.delete(key)
         }
-        // fadeOut = 0 → on ne touche pas au son, il finit naturellement
       }
     })
 
