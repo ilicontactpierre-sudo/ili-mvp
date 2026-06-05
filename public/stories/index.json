@@ -53,5 +53,10 @@
     "id": "brooklyn-v2",
     "title": "Brooklyn",
     "author": "Pierre Delaup"
+  },
+  {
+    "id": "test-g-1",
+    "title": "test G 1",
+    "author": "test G 1"
   }
 ]
