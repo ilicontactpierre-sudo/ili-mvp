@@ -286,9 +286,9 @@
   );
   z-index: 10;
 }
-.vfx-scanlines-slow::after   { animation: vfx-scan-slow   4s  linear infinite; }
-.vfx-scanlines-normal::after { animation: vfx-scan-normal  2s  linear infinite; }
-.vfx-scanlines-fast::after   { animation: vfx-scan-fast   0.6s linear infinite; }
+.vfx-scanlines-slow::after   { animation: vfx-scan-slow   4s  cubic-bezier(0.37, 0, 0.63, 1) infinite; }
+.vfx-scanlines-normal::after { animation: vfx-scan-normal 2s  cubic-bezier(0.37, 0, 0.63, 1) infinite; }
+.vfx-scanlines-fast::after   { animation: vfx-scan-fast   0.8s cubic-bezier(0.37, 0, 0.63, 1) infinite; }
 
 /* ----------------------------------------------------------
    STATIC / PARASITES — micro-tremblement rapide
