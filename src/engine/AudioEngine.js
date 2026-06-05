@@ -130,6 +130,7 @@ class AudioEngine {
 
   stopAll(duration = 0) {
     this._fadeTokens.clear()
+    this._panAnimations.forEach((_, key) => this._stopPanAnimation(key))
     this.playingSounds.forEach(({ howl, instanceId, _loopTimeout }) => {
       if (_loopTimeout) clearTimeout(_loopTimeout)
       if (duration > 0) {
