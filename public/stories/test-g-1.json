@@ -8,6 +8,11 @@
       "id": "airblow_balloon_air_release_fart_airy_01_b00m_one",
       "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/airblow_balloon_air_release_fart_airy_01_b00m_one.mp3",
       "loop": false
+    },
+    {
+      "id": "lenie_2",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/lenie_2.mp3",
+      "loop": false
     }
   ],
   "segments": [
@@ -720,126 +725,5 @@
       "muted": false
     }
   ],
-  "vfxTracks": [
-    {
-      "id": "vfx_1780646846816_2yd43ubhl",
-      "type": "shake",
-      "mode": "normal",
-      "loop": false,
-      "color": "rgba(200, 0, 0, 0.12)",
-      "column": 0,
-      "startSegmentId": "seg_1780646755803",
-      "endSegmentId": "seg_1780646755803"
-    },
-    {
-      "id": "vfx_1780647721901_857w75tlj",
-      "type": "tremble",
-      "mode": "moyen",
-      "loop": false,
-      "color": "rgba(200, 0, 0, 0.12)",
-      "column": 0,
-      "startSegmentId": "seg_1780646842039",
-      "endSegmentId": "seg_1780646842039"
-    },
-    {
-      "id": "vfx_1780647779479_akzjvov40",
-      "type": "shake",
-      "mode": "normal",
-      "loop": true,
-      "color": "rgba(200, 0, 0, 0.12)",
-      "column": 0,
-      "startSegmentId": "seg_1780647775988",
-      "endSegmentId": "seg_1780647775988"
-    },
-    {
-      "id": "vfx_1780647789288_z25vpqg1x",
-      "type": "typewriter",
-      "mode": "lent",
-      "loop": false,
-      "color": "rgba(200, 0, 0, 0.12)",
-      "column": 0,
-      "startSegmentId": "seg_1780646841904",
-      "endSegmentId": "seg_1780646841904"
-    },
-    {
-      "id": "vfx_1780647875162_wnbmrei8v",
-      "type": "erased",
-      "mode": "normal",
-      "loop": false,
-      "color": "rgba(200, 0, 0, 0.12)",
-      "column": 0,
-      "startSegmentId": "seg_1780646841771",
-      "endSegmentId": "seg_1780646841771"
-    },
-    {
-      "id": "vfx_1780647899774_jw3xtl3l9",
-      "type": "glitch",
-      "mode": "normal",
-      "loop": false,
-      "color": "rgba(200, 0, 0, 0.12)",
-      "column": 0,
-      "startSegmentId": "seg_1780646841637",
-      "endSegmentId": "seg_1780646841637"
-    },
-    {
-      "id": "vfx_1780647927268_htxnatq9e",
-      "type": "ink",
-      "mode": "lent",
-      "loop": false,
-      "color": "rgba(200, 0, 0, 0.12)",
-      "column": 0,
-      "startSegmentId": "seg_1780646841504",
-      "endSegmentId": "seg_1780646841504"
-    },
-    {
-      "id": "vfx_1780647944671_ximkr9dal",
-      "type": "flicker",
-      "mode": "",
-      "loop": false,
-      "color": "rgba(200, 0, 0, 0.12)",
-      "column": 0,
-      "startSegmentId": "seg_1780646841357",
-      "endSegmentId": "seg_1780646841357"
-    },
-    {
-      "id": "vfx_1780647964947_y1t0hvpf3",
-      "type": "flash",
-      "mode": "moyen",
-      "loop": false,
-      "color": "rgba(255, 255, 255, 0.18)",
-      "column": 0,
-      "startSegmentId": "seg_1780646841197",
-      "endSegmentId": "seg_1780646841197"
-    },
-    {
-      "id": "vfx_1780647994884_tptjcln3w",
-      "type": "vignette",
-      "mode": "",
-      "loop": false,
-      "color": "rgba(200, 0, 0, 0.12)",
-      "column": 0,
-      "startSegmentId": "seg_1780646841050",
-      "endSegmentId": "seg_1780646841050"
-    },
-    {
-      "id": "vfx_1780648017854_vqqhdayiq",
-      "type": "scanlines",
-      "mode": "normal",
-      "loop": false,
-      "color": "rgba(200, 0, 0, 0.12)",
-      "column": 0,
-      "startSegmentId": "seg_1780646840903",
-      "endSegmentId": "seg_1780646840903"
-    },
-    {
-      "id": "vfx_1780648036446_nov75kdz6",
-      "type": "static",
-      "mode": "",
-      "loop": false,
-      "color": "rgba(200, 0, 0, 0.12)",
-      "column": 0,
-      "startSegmentId": "seg_1780646840769",
-      "endSegmentId": "seg_1780646840769"
-    }
-  ]
+  "vfxTracks": []
 }
