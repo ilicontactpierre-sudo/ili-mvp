@@ -77,9 +77,12 @@
 }
 
 /* Les spans .vfx-tw-letter sont injectés par JS avec animation-delay calculé */
-.vfx-typewriter-slow   .vfx-tw-letter { animation: vfx-letter-appear 0.01s forwards; }
-.vfx-typewriter-normal .vfx-tw-letter { animation: vfx-letter-appear 0.01s forwards; }
-.vfx-typewriter-fast   .vfx-tw-letter { animation: vfx-letter-appear 0.01s forwards; }
+.vfx-typewriter-lent   .vfx-tw-letter,
+.vfx-typewriter-normal .vfx-tw-letter,
+.vfx-typewriter-rapide .vfx-tw-letter {
+  opacity: 0;
+  animation: vfx-letter-appear 0.01s forwards;
+}
 
 /* Curseur clignotant en fin de texte */
 .vfx-typewriter-slow::after,
