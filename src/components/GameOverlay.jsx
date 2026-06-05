@@ -551,15 +551,16 @@ function GameFilmstrip({ data, onResolved }) {
       setVisible(true)
       // Après la durée d'affichage → fade out puis image suivante
       timerRef.current = setTimeout(() => {
-        setVisible(false)
-        timerRef.current = setTimeout(() => {
-          if (current < images.length - 1) {
-            setCurrent(c => c + 1)
-          } else {
-            setAllDone(true)
-          }
-        }, 900) // durée du fade out avant de changer
-      }, duration)
+          setVisible(false)
+          timerRef.current = setTimeout(() => {
+            if (current < images.length - 1) {
+              setCurrent(c => c + 1)
+            } else {
+              setAllDone(true)
+              setTimeout(onResolved, 600)
+            }
+          }, 900) // durée du fade out avant de changer
+        }, duration)
     }, 300)
     return clearTimers
   }, [current])
