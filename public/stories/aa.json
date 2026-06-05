@@ -14,6 +14,11 @@
       "breakAt": null,
       "isLeader": false,
       "audioEvents": []
+    },
+    {
+      "text": "",
+      "id": "seg_1780649977837",
+      "audioEvents": []
     }
   ],
   "soundTracks": [],
@@ -27,6 +32,16 @@
       "column": 0,
       "startSegmentId": "seg_1780649313327_0_5ztml",
       "endSegmentId": "seg_1780649313327_0_5ztml"
+    },
+    {
+      "id": "vfx_1780649979024_t9yhb8cby",
+      "type": "shake",
+      "mode": "normal",
+      "loop": false,
+      "color": "rgba(200, 0, 0, 0.12)",
+      "column": 0,
+      "startSegmentId": "seg_1780649977837",
+      "endSegmentId": "seg_1780649977837"
     }
   ]
 }
