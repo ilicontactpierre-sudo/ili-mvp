@@ -5,8 +5,8 @@
   "published": true,
   "sounds": [
     {
-      "id": "surprising_meeting",
-      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/surprising_meeting.mp3",
+      "id": "ambrest_restaurant_cafe_crowded_b00m_one",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/ambrest_restaurant_cafe_crowded_b00m_one.mp3",
       "loop": false
     }
   ],
@@ -22,9 +22,9 @@
       "audioEvents": [
         {
           "action": "fadeIn",
-          "soundId": "surprising_meeting",
+          "soundId": "ambrest_restaurant_cafe_crowded_b00m_one",
           "volume": 0.5,
-          "duration": 2200,
+          "duration": 2222,
           "delay": 0,
           "loop": false
         }
@@ -36,8 +36,8 @@
       "audioEvents": [
         {
           "action": "fadeOut",
-          "soundId": "surprising_meeting",
-          "duration": 1900
+          "soundId": "ambrest_restaurant_cafe_crowded_b00m_one",
+          "duration": 2153
         }
       ],
       "breakAt": null
@@ -51,14 +51,14 @@
   ],
   "soundTracks": [
     {
-      "id": "st_1780659270927_k0aq1cdn5",
-      "soundId": "surprising_meeting",
+      "id": "st_1780660798418_xarn4ddve",
+      "soundId": "ambrest_restaurant_cafe_crowded_b00m_one",
       "startSegmentId": "seg_1780649313327_0_5ztml",
       "endSegmentId": "seg_1780649977837",
       "column": 0,
       "volume": 0.5,
-      "fadeIn": 2200,
-      "fadeOut": 1900,
+      "fadeIn": 2222,
+      "fadeOut": 2153,
       "delay": 0,
       "loop": false,
       "muted": false,
