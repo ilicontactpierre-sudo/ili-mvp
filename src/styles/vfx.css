@@ -241,9 +241,27 @@
 /* ----------------------------------------------------------
    SCANLINES — lignes horizontales de défilement
    ---------------------------------------------------------- */
-@keyframes vfx-scan-slow   { from { background-position: 0 0; } to { background-position: 0 100px; } }
-@keyframes vfx-scan-normal { from { background-position: 0 0; } to { background-position: 0 100px; } }
-@keyframes vfx-scan-fast   { from { background-position: 0 0; } to { background-position: 0 100px; } }
+@keyframes vfx-scan-slow {
+  0%   { background-position: 0 0; opacity: 0.4; }
+  25%  { opacity: 0.7; }
+  50%  { opacity: 1; }
+  75%  { opacity: 0.7; }
+  100% { background-position: 0 100px; opacity: 0.4; }
+}
+@keyframes vfx-scan-normal {
+  0%   { background-position: 0 0; opacity: 0.3; }
+  25%  { opacity: 0.8; }
+  50%  { opacity: 1; }
+  75%  { opacity: 0.8; }
+  100% { background-position: 0 100px; opacity: 0.3; }
+}
+@keyframes vfx-scan-fast {
+  0%   { background-position: 0 0; opacity: 0.2; }
+  25%  { opacity: 0.9; }
+  50%  { opacity: 1; }
+  75%  { opacity: 0.9; }
+  100% { background-position: 0 100px; opacity: 0.2; }
+}
 
 .vfx-scanlines-slow,
 .vfx-scanlines-normal,
