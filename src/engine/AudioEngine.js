@@ -3,6 +3,7 @@ class AudioEngine {
     this.howlMap = howlMap
     this.playingSounds = new Map()
     this._fadeTokens = new Map()
+    this._panAnimations = new Map() // intervalId par key pour les modes animés
   }
 
   async executeEvents(audioEvents = []) {
