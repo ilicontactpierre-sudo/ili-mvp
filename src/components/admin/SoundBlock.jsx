@@ -280,18 +280,23 @@ const dragStartRef = useRef(null)
       
       // Resize pour changer la durée
       if (isResizing) {
-        const deltaY = e.clientY - resizeStart.y
-        const currentRowHeights = resizeStart.rowHeights || []
-        const startIdx = resizeStart.startSegment
-        const endIdx = resizeStart.endSegment
+        const rs = resizeStartRef.current
+        if (!rs) return
+        const currentRowHeights = rowHeightsRef.current || []
+        const startIdx = rs.startSegment
+        const endIdx = rs.endSegment
         
-        // Obtenir le conteneur scrollable pour calculer la position absolue
+        // Recalculer la position absolue du bloc en temps réel depuis le DOM
         const timelineRoot = blockRef.current?.closest('[data-timeline-root]')
+        const timelineRect = timelineRoot?.getBoundingClientRect()
         const currentScrollTop = timelineRoot ? timelineRoot.scrollTop : 0
         
+        // Position du curseur dans le contenu scrollable
+        const cursorAbsoluteY = e.clientY - (timelineRect?.top ?? 0) + currentScrollTop
+        
         if (isResizing === 'bottom') {
-          // Position absolue actuelle du bas du bloc
-          const absoluteBottom = resizeStart.absoluteBlockBottom + deltaY
+          // On cherche le segment dont le bas est le plus proche du curseur
+          const absoluteBottom = cursorAbsoluteY
           
           // Trouver le segment qui correspond à cette position
           let accumulated = 0
@@ -303,21 +308,9 @@ const dragStartRef = useRef(null)
             
             // Vérifier si la position du curseur est dans ce segment
             if (absoluteBottom <= accumulated + rowHeight) {
-              // Le curseur est dans ce segment
+              // Le curseur est dans ce segment — on prend ce segment si curseur > mi-hauteur
               const midPoint = accumulated + rowHeight / 2
-              if (absoluteBottom >= midPoint) {
-                newEndIndex = i
-              } else if (i > startIdx) {
-                newEndIndex = i - 1
-              } else {
-                newEndIndex = startIdx
-              }
-              break
-            }
-            
-            // Si c'est le dernier segment, on s'arrête ici
-            if (absoluteBottom <= accumulated + rowTotal) {
-              newEndIndex = i
+              newEndIndex = absoluteBottom >= midPoint ? i : Math.max(startIdx, i - 1)
               break
             }
             
