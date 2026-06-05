@@ -761,6 +761,42 @@ export default function ReaderSettings({
             </div>
           )}
 
+          {/* Sons de feedback gamification */}
+          {storyId && (
+            <div className="rs-section">
+              <span className="rs-label">Gamification</span>
+              <div className="rs-dys-row">
+                <button
+                  className={`rs-dys-btn${gameSounds.success ? ' active' : ''}`}
+                  onClick={() => {
+                    playClicSettings()
+                    setGameSounds(prev => {
+                      const next = { ...prev, success: !prev.success }
+                      try { localStorage.setItem('ili_game_sounds', JSON.stringify(next)) } catch {}
+                      return next
+                    })
+                  }}
+                  title="Son de réussite sur les énigmes"
+                >
+                  ✓ son
+                </button>
+                <button
+                  className={`rs-dys-btn${gameSounds.error ? ' active' : ''}`}
+                  onClick={() => {
+                    playClicSettings()
+                    setGameSounds(prev => {
+                      const next = { ...prev, error: !prev.error }
+                      try { localStorage.setItem('ili_game_sounds', JSON.stringify(next)) } catch {}
+                      return next
+                    })
+                  }}
+                  title="Son d'erreur sur les énigmes"
+                >
+                  ✕ son
+                </button>
+              </div>
+            </div>
+          )}
           {/* Quitter l'histoire — uniquement dans une histoire */}
           {storyId && (
             <div className="rs-section">
