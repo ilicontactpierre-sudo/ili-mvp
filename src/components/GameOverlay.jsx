@@ -144,7 +144,9 @@ function GameOverlay({ gameMode, onResolved }) {
   const type = gameMode?.type
 
   // ── Mode "déjà vu" ──
-  if (alreadySolved) {
+  const [forceReplay, setForceReplay] = useState(false)
+
+  if (alreadySolved && !forceReplay) {
     return (
       <>
         <style>{GLOBAL_KEYFRAMES}</style>
@@ -175,6 +177,26 @@ function GameOverlay({ gameMode, onResolved }) {
               {gameMode?.alreadySolvedMessage || 'vous connaissez déjà la réponse'}
             </p>
             <ContinueBtn onClick={handleResolved} label="continuer" delay={200} />
+            <button
+              onClick={() => setForceReplay(true)}
+              style={{
+                background: 'none',
+                border: 'none',
+                cursor: 'pointer',
+                fontSize: '0.68rem',
+                color: 'var(--color-text-focus, #222)',
+                opacity: 0.25,
+                letterSpacing: '0.08em',
+                fontStyle: 'italic',
+                fontFamily: 'var(--font-primary, Georgia, serif)',
+                padding: '0.25rem',
+                marginTop: '-0.5rem',
+              }}
+              onMouseEnter={e => e.currentTarget.style.opacity = '0.55'}
+              onMouseLeave={e => e.currentTarget.style.opacity = '0.25'}
+            >
+              rejouer
+            </button>
           </AnimatedWrapper>
         </div>
       </>
