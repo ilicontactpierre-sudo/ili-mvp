@@ -1,16 +1,21 @@
 import { useState, useEffect, useRef } from 'react'
 
 // ─── Sons digicode (Web Audio API) ───────────────────────────────────────────
+// ── Lecture des préférences sons feedback ─────────────────────────────────────
+function loadFeedbackSoundPrefs() {
+  try {
+    const raw = localStorage.getItem('ili_game_sounds')
+    return raw ? JSON.parse(raw) : { success: false, error: false }
+  } catch { return { success: false, error: false } }
+}
 function useKeySound() {
   const ctxRef = useRef(null)
-
   const getCtx = () => {
     if (!ctxRef.current) {
       ctxRef.current = new (window.AudioContext || window.webkitAudioContext)()
     }
     return ctxRef.current
   }
-
   const playTock = () => {
     try {
       const ctx = getCtx()
@@ -27,8 +32,8 @@ function useKeySound() {
       osc.stop(ctx.currentTime + 0.09)
     } catch {}
   }
-
   const playSuccess = () => {
+    if (!loadFeedbackSoundPrefs().success) return
     try {
       const ctx = getCtx()
       const freqs = [660, 880, 1100]
@@ -46,24 +51,26 @@ function useKeySound() {
       })
     } catch {}
   }
-
   const playError = () => {
+    if (!loadFeedbackSoundPrefs().error) return
     try {
       const ctx = getCtx()
-      const osc = ctx.createOscillator()
-      const gain = ctx.createGain()
-      osc.connect(gain)
-      gain.connect(ctx.destination)
-      osc.type = 'sawtooth'
-      osc.frequency.setValueAtTime(220, ctx.currentTime)
-      osc.frequency.exponentialRampToValueAtTime(140, ctx.currentTime + 0.22)
-      gain.gain.setValueAtTime(0.14, ctx.currentTime)
-      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.25)
-      osc.start(ctx.currentTime)
-      osc.stop(ctx.currentTime + 0.26)
+      // Deux sons légèrement désaccordés qui battent ensemble → dissonance douce
+      const freqs = [220, 233]
+      freqs.forEach((freq) => {
+        const osc = ctx.createOscillator()
+        const gain = ctx.createGain()
+        osc.connect(gain)
+        gain.connect(ctx.destination)
+        osc.type = 'sine'
+        osc.frequency.setValueAtTime(freq, ctx.currentTime)
+        gain.gain.setValueAtTime(0.07, ctx.currentTime)
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.45)
+        osc.start(ctx.currentTime)
+        osc.stop(ctx.currentTime + 0.45)
+      })
     } catch {}
   }
-
   const playDelete = () => {
     try {
       const ctx = getCtx()
@@ -80,7 +87,6 @@ function useKeySound() {
       osc.stop(ctx.currentTime + 0.1)
     } catch {}
   }
-
   return { playTock, playSuccess, playError, playDelete }
 }
 
