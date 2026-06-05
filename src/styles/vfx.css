@@ -158,20 +158,26 @@
   display: block;
 }
 
-.vfx-glitch-weak::before   { animation: vfx-glitch-clip-1 4.5s infinite; }
-.vfx-glitch-normal::before { animation: vfx-glitch-clip-1 3s   infinite; }
-.vfx-glitch-intense::before{ animation: vfx-glitch-clip-1 1.8s infinite; }
-
+.vfx-glitch-weak::before,
+.vfx-glitch-normal::before,
+.vfx-glitch-intense::before,
 .vfx-glitch-weak::after,
 .vfx-glitch-normal::after,
 .vfx-glitch-intense::after {
   content: attr(data-vfx-text);
   position: absolute;
   inset: 0;
-  color: inherit;
   background: transparent;
   pointer-events: none;
 }
+
+.vfx-glitch-weak::before   { animation: vfx-glitch-clip-1       4.5s infinite; color: inherit; }
+.vfx-glitch-normal::before { animation: vfx-glitch-clip-1       3s   infinite; color: inherit; }
+.vfx-glitch-intense::before{ animation: vfx-glitch-clip-1       1.8s infinite; color: inherit; }
+
+.vfx-glitch-weak::after    { animation: vfx-glitch-overlay-weak   4.5s infinite; }
+.vfx-glitch-normal::after  { animation: vfx-glitch-overlay-normal 3s   infinite; }
+.vfx-glitch-intense::after { animation: vfx-glitch-overlay-intense 1.8s infinite; }
 .vfx-glitch-weak::after   { animation: vfx-glitch-clip-2        4.5s infinite; }
 .vfx-glitch-normal::after { animation: vfx-glitch-clip-2-normal 3s   infinite; }
 .vfx-glitch-intense::after{ animation: vfx-glitch-clip-2-intense 1.8s infinite; }
