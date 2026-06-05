@@ -926,24 +926,56 @@
       "audioEvents": []
     },
     {
-      "text": "",
+      "text": "Teste fade out 2 sec",
       "id": "seg_1780653299799",
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "play",
+          "soundId": "surprising_meeting",
+          "volume": 0.5,
+          "delay": 0,
+          "loop": false
+        }
+      ],
+      "breakAt": null
     },
     {
-      "text": "",
+      "text": "Fin du bloc",
       "id": "seg_1780653299680",
+      "audioEvents": [
+        {
+          "action": "fadeOut",
+          "soundId": "surprising_meeting",
+          "duration": 2000
+        }
+      ],
+      "breakAt": null
+    },
+    {
+      "text": "VIDE",
+      "id": "seg_1780658254701",
+      "breakAt": null,
       "audioEvents": []
     },
     {
-      "text": "",
+      "text": "Test Fade In 2 sec",
       "id": "seg_1780653299569",
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "play",
+          "soundId": "surprising_meeting",
+          "volume": 0.5,
+          "delay": 0,
+          "loop": false
+        }
+      ],
+      "breakAt": null
     },
     {
-      "text": "",
+      "text": "Fin du bloc",
       "id": "seg_1780653299437",
-      "audioEvents": []
+      "audioEvents": [],
+      "breakAt": null
     },
     {
       "text": "",
@@ -1180,6 +1212,34 @@
       "loopCrossfade": "medium",
       "trimStart": 376,
       "trimEnd": 5154
+    },
+    {
+      "id": "st_1780658174954_9klrrhfiy",
+      "soundId": "surprising_meeting",
+      "startSegmentId": "seg_1780653299799",
+      "endSegmentId": "seg_1780653299680",
+      "column": 0,
+      "volume": 0.5,
+      "fadeIn": 0,
+      "fadeOut": 2000,
+      "delay": 0,
+      "loop": false,
+      "muted": false,
+      "broken": false
+    },
+    {
+      "id": "st_1780658265315_xxkkmmjcy",
+      "soundId": "surprising_meeting",
+      "startSegmentId": "seg_1780653299569",
+      "endSegmentId": "seg_1780653299437",
+      "column": 0,
+      "volume": 0.5,
+      "fadeIn": 0,
+      "fadeOut": 0,
+      "delay": 0,
+      "loop": false,
+      "muted": false,
+      "broken": false
     }
   ],
   "vfxTracks": [
