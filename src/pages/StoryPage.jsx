@@ -150,19 +150,12 @@ function StoryPage() {
     if (!isStarted || !audioEngineRef.current || !segments[currentIndex]) {
       return
     }
-    // Système legacy audioEvents (garde la compatibilité avec les vieilles histoires)
-    const legacyEvents = segments[currentIndex].audioEvents ?? []
-    if (legacyEvents.length > 0) console.log('⚠️ audioEvents legacy détectés', legacyEvents)
-    audioEngineRef.current.executeEvents(legacyEvents)
-    // Système soundTracks (nouveau modèle timeline)
+    // Si la story a des soundTracks (nouveau système), on ignore les audioEvents legacy
     if (story?.soundTracks?.length) {
-      console.log('🎵 onSegmentChange', {
-        currentIndex,
-        firstTrack: story.soundTracks[0],
-        firstSegment: segments[0]?.id,
-        matchStart: segments.findIndex(s => s.id === story.soundTracks[0]?.startSegmentId),
-      })
       audioEngineRef.current.onSegmentChange(currentIndex, story.soundTracks, segments)
+    } else {
+      // Système legacy audioEvents (compatibilité avec les vieilles histoires)
+      audioEngineRef.current.executeEvents(segments[currentIndex].audioEvents ?? [])
     }
   }, [currentIndex, isStarted])
 
