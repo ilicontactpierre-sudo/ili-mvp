@@ -206,8 +206,7 @@ function SoundBlock({
     // Position absolue du bas du bloc
     const absoluteBlockBottom = absoluteBlockTop + blockHeight
     
-    setIsResizing(direction)
-    setResizeStart({
+    const rsData = {
       y: e.clientY,
       startSegment: startSegmentIndex,
       endSegment: endSegmentIndex !== -1 ? endSegmentIndex : startSegmentIndex,
@@ -215,7 +214,10 @@ function SoundBlock({
       absoluteBlockTop,
       absoluteBlockBottom,
       timelineScrollTop: timelineScrollTop || 0
-    })
+    }
+    setIsResizing(direction)
+    setResizeStart(rsData)
+    resizeStartRef.current = rsData
   }, [startSegmentIndex, endSegmentIndex, rowHeights, blockHeight])
 
   // Gestion des poignées de fade
