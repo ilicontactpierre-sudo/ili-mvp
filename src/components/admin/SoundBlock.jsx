@@ -205,15 +205,20 @@ function SoundBlock({
       const segsNow = segmentsRef.current
       const getSegId = (seg, idx) => seg?.id || seg?._id || `seg_${idx}`
 
-      if (lastTargetCol !== startCol) {
+      // Appliquer colonne ET segment en un seul appel groupé
+      const colChanged = lastTargetCol !== startCol
+      const segChanged = lastTargetSegIdx !== startSegIdx
+
+      if (colChanged && !segChanged) {
         p.onColumnChange(p.soundTrack.id, lastTargetCol)
-      }
-      if (lastTargetSegIdx !== startSegIdx) {
-        const newStartId  = getSegId(segsNow[lastTargetSegIdx], lastTargetSegIdx)
-        const offset      = endSegIdxSafe - startSegIdx
-        const newEndIdx   = Math.min(segsNow.length - 1, Math.max(0, lastTargetSegIdx + offset))
-        const newEndId    = getSegId(segsNow[newEndIdx], newEndIdx)
+      } else if (segChanged) {
+        const newStartId = getSegId(segsNow[lastTargetSegIdx], lastTargetSegIdx)
+        const offset     = endSegIdxSafe - startSegIdx
+        const newEndIdx  = Math.min(segsNow.length - 1, Math.max(0, lastTargetSegIdx + offset))
+        const newEndId   = getSegId(segsNow[newEndIdx], newEndIdx)
+        // Passer la nouvelle colonne directement dans onResize via un update groupé
         p.onResize(p.soundTrack.id, newStartId, newEndId)
+        if (colChanged) p.onColumnChange(p.soundTrack.id, lastTargetCol)
       }
 
       if (p.onDragEnd) p.onDragEnd()
