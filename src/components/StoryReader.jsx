@@ -540,7 +540,7 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle',
         })}
       </div>
     </main>
+    </>
   )
 }
-
 export default StoryReader
