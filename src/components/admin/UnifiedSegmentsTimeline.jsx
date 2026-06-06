@@ -1449,6 +1449,21 @@ const handleTextSelection = useCallback(() => {
     if (onSaveToHistory) onSaveToHistory()
   }, [soundTracks, onSoundTracksChange, onSaveToHistory])
 
+  // Handler unifié pour déplacement diagonal (colonne + segment en même temps)
+  const handleMoveSound = useCallback((soundId, newStartSegmentId, newEndSegmentId, newColumn) => {
+    const updatedTracks = soundTracks.map(track => {
+      if (track.id !== soundId) return track
+      return {
+        ...track,
+        ...(newStartSegmentId && { startSegmentId: newStartSegmentId }),
+        ...(newEndSegmentId   && { endSegmentId:   newEndSegmentId   }),
+        column: newColumn,
+      }
+    })
+    onSoundTracksChange(updatedTracks)
+    if (onSaveToHistory) onSaveToHistory()
+  }, [soundTracks, onSoundTracksChange, onSaveToHistory])
+
   const handleResizeSound = useCallback((soundId, newStartSegmentId, newEndSegmentId) => {
     const updatedTracks = soundTracks.map(track => {
       if (track.id !== soundId) return track
