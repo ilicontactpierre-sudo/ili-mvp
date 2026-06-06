@@ -233,9 +233,16 @@
   10%, 30%, 50%, 70%, 90%      { background-color: var(--vfx-flash-color, rgba(200, 0, 0, 0.12)); }
 }
 
-.vfx-flash-slow   { animation: vfx-flash-slow   2s ease-in-out infinite; border-radius: 4px; }
-.vfx-flash-medium { animation: vfx-flash-medium  1s ease-in-out infinite; border-radius: 4px; }
-.vfx-flash-fast   { animation: vfx-flash-fast   0.4s ease-in-out infinite; border-radius: 4px; }
+/* ── Overlay flash plein écran ── */
+
+@keyframes vfx-flash-fullscreen {
+  0%, 100% { background-color: transparent; }
+  50%       { background-color: var(--flash-color, rgba(200, 0, 0, 0.12)); }
+}
+
+.vfx-flash-overlay {
+  animation: vfx-flash-fullscreen var(--flash-duration, 1000ms) ease-in-out infinite;
+}
 
 /* ----------------------------------------------------------
    VIGNETTE PULSANTE — bords s'assombrissent
