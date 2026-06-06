@@ -1,4 +1,4 @@
-import { useState, useRef, useMemo, useCallback, useEffect, useLayoutEffect, memo } from 'react'import SoundBlockPanel from './SoundBlockPanel'
+import { useState, useRef, useMemo, useCallback, useEffect, useLayoutEffect, memo } from 'react'
 import SoundLibraryPicker from './SoundLibraryPicker'
 import { SEGMENT_HEIGHT, COLUMN_COUNT, COLUMN_WIDTH, VFX_COLUMN_COUNT, VFX_COLUMN_WIDTH, VFX_TYPES, VFX_COLORS, createVfxTrack } from './constants'
 import VfxBlock from './VfxBlock'
