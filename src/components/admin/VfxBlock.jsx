@@ -180,46 +180,50 @@ function VfxBlock({
     }
     setIsResizing(direction)
 
-    const onMouseMove = (ev) => {
+const onMouseMove = (ev) => {
       const r = resizeRef.current
       if (!r) return
-      const deltaY = ev.clientY - r.startY
-      const rh     = r.rowHeights
-
+      const timelineRoot = blockRef.current?.closest('[data-timeline-root]')
+      const timelineRect = timelineRoot?.getBoundingClientRect()
+      const scrollTop    = timelineRoot ? timelineRoot.scrollTop : 0
+      const cursorY      = ev.clientY - (timelineRect?.top ?? 0) + scrollTop
+      const rh           = r.rowHeights
       if (r.direction === 'bottom') {
-        const absBottom = r.absoluteBlockBottom + deltaY
         let accumulated = 0, newEndIndex = r.startSegment
         for (let i = 0; i < rh.length; i++) {
           const h = rh[i] || SEGMENT_HEIGHT
-          if (absBottom <= accumulated + h) {
-            newEndIndex = absBottom >= accumulated + h / 2 ? i : Math.max(r.startSegment, i - 1)
+          if (cursorY <= accumulated + h) {
+            newEndIndex = cursorY >= accumulated + h / 2 ? i : Math.max(r.startSegment, i - 1)
             break
           }
           accumulated += h + 8
           newEndIndex = i
         }
-        newEndIndex = Math.max(r.startSegment, Math.min(rh.length - 1, newEndIndex))
-        onResize(vfxTrack.id, null, segments[newEndIndex]?.id || segments[newEndIndex]?._id)
-
+        r._pendingEndIndex = Math.max(r.startSegment, Math.min(rh.length - 1, newEndIndex))
       } else if (r.direction === 'top') {
-        const absTop = r.absoluteBlockTop + deltaY
         let accumulated = 0, newStartIndex = r.startSegment
         for (let i = 0; i < rh.length; i++) {
           const h = rh[i] || SEGMENT_HEIGHT
-          if (absTop <= accumulated + h) {
-            newStartIndex = absTop <= accumulated + h / 2 ? i : Math.min(r.endSegment, i + 1)
+          if (cursorY <= accumulated + h) {
+            newStartIndex = cursorY <= accumulated + h / 2 ? i : Math.min(r.endSegment, i + 1)
             break
           }
           accumulated += h + 8
         }
-        newStartIndex = Math.max(0, Math.min(r.endSegment, newStartIndex))
-        onResize(vfxTrack.id, segments[newStartIndex]?.id || segments[newStartIndex]?._id, null)
+        r._pendingStartIndex = Math.max(0, Math.min(r.endSegment, newStartIndex))
       }
     }
-
     const onMouseUp = () => {
       window.removeEventListener('mousemove', onMouseMove)
       window.removeEventListener('mouseup', onMouseUp)
+      const r = resizeRef.current
+      if (r) {
+        if (r.direction === 'bottom' && r._pendingEndIndex !== undefined) {
+          onResize(vfxTrack.id, null, segments[r._pendingEndIndex]?.id || segments[r._pendingEndIndex]?._id)
+        } else if (r.direction === 'top' && r._pendingStartIndex !== undefined) {
+          onResize(vfxTrack.id, segments[r._pendingStartIndex]?.id || segments[r._pendingStartIndex]?._id, null)
+        }
+      }
       resizeRef.current = null
       setIsResizing(null)
     }
