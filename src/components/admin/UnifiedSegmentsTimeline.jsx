@@ -2119,7 +2119,7 @@ const handleTextSelection = useCallback(() => {
                     onDelete: handleDeleteSegment,
                     isCmdPressed,
                     hovered: hoveredRow === index,
-                    onHover: (idx) => setHoveredRow(idx),
+                    onHover: setHoveredRow,
                     soundTracks,
                     segments,
                     soundLibrary,
