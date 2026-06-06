@@ -1636,9 +1636,10 @@ const handleTextSelection = useCallback(() => {
   }, [])
 
   useLayoutEffect(() => {
+    // Ne pas mesurer pendant un drag — inutile et coûteux (100 getBoundingClientRect)
+    if (isAnyBlockDragging || isAnyVfxDragging || isDraggingSegment) return
     const heights = segments.map((_, index) => {
       if (hiddenSegments.has(index)) {
-        // Segment caché : conserver la hauteur précédente ou estimer
         return measuredRowHeights[index] || estimatedRowHeights[index] || SEGMENT_HEIGHT
       }
       const row = rowRefs.current[index]
@@ -1648,7 +1649,7 @@ const handleTextSelection = useCallback(() => {
     if (rowsChanged) {
       setMeasuredRowHeights(heights)
     }
-  }, [segments, editTexts, dividerPosition, editingSegmentIndex, selectedSegmentIndices, soundTracks.length, hiddenSegments])
+  }, [segments, editTexts, dividerPosition, editingSegmentIndex, selectedSegmentIndices, soundTracks.length, hiddenSegments, isAnyBlockDragging, isAnyVfxDragging, isDraggingSegment])
   const totalHeight = rowHeights.reduce((sum, rowHeight) => sum + rowHeight + 8, 0)
 
   // ── Handlers drag & drop segments ──────────────────────────
