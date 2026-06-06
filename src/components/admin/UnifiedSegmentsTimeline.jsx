@@ -31,10 +31,10 @@ const getSegmentText = (segment) => {
 }
 
 // Composant pour une ligne unifiée Segment + Timeline
-function SegmentTimelineRow({ 
+const SegmentTimelineRow = memo(function SegmentTimelineRow({ 
   segment, 
   index, 
-  isSelected, 
+  isSelected,
   onSelect, 
   onEdit, 
   onSplitAtPosition,
@@ -776,7 +776,38 @@ function SegmentTimelineRow({
       </div>
     </div>
   )
-}
+}, (prevProps, nextProps) => {
+  // Ne re-rendre que si ces props changent vraiment
+  return (
+    prevProps.segment === nextProps.segment &&
+    prevProps.index === nextProps.index &&
+    prevProps.isSelected === nextProps.isSelected &&
+    prevProps.isEditing === nextProps.isEditing &&
+    prevProps.editText === nextProps.editText &&
+    prevProps.hovered === nextProps.hovered &&
+    prevProps.isCmdPressed === nextProps.isCmdPressed &&
+    prevProps.isChapter === nextProps.isChapter &&
+    prevProps.isCollapsed === nextProps.isCollapsed &&
+    prevProps.isLeader === nextProps.isLeader &&
+    prevProps.isFinisher === nextProps.isFinisher &&
+    prevProps.isDragging === nextProps.isDragging &&
+    prevProps.rowHeight === nextProps.rowHeight &&
+    prevProps.rowHeights === nextProps.rowHeights &&
+    prevProps.dividerPosition === nextProps.dividerPosition &&
+    prevProps.isDraggingDivider === nextProps.isDraggingDivider &&
+    prevProps.isAnyBlockDragging === nextProps.isAnyBlockDragging &&
+    prevProps.isAnyVfxDragging === nextProps.isAnyVfxDragging &&
+    prevProps.dragTargetCell === nextProps.dragTargetCell &&
+    prevProps.vfxDragTarget === nextProps.vfxDragTarget &&
+    prevProps.selectedSoundIds === nextProps.selectedSoundIds &&
+    prevProps.selectedVfxIds === nextProps.selectedVfxIds &&
+    prevProps.editingSoundTrack === nextProps.editingSoundTrack &&
+    prevProps.editingVfxTrack === nextProps.editingVfxTrack &&
+    prevProps.soundTracks === nextProps.soundTracks &&
+    prevProps.vfxTracks === nextProps.vfxTracks &&
+    prevProps.segments === nextProps.segments
+  )
+})
 
 // Composant pour le séparateur entre segments (double-clic pour fusionner)
 function SegmentSeparator({ index, onMerge, isHovered, onHover }) {
