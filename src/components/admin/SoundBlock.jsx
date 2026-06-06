@@ -397,6 +397,17 @@ const dragStartRef = useRef(null)
         }
         if (onDragEnd) onDragEnd()
       }
+      // Appliquer le resize au mouseup seulement — évite les re-renders pendant le drag
+      if (isResizing && resizeStartRef.current) {
+        const rs = resizeStartRef.current
+        if (isResizing === 'bottom' && rs._pendingEndIndex !== undefined) {
+          const newEndSegmentId = segmentsRef.current[rs._pendingEndIndex]?.id || segmentsRef.current[rs._pendingEndIndex]?._id
+          onResize(soundTrack.id, null, newEndSegmentId)
+        } else if (isResizing === 'top' && rs._pendingStartIndex !== undefined) {
+          const newStartSegmentId = segmentsRef.current[rs._pendingStartIndex]?.id || segmentsRef.current[rs._pendingStartIndex]?._id
+          onResize(soundTrack.id, newStartSegmentId, null)
+        }
+      }
       setIsDragging(false)
       setDragOffset({ x: 0, y: 0 })
       setSnapOffset({ x: 0, y: 0 })
