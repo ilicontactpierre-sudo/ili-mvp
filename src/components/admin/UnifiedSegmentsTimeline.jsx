@@ -1824,6 +1824,11 @@ const handleTextSelection = useCallback(() => {
     setSelectedSegmentIndices(newSelected)
     if (onSaveToHistory) onSaveToHistory()
   }, [dragPlaceholderIndex, segments, soundTracks, onSegmentsChange, onSoundTracksChange, onSaveToHistory])
+  // Callbacks stables par index pour ne pas invalider le memo des lignes
+  const dragHandleMouseDownHandlers = useMemo(() =>
+    segments.map((_, i) => (e) => handleSegmentDragStart(e, i)),
+    [segments, handleSegmentDragStart]
+  )
 
   // Attacher les listeners globaux pour le drag segment
   useEffect(() => {
