@@ -2160,8 +2160,11 @@ const handleTextSelection = useCallback(() => {
                     isFinisher: finisherSegments.has(index),
                     onToggleIsLeader: handleToggleIsLeader,
                     onVfxUpdate: handleVfxUpdate,
-                    // Handle drag
-                    onDragHandleMouseDown: (e) => handleSegmentDragStart(e, index),
+                    // Callbacks stables par index pour ne pas invalider le memo des lignes
+                    const dragHandleMouseDownHandlers = useMemo(() =>
+                      segments.map((_, i) => (e) => handleSegmentDragStart(e, i)),
+                      [segments, handleSegmentDragStart]
+                    )
                     isDragging: isBeingDragged,
                     onGameMode: (idx) => setGameModePanel(idx),
                   }}
