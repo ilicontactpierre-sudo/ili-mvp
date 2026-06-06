@@ -66,6 +66,7 @@ const SegmentTimelineRow = memo(function SegmentTimelineRow({
   onSoundDoubleClick,
   onSoundColumnChange,
   onSoundResize,
+  onSoundMove,
   onSoundUpdate,
   onAddSoundToCell,
   rowHeight,
@@ -686,6 +687,7 @@ const SegmentTimelineRow = memo(function SegmentTimelineRow({
             onDoubleClick={onSoundDoubleClick}
             onColumnChange={onSoundColumnChange}
             onResize={onSoundResize}
+            onMove={onSoundMove}
             onUpdate={onSoundUpdate}
             onDragStart={onDragStart}
             onDragEnd={onDragEnd}
@@ -2126,6 +2128,7 @@ const handleTextSelection = useCallback(() => {
                     onSoundDoubleClick: handleDoubleClickSound,
                     onSoundColumnChange: handleColumnChange,
                     onSoundResize: handleResizeSound,
+                    onSoundMove: handleMoveSound,
                     onSoundUpdate: handleUpdateSoundTrack,
                     onAddSoundToCell: handleDoubleClickEmptyCell,
                     dividerPosition,
