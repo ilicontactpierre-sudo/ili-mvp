@@ -338,6 +338,19 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle',
     }, [finalSegments, currentIndex, chapterMode])
 
     return (
+    <div
+        ref={flashOverlayRef}
+        style={{
+          display: 'none',
+          position: 'fixed',
+          inset: 0,
+          zIndex: 9000,
+          pointerEvents: 'none',
+          backgroundColor: 'transparent',
+          animation: 'none',
+        }}
+        className="vfx-flash-overlay"
+      />
     <main
       className="story-reader"
       aria-live="polite"
