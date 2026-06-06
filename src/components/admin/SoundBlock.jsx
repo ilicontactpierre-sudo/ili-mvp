@@ -1,13 +1,10 @@
 import { useState, useRef, useEffect, useCallback } from 'react'
 import { CATEGORY_COLORS, SEGMENT_HEIGHT, COLUMN_WIDTH, COLUMN_COUNT } from './constants'
 
-// Fonction pour obtenir une variante plus foncée d'une couleur
 function getDarkerColor(color) {
-  // Convertir hex en RGB
   const r = parseInt(color.slice(1, 3), 16)
   const g = parseInt(color.slice(3, 5), 16)
   const b = parseInt(color.slice(5, 7), 16)
-  // Assombrir de 20%
   const factor = 0.8
   const dr = Math.round(r * factor)
   const dg = Math.round(g * factor)
@@ -15,15 +12,15 @@ function getDarkerColor(color) {
   return `#${dr.toString(16).padStart(2, '0')}${dg.toString(16).padStart(2, '0')}${db.toString(16).padStart(2, '0')}`
 }
 
-function SoundBlock({ 
-  soundTrack, 
-  segments, 
+function SoundBlock({
+  soundTrack,
+  segments,
   soundLibrary,
   rowHeights,
-  isSelected, 
-  onSelect, 
+  isSelected,
+  onSelect,
   onDoubleClick,
-  onMove, 
+  onMove,
   onResize,
   onColumnChange,
   onUpdate,
@@ -32,32 +29,27 @@ function SoundBlock({
   onDragTargetChange,
   currentSegmentIndex
 }) {
-  const [isDragging, setIsDragging] = useState(false)
-  const [isResizing, setIsResizing] = useState(null) // 'top' or 'bottom'
-  const [isAdjustingFade, setIsAdjustingFade] = useState(null) // 'fadeIn' or 'fadeOut'
-  const [fadeHandlePos, setFadeHandlePos] = useState({ fadeIn: 0, fadeOut: 0 })
-  const [dragStart, setDragStart] = useState({ x: 0, y: 0, column: 0, startSegmentIndex: 0, startBlockTop: 0, startBlockLeft: 0, timelineTop: 0 })
-  const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 })
-  const [snapOffset, setSnapOffset] = useState({ x: 0, y: 0 })
-  const [targetCell, setTargetCell] = useState({ segmentIndex: -1, column: -1 })
-  const [resizeStart, setResizeStart] = useState({ y: 0, startSegment: null, endSegment: null })
-  const resizeStartRef = useRef(null)  
-  const [isHovered, setIsHovered] = useState(false)
-  const blockRef = useRef(null)
-  const segmentsRef = useRef(segments)
-  useEffect(() => { segmentsRef.current = segments }, [segments])
-  const fadeStartRef = useRef(null)
-  const targetCellRef = useRef({ segmentIndex: -1, column: -1 })
-  
-  // Garder targetCellRef à jour
-  useEffect(() => {
-    targetCellRef.current = targetCell
-  }, [targetCell])
+  // ── States visuels uniquement ────────────────────────────
+  const [isDragging, setIsDragging]       = useState(false)
+  const [isResizing, setIsResizing]       = useState(null)
+  const [isAdjustingFade, setIsAdjustingFade] = useState(null)
+  const [dragOffset, setDragOffset]       = useState({ x: 0, y: 0 })
+  const [isHovered, setIsHovered]         = useState(false)
 
-  // Trouver le son dans la bibliothèque
+  // ── Refs — jamais de closure périmée ────────────────────
+  const blockRef      = useRef(null)
+  const segmentsRef   = useRef(segments)
+  const rowHeightsRef = useRef(rowHeights)
+  const propsRef      = useRef({})   // snapshot des props callbacks à jour
+
+  useEffect(() => { segmentsRef.current   = segments   }, [segments])
+  useEffect(() => { rowHeightsRef.current = rowHeights }, [rowHeights])
+  useEffect(() => {
+    propsRef.current = { onSelect, onDoubleClick, onResize, onColumnChange, onUpdate, onDragStart, onDragEnd, onDragTargetChange, soundTrack, onMove }
+  })
+
+  // ── Couleurs ─────────────────────────────────────────────
   const sound = soundLibrary.find(s => s.id === soundTrack.soundId)
-  
-  // Déterminer la couleur basée sur les catégories
   const getColor = useCallback(() => {
     if (!sound) return '#ccc'
     const categories = sound.categories || []
@@ -67,373 +59,293 @@ function SoundBlock({
     return CATEGORY_COLORS['Autre']
   }, [sound])
 
-  const baseColor = getColor()
+  const baseColor   = getColor()
   const darkerColor = getDarkerColor(baseColor)
-  const bgColor = soundTrack.muted ? '#888' : (isSelected ? baseColor : `${baseColor}99`)
+  const bgColor     = soundTrack.muted ? '#888' : (isSelected ? baseColor : `${baseColor}99`)
   const borderColor = isSelected ? '#333' : baseColor
 
-  // Calculer la position verticale (en fonction des segments)
+  // ── Indices et dimensions ────────────────────────────────
   const getSegmentIndex = useCallback((segmentId) => {
-    // D'abord, chercher par id ou _id
     const idx = segments.findIndex(s => s.id === segmentId || s._id === segmentId)
     if (idx !== -1) return idx
-    
-    // Fallback: si segmentId est au format "segment_N", utiliser N comme index
     const match = segmentId?.match(/^segment_(\d+)$/)
     if (match) {
-      const index = parseInt(match[1], 10)
-      if (index >= 0 && index < segments.length) return index
+      const i = parseInt(match[1], 10)
+      if (i >= 0 && i < segments.length) return i
     }
-    
     return -1
   }, [segments])
 
   const startSegmentIndex = getSegmentIndex(soundTrack.startSegmentId)
-  const endSegmentIndex = getSegmentIndex(soundTrack.endSegmentId)
-  
+  const endSegmentIndex   = getSegmentIndex(soundTrack.endSegmentId)
   if (startSegmentIndex === -1) return null
 
-  const actualEndIndex = endSegmentIndex !== -1 ? endSegmentIndex : startSegmentIndex
-  const segmentRange = rowHeights ? rowHeights.slice(startSegmentIndex, actualEndIndex + 1) : []
-  const rowHeightSum = segmentRange.length > 0 ? segmentRange.reduce((sum, h) => sum + h, 0) : ((actualEndIndex - startSegmentIndex + 1) * SEGMENT_HEIGHT)
+  const actualEndIndex  = endSegmentIndex !== -1 ? endSegmentIndex : startSegmentIndex
+  const segmentRange    = rowHeights ? rowHeights.slice(startSegmentIndex, actualEndIndex + 1) : []
+  const rowHeightSum    = segmentRange.length > 0
+    ? segmentRange.reduce((sum, h) => sum + h, 0)
+    : (actualEndIndex - startSegmentIndex + 1) * SEGMENT_HEIGHT
   const separatorHeight = segmentRange.length > 1 ? (segmentRange.length - 1) * 8 : 0
+  const blockHeight     = rowHeightSum + separatorHeight
+  const left            = soundTrack.column * COLUMN_WIDTH
+  const width           = COLUMN_WIDTH - 5
+  const maxFadeHeight   = blockHeight * 0.4
+  const fadeInHeight    = (soundTrack.fadeIn  || 0) / 4000 * maxFadeHeight
+  const fadeOutHeight   = (soundTrack.fadeOut || 0) / 4000 * maxFadeHeight
 
-  // Position et dimensions
-  const top = 0
-  const blockHeight = rowHeightSum + separatorHeight
-  const left = soundTrack.column * COLUMN_WIDTH
-  const width = COLUMN_WIDTH - 5
-
-  // Calculer les positions de fade en pixels (basé sur la hauteur du bloc)
-  const maxFadeHeight = blockHeight * 0.4
-  const fadeInHeight = (soundTrack.fadeIn || 0) / 4000 * maxFadeHeight
-  const fadeOutHeight = (soundTrack.fadeOut || 0) / 4000 * maxFadeHeight
-
-  // Motif rayé pour loop
   const loopPattern = soundTrack.loop ? `repeating-linear-gradient(
-    45deg,
-    ${baseColor},
-    ${baseColor} 6px,
-    ${darkerColor} 6px,
-    ${darkerColor} 12px
+    45deg, ${baseColor}, ${baseColor} 6px, ${darkerColor} 6px, ${darkerColor} 12px
   )` : 'none'
 
-  // Gestion du drag (déplacement pour changer de colonne ET de ligne)
-  // Le drag ne se déclenche qu'après un petit délai pour ne pas interférer avec le clic
+  // ── Helpers partagés ─────────────────────────────────────
+  const getTimelineInfo = () => {
+    const timelineRoot = blockRef.current?.closest('[data-timeline-root]')
+    const timelineRect = timelineRoot?.getBoundingClientRect()
+    const scrollTop    = timelineRoot ? timelineRoot.scrollTop : 0
+    return { timelineRoot, timelineRect, scrollTop }
+  }
+
+  const findSegmentAtY = (cursorAbsoluteY, rh) => {
+    let accumulated = 0
+    for (let i = 0; i < rh.length; i++) {
+      const h = rh[i] || SEGMENT_HEIGHT
+      if (cursorAbsoluteY <= accumulated + h) {
+        return i
+      }
+      accumulated += h + 8
+    }
+    return rh.length - 1
+  }
+
+  const findNearestSegment = (cursorAbsoluteY, rh) => {
+    let accumulated = 0
+    let best = 0
+    let minDist = Infinity
+    for (let i = 0; i < rh.length; i++) {
+      const h      = rh[i] || SEGMENT_HEIGHT
+      const center = accumulated + h / 2
+      const dist   = Math.abs(cursorAbsoluteY - center)
+      if (dist < minDist) { minDist = dist; best = i }
+      accumulated += h + 8
+    }
+    return best
+  }
+
+  // ── DRAG principal ───────────────────────────────────────
   const handleMouseDown = useCallback((e) => {
     if (e.button !== 0) return
-    if (e.target.dataset.fadeHandle) return
+    if (e.target.dataset.fadeHandle)   return
     if (e.target.dataset.resizeHandle) return
     e.stopPropagation()
-    
-    onSelect(soundTrack.id, e.shiftKey)
-    
-    const startX = e.clientX
-    const startY = e.clientY
-    const blockRect = blockRef.current?.getBoundingClientRect()
-    const timelineRoot = blockRef.current?.closest('[data-timeline-root]')
-    const timelineRect = timelineRoot ? timelineRoot.getBoundingClientRect() : null
-    const timelineTop = timelineRect ? timelineRect.top : 0
-    const timelineScrollTop = timelineRoot ? timelineRoot.scrollTop : 0
-    const startBlockTop = blockRect ? blockRect.top : 0
-    const startBlockLeft = blockRect ? blockRect.left : 0
+
+    const p = propsRef.current
+    p.onSelect(p.soundTrack.id, e.shiftKey)
+
+    const startX   = e.clientX
+    const startY   = e.clientY
+    const startCol = p.soundTrack.column
+
+    // Capturer tout au mousedown
+    const { timelineRect, scrollTop: scrollTopAtStart } = getTimelineInfo()
+    const timelineRectTop = timelineRect?.top ?? 0
+
+    // Index de départ depuis les refs (jamais périmées)
+    const segs        = segmentsRef.current
+    const startSegIdx = segs.findIndex(s =>
+      s.id === p.soundTrack.startSegmentId || s._id === p.soundTrack.startSegmentId)
+    const endSegIdx   = segs.findIndex(s =>
+      s.id === p.soundTrack.endSegmentId   || s._id === p.soundTrack.endSegmentId)
+    const endSegIdxSafe = endSegIdx !== -1 ? endSegIdx : startSegIdx
+
     let hasMoved = false
-    
-    setDragStart({
-      x: startX,
-      y: startY,
-      column: soundTrack.column,
-      startSegmentIndex,
-      startBlockTop,
-      startBlockLeft,
-      timelineTop,
-      timelineScrollTop
-    })
+    let lastTargetCol = startCol
+    let lastTargetSegIdx = startSegIdx
 
-    dragStartRef.current = {
-      x: startX,
-      y: startY,
-      column: soundTrack.column,
-      startSegmentIndex,
-      timelineScrollTop: timelineScrollTop || 0
-    }
+    const onMove = (ev) => {
+      const dx = ev.clientX - startX
+      const dy = ev.clientY - startY
 
-    const onMouseMove = (moveEvent) => {
-      const dx = moveEvent.clientX - startX
-      const dy = moveEvent.clientY - startY
-      const absDx = Math.abs(dx)
-      const absDy = Math.abs(dy)
-      if (absDx > 3 || absDy > 3) {
+      if (!hasMoved && (Math.abs(dx) > 3 || Math.abs(dy) > 3)) {
         hasMoved = true
         setIsDragging(true)
-        setDragOffset({ x: dx, y: dy })
-        if (onDragStart) onDragStart()
+        if (p.onDragStart) p.onDragStart()
       }
+      if (!hasMoved) return
+
+      // Mise à jour visuelle — un seul setState, pas de cascade
+      setDragOffset({ x: dx, y: dy })
+
+      // Calcul de la cible — tout depuis les refs
+      const rh = rowHeightsRef.current
+      if (!rh) return
+
+      const { timelineRoot } = getTimelineInfo()
+      const currentScrollTop = timelineRoot ? timelineRoot.scrollTop : 0
+      const cursorY = ev.clientY - timelineRectTop + currentScrollTop
+
+      const newCol     = Math.max(0, Math.min(COLUMN_COUNT - 1, Math.round(startCol + dx / COLUMN_WIDTH)))
+      const newSegIdx  = findNearestSegment(cursorY, rh)
+
+      lastTargetCol    = newCol
+      lastTargetSegIdx = newSegIdx
+
+      if (p.onDragTargetChange) p.onDragTargetChange(newSegIdx, newCol)
     }
-    
-    const onMouseUp = () => {
-      window.removeEventListener('mousemove', onMouseMove)
-      window.removeEventListener('mouseup', onMouseUp)
-      // Ne pas gérer le drop ici — c'est le useEffect qui s'en charge
-      // On gère uniquement le cas où le bloc n'a pas bougé
+
+    const onUp = () => {
+      window.removeEventListener('mousemove', onMove)
+      window.removeEventListener('mouseup', onUp)
+
       if (!hasMoved) {
         setIsDragging(false)
+        return
       }
-      // Si hasMoved, le useEffect handleMouseUp prend le relais
-    }
-    
-    window.addEventListener('mousemove', onMouseMove)
-    window.addEventListener('mouseup', onMouseUp)
-  }, [onSelect, soundTrack.id, soundTrack.column, startSegmentIndex])
 
-  // Gestion du resize (étirement haut/bas)
+      // Appliquer les changements — tout depuis les refs/closures
+      const segsNow = segmentsRef.current
+      const getSegId = (seg, idx) => seg?.id || seg?._id || `seg_${idx}`
+
+      if (lastTargetCol !== startCol) {
+        p.onColumnChange(p.soundTrack.id, lastTargetCol)
+      }
+      if (lastTargetSegIdx !== startSegIdx) {
+        const newStartId  = getSegId(segsNow[lastTargetSegIdx], lastTargetSegIdx)
+        const offset      = endSegIdxSafe - startSegIdx
+        const newEndIdx   = Math.min(segsNow.length - 1, Math.max(0, lastTargetSegIdx + offset))
+        const newEndId    = getSegId(segsNow[newEndIdx], newEndIdx)
+        p.onResize(p.soundTrack.id, newStartId, newEndId)
+      }
+
+      if (p.onDragEnd) p.onDragEnd()
+
+      // Reset visuel APRÈS callbacks
+      setIsDragging(false)
+      setDragOffset({ x: 0, y: 0 })
+    }
+
+    window.addEventListener('mousemove', onMove)
+    window.addEventListener('mouseup',  onUp)
+  }, []) // ← pas de dépendances : tout vient des refs
+
+  // ── RESIZE ───────────────────────────────────────────────
   const handleResizeMouseDown = useCallback((e, direction) => {
     if (e.button !== 0) return
     e.stopPropagation()
-    
-    // Capturer le timelineRoot UNE SEULE FOIS au mousedown et le garder en ref
-    const timelineRoot = blockRef.current?.closest('[data-timeline-root]')
-    const timelineRect = timelineRoot ? timelineRoot.getBoundingClientRect() : null
-    const timelineScrollTop = timelineRoot ? timelineRoot.scrollTop : 0
-    const blockRect = blockRef.current?.getBoundingClientRect()
-    
-    const absoluteBlockTop = blockRect && timelineRect 
-      ? blockRect.top - timelineRect.top + timelineScrollTop 
-      : 0
-    const absoluteBlockBottom = absoluteBlockTop + blockHeight
-    
-    const rsData = {
-      y: e.clientY,
-      startSegment: startSegmentIndex,
-      endSegment: endSegmentIndex !== -1 ? endSegmentIndex : startSegmentIndex,
-      rowHeights: rowHeights || [],
-      absoluteBlockTop,
-      absoluteBlockBottom,
-      timelineScrollTop: timelineScrollTop || 0,
-      // Stocker le timelineRoot lui-même pour ne plus jamais faire closest() pendant le move
-      timelineRootEl: timelineRoot,
-      timelineRectTop: timelineRect?.top ?? 0,
-    }
-    setIsResizing(direction)
-    setResizeStart(rsData)
-    resizeStartRef.current = rsData
-  }, [startSegmentIndex, endSegmentIndex, rowHeights, blockHeight])
 
-  // Gestion des poignées de fade
+    const p = propsRef.current
+
+    // Tout capturer au mousedown
+    const { timelineRect, scrollTop } = getTimelineInfo()
+    const timelineRectTop = timelineRect?.top ?? 0
+
+    const segs       = segmentsRef.current
+    const rh         = rowHeightsRef.current || []
+    const startIdx   = segs.findIndex(s => s.id === p.soundTrack.startSegmentId || s._id === p.soundTrack.startSegmentId)
+    const endIdx     = segs.findIndex(s => s.id === p.soundTrack.endSegmentId   || s._id === p.soundTrack.endSegmentId)
+    const endIdxSafe = endIdx !== -1 ? endIdx : startIdx
+
+    let pendingIndex = direction === 'top' ? startIdx : endIdxSafe
+
+    setIsResizing(direction)
+
+    const onMove = (ev) => {
+      const { timelineRoot } = getTimelineInfo()
+      const currentScrollTop = timelineRoot ? timelineRoot.scrollTop : 0
+      const cursorY = ev.clientY - timelineRectTop + currentScrollTop
+      const rh = rowHeightsRef.current || []
+
+      if (direction === 'bottom') {
+        let accumulated = 0
+        let newEnd = startIdx
+        for (let i = 0; i < rh.length; i++) {
+          const h = rh[i] || SEGMENT_HEIGHT
+          if (cursorY <= accumulated + h) {
+            newEnd = cursorY >= accumulated + h / 2 ? i : Math.max(startIdx, i - 1)
+            break
+          }
+          accumulated += h + 8
+          newEnd = i
+        }
+        pendingIndex = Math.max(startIdx, Math.min(rh.length - 1, newEnd))
+      } else {
+        let accumulated = 0
+        let newStart = startIdx
+        for (let i = 0; i < rh.length; i++) {
+          const h = rh[i] || SEGMENT_HEIGHT
+          if (cursorY <= accumulated + h) {
+            newStart = cursorY <= accumulated + h / 2 ? i : Math.min(endIdxSafe, i + 1)
+            break
+          }
+          accumulated += h + 8
+        }
+        pendingIndex = Math.max(0, Math.min(endIdxSafe, newStart))
+      }
+    }
+
+    const onUp = () => {
+      window.removeEventListener('mousemove', onMove)
+      window.removeEventListener('mouseup',  onUp)
+
+      const segsNow = segmentsRef.current
+      const seg     = segsNow[pendingIndex]
+      const segId   = seg?.id || seg?._id
+
+      if (direction === 'bottom') {
+        p.onResize(p.soundTrack.id, null, segId)
+      } else {
+        p.onResize(p.soundTrack.id, segId, null)
+      }
+
+      setIsResizing(null)
+    }
+
+    window.addEventListener('mousemove', onMove)
+    window.addEventListener('mouseup',  onUp)
+  }, []) // ← pas de dépendances
+
+  // ── FADE ─────────────────────────────────────────────────
   const handleFadeMouseDown = useCallback((e, type) => {
     if (e.button !== 0) return
     e.stopPropagation()
     e.preventDefault()
-    
+
+    const p         = propsRef.current
+    const startY    = e.clientY
+    const initFadeIn  = p.soundTrack.fadeIn  || 0
+    const initFadeOut = p.soundTrack.fadeOut || 0
+    const bh        = blockHeight
+
     setIsAdjustingFade(type)
-    fadeStartRef.current = {
-      y: e.clientY,
-      fadeIn: soundTrack.fadeIn || 0,
-      fadeOut: soundTrack.fadeOut || 0,
-      blockHeight
+
+    const onMove = (ev) => {
+      const deltaY       = ev.clientY - startY
+      const maxFH        = bh * 0.4
+      const msPerPixel   = 4000 / (maxFH > 0 ? maxFH : 1)
+      if (type === 'fadeIn') {
+        const newFadeIn = Math.max(0, Math.min(initFadeIn + deltaY * msPerPixel, 4000))
+        p.onUpdate(p.soundTrack.id, { fadeIn: Math.round(newFadeIn) })
+      } else {
+        const newFadeOut = Math.max(0, Math.min(initFadeOut + (-deltaY) * msPerPixel, 4000))
+        p.onUpdate(p.soundTrack.id, { fadeOut: Math.round(newFadeOut) })
+      }
     }
-  }, [soundTrack.fadeIn, soundTrack.fadeOut, blockHeight])
 
-  // Effets de mouvement global
-const dragStartRef = useRef(null)
-  // Ref pour rowHeights — toujours à jour dans les closures des event listeners
-  const rowHeightsRef = useRef(rowHeights)
-  useEffect(() => { rowHeightsRef.current = rowHeights }, [rowHeights])
-
-  useEffect(() => {
-    if (!isDragging && !isResizing && !isAdjustingFade) return
-    const handleMouseMove = (e) => {
-      // Drag pour changer de colonne ET de ligne
-      if (isDragging) {
-        const ds = dragStartRef.current
-        if (!ds) return
-        const deltaX = e.clientX - ds.x
-        const deltaY = e.clientY - ds.y
-        setDragOffset({ x: deltaX, y: deltaY })
-        const timelineRoot = blockRef.current?.closest('[data-timeline-root]')
-        const timelineRect = timelineRoot?.getBoundingClientRect()
-        const currentScrollTop = timelineRoot ? timelineRoot.scrollTop : 0
-        const currentRowHeights = rowHeightsRef.current
-        if (timelineRect && currentRowHeights) {
-          // Position du CURSEUR dans le contenu scrollable — recalculée à chaque move
-          const cursorY = e.clientY - timelineRect.top + currentScrollTop
-          const newColumn = Math.max(0, Math.min(COLUMN_COUNT - 1,
-            Math.round(ds.column + deltaX / COLUMN_WIDTH)))
-          // Trouver la ligne dont le centre est le plus proche du curseur
-          let accumulated = 0
-          let newStartIndex = 0
-          let minDistance = Infinity
-          for (let i = 0; i < currentRowHeights.length; i++) {
-            const rowHeight = currentRowHeights[i]
-            const rowCenter = accumulated + rowHeight / 2
-            const distance = Math.abs(cursorY - rowCenter)
-            if (distance < minDistance) {
-              minDistance = distance
-              newStartIndex = i
-            }
-            accumulated += rowHeight + 8
-          }
-          setTargetCell({ segmentIndex: newStartIndex, column: newColumn })
-          if (onDragTargetChange) {
-            onDragTargetChange(newStartIndex, newColumn)
-          }
-        }
-      }
-      
-      // Resize pour changer la durée
-      if (isResizing) {
-        const rs = resizeStartRef.current
-        if (!rs) return
-        const currentRowHeights = rowHeightsRef.current || []
-        const startIdx = rs.startSegment
-        const endIdx = rs.endSegment
-        
-        // Utiliser le timelineRoot capturé au mousedown — jamais null pendant le move
-        const timelineRootEl = rs.timelineRootEl
-        const currentScrollTop = timelineRootEl ? timelineRootEl.scrollTop : 0
-        // timelineRectTop est fixé au mousedown (le header ne bouge pas)
-        const cursorAbsoluteY = e.clientY - rs.timelineRectTop + currentScrollTop
-
-        if (isResizing === 'bottom') {
-          let accumulated = 0
-          let newEndIndex = startIdx
-          
-          for (let i = 0; i < currentRowHeights.length; i++) {
-            const rowHeight = currentRowHeights[i] || SEGMENT_HEIGHT
-            const rowTotal = rowHeight + 8
-            if (cursorAbsoluteY <= accumulated + rowHeight) {
-              const midPoint = accumulated + rowHeight / 2
-              newEndIndex = cursorAbsoluteY >= midPoint ? i : Math.max(startIdx, i - 1)
-              break
-            }
-            accumulated += rowTotal
-            newEndIndex = i
-          }
-          newEndIndex = Math.max(startIdx, Math.min(currentRowHeights.length - 1, newEndIndex))
-          
-          // Stocker le résultat dans la ref — onResize appelé seulement au mouseup
-          resizeStartRef.current._pendingEndIndex = newEndIndex
-          
-        } else if (isResizing === 'top') {
-          let accumulated = 0
-          let newStartIndex = startIdx
-          
-          for (let i = 0; i < currentRowHeights.length; i++) {
-            const rowHeight = currentRowHeights[i] || SEGMENT_HEIGHT
-            const rowTotal = rowHeight + 8
-            if (cursorAbsoluteY <= accumulated + rowHeight) {
-              const midPoint = accumulated + rowHeight / 2
-              newStartIndex = cursorAbsoluteY <= midPoint ? i : Math.min(endIdx, i + 1)
-              break
-            }
-            accumulated += rowTotal
-          }
-          newStartIndex = Math.max(0, Math.min(endIdx, newStartIndex))
-          
-          // Stocker le résultat dans la ref — onResize appelé seulement au mouseup
-          resizeStartRef.current._pendingStartIndex = newStartIndex
-        }
-      }
-
-      // Ajustement des fades
-      if (isAdjustingFade && fadeStartRef.current) {
-        const deltaY = e.clientY - fadeStartRef.current.y
-        // px → ms : on se base sur la hauteur réelle du bloc
-        const blockH = fadeStartRef.current.blockHeight
-        const maxFadeHeight = blockH * 0.4
-        const msPerPixel = 4000 / (maxFadeHeight > 0 ? maxFadeHeight : 1)
-        const maxFadeMs = 4000
-
-        const MAX_FADE_MS = 4000
-        if (isAdjustingFade === 'fadeIn') {
-          const newFadeIn = Math.max(0, Math.min(
-            fadeStartRef.current.fadeIn + deltaY * msPerPixel,
-            Math.min(maxFadeMs, MAX_FADE_MS)
-          ))
-          onUpdate(soundTrack.id, { fadeIn: Math.round(newFadeIn) })
-        } else if (isAdjustingFade === 'fadeOut') {
-          const newFadeOut = Math.max(0, Math.min(
-            fadeStartRef.current.fadeOut + (-deltaY) * msPerPixel,
-            Math.min(maxFadeMs, MAX_FADE_MS)
-          ))
-          onUpdate(soundTrack.id, { fadeOut: Math.round(newFadeOut) })
-        }
-        }
-      }
-
-      const handleMouseUp = () => {
-      // Utiliser targetCellRef.current pour avoir la valeur la plus récente
-      const currentTargetCell = targetCellRef.current
-      if (isDragging) {
-        // Lire les valeurs depuis la ref — jamais périmées contrairement au state
-        const ds = dragStartRef.current || dragStart
-        // Appliquer les changements de colonne au moment du relâchement
-        if (currentTargetCell.column !== ds.column && currentTargetCell.column >= 0) {
-          onColumnChange(soundTrack.id, currentTargetCell.column)
-        }
-        // Appliquer les changements de ligne (segment) au moment du relâchement
-       
-        const targetSegmentIndex = currentTargetCell.segmentIndex >= 0 ? currentTargetCell.segmentIndex : ds.startSegmentIndex
-        if (targetSegmentIndex !== ds.startSegmentIndex) {
-          const segs = segmentsRef.current
-          const currentStartIdx = segs.findIndex(s => s.id === soundTrack.startSegmentId || s._id === soundTrack.startSegmentId)
-          const currentEndIdx = segs.findIndex(s => s.id === soundTrack.endSegmentId || s._id === soundTrack.endSegmentId)
-          const currentEndIndex = currentEndIdx !== -1 ? currentEndIdx : currentStartIdx
-          const getSegId = (seg, idx) => seg?.id || seg?._id || `seg_${idx}`
-          const newStartSegmentId = getSegId(segs[targetSegmentIndex], targetSegmentIndex)
-          const offset = currentEndIndex - ds.startSegmentIndex
-          const newEndIndex = Math.min(segs.length - 1, Math.max(0, targetSegmentIndex + offset))
-          const newEndSegmentId = getSegId(segs[newEndIndex], newEndIndex)
-          onResize(soundTrack.id, newStartSegmentId, newEndSegmentId)
-        
-        }
-        if (onDragEnd) onDragEnd()
-      }
-      // Appliquer le resize au mouseup seulement — évite les re-renders pendant le drag
-      if (isResizing && resizeStartRef.current) {
-        const rs = resizeStartRef.current
-        if (isResizing === 'bottom' && rs._pendingEndIndex !== undefined) {
-          const newEndSegmentId = segmentsRef.current[rs._pendingEndIndex]?.id || segmentsRef.current[rs._pendingEndIndex]?._id
-          onResize(soundTrack.id, null, newEndSegmentId)
-        } else if (isResizing === 'top' && rs._pendingStartIndex !== undefined) {
-          const newStartSegmentId = segmentsRef.current[rs._pendingStartIndex]?.id || segmentsRef.current[rs._pendingStartIndex]?._id
-          onResize(soundTrack.id, newStartSegmentId, null)
-        }
-      }
-      // Remettre à zéro APRÈS avoir appliqué les changements
-      // pour éviter que le bloc "saute" visuellement avant le re-render
-      if (onDragEnd) onDragEnd()
-      setIsDragging(false)
-      setDragOffset({ x: 0, y: 0 })
-      setSnapOffset({ x: 0, y: 0 })
-      setTargetCell({ segmentIndex: -1, column: -1 })
-      setIsResizing(null)
+    const onUp = () => {
+      window.removeEventListener('mousemove', onMove)
+      window.removeEventListener('mouseup',  onUp)
       setIsAdjustingFade(null)
-      fadeStartRef.current = null
     }
 
-    window.addEventListener('mousemove', handleMouseMove)
-    window.addEventListener('mouseup', handleMouseUp)
-    
-    return () => {
-      window.removeEventListener('mousemove', handleMouseMove)
-      window.removeEventListener('mouseup', handleMouseUp)
-    }
-  }, [isDragging, isResizing, isAdjustingFade, dragStart, resizeStart, soundTrack.id, segments, startSegmentIndex, endSegmentIndex, onColumnChange, onResize, onUpdate])
+    window.addEventListener('mousemove', onMove)
+    window.addEventListener('mouseup',  onUp)
+  }, [blockHeight])
 
-  // Motif de fond pour loop
+  // ── Rendu ────────────────────────────────────────────────
   const backgroundStyle = soundTrack.loop ? { background: loopPattern } : {}
-  
-  // Ligne barrée pour muted
   const mutedOverlay = soundTrack.muted ? (
     <div style={{
-      position: 'absolute',
-      top: '50%',
-      left: '10%',
-      right: '10%',
-      height: '2px',
-      backgroundColor: 'rgba(0,0,0,0.5)',
-      transform: 'rotate(-15deg)'
+      position: 'absolute', top: '50%', left: '10%', right: '10%',
+      height: '2px', backgroundColor: 'rgba(0,0,0,0.5)', transform: 'rotate(-15deg)'
     }} />
   ) : null
 
@@ -443,7 +355,7 @@ const dragStartRef = useRef(null)
       data-sound-block="true"
       style={{
         position: 'absolute',
-        top: `${top}px`,
+        top: 0,
         left: `${left}px`,
         width: `${width}px`,
         height: `${blockHeight}px`,
@@ -471,38 +383,27 @@ const dragStartRef = useRef(null)
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      {/* Poignée de resize en haut */}
+      {/* Poignée resize haut */}
       <div
         data-resize-handle="true"
         style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          right: 0,
-          height: '8px',
+          position: 'absolute', top: 0, left: 0, right: 0, height: '8px',
           cursor: 'ns-resize',
-          backgroundColor: isResizing === 'top' || (isHovered && blockHeight > SEGMENT_HEIGHT) ? 'rgba(0,0,0,0.15)' : 'transparent',
+          backgroundColor: isResizing === 'top' || (isHovered && blockHeight > SEGMENT_HEIGHT)
+            ? 'rgba(0,0,0,0.15)' : 'transparent',
           transition: 'background-color 0.15s ease'
         }}
         onMouseDown={(e) => handleResizeMouseDown(e, 'top')}
       />
-      
-      {/* Zone de fade in (dégradé triangulaire) */}
+
+      {/* Fade in */}
       {fadeInHeight > 2 && (
         <div style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          right: 0,
-          height: `${fadeInHeight}px`,
-          background: `linear-gradient(to bottom, 
-            ${soundTrack.muted ? '#aaa' : baseColor}00 0%, 
-            ${bgColor} 100%)`,
+          position: 'absolute', top: 0, left: 0, right: 0, height: `${fadeInHeight}px`,
+          background: `linear-gradient(to bottom, ${soundTrack.muted ? '#aaa' : baseColor}00 0%, ${bgColor} 100%)`,
           pointerEvents: 'none'
         }} />
       )}
-
-      {/* Poignée de fade in */}
       <div
         data-fade-handle="true"
         style={{
@@ -510,42 +411,30 @@ const dragStartRef = useRef(null)
           top: `${fadeInHeight}px`,
           left: '50%',
           transform: `translateX(-50%) scale(${(isAdjustingFade === 'fadeIn' || (isHovered && fadeInHeight > 0)) ? '1.5' : '1'})`,
-          width: (isAdjustingFade === 'fadeIn' || (isHovered && fadeInHeight > 0)) ? '12px' : '8px',
+          width:  (isAdjustingFade === 'fadeIn' || (isHovered && fadeInHeight > 0)) ? '12px' : '8px',
           height: (isAdjustingFade === 'fadeIn' || (isHovered && fadeInHeight > 0)) ? '12px' : '8px',
-          borderRadius: '50%',
-          backgroundColor: baseColor,
-          opacity: 0.9,
-          cursor: 'ew-resize',
-          zIndex: 5,
-          border: `1px solid ${darkerColor}`,
+          borderRadius: '50%', backgroundColor: baseColor, opacity: 0.9,
+          cursor: 'ew-resize', zIndex: 5, border: `1px solid ${darkerColor}`,
           transition: 'transform 0.15s ease'
         }}
         onMouseDown={(e) => handleFadeMouseDown(e, 'fadeIn')}
       />
-      
-      {/* Contenu du bloc */}
-      <div style={{ 
-        fontSize: '10px', 
-        textAlign: 'center', 
-        fontWeight: 'bold',
-        color: '#333',
-        overflow: 'hidden',
-        textOverflow: 'ellipsis',
-        whiteSpace: 'nowrap',
-        width: '100%',
-        position: 'relative',
-        zIndex: 1
+
+      {/* Label */}
+      <div style={{
+        fontSize: '10px', textAlign: 'center', fontWeight: 'bold', color: '#333',
+        overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
+        width: '100%', position: 'relative', zIndex: 1
       }}>
         {sound ? sound.label.substring(0, 15) : soundTrack.soundId}
       </div>
-      
       {blockHeight > 30 && (
         <div style={{ fontSize: '9px', color: '#666', marginTop: '2px', position: 'relative', zIndex: 1 }}>
           Col {soundTrack.column}
         </div>
       )}
 
-      {/* Poignée de fade out */}
+      {/* Fade out */}
       <div
         data-fade-handle="true"
         style={{
@@ -553,65 +442,42 @@ const dragStartRef = useRef(null)
           bottom: `${fadeOutHeight}px`,
           left: '50%',
           transform: `translateX(-50%) scale(${(isAdjustingFade === 'fadeOut' || (isHovered && fadeOutHeight > 0)) ? '1.5' : '1'})`,
-          width: (isAdjustingFade === 'fadeOut' || (isHovered && fadeOutHeight > 0)) ? '12px' : '8px',
+          width:  (isAdjustingFade === 'fadeOut' || (isHovered && fadeOutHeight > 0)) ? '12px' : '8px',
           height: (isAdjustingFade === 'fadeOut' || (isHovered && fadeOutHeight > 0)) ? '12px' : '8px',
-          borderRadius: '50%',
-          backgroundColor: baseColor,
-          opacity: 0.9,
-          cursor: 'ew-resize',
-          zIndex: 5,
-          border: `1px solid ${darkerColor}`,
+          borderRadius: '50%', backgroundColor: baseColor, opacity: 0.9,
+          cursor: 'ew-resize', zIndex: 5, border: `1px solid ${darkerColor}`,
           transition: 'transform 0.15s ease'
         }}
         onMouseDown={(e) => handleFadeMouseDown(e, 'fadeOut')}
       />
-
-      {/* Zone de fade out (dégradé triangulaire) */}
       {fadeOutHeight > 2 && (
         <div style={{
-          position: 'absolute',
-          bottom: 0,
-          left: 0,
-          right: 0,
-          height: `${fadeOutHeight}px`,
-          background: `linear-gradient(to top, 
-            ${soundTrack.muted ? '#aaa' : baseColor}00 0%, 
-            ${bgColor} 100%)`,
+          position: 'absolute', bottom: 0, left: 0, right: 0, height: `${fadeOutHeight}px`,
+          background: `linear-gradient(to top, ${soundTrack.muted ? '#aaa' : baseColor}00 0%, ${bgColor} 100%)`,
           pointerEvents: 'none'
         }} />
       )}
-      
-      {/* Handle de resize en bas */}
+
+      {/* Poignée resize bas */}
       <div
         data-resize-handle="true"
         style={{
-          position: 'absolute',
-          bottom: 0,
-          left: 0,
-          right: 0,
-          height: '8px',
+          position: 'absolute', bottom: 0, left: 0, right: 0, height: '8px',
           cursor: 'ns-resize',
-          backgroundColor: isResizing === 'bottom' || (isHovered && blockHeight > SEGMENT_HEIGHT) ? 'rgba(0,0,0,0.15)' : 'transparent',
+          backgroundColor: isResizing === 'bottom' || (isHovered && blockHeight > SEGMENT_HEIGHT)
+            ? 'rgba(0,0,0,0.15)' : 'transparent',
           transition: 'background-color 0.15s ease'
         }}
         onMouseDown={(e) => handleResizeMouseDown(e, 'bottom')}
       />
-      
-      {/* Indicateur de sélection */}
+
+      {/* Indicateur sélection */}
       {isSelected && (
         <div style={{
-          position: 'absolute',
-          top: '-2px',
-          left: '-2px',
-          right: '-2px',
-          bottom: '-2px',
-          border: '2px solid #333',
-          borderRadius: '8px',
-          pointerEvents: 'none'
+          position: 'absolute', top: '-2px', left: '-2px', right: '-2px', bottom: '-2px',
+          border: '2px solid #333', borderRadius: '8px', pointerEvents: 'none'
         }} />
       )}
-
-      {/* Overlay pour muted */}
       {mutedOverlay}
     </div>
   )
