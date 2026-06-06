@@ -3,8 +3,43 @@
   "title": "LA REINE MARGOT",
   "author": "Alexandre Dumas",
   "published": true,
-  "bookUrl": "https://www.librairiesindependantes.com/product/9782070359271/",
-  "sounds": [],
+  "sounds": [
+    {
+      "id": "ambfarm_birds_dog_forest_01_b00m_one",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/ambfarm_birds_dog_forest_01_b00m_one.mp3",
+      "loop": false
+    },
+    {
+      "id": "ambpubl_cinema_noisy_lobby_01_b00m_one",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/ambpubl_cinema_noisy_lobby_01_b00m_one.mp3",
+      "loop": false
+    },
+    {
+      "id": "ambsubn_daytime_distant_church_bells_birds_01_b00m_one",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/ambsubn_daytime_distant_church_bells_birds_01_b00m_one.mp3",
+      "loop": false
+    },
+    {
+      "id": "dsgnwhsh_tonal_dark_magic_whoosh_b00m_one",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/dsgnwhsh_tonal_dark_magic_whoosh_b00m_one.mp3",
+      "loop": false
+    },
+    {
+      "id": "ca_concert_hall_05_medium_audience_atmo_silence_12_rear_lr",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/ca_concert_hall_05_medium_audience_atmo_silence_12_rear_lr.mp3",
+      "loop": false
+    },
+    {
+      "id": "voxreac_single_man_ahm_normal_01_b00m_one",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/voxreac_single_man_ahm_normal_01_b00m_one.mp3",
+      "loop": false
+    },
+    {
+      "id": "woodimpt_hammer_medium_b00m_one",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/woodimpt_hammer_medium_b00m_one.mp3",
+      "loop": false
+    }
+  ],
   "segments": [
     {
       "id": "seg_1780678446446_0_599cd",
@@ -25,7 +60,15 @@
       "text": "Le lundi, dix-huitième jour du mois d'août 1572, il y avait grande fête au Louvre.",
       "breakAt": null,
       "isLeader": true,
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "play",
+          "soundId": "ambpubl_cinema_noisy_lobby_01_b00m_one",
+          "volume": 0.5,
+          "delay": 0,
+          "loop": true
+        }
+      ]
     },
     {
       "id": "seg_1780678446446_2_wc5mj",
@@ -35,7 +78,16 @@
       "text": "Les fenêtres de la vieille demeure royale, ordinairement si sombres,",
       "breakAt": null,
       "isLeader": true,
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "fadeIn",
+          "soundId": "concerto-in-a-minor-bwv-1065--netherlands-bach-society",
+          "volume": 0.3,
+          "duration": 3731,
+          "delay": 0,
+          "loop": true
+        }
+      ]
     },
     {
       "id": "seg_1780678446446_3_2stnm",
@@ -95,7 +147,13 @@
       "text": "cette mer, épandue sur le quai, où elle se dégorgeait par la rue des Fossés-Saint-Germain et par la rue de l'Astruce, venait battre de son flux le pied des murs du Louvre et de son reflux la base de l'hôtel de Bourbon qui s'élevait en face.",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "fadeOut",
+          "soundId": "concerto-in-a-minor-bwv-1065--netherlands-bach-society",
+          "duration": 846
+        }
+      ]
     },
     {
       "id": "seg_1780678446446_9_w9mip",
@@ -125,7 +183,13 @@
       "text": "huitaine, et à laquelle il serait convié et s'ébattrait de tout son coeur.",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "fadeOut",
+          "soundId": "ambpubl_cinema_noisy_lobby_01_b00m_one",
+          "duration": 459
+        }
+      ]
     },
     {
       "id": "seg_1780678446446_12_cbe75",
@@ -135,7 +199,16 @@
       "text": "La cour célébrait les noces de madame Marguerite de Valois, fille du roi Henri II et soeur du roi Charles IX, avec Henri de Bourbon, roi de Navarre.",
       "breakAt": null,
       "isLeader": true,
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "fadeIn",
+          "soundId": "ambfarm_birds_dog_forest_01_b00m_one",
+          "volume": 0.5,
+          "duration": 1327,
+          "delay": 0,
+          "loop": false
+        }
+      ]
     },
     {
       "id": "seg_1780678446446_13_5dslb",
@@ -154,7 +227,7 @@
       ],
       "text": "Ce mariage avait étonné tout le monde et avait fort donné à songer à quelques-uns qui voyaient plus clair que les autres;",
       "breakAt": null,
-      "isLeader": true,
+      "isLeader": false,
       "audioEvents": []
     },
     {
@@ -265,7 +338,13 @@
       "text": "c'était le cerveau, seule partie du corps exclue de l'autopsie, qui devait offrir les traces du crime.",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "fadeOut",
+          "soundId": "ambfarm_birds_dog_forest_01_b00m_one",
+          "duration": 175
+        }
+      ]
     },
     {
       "id": "seg_1780678446446_26_kx4hn",
@@ -275,7 +354,15 @@
       "text": "Nous disons crime, car personne ne doutait qu'un crime n'eût été commis.",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "play",
+          "soundId": "dsgnwhsh_tonal_dark_magic_whoosh_b00m_one",
+          "volume": 0.5,
+          "delay": 1500,
+          "loop": false
+        }
+      ]
     },
     {
       "id": "seg_1780678446446_27_kn737",
@@ -285,7 +372,15 @@
       "text": "Ce n'était pas tout: le roi Charles, particulièrement,",
       "breakAt": null,
       "isLeader": true,
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "play",
+          "soundId": "ambpubl_cinema_noisy_lobby_01_b00m_one",
+          "volume": 0.5,
+          "delay": 0,
+          "loop": false
+        }
+      ]
     },
     {
       "id": "seg_1780678446446_28_isz9t",
@@ -325,7 +420,20 @@
       "text": "ce à quoi le roi avait répondu:",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "play",
+          "soundId": "voxreac_single_man_ahm_normal_01_b00m_one",
+          "volume": 0.5,
+          "delay": 500,
+          "loop": false
+        },
+        {
+          "action": "fadeOut",
+          "soundId": "ambpubl_cinema_noisy_lobby_01_b00m_one",
+          "duration": 643
+        }
+      ]
     },
     {
       "id": "seg_1780678446446_32_qvlx4",
@@ -335,7 +443,15 @@
       "text": "— N'ayez souci, ma bonne tante, je vous honore plus que le pape, et aime plus ma soeur que je ne le crains. Je ne suis pas huguenot, mais je ne suis pas sot non plus, et si monsieur le pape fait trop la bête, je prendrai moi-même Margot par la main, et je la mènerai épouser votre fils en plein prêche.",
       "breakAt": null,
       "isLeader": true,
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "play",
+          "soundId": "ca_concert_hall_05_medium_audience_atmo_silence_12_rear_lr",
+          "volume": 0.5,
+          "delay": 0,
+          "loop": false
+        }
+      ]
     },
     {
       "id": "seg_1780678446446_33_rvgre",
@@ -345,7 +461,20 @@
       "text": "Ces paroles s'étaient répandues du Louvre dans la ville, et,",
       "breakAt": null,
       "isLeader": true,
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "fadeOut",
+          "soundId": "ca_concert_hall_05_medium_audience_atmo_silence_12_rear_lr",
+          "duration": 717
+        },
+        {
+          "action": "play",
+          "soundId": "ambsubn_daytime_distant_church_bells_birds_01_b00m_one",
+          "volume": 0.5,
+          "delay": 0,
+          "loop": false
+        }
+      ]
     },
     {
       "id": "seg_1780678446446_34_8xoln",
@@ -385,7 +514,15 @@
       "text": "après avoir mis sa tête à prix à cent cinquante mille écus d'or, le roi ne jurait plus que par lui, l'appelant son père et déclarant tout haut qu'il allait confier désormais à lui seul la conduite de la guerre;",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "play",
+          "soundId": "woodimpt_hammer_medium_b00m_one",
+          "volume": 0.5,
+          "delay": 2000,
+          "loop": false
+        }
+      ]
     },
     {
       "id": "seg_1780678446446_38_u1lhx",
@@ -405,7 +542,13 @@
       "text": "d'épanchement Charles IX avait dit à l'amiral à propos de la guerre de Flandre:",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "fadeOut",
+          "soundId": "ambsubn_daytime_distant_church_bells_birds_01_b00m_one",
+          "duration": 528
+        }
+      ]
     },
     {
       "id": "seg_1780678446446_40_bwv43",
@@ -1338,6 +1481,134 @@
       "audioEvents": []
     }
   ],
-  "soundTracks": [],
+  "soundTracks": [
+    {
+      "id": "st_1780678809840_8ikgyefs5",
+      "soundId": "ambpubl_cinema_noisy_lobby_01_b00m_one",
+      "startSegmentId": "seg_1780678446446_1_4ew6k",
+      "endSegmentId": "seg_1780678446446_11_wlfz6",
+      "column": 0,
+      "volume": 0.5,
+      "fadeIn": 0,
+      "fadeOut": 459,
+      "delay": 0,
+      "loop": true,
+      "muted": false,
+      "loopCrossfade": "medium"
+    },
+    {
+      "id": "st_1780679097833_t3p8dnixx",
+      "soundId": "concerto-in-a-minor-bwv-1065--netherlands-bach-society",
+      "startSegmentId": "seg_1780678446446_2_wc5mj",
+      "endSegmentId": "seg_1780678446446_8_czw28",
+      "column": 1,
+      "volume": 0.3,
+      "fadeIn": 3731,
+      "fadeOut": 846,
+      "delay": 0,
+      "loop": true,
+      "muted": false,
+      "loopCrossfade": "medium",
+      "pan": 0.36
+    },
+    {
+      "id": "st_1780679374887_walrml1z1",
+      "soundId": "ambfarm_birds_dog_forest_01_b00m_one",
+      "startSegmentId": "seg_1780678446446_12_cbe75",
+      "endSegmentId": "seg_1780678446446_25_sbbwq",
+      "column": 0,
+      "volume": 0.5,
+      "fadeIn": 1327,
+      "fadeOut": 175,
+      "delay": 0,
+      "loop": false,
+      "muted": false
+    },
+    {
+      "id": "st_1780679491834_qvyz5afc7",
+      "soundId": "dsgnwhsh_tonal_dark_magic_whoosh_b00m_one",
+      "startSegmentId": "seg_1780678446446_26_kx4hn",
+      "endSegmentId": "seg_1780678446446_26_kx4hn",
+      "column": 0,
+      "volume": 0.5,
+      "fadeIn": 0,
+      "fadeOut": 0,
+      "delay": 1500,
+      "loop": false,
+      "muted": false,
+      "trimStart": 0,
+      "trimEnd": 4439
+    },
+    {
+      "id": "st_1780680512037_ag6oz7mhe",
+      "soundId": "voxreac_single_man_ahm_normal_01_b00m_one",
+      "startSegmentId": "seg_1780678446446_31_w3tjy",
+      "endSegmentId": "seg_1780678446446_31_w3tjy",
+      "column": 5,
+      "volume": 0.5,
+      "fadeIn": 0,
+      "fadeOut": 0,
+      "delay": 500,
+      "loop": false,
+      "muted": false,
+      "trimStart": 3428,
+      "trimEnd": 4201.269841269841
+    },
+    {
+      "id": "st_1780680568060_9kq4hju04",
+      "soundId": "ambpubl_cinema_noisy_lobby_01_b00m_one",
+      "startSegmentId": "seg_1780678446446_27_kn737",
+      "endSegmentId": "seg_1780678446446_31_w3tjy",
+      "column": 0,
+      "volume": 0.5,
+      "fadeIn": 0,
+      "fadeOut": 643,
+      "delay": 0,
+      "loop": false,
+      "muted": false,
+      "broken": false
+    },
+    {
+      "id": "st_1780680896940_epqg6j0b2",
+      "soundId": "woodimpt_hammer_medium_b00m_one",
+      "startSegmentId": "seg_1780678446446_37_1q5jn",
+      "endSegmentId": "seg_1780678446446_37_1q5jn",
+      "column": 4,
+      "volume": 0.5,
+      "fadeIn": 0,
+      "fadeOut": 0,
+      "delay": 2000,
+      "loop": false,
+      "muted": false,
+      "trimStart": 2003,
+      "trimEnd": 3877
+    },
+    {
+      "id": "st_1780681319177_sn2p1vwgh",
+      "soundId": "ca_concert_hall_05_medium_audience_atmo_silence_12_rear_lr",
+      "startSegmentId": "seg_1780678446446_32_qvlx4",
+      "endSegmentId": "seg_1780678446446_33_rvgre",
+      "column": 0,
+      "volume": 0.5,
+      "fadeIn": 0,
+      "fadeOut": 717,
+      "delay": 0,
+      "loop": false,
+      "muted": false
+    },
+    {
+      "id": "st_1780681515858_t0valglk7",
+      "soundId": "ambsubn_daytime_distant_church_bells_birds_01_b00m_one",
+      "startSegmentId": "seg_1780678446446_33_rvgre",
+      "endSegmentId": "seg_1780678446446_39_85duf",
+      "column": 1,
+      "volume": 0.5,
+      "fadeIn": 0,
+      "fadeOut": 528,
+      "delay": 0,
+      "loop": false,
+      "muted": false
+    }
+  ],
   "vfxTracks": []
 }
