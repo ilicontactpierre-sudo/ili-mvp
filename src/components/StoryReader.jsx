@@ -5,6 +5,16 @@ import { applyEmojiMode } from '../utils/emojiDict.jsx'
 import { getVfxClass } from './admin/constants'
 import hapticEngine from '../engine/HapticEngine'
 
+// ── Flash plein écran ──
+const FLASH_SPEED = { lent: 2000, moyen: 1000, rapide: 400 }
+
+function getFlashColor(color, isDark) {
+  // Si la couleur est blanche et qu'on est en mode clair → on remplace par noir
+  const isWhite = color && color.toLowerCase().includes('255, 255, 255')
+  if (isWhite && !isDark) return 'rgba(0, 0, 0, 0.12)'
+  return color
+}
+
 // ── Typewriter : délais par mode ──
 const TW_DELAY = { lent: 80, normal: 45, rapide: 20 }
 
