@@ -192,18 +192,15 @@ function SoundBlock({
     if (e.button !== 0) return
     e.stopPropagation()
     
-    // Obtenir la position absolue du bloc par rapport à la timeline
-    const blockRect = blockRef.current?.getBoundingClientRect()
+    // Capturer le timelineRoot UNE SEULE FOIS au mousedown et le garder en ref
     const timelineRoot = blockRef.current?.closest('[data-timeline-root]')
     const timelineRect = timelineRoot ? timelineRoot.getBoundingClientRect() : null
     const timelineScrollTop = timelineRoot ? timelineRoot.scrollTop : 0
+    const blockRect = blockRef.current?.getBoundingClientRect()
     
-    // Position absolue du haut du bloc dans le contenu scrollable
     const absoluteBlockTop = blockRect && timelineRect 
       ? blockRect.top - timelineRect.top + timelineScrollTop 
       : 0
-    
-    // Position absolue du bas du bloc
     const absoluteBlockBottom = absoluteBlockTop + blockHeight
     
     const rsData = {
@@ -213,7 +210,10 @@ function SoundBlock({
       rowHeights: rowHeights || [],
       absoluteBlockTop,
       absoluteBlockBottom,
-      timelineScrollTop: timelineScrollTop || 0
+      timelineScrollTop: timelineScrollTop || 0,
+      // Stocker le timelineRoot lui-même pour ne plus jamais faire closest() pendant le move
+      timelineRootEl: timelineRoot,
+      timelineRectTop: timelineRect?.top ?? 0,
     }
     setIsResizing(direction)
     setResizeStart(rsData)
@@ -289,59 +289,50 @@ const dragStartRef = useRef(null)
         const startIdx = rs.startSegment
         const endIdx = rs.endSegment
         
-        const timelineRoot = blockRef.current?.closest('[data-timeline-root]')
-        const timelineRect = timelineRoot?.getBoundingClientRect()
-        const currentScrollTop = timelineRoot ? timelineRoot.scrollTop : 0
-        const cursorAbsoluteY = e.clientY - (timelineRect?.top ?? 0) + currentScrollTop
-
-        // LOG 1 — position curseur et contexte général
-        console.log(`[RESIZE ${isResizing.toUpperCase()}] clientY=${e.clientY} | timelineTop=${timelineRect?.top?.toFixed(0)} | scrollTop=${currentScrollTop} | cursorAbsoluteY=${cursorAbsoluteY.toFixed(0)} | startIdx=${startIdx} | endIdx=${endIdx} | totalRows=${currentRowHeights.length}`)
+        // Utiliser le timelineRoot capturé au mousedown — jamais null pendant le move
+        const timelineRootEl = rs.timelineRootEl
+        const currentScrollTop = timelineRootEl ? timelineRootEl.scrollTop : 0
+        // timelineRectTop est fixé au mousedown (le header ne bouge pas)
+        const cursorAbsoluteY = e.clientY - rs.timelineRectTop + currentScrollTop
 
         if (isResizing === 'bottom') {
-          const absoluteBottom = cursorAbsoluteY
           let accumulated = 0
           let newEndIndex = startIdx
           
           for (let i = 0; i < currentRowHeights.length; i++) {
             const rowHeight = currentRowHeights[i] || SEGMENT_HEIGHT
             const rowTotal = rowHeight + 8
-            if (absoluteBottom <= accumulated + rowHeight) {
+            if (cursorAbsoluteY <= accumulated + rowHeight) {
               const midPoint = accumulated + rowHeight / 2
-              newEndIndex = absoluteBottom >= midPoint ? i : Math.max(startIdx, i - 1)
-              // LOG 2 — segment trouvé pour bottom
-              console.log(`  [BOTTOM] curseur dans segment i=${i} | accumulated=${accumulated.toFixed(0)} | rowHeight=${rowHeight} | midPoint=${midPoint.toFixed(0)} | newEndIndex=${newEndIndex}`)
+              newEndIndex = cursorAbsoluteY >= midPoint ? i : Math.max(startIdx, i - 1)
               break
             }
             accumulated += rowTotal
             newEndIndex = i
           }
           newEndIndex = Math.max(startIdx, Math.min(currentRowHeights.length - 1, newEndIndex))
-          const newEndSegmentId = segmentsRef.current[newEndIndex]?.id || segmentsRef.current[newEndIndex]?._id
-          onResize(soundTrack.id, null, newEndSegmentId)
+          
+          // Stocker le résultat dans la ref — onResize appelé seulement au mouseup
+          resizeStartRef.current._pendingEndIndex = newEndIndex
           
         } else if (isResizing === 'top') {
-          const absoluteTop = cursorAbsoluteY
           let accumulated = 0
           let newStartIndex = startIdx
-
-          // LOG 3 — snapshot des 5 premières hauteurs pour vérifier rowHeights
-          console.log(`  [TOP] absoluteTop=${absoluteTop.toFixed(0)} | rowHeights[0..4]=${currentRowHeights.slice(0,5).map(h=>h?.toFixed?.(0)??h).join(',')}`)
           
           for (let i = 0; i < currentRowHeights.length; i++) {
             const rowHeight = currentRowHeights[i] || SEGMENT_HEIGHT
             const rowTotal = rowHeight + 8
-            if (absoluteTop <= accumulated + rowHeight) {
+            if (cursorAbsoluteY <= accumulated + rowHeight) {
               const midPoint = accumulated + rowHeight / 2
-              newStartIndex = absoluteTop <= midPoint ? i : Math.min(endIdx, i + 1)
-              // LOG 4 — segment trouvé pour top
-              console.log(`  [TOP] curseur dans segment i=${i} | accumulated=${accumulated.toFixed(0)} | rowHeight=${rowHeight} | midPoint=${midPoint.toFixed(0)} | newStartIndex=${newStartIndex}`)
+              newStartIndex = cursorAbsoluteY <= midPoint ? i : Math.min(endIdx, i + 1)
               break
             }
             accumulated += rowTotal
           }
           newStartIndex = Math.max(0, Math.min(endIdx, newStartIndex))
-          const newStartSegmentId = segmentsRef.current[newStartIndex]?.id || segmentsRef.current[newStartIndex]?._id
-          onResize(soundTrack.id, newStartSegmentId, null)
+          
+          // Stocker le résultat dans la ref — onResize appelé seulement au mouseup
+          resizeStartRef.current._pendingStartIndex = newStartIndex
         }
       }
 
