@@ -97,7 +97,6 @@ function SegmentTimelineRow({
   isDragging,
   onGameMode,
 }) {
-  console.log('segment', index, segment)
   const containerRef = useRef(null)
   const textareaRef = useRef(null)
 
