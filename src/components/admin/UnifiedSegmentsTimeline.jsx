@@ -1450,7 +1450,6 @@ const handleTextSelection = useCallback(() => {
   }, [soundTracks, onSoundTracksChange, onSaveToHistory])
 
   const handleResizeSound = useCallback((soundId, newStartSegmentId, newEndSegmentId) => {
-    console.log('handleResizeSound called:', { soundId, newStartSegmentId, newEndSegmentId })
     const updatedTracks = soundTracks.map(track => {
       if (track.id !== soundId) return track
       return {
@@ -1459,7 +1458,6 @@ const handleTextSelection = useCallback(() => {
         ...(newEndSegmentId && { endSegmentId: newEndSegmentId })
       }
     })
-    console.log('Updated tracks:', updatedTracks)
     onSoundTracksChange(updatedTracks)
     if (onSaveToHistory) onSaveToHistory()
   }, [soundTracks, onSoundTracksChange, onSaveToHistory])
@@ -1547,7 +1545,6 @@ const handleTextSelection = useCallback(() => {
   const handleDoubleClickEmptyCell = useCallback((segmentIndex, column) => {
     if (segmentIndex >= segments.length) return
     
-    console.log('handleDoubleClickEmptyCell called with:', { segmentIndex, column, segmentsLength: segments.length })
     
     let freeColumn = column
     
@@ -1574,7 +1571,6 @@ const handleTextSelection = useCallback(() => {
     }
     
     const segmentId = segments[segmentIndex]?.id || segments[segmentIndex]?._id
-    console.log('Setting showSoundPicker to:', { segmentIndex, column: freeColumn, segmentId })
     setShowSoundPicker({ segmentIndex, segmentId, column: freeColumn })
   }, [segments, soundTracks])
 
@@ -2274,8 +2270,6 @@ const handleTextSelection = useCallback(() => {
             setShowSoundPicker(false)
           }}
           onAddSound={(soundData) => {
-            console.log('onAddSound called with soundData:', soundData)
-            console.log('showSoundPicker was:', showSoundPicker)
             // Si un track grisé (broken) avec ce soundId existe déjà sur ce segment,
             // on le dé-grise plutôt que d'en créer un doublon
             const existingBrokenIdx = soundTracks.findIndex(
