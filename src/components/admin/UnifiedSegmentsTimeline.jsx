@@ -810,8 +810,7 @@ const SegmentTimelineRow = memo(function SegmentTimelineRow({
 })
 
 // Composant pour le séparateur entre segments (double-clic pour fusionner)
-function SegmentSeparator({ index, onMerge, isHovered, onHover }) {
-  return (
+const SegmentSeparator = memo(function SegmentSeparator({ index, onMerge, isHovered, onHover }) {  return (
     <div
       style={{
         height: '8px',
@@ -866,10 +865,9 @@ function SegmentSeparator({ index, onMerge, isHovered, onHover }) {
       }} />
     </div>
   )
-}
-
+})
 // Composant principal unifié
-function UnifiedSegmentsTimeline({ 
+function UnifiedSegmentsTimeline({
   segments, 
   soundTracks, 
   soundLibrary,
@@ -1094,6 +1092,7 @@ function UnifiedSegmentsTimeline({
   const rowRefs = useRef([])
 
   // Gérer le drag du séparateur
+  const handleDividerMouseDown = useCallback(() => setIsDraggingDivider(true), [])
   useEffect(() => {
     if (!isDraggingDivider) return
 
@@ -2140,8 +2139,7 @@ const handleTextSelection = useCallback(() => {
                     onAddSoundToCell: handleDoubleClickEmptyCell,
                     dividerPosition,
                     isDraggingDivider,
-                    onDividerMouseDown: () => setIsDraggingDivider(true),
-                    isAnyBlockDragging,
+                    onDividerMouseDown: handleDividerMouseDown,                    isAnyBlockDragging,
                     dragTargetCell,
                     onDragStart: handleSoundDragStart,
                     onDragEnd: handleSoundDragEnd,
