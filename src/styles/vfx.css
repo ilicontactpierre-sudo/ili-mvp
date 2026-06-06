@@ -196,19 +196,7 @@
   pointer-events: none;
 }
 
-/* ----------------------------------------------------------
-   APPARITION EN ENCRE — courbe en S (ease-in-out custom)
-   ---------------------------------------------------------- */
-@keyframes vfx-ink-appear {
-  0%   { filter: blur(10px); opacity: 0; letter-spacing: 0.4em; }
-  30%  { filter: blur(4px);  opacity: 0.4; letter-spacing: 0.15em; }
-  60%  { filter: blur(1px);  opacity: 0.8; letter-spacing: 0.03em; }
-  100% { filter: blur(0);    opacity: 1;   letter-spacing: normal; }
-}
 
-.vfx-ink-slow   { animation: vfx-ink-appear 2.8s cubic-bezier(0.37, 0, 0.63, 1) forwards; }
-.vfx-ink-medium { animation: vfx-ink-appear 1.6s cubic-bezier(0.37, 0, 0.63, 1) forwards; }
-.vfx-ink-fast   { animation: vfx-ink-appear 0.8s cubic-bezier(0.37, 0, 0.63, 1) forwards; }
 
 /* ----------------------------------------------------------
    FLICKER — scintillement (toujours loop)
