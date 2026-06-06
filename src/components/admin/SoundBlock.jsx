@@ -400,6 +400,9 @@ const dragStartRef = useRef(null)
           onResize(soundTrack.id, newStartSegmentId, null)
         }
       }
+      // Remettre à zéro APRÈS avoir appliqué les changements
+      // pour éviter que le bloc "saute" visuellement avant le re-render
+      if (onDragEnd) onDragEnd()
       setIsDragging(false)
       setDragOffset({ x: 0, y: 0 })
       setSnapOffset({ x: 0, y: 0 })
