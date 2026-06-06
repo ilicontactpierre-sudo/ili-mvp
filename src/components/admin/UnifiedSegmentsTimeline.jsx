@@ -1636,7 +1636,7 @@ const handleTextSelection = useCallback(() => {
   }, [])
 
   useLayoutEffect(() => {
-    // Ne pas mesurer pendant un drag — inutile et coûteux (100 getBoundingClientRect)
+    // Pendant le drag : ne pas mesurer, mais mémoriser qu'une mesure est nécessaire
     if (isAnyBlockDragging || isAnyVfxDragging || isDraggingSegment) return
     const heights = segments.map((_, index) => {
       if (hiddenSegments.has(index)) {
@@ -1649,6 +1649,9 @@ const handleTextSelection = useCallback(() => {
     if (rowsChanged) {
       setMeasuredRowHeights(heights)
     }
+  // isAnyBlockDragging/isAnyVfxDragging/isDraggingSegment dans les deps :
+  // quand ils passent de true à false (fin de drag), le effect se re-déclenche
+  // et mesure les hauteurs une seule fois proprement
   }, [segments, editTexts, dividerPosition, editingSegmentIndex, selectedSegmentIndices, soundTracks.length, hiddenSegments, isAnyBlockDragging, isAnyVfxDragging, isDraggingSegment])
   const totalHeight = rowHeights.reduce((sum, rowHeight) => sum + rowHeight + 8, 0)
 
