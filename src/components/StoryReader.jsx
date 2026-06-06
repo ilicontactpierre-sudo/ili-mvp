@@ -239,6 +239,35 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle',
     }
   }, [finalSegments])
   const [translateY, setTranslateY] = useState(0)
+
+  // ── Overlay flash plein écran ──
+  const flashOverlayRef = useRef(null)
+  useEffect(() => {
+    const flashTrack = storyData?.vfxTracks?.find(t => {
+      if (t.type !== 'flash') return false
+      const segs = storyData.segments || []
+      const si = segs.findIndex(s => s.id === t.startSegmentId || s._id === t.startSegmentId)
+      const ei = segs.findIndex(s => s.id === t.endSegmentId   || s._id === t.endSegmentId)
+      const te = ei !== -1 ? ei : si
+      return si <= currentIndex && currentIndex <= te
+    })
+
+    const overlay = flashOverlayRef.current
+    if (!overlay) return
+
+    if (flashTrack) {
+      const isDark = (() => {
+        try { return JSON.parse(localStorage.getItem('ili_theme') || '{}').isDark !== false } catch { return true }
+      })()
+      const color = getFlashColor(flashTrack.color, isDark)
+      const duration = FLASH_SPEED[flashTrack.mode] ?? 1000
+      overlay.style.setProperty('--flash-color', color)
+      overlay.style.setProperty('--flash-duration', `${duration}ms`)
+      overlay.style.display = 'block'
+    } else {
+      overlay.style.display = 'none'
+    }
+  }, [currentIndex, storyData])
   
       // Hauteur réservée pour le spacer (sticky ou focused → même hauteur)
   const STICKY_HEIGHT = 56 // px — doit correspondre au padding du sticky dans le CSS
