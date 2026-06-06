@@ -1648,7 +1648,7 @@ const handleTextSelection = useCallback(() => {
     if (rowsChanged) {
       setMeasuredRowHeights(heights)
     }
-  }, [segments, editTexts, dividerPosition, editingSegmentIndex, selectedSegmentIndices, soundTracks.length, hiddenSegments, isAnyBlockDragging, isAnyVfxDragging])
+  }, [segments, editTexts, dividerPosition, editingSegmentIndex, selectedSegmentIndices, soundTracks.length, hiddenSegments])
   const totalHeight = rowHeights.reduce((sum, rowHeight) => sum + rowHeight + 8, 0)
 
   // ── Handlers drag & drop segments ──────────────────────────
