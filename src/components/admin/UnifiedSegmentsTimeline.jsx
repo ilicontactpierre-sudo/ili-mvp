@@ -1092,30 +1092,7 @@ function UnifiedSegmentsTimeline({
   const dividerRef = useRef(null)
   const rowRefs = useRef([])
 
-  // Gérer le drag du séparateur
-  const handleDividerMouseDown = useCallback(() => setIsDraggingDivider(true), [])
-  useEffect(() => {
-    if (!isDraggingDivider) return
-
-    const handleMouseMove = (e) => {
-      if (containerRef.current) {
-        const rect = containerRef.current.getBoundingClientRect()
-        const newPosition = ((e.clientX - rect.left) / rect.width) * 100
-        setDividerPosition(Math.max(30, Math.min(70, newPosition))) // Limites 30%-70%
-      }
-    }
-
-    const handleMouseUp = () => {
-      setIsDraggingDivider(false)
-    }
-
-    document.addEventListener('mousemove', handleMouseMove)
-    document.addEventListener('mouseup', handleMouseUp)
-    return () => {
-      document.removeEventListener('mousemove', handleMouseMove)
-      document.removeEventListener('mouseup', handleMouseUp)
-    }
-  }, [isDraggingDivider])// Gérer le drag du séparateur — un seul useEffect
+// Gérer le drag du séparateur — un seul useEffect
   const handleDividerMouseDown = useCallback(() => setIsDraggingDivider(true), [])
   useEffect(() => {
     if (!isDraggingDivider) return
