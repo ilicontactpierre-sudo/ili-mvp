@@ -1677,6 +1677,11 @@ const handleTextSelection = useCallback(() => {
     }
   }, [segments, editTexts, dividerPosition, editingSegmentIndex, selectedSegmentIndices, soundTracks.length, hiddenSegments])
   const totalHeight = rowHeights.reduce((sum, rowHeight) => sum + rowHeight + 8, 0)
+  // Callbacks stables par index pour ne pas invalider le memo des lignes
+  const dragHandleMouseDownHandlers = useMemo(() =>
+    segments.map((_, i) => (e) => handleSegmentDragStart(e, i)),
+    [segments, handleSegmentDragStart]
+  )
 
   // ── Handlers drag & drop segments ──────────────────────────
   const handleSegmentDragStart = useCallback((e, index) => {
@@ -2160,11 +2165,8 @@ const handleTextSelection = useCallback(() => {
                     isFinisher: finisherSegments.has(index),
                     onToggleIsLeader: handleToggleIsLeader,
                     onVfxUpdate: handleVfxUpdate,
-                    // Callbacks stables par index pour ne pas invalider le memo des lignes
-                    const dragHandleMouseDownHandlers = useMemo(() =>
-                      segments.map((_, i) => (e) => handleSegmentDragStart(e, i)),
-                      [segments, handleSegmentDragStart]
-                    )
+                    // Handle drag
+                    onDragHandleMouseDown: dragHandleMouseDownHandlers[index],
                     isDragging: isBeingDragged,
                     onGameMode: (idx) => setGameModePanel(idx),
                   }}
