@@ -338,6 +338,7 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle',
     }, [finalSegments, currentIndex, chapterMode])
 
     return (
+    <>
     <div
         ref={flashOverlayRef}
         style={{
