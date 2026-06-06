@@ -121,7 +121,6 @@ function SoundBlock({
   // Gestion du drag (déplacement pour changer de colonne ET de ligne)
   // Le drag ne se déclenche qu'après un petit délai pour ne pas interférer avec le clic
   const handleMouseDown = useCallback((e) => {
-    console.log('MOUSEDOWN target:', e.target.dataset, e.target.tagName)
     if (e.button !== 0) return
     if (e.target.dataset.fadeHandle) return
     if (e.target.dataset.resizeHandle) return
@@ -373,14 +372,7 @@ const dragStartRef = useRef(null)
           onColumnChange(soundTrack.id, currentTargetCell.column)
         }
         // Appliquer les changements de ligne (segment) au moment du relâchement
-       console.log('MOUSEUP DEBUG:', {
-          targetCell: currentTargetCell,
-          ds_startSegmentIndex: ds.startSegmentIndex,
-          ds_column: ds.column,
-          segmentsRefLength: segmentsRef.current.length,
-          targetSegmentIndex: currentTargetCell.segmentIndex >= 0 ? currentTargetCell.segmentIndex : ds.startSegmentIndex,
-          segAtTarget: segmentsRef.current[currentTargetCell.segmentIndex],
-        })
+       
         const targetSegmentIndex = currentTargetCell.segmentIndex >= 0 ? currentTargetCell.segmentIndex : ds.startSegmentIndex
         if (targetSegmentIndex !== ds.startSegmentIndex) {
           const segs = segmentsRef.current
