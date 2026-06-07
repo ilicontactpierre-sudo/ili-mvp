@@ -612,6 +612,21 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle',
                   return renderTypewriter(segment.text, twTrack.mode)
                 }
 
+                // ── Static actif sur ce segment ? ──
+                const staticTrack = isFocused && storyData?.vfxTracks
+                  ? storyData.vfxTracks.find(t => {
+                      if (t.type !== 'static') return false
+                      const si = (storyData.segments || []).findIndex(s => s.id === t.startSegmentId || s._id === t.startSegmentId)
+                      const ei = (storyData.segments || []).findIndex(s => s.id === t.endSegmentId   || s._id === t.endSegmentId)
+                      const te = ei !== -1 ? ei : si
+                      return si <= index && index <= te
+                    })
+                  : null
+
+                if (staticTrack) {
+                  return renderStatic(segment.text, `seg_${index}`)
+                }
+
                 // ── Erased actif sur ce segment ? ──
                 const erasedTrack = isFocused && storyData?.vfxTracks
                   ? storyData.vfxTracks.find(t => {
