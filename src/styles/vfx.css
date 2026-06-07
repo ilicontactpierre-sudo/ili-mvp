@@ -244,18 +244,6 @@
   animation: vfx-flash-fullscreen var(--flash-duration, 1000ms) ease-in-out infinite;
 }
 
-/* ----------------------------------------------------------
-   VIGNETTE — canvas plein écran animé en JS
-   ---------------------------------------------------------- */
-.vfx-vignette-canvas {
-  display: none;
-  position: fixed;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 8500;
-}
 
 /* ----------------------------------------------------------
    SCANLINES — lignes horizontales de défilement
