@@ -245,7 +245,7 @@
 }
 
 /* ----------------------------------------------------------
-   VIGNETTE — plein écran, centrée sur le segment
+   VIGNETTE — halo autour du segment, mix-blend-mode
    ---------------------------------------------------------- */
 .vfx-vignette-overlay {
   display: none;
@@ -254,16 +254,13 @@
   pointer-events: none;
   z-index: 8500;
   opacity: 0;
-  transition: opacity 3s cubic-bezier(0.37, 0, 0.63, 1),
-              --vignette-x 0.8s cubic-bezier(0.37, 0, 0.63, 1),
-              --vignette-y 0.8s cubic-bezier(0.37, 0, 0.63, 1),
-              --vignette-rx 0.8s cubic-bezier(0.37, 0, 0.63, 1),
-              --vignette-ry 0.8s cubic-bezier(0.37, 0, 0.63, 1);
+  mix-blend-mode: multiply;
+  transition: opacity 3s cubic-bezier(0.37, 0, 0.63, 1);
   background: radial-gradient(
-    ellipse var(--vignette-rx, 70%) var(--vignette-ry, 40%) at var(--vignette-x, 50%) var(--vignette-y, 50%),
-    transparent 0%,
-    transparent 40%,
-    var(--vignette-color, rgba(0,0,0,0.6)) 100%
+    ellipse var(--vignette-rx, 60%) var(--vignette-ry, 30%) at var(--vignette-x, 50%) var(--vignette-y, 50%),
+    white 0%,
+    white 35%,
+    var(--vignette-color, rgb(0,0,0)) 100%
   );
 }
 .vfx-vignette-overlay.visible {
