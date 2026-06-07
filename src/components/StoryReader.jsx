@@ -263,6 +263,93 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle',
   }, [finalSegments])
   const [translateY, setTranslateY] = useState(0)
 
+  // ── Static : animation des lettres parasitées ──
+  const staticIntervalRef = useRef(null)
+
+  useEffect(() => {
+    // Nettoyer l'interval précédent
+    if (staticIntervalRef.current) {
+      clearInterval(staticIntervalRef.current)
+      staticIntervalRef.current = null
+    }
+
+    const staticTrack = storyData?.vfxTracks?.find(t => {
+      if (t.type !== 'static') return false
+      const segs = storyData.segments || []
+      const si = segs.findIndex(s => s.id === t.startSegmentId || s._id === t.startSegmentId)
+      const ei = segs.findIndex(s => s.id === t.endSegmentId   || s._id === t.endSegmentId)
+      const te = ei !== -1 ? ei : si
+      return si <= currentIndex && currentIndex <= te
+    })
+
+    if (!staticTrack) return
+
+    // Fréquence d'animation selon mode (ms entre chaque perturbation)
+    const TICK = 80
+
+    staticIntervalRef.current = setInterval(() => {
+      const focusedNode = segmentRefs.current[currentIndex]
+      if (!focusedNode) return
+      const letters = focusedNode.querySelectorAll('.vfx-static-letter')
+      if (!letters.length) return
+
+      const count = letters.length
+
+      // Nombre de lettres à perturber simultanément
+      const nbGlitch  = Math.floor(count * 0.06) + 1
+      const nbFlicker = Math.floor(count * 0.04) + 1
+
+      // ── Glitch : remplacer temporairement par un caractère aléatoire ──
+      for (let i = 0; i < nbGlitch; i++) {
+        const idx = Math.floor(Math.random() * count)
+        const span = letters[idx]
+        const original = span.dataset.original
+        if (!original || original === ' ' || original === '\n') continue
+
+        const replacement = STATIC_CHARS[Math.floor(Math.random() * STATIC_CHARS.length)]
+        span.textContent = replacement
+        span.style.opacity = '0.7'
+
+        // Restaurer après un délai très court
+        setTimeout(() => {
+          if (span) {
+            span.textContent = original
+            span.style.opacity = ''
+          }
+        }, 40 + Math.random() * 80)
+      }
+
+      // ── Flicker : faire clignoter brièvement une lettre ──
+      for (let i = 0; i < nbFlicker; i++) {
+        const idx = Math.floor(Math.random() * count)
+        const span = letters[idx]
+        const original = span.dataset.original
+        if (!original || original === ' ') continue
+
+        span.style.opacity = '0'
+        setTimeout(() => {
+          if (span) span.style.opacity = ''
+        }, 30 + Math.random() * 60)
+      }
+
+    }, TICK)
+
+    return () => {
+      if (staticIntervalRef.current) {
+        clearInterval(staticIntervalRef.current)
+        staticIntervalRef.current = null
+      }
+      // Restaurer toutes les lettres au nettoyage
+      const focusedNode = segmentRefs.current[currentIndex]
+      if (focusedNode) {
+        focusedNode.querySelectorAll('.vfx-static-letter').forEach(span => {
+          span.textContent = span.dataset.original || span.textContent
+          span.style.opacity = ''
+        })
+      }
+    }
+  }, [currentIndex, storyData])
+
   // ── Overlay flash plein écran ──
   const flashOverlayRef = useRef(null)
 
