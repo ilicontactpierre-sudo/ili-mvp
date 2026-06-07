@@ -335,23 +335,48 @@ function StoryPage() {
   const currentSegment = segments[currentIndex]
   const activeGameMode = currentSegment?.gameMode ?? null
 
+  // ── Gel du gameMode affiché pour éviter le télescopage entre deux overlays consécutifs ──
+  // On garde en mémoire le gameMode et l'index qui ont déclenché l'overlay courant.
+  // L'overlay ne se ferme que quand sa propre animation est terminée (onResolved),
+  // donc on ne met à jour le "frozen" qu'à ce moment-là, pas avant.
+  const [frozenGameMode, setFrozenGameMode] = useState(null)
+  const [frozenIndex, setFrozenIndex]       = useState(null)
+
+  // Quand un nouveau gameMode apparaît (segment avec gameMode qu'on n'affichait pas encore),
+  // on le "gèle" immédiatement pour qu'il survive à la transition.
+  useEffect(() => {
+    if (activeGameMode && frozenIndex !== currentIndex) {
+      setFrozenGameMode(activeGameMode)
+      setFrozenIndex(currentIndex)
+    }
+  }, [activeGameMode, currentIndex])
+
+  // Quand l'overlay est résolu : avancer ET effacer le frozen pour libérer le slot.
+  const handleGameResolved = useCallback(() => {
+    setFrozenGameMode(null)
+    setFrozenIndex(null)
+    goToNext()
+  }, [goToNext])
+
+  const showOverlay = frozenGameMode !== null
+
   return (
     <div
       style={{ minHeight: '100vh' }}
-      onClick={!activeGameMode ? (e) => {
+      onClick={!showOverlay ? (e) => {
         // Si le dernier touch était un scroll, absorber le click fantôme
         if (touchDidScrollRef.current) return
         handleScreenClick(e)
       } : undefined}
-      onTouchStart={!activeGameMode ? handleTouchStart : undefined}
-      onTouchMove={!activeGameMode ? handleTouchMove : undefined}
-      onTouchEnd={!activeGameMode ? handleTouchEnd : undefined}
+      onTouchStart={!showOverlay ? handleTouchStart : undefined}
+      onTouchMove={!showOverlay ? handleTouchMove : undefined}
+      onTouchEnd={!showOverlay ? handleTouchEnd : undefined}
     >
-      {activeGameMode && (
+      {showOverlay && (
         <GameOverlay
-          key={currentIndex}
-          gameMode={activeGameMode}
-          onResolved={goToNext}
+          key={frozenIndex}
+          gameMode={frozenGameMode}
+          onResolved={handleGameResolved}
         />
       )}
       <StoryReader storyData={story} currentIndex={currentIndex} jumpPhase={jumpPhase} />
