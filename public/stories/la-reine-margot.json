@@ -1341,16 +1341,6 @@
   "soundTracks": [],
   "vfxTracks": [
     {
-      "id": "vfx_1780761019152_mr5g9849x",
-      "type": "flash",
-      "mode": "lent",
-      "loop": false,
-      "color": "rgba(255, 255, 255, 0.18)",
-      "column": 0,
-      "startSegmentId": "seg_1780678446446_1_4ew6k",
-      "endSegmentId": "seg_1780678446446_1_4ew6k"
-    },
-    {
       "id": "vfx_1780830468446_lu0mhj0c6",
       "type": "vignette",
       "mode": "",
@@ -1359,6 +1349,16 @@
       "column": 0,
       "startSegmentId": "seg_1780678446446_2_wc5mj",
       "endSegmentId": "seg_1780678446446_2_wc5mj"
+    },
+    {
+      "id": "vfx_1780830837919_l33wbqp59",
+      "type": "flash",
+      "mode": "moyen",
+      "loop": false,
+      "color": "rgba(220, 120, 0, 0.12)",
+      "column": 0,
+      "startSegmentId": "seg_1780678446446_1_4ew6k",
+      "endSegmentId": "seg_1780678446446_1_4ew6k"
     }
   ]
 }
