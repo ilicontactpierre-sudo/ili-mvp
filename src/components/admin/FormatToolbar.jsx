@@ -1,18 +1,14 @@
 import { useEffect, useRef } from 'react'
 
 const FONTS = [
-  { label: 'Lora',     css: "'Lora', serif" },
-  { label: 'Garamond', css: "'EB Garamond', serif" },
-  { label: 'Roboto',   css: "'Roboto', sans-serif" },
-  { label: 'Writer',   css: "'Courier Prime', monospace" },
-  { label: 'Script',   css: "'Meie Script', cursive" },
+  { label: 'Lora',      css: "'Lora', serif" },
+  { label: 'Oanteh',    css: "'Oanteh', serif" },
+  { label: 'Namora',    css: "'NamoraD ayana', cursive" },
+  { label: 'Terminal',  css: "'VT323', monospace" },
+  { label: 'Script',    css: "'Meie Script', cursive" },
 ]
-
 const GOOGLE_FONTS_URL =
   'https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400' +
-  '&family=EB+Garamond:ital,wght@0,400;0,700;1,400' +
-  '&family=Roboto:ital,wght@0,400;0,700;1,400' +
-  '&family=Courier+Prime:ital,wght@0,400;0,700;1,400' +
   '&family=Meie+Script&display=swap'
 
 export default function FormatToolbar({ position, onFormat, onFontChange, currentFont, currentSegment, onClose }) {
