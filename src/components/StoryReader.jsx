@@ -269,7 +269,6 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle',
       const isDark = (() => {
         try { return JSON.parse(localStorage.getItem('ili_theme') || '{}').isDark !== false } catch { return true }
       })()
-      // Couleur : si blanc en mode clair → noir
       const rawColor = vignetteTrack.color || 'rgba(0,0,0,0.6)'
       const isWhite = rawColor.toLowerCase().includes('255, 255, 255')
       const color = isWhite && !isDark ? 'rgba(0,0,0,0.6)' : rawColor
@@ -284,6 +283,9 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle',
         if (!overlay.classList.contains('visible')) overlay.style.display = 'none'
       }, 1200)
     }
+  }
+  useEffect(() => {
+    applyVignette()
   }, [currentIndex, storyData])
   useEffect(() => {
     const flashTrack = storyData?.vfxTracks?.find(t => {
