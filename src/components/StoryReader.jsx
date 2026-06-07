@@ -21,6 +21,29 @@ const TW_DELAY = { lent: 80, normal: 45, rapide: 20 }
 // ── Erased : ratio de lettres effacées par mode ──
 const ERASED_RATIO = { faible: 0.2, normal: 0.4, intense: 0.65 }
 
+// ── Static : caractères de remplacement aléatoires ──
+const STATIC_CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%&!?'
+const STATIC_INTERVALS = { } // stocke les intervals actifs par segment
+
+function renderStatic(text, containerId) {
+  // Nettoyer l'interval précédent si existe
+  if (STATIC_INTERVALS[containerId]) {
+    clearInterval(STATIC_INTERVALS[containerId])
+    delete STATIC_INTERVALS[containerId]
+  }
+  // Rendre chaque lettre dans un span avec data-original
+  return Array.from(text).map((char, i) => (
+    <span
+      key={i}
+      className="vfx-static-letter"
+      data-original={char}
+      data-index={i}
+    >
+      {char}
+    </span>
+  ))
+}
+
 function renderErased(text, mode) {
   const ratio = ERASED_RATIO[mode] ?? 0.4
   const letters = Array.from(text)
