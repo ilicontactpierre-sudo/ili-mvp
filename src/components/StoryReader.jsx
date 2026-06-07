@@ -293,7 +293,7 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle',
       overlay.classList.remove('visible')
       setTimeout(() => {
         if (!overlay.classList.contains('visible')) overlay.style.display = 'none'
-      }, 2400)
+      }, 3000)
     }
   }, [currentIndex, storyData])
   useEffect(() => {
