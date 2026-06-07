@@ -120,7 +120,6 @@ export const VFX_TYPES = {
   typewriter:{ label: 'Typewriter',      modes: ['lent', 'normal', 'rapide'], hasLoop: false, hasColor: false },
   erased:   { label: 'Lettres effacées', modes: ['faible', 'normal', 'intense'], hasLoop: false, hasColor: false },
   glitch:   { label: 'Glitch',           modes: ['faible', 'normal', 'intense'], hasLoop: false, hasColor: false },
-  ink:      { label: 'Apparition encre', modes: ['lent', 'moyen', 'rapide'],  hasLoop: false, hasColor: false },
   flicker:  { label: 'Flicker',          modes: [],                           hasLoop: false, hasColor: false },
   flash:    { label: 'Flash',            modes: ['lent', 'moyen', 'rapide'],  hasLoop: false, hasColor: true  },
   vignette: { label: 'Vignette',         modes: [],                           hasLoop: false, hasColor: false },
@@ -134,7 +133,6 @@ export const VFX_COLORS = {
   typewriter:'#7CB9E8',
   erased:    '#B0B0B0',
   glitch:    '#C87CE8',
-  ink:       '#7CE8C8',
   flicker:   '#E8D87C',
   flash:     '#E87C7C',
   vignette:  '#7C7C7C',
@@ -191,10 +189,7 @@ export function getVfxClass(track) {
     case 'typewriter': return `vfx-typewriter-${mode}`
     case 'erased':     return `vfx-erased-${mode}`
     case 'glitch':     return `vfx-glitch-${mode}`
-    case 'ink': {
-      const m = { lent: 'slow', moyen: 'medium', rapide: 'fast' }
-      return `vfx-ink-${m[mode] || 'medium'}`
-    }
+    
     case 'flicker':   return 'vfx-flicker'
     case 'flash': {
       const m = { lent: 'slow', moyen: 'medium', rapide: 'fast' }
