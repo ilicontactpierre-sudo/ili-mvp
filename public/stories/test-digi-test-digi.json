@@ -1,0 +1,54 @@
+{
+  "id": "test-digi-test-digi",
+  "title": "test digi",
+  "author": "test digi",
+  "published": true,
+  "sounds": [],
+  "segments": [
+    {
+      "id": "seg_1780843402609_0_fgba8",
+      "lines": [
+        "a"
+      ],
+      "text": "a",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "text": "",
+      "id": "seg_1780843404448",
+      "breakAt": null,
+      "gameMode": {
+        "type": "code",
+        "answer": "123",
+        "prompt": "123",
+        "hint": "123",
+        "errorMessage": "123",
+        "alreadySolvedMessage": "123"
+      },
+      "audioEvents": []
+    },
+    {
+      "text": "",
+      "id": "seg_1780843406344",
+      "gameMode": {
+        "type": "code",
+        "answer": "123",
+        "prompt": "123",
+        "hint": "123",
+        "errorMessage": "123",
+        "alreadySolvedMessage": "123"
+      },
+      "audioEvents": []
+    },
+    {
+      "text": "a",
+      "id": "seg_1780843405876",
+      "breakAt": null,
+      "audioEvents": []
+    }
+  ],
+  "soundTracks": [],
+  "vfxTracks": []
+}
