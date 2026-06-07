@@ -315,3 +315,9 @@
 }
 
 .vfx-static { animation: vfx-static 0.1s steps(1) infinite; }
+
+/* Lettres parasitées individuellement par JS */
+.vfx-static-letter {
+  display: inline;
+  transition: opacity 20ms linear;
+}
