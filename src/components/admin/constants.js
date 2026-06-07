@@ -123,7 +123,7 @@ export const VFX_TYPES = {
   flicker:  { label: 'Flicker',          modes: [],                           hasLoop: false, hasColor: false },
   flash:    { label: 'Flash',            modes: ['lent', 'moyen', 'rapide'],  hasLoop: false, hasColor: true  },
   scanlines:{ label: 'Scanlines',        modes: ['lent', 'normal', 'rapide'], hasLoop: false, hasColor: false },
-  static:   { label: 'Parasites',        modes: [],                           hasLoop: false, hasColor: false },
+  static:   { label: 'Parasites', modes: ['léger', 'normal', 'intense'], hasLoop: false, hasColor: false },
 }
 
 export const VFX_COLORS = {
