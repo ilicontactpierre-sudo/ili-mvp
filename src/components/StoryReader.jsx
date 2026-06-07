@@ -418,9 +418,9 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle',
         }}
         className="vfx-flash-overlay"
       />
-      <div
+      <canvas
         ref={vignetteOverlayRef}
-        className="vfx-vignette-overlay"
+        className="vfx-vignette-canvas"
       />
     <main
       className="story-reader"
