@@ -1243,37 +1243,53 @@ function UnifiedSegmentsTimeline({
   }, [segments, onSegmentsChange, onSaveToHistory])
 
   const handleDeleteSegment = useCallback((index) => {
-    const segmentToDelete = segments[index]
-    const segId = segmentToDelete.id || segmentToDelete._id
-    
-    const updatedSegments = [...segments]
-    updatedSegments.splice(index, 1)
+    // Si plusieurs segments sont sélectionnés ET que le segment cliqué est dans la sélection,
+    // supprimer tous les segments sélectionnés d'un coup
+    const indicesToDelete = (selectedSegmentIndices.size > 1 && selectedSegmentIndices.has(index))
+      ? [...selectedSegmentIndices].sort((a, b) => b - a) // tri décroissant pour splice
+      : [index]
 
-    // Nettoyer les soundTracks qui référencent ce segment
-    const updatedTracks = soundTracks
-      .filter(track => track.startSegmentId !== segId)
-      .map(track => ({
-        ...track,
-        endSegmentId: track.endSegmentId === segId
-          ? (updatedSegments[index] ? (updatedSegments[index].id || updatedSegments[index]._id) : track.startSegmentId)
-          : track.endSegmentId
-      }))
+    let updatedSegments = [...segments]
+    let updatedTracks = [...soundTracks]
+    let updatedVfxTracks = [...(vfxTracks || [])]
 
-    // Nettoyer les vfxTracks qui référencent ce segment
-    const updatedVfxTracks = (vfxTracks || [])
-      .filter(track => track.startSegmentId !== segId)
-      .map(track => ({
-        ...track,
-        endSegmentId: track.endSegmentId === segId
-          ? (updatedSegments[index] ? (updatedSegments[index].id || updatedSegments[index]._id) : track.startSegmentId)
-          : track.endSegmentId
-      }))
+    // Supprimer dans l'ordre décroissant pour que les indices restent valides
+    for (const idx of indicesToDelete) {
+      const segmentToDelete = updatedSegments[idx]
+      if (!segmentToDelete) continue
+      const segId = segmentToDelete.id || segmentToDelete._id
 
+      // Segment suivant qui récupérera les références orphelines
+      const nextSeg = updatedSegments[idx + 1]
+      const nextSegId = nextSeg ? (nextSeg.id || nextSeg._id) : null
+
+      updatedSegments.splice(idx, 1)
+
+      updatedTracks = updatedTracks
+        .filter(track => track.startSegmentId !== segId)
+        .map(track => ({
+          ...track,
+          endSegmentId: track.endSegmentId === segId
+            ? (nextSegId || track.startSegmentId)
+            : track.endSegmentId
+        }))
+
+      updatedVfxTracks = updatedVfxTracks
+        .filter(track => track.startSegmentId !== segId)
+        .map(track => ({
+          ...track,
+          endSegmentId: track.endSegmentId === segId
+            ? (nextSegId || track.startSegmentId)
+            : track.endSegmentId
+        }))
+    }
+
+    setSelectedSegmentIndices(new Set())
     onSegmentsChange(updatedSegments)
     onSoundTracksChange(updatedTracks)
     if (onVfxTracksChange) onVfxTracksChange(updatedVfxTracks)
     if (onSaveToHistory) onSaveToHistory()
-  }, [segments, soundTracks, onSegmentsChange, onSoundTracksChange, onSaveToHistory])
+  }, [segments, soundTracks, vfxTracks, selectedSegmentIndices, onSegmentsChange, onSoundTracksChange, onVfxTracksChange, onSaveToHistory])
 
   // Sélection avec support Cmd+clic (discontinu) et Shift+clic (plage)
   const handleSelectSegment = useCallback((index, e) => {
