@@ -1341,34 +1341,34 @@
   "soundTracks": [],
   "vfxTracks": [
     {
-      "id": "vfx_1780830837919_l33wbqp59",
-      "type": "vignette",
-      "mode": "grande",
+      "id": "vfx_1780837153143_ymtv47cx3",
+      "type": "static",
+      "mode": "léger",
       "loop": false,
-      "color": "rgba(0, 0, 0, 0.7)",
+      "color": "rgba(200, 0, 0, 0.12)",
       "column": 0,
       "startSegmentId": "seg_1780678446446_1_4ew6k",
       "endSegmentId": "seg_1780678446446_1_4ew6k"
     },
     {
-      "id": "vfx_1780831013308_qs30sufxo",
-      "type": "vignette",
-      "mode": "",
+      "id": "vfx_1780837158386_f5s9lbadi",
+      "type": "static",
+      "mode": "léger",
       "loop": false,
-      "color": "rgba(255, 255, 255, 0.7)",
+      "color": "rgba(200, 0, 0, 0.12)",
+      "column": 0,
+      "startSegmentId": "seg_1780678446446_4_l1lo2",
+      "endSegmentId": "seg_1780678446446_4_l1lo2"
+    },
+    {
+      "id": "vfx_1780837162686_wp39hw4d0",
+      "type": "static",
+      "mode": "léger",
+      "loop": false,
+      "color": "rgba(200, 0, 0, 0.12)",
       "column": 0,
       "startSegmentId": "seg_1780678446446_3_2stnm",
       "endSegmentId": "seg_1780678446446_3_2stnm"
-    },
-    {
-      "id": "vfx_1780832887415_ga0rq949x",
-      "type": "vignette",
-      "mode": "",
-      "loop": false,
-      "color": "rgba(60, 0, 120, 0.6)",
-      "column": 0,
-      "startSegmentId": "seg_1780678446446_2_wc5mj",
-      "endSegmentId": "seg_1780678446446_2_wc5mj"
     }
   ]
 }
