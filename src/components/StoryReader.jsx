@@ -21,8 +21,27 @@ const TW_DELAY = { lent: 80, normal: 45, rapide: 20 }
 // ── Erased : ratio de lettres effacées par mode ──
 const ERASED_RATIO = { faible: 0.2, normal: 0.4, intense: 0.65 }
 
-// ── Static : caractères de remplacement aléatoires ──
-const STATIC_CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%&!?'
+// ── Static : groupes de caractères par largeur visuelle similaire ──
+const STATIC_CHAR_GROUPS = {
+  narrow:  Array.from('ilI1j!|.:,;'),
+  medium:  Array.from('acemnorsuvxz023456789'),
+  wide:    Array.from('ABCDEFGHJKLMNOPQRSTUVXYZ&%'),
+}
+// Choisit un caractère de remplacement de largeur similaire à l'original
+function getSimilarChar(original) {
+  const narrow = 'ilI1j!|.:,;'
+  const wide   = 'ABCDEFGHJKLMNOPQRSTUVXYZ&%'
+  if (narrow.includes(original)) {
+    const g = STATIC_CHAR_GROUPS.narrow
+    return g[Math.floor(Math.random() * g.length)]
+  } else if (wide.includes(original)) {
+    const g = STATIC_CHAR_GROUPS.wide
+    return g[Math.floor(Math.random() * g.length)]
+  } else {
+    const g = STATIC_CHAR_GROUPS.medium
+    return g[Math.floor(Math.random() * g.length)]
+  }
+}
 const STATIC_INTERVALS = { } // stocke les intervals actifs par segment
 
 function renderStatic(text, containerId) {
