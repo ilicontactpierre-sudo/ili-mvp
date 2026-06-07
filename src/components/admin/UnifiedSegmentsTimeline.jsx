@@ -553,8 +553,8 @@ const SegmentTimelineRow = memo(function SegmentTimelineRow({
                 }}
               />
           ) : (
-            <span ref={textContentRef} style={{ display: 'block', whiteSpace: 'pre-wrap', overflowWrap: 'break-word', lineHeight: '1.4', fontSize: '0.85rem', height: 'auto' }}>
-              {splitPreviewPosition !== null && isCmdPressed ? (
+                <span ref={textContentRef} style={{ display: 'block', whiteSpace: 'pre-wrap', overflowWrap: 'break-word', lineHeight: '1.4', fontSize: '0.85rem', height: 'auto', fontFamily: segment?.fontFamily || 'inherit' }}>
+                {splitPreviewPosition !== null && isCmdPressed ? (
                 <>
                   {text.substring(0, splitPreviewPosition)}
                   <span style={{
