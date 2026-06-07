@@ -1345,7 +1345,7 @@
       "type": "vignette",
       "mode": "grande",
       "loop": false,
-      "color": "rgba(220, 120, 0, 0.12)",
+      "color": "rgba(0, 0, 0, 0.7)",
       "column": 0,
       "startSegmentId": "seg_1780678446446_1_4ew6k",
       "endSegmentId": "seg_1780678446446_1_4ew6k"
