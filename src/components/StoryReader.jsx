@@ -325,7 +325,7 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle',
         const original = span.dataset.original
         if (!original || original === ' ' || original === '\n') continue
 
-        const replacement = STATIC_CHARS[Math.floor(Math.random() * STATIC_CHARS.length)]
+        const replacement = getSimilarChar(original)
         span.textContent = replacement
         span.style.opacity = '0.7'
 
