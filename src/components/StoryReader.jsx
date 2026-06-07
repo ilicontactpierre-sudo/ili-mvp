@@ -246,6 +246,15 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle',
   // ── Overlay vignette plein écran ──
   const vignetteOverlayRef = useRef(null)
   useEffect(() => {
+    // Ré-évaluer aussi quand le thème change
+    const handleThemeChange = () => {
+      vignetteOverlayRef.current && applyVignette()
+    }
+    window.addEventListener('storage', handleThemeChange)
+    return () => window.removeEventListener('storage', handleThemeChange)
+  }, [])
+
+  function applyVignette() {
     const vignetteTrack = storyData?.vfxTracks?.find(t => {
       if (t.type !== 'vignette') return false
       const segs = storyData.segments || []
