@@ -1415,19 +1415,19 @@ function GameMessage({ data, onResolved }) {
 
   return (
     <AnimatedWrapper style={{ gap: '2rem' }}>
-      {iface === 'sms' && (
+      {iface === 'sms' && !data.hideHeader && (
         <div style={{ fontSize: '0.68rem', opacity: 0.35, letterSpacing: '0.08em', alignSelf: 'flex-start', marginLeft: '0.5rem' }}>
-          Message reçu
+          {data.headerLabel || 'Message reçu'}
         </div>
       )}
-      {iface === 'email' && (
+      {iface === 'email' && !data.hideHeader && (
         <div style={{ width: '100%', maxWidth: '420px', fontSize: '0.68rem', opacity: 0.35, letterSpacing: '0.06em', fontFamily: 'monospace' }}>
-          De : inconnu · À : vous
+          {data.headerLabel || 'De : inconnu · À : vous'}
         </div>
       )}
-      {iface === 'terminal' && (
+      {iface === 'terminal' && !data.hideHeader && (
         <div style={{ width: '100%', maxWidth: '420px', fontSize: '0.68rem', opacity: 0.45, letterSpacing: '0.08em', fontFamily: 'monospace', color: '#39ff14' }}>
-          $ incoming_message
+          {data.headerLabel || '$ incoming_message'}
         </div>
       )}
       <div style={wrapperStyle}>
