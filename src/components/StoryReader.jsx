@@ -267,6 +267,26 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle',
       const isWhite = rawColor.toLowerCase().includes('255, 255, 255')
       const color = isWhite && !isDark ? 'rgba(0,0,0,0.6)' : rawColor
       overlay.style.setProperty('--vignette-color', color)
+
+      // Centrer le gradient sur le segment focusé, dimensionner selon sa taille
+      const focusedNode = segmentRefs.current[currentIndex]
+      if (focusedNode) {
+        const rect = focusedNode.getBoundingClientRect()
+        const vw = window.innerWidth
+        const vh = window.innerHeight
+        // Centre du segment en % de l'écran
+        const cx = ((rect.left + rect.width  / 2) / vw * 100).toFixed(1)
+        const cy = ((rect.top  + rect.height / 2) / vh * 100).toFixed(1)
+        // Rayon horizontal : largeur du segment + marge, en % de la largeur écran
+        const rx = Math.min(95, ((rect.width  * 0.75) / vw * 100)).toFixed(1)
+        // Rayon vertical : hauteur du segment + marge généreuse, en % de la hauteur écran
+        const ry = Math.min(90, ((rect.height * 2.5)  / vh * 100)).toFixed(1)
+        overlay.style.setProperty('--vignette-x',  `${cx}%`)
+        overlay.style.setProperty('--vignette-y',  `${cy}%`)
+        overlay.style.setProperty('--vignette-rx', `${rx}%`)
+        overlay.style.setProperty('--vignette-ry', `${ry}%`)
+      }
+
       overlay.style.display = 'block'
       requestAnimationFrame(() => overlay.classList.add('visible'))
     } else {
