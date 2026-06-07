@@ -291,9 +291,11 @@ function VfxBlockPanel({ vfxTrack, segments, onSave, onClose, onDelete, onRealTi
         {/* Couleur (flash) */}
         {typeDef.hasColor && (
           <div>
-            <label style={labelStyle}>Couleur du flash</label>
+            <label style={labelStyle}>
+              {local.type === 'vignette' ? 'Couleur de la vignette' : 'Couleur du flash'}
+            </label>
             <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
-              {PRESET_FLASH_COLORS.map((c) => (
+              {(local.type === 'vignette' ? PRESET_VIGNETTE_COLORS : PRESET_FLASH_COLORS).map((c) => (
                 <button
                   key={c.value}
                   onClick={() => update({ color: c.value })}
