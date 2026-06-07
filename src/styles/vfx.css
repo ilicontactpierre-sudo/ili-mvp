@@ -244,59 +244,6 @@
   animation: vfx-flash-fullscreen var(--flash-duration, 1000ms) ease-in-out infinite;
 }
 
-
-/* ----------------------------------------------------------
-   SCANLINES — lignes horizontales de défilement
-   ---------------------------------------------------------- */
-@keyframes vfx-scan-slow {
-  0%   { background-position: 0 0; opacity: 0.4; }
-  25%  { opacity: 0.7; }
-  50%  { opacity: 1; }
-  75%  { opacity: 0.7; }
-  100% { background-position: 0 100px; opacity: 0.4; }
-}
-@keyframes vfx-scan-normal {
-  0%   { background-position: 0 0; opacity: 0.3; }
-  25%  { opacity: 0.8; }
-  50%  { opacity: 1; }
-  75%  { opacity: 0.8; }
-  100% { background-position: 0 100px; opacity: 0.3; }
-}
-@keyframes vfx-scan-fast {
-  0%   { background-position: 0 0; opacity: 0.2; }
-  25%  { opacity: 0.9; }
-  50%  { opacity: 1; }
-  75%  { opacity: 0.9; }
-  100% { background-position: 0 100px; opacity: 0.2; }
-}
-
-.vfx-scanlines-slow,
-.vfx-scanlines-normal,
-.vfx-scanlines-fast {
-  position: relative;
-  overflow: hidden;
-}
-.vfx-scanlines-slow::after,
-.vfx-scanlines-normal::after,
-.vfx-scanlines-fast::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  /* Lignes horizontales semi-transparentes */
-  background: repeating-linear-gradient(
-    0deg,
-    transparent,
-    transparent 3px,
-    rgba(0, 0, 0, 0.06) 3px,
-    rgba(0, 0, 0, 0.06) 4px
-  );
-  z-index: 10;
-}
-.vfx-scanlines-slow::after   { animation: vfx-scan-slow   4s  cubic-bezier(0.37, 0, 0.63, 1) infinite; }
-.vfx-scanlines-normal::after { animation: vfx-scan-normal 2s  cubic-bezier(0.37, 0, 0.63, 1) infinite; }
-.vfx-scanlines-fast::after   { animation: vfx-scan-fast   0.8s cubic-bezier(0.37, 0, 0.63, 1) infinite; }
-
 /* ----------------------------------------------------------
    STATIC / PARASITES — micro-tremblement rapide
    ---------------------------------------------------------- */
