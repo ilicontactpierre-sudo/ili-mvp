@@ -267,18 +267,6 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle',
       const isWhite = rawColor.toLowerCase().includes('255, 255, 255')
       const color = isWhite && !isDark ? 'rgba(0,0,0,0.6)' : rawColor
       overlay.style.setProperty('--vignette-color', color)
-
-      // Positionner sur le segment focusé
-      const focusedNode = segmentRefs.current[currentIndex]
-      if (focusedNode) {
-        const rect = focusedNode.getBoundingClientRect()
-        const PAD = 32 // padding autour du segment
-        overlay.style.top    = `${rect.top    - PAD}px`
-        overlay.style.left   = `${rect.left   - PAD}px`
-        overlay.style.width  = `${rect.width  + PAD * 2}px`
-        overlay.style.height = `${rect.height + PAD * 2}px`
-      }
-
       overlay.style.display = 'block'
       requestAnimationFrame(() => overlay.classList.add('visible'))
     } else {
