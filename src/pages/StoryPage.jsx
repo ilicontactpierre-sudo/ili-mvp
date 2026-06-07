@@ -253,6 +253,25 @@ function StoryPage() {
     // Petit mouvement ou tap franc : laisser le onClick gérer
   }
 
+  // ── Gel du gameMode affiché pour éviter le télescopage entre deux overlays consécutifs ──
+  const [frozenGameMode, setFrozenGameMode] = useState(null)
+  const [frozenIndex, setFrozenIndex]       = useState(null)
+
+  useEffect(() => {
+    const currentSegment = segments[currentIndex]
+    const activeGameMode = currentSegment?.gameMode ?? null
+    if (activeGameMode && frozenIndex !== currentIndex) {
+      setFrozenGameMode(activeGameMode)
+      setFrozenIndex(currentIndex)
+    }
+  }, [currentIndex, segments, frozenIndex])
+
+  const handleGameResolved = useCallback(() => {
+    setFrozenGameMode(null)
+    setFrozenIndex(null)
+    goToNext()
+  }, [goToNext])
+
   if (isLoading) {
     return (
       <main style={{ ...fullScreenStyle, fontSize: '1.5rem' }}>
