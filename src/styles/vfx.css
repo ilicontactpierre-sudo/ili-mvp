@@ -273,9 +273,6 @@
     var(--vignette-color, rgba(0,0,0,0.75)) 100%
   );
 }
-/* Classes CSS legacy désactivées — vignette gérée via overlay JS */
-.vfx-vignette-large,
-.vfx-vignette-tight { }
 
 /* ----------------------------------------------------------
    SCANLINES — lignes horizontales de défilement
