@@ -1,5 +1,21 @@
 @import url('https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&display=swap');
 
+@font-face {
+  font-family: 'Oanteh';
+  src: url('/fonts/Oanteh.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'NamoraD ayana';
+  src: url('/fonts/NamoraD ayana.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   --color-bg: #080809;
   --color-text-focus: #ffffff;
