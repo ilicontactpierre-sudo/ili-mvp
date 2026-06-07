@@ -243,18 +243,13 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle',
   // ── Overlay flash plein écran ──
   const flashOverlayRef = useRef(null)
 
-  // ── Overlay vignette plein écran ──
+  // ── Overlay vignette collé au segment focusé ──
   const vignetteOverlayRef = useRef(null)
-  useEffect(() => {
-    // Ré-évaluer aussi quand le thème change
-    const handleThemeChange = () => {
-      vignetteOverlayRef.current && applyVignette()
-    }
-    window.addEventListener('storage', handleThemeChange)
-    return () => window.removeEventListener('storage', handleThemeChange)
-  }, [])
 
-  function applyVignette() {
+  useEffect(() => {
+    const overlay = vignetteOverlayRef.current
+    if (!overlay) return
+
     const vignetteTrack = storyData?.vfxTracks?.find(t => {
       if (t.type !== 'vignette') return false
       const segs = storyData.segments || []
@@ -263,8 +258,7 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle',
       const te = ei !== -1 ? ei : si
       return si <= currentIndex && currentIndex <= te
     })
-    const overlay = vignetteOverlayRef.current
-    if (!overlay) return
+
     if (vignetteTrack) {
       const isDark = (() => {
         try { return JSON.parse(localStorage.getItem('ili_theme') || '{}').isDark !== false } catch { return true }
@@ -272,20 +266,27 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle',
       const rawColor = vignetteTrack.color || 'rgba(0,0,0,0.6)'
       const isWhite = rawColor.toLowerCase().includes('255, 255, 255')
       const color = isWhite && !isDark ? 'rgba(0,0,0,0.6)' : rawColor
-      const size = vignetteTrack.mode === 'petite' ? 'tight' : 'large'
       overlay.style.setProperty('--vignette-color', color)
-      overlay.setAttribute('data-size', size)
+
+      // Positionner sur le segment focusé
+      const focusedNode = segmentRefs.current[currentIndex]
+      if (focusedNode) {
+        const rect = focusedNode.getBoundingClientRect()
+        const PAD = 32 // padding autour du segment
+        overlay.style.top    = `${rect.top    - PAD}px`
+        overlay.style.left   = `${rect.left   - PAD}px`
+        overlay.style.width  = `${rect.width  + PAD * 2}px`
+        overlay.style.height = `${rect.height + PAD * 2}px`
+      }
+
       overlay.style.display = 'block'
       requestAnimationFrame(() => overlay.classList.add('visible'))
     } else {
       overlay.classList.remove('visible')
       setTimeout(() => {
         if (!overlay.classList.contains('visible')) overlay.style.display = 'none'
-      }, 1200)
+      }, 2400)
     }
-  }
-  useEffect(() => {
-    applyVignette()
   }, [currentIndex, storyData])
   useEffect(() => {
     const flashTrack = storyData?.vfxTracks?.find(t => {
