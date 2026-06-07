@@ -263,10 +263,17 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle',
       const isDark = (() => {
         try { return JSON.parse(localStorage.getItem('ili_theme') || '{}').isDark !== false } catch { return true }
       })()
-      const rawColor = vignetteTrack.color || 'rgba(0,0,0,0.6)'
+      const rawColor = vignetteTrack.color || 'rgba(0,0,0,0.7)'
       const isWhite = rawColor.toLowerCase().includes('255, 255, 255')
-      const color = isWhite && !isDark ? 'rgba(0,0,0,0.6)' : rawColor
-      overlay.style.setProperty('--vignette-color', color)
+      // mix-blend-mode: multiply a besoin de couleurs solides (sans alpha)
+      // On extrait les composantes RGB et on force l'opacité à 1
+      const toSolidRgb = (c) => {
+        const m = c.match(/[\d.]+/g)
+        if (!m || m.length < 3) return 'rgb(0,0,0)'
+        return `rgb(${Math.round(m[0])},${Math.round(m[1])},${Math.round(m[2])})`
+      }
+      const solidColor = isWhite && !isDark ? 'rgb(30,30,30)' : toSolidRgb(rawColor)
+      overlay.style.setProperty('--vignette-color', solidColor)
 
       // Centrer le gradient sur le segment focusé, dimensionner selon sa taille
       const focusedNode = segmentRefs.current[currentIndex]
