@@ -10,6 +10,13 @@ const PRESET_FLASH_COLORS = [
   { label: 'Orange', value: 'rgba(220, 120, 0, 0.12)' },
   { label: 'Violet', value: 'rgba(120, 0, 200, 0.12)' },
 ]
+const PRESET_VIGNETTE_COLORS = [
+  { label: 'Noir',   value: 'rgba(0, 0, 0, 0.7)' },
+  { label: 'Blanc',  value: 'rgba(255, 255, 255, 0.7)' },
+  { label: 'Rouge',  value: 'rgba(120, 0, 0, 0.6)' },
+  { label: 'Bleu',   value: 'rgba(0, 0, 80, 0.6)' },
+  { label: 'Violet', value: 'rgba(60, 0, 120, 0.6)' },
+]
 
 function VfxBlockPanel({ vfxTrack, segments, onSave, onClose, onDelete, onRealTimeUpdate }) {
   const [local, setLocal] = useState({ ...vfxTrack })
