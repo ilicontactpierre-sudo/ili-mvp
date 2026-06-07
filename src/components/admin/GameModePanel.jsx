@@ -200,6 +200,7 @@ function FormFilmstrip({ data, onChange }) {
 }
 
 function FormMessage({ data, onChange }) {
+  const iface = data.interface || 'sms'
   return (
     <>
       <Field label="Texte du message *">
@@ -207,7 +208,7 @@ function FormMessage({ data, onChange }) {
           onChange={e => onChange({ ...data, text: e.target.value })} />
       </Field>
       <Field label="Interface visuelle">
-        <select style={inputStyle} value={data.interface || 'sms'}
+        <select style={inputStyle} value={iface}
           onChange={e => onChange({ ...data, interface: e.target.value })}>
           <option value="sms">SMS</option>
           <option value="email">Email</option>
@@ -215,6 +216,37 @@ function FormMessage({ data, onChange }) {
           <option value="">Aucune</option>
         </select>
       </Field>
+      {/* Libellé d'en-tête personnalisable selon l'interface */}
+      {iface === 'sms' && (
+        <Field label="Libellé d'en-tête" hint='Affiché au-dessus du message. Défaut : "Message reçu"'>
+          <input style={inputStyle} type="text" value={data.headerLabel || ''}
+            placeholder="Message reçu"
+            onChange={e => onChange({ ...data, headerLabel: e.target.value })} />
+        </Field>
+      )}
+      {iface === 'email' && (
+        <Field label="Libellé d'en-tête" hint='Affiché au-dessus du message. Défaut : "De : inconnu · À : vous"'>
+          <input style={inputStyle} type="text" value={data.headerLabel || ''}
+            placeholder="De : inconnu · À : vous"
+            onChange={e => onChange({ ...data, headerLabel: e.target.value })} />
+        </Field>
+      )}
+      {iface === 'terminal' && (
+        <Field label="Libellé d'en-tête" hint='Affiché au-dessus du message. Défaut : "$ incoming_message"'>
+          <input style={inputStyle} type="text" value={data.headerLabel || ''}
+            placeholder="$ incoming_message"
+            onChange={e => onChange({ ...data, headerLabel: e.target.value })} />
+        </Field>
+      )}
+      {/* Option pour masquer l'en-tête */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+        <input type="checkbox" id="hideHeader" checked={!!data.hideHeader}
+          onChange={e => onChange({ ...data, hideHeader: e.target.checked })}
+          style={{ accentColor: '#a78bfa' }} />
+        <label htmlFor="hideHeader" style={{ fontSize: '0.8rem', color: 'rgba(255,255,255,0.6)', cursor: 'pointer' }}>
+          Masquer l'en-tête
+        </label>
+      </div>
       <Field label="Vitesse d'affichage">
         <select style={inputStyle} value={data.speed || 'normal'}
           onChange={e => onChange({ ...data, speed: e.target.value })}>
