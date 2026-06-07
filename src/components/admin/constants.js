@@ -197,7 +197,7 @@ export function getVfxClass(track) {
       const m = { lent: 'slow', normal: 'normal', rapide: 'fast' }
       return `vfx-scanlines-${m[mode] || 'normal'}`
     }
-    case 'static':    return 'vfx-static'
+    case 'static':    return '' // effet géré entièrement par JS, pas de classe CSS
     default:          return ''
   }
 }
