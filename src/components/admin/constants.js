@@ -122,7 +122,7 @@ export const VFX_TYPES = {
   glitch:   { label: 'Glitch',           modes: ['faible', 'normal', 'intense'], hasLoop: false, hasColor: false },
   flicker:  { label: 'Flicker',          modes: [],                           hasLoop: false, hasColor: false },
   flash:    { label: 'Flash',            modes: ['lent', 'moyen', 'rapide'],  hasLoop: false, hasColor: true  },
-  vignette: { label: 'Vignette',         modes: [],                           hasLoop: false, hasColor: false },
+  vignette: { label: 'Vignette', modes: ['grande', 'petite'], hasLoop: false, hasColor: true },
   scanlines:{ label: 'Scanlines',        modes: ['lent', 'normal', 'rapide'], hasLoop: false, hasColor: false },
   static:   { label: 'Parasites',        modes: [],                           hasLoop: false, hasColor: false },
 }
