@@ -19,11 +19,10 @@ export function renderMarkdown(text, segment, isDysMode = false) {
   })
 
   let content = isDysMode ? applyBionicReading(resolvedText) : resolvedText
-
   if (segment?.strikethrough) content = <s>{content}</s>
   if (segment?.underline)     content = <u>{content}</u>
   if (segment?.italic)        content = <em>{content}</em>
   if (segment?.bold)          content = <strong>{content}</strong>
-
+  if (segment?.fontFamily) content = <span style={{ fontFamily: segment.fontFamily }}>{content}</span>
   return content
 }
