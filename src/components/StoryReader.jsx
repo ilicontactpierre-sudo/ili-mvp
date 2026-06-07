@@ -314,9 +314,9 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle',
 
       const count = letters.length
 
-      // Nombre de lettres à perturber simultanément
-      const nbGlitch  = Math.floor(count * 0.06) + 1
-      const nbFlicker = Math.floor(count * 0.04) + 1
+      // Nombre de lettres à perturber simultanément — très réduit
+      const nbGlitch  = 1
+      const nbFlicker = 1
 
       // ── Glitch : remplacer temporairement par un caractère aléatoire ──
       for (let i = 0; i < nbGlitch; i++) {
