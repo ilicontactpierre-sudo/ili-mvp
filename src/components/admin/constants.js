@@ -122,7 +122,6 @@ export const VFX_TYPES = {
   glitch:   { label: 'Glitch',           modes: ['faible', 'normal', 'intense'], hasLoop: false, hasColor: false },
   flicker:  { label: 'Flicker',          modes: [],                           hasLoop: false, hasColor: false },
   flash:    { label: 'Flash',            modes: ['lent', 'moyen', 'rapide'],  hasLoop: false, hasColor: true  },
-  scanlines:{ label: 'Scanlines',        modes: ['lent', 'normal', 'rapide'], hasLoop: false, hasColor: false },
   static:   { label: 'Parasites', modes: ['léger', 'normal', 'intense'], hasLoop: false, hasColor: false },
 }
 
@@ -134,7 +133,6 @@ export const VFX_COLORS = {
   glitch:    '#C87CE8',
   flicker:   '#E8D87C',
   flash:     '#E87C7C',
-  scanlines: '#7C9CE8',
   static:    '#A0A0A0',
 }
 
@@ -193,10 +191,7 @@ export function getVfxClass(track) {
       const m = { lent: 'slow', moyen: 'medium', rapide: 'fast' }
       return `vfx-flash-${m[mode] || 'medium'}`
     }
-    case 'scanlines': {
-      const m = { lent: 'slow', normal: 'normal', rapide: 'fast' }
-      return `vfx-scanlines-${m[mode] || 'normal'}`
-    }
+  
     case 'static':    return '' // effet géré entièrement par JS, pas de classe CSS
     default:          return ''
   }
