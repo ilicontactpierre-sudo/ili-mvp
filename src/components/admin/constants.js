@@ -135,7 +135,7 @@ export const VFX_COLORS = {
   glitch:    '#C87CE8',
   flicker:   '#E8D87C',
   flash:     '#E87C7C',
-  vignette:  '#7C7C7C',
+  vignette:  '#1a1a1a',
   scanlines: '#7C9CE8',
   static:    '#A0A0A0',
 }
