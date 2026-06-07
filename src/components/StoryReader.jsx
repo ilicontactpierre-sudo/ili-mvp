@@ -242,6 +242,40 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle',
 
   // ── Overlay flash plein écran ──
   const flashOverlayRef = useRef(null)
+
+  // ── Overlay vignette plein écran ──
+  const vignetteOverlayRef = useRef(null)
+  useEffect(() => {
+    const vignetteTrack = storyData?.vfxTracks?.find(t => {
+      if (t.type !== 'vignette') return false
+      const segs = storyData.segments || []
+      const si = segs.findIndex(s => s.id === t.startSegmentId || s._id === t.startSegmentId)
+      const ei = segs.findIndex(s => s.id === t.endSegmentId   || s._id === t.endSegmentId)
+      const te = ei !== -1 ? ei : si
+      return si <= currentIndex && currentIndex <= te
+    })
+    const overlay = vignetteOverlayRef.current
+    if (!overlay) return
+    if (vignetteTrack) {
+      const isDark = (() => {
+        try { return JSON.parse(localStorage.getItem('ili_theme') || '{}').isDark !== false } catch { return true }
+      })()
+      // Couleur : si blanc en mode clair → noir
+      const rawColor = vignetteTrack.color || 'rgba(0,0,0,0.6)'
+      const isWhite = rawColor.toLowerCase().includes('255, 255, 255')
+      const color = isWhite && !isDark ? 'rgba(0,0,0,0.6)' : rawColor
+      const size = vignetteTrack.mode === 'petite' ? 'tight' : 'large'
+      overlay.style.setProperty('--vignette-color', color)
+      overlay.setAttribute('data-size', size)
+      overlay.style.display = 'block'
+      requestAnimationFrame(() => overlay.classList.add('visible'))
+    } else {
+      overlay.classList.remove('visible')
+      setTimeout(() => {
+        if (!overlay.classList.contains('visible')) overlay.style.display = 'none'
+      }, 1200)
+    }
+  }, [currentIndex, storyData])
   useEffect(() => {
     const flashTrack = storyData?.vfxTracks?.find(t => {
       if (t.type !== 'flash') return false
