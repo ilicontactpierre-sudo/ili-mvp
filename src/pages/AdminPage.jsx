@@ -1300,7 +1300,12 @@ function AdminPage() {
                 type="text"
                 placeholder="Titre de l'histoire"
                 value={storyTitle}
-                onChange={(e) => setStoryTitle(e.target.value)}
+                onChange={(e) => {
+                  const newTitle = e.target.value
+                  setStoryTitle(newTitle)
+                  const toSlug = (str) => str.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/ /g, '-').replace(/[^a-z0-9-]/g, '')
+                  setStorySlug([storyAuthor, newTitle].filter(Boolean).map(toSlug).join('-'))
+                }}
                 style={{ padding: '0.75rem', fontSize: '1rem', border: '1px solid #ccc', borderRadius: '4px' }}
               />
               <input
