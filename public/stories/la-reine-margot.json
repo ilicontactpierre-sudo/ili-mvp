@@ -1352,20 +1352,20 @@
     },
     {
       "id": "vfx_1780831013308_qs30sufxo",
-      "type": "flash",
-      "mode": "moyen",
+      "type": "vignette",
+      "mode": "",
       "loop": false,
-      "color": "rgba(220, 120, 0, 0.12)",
+      "color": "rgba(255, 255, 255, 0.7)",
       "column": 0,
       "startSegmentId": "seg_1780678446446_3_2stnm",
       "endSegmentId": "seg_1780678446446_3_2stnm"
     },
     {
       "id": "vfx_1780832887415_ga0rq949x",
-      "type": "tremble",
-      "mode": "lent",
+      "type": "vignette",
+      "mode": "",
       "loop": false,
-      "color": "rgba(200, 0, 0, 0.12)",
+      "color": "rgba(60, 0, 120, 0.6)",
       "column": 0,
       "startSegmentId": "seg_1780678446446_2_wc5mj",
       "endSegmentId": "seg_1780678446446_2_wc5mj"
