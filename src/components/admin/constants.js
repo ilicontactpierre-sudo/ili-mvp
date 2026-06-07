@@ -195,7 +195,10 @@ export function getVfxClass(track) {
       const m = { lent: 'slow', moyen: 'medium', rapide: 'fast' }
       return `vfx-flash-${m[mode] || 'medium'}`
     }
-    case 'vignette':  return 'vfx-vignette'
+    case 'vignette': {
+      const m = { grande: 'large', petite: 'tight' }
+      return `vfx-vignette-${m[mode] || 'large'}`
+    }
     case 'scanlines': {
       const m = { lent: 'slow', normal: 'normal', rapide: 'fast' }
       return `vfx-scanlines-${m[mode] || 'normal'}`
