@@ -243,131 +243,6 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle',
   // ── Overlay flash plein écran ──
   const flashOverlayRef = useRef(null)
 
-  // ── Canvas vignette ──
-  const vignetteOverlayRef = useRef(null)
-  const vignetteStateRef = useRef({
-    active: false,
-    opacity: 0,
-    cx: 0, cy: 0, rx: 0, ry: 0,       // current (interpolated)
-    tcx: 0, tcy: 0, trx: 0, try_: 0,  // target
-    color: [0, 0, 0],
-    rafId: null,
-  })
-
-  useEffect(() => {
-    const canvas = vignetteOverlayRef.current
-    if (!canvas) return
-
-    const vignetteTrack = storyData?.vfxTracks?.find(t => {
-      if (t.type !== 'vignette') return false
-      const segs = storyData.segments || []
-      const si = segs.findIndex(s => s.id === t.startSegmentId || s._id === t.startSegmentId)
-      const ei = segs.findIndex(s => s.id === t.endSegmentId   || s._id === t.endSegmentId)
-      const te = ei !== -1 ? ei : si
-      return si <= currentIndex && currentIndex <= te
-    })
-
-    const state = vignetteStateRef.current
-
-    if (vignetteTrack) {
-      // Extraire la couleur RGB
-      const rawColor = vignetteTrack.color || 'rgba(0,0,0,0.7)'
-      const isDark = (() => {
-        try { return JSON.parse(localStorage.getItem('ili_theme') || '{}').isDark !== false } catch { return true }
-      })()
-      const isWhite = rawColor.toLowerCase().includes('255, 255, 255')
-      const src = isWhite && !isDark ? [30, 30, 30] : (() => {
-        const m = rawColor.match(/[\d.]+/g)
-        return m ? [Math.round(+m[0]), Math.round(+m[1]), Math.round(+m[2])] : [0, 0, 0]
-      })()
-      state.color = src
-
-      // Calculer la cible depuis le segment focusé
-      const focusedNode = segmentRefs.current[currentIndex]
-      if (focusedNode) {
-        const rect = focusedNode.getBoundingClientRect()
-        state.tcx  = rect.left + rect.width  / 2
-        state.tcy  = rect.top  + rect.height / 2
-        state.trx  = rect.width  * 0.85
-        state.try_ = rect.height * 1.8 + 80
-      }
-
-      // Initialiser la position si premier affichage
-      if (!state.active) {
-        state.cx  = state.tcx
-        state.cy  = state.tcy
-        state.rx  = state.trx
-        state.ry  = state.try_
-        canvas.style.display = 'block'
-      }
-      state.active = true
-    } else {
-      state.active = false
-    }
-
-    // Boucle RAF
-    if (state.rafId) cancelAnimationFrame(state.rafId)
-
-    const lerp = (a, b, t) => a + (b - a) * t
-    const LERP_POS    = 0.06  // vitesse déplacement
-    const LERP_FADE   = 0.018 // vitesse apparition/disparition
-
-    const draw = () => {
-      const vw = window.innerWidth
-      const vh = window.innerHeight
-      canvas.width  = vw
-      canvas.height = vh
-      const ctx = canvas.getContext('2d')
-
-      // Interpoler opacité
-      const targetOpacity = state.active ? 1 : 0
-      state.opacity = lerp(state.opacity, targetOpacity, LERP_FADE)
-
-      // Interpoler position/taille
-      state.cx  = lerp(state.cx,  state.tcx,  LERP_POS)
-      state.cy  = lerp(state.cy,  state.tcy,  LERP_POS)
-      state.rx  = lerp(state.rx,  state.trx,  LERP_POS)
-      state.ry  = lerp(state.ry,  state.try_, LERP_POS)
-
-      // Dessiner uniquement si visible
-      if (state.opacity > 0.002) {
-        const [r, g, b] = state.color
-        ctx.clearRect(0, 0, vw, vh)
-
-        // Gradient elliptique via scale
-        ctx.save()
-        ctx.translate(state.cx, state.cy)
-        ctx.scale(1, state.ry / state.rx)
-
-        const grad = ctx.createRadialGradient(0, 0, 0, 0, 0, state.rx)
-        grad.addColorStop(0,    `rgba(${r},${g},${b},0)`)
-        grad.addColorStop(0.45, `rgba(${r},${g},${b},0)`)
-        grad.addColorStop(1,    `rgba(${r},${g},${b},${state.opacity * 0.75})`)
-
-        ctx.fillStyle = grad
-        ctx.beginPath()
-        ctx.arc(0, 0, Math.max(vw, vh) * 1.2, 0, Math.PI * 2)
-        ctx.fill()
-        ctx.restore()
-      } else if (!state.active) {
-        // Totalement invisible et inactif → on arrête
-        ctx.clearRect(0, 0, vw, vh)
-        canvas.style.display = 'none'
-        state.rafId = null
-        return
-      } else {
-        ctx.clearRect(0, 0, vw, vh)
-      }
-
-      state.rafId = requestAnimationFrame(draw)
-    }
-
-    state.rafId = requestAnimationFrame(draw)
-
-    return () => {
-      if (state.rafId) cancelAnimationFrame(state.rafId)
-    }
-  }, [currentIndex, storyData])
   useEffect(() => {
     const flashTrack = storyData?.vfxTracks?.find(t => {
       if (t.type !== 'flash') return false
@@ -483,10 +358,7 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle',
         }}
         className="vfx-flash-overlay"
       />
-      <canvas
-        ref={vignetteOverlayRef}
-        className="vfx-vignette-canvas"
-      />
+
     <main
       className="story-reader"
       aria-live="polite"
