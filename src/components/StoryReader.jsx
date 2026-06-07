@@ -263,9 +263,15 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle',
       const duration = FLASH_SPEED[flashTrack.mode] ?? 1000
       overlay.style.setProperty('--flash-color', color)
       overlay.style.setProperty('--flash-duration', `${duration}ms`)
+      overlay.style.transition = 'opacity 400ms ease-in'
+      overlay.style.opacity = '1'
       overlay.style.display = 'block'
     } else {
-      overlay.style.display = 'none'
+      overlay.style.transition = 'opacity 900ms ease-out'
+      overlay.style.opacity = '0'
+      setTimeout(() => {
+        if (overlay.style.opacity === '0') overlay.style.display = 'none'
+      }, 900)
     }
   }, [currentIndex, storyData])
   
