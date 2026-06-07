@@ -1341,9 +1341,9 @@
   "soundTracks": [],
   "vfxTracks": [
     {
-      "id": "vfx_1780836883694_878487tuf",
+      "id": "vfx_1780837153143_ymtv47cx3",
       "type": "static",
-      "mode": "",
+      "mode": "léger",
       "loop": false,
       "color": "rgba(200, 0, 0, 0.12)",
       "column": 0,
@@ -1351,14 +1351,24 @@
       "endSegmentId": "seg_1780678446446_1_4ew6k"
     },
     {
-      "id": "vfx_1780836890889_lt3k972b0",
+      "id": "vfx_1780837158386_f5s9lbadi",
       "type": "static",
-      "mode": "",
+      "mode": "léger",
       "loop": false,
       "color": "rgba(200, 0, 0, 0.12)",
       "column": 0,
       "startSegmentId": "seg_1780678446446_4_l1lo2",
       "endSegmentId": "seg_1780678446446_4_l1lo2"
+    },
+    {
+      "id": "vfx_1780837162686_wp39hw4d0",
+      "type": "static",
+      "mode": "léger",
+      "loop": false,
+      "color": "rgba(200, 0, 0, 0.12)",
+      "column": 0,
+      "startSegmentId": "seg_1780678446446_3_2stnm",
+      "endSegmentId": "seg_1780678446446_3_2stnm"
     }
   ]
 }
