@@ -1343,7 +1343,7 @@
     {
       "id": "vfx_1780830837919_l33wbqp59",
       "type": "vignette",
-      "mode": "petite",
+      "mode": "grande",
       "loop": false,
       "color": "rgba(220, 120, 0, 0.12)",
       "column": 0,
@@ -1359,6 +1359,16 @@
       "column": 0,
       "startSegmentId": "seg_1780678446446_3_2stnm",
       "endSegmentId": "seg_1780678446446_3_2stnm"
+    },
+    {
+      "id": "vfx_1780832887415_ga0rq949x",
+      "type": "tremble",
+      "mode": "lent",
+      "loop": false,
+      "color": "rgba(200, 0, 0, 0.12)",
+      "column": 0,
+      "startSegmentId": "seg_1780678446446_2_wc5mj",
+      "endSegmentId": "seg_1780678446446_2_wc5mj"
     }
   ]
 }
