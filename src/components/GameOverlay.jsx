@@ -1107,7 +1107,7 @@ function GameJournal({ data, onResolved }) {
     // Stocker en sessionStorage avec la clé définie par l'auteur
     if (data.memoryKey) {
       try {
-        sessionStorage.setItem(`ili_journal_${data.memoryKey}`, text.trim())
+        sessionStorage.setItem(`ili_journal_${data.memoryKey}`, text)
       } catch {}
     }
     setSaved(true)
