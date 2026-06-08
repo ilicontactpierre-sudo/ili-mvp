@@ -9,6 +9,7 @@ import PublishPanel from '../components/admin/PublishPanel'
 import OrchestrationPanel from '../components/admin/OrchestrationPanel'
 import GameModePanel from '../components/admin/GameModePanel'
 import NewsletterPage from './NewsletterPage'
+import AnalyticsDashboard from '../components/admin/AnalyticsDashboard'
 
 // ── Hook mobile ──────────────────────────────────────────────────────────────
 function useIsMobile() {
