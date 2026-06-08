@@ -1014,35 +1014,43 @@ function GameEcho({ data, onResolved }) {
 
   const isError = input.length > 0 && input[progress] !== undefined && input[progress] !== phrase[progress]
 
-  const handleChange = (e) => {
-    if (success) return
-    const val = e.target.value
+  const validatedRef = useRef('')
 
-    // Recalculer depuis zéro ce qui est valide dans val
-    let validated = ''
-    for (let i = 0; i < val.length; i++) {
-      if (i >= phrase.length) break
-      if (val[i] === phrase[i]) {
-        validated += val[i]
-      } else {
-        // Premier caractère incorrect : on s'arrête
-        playError()
-        setErrorAt(i)
-        setTimeout(() => setErrorAt(null), 400)
-        // Remettre le champ à ce qui était valide
-        if (inputRef.current) inputRef.current.value = validated
-        setInput(validated)
-        return
-      }
+  const handleInput = (e) => {
+    if (success) return
+    const raw = e.target.value
+    const prev = validatedRef.current
+
+    // Suppression
+    if (raw.length <= prev.length) {
+      validatedRef.current = raw.slice(0, prev.length - 1)
+      setInput(validatedRef.current)
+      if (inputRef.current) inputRef.current.value = validatedRef.current
+      setErrorAt(null)
+      return
     }
 
-    setInput(validated)
-    setErrorAt(null)
+    // Nouveau caractère — comparer uniquement le dernier ajouté
+    const nextChar = raw[prev.length]
+    const expectedChar = phrase[prev.length]
 
-    if (validated === phrase) {
-      playSuccess()
-      setSuccess(true)
-      setTimeout(onResolved, 1100)
+    if (nextChar === expectedChar) {
+      const newVal = prev + nextChar
+      validatedRef.current = newVal
+      setInput(newVal)
+      if (inputRef.current) inputRef.current.value = newVal
+      setErrorAt(null)
+      if (newVal === phrase) {
+        playSuccess()
+        setSuccess(true)
+        setTimeout(onResolved, 1100)
+      }
+    } else {
+      playError()
+      setErrorAt(prev.length)
+      setTimeout(() => setErrorAt(null), 400)
+      // Remettre exactement ce qui était validé
+      if (inputRef.current) inputRef.current.value = prev
     }
   }
 
