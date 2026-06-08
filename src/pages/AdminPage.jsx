@@ -1889,6 +1889,8 @@ function AdminPage() {
         onClose={() => setIsPreviewOpen(false)}
       />
 
+      </> /* fin onglet stories */}
+
       {/* Bouton de déconnexion */}
       <button
         onClick={handleLogout}
