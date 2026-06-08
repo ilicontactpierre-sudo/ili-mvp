@@ -676,9 +676,12 @@ function GameTimer({ data, onResolved }) {
     : pct > 0.25 ? '#d4820a' : '#c0392b'
 
   return (
-    <AnimatedWrapper
-      style={{ gap: '1.6rem', cursor: resetOnTap && !expired ? 'pointer' : 'default' }}
+    <div
+      style={{ position: 'fixed', inset: 0, zIndex: 0, cursor: resetOnTap && !expired ? 'pointer' : 'default' }}
       onClick={handleTap}
+    >
+    <AnimatedWrapper
+      style={{ gap: '1.6rem' }}
     >
       {data.prompt && (
         <p style={{
