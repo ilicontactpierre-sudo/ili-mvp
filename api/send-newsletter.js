@@ -71,7 +71,6 @@ export default async function handler(req, res) {
     body: JSON.stringify({
       from: 'ILi <onboarding@resend.dev>',
       to: ['ili.contact.pierre@gmail.com'],
-      bcc: emails,
       subject,
       html: emailHtml
     })
