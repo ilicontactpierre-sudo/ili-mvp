@@ -115,14 +115,16 @@ export const GAME_TYPES = {
 // ============================================================
 
 export const VFX_TYPES = {
-  shake:    { label: 'Tremblement',      modes: ['normal', 'intense'],       hasLoop: true,  hasColor: false },
-  tremble:  { label: 'Tremblement continu', modes: ['lent', 'moyen', 'rapide'], hasLoop: false, hasColor: false },
-  typewriter:{ label: 'Typewriter',      modes: ['lent', 'normal', 'rapide'], hasLoop: false, hasColor: false },
-  erased:   { label: 'Lettres effacées', modes: ['faible', 'normal', 'intense'], hasLoop: false, hasColor: false },
-  glitch:   { label: 'Glitch',           modes: ['faible', 'normal', 'intense'], hasLoop: false, hasColor: false },
-  flicker:  { label: 'Flicker',          modes: [],                           hasLoop: false, hasColor: false },
-  flash:    { label: 'Flash',            modes: ['lent', 'moyen', 'rapide'],  hasLoop: false, hasColor: true  },
-  static:   { label: 'Parasites', modes: ['léger', 'normal', 'intense'], hasLoop: false, hasColor: false },
+  shake:      { label: 'Tremblement',         modes: ['normal', 'intense'],            hasLoop: true,  hasColor: false, category: 'texte' },
+  tremble:    { label: 'Tremblement continu', modes: ['lent', 'moyen', 'rapide'],      hasLoop: false, hasColor: false, category: 'texte' },
+  typewriter: { label: 'Typewriter',          modes: ['lent', 'normal', 'rapide'],     hasLoop: false, hasColor: false, category: 'texte' },
+  erased:     { label: 'Lettres effacées',    modes: ['faible', 'normal', 'intense'],  hasLoop: false, hasColor: false, category: 'texte' },
+  glitch:     { label: 'Glitch',              modes: ['faible', 'normal', 'intense'],  hasLoop: false, hasColor: false, category: 'texte' },
+  flicker:    { label: 'Flicker',             modes: [],                               hasLoop: false, hasColor: false, category: 'texte' },
+  flash:      { label: 'Flash',               modes: ['lent', 'moyen', 'rapide'],      hasLoop: false, hasColor: true,  category: 'texte' },
+  static:     { label: 'Parasites',           modes: ['léger', 'normal', 'intense'],   hasLoop: false, hasColor: false, category: 'texte' },
+  // ── Effets d'ambiance (overlay plein écran) ──
+  fog:        { label: 'Brouillard',          modes: ['léger', 'dense', 'épais'],      hasLoop: false, hasColor: false, category: 'ambiance' },
 }
 
 export const VFX_COLORS = {
