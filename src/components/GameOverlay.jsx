@@ -1126,8 +1126,8 @@ function GameEcho({ data, onResolved }) {
         ref={inputRef}
         autoFocus
         data-echo-input="true"
-        value={input}
-        onChange={handleChange}
+        defaultValue=""
+        onInput={handleInput}
         disabled={success}
         style={{
           position: 'absolute',
