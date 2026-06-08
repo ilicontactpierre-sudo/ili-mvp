@@ -734,6 +734,21 @@ function GameModePanel({ segment, segmentIndex, onSave, onDelete, onClose }) {
         {type === 'echo'     && <FormEcho     data={data} onChange={setData} />}
         {type === 'crypte'   && <FormCrypte   data={data} onChange={setData} />}
 
+        {/* Sons de feedback — uniquement pour les types interactifs */}
+        {['code', 'riddle', 'echo', 'crypte', 'sequence'].includes(type) && (
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', padding: '0.75rem 1rem', backgroundColor: 'rgba(255,255,255,0.04)', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.08)' }}>
+            <input
+              type="checkbox"
+              id="game-sounds"
+              checked={!!data.sounds}
+              onChange={e => setData(d => ({ ...d, sounds: e.target.checked }))}
+              style={{ accentColor: '#a78bfa', width: '15px', height: '15px', cursor: 'pointer' }}
+            />
+            <label htmlFor="game-sounds" style={{ fontSize: '0.8rem', color: 'rgba(255,255,255,0.6)', cursor: 'pointer', lineHeight: 1.4 }}>
+              Sons de feedback <span style={{ opacity: 0.4 }}>(réussite / erreur)</span>
+            </label>
+          </div>
+        )}
         {/* Actions */}
         <div style={{ display: 'flex', gap: '0.75rem', marginTop: '0.5rem', paddingTop: '1rem', borderTop: '1px solid rgba(255,255,255,0.08)' }}>
           <button
