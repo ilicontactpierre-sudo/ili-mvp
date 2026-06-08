@@ -45,22 +45,10 @@ export default async function handler(req, res) {
   const emails = subscribers.map(s => s.email)
 
   // 2. Envoyer via Resend (BCC pour protéger les adresses)
-  const htmlBody = body
-    .split('\n')
-    .map(line => line.trim() === '' ? '<br/>' : `<p style="margin:0 0 1em 0;line-height:1.6">${line}</p>`)
-    .join('')
-
-  const emailHtml = `
+  const emailHtml = isHtml ? body : `
     <div style="max-width:600px;margin:0 auto;font-family:Georgia,serif;color:#1a1a1a;padding:2rem 1rem">
-      <p style="font-size:1.4rem;font-weight:bold;letter-spacing:0.04em;margin-bottom:2rem">ILi</p>
-      ${htmlBody}
-      <hr style="border:none;border-top:1px solid #e0e0e0;margin:2rem 0"/>
-      <p style="font-size:0.8rem;color:#999;line-height:1.5">
-        Vous recevez cet email car vous avez lu une histoire ILi.<br/>
-        Pour vous désinscrire, répondez à cet email avec le mot "désinscription".
-      </p>
-    </div>
-  `
+      ${body.split('\n').map(l => l.trim() === '' ? '<br/>' : `<p style="margin:0 0 1em 0;line-height:1.6">${l}</p>`).join('')}
+    </div>`
 
   const resendResponse = await fetch('https://api.resend.com/emails', {
     method: 'POST',
