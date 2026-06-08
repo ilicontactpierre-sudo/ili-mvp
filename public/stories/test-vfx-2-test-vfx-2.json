@@ -32,7 +32,7 @@
       "lines": [
         "VFX Je me demande si j'ai fais beaucoup de fautes ou pas, et franchement, il y a des chances que oui."
       ],
-      "text": "VFX Je me demande si j'ai fais beaucoup de fautes ou pas, et franchement, il y a des chances que oui.",
+      "text": "BROUILLARD Je me demande si j'ai fais beaucoup de fautes ou pas, et franchement, il y a des chances que oui.",
       "breakAt": null,
       "isLeader": false,
       "audioEvents": []
@@ -63,7 +63,7 @@
         "Je fais un test avec un text un peu long pour essayer les effets.",
         "On verra si ça marche."
       ],
-      "text": "Je fais un test avec un text un peu long pour essayer les effets. On verra si ça marche.",
+      "text": "FIRE BOUGIE Je fais un test avec un text un peu long pour essayer les effets. On verra si ça marche.",
       "breakAt": null,
       "isLeader": false,
       "audioEvents": []
@@ -83,7 +83,7 @@
       "lines": [
         "VFX Je me demande si j'ai fais beaucoup de fautes ou pas, et franchement, il y a des chances que oui."
       ],
-      "text": "VFX Je me demande si j'ai fais beaucoup de fautes ou pas, et franchement, il y a des chances que oui.",
+      "text": "FIRE BRASIER Je me demande si j'ai fais beaucoup de fautes ou pas, et franchement, il y a des chances que oui.",
       "breakAt": null,
       "isLeader": false,
       "audioEvents": []
@@ -103,7 +103,7 @@
       "lines": [
         "Genre un s en trop, et quelque chose du genre."
       ],
-      "text": "Genre un s en trop, et quelque chose du genre.",
+      "text": "FIRE INFERNO Genre un s en trop, et quelque chose du genre.",
       "breakAt": null,
       "isLeader": false,
       "audioEvents": []
@@ -120,6 +120,36 @@
       "column": 0,
       "startSegmentId": "seg_1780953039356_2_zmbwu",
       "endSegmentId": "seg_1780953039356_2_zmbwu"
+    },
+    {
+      "id": "vfx_1780955664714_wsh5agw2r",
+      "type": "fire",
+      "mode": "bougie",
+      "loop": false,
+      "color": "rgba(200, 0, 0, 0.12)",
+      "column": 0,
+      "startSegmentId": "seg_1780954829445_0_wslul",
+      "endSegmentId": "seg_1780954829445_0_wslul"
+    },
+    {
+      "id": "vfx_1780955693785_xzgej0no0",
+      "type": "fire",
+      "mode": "brasier",
+      "loop": false,
+      "color": "rgba(200, 0, 0, 0.12)",
+      "column": 0,
+      "startSegmentId": "seg_1780954829445_2_9tsbi",
+      "endSegmentId": "seg_1780954829445_2_9tsbi"
+    },
+    {
+      "id": "vfx_1780955704956_rrkpk5lb9",
+      "type": "fire",
+      "mode": "inferno",
+      "loop": false,
+      "color": "rgba(200, 0, 0, 0.12)",
+      "column": 0,
+      "startSegmentId": "seg_1780954829445_4_2byai",
+      "endSegmentId": "seg_1780954829445_4_2byai"
     }
   ]
 }
