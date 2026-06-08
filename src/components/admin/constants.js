@@ -125,6 +125,7 @@ export const VFX_TYPES = {
   static:     { label: 'Parasites',           modes: ['léger', 'normal', 'intense'],   hasLoop: false, hasColor: false, category: 'texte' },
   // ── Effets d'ambiance (overlay plein écran) ──
   fog:        { label: 'Brouillard',          modes: ['léger', 'dense', 'épais'],      hasLoop: false, hasColor: false, category: 'ambiance' },
+  fire:       { label: 'Feu / Flammes',       modes: ['bougie', 'brasier', 'inferno'], hasLoop: false, hasColor: false, category: 'ambiance' },
 }
 
 export const VFX_COLORS = {
