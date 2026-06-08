@@ -1077,9 +1077,15 @@ function GameEcho({ data, onResolved }) {
         }}
       />
 
-      {/* Tap pour focus sur mobile */}
+      {/* Zone de tap plein écran pour focus sur mobile */}
       {!success && (
-        <Hint delay={600}>— touchez l'écran pour commencer à écrire —</Hint>
+        <>
+          <div
+            onClick={() => document.querySelector('input[data-echo-input]')?.focus()}
+            style={{ position: 'fixed', inset: 0, zIndex: 0, cursor: 'text' }}
+          />
+          <Hint delay={600}>— touchez l'écran pour commencer à écrire —</Hint>
+        </>
       )}
 
       {success && (
