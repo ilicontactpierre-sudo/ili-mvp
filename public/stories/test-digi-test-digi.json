@@ -10,7 +10,7 @@
       "lines": [
         "a"
       ],
-      "text": "a",
+      "text": "b",
       "breakAt": null,
       "isLeader": false,
       "audioEvents": []
@@ -23,20 +23,6 @@
         "phrase": "12Aa",
         "prompt": "",
         "successMessage": ""
-      },
-      "audioEvents": []
-    },
-    {
-      "text": "",
-      "id": "seg_1780843406344",
-      "gameMode": {
-        "type": "timer",
-        "seconds": 3,
-        "prompt": "123",
-        "hint": "345",
-        "expireMessage": "234",
-        "timerStyle": "retro",
-        "resetOnTap": true
       },
       "audioEvents": []
     },
