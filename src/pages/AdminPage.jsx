@@ -412,6 +412,7 @@ function AdminPage() {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
+  const [adminTab, setAdminTab] = useState('stories') // 'stories' | 'newsletter'
   
   // États pour la section "Créer une nouvelle histoire"
   const [storyTitle, setStoryTitle] = useState('')
