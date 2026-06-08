@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 
-const FOG_OPACITY  = { léger: 0.18, dense: 0.50, épais: 0.75 }
+const FOG_OPACITY  = { léger: 0.12, dense: 0.45, épais: 0.75 }
 const FIRE_OPACITY = { bougie: 1, brasier: 1, inferno: 1 }
 const FADE_IN  = 6000
 const FADE_OUT = 7000
