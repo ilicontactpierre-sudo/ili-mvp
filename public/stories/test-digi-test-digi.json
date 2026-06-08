@@ -30,7 +30,17 @@
       "text": "a",
       "id": "seg_1780843405876",
       "breakAt": null,
-      "audioEvents": []
+      "audioEvents": [],
+      "gameMode": {
+        "type": "crypte",
+        "cipher": "caesar",
+        "shift": 2,
+        "encoded": "2",
+        "answer": "2",
+        "hint": "chiffre ?",
+        "errorMessage": "non",
+        "prompt": "Message interceptééé"
+      }
     }
   ],
   "soundTracks": [],
