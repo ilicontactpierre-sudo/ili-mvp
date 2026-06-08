@@ -102,23 +102,23 @@ function VfxOverlay({ activeType, activeMode }) {
         {/* 5 nappes indépendantes, décalages temporels variés */}
         <ellipse cx="300" cy="980" rx="440" ry="260"
           fill={c(0.62)} filter="url(#fb-a)"
-          style={{ animation: 'fog-a 7s ease-in-out infinite alternate' }}
+          style={{ animation: 'fog-a 14s ease-in-out infinite alternate' }}
         />
         <ellipse cx="80"  cy="550" rx="340" ry="200"
           fill={c(0.48)} filter="url(#fb-b)"
-          style={{ animation: 'fog-b 9s ease-in-out infinite alternate' }}
+          style={{ animation: 'fog-b 18s ease-in-out infinite alternate' }}
         />
         <ellipse cx="420" cy="420" rx="300" ry="180"
           fill={c(0.40)} filter="url(#fb-c)"
-          style={{ animation: 'fog-c 6s ease-in-out infinite alternate' }}
+          style={{ animation: 'fog-c 11s ease-in-out infinite alternate' }}
         />
         <ellipse cx="500" cy="680" rx="280" ry="190"
           fill={c(0.42)} filter="url(#fb-d)"
-          style={{ animation: 'fog-d 8s ease-in-out infinite alternate' }}
+          style={{ animation: 'fog-d 16s ease-in-out infinite alternate' }}
         />
         <ellipse cx="200" cy="120" rx="360" ry="210"
           fill={c(0.35)} filter="url(#fb-e)"
-          style={{ animation: 'fog-e 11s ease-in-out infinite alternate' }}
+          style={{ animation: 'fog-e 22s ease-in-out infinite alternate' }}
         />
 
         <style>{`
