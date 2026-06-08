@@ -163,7 +163,7 @@ function ForwardArrow({ onForward }) {
       style={{
         position: 'fixed',
         top: '1.5rem',
-        right: '1.5rem',
+        left: '3.5rem',
         zIndex: 9999,
         background: 'none',
         border: 'none',
