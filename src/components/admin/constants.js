@@ -197,6 +197,7 @@ export function getVfxClass(track) {
     }
   
     case 'static':    return '' // effet géré entièrement par JS, pas de classe CSS
+    case 'fog':       return '' // effet géré par VfxOverlay, pas de classe CSS
     default:          return ''
   }
 }
