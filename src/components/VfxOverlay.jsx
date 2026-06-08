@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
 
 const FOG_OPACITY = { léger: 0.30, dense: 0.55, épais: 0.75 }
-const FADE_IN  = 3000
-const FADE_OUT = 4000
+const FADE_IN  = 6000
+const FADE_OUT = 7000
 
 function getIsDark() {
   try {
@@ -132,6 +132,11 @@ function VfxOverlay({ activeType, activeMode }) {
             65%  { transform: translate( 60px,  70px) scale(1.07); }
             100% { transform: translate(-30px, 120px) scale(0.96); }
           }
+          fog-a { animation-duration: 7s; }
+          fog-b { animation-duration: 9s; }
+          fog-c { animation-duration: 6s; }
+          fog-d { animation-duration: 8s; }
+          fog-e { animation-duration: 11s; }
         `}</style>
       </svg>
     </div>
