@@ -34,9 +34,9 @@
       "gameMode": {
         "type": "crypte",
         "cipher": "caesar",
-        "shift": 2,
-        "encoded": "2",
-        "answer": "2",
+        "shift": 3,
+        "encoded": "2233",
+        "answer": "2233",
         "hint": "chiffre ?",
         "errorMessage": "non",
         "prompt": "Message interceptééé"
