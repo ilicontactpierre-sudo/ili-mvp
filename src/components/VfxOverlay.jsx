@@ -22,13 +22,12 @@ function VfxOverlay({ activeType, activeMode }) {
     return () => clearInterval(interval)
   }, [])
 
+  const fireOverlayRef = useRef(null)
+
   useEffect(() => {
     const el = overlayRef.current
     if (!el) return
-
-    const shouldShow = activeType === 'fog'
-
-    if (shouldShow) {
+    if (activeType === 'fog') {
       const targetOpacity = FOG_OPACITY[activeMode] ?? FOG_OPACITY['léger']
       el.style.display = 'block'
       void el.offsetHeight
@@ -40,6 +39,24 @@ function VfxOverlay({ activeType, activeMode }) {
       const timer = setTimeout(() => {
         if (el.style.opacity === '0') el.style.display = 'none'
       }, FADE_OUT + 100)
+      return () => clearTimeout(timer)
+    }
+  }, [activeType, activeMode])
+
+  useEffect(() => {
+    const el = fireOverlayRef.current
+    if (!el) return
+    if (activeType === 'fire') {
+      el.style.display = 'block'
+      void el.offsetHeight
+      el.style.transition = `opacity ${FIRE_FADE_IN}ms cubic-bezier(0.37, 0, 0.63, 1)`
+      el.style.opacity = '1'
+    } else {
+      el.style.transition = `opacity ${FIRE_FADE_OUT}ms cubic-bezier(0.37, 0, 0.63, 1)`
+      el.style.opacity = '0'
+      const timer = setTimeout(() => {
+        if (el.style.opacity === '0') el.style.display = 'none'
+      }, FIRE_FADE_OUT + 100)
       return () => clearTimeout(timer)
     }
   }, [activeType, activeMode])
