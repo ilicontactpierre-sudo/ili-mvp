@@ -128,14 +128,16 @@ export const VFX_TYPES = {
 }
 
 export const VFX_COLORS = {
-  shake:     '#E8A87C',
-  tremble:   '#E8A87C',
-  typewriter:'#7CB9E8',
-  erased:    '#B0B0B0',
-  glitch:    '#C87CE8',
-  flicker:   '#E8D87C',
-  flash:     '#E87C7C',
-  static:    '#A0A0A0',
+  shake:      '#E8A87C',
+  tremble:    '#E8A87C',
+  typewriter: '#7CB9E8',
+  erased:     '#B0B0B0',
+  glitch:     '#C87CE8',
+  flicker:    '#E8D87C',
+  flash:      '#E87C7C',
+  static:     '#A0A0A0',
+  // ── Ambiance ──
+  fog:        '#C8D8E8',
 }
 
 // Nombre de colonnes VFX (max 2 effets simultanés)
