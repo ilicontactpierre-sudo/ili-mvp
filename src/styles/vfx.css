@@ -269,53 +269,50 @@
   transition: opacity 20ms linear;
 }
 /* ----------------------------------------------------------
-   FIRE — lueur de flamme / bougie (overlay ambiance)
-   Appliqué via VfxOverlay, pas directement sur le texte
+   FIRE — lueur de flamme / bougie
    ---------------------------------------------------------- */
 @keyframes vfx-fire-glow-bougie {
-  0%   { opacity: 0.85; }
-  8%   { opacity: 0.72; }
-  17%  { opacity: 0.91; }
-  23%  { opacity: 0.68; }
-  35%  { opacity: 0.88; }
-  47%  { opacity: 0.75; }
-  58%  { opacity: 0.93; }
-  66%  { opacity: 0.70; }
-  79%  { opacity: 0.87; }
-  88%  { opacity: 0.78; }
-  100% { opacity: 0.85; }
+  0%   { opacity: 0.82; transform: scale(1); }
+  12%  { opacity: 0.68; transform: scale(0.98); }
+  25%  { opacity: 0.90; transform: scale(1.01); }
+  37%  { opacity: 0.71; transform: scale(0.99); }
+  50%  { opacity: 0.88; transform: scale(1.02); }
+  63%  { opacity: 0.74; transform: scale(0.98); }
+  78%  { opacity: 0.92; transform: scale(1.01); }
+  90%  { opacity: 0.76; transform: scale(0.99); }
+  100% { opacity: 0.82; transform: scale(1); }
 }
 @keyframes vfx-fire-glow-brasier {
-  0%   { opacity: 0.80; }
-  6%   { opacity: 0.55; }
-  13%  { opacity: 0.88; }
-  21%  { opacity: 0.50; }
-  30%  { opacity: 0.82; }
-  38%  { opacity: 0.60; }
-  49%  { opacity: 0.90; }
-  57%  { opacity: 0.52; }
-  68%  { opacity: 0.85; }
-  76%  { opacity: 0.58; }
-  85%  { opacity: 0.78; }
-  93%  { opacity: 0.65; }
-  100% { opacity: 0.80; }
+  0%   { opacity: 0.78; transform: scale(1); }
+  7%   { opacity: 0.45; transform: scale(0.96); }
+  15%  { opacity: 0.88; transform: scale(1.02); }
+  22%  { opacity: 0.40; transform: scale(0.97); }
+  31%  { opacity: 0.82; transform: scale(1.01); }
+  40%  { opacity: 0.50; transform: scale(0.95); }
+  50%  { opacity: 0.90; transform: scale(1.03); }
+  59%  { opacity: 0.42; transform: scale(0.96); }
+  68%  { opacity: 0.85; transform: scale(1.01); }
+  77%  { opacity: 0.48; transform: scale(0.97); }
+  86%  { opacity: 0.80; transform: scale(1); }
+  93%  { opacity: 0.55; transform: scale(0.98); }
+  100% { opacity: 0.78; transform: scale(1); }
 }
 @keyframes vfx-fire-glow-inferno {
-  0%   { opacity: 0.70; }
-  4%   { opacity: 0.30; }
-  9%   { opacity: 0.85; }
-  14%  { opacity: 0.25; }
-  20%  { opacity: 0.78; }
-  26%  { opacity: 0.35; }
-  33%  { opacity: 0.88; }
-  39%  { opacity: 0.28; }
-  45%  { opacity: 0.72; }
-  51%  { opacity: 0.40; }
-  58%  { opacity: 0.82; }
-  65%  { opacity: 0.22; }
-  72%  { opacity: 0.75; }
-  80%  { opacity: 0.45; }
-  88%  { opacity: 0.80; }
-  95%  { opacity: 0.32; }
-  100% { opacity: 0.70; }
+  0%   { opacity: 0.70; transform: scale(1); }
+  5%   { opacity: 0.25; transform: scale(0.93); }
+  10%  { opacity: 0.85; transform: scale(1.04); }
+  16%  { opacity: 0.20; transform: scale(0.94); }
+  22%  { opacity: 0.80; transform: scale(1.03); }
+  28%  { opacity: 0.30; transform: scale(0.92); }
+  35%  { opacity: 0.88; transform: scale(1.05); }
+  41%  { opacity: 0.22; transform: scale(0.93); }
+  48%  { opacity: 0.75; transform: scale(1.02); }
+  54%  { opacity: 0.35; transform: scale(0.94); }
+  61%  { opacity: 0.82; transform: scale(1.04); }
+  68%  { opacity: 0.18; transform: scale(0.91); }
+  75%  { opacity: 0.78; transform: scale(1.03); }
+  82%  { opacity: 0.28; transform: scale(0.93); }
+  89%  { opacity: 0.85; transform: scale(1.02); }
+  95%  { opacity: 0.32; transform: scale(0.95); }
+  100% { opacity: 0.70; transform: scale(1); }
 }
