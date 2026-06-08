@@ -843,12 +843,7 @@ function GameCrypte({ data, onResolved }) {
     }
   }
 
-  const cipherLabel = {
-    caesar:  `César +${data.shift || 3}`,
-    mirror:  'Miroir (A↔Z)',
-    reverse: 'Texte inversé',
-  }[data.cipher] || ''
-
+  const cipherLabel = ''
   return (
     <AnimatedWrapper>
       {data.prompt && (
