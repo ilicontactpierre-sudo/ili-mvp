@@ -125,7 +125,7 @@ function useReveal(delay = 0) {
 }
 
 // ─── Overlay principal ────────────────────────────────────────────────────────
-function GameOverlay({ gameMode, onResolved }) {
+function GameOverlay({ gameMode, onResolved, segmentIndex }) {
   const [leaving, setLeaving] = useState(false)
   const [visible, setVisible] = useState(false)
 
