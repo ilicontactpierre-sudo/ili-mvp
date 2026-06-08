@@ -130,7 +130,7 @@ function GameOverlay({ gameMode, onResolved, segmentIndex }) {
   const [visible, setVisible] = useState(false)
 
   // ── Mémoire : clé unique par gameMode ──
-  const memoryKey = `ili_game_${JSON.stringify({ t: gameMode?.type, a: gameMode?.answer ?? gameMode?.seconds ?? gameMode?.imageUrl ?? '', txt: gameMode?.text ?? '', q: gameMode?.question ?? '' })}`
+  const memoryKey = `ili_game_seg${segmentIndex ?? ''}_${JSON.stringify({ t: gameMode?.type, a: gameMode?.answer ?? gameMode?.seconds ?? gameMode?.imageUrl ?? '' })}`
   const alreadySolved = (() => {
     try { return sessionStorage.getItem(memoryKey) === '1' } catch { return false }
   })()
