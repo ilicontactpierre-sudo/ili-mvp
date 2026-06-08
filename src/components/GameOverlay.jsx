@@ -871,17 +871,7 @@ function GameCrypte({ data, onResolved }) {
         boxSizing: 'border-box',
         position: 'relative',
       }}>
-        {/* Label chiffrement */}
-        <div style={{
-          position: 'absolute', top: '-0.6em', left: '1.2rem',
-          backgroundColor: 'var(--color-bg, #f5f0e8)',
-          padding: '0 0.4rem',
-          fontSize: '0.6rem', letterSpacing: '0.14em',
-          opacity: 0.4, textTransform: 'uppercase',
-          fontFamily: 'monospace',
-        }}>
-          {cipherLabel}
-        </div>
+
         <p style={{
           margin: 0,
           fontFamily: 'monospace',
