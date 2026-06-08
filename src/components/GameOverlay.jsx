@@ -1015,63 +1015,39 @@ function GameEcho({ data, onResolved }) {
   const isError = input.length > 0 && input[progress] !== undefined && input[progress] !== phrase[progress]
 
   const validatedRef = useRef('')
-  const lastLengthRef = useRef(0)
 
   const handleInput = (e) => {
     if (success) return
     const raw = e.target.value
     const prev = validatedRef.current
 
-    // Suppression
-    if (raw.length < lastLengthRef.current) {
-      const newVal = prev.slice(0, -1)
-      validatedRef.current = newVal
-      lastLengthRef.current = newVal.length
-      setInput(newVal)
-      setErrorAt(null)
-      return
-    }
-
-    // Extraire uniquement les caractères vraiment nouveaux
-    // On ignore tout ce qui est avant prev.length car le clavier
-    // peut renvoyer des caractères déjà validés
-    const newChars = raw.slice(prev.length)
-    if (!newChars) return
-
-    // Traiter un seul caractère à la fois (le premier nouveau)
-    const nextChar = newChars[0]
-    const expectedChar = phrase[prev.length]
-
-    lastLengthRef.current = raw.length
-
-    if (nextChar === expectedChar) {
-      const newVal = prev + nextChar
-      validatedRef.current = newVal
-      lastLengthRef.current = newVal.length
-      // Forcer le champ à contenir exactement la valeur validée
-      requestAnimationFrame(() => {
-        if (inputRef.current) {
-          inputRef.current.value = newVal
-          lastLengthRef.current = newVal.length
+    // On ne touche JAMAIS à inputRef.current.value
+    // On regarde juste le dernier caractère après ce qu'on a validé
+    if (raw.length > prev.length) {
+      // Caractère ajouté
+      const nextChar = raw[raw.length - 1]
+      const expectedChar = phrase[prev.length]
+      if (nextChar === expectedChar) {
+        const newVal = prev + nextChar
+        validatedRef.current = newVal
+        setInput(newVal)
+        setErrorAt(null)
+        if (newVal === phrase) {
+          playSuccess()
+          setSuccess(true)
+          setTimeout(onResolved, 1100)
         }
-      })
-      setInput(newVal)
-      setErrorAt(null)
-      if (newVal === phrase) {
-        playSuccess()
-        setSuccess(true)
-        setTimeout(onResolved, 1100)
+      } else {
+        playError()
+        setErrorAt(prev.length)
+        setTimeout(() => setErrorAt(null), 400)
       }
     } else {
-      playError()
-      setErrorAt(prev.length)
-      setTimeout(() => setErrorAt(null), 400)
-      requestAnimationFrame(() => {
-        if (inputRef.current) {
-          inputRef.current.value = prev
-          lastLengthRef.current = prev.length
-        }
-      })
+      // Suppression
+      const newVal = prev.slice(0, raw.length)
+      validatedRef.current = newVal
+      setInput(newVal)
+      setErrorAt(null)
     }
   }
 
