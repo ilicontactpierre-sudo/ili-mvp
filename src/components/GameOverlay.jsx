@@ -1114,6 +1114,7 @@ function GameEcho({ data, onResolved }) {
 
       {/* Champ de saisie invisible — juste pour capturer le clavier */}
       <input
+        ref={inputRef}
         autoFocus
         data-echo-input="true"
         value={input}
