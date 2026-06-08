@@ -283,23 +283,25 @@ const GLOBAL_KEYFRAMES = `
 `
 
 // ─── Wrapper animé commun ─────────────────────────────────────────────────────
-function AnimatedWrapper({ children, style = {} }) {
+function AnimatedWrapper({ children, style = {}, onClick }) {
   const [mounted, setMounted] = useState(false)
   useEffect(() => { const t = setTimeout(() => setMounted(true), 60); return () => clearTimeout(t) }, [])
   return (
-    <div style={{
-      width: '100%',
-      maxWidth: '480px',
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      gap: '2rem',
-      fontFamily: 'var(--font-primary, Georgia, serif)',
-      opacity: mounted ? 1 : 0,
-      transform: mounted ? 'translateY(0)' : 'translateY(22px)',
-      transition: `opacity 700ms ${EASE.out}, transform 700ms ${EASE.out}`,
-      ...style,
-    }}>
+    <div
+      onClick={onClick}
+      style={{
+        width: '100%',
+        maxWidth: '480px',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        gap: '2rem',
+        fontFamily: 'var(--font-primary, Georgia, serif)',
+        opacity: mounted ? 1 : 0,
+        transform: mounted ? 'translateY(0)' : 'translateY(22px)',
+        transition: `opacity 700ms ${EASE.out}, transform 700ms ${EASE.out}`,
+        ...style,
+      }}>
       {children}
     </div>
   )
