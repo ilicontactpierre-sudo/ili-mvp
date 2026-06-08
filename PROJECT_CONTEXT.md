@@ -1,182 +1,265 @@
-# ILi MVP — Contexte Projet
+# PROJECT_CONTEXT — ILi MVP
 
-## 1. Stack Technique
+Application web de lecture immersive d'histoires avec dimensionnement audio, effets visuels et haptiques.
+
+---
+
+## 1. Stack technique
 
 | Couche | Technologie | Version | Détails |
 |--------|-------------|---------|---------|
-| **Frontend** | React | 19.2.6 | Vite 8.0 comme bundler |
-| **Routing** | React Router | 7.15.0 | SPA avec routes `/`, `/lire/:storyId`, `/admin` |
-| **Audio** | Howler.js | 2.2.4 | Moteur audio personnalisé (`AudioEngine.js`) |
-| **Backend (local)** | Express | 5.2.1 | Serveur API local sur port 3001 |
-| **Backend (prod)** | Vercel Serverless | — | Fonctions dans `/api/*.js` |
-| **Base de données** | Supabase | 2.106.1 | Storage pour sons, pas d'ORM |
-| **Déploiement** | Vercel | — | CI/CD via push Git |
+| **Frontend** | React | 19.2.6 | SPA avec React Router v7 |
+| **Bundler** | Vite | 8.0.12 | Build + dev server |
+| **Backend (dev)** | Node.js + Express | 5.2.1 | Serveur API local (port 3001) |
+| **Backend (prod)** | Vercel Serverless Functions | — | Fonctions dans `api/` |
+| **Base de données** | Supabase | JS SDK v2.106.1 | Storage (sons) + PostgreSQL |
+| **Audio** | Howler.js | 2.2.4 | Moteur audio principal |
+| **Encodage** | FFmpeg.wasm | 0.12.15 | Compression audio côté client |
+| **Déploiement** | Vercel | — | SPA + rewrites vers index.html |
+| **CI/CD** | GitHub Actions | — | Via `publish.sh` (push Git) |
 
-## 2. Structure des Fichiers
+---
+
+## 2. Structure des fichiers
 
 ```
 ili-mvp/
-├── api/                        # Fonctions serverless (Vercel + local)
-│   ├── get-upload-url.js       # URL signée Supabase
-│   ├── upload-audio.js         # Upload audio vers Supabase
-│   ├── upload-sound.js         # Métadonnées son vers Supabase
-│   ├── publish.js              # Publication histoire → GitHub
-│   ├── delete.js               # Suppression
-│   ├── delete-sound.js         # Suppression son
-│   └── toggle-visibility.js    # Visibilité histoire
-├── public/
-│   ├── stories/                # Histoires JSON (publiées via GitHub)
-│   │   ├── index.json          # Index des histoires
-│   │   └── *.json              # Fichiers d'histoires
-│   ├── sounds/                 # Sons locaux (dev uniquement)
-│   │   └── sounds-index.json   # Index local
-│   ├── fonts/                  # Polices custom (.otf, .ttf)
-│   └── textures/               # Assets visuels (paper.png)
-├── scripts/
-│   ├── dev-api-server.js       # Serveur Express local (port 3001)
-│   ├── addSound.js             # CLI ajout son
-│   ├── checkpoint.js           # CLI checkpoint
-│   └── migrate-sounds-to-supabase.js  # Migration
+├── api/                        # Fonctions serverless Vercel (prod)
+│   ├── delete-sound.js
+│   ├── delete.js
+│   ├── get-upload-url.js
+│   ├── preview-sound.js
+│   ├── publish.js
+│   ├── toggle-visibility.js
+│   ├── upload-audio.js
+│   └── upload-sound.js
+├── public/                     # Assets statiques (servis tels quels)
+│   ├── favicon.svg
+│   ├── icons.svg
+│   ├── fonts/                  # Polices custom
+│   │   ├── NamoraDayanaDemo-0vqZd.ttf
+│   │   └── Oanteh-rvDvA.otf
+│   ├── sounds/                 # Sons UI (clic, whoosh)
+│   │   ├── sounds-index.json
+│   │   └── *.mp3
+│   └── stories/                # Fichiers JSON des histoires
+│       ├── index.json          # Catalogue (id, title, author)
+│       └── *.json              # Données complètes des histoires
+├── scripts/                    # Scripts utilitaires
+│   ├── dev-api-server.js       # Serveur Express dev (port 3001)
+│   ├── addSound.js
+│   ├── checkpoint.js
+│   ├── convert-stories.js
+│   ├── generateSoundsIndex.js
+│   ├── index-boom-library.js
+│   ├── migrate-sounds-to-supabase.js
+│   └── update-story-urls.js
 ├── src/
 │   ├── components/
 │   │   ├── admin/              # Interface d'édition
-│   │   │   ├── AudioTimeline.jsx       # Timeline 6 colonnes
-│   │   │   ├── SoundBlock.jsx          # Bloc sonore draggable
-│   │   │   ├── SoundLibraryPicker.jsx  # Sélecteur bibliothèque
-│   │   │   ├── PublishPanel.jsx        # Publication
-│   │   │   └── constants.js            # Config partagée
-│   │   ├── StoryReader.jsx     # Lecteur principal
-│   │   ├── GameOverlay.jsx     # Overlay gamification
-│   │   └── ReaderSettings.jsx  # Paramètres lecture
+│   │   │   ├── AudioTimeline.jsx
+│   │   │   ├── DraftManager.jsx
+│   │   │   ├── FormatToolbar.jsx
+│   │   │   ├── GameModePanel.jsx
+│   │   │   ├── OrchestrationPanel.jsx
+│   │   │   ├── PublishPanel.jsx
+│   │   │   ├── SoundBlock.jsx
+│   │   │   ├── SoundImporter.jsx
+│   │   │   ├── SoundLibraryPicker.jsx
+│   │   │   ├── UnifiedSegmentsTimeline.jsx
+│   │   │   ├── VfxBlock.jsx
+│   │   │   └── WaveformTrimmer.jsx
+│   │   ├── EndScreen.jsx
+│   │   ├── GameOverlay.jsx
+│   │   ├── ReaderSettings.jsx  # Options DYS, emoji, thème
+│   │   ├── StartScreen.jsx
+│   │   ├── StoryMenu.jsx
+│   │   └── StoryReader.jsx     # Composant de lecture principal
 │   ├── engine/
-│   │   ├── AudioEngine.js      # Moteur audio (play, fade, loop, pan)
-│   │   └── HapticEngine.js     # Retour haptique
+│   │   ├── AudioEngine.js      # Moteur audio (Howler wrapper)
+│   │   └── HapticEngine.js     # Vibrations haptiques
 │   ├── pages/
-│   │   ├── HomePage.jsx        # Sélection histoires
-│   │   ├── StoryPage.jsx       # Lecteur
-│   │   └── AdminPage.jsx       # Éditeur
-│   ├── utils/
-│   │   ├── bionicReading.jsx   # Mode bionic
-│   │   ├── renderMarkdown.jsx  # Rendu markdown
-│   │   └── segmentAlgorithm.js # Découpage texte
+│   │   ├── AdminPage.jsx       # Éditeur d'histoires
+│   │   ├── HomePage.jsx        # Liste des histoires
+│   │   └── StoryPage.jsx       # Page de lecture
 │   ├── styles/
-│   │   ├── global.css          # Styles globaux
-│   │   └── vfx.css             # Effets visuels
-│   ├── App.jsx                 # Routes
-│   └── main.jsx                # Point d'entrée
-├── index.html                  # HTML d'entrée
-├── vite.config.js              # Config Vite + proxy API
-├── vercel.json                 # Rewrites SPA
-├── package.json                # Dépendances & scripts
-└── .env                        # Variables (non commité)
+│   │   ├── global.css
+│   │   └── vfx.css             # Effets visuels (typewriter, flash, etc.)
+│   ├── utils/
+│   │   ├── bionicReading.jsx
+│   │   ├── emojiDict.jsx
+│   │   ├── renderMarkdown.jsx
+│   │   └── segmentAlgorithm.js # Algo de découpe des segments
+│   ├── App.jsx                 # Routing (React Router)
+│   ├── main.jsx               # Point d'entrée
+│   └── index.css
+├── index.html                  # HTML d'entrée (SPA)
+├── package.json
+├── vite.config.js             # Config Vite (proxy API → :3001)
+├── vercel.json                # Rewrites SPA
+└── publish.sh                 # Script de publication
 ```
 
-## 3. Flux de Données Principal
+---
 
-### Requête Frontend → Backend
+## 3. Flux de données principal
 
-**En local (dev) :**
+### Lecture d'une histoire
 ```
-Frontend (Vite :5173)
-    ↓ proxy (vite.config.js)
-Serveur Express (localhost:3001)
-    ↓
-Supabase API / GitHub API / Système de fichiers local
+1. HomePage → liste depuis /stories/index.json
+2. Utilisateur clique → navigation vers /lire/:storyId
+3. StoryPage charge /stories/:storyId.json
+4. StoryReader affiche les segments un par un
+5. AudioEngine joue les sons synchronisés (Howler.js)
+6. HapticEngine active les vibrations (si supporté)
 ```
 
-**En production (Vercel) :**
+### Édition & Publication
 ```
-Frontend (Vercel CDN)
-    ↓
-Fonctions Serverless (/api/*.js)
-    ↓
-Supabase API / GitHub API
+1. AdminPage → éditeur complet (texte, audio, VFX)
+2. Sauvegarde locale → brouillon dans localStorage
+3. Publication → POST /api/publish
+   - Dev : Express local (:3001) → écrit sur GitHub API
+   - Prod : Vercel function api/publish.js → GitHub API
+4. Le fichier story JSON est pushé sur le repo GitHub
+5. Vercel redéploie automatiquement
 ```
 
 ### Authentification
-- **Admin** : mot de passe simple (`ADMIN_PASSWORD`) vérifié côté serveur
-- Pas de système d'utilisateurs, pas de sessions
-- Protection par variable d'environnement uniquement
+- **Pas de système d'auth utilisateur** — l'app est publique
+- **Auth admin** : mot de passe via `ADMIN_PASSWORD` (variable d'environnement)
+  - Requis pour toutes les routes `/api/*` d'écriture
+  - Vérifié côté serveur (Express ou Vercel function)
 
-### Publication d'une histoire
-1. Édition dans `/admin` → données en mémoire
-2. Bouton "Publier" → POST `/api/publish` avec `password` + `storyData`
-3. L'API écrit `public/stories/{slug}.json` et met à jour `public/stories/index.json` sur GitHub
-4. L'histoire est immédiatement disponible en production
+---
 
-## 4. Points Sensibles
+## 4. Points sensibles
 
-### Fichiers de Configuration Critiques
+### Fichiers de configuration critiques
 
 | Fichier | Rôle |
 |---------|------|
-| `vite.config.js` | Proxy API vers localhost:3001, headers COOP/COEP pour SharedArrayBuffer (FFmpeg) |
-| `vercel.json` | Rewrite SPA (toutes routes → index.html) |
-| `scripts/dev-api-server.js` | Duplique les fonctions `/api/*.js` en serveur Express local |
+| `vite.config.js` | Proxy `/api/*` → `localhost:3001` en dev. Headers COOP/COEP pour SharedArrayBuffer (FFmpeg.wasm) |
+| `vercel.json` | Rewrite `/(.*)` → `/index.html` (SPA routing) |
+| `package.json` | Scripts `dev` (lance Vite + Express concurrently) |
 
-### Différences Local vs Production
+### Différences local vs production
 
 | Aspect | Local | Production |
 |--------|-------|------------|
-| API | Express sur port 3001 | Vercel Serverless |
-| Sons | Système de fichiers local (`/api/preview-sound`) | Supabase Storage |
-| Publication | Écrit dans le repo Git local | Écrit via GitHub API |
-| CORS | Géré par Vite proxy | Géré par Vercel |
+| API | Express sur port 3001 | Vercel Serverless Functions (`api/`) |
+| Stories | Fichiers `public/stories/*.json` | Idem (servis par Vercel CDN) |
+| Sons | `public/sounds/` + Supabase | Supabase storage (CDN) |
+| Upload | Direct vers Supabase via serveur local | Direct vers Supabase (signed URLs) |
 
-### Assets Statiques
+### Assets statiques
 
-- **Servis depuis** : `public/` → racine du site
-- **Histoires** : `public/stories/*.json` (chargés dynamiquement)
-- **Sons locaux** : `public/sounds/` (dev uniquement, non commités)
-- **Polices** : `public/fonts/` + Google Fonts (VT323, Playfair Display, Lexend)
+- **Servis depuis** : `public/` (Vite copy) + `public/sounds/`, `public/stories/`
+- **Stories** : JSON statiques chargés en `fetch()` direct
+- **Sons UI** : `Audio` HTML5 natif pour les clics (`/sounds/Clic ILi.mp3`)
+- **Polices** : dans `public/fonts/`, chargées via `@font-face`
 
-### Gestion des Fichiers Médias
+### Gestion des fichiers médias
 
 | Type | Pipeline | Formats | Stockage |
 |------|----------|---------|----------|
-| **Audio** | Upload → Supabase Storage | MP3, WAV, AIFF, FLAC | Supabase CDN |
-| **Images** | Assets statiques | PNG, SVG | Vercel CDN |
-| **Vidéo** | Non supporté | — | — |
+| **Audio (histoires)** | Upload → Supabase storage → URL publique | MP3, WAV, AAC, FLAC | Supabase CDN |
+| **Audio (UI)** | Fichiers statiques dans `public/sounds/` | MP3 | Git + Vercel CDN |
+| **Images/Textures** | Statiques dans `public/textures/` | PNG | Git + Vercel CDN |
+| **Compression** | FFmpeg.wasm côté client avant upload | → MP3 128kbps | — |
 
-**Audio spécifique :**
-- Upload via `/api/upload-audio` (base64) ou `/api/get-upload-url` (signed URL)
-- Compression optionnelle avec FFmpeg (`@ffmpeg/ffmpeg`)
-- Prévisualisation locale via `/api/preview-sound` (streaming avec range requests)
-- Métadonnées sons stockées dans Supabase (table `sounds`)
+---
 
-## 5. Commandes Clés
+## 5. Commandes clés
 
 ```bash
-npm run dev          # Vite + Express API (concurrently)
-npm run dev:clean    # Tue les process zombies puis dev
-npm run build        # Build Vite → dist/
-npm run preview      # Preview build en local
-npm run lint         # ESLint
-npm run add-sound    # CLI: ajouter un son à la bibliothèque
-npm run checkpoint   # CLI: checkpoint + démarrage serveur
-npm run publish      # bash publish.sh (déploiement)
+# Développement (Vite + API Express)
+npm run dev
+
+# Build de production
+npm run build
+
+# Preview du build
+npm run preview
+
+# Lint
+npm run lint
+
+# Publication (push Git + déclenche Vercel)
+npm run publish   # ou bash publish.sh
 ```
 
-## 6. Variables d'Environnement
+---
+
+## 6. Variables d'environnement
 
 ```
 # Supabase
 SUPABASE_URL
 SUPABASE_SERVICE_KEY
+SUPABASE_ANON_KEY
+
+# Admin
+ADMIN_PASSWORD
 
 # GitHub (publication)
 GITHUB_TOKEN
 GITHUB_OWNER
 GITHUB_REPO
 GITHUB_BRANCH
-
-# Admin
-ADMIN_PASSWORD
-
-# Divers
-DATABASE_URL
 ```
 
 ---
 
-**Objectif** : Application de lecture interactive d'histoires avec synchronisation audio précise, édition WYSIWYG, et publication via GitHub.
+## 7. Architecture audio (détails)
+
+### AudioEngine (`src/engine/AudioEngine.js`)
+- Wrapper autour de **Howler.js**
+- Gère : play, stop, fadeIn, fadeOut, volume, loop avec crossfade
+- **Trim** : découpe audio via sprites Howler
+- **Pan/spatialisation** : modes static, sweep-lr, sweep-rl, oscillate, converge, diverge
+- **Loop crossfade** : chevauchement de 2 instances pour transitions fluides
+
+### Format des histoires (JSON)
+```json
+{
+  "id": "story-slug",
+  "title": "Titre",
+  "author": "Auteur",
+  "published": true,
+  "segments": [
+    {
+      "id": "seg_1",
+      "text": "Texte du segment",
+      "breakAt": 100,        // position de césure optionnelle
+      "isLeader": false,     // début de chapitre
+      "isChapter": false,    // est un titre de chapitre
+      "audioEvents": []      // événements audio temps-réel
+    }
+  ],
+  "soundTracks": [           // pistes audio continues
+    {
+      "id": "track_1",
+      "soundId": "son-unique-id",
+      "startSegmentId": "seg_1",
+      "endSegmentId": "seg_5",
+      "volume": 0.5,
+      "loop": true,
+      "fadeIn": 1000,        // ms
+      "fadeOut": 2000,       // ms
+      "delay": 0,            // ms
+      "trimStart": 0,        // ms
+      "trimEnd": null,       // ms
+      "pan": 0,              // -1 à +1
+      "panMode": "static"    // static, sweep-lr, oscillate...
+    }
+  ],
+  "vfxTracks": [            // effets visuels
+    {
+      "type": "typewriter",  // typewriter, static, erased, flash
+      "startSegmentId": "seg_1",
+      "endSegmentId": "seg_3",
+      "mode": "normal"       // mode spécifique au type
+    }
+  ]
+}
