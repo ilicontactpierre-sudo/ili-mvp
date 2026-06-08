@@ -70,9 +70,23 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: 'Erreur lors de l\'envoi' })
   }
 
+  // Enregistrer le numéro envoyé dans Supabase
+  if (storyNum) {
+    await fetch(`${SUPABASE_URL}/rest/v1/newsletters`, {
+      method: 'POST',
+      headers: {
+        'apikey': SUPABASE_SERVICE_KEY,
+        'Authorization': `Bearer ${SUPABASE_SERVICE_KEY}`,
+        'Content-Type': 'application/json',
+        'Prefer': 'return=minimal'
+      },
+      body: JSON.stringify({ number: parseInt(storyNum), subject })
+    }).catch(() => {}) // non bloquant
+  }
+
   return res.status(200).json({
     success: true,
     sent: emails.length,
-    message: `Newsletter envoyée à ${emails.length} abonné(s).`
+    message: `Newsletter #${storyNum} envoyée à ${emails.length} abonné(s).`
   })
 }
