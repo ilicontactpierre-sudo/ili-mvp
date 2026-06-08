@@ -1014,24 +1014,44 @@ function GameEcho({ data, onResolved }) {
   const isError = input.length > 0 && input[progress] !== undefined && input[progress] !== phrase[progress]
 
   const handleChange = (e) => {
-    const val = e.target.value
     if (success) return
-    // Trouver jusqu'où la saisie est correcte
-    let validLength = 0
-    while (validLength < val.length && validLength < phrase.length && val[validLength] === phrase[validLength]) {
-      validLength++
-    }
-    // Si la saisie contient une erreur, tronquer au dernier caractère correct
-    if (validLength < val.length) {
-      playError()
-      setErrorAt(validLength)
-      setTimeout(() => setErrorAt(null), 400)
-      setInput(val.slice(0, validLength))
+    const val = e.target.value
+
+    // Sur mobile, le clavier peut envoyer plusieurs caractères d'un coup
+    // (suggestions, correction auto). On les traite un par un.
+    const currentValid = input // ce qu'on avait de validé avant
+
+    // Cas suppression
+    if (val.length < currentValid.length) {
+      setInput(val)
+      setErrorAt(null)
       return
     }
-    setInput(val)
+
+    // Caractères ajoutés (peut être > 1 sur mobile)
+    const added = val.slice(currentValid.length)
+    let newInput = currentValid
+
+    for (const char of added) {
+      const expected = phrase[newInput.length]
+      if (char === expected) {
+        newInput += char
+      } else {
+        // Mauvais caractère : on s'arrête ici et on signale l'erreur
+        playError()
+        setErrorAt(newInput.length)
+        setTimeout(() => setErrorAt(null), 400)
+        // Forcer le champ à revenir à la valeur validée
+        e.target.value = newInput
+        setInput(newInput)
+        return
+      }
+    }
+
+    setInput(newInput)
     setErrorAt(null)
-    if (val === phrase) {
+
+    if (newInput === phrase) {
       playSuccess()
       setSuccess(true)
       setTimeout(onResolved, 1100)
