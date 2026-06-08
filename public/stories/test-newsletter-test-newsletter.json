@@ -1,0 +1,21 @@
+{
+  "id": "test-newsletter-test-newsletter",
+  "title": "Test Newsletter",
+  "author": "Test Newsletter",
+  "published": true,
+  "sounds": [],
+  "segments": [
+    {
+      "id": "seg_1780919511468_0_hglsa",
+      "lines": [
+        "Test Newsletter"
+      ],
+      "text": "Test Newsletter",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    }
+  ],
+  "soundTracks": [],
+  "vfxTracks": []
+}
