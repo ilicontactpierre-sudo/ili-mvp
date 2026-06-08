@@ -162,22 +162,10 @@ function VfxOverlay({ activeType, activeMode }) {
     </div>
   )
 
-  return (
-    <div
-      ref={overlayRef}
-      style={{
-        display: 'none',
-        position: 'fixed',
-        inset: 0,
-        zIndex: 9500,
-        pointerEvents: 'none',
-        opacity: 0,
-        overflow: 'hidden',
-      }}
-    >
-      {fogContent}
-    </div>
-  )
+  // ── Contenu feu ──
+  const mode = activeMode || 'bougie'
+  const fireAnimName = `vfx-fire-glow-${mode}`
+  const fireDuration = mode === 'bougie' ? '4s' : mode === 'brasier' ? '2.5s' : '1.4s'
 }
 
 export default VfxOverlay
