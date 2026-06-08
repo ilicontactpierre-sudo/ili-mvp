@@ -125,7 +125,63 @@ function useReveal(delay = 0) {
 }
 
 // ─── Overlay principal ────────────────────────────────────────────────────────
-function GameOverlay({ gameMode, onResolved, segmentIndex }) {
+function BackArrow({ onBack }) {
+  const [hovered, setHovered] = useState(false)
+  return (
+    <button
+      onClick={(e) => { e.stopPropagation(); onBack() }}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      style={{
+        position: 'fixed',
+        top: '1.5rem',
+        left: '1.5rem',
+        zIndex: 9999,
+        background: 'none',
+        border: 'none',
+        cursor: 'pointer',
+        padding: '0.5rem',
+        opacity: hovered ? 0.7 : 0.3,
+        transition: 'opacity 300ms ease',
+        lineHeight: 1,
+      }}
+    >
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-text-focus, #222)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <polyline points="15 18 9 12 15 6" />
+      </svg>
+    </button>
+  )
+}
+
+function ForwardArrow({ onForward }) {
+  const [hovered, setHovered] = useState(false)
+  return (
+    <button
+      onClick={(e) => { e.stopPropagation(); onForward() }}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      style={{
+        position: 'fixed',
+        top: '1.5rem',
+        right: '1.5rem',
+        zIndex: 9999,
+        background: 'none',
+        border: 'none',
+        cursor: 'pointer',
+        padding: '0.5rem',
+        opacity: hovered ? 0.7 : 0.3,
+        transition: 'opacity 300ms ease',
+        lineHeight: 1,
+      }}
+    >
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-text-focus, #222)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <polyline points="9 18 15 12 9 6" />
+      </svg>
+    </button>
+  )
+}
+
+function GameOverlay({ gameMode, onResolved, onBack, segmentIndex }) {
   const [leaving, setLeaving] = useState(false)
   const [visible, setVisible] = useState(false)
 
