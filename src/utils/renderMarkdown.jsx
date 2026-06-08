@@ -12,7 +12,7 @@ export function renderMarkdown(text, segment, isDysMode = false) {
   const resolvedText = text.replace(/\{\{journal:([^}]+)\}\}/g, (_, key) => {
     try {
       const val = sessionStorage.getItem(`ili_journal_${key.trim()}`)
-      return val ? `"${val}"` : '…'
+      return val ? `"${val.replace(/\n/g, ' / ')}"` : '…'
     } catch {
       return '…'
     }
