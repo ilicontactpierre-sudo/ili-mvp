@@ -636,7 +636,7 @@ function GameFilmstrip({ data, onResolved }) {
 function GameTimer({ data, onResolved }) {
   const total = data.seconds || 30
   const timerStyle = data.timerStyle || 'arc'
-  const resetOnTap = data.resetOnTap || false
+  const resetOnTap = data.resetOnTap === true
 
   const [remaining, setRemaining] = useState(total)
   const [expired, setExpired] = useState(false)
