@@ -960,7 +960,7 @@ function GameEcho({ data, onResolved }) {
   const [input, setInput] = useState('')
   const [success, setSuccess] = useState(false)
   const [errorAt, setErrorAt] = useState(null)
-  const { playTock, playSuccess, playError } = useKeySound()
+  const { playSuccess, playError } = useKeySound()
 
   // Comparaison en temps réel caractère par caractère
   const progress = (() => {
