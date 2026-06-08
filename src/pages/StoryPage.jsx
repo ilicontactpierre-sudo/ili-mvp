@@ -144,20 +144,34 @@ function StoryPage() {
   }, [storyId])
 
   const abandonSentRef = useRef(false)
+  const isStartedRef = useRef(false)
+  const isFinishedRef = useRef(false)
+  const currentIndexRef = useRef(0)
+  const segmentsLengthRef = useRef(0)
+  const storyIdRef = useRef(null)
+
+  // Garder les refs synchronisées avec l'état
+  useEffect(() => { isStartedRef.current = isStarted }, [isStarted])
+  useEffect(() => { isFinishedRef.current = isFinished }, [isFinished])
+  useEffect(() => { currentIndexRef.current = currentIndex }, [currentIndex])
+  useEffect(() => { segmentsLengthRef.current = segments.length }, [segments.length])
+  useEffect(() => { storyIdRef.current = story?.id ?? null }, [story])
 
   useEffect(() => {
     abandonSentRef.current = false
-  }, [storyId])
-
-  useEffect(() => {
     return () => {
       audioEngineRef.current?.stopAll()
-      if (isStarted && !isFinished && story?.id && !abandonSentRef.current) {
+      if (
+        isStartedRef.current &&
+        !isFinishedRef.current &&
+        storyIdRef.current &&
+        !abandonSentRef.current
+      ) {
         abandonSentRef.current = true
-        trackAbandon(story.id, currentIndex, segments.length)
+        trackAbandon(storyIdRef.current, currentIndexRef.current, segmentsLengthRef.current)
       }
     }
-  }, [isStarted, isFinished, story, currentIndex, segments.length])
+  }, [storyId])
 
   useEffect(() => {
     if (!isStarted || !audioEngineRef.current || !segments[currentIndex]) {
