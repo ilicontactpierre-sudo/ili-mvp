@@ -958,21 +958,22 @@ function GameEcho({ data, onResolved }) {
 
   const handleChange = (e) => {
     const val = e.target.value
-    // Bloquer si le caractère tapé est faux
-    if (val.length > input.length) {
-      const newChar = val[val.length - 1]
-      const expected = phrase[val.length - 1]
-      if (newChar !== expected) {
-        playError()
-        setErrorAt(val.length - 1)
-        setTimeout(() => setErrorAt(null), 400)
-        return // bloquer la saisie incorrecte
-      }
-      playTock()
+    if (success) return
+    // Trouver jusqu'où la saisie est correcte
+    let validLength = 0
+    while (validLength < val.length && validLength < phrase.length && val[validLength] === phrase[validLength]) {
+      validLength++
+    }
+    // Si la saisie contient une erreur, tronquer au dernier caractère correct
+    if (validLength < val.length) {
+      playError()
+      setErrorAt(validLength)
+      setTimeout(() => setErrorAt(null), 400)
+      setInput(val.slice(0, validLength))
+      return
     }
     setInput(val)
     setErrorAt(null)
-
     if (val === phrase) {
       playSuccess()
       setSuccess(true)
