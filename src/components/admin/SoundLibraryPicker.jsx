@@ -38,6 +38,12 @@ function SoundLibraryPicker({
   initialSearch,
 }) {
   const [search, setSearch] = useState(initialSearch || '')
+const [debouncedSearch, setDebouncedSearch] = useState(initialSearch || '')
+
+useEffect(() => {
+  const timer = setTimeout(() => setDebouncedSearch(search), 300)
+  return () => clearTimeout(timer)
+}, [search])
   const [selectedFamily, setSelectedFamily] = useState(null)
   const [activeTags, setActiveTags] = useState([])
   const [playingId, setPlayingId] = useState(null)
