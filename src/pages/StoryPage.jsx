@@ -146,8 +146,11 @@ function StoryPage() {
   useEffect(() => {
     return () => {
       audioEngineRef.current?.stopAll()
+      if (isStarted && !isFinished && story?.id) {
+        trackAbandon(story.id, currentIndex, segments.length)
+      }
     }
-  }, [])
+  }, [isStarted, isFinished, story, currentIndex, segments.length])
 
   useEffect(() => {
     if (!isStarted || !audioEngineRef.current || !segments[currentIndex]) {
