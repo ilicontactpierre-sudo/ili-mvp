@@ -1223,9 +1223,7 @@ function GameSequence({ data, onResolved }) {
       setTimeout(onResolved, 1000)
     } else {
       playError()
-      // Trouver le premier élément mal placé
-      const first = items.findIndex((item, i) => item !== correct[i])
-      setErrorIdx(first)
+      setErrorIdx('all')
       setTimeout(() => setErrorIdx(null), 800)
     }
   }
@@ -1245,7 +1243,7 @@ function GameSequence({ data, onResolved }) {
 
       <div style={{ width: '100%', maxWidth: '380px', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
         {items.map((item, i) => {
-          const isWrong = errorIdx === i
+          const isWrong = errorIdx === 'all'
           const isGood  = success && item === correct[i]
           return (
             <div
