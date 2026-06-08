@@ -335,6 +335,7 @@ function StoryPage() {
             audioEngineRef.current = new AudioEngine(preloadedHowlMap)
             ignoreAdvanceUntilRef.current = Date.now() + 600
             touchStartY.current = null
+            trackStart(story?.id, segments.length)
             if (resume) {
               const saved = story?.id ? loadProgress(story.id) : null
               if (saved && saved.segmentIndex > 0) {
