@@ -20,12 +20,16 @@
       "id": "seg_1780843404448",
       "breakAt": null,
       "gameMode": {
-        "type": "code",
-        "answer": "123",
-        "prompt": "123",
-        "hint": "123",
-        "errorMessage": "123",
-        "alreadySolvedMessage": "123"
+        "type": "riddle",
+        "question": "234",
+        "answer": "234",
+        "hint": "234",
+        "placeholder": "234",
+        "caseSensitive": true,
+        "errorMessage": "234",
+        "closeMessage": "234",
+        "decoys": 234,
+        "decoysRaw": "234"
       },
       "audioEvents": []
     },
@@ -33,12 +37,16 @@
       "text": "",
       "id": "seg_1780843406344",
       "gameMode": {
-        "type": "code",
-        "answer": "123",
-        "prompt": "123",
-        "hint": "123",
-        "errorMessage": "123",
-        "alreadySolvedMessage": "123"
+        "type": "riddle",
+        "question": "234234",
+        "answer": "234234",
+        "hint": "234234",
+        "placeholder": "234234",
+        "caseSensitive": false,
+        "errorMessage": "234234",
+        "closeMessage": "234234",
+        "decoys": 234234,
+        "decoysRaw": "234234"
       },
       "audioEvents": []
     },
