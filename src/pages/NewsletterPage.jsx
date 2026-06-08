@@ -1,4 +1,4 @@
-cat > /mnt/user-data/outputs/NewsletterPage.jsx << 'ENDOFFILE'
+
 import { useState, useEffect } from 'react'
 
 function NewsletterPage({ password }) {
@@ -372,4 +372,3 @@ function NewsletterPage({ password }) {
 }
 
 export default NewsletterPage
-ENDOFFILE
