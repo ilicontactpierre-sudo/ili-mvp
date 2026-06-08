@@ -39,6 +39,20 @@ function SoundLibraryPicker({
 }) {
   const [search, setSearch] = useState(initialSearch || '')
 const [debouncedSearch, setDebouncedSearch] = useState(initialSearch || '')
+const [workerResults, setWorkerResults] = useState(null)
+const workerRef = useRef(null)
+const requestIdRef = useRef(0)
+
+useEffect(() => {
+  workerRef.current = new Worker('/soundSearchWorker.js')
+  workerRef.current.onmessage = (e) => {
+    const { results, requestId } = e.data
+    if (requestId === requestIdRef.current) {
+      setWorkerResults(results)
+    }
+  }
+  return () => workerRef.current?.terminate()
+}, [])
 
 useEffect(() => {
   const timer = setTimeout(() => setDebouncedSearch(search), 300)
@@ -91,9 +105,19 @@ const familyTags = useMemo(() => {
     .map(([tag]) => tag)
 }, [familySounds])
 
-const filteredSounds = useMemo(() => {
-  return filterAndScoreSounds(familySounds, debouncedSearch, activeTags, onlyUploaded)
+useEffect(() => {
+  if (!workerRef.current) return
+  const id = ++requestIdRef.current
+  workerRef.current.postMessage({
+    sounds: familySounds,
+    searchQuery: debouncedSearch,
+    activeTags,
+    onlyUploaded,
+    requestId: id,
+  })
 }, [familySounds, debouncedSearch, activeTags, onlyUploaded])
+
+const filteredSounds = workerResults ?? familySounds
 
   const selectFamily = (familyId) => {
     if (selectedFamily === familyId) {
