@@ -32,7 +32,7 @@
       "lines": [
         "VFX Je me demande si j'ai fais beaucoup de fautes ou pas, et franchement, il y a des chances que oui."
       ],
-      "text": "BROUILLARD Je me demande si j'ai fais beaucoup de fautes ou pas, et franchement, il y a des chances que oui.",
+      "text": "BROUILLARD LEGER Je me demande si j'ai fais beaucoup de fautes ou pas, et franchement, il y a des chances que oui.",
       "breakAt": null,
       "isLeader": false,
       "audioEvents": []
@@ -48,6 +48,12 @@
       "audioEvents": []
     },
     {
+      "text": "BROUILLARD DENSE Je me demande si j'ai fais beaucoup de fautes ou pas, et franchement, il y a des chances que oui.",
+      "id": "seg_1780955740019",
+      "breakAt": null,
+      "audioEvents": []
+    },
+    {
       "id": "seg_1780953039356_4_rtosu",
       "lines": [
         "Genre un s en trop, et quelque chose du genre."
@@ -55,6 +61,18 @@
       "text": "Genre un s en trop, et quelque chose du genre.",
       "breakAt": null,
       "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "text": "BROUILLARD ÉPAIS Je me demande si j'ai fais beaucoup de fautes ou pas, et franchement, il y a des chances que oui.",
+      "id": "seg_1780955750671",
+      "breakAt": null,
+      "audioEvents": []
+    },
+    {
+      "text": "e fautes ou pas, et franchement, il y a des chances que oui.",
+      "id": "seg_1780955766581",
+      "breakAt": null,
       "audioEvents": []
     },
     {
@@ -114,7 +132,7 @@
     {
       "id": "vfx_1780953041356_vrhkdujsq",
       "type": "fog",
-      "mode": "léger",
+      "mode": "dense",
       "loop": false,
       "color": "rgba(200, 0, 0, 0.12)",
       "column": 0,
@@ -150,6 +168,26 @@
       "column": 0,
       "startSegmentId": "seg_1780954829445_4_2byai",
       "endSegmentId": "seg_1780954829445_4_2byai"
+    },
+    {
+      "id": "vfx_1780955774776_2v3ecfpa8",
+      "type": "fog",
+      "mode": "dense",
+      "loop": false,
+      "color": "rgba(200, 0, 0, 0.12)",
+      "column": 0,
+      "startSegmentId": "seg_1780955740019",
+      "endSegmentId": "seg_1780955740019"
+    },
+    {
+      "id": "vfx_1780955780193_jbjs2mjgz",
+      "type": "fog",
+      "mode": "épais",
+      "loop": false,
+      "color": "rgba(200, 0, 0, 0.12)",
+      "column": 0,
+      "startSegmentId": "seg_1780955750671",
+      "endSegmentId": "seg_1780955750671"
     }
   ]
 }
