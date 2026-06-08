@@ -1665,7 +1665,7 @@ function GameCode({ data, onResolved }) {
   const [success, setSuccess] = useState(false)
   const [errorAt, setErrorAt] = useState(null)
   const { playTock, playSuccess, playError } = useKeySound()
-  const validatedRef = useRef('')
+  const inputRef = useRef(null)
 
   const validate = (val) => {
     const attempt = String(val || input)
