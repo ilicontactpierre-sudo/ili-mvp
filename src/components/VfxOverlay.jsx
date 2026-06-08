@@ -169,40 +169,70 @@ function VfxOverlay({ activeType, activeMode }) {
 
   const fireContent = (
     <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', overflow: 'hidden' }}>
+
+      {/* Lueur principale — bas de l'écran */}
       <div style={{
         position: 'absolute',
-        bottom: '-10%',
-        left: '-10%',
-        width: '120%',
+        bottom: '-20%',
+        left: '-20%',
+        width: '140%',
+        height: '80%',
+        background: 'radial-gradient(ellipse at 50% 100%, rgba(210,110,10,0.55) 0%, rgba(180,70,0,0.28) 40%, transparent 70%)',
+        animation: `${fireAnimName} ${fireDuration} ease-in-out infinite`,
+        mixBlendMode: isDark ? 'screen' : 'multiply',
+      }} />
+
+      {/* Halo central — donne de la profondeur */}
+      <div style={{
+        position: 'absolute',
+        top: '20%',
+        left: '0%',
+        width: '100%',
         height: '65%',
-        background: isDark
-          ? 'radial-gradient(ellipse at 50% 100%, rgba(200,100,10,0.22) 0%, rgba(180,80,0,0.10) 45%, transparent 75%)'
-          : 'radial-gradient(ellipse at 50% 100%, rgba(180,80,0,0.15) 0%, rgba(160,60,0,0.07) 45%, transparent 75%)',
+        background: 'radial-gradient(ellipse at 50% 70%, rgba(230,150,20,0.22) 0%, rgba(200,90,0,0.08) 50%, transparent 75%)',
         animation: `${fireAnimName} ${fireDuration} ease-in-out infinite`,
+        animationDelay: '0.6s',
+        mixBlendMode: isDark ? 'screen' : 'multiply',
       }} />
-      <div style={{
-        position: 'absolute',
-        top: '15%',
-        left: '5%',
-        width: '90%',
-        height: '70%',
-        background: isDark
-          ? 'radial-gradient(ellipse at 50% 60%, rgba(220,140,20,0.10) 0%, transparent 65%)'
-          : 'radial-gradient(ellipse at 50% 60%, rgba(180,100,0,0.07) 0%, transparent 65%)',
-        animation: `${fireAnimName} ${fireDuration} ease-in-out infinite`,
-        animationDelay: '0.7s',
-      }} />
+
+      {/* Vignette sombre en haut — contraste dramatique */}
       <div style={{
         position: 'absolute',
         top: 0,
         left: 0,
         width: '100%',
-        height: '40%',
+        height: '45%',
         background: isDark
-          ? 'linear-gradient(to bottom, rgba(10,4,0,0.35) 0%, transparent 100%)'
-          : 'linear-gradient(to bottom, rgba(30,15,0,0.15) 0%, transparent 100%)',
-        pointerEvents: 'none',
+          ? 'linear-gradient(to bottom, rgba(8,3,0,0.50) 0%, transparent 100%)'
+          : 'linear-gradient(to bottom, rgba(20,8,0,0.20) 0%, transparent 100%)',
       }} />
+
+      {/* Lueur latérale gauche */}
+      <div style={{
+        position: 'absolute',
+        bottom: '0%',
+        left: '-15%',
+        width: '55%',
+        height: '60%',
+        background: 'radial-gradient(ellipse at 0% 100%, rgba(200,80,0,0.30) 0%, transparent 65%)',
+        animation: `${fireAnimName} ${fireDuration} ease-in-out infinite`,
+        animationDelay: '1.1s',
+        mixBlendMode: isDark ? 'screen' : 'multiply',
+      }} />
+
+      {/* Lueur latérale droite */}
+      <div style={{
+        position: 'absolute',
+        bottom: '0%',
+        right: '-15%',
+        width: '55%',
+        height: '60%',
+        background: 'radial-gradient(ellipse at 100% 100%, rgba(220,120,0,0.28) 0%, transparent 65%)',
+        animation: `${fireAnimName} ${fireDuration} ease-in-out infinite`,
+        animationDelay: '0.3s',
+        mixBlendMode: isDark ? 'screen' : 'multiply',
+      }} />
+
     </div>
   )
 
