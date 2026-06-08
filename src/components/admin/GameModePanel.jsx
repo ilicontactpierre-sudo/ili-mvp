@@ -504,7 +504,7 @@ function FormJournal({ data, onChange }) {
           placeholder="Ex : Qu'auriez-vous fait à sa place ?"
           onChange={e => onChange({ ...data, prompt: e.target.value })} />
       </Field>
-      <Field label="Placeholder du champ">
+      <Field label="Texte d'exemple dans le champ" hint="Affiché en grisé quand le champ est vide — disparaît dès que le lecteur commence à écrire">
         <input style={inputStyle} type="text" value={data.placeholder || ''}
           placeholder="Ex : Écrivez ici…"
           onChange={e => onChange({ ...data, placeholder: e.target.value })} />
