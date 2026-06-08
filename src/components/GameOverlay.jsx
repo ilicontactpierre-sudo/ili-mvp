@@ -663,8 +663,9 @@ function GameTimer({ data, onResolved }) {
   }, [remaining, expired])
 
   // Reset au tap
-  const handleTap = () => {
+  const handleTap = (e) => {
     if (!resetOnTap || expired) return
+    e.stopPropagation()
     setRemaining(total)
     setResetFlash(true)
     setTimeout(() => setResetFlash(false), 400)
@@ -676,12 +677,9 @@ function GameTimer({ data, onResolved }) {
     : pct > 0.25 ? '#d4820a' : '#c0392b'
 
   return (
-    <div
-      style={{ position: 'fixed', inset: 0, zIndex: 0, cursor: resetOnTap && !expired ? 'pointer' : 'default' }}
-      onClick={handleTap}
-    >
     <AnimatedWrapper
-      style={{ gap: '1.6rem' }}
+      style={{ gap: '1.6rem', cursor: resetOnTap && !expired ? 'pointer' : 'default' }}
+      onClick={resetOnTap ? handleTap : undefined}
     >
       {data.prompt && (
         <p style={{
@@ -799,7 +797,6 @@ function GameTimer({ data, onResolved }) {
       )}
       {!resetOnTap && !expired && data.hint && <Hint delay={600}>{data.hint}</Hint>}
     </AnimatedWrapper>
-    </div>
   )
 }
 
