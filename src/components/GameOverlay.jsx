@@ -793,7 +793,7 @@ function GameTimer({ data, onResolved }) {
 
       {/* Hint reset */}
       {resetOnTap && !expired && (
-        <Hint delay={800}>— toucher pour recommencer —</Hint>
+        <Hint delay={800}></Hint>
       )}
       {!resetOnTap && !expired && data.hint && <Hint delay={600}>{data.hint}</Hint>}
     </AnimatedWrapper>
