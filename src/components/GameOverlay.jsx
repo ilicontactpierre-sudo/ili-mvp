@@ -679,9 +679,18 @@ function GameTimer({ data, onResolved }) {
     : pct > 0.25 ? '#d4820a' : '#c0392b'
 
   return (
+    <>
+    {resetOnTap && !expired && (
+      <div
+        onClick={handleTap}
+        style={{
+          position: 'fixed', inset: 0, zIndex: 0,
+          cursor: 'pointer',
+        }}
+      />
+    )}
     <AnimatedWrapper
       style={{ gap: '1.6rem', cursor: resetOnTap && !expired ? 'pointer' : 'default' }}
-      onClick={resetOnTap ? handleTap : undefined}
     >
       {data.prompt && (
         <p style={{
@@ -692,16 +701,6 @@ function GameTimer({ data, onResolved }) {
         }}>
           {data.prompt}
         </p>
-      )}
-
-      {/* Flash reset */}
-      {resetFlash && (
-        <div style={{
-          position: 'fixed', inset: 0, zIndex: 300,
-          backgroundColor: 'var(--color-text-focus, #222)',
-          opacity: 0.06, pointerEvents: 'none',
-          animation: `game-fade-up 400ms ${EASE.out}`,
-        }} />
       )}
 
       {/* Arc SVG */}
