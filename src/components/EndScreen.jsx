@@ -80,34 +80,61 @@ function EndScreen({ title, author, formUrl, bookUrl }) {
 
         {/* ── Soutien au projet ── */}
         <div style={{ marginTop: '2.2rem', display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
-          {/* Substack — newsletter */}
-          <a
-            href="https://iliofficial.substack.com/"
-            target="_blank"
-            rel="noreferrer"
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              gap: '0.6rem',
-              marginInline: 'auto',
-              width: 'fit-content',
-              padding: '0.85rem 1.6rem',
-              borderRadius: '999px',
-              background: 'var(--color-text-focus)',
-              color: 'var(--color-bg)',
-              textDecoration: 'none',
-              fontSize: '0.95rem',
-              fontFamily: 'var(--font-primary)',
-              fontWeight: 600,
-              letterSpacing: '0.02em',
-            }}
-          >
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M22.539 8.242H1.46V5.406h21.08v2.836zM1.46 10.812V24L12 18.11 22.54 24V10.812H1.46zM22.54 0H1.46v2.836h21.08V0z"/>
-            </svg>
-            Être prévenu de la prochaine histoire
-          </a>
+          {/* Encart inscription newsletter */}
+          {subscribeStatus === 'success' ? (
+            <p style={{ fontSize: '0.9rem', opacity: 0.7, letterSpacing: '0.02em' }}>
+              ✓ À bientôt dans votre boîte mail.
+            </p>
+          ) : (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', width: '100%', maxWidth: '22rem', marginInline: 'auto' }}>
+              <p style={{ margin: 0, fontSize: '0.85rem', opacity: 0.6, letterSpacing: '0.02em' }}>
+                Être prévenu de la prochaine histoire
+              </p>
+              <div style={{ display: 'flex', gap: '0.5rem' }}>
+                <input
+                  type="email"
+                  placeholder="votre@email.com"
+                  value={email}
+                  onChange={e => setEmail(e.target.value)}
+                  onKeyDown={e => e.key === 'Enter' && handleSubscribe()}
+                  style={{
+                    flex: 1,
+                    padding: '0.75rem 1rem',
+                    borderRadius: '999px',
+                    border: '1px solid ' + btnBorder,
+                    background: 'transparent',
+                    color: 'var(--color-text-focus)',
+                    fontSize: '0.9rem',
+                    fontFamily: 'var(--font-primary)',
+                    outline: 'none',
+                  }}
+                />
+                <button
+                  onClick={handleSubscribe}
+                  disabled={subscribeStatus === 'loading'}
+                  style={{
+                    padding: '0.75rem 1.2rem',
+                    borderRadius: '999px',
+                    border: 'none',
+                    background: 'var(--color-text-focus)',
+                    color: 'var(--color-bg)',
+                    fontSize: '0.9rem',
+                    fontFamily: 'var(--font-primary)',
+                    fontWeight: 600,
+                    cursor: subscribeStatus === 'loading' ? 'wait' : 'pointer',
+                    whiteSpace: 'nowrap',
+                  }}
+                >
+                  {subscribeStatus === 'loading' ? '…' : 'Me prévenir'}
+                </button>
+              </div>
+              {subscribeStatus === 'error' && (
+                <p style={{ margin: 0, fontSize: '0.8rem', color: 'var(--color-text-focus)', opacity: 0.6 }}>
+                  Une erreur est survenue, réessayez.
+                </p>
+              )}
+            </div>
+          )}
 
           {/* Ko-fi — soutien */}
           <a
