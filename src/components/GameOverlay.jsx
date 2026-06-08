@@ -226,6 +226,8 @@ function GameOverlay({ gameMode, onResolved, onBack, segmentIndex }) {
           padding: '2rem',
           boxSizing: 'border-box',
         }}>
+          {onBack && <BackArrow onBack={onBack} />}
+          <ForwardArrow onForward={handleResolved} />
           <AnimatedWrapper style={{ gap: '1.4rem' }}>
             <p style={{
               fontSize: '0.78rem',
@@ -238,7 +240,6 @@ function GameOverlay({ gameMode, onResolved, onBack, segmentIndex }) {
             }}>
               {gameMode?.alreadySolvedMessage || 'vous connaissez déjà la réponse'}
             </p>
-            <ContinueBtn onClick={handleResolved} label="continuer" delay={200} />
             <button
               onClick={() => setForceReplay(true)}
               style={{
@@ -252,7 +253,6 @@ function GameOverlay({ gameMode, onResolved, onBack, segmentIndex }) {
                 fontStyle: 'italic',
                 fontFamily: 'var(--font-primary, Georgia, serif)',
                 padding: '0.25rem',
-                marginTop: '-0.5rem',
               }}
               onMouseEnter={e => e.currentTarget.style.opacity = '0.55'}
               onMouseLeave={e => e.currentTarget.style.opacity = '0.25'}
