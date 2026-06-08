@@ -16,15 +16,15 @@ const GAME_TYPES = [
 const DEFAULTS = {
   image:   { type: 'image',   imageUrl: '', caption: '' },
   message: { type: 'message', text: '', interface: 'sms', speed: 'normal' },
-  code:    { type: 'code',    answer: '', prompt: '', hint: '', errorMessage: '' },
-  riddle:  { type: 'riddle',  question: '', answer: '', hint: '', placeholder: '', caseSensitive: false, errorMessage: '' },
+  code:    { type: 'code',    answer: '', prompt: '', hint: '', errorMessage: '', sounds: false },
+  riddle:  { type: 'riddle',  question: '', answer: '', hint: '', placeholder: '', caseSensitive: false, errorMessage: '', sounds: false },
   timer:    { type: 'timer',    seconds: 6, prompt: '', hint: '', expireMessage: '' },
   document:  { type: 'document',  style: 'letter', title: '', body: '', date: '', stamp: '', from: '', to: '' },
   filmstrip: { type: 'filmstrip', images: [], interval: 2500, showCounter: true },
-  sequence:  { type: 'sequence',  items: ['', '', ''], prompt: '', successMessage: '' },
+  sequence:  { type: 'sequence',  items: ['', '', ''], prompt: '', successMessage: '', sounds: false },
   journal:   { type: 'journal',   prompt: '', placeholder: '', memoryKey: '', continueLabel: '' },
-  echo:      { type: 'echo',      phrase: '', prompt: '', successMessage: '' },
-  crypte:    { type: 'crypte',    cipher: 'caesar', shift: 3, encoded: '', answer: '', hint: '', errorMessage: '' },
+  echo:      { type: 'echo',      phrase: '', prompt: '', successMessage: '', sounds: false },
+  crypte:    { type: 'crypte',    cipher: 'caesar', shift: 3, encoded: '', answer: '', hint: '', errorMessage: '', sounds: false },
 }
 
 function Field({ label, hint, children }) {
