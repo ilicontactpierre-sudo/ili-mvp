@@ -1134,7 +1134,7 @@ function GameJournal({ data, onResolved }) {
           value={text}
           onChange={e => setText(e.target.value)}
           disabled={saved}
-          placeholder={data.placeholder || 'Écrivez ici…'}
+          placeholder={data.placeholder || ''}
           rows={5}
           style={{
             width: '100%',
