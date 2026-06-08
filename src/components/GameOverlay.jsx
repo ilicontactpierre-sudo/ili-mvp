@@ -634,7 +634,7 @@ function GameFilmstrip({ data, onResolved }) {
 
 // ─── Type : Minuteur ─────────────────────────────────────────────────────────
 function GameTimer({ data, onResolved }) {
-  const total = data.seconds || 5
+  const total = data.seconds || 30
   const timerStyle = data.timerStyle || 'arc'
   const resetOnTap = data.resetOnTap === true
 
