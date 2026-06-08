@@ -41,10 +41,12 @@ function StoryPage() {
     setCurrentIndex((prevIndex) => {
       if (prevIndex >= lastIndex) {
         setIsFinished(true)
+        trackFinish(story?.id, segments.length)
         return prevIndex
       }
       const next = prevIndex + 1
       if (story?.id) saveProgress(story.id, next)
+      trackProgress(story?.id, next, segments.length)
       return next
     })
   }, [isFinished, isStarted, lastIndex, segments.length, story])
