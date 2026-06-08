@@ -1,0 +1,73 @@
+{
+  "id": "test-vfx-2-test-vfx-2",
+  "title": "TEST VFX 2",
+  "author": "TEST VFX 2",
+  "published": true,
+  "sounds": [],
+  "segments": [
+    {
+      "id": "seg_1780953039356_0_5lnao",
+      "lines": [
+        "Je fais un test avec un text un peu long pour essayer les effets.",
+        "On verra si ça marche."
+      ],
+      "text": "Je fais un test avec un text un peu long pour essayer les effets. On verra si ça marche.",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1780953039356_1_5sxaa",
+      "lines": [
+        "En tout cas, si ça marche c'est super !!"
+      ],
+      "text": "En tout cas, si ça marche c'est super !!",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1780953039356_2_zmbwu",
+      "lines": [
+        "VFX Je me demande si j'ai fais beaucoup de fautes ou pas, et franchement, il y a des chances que oui."
+      ],
+      "text": "VFX Je me demande si j'ai fais beaucoup de fautes ou pas, et franchement, il y a des chances que oui.",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1780953039356_3_p2i2f",
+      "lines": [
+        "Avec un peu de chance, ça a même ajouter du texte."
+      ],
+      "text": "Avec un peu de chance, ça a même ajouter du texte.",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1780953039356_4_rtosu",
+      "lines": [
+        "Genre un s en trop, et quelque chose du genre."
+      ],
+      "text": "Genre un s en trop, et quelque chose du genre.",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    }
+  ],
+  "soundTracks": [],
+  "vfxTracks": [
+    {
+      "id": "vfx_1780953041356_vrhkdujsq",
+      "type": "fog",
+      "mode": "léger",
+      "loop": false,
+      "color": "rgba(200, 0, 0, 0.12)",
+      "column": 0,
+      "startSegmentId": "seg_1780953039356_2_zmbwu",
+      "endSegmentId": "seg_1780953039356_2_zmbwu"
+    }
+  ]
+}
