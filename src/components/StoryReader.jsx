@@ -370,13 +370,12 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle',
     }
   }, [currentIndex, storyData])
 
-  // ── Track d'ambiance actif (fog, rain, etc.) ──
+  // ── Track d'ambiance actif (fog, rain, snow, etc.) ──
+  const AMBIANCE_TYPES = ['fog']
   const activeAmbianceTrack = (() => {
     if (!storyData?.vfxTracks) return null
     return storyData.vfxTracks.find(t => {
-      const def = (await import('./admin/constants').catch(() => null))
-      // On vérifie manuellement les types ambiance connus
-      if (!['fog'].includes(t.type)) return false
+      if (!AMBIANCE_TYPES.includes(t.type)) return false
       const segs = storyData.segments || []
       const si = segs.findIndex(s => s.id === t.startSegmentId || s._id === t.startSegmentId)
       const ei = segs.findIndex(s => s.id === t.endSegmentId   || s._id === t.endSegmentId)
