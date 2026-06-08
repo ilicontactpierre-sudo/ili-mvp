@@ -17,16 +17,12 @@
     },
     {
       "text": "",
-      "id": "seg_1780843404448",
-      "breakAt": null,
+      "id": "seg_1780906317592",
       "gameMode": {
-        "type": "timer",
-        "seconds": 3,
-        "prompt": "123",
-        "hint": "345",
-        "expireMessage": "234",
-        "timerStyle": "retro",
-        "resetOnTap": true
+        "type": "echo",
+        "phrase": "12Aa",
+        "prompt": "",
+        "successMessage": ""
       },
       "audioEvents": []
     },
