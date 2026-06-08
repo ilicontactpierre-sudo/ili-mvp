@@ -1,12 +1,29 @@
+cat > /mnt/user-data/outputs/NewsletterPage.jsx << 'ENDOFFILE'
 import { useState, useEffect } from 'react'
 
 function NewsletterPage({ password }) {
   const [subscribers, setSubscribers] = useState([])
   const [loadingSubscribers, setLoadingSubscribers] = useState(true)
-  const [subject, setSubject] = useState('')
-  const [body, setBody] = useState('')
+
+  const [theme, setTheme] = useState('dark')
+  const [label, setLabel] = useState('Nouvelle histoire disponible')
+  const [storyNum, setStoryNum] = useState('001')
+  const [storyTitle, setStoryTitle] = useState('')
+  const [storyDesc, setStoryDesc] = useState('')
+  const [readTime, setReadTime] = useState('')
+  const [storyUrl, setStoryUrl] = useState('')
+  const [footerMsg, setFooterMsg] = useState('Merci de faire partie de l\u2019exp\u00e9rience ILi.')
+  const [signature, setSignature] = useState('\u00c0 bient\u00f4t,\nL\u2019\u00e9quipe ILi')
+
   const [sending, setSending] = useState(false)
   const [result, setResult] = useState(null)
+
+  const bg = theme === 'dark' ? '#080809' : '#f5f4f0'
+  const fg = theme === 'dark' ? '#ffffff' : '#0a0a0a'
+  const fgMid = theme === 'dark' ? 'rgba(255,255,255,0.55)' : 'rgba(0,0,0,0.5)'
+  const fgLow = theme === 'dark' ? 'rgba(255,255,255,0.25)' : 'rgba(0,0,0,0.28)'
+  const borderColor = theme === 'dark' ? 'rgba(255,255,255,0.12)' : 'rgba(0,0,0,0.12)'
+  const ruleColor = theme === 'dark' ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.08)'
 
   useEffect(() => {
     const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL
@@ -24,120 +41,330 @@ function NewsletterPage({ password }) {
         setLoadingSubscribers(false)
       })
       .catch(() => setLoadingSubscribers(false))
+
+    fetch(`${SUPABASE_URL}/rest/v1/newsletters?select=number&order=number.desc&limit=1`, {
+      headers: {
+        'apikey': SUPABASE_ANON_KEY,
+        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+      }
+    })
+      .then(r => r.json())
+      .then(data => {
+        const last = Array.isArray(data) && data.length > 0 ? data[0].number : 0
+        setStoryNum(String(last + 1).padStart(3, '0'))
+      })
+      .catch(() => setStoryNum('001'))
   }, [])
 
+  const buildHtml = () => {
+    const signatureHtml = signature.split('\n').join('<br/>')
+    const titleDisplay = storyTitle || 'TITRE DE L\'HISTOIRE'
+    const descDisplay = storyDesc || 'Description courte de l\'histoire.'
+    const urlDisplay = storyUrl || '#'
+    const timeDisplay = readTime || '? min'
+
+    return `<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>${label}</title>
+</head>
+<body style="margin:0;padding:0;background:${bg};">
+<table width="100%" cellpadding="0" cellspacing="0" style="background:${bg};min-height:100vh;">
+<tr><td align="center" style="padding:0;">
+<table width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;">
+<tr><td style="padding:56px 48px 48px;font-family:'Roboto',Helvetica,Arial,sans-serif;color:${fg};">
+
+  <p style="text-align:center;font-size:40px;font-weight:300;letter-spacing:0.22em;color:${fg};margin:0 0 8px;">ILi</p>
+  <p style="text-align:center;font-size:9px;font-weight:300;letter-spacing:0.5em;text-transform:uppercase;color:${fgLow};margin:0 0 40px;">Lecture immersive</p>
+
+  <div style="width:100%;height:1px;background:${borderColor};margin:0 0 40px;"></div>
+
+  <p style="text-align:center;font-size:9px;font-weight:300;letter-spacing:0.45em;text-transform:uppercase;color:${fgMid};margin:0 0 32px;">${label}</p>
+
+  <table width="100%" cellpadding="0" cellspacing="0" style="border:1px solid ${borderColor};margin-bottom:40px;">
+  <tr><td style="padding:36px 36px 32px;">
+    <p style="font-size:9px;font-weight:300;letter-spacing:0.4em;text-transform:uppercase;color:${fgLow};margin:0 0 20px;">Histoire #${storyNum}</p>
+    <p style="font-size:34px;font-weight:300;letter-spacing:0.08em;text-transform:uppercase;color:${fg};margin:0 0 20px;line-height:1.1;">${titleDisplay}</p>
+    <div style="width:28px;height:1px;background:${fgMid};margin:0 0 24px;"></div>
+    <p style="font-family:Georgia,'Times New Roman',serif;font-size:14px;line-height:1.75;color:${fgMid};margin:0 0 32px;font-style:italic;">${descDisplay}</p>
+    <table width="100%" cellpadding="0" cellspacing="0"><tr>
+      <td style="font-size:9px;font-weight:300;letter-spacing:0.3em;text-transform:uppercase;color:${fgLow};">&#9675;&nbsp; ${timeDisplay} de lecture</td>
+      <td align="right"><a href="${urlDisplay}" style="font-size:9px;font-weight:400;letter-spacing:0.3em;text-transform:uppercase;color:${fg};text-decoration:none;border-bottom:1px solid ${fgMid};padding-bottom:2px;">Lire l'histoire &rarr;</a></td>
+    </tr></table>
+  </td></tr>
+  </table>
+
+  <div style="width:100%;height:1px;background:${ruleColor};margin:0 0 36px;"></div>
+
+  <p style="font-size:9px;font-weight:300;letter-spacing:0.32em;text-transform:uppercase;color:${fgLow};text-align:center;line-height:2;margin:0 0 28px;">${footerMsg}</p>
+
+  <div style="width:28px;height:1px;background:${borderColor};margin:0 auto 24px;"></div>
+
+  <p style="font-size:9px;font-weight:300;letter-spacing:0.35em;text-transform:uppercase;color:${fgLow};text-align:center;line-height:2;margin:0 0 40px;">${signatureHtml}</p>
+
+  <p style="font-size:10px;font-weight:300;letter-spacing:0.1em;color:${fgLow};text-align:center;margin:0;">Pour vous d&eacute;sinscrire, r&eacute;pondez avec le mot &laquo;&nbsp;d&eacute;sinscription&nbsp;&raquo;.</p>
+
+</td></tr>
+</table>
+</td></tr>
+</table>
+</body>
+</html>`
+  }
+
+  const activeCount = subscribers.filter(s => s.active).length
+
   const handleSend = async () => {
-    if (!subject.trim() || !body.trim()) {
-      setResult({ error: 'Le sujet et le contenu sont requis.' })
+    if (!storyTitle.trim()) {
+      setResult({ error: 'Le titre de l\'histoire est requis.' })
       return
     }
-    if (!window.confirm(`Envoyer cette newsletter à ${subscribers.filter(s => s.active).length} abonné(s) ?`)) return
-
+    if (!window.confirm(`Envoyer cette newsletter a ${activeCount} abonne(s) ?`)) return
     setSending(true)
     setResult(null)
-
     try {
       const res = await fetch('/api/send-newsletter', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ password, subject, body })
+        body: JSON.stringify({
+          password,
+          subject: `ILi — ${storyTitle}`,
+          body: buildHtml(),
+          isHtml: true,
+          storyNum
+        })
       })
       const data = await res.json()
       if (data.success) {
         setResult({ success: data.message })
-        setSubject('')
-        setBody('')
+        setStoryTitle('')
+        setStoryDesc('')
+        setReadTime('')
+        setStoryUrl('')
+        setStoryNum(n => String(parseInt(n) + 1).padStart(3, '0'))
       } else {
         setResult({ error: data.error || 'Erreur inconnue' })
       }
     } catch {
-      setResult({ error: 'Erreur réseau' })
+      setResult({ error: 'Erreur reseau' })
     } finally {
       setSending(false)
     }
   }
 
-  const activeCount = subscribers.filter(s => s.active).length
+  const inputStyle = {
+    padding: '0.7rem 0.9rem',
+    fontSize: '0.9rem',
+    border: '1px solid #ddd',
+    borderRadius: '4px',
+    fontFamily: 'inherit',
+    width: '100%',
+    boxSizing: 'border-box',
+    background: '#fff',
+    color: '#1a1a1a'
+  }
+
+  const labelStyle = {
+    fontSize: '0.72rem',
+    fontWeight: 500,
+    letterSpacing: '0.08em',
+    textTransform: 'uppercase',
+    color: '#999',
+    marginBottom: '6px',
+    display: 'block'
+  }
+
+  const sectionStyle = {
+    border: '1px solid #eee',
+    borderRadius: '8px',
+    padding: '1.5rem',
+    backgroundColor: '#fff',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '1rem'
+  }
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem', maxWidth: '700px', margin: '0 auto', padding: '2rem 1rem' }}>
+    <div style={{ display: 'flex', gap: '2rem', maxWidth: '1100px', margin: '0 auto', padding: '2rem 1rem', alignItems: 'flex-start', flexWrap: 'wrap' }}>
 
-      {/* Abonnés */}
-      <div style={{ border: '1px solid #eee', borderRadius: '8px', padding: '1.5rem', backgroundColor: '#fff' }}>
-        <h2 style={{ margin: '0 0 1rem', fontSize: '1.2rem', color: '#333' }}>Abonnés</h2>
-        {loadingSubscribers ? (
-          <p style={{ color: '#999', fontSize: '0.9rem' }}>Chargement…</p>
-        ) : (
-          <>
-            <p style={{ margin: '0 0 1rem', fontSize: '0.95rem', color: '#555' }}>
-              <strong>{activeCount}</strong> abonné(s) actif(s) sur {subscribers.length} inscrits
-            </p>
-            {subscribers.length > 0 && (
-              <div style={{ maxHeight: '200px', overflowY: 'auto', border: '1px solid #f0f0f0', borderRadius: '6px' }}>
-                {subscribers.map((s, i) => (
-                  <div key={i} style={{
-                    display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-                    padding: '0.5rem 0.75rem',
-                    borderBottom: i < subscribers.length - 1 ? '1px solid #f5f5f5' : 'none',
-                    backgroundColor: s.active ? '#fff' : '#fafafa'
-                  }}>
-                    <span style={{ fontSize: '0.85rem', color: s.active ? '#333' : '#bbb' }}>{s.email}</span>
-                    <span style={{ fontSize: '0.75rem', color: '#bbb' }}>
-                      {new Date(s.created_at).toLocaleDateString('fr-FR')}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            )}
-          </>
+      {/* COLONNE GAUCHE : formulaire */}
+      <div style={{ flex: '1 1 380px', display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+
+        {/* Abonnes */}
+        <div style={sectionStyle}>
+          <h2 style={{ margin: 0, fontSize: '1rem', color: '#333', fontWeight: 600 }}>Abonnes</h2>
+          {loadingSubscribers ? (
+            <p style={{ color: '#bbb', fontSize: '0.85rem' }}>Chargement…</p>
+          ) : (
+            <>
+              <p style={{ margin: 0, fontSize: '0.9rem', color: '#555' }}>
+                <strong>{activeCount}</strong> actif(s) sur {subscribers.length}
+              </p>
+              {subscribers.length > 0 && (
+                <div style={{ maxHeight: '160px', overflowY: 'auto', border: '1px solid #f0f0f0', borderRadius: '6px' }}>
+                  {subscribers.map((s, i) => (
+                    <div key={i} style={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      padding: '0.45rem 0.75rem',
+                      borderBottom: i < subscribers.length - 1 ? '1px solid #f5f5f5' : 'none'
+                    }}>
+                      <span style={{ fontSize: '0.82rem', color: s.active ? '#333' : '#ccc' }}>{s.email}</span>
+                      <span style={{ fontSize: '0.75rem', color: '#ccc' }}>{new Date(s.created_at).toLocaleDateString('fr-FR')}</span>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </>
+          )}
+        </div>
+
+        {/* Contenu */}
+        <div style={sectionStyle}>
+          <h2 style={{ margin: 0, fontSize: '1rem', color: '#333', fontWeight: 600 }}>Contenu</h2>
+
+          <div>
+            <span style={labelStyle}>Theme</span>
+            <div style={{ display: 'flex', gap: '0.5rem' }}>
+              {['dark', 'light'].map(t => (
+                <button key={t} onClick={() => setTheme(t)} style={{
+                  flex: 1,
+                  padding: '0.6rem',
+                  fontSize: '0.82rem',
+                  border: '1px solid ' + (theme === t ? '#1a1a1a' : '#ddd'),
+                  borderRadius: '4px',
+                  cursor: 'pointer',
+                  background: theme === t ? '#1a1a1a' : '#fff',
+                  color: theme === t ? '#fff' : '#555',
+                  fontWeight: theme === t ? 600 : 400
+                }}>
+                  {t === 'dark' ? '◼ Sombre' : '◻ Clair'}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <span style={labelStyle}>Label / Titre editorial</span>
+            <input
+              style={inputStyle}
+              value={label}
+              onChange={e => setLabel(e.target.value)}
+              placeholder="Nouvelle histoire disponible"
+            />
+          </div>
+
+          <div style={{ display: 'flex', gap: '0.75rem' }}>
+            <div style={{ flex: 1 }}>
+              <span style={labelStyle}>N° histoire (auto)</span>
+              <input
+                style={{ ...inputStyle, background: '#fafafa', color: '#aaa' }}
+                value={`#${storyNum}`}
+                readOnly
+              />
+            </div>
+            <div style={{ flex: 1 }}>
+              <span style={labelStyle}>Temps de lecture</span>
+              <input
+                style={inputStyle}
+                value={readTime}
+                onChange={e => setReadTime(e.target.value)}
+                placeholder="4 min"
+              />
+            </div>
+          </div>
+
+          <div>
+            <span style={labelStyle}>Titre de l'histoire</span>
+            <input
+              style={inputStyle}
+              value={storyTitle}
+              onChange={e => setStoryTitle(e.target.value)}
+              placeholder="Le Dernier Voyage"
+            />
+          </div>
+
+          <div>
+            <span style={labelStyle}>Description courte</span>
+            <textarea
+              style={{ ...inputStyle, resize: 'vertical', minHeight: '80px', lineHeight: '1.6' }}
+              value={storyDesc}
+              onChange={e => setStoryDesc(e.target.value)}
+              placeholder="Un homme retrouve une lettre qu'il aurait prefere oublier…"
+            />
+          </div>
+
+          <div>
+            <span style={labelStyle}>URL de l'histoire</span>
+            <input
+              style={inputStyle}
+              value={storyUrl}
+              onChange={e => setStoryUrl(e.target.value)}
+              placeholder="https://ili-mvp.vercel.app/lire/le-dernier-voyage"
+            />
+          </div>
+        </div>
+
+        {/* Fin d'email */}
+        <div style={sectionStyle}>
+          <h2 style={{ margin: 0, fontSize: '1rem', color: '#333', fontWeight: 600 }}>Fin d'email</h2>
+
+          <div>
+            <span style={labelStyle}>Message de cloture</span>
+            <input
+              style={inputStyle}
+              value={footerMsg}
+              onChange={e => setFooterMsg(e.target.value)}
+            />
+          </div>
+
+          <div>
+            <span style={labelStyle}>Signature</span>
+            <textarea
+              style={{ ...inputStyle, resize: 'vertical', minHeight: '64px', lineHeight: '1.6' }}
+              value={signature}
+              onChange={e => setSignature(e.target.value)}
+            />
+          </div>
+        </div>
+
+        {/* Envoi */}
+        <button
+          onClick={handleSend}
+          disabled={sending || activeCount === 0}
+          style={{
+            padding: '1rem',
+            fontSize: '0.85rem',
+            fontWeight: 600,
+            letterSpacing: '0.08em',
+            textTransform: 'uppercase',
+            backgroundColor: sending || activeCount === 0 ? '#ccc' : '#1a1a1a',
+            color: '#fff',
+            border: 'none',
+            borderRadius: '4px',
+            cursor: sending || activeCount === 0 ? 'not-allowed' : 'pointer'
+          }}
+        >
+          {sending ? 'Envoi…' : `Envoyer a ${activeCount} abonne(s)`}
+        </button>
+
+        {result?.success && (
+          <p style={{ color: '#28a745', fontSize: '0.85rem', margin: 0 }}>✓ {result.success}</p>
+        )}
+        {result?.error && (
+          <p style={{ color: '#dc3545', fontSize: '0.85rem', margin: 0 }}>✗ {result.error}</p>
         )}
       </div>
 
-      {/* Rédiger */}
-      <div style={{ border: '1px solid #eee', borderRadius: '8px', padding: '1.5rem', backgroundColor: '#fff' }}>
-        <h2 style={{ margin: '0 0 1rem', fontSize: '1.2rem', color: '#333' }}>Rédiger une newsletter</h2>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-          <input
-            type="text"
-            placeholder="Sujet de l'email"
-            value={subject}
-            onChange={e => setSubject(e.target.value)}
-            style={{ padding: '0.75rem', fontSize: '1rem', border: '1px solid #ccc', borderRadius: '4px' }}
-          />
-          <textarea
-            placeholder={"Bonjour,\n\nNouvelle histoire disponible sur ILi…\n\nÀ bientôt,\nL'équipe ILi"}
-            value={body}
-            onChange={e => setBody(e.target.value)}
-            rows={12}
-            style={{ padding: '0.75rem', fontSize: '0.95rem', border: '1px solid #ccc', borderRadius: '4px', resize: 'vertical', lineHeight: '1.6', fontFamily: 'inherit' }}
-          />
-          <div style={{ fontSize: '0.78rem', color: '#aaa' }}>
-            Chaque saut de ligne deviendra un paragraphe dans l'email.
-          </div>
-          <button
-            onClick={handleSend}
-            disabled={sending || activeCount === 0}
-            style={{
-              padding: '0.85rem 1.5rem',
-              fontSize: '1rem',
-              backgroundColor: sending || activeCount === 0 ? '#ccc' : '#1a1a1a',
-              color: '#fff',
-              border: 'none',
-              borderRadius: '4px',
-              cursor: sending || activeCount === 0 ? 'not-allowed' : 'pointer',
-              fontWeight: 600,
-              letterSpacing: '0.02em'
-            }}
-          >
-            {sending ? 'Envoi en cours…' : `Envoyer à ${activeCount} abonné(s)`}
-          </button>
-          {result?.success && (
-            <p style={{ color: '#28a745', fontSize: '0.9rem', margin: 0 }}>✓ {result.success}</p>
-          )}
-          {result?.error && (
-            <p style={{ color: '#dc3545', fontSize: '0.9rem', margin: 0 }}>✗ {result.error}</p>
-          )}
-        </div>
+      {/* COLONNE DROITE : apercu live */}
+      <div style={{ flex: '1 1 420px', position: 'sticky', top: '80px' }}>
+        <span style={{ ...labelStyle, marginBottom: '12px', display: 'block' }}>Apercu live</span>
+        <div
+          style={{ borderRadius: '8px', overflow: 'hidden', border: '1px solid #eee' }}
+          dangerouslySetInnerHTML={{ __html: buildHtml() }}
+        />
       </div>
 
     </div>
@@ -145,3 +372,4 @@ function NewsletterPage({ password }) {
 }
 
 export default NewsletterPage
+ENDOFFILE
