@@ -73,5 +73,10 @@
     "id": "test-digi-test-digi",
     "title": "test digi",
     "author": "test digi"
+  },
+  {
+    "id": "test-newsletter-test-newsletter",
+    "title": "Test Newsletter",
+    "author": "Test Newsletter"
   }
 ]
