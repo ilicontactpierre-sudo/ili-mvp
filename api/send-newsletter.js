@@ -70,7 +70,7 @@ export default async function handler(req, res) {
     },
     body: JSON.stringify({
       from: 'ILi <onboarding@resend.dev>',
-      to: ['ton-vrai-email@gmail.com'],
+      to: ['ili.contact.pierre@gmail.com'],
       bcc: emails,
       subject,
       html: emailHtml
