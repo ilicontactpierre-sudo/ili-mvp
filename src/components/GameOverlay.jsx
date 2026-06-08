@@ -287,6 +287,7 @@ function GameOverlay({ gameMode, onResolved, onBack, segmentIndex }) {
           willChange: 'opacity, transform',
         }}
       >
+        {onBack && <BackArrow onBack={onBack} />}
         {type === 'image'     && <GameImage     data={gameMode} onResolved={handleResolved} />}
         {type === 'filmstrip' && <GameFilmstrip data={gameMode} onResolved={handleResolved} />}
         {type === 'document'  && <GameDocument  data={gameMode} onResolved={handleResolved} />}
