@@ -1270,6 +1270,9 @@ function AdminPage() {
       {adminTab === 'newsletter' && (
         <NewsletterPage password={password} />
       )}
+      {adminTab === 'analytics' && (
+        <AnalyticsDashboard />
+      )}
 
       {adminTab === 'stories' && <>
       {/* 1. DraftManager (barre de statut sticky) */}
