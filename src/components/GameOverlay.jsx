@@ -1211,8 +1211,7 @@ function GameSequence({ data, onResolved }) {
     const next = [...items]
     const target = i + dir
     if (target < 0 || target >= next.length) return
-    playTock();
-    [next[i], next[target]] = [next[target], next[i]]
+    ;[next[i], next[target]] = [next[target], next[i]]
     setItems(next)
     setErrorIdx(null)
   }
