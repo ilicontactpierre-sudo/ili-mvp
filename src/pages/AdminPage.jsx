@@ -1234,6 +1234,34 @@ function AdminPage() {
       flexDirection: 'column',
       minHeight: '100vh'
     }}>
+      {/* Onglets admin */}
+      <div style={{ display: 'flex', borderBottom: '1px solid #eee', backgroundColor: '#fff', position: 'sticky', top: 0, zIndex: 100 }}>
+        <button
+          onClick={() => setAdminTab('stories')}
+          style={{
+            padding: '0.85rem 1.5rem', border: 'none', background: 'none', cursor: 'pointer',
+            fontSize: '0.9rem', fontWeight: adminTab === 'stories' ? 700 : 400,
+            color: adminTab === 'stories' ? '#1a1a1a' : '#999',
+            borderBottom: adminTab === 'stories' ? '2px solid #1a1a1a' : '2px solid transparent',
+          }}
+        >Histoires</button>
+        <button
+          onClick={() => setAdminTab('newsletter')}
+          style={{
+            padding: '0.85rem 1.5rem', border: 'none', background: 'none', cursor: 'pointer',
+            fontSize: '0.9rem', fontWeight: adminTab === 'newsletter' ? 700 : 400,
+            color: adminTab === 'newsletter' ? '#1a1a1a' : '#999',
+            borderBottom: adminTab === 'newsletter' ? '2px solid #1a1a1a' : '2px solid transparent',
+          }}
+        >Newsletter</button>
+      </div>
+
+      {/* Contenu selon l'onglet actif */}
+      {adminTab === 'newsletter' && (
+        <NewsletterPage password={password} />
+      )}
+
+      {adminTab === 'stories' && <>
       {/* 1. DraftManager (barre de statut sticky) */}
       <DraftManager
         title={storyTitle}
