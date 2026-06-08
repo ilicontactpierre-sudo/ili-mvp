@@ -162,10 +162,82 @@ function VfxOverlay({ activeType, activeMode }) {
     </div>
   )
 
-  // ── Contenu feu ──
+ // ── Contenu feu ──
   const mode = activeMode || 'bougie'
   const fireAnimName = `vfx-fire-glow-${mode}`
   const fireDuration = mode === 'bougie' ? '4s' : mode === 'brasier' ? '2.5s' : '1.4s'
+
+  const fireContent = (
+    <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', overflow: 'hidden' }}>
+      <div style={{
+        position: 'absolute',
+        bottom: '-10%',
+        left: '-10%',
+        width: '120%',
+        height: '65%',
+        background: isDark
+          ? 'radial-gradient(ellipse at 50% 100%, rgba(200,100,10,0.22) 0%, rgba(180,80,0,0.10) 45%, transparent 75%)'
+          : 'radial-gradient(ellipse at 50% 100%, rgba(180,80,0,0.15) 0%, rgba(160,60,0,0.07) 45%, transparent 75%)',
+        animation: `${fireAnimName} ${fireDuration} ease-in-out infinite`,
+      }} />
+      <div style={{
+        position: 'absolute',
+        top: '15%',
+        left: '5%',
+        width: '90%',
+        height: '70%',
+        background: isDark
+          ? 'radial-gradient(ellipse at 50% 60%, rgba(220,140,20,0.10) 0%, transparent 65%)'
+          : 'radial-gradient(ellipse at 50% 60%, rgba(180,100,0,0.07) 0%, transparent 65%)',
+        animation: `${fireAnimName} ${fireDuration} ease-in-out infinite`,
+        animationDelay: '0.7s',
+      }} />
+      <div style={{
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '40%',
+        background: isDark
+          ? 'linear-gradient(to bottom, rgba(10,4,0,0.35) 0%, transparent 100%)'
+          : 'linear-gradient(to bottom, rgba(30,15,0,0.15) 0%, transparent 100%)',
+        pointerEvents: 'none',
+      }} />
+    </div>
+  )
+
+  return (
+    <>
+      <div
+        ref={overlayRef}
+        style={{
+          display: 'none',
+          position: 'fixed',
+          inset: 0,
+          zIndex: 9500,
+          pointerEvents: 'none',
+          opacity: 0,
+          overflow: 'hidden',
+        }}
+      >
+        {fogContent}
+      </div>
+      <div
+        ref={fireOverlayRef}
+        style={{
+          display: 'none',
+          position: 'fixed',
+          inset: 0,
+          zIndex: 9400,
+          pointerEvents: 'none',
+          opacity: 0,
+          overflow: 'hidden',
+        }}
+      >
+        {fireContent}
+      </div>
+    </>
+  )
 }
 
 export default VfxOverlay
