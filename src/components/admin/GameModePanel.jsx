@@ -598,8 +598,8 @@ function FormTimer({ data, onChange }) {
   return (
     <>
       <Field label="Durée (secondes) *">
-        <input style={inputStyle} type="number" min="5" max="300" value={data.seconds || 30}
-          onChange={e => onChange({ ...data, seconds: parseInt(e.target.value) || 30 })} />
+        <input style={inputStyle} type="number" min="1" max="300" value={data.seconds || 6}
+          onChange={e => onChange({ ...data, seconds: parseInt(e.target.value) || 6 })} />
       </Field>
       <Field label="Forme du minuteur">
         <select style={inputStyle} value={data.timerStyle || 'arc'}
