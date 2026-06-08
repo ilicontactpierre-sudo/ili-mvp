@@ -381,6 +381,7 @@ function StoryPage() {
         <GameOverlay
           key={frozenIndex}
           gameMode={frozenGameMode}
+          segmentIndex={frozenIndex}
           onResolved={handleGameResolved}
         />
       )}
