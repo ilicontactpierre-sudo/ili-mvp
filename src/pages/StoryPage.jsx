@@ -372,6 +372,11 @@ function StoryPage() {
           gameMode={frozenGameMode}
           segmentIndex={frozenIndex}
           onResolved={handleGameResolved}
+          onBack={() => {
+            setFrozenGameMode(null)
+            setFrozenIndex(null)
+            goToPrevious()
+          }}
         />
       )}
       <StoryReader storyData={story} currentIndex={currentIndex} jumpPhase={jumpPhase} />
