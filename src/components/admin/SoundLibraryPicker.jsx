@@ -13,7 +13,7 @@ import { useState, useMemo, useRef, useEffect } from 'react'
 import { createPortal } from 'react-dom'
 import { Howl } from 'howler'
 import SoundImporter from './SoundImporter'
-import Fuse from 'fuse.js'
+import { filterAndScoreSounds } from '../../utils/soundSearch'
 import { FFmpeg } from '@ffmpeg/ffmpeg'
 import { fetchFile, toBlobURL } from '@ffmpeg/util'
 
