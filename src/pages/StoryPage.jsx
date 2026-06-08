@@ -6,6 +6,7 @@ import StoryReader from '../components/StoryReader.jsx'
 import AudioEngine from '../engine/AudioEngine.js'
 import ReaderSettings, { saveProgress, loadProgress, clearProgress } from '../components/ReaderSettings.jsx'
 import GameOverlay from '../components/GameOverlay.jsx'
+import { trackStart, trackProgress, trackFinish, trackAbandon } from '../utils/analytics.js'
 
 const fullScreenStyle = {
   minHeight: '100vh',
