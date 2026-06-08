@@ -143,10 +143,17 @@ function StoryPage() {
     }
   }, [storyId])
 
+  const abandonSentRef = useRef(false)
+
+  useEffect(() => {
+    abandonSentRef.current = false
+  }, [storyId])
+
   useEffect(() => {
     return () => {
       audioEngineRef.current?.stopAll()
-      if (isStarted && !isFinished && story?.id) {
+      if (isStarted && !isFinished && story?.id && !abandonSentRef.current) {
+        abandonSentRef.current = true
         trackAbandon(story.id, currentIndex, segments.length)
       }
     }
