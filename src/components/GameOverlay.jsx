@@ -1017,37 +1017,34 @@ function GameEcho({ data, onResolved }) {
     if (success) return
     const val = e.target.value
 
-    // Sur mobile, le clavier peut envoyer plusieurs caractères d'un coup
-    // (suggestions, correction auto). On les traite un par un.
-    const currentValid = input // ce qu'on avait de validé avant
-
     // Cas suppression
-    if (val.length < currentValid.length) {
+    if (val.length < validatedRef.current.length) {
+      validatedRef.current = val
       setInput(val)
       setErrorAt(null)
       return
     }
 
-    // Caractères ajoutés (peut être > 1 sur mobile)
-    const added = val.slice(currentValid.length)
-    let newInput = currentValid
+    // Caractères ajoutés — on part de la ref, pas du state
+    const added = val.slice(validatedRef.current.length)
+    let newInput = validatedRef.current
 
     for (const char of added) {
       const expected = phrase[newInput.length]
       if (char === expected) {
         newInput += char
       } else {
-        // Mauvais caractère : on s'arrête ici et on signale l'erreur
         playError()
         setErrorAt(newInput.length)
         setTimeout(() => setErrorAt(null), 400)
-        // Forcer le champ à revenir à la valeur validée
         e.target.value = newInput
+        validatedRef.current = newInput
         setInput(newInput)
         return
       }
     }
 
+    validatedRef.current = newInput
     setInput(newInput)
     setErrorAt(null)
 
