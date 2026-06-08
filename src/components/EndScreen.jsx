@@ -5,6 +5,24 @@ function EndScreen({ title, author, formUrl, bookUrl }) {
   const navigate = useNavigate()
   const [visible, setVisible] = useState(false)
   const [leaving, setLeaving] = useState(false)
+  const [email, setEmail] = useState('')
+  const [subscribeStatus, setSubscribeStatus] = useState(null) // null | 'loading' | 'success' | 'error'
+
+  const handleSubscribe = async () => {
+    if (!email.includes('@')) return
+    setSubscribeStatus('loading')
+    try {
+      const res = await fetch('/api/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email })
+      })
+      const data = await res.json()
+      setSubscribeStatus(data.success ? 'success' : 'error')
+    } catch {
+      setSubscribeStatus('error')
+    }
+  }
 
   useEffect(() => {
     const t = setTimeout(() => setVisible(true), 80)
