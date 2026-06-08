@@ -1652,11 +1652,11 @@ function GameDocument({ data, onResolved }) {
 function GameCode({ data, onResolved }) {
   const correctAnswer = String(data.answer || '')
   const isNumeric = /^\d+$/.test(correctAnswer)
+  const inputRef = useRef(null)
   const [input, setInput] = useState('')
   const [success, setSuccess] = useState(false)
   const [errorAt, setErrorAt] = useState(null)
   const { playTock, playSuccess, playError } = useKeySound()
-  const inputRef = useRef(null)
 
   const validate = (val) => {
     const attempt = String(val || input)
