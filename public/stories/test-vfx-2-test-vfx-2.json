@@ -13,7 +13,8 @@
       ],
       "text": "Je fais un test avec un text un peu long pour essayer les effets. On verra si ça marche.",
       "breakAt": null,
-      "isLeader": false,
+      "isLeader": true,
+      "isChapter": true,
       "audioEvents": []
     },
     {
@@ -23,7 +24,7 @@
       ],
       "text": "En tout cas, si ça marche c'est super !!",
       "breakAt": null,
-      "isLeader": false,
+      "isLeader": true,
       "audioEvents": []
     },
     {
@@ -48,6 +49,57 @@
     },
     {
       "id": "seg_1780953039356_4_rtosu",
+      "lines": [
+        "Genre un s en trop, et quelque chose du genre."
+      ],
+      "text": "Genre un s en trop, et quelque chose du genre.",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1780954829445_0_wslul",
+      "lines": [
+        "Je fais un test avec un text un peu long pour essayer les effets.",
+        "On verra si ça marche."
+      ],
+      "text": "Je fais un test avec un text un peu long pour essayer les effets. On verra si ça marche.",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1780954829445_1_9z1nx",
+      "lines": [
+        "En tout cas, si ça marche c'est super !!"
+      ],
+      "text": "En tout cas, si ça marche c'est super !!",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1780954829445_2_9tsbi",
+      "lines": [
+        "VFX Je me demande si j'ai fais beaucoup de fautes ou pas, et franchement, il y a des chances que oui."
+      ],
+      "text": "VFX Je me demande si j'ai fais beaucoup de fautes ou pas, et franchement, il y a des chances que oui.",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1780954829445_3_ef1re",
+      "lines": [
+        "Avec un peu de chance, ça a même ajouter du texte."
+      ],
+      "text": "Avec un peu de chance, ça a même ajouter du texte.",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1780954829445_4_2byai",
       "lines": [
         "Genre un s en trop, et quelque chose du genre."
       ],
