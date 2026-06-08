@@ -1,8 +1,11 @@
 import { useEffect, useRef, useState } from 'react'
 
-const FOG_OPACITY = { léger: 0.30, dense: 0.55, épais: 0.75 }
+const FOG_OPACITY  = { léger: 0.30, dense: 0.55, épais: 0.75 }
+const FIRE_OPACITY = { bougie: 1, brasier: 1, inferno: 1 }
 const FADE_IN  = 6000
 const FADE_OUT = 7000
+const FIRE_FADE_IN  = 2500
+const FIRE_FADE_OUT = 3500
 
 function getIsDark() {
   try {
