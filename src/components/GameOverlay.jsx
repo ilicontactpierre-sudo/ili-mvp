@@ -1017,38 +1017,28 @@ function GameEcho({ data, onResolved }) {
     if (success) return
     const val = e.target.value
 
-    // Cas suppression
-    if (val.length < validatedRef.current.length) {
-      validatedRef.current = val
-      setInput(val)
-      setErrorAt(null)
-      return
-    }
-
-    // Caractères ajoutés — on part de la ref, pas du state
-    const added = val.slice(validatedRef.current.length)
-    let newInput = validatedRef.current
-
-    for (const char of added) {
-      const expected = phrase[newInput.length]
-      if (char === expected) {
-        newInput += char
+    // Recalculer depuis zéro ce qui est valide dans val
+    let validated = ''
+    for (let i = 0; i < val.length; i++) {
+      if (i >= phrase.length) break
+      if (val[i] === phrase[i]) {
+        validated += val[i]
       } else {
+        // Premier caractère incorrect : on s'arrête
         playError()
-        setErrorAt(newInput.length)
+        setErrorAt(i)
         setTimeout(() => setErrorAt(null), 400)
-        e.target.value = newInput
-        validatedRef.current = newInput
-        setInput(newInput)
+        // Remettre le champ à ce qui était valide
+        if (inputRef.current) inputRef.current.value = validated
+        setInput(validated)
         return
       }
     }
 
-    validatedRef.current = newInput
-    setInput(newInput)
+    setInput(validated)
     setErrorAt(null)
 
-    if (newInput === phrase) {
+    if (validated === phrase) {
       playSuccess()
       setSuccess(true)
       setTimeout(onResolved, 1100)
