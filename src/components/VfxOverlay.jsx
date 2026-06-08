@@ -51,9 +51,7 @@ function VfxOverlay({ activeType, activeMode }) {
   const fogContent = (
     <div style={{
       position: 'absolute',
-      inset: '-30%',        // déborde largement → plus aucun bord visible
-      width: '160%',
-      height: '160%',
+      inset: 0,
       pointerEvents: 'none',
     }}>
       <svg
