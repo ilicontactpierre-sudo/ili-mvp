@@ -256,20 +256,31 @@ function StoryPage() {
   // ── Gel du gameMode affiché pour éviter le télescopage entre deux overlays consécutifs ──
   const [frozenGameMode, setFrozenGameMode] = useState(null)
   const [frozenIndex, setFrozenIndex]       = useState(null)
+  const transitioningRef = useRef(false)
 
   useEffect(() => {
+    if (transitioningRef.current) return
     const currentSegment = segments[currentIndex]
     const activeGameMode = currentSegment?.gameMode ?? null
     if (activeGameMode && frozenIndex !== currentIndex) {
       setFrozenGameMode(activeGameMode)
       setFrozenIndex(currentIndex)
     }
+    if (!activeGameMode && frozenIndex === currentIndex) {
+      setFrozenGameMode(null)
+      setFrozenIndex(null)
+    }
   }, [currentIndex, segments, frozenIndex])
 
   const handleGameResolved = useCallback(() => {
+    transitioningRef.current = true
     setFrozenGameMode(null)
     setFrozenIndex(null)
     goToNext()
+    // Laisser le temps à React de finir la transition avant de réactiver le useEffect
+    setTimeout(() => {
+      transitioningRef.current = false
+    }, 50)
   }, [goToNext])
 
   if (isLoading) {
