@@ -92,8 +92,8 @@ const familyTags = useMemo(() => {
 }, [familySounds])
 
 const filteredSounds = useMemo(() => {
-  return filterAndScoreSounds(familySounds, search, activeTags, onlyUploaded)
-}, [familySounds, search, activeTags, onlyUploaded])
+  return filterAndScoreSounds(familySounds, debouncedSearch, activeTags, onlyUploaded)
+}, [familySounds, debouncedSearch, activeTags, onlyUploaded])
 
   const selectFamily = (familyId) => {
     if (selectedFamily === familyId) {
