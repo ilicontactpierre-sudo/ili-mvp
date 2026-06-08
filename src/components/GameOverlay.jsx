@@ -1665,9 +1665,10 @@ function GameCode({ data, onResolved }) {
   const correctAnswer = String(data.answer || '')
   const isNumeric = /^\d+$/.test(correctAnswer)
   const [input, setInput] = useState('')
-  const [error, setError] = useState(false)
   const [success, setSuccess] = useState(false)
-  const { playTock, playSuccess, playError, playDelete } = useKeySound()
+  const [errorAt, setErrorAt] = useState(null)
+  const { playTock, playSuccess, playError } = useKeySound()
+  const validatedRef = useRef('')
 
   const validate = (val) => {
     const attempt = String(val || input)
