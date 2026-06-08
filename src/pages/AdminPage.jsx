@@ -1255,6 +1255,15 @@ function AdminPage() {
             borderBottom: adminTab === 'newsletter' ? '2px solid #1a1a1a' : '2px solid transparent',
           }}
         >Newsletter</button>
+        <button
+          onClick={() => setAdminTab('analytics')}
+          style={{
+            padding: '0.85rem 1.5rem', border: 'none', background: 'none', cursor: 'pointer',
+            fontSize: '0.9rem', fontWeight: adminTab === 'analytics' ? 700 : 400,
+            color: adminTab === 'analytics' ? '#1a1a1a' : '#999',
+            borderBottom: adminTab === 'analytics' ? '2px solid #1a1a1a' : '2px solid transparent',
+          }}
+        >Analytics</button>
       </div>
 
       {/* Contenu selon l'onglet actif */}
