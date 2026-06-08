@@ -139,6 +139,7 @@ export const VFX_COLORS = {
   static:     '#A0A0A0',
   // ── Ambiance ──
   fog:        '#C8D8E8',
+  fire:       '#E87C7C',
 }
 
 // Nombre de colonnes VFX (max 2 effets simultanés)
@@ -199,6 +200,7 @@ export function getVfxClass(track) {
   
     case 'static':    return '' // effet géré entièrement par JS, pas de classe CSS
     case 'fog':       return '' // effet géré par VfxOverlay, pas de classe CSS
+    case 'fire':      return '' // effet géré par VfxOverlay, pas de classe CSS
     default:          return ''
   }
 }
