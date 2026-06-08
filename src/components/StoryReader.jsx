@@ -490,6 +490,11 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle',
 
     return (
     <>
+    <VfxOverlay
+      activeType={activeAmbianceTrack?.type ?? null}
+      activeMode={activeAmbianceTrack?.mode ?? null}
+      isDark={true}
+    />
     <div
         ref={flashOverlayRef}
         style={{
