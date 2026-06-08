@@ -999,6 +999,7 @@ function GameCrypte({ data, onResolved }) {
 // ─── Type : Écho ─────────────────────────────────────────────────────────────
 function GameEcho({ data, onResolved }) {
   const phrase = data.phrase || ''
+  const inputRef = useRef(null)
   const [input, setInput] = useState('')
   const [success, setSuccess] = useState(false)
   const [errorAt, setErrorAt] = useState(null)
