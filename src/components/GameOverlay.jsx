@@ -799,6 +799,7 @@ function GameTimer({ data, onResolved }) {
       )}
       {!resetOnTap && !expired && data.hint && <Hint delay={600}>{data.hint}</Hint>}
     </AnimatedWrapper>
+    </div>
   )
 }
 
