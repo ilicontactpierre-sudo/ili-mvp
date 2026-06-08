@@ -905,7 +905,7 @@ function GameCrypte({ data, onResolved }) {
           onKeyDown={e => { if (e.key === 'Enter') validate() }}
           autoFocus
           disabled={success}
-          placeholder="votre déchiffrement…"
+          placeholder=""
           style={{
             width: '100%', maxWidth: '320px',
             padding: '0.8rem 1rem',
