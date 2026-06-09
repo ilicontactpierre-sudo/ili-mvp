@@ -1537,11 +1537,15 @@ function AdminPage() {
               {segments.length > 0 && (
                 <>
                   {/* Timeline Audio unifiée avec éditeur de segments */}
-                  <div style={{ 
-                    marginTop: '2rem', 
-                    borderTop: '1px solid #eee', 
-                    paddingTop: '1.5rem'
-                  }}>
+                  <div
+                    ref={refTimeline}
+                    style={{ 
+                      marginTop: '2rem', 
+                      borderTop: '1px solid #eee', 
+                      paddingTop: '1.5rem',
+                      scrollMarginTop: '60px',
+                    }}
+                  >
                     {isMobile ? (
                       /* ── Vue mobile : liste simple des segments ── */
                       <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', marginBottom: '1rem' }}>
