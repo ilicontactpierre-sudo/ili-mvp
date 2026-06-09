@@ -99,7 +99,7 @@ body {
 /* Logo "ILi" */
 .logo {
   font-family: var(--font-logo);
-  font-weight: 600;
+  font-weight: 300;
   font-size: clamp(72px, 15vw, 120px);
   color: var(--color-text-focus);
   letter-spacing: 0.15em;
