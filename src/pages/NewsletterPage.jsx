@@ -113,7 +113,7 @@ function NewsletterPage({ password }) {
   <div style="width:28px;height:1px;background:${borderColor};margin:0 auto 28px;"></div>
 
   <!-- SIGNATURE -->
-  <p style="font-size:10px;font-weight:500;letter-spacing:0.35em;text-transform:uppercase;color:${fgLow};text-align:center;line-height:2.2;margin:0 0 44px;">${signatureHtml}</p>
+  <p style="font-size:10px;font-weight:800;letter-spacing:0.35em;text-transform:uppercase;color:${fgLow};text-align:center;line-height:2.2;margin:0 0 44px;">${signatureHtml}</p>
 
   <!-- DESINSCRIPTION -->
   <p style="font-size:10px;font-weight:500;letter-spacing:0.1em;color:${fgLow};text-align:center;margin:0;">
