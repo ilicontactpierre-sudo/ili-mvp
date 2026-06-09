@@ -1322,6 +1322,7 @@ function AdminPage() {
             </button>
           </div>
 
+          <div ref={refTop} />
           {/* 2. StoryLoader (section collapsible) */}
           <StoryLoader
             onLoadStory={handleLoadStory}
