@@ -6,11 +6,12 @@ function NewsletterPage({ password }) {
 
   const [theme, setTheme] = useState('dark')
   const [label, setLabel] = useState('Nouvelle histoire disponible')
-  const [storyNum, setStoryNum] = useState('001')
+  const [storyPart, setStoryPart] = useState('')
   const [storyTitle, setStoryTitle] = useState('')
+  const [storyAuthor, setStoryAuthor] = useState('')
   const [storyDesc, setStoryDesc] = useState('')
   const [readTime, setReadTime] = useState('')
-  const [storyUrl, setStoryUrl] = useState('')
+  const [storyUrl, setStoryUrl] = useState('https://ili-mvp.vercel.app/lire/')
   const [footerMsg, setFooterMsg] = useState('Merci de faire partie de l\u2019exp\u00e9rience ILi.')
   const [signature, setSignature] = useState('\u00c0 bient\u00f4t,\nL\u2019\u00e9quipe ILi')
 
@@ -19,9 +20,9 @@ function NewsletterPage({ password }) {
 
   const bg = theme === 'dark' ? '#080809' : '#f5f4f0'
   const fg = theme === 'dark' ? '#ffffff' : '#0a0a0a'
-  const fgMid = theme === 'dark' ? 'rgba(255,255,255,0.55)' : 'rgba(0,0,0,0.5)'
-  const fgLow = theme === 'dark' ? 'rgba(255,255,255,0.25)' : 'rgba(0,0,0,0.28)'
-  const borderColor = theme === 'dark' ? 'rgba(255,255,255,0.12)' : 'rgba(0,0,0,0.12)'
+  const fgMid = theme === 'dark' ? 'rgba(255,255,255,0.6)' : 'rgba(0,0,0,0.55)'
+  const fgLow = theme === 'dark' ? 'rgba(255,255,255,0.3)' : 'rgba(0,0,0,0.32)'
+  const borderColor = theme === 'dark' ? 'rgba(255,255,255,0.14)' : 'rgba(0,0,0,0.14)'
   const ruleColor = theme === 'dark' ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.08)'
 
   useEffect(() => {
@@ -40,27 +41,16 @@ function NewsletterPage({ password }) {
         setLoadingSubscribers(false)
       })
       .catch(() => setLoadingSubscribers(false))
-
-    fetch(`${SUPABASE_URL}/rest/v1/newsletters?select=number&order=number.desc&limit=1`, {
-      headers: {
-        'apikey': SUPABASE_ANON_KEY,
-        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
-      }
-    })
-      .then(r => r.json())
-      .then(data => {
-        const last = Array.isArray(data) && data.length > 0 ? data[0].number : 0
-        setStoryNum(String(last + 1).padStart(3, '0'))
-      })
-      .catch(() => setStoryNum('001'))
   }, [])
 
   const buildHtml = () => {
     const signatureHtml = signature.split('\n').join('<br/>')
-    const titleDisplay = storyTitle || 'TITRE DE L\'HISTOIRE'
-    const descDisplay = storyDesc || 'Description courte de l\'histoire.'
+    const titleDisplay = storyTitle || 'TITRE DE L&#39;HISTOIRE'
+    const authorDisplay = storyAuthor || 'Auteur'
+    const descDisplay = storyDesc || 'Description courte de l&#39;histoire.'
     const urlDisplay = storyUrl || '#'
     const timeDisplay = readTime || '? min'
+    const partDisplay = storyPart ? `Partie ${storyPart}` : ''
 
     return `<!DOCTYPE html>
 <html lang="fr">
@@ -71,39 +61,64 @@ function NewsletterPage({ password }) {
 </head>
 <body style="margin:0;padding:0;background:${bg};">
 <table width="100%" cellpadding="0" cellspacing="0" style="background:${bg};min-height:100vh;">
-<tr><td align="center" style="padding:0;">
+<tr><td align="center" style="padding:32px 0;">
 <table width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;">
 <tr><td style="padding:56px 48px 48px;font-family:'Roboto',Helvetica,Arial,sans-serif;color:${fg};">
 
-  <p style="text-align:center;font-size:40px;font-weight:300;letter-spacing:0.22em;color:${fg};margin:0 0 8px;">ILi</p>
-  <p style="text-align:center;font-size:9px;font-weight:300;letter-spacing:0.5em;text-transform:uppercase;color:${fgLow};margin:0 0 40px;">Lecture immersive</p>
+  <!-- LOGO -->
+  <p style="text-align:center;font-size:42px;font-weight:300;letter-spacing:0.22em;color:${fg};margin:0 0 10px;line-height:1;">ILi</p>
+  <p style="text-align:center;font-size:9px;font-weight:300;letter-spacing:0.5em;text-transform:uppercase;color:${fgLow};margin:0 0 44px;">Lecture immersive</p>
 
-  <div style="width:100%;height:1px;background:${borderColor};margin:0 0 40px;"></div>
+  <!-- SEPARATEUR HAUT -->
+  <div style="width:100%;height:1px;background:${borderColor};margin:0 0 44px;"></div>
 
-  <p style="text-align:center;font-size:9px;font-weight:300;letter-spacing:0.45em;text-transform:uppercase;color:${fgMid};margin:0 0 32px;">${label}</p>
+  <!-- LABEL EDITORIAL -->
+  <p style="text-align:center;font-size:10px;font-weight:400;letter-spacing:0.45em;text-transform:uppercase;color:${fgMid};margin:0 0 36px;">${label}</p>
 
-  <table width="100%" cellpadding="0" cellspacing="0" style="border:1px solid ${borderColor};margin-bottom:40px;">
-  <tr><td style="padding:36px 36px 32px;">
-    <p style="font-size:9px;font-weight:300;letter-spacing:0.4em;text-transform:uppercase;color:${fgLow};margin:0 0 20px;">Histoire #${storyNum}</p>
-    <p style="font-size:34px;font-weight:300;letter-spacing:0.08em;text-transform:uppercase;color:${fg};margin:0 0 20px;line-height:1.1;">${titleDisplay}</p>
-    <div style="width:28px;height:1px;background:${fgMid};margin:0 0 24px;"></div>
-    <p style="font-family:Georgia,'Times New Roman',serif;font-size:14px;line-height:1.75;color:${fgMid};margin:0 0 32px;font-style:italic;">${descDisplay}</p>
+  <!-- CARTE HISTOIRE -->
+  <table width="100%" cellpadding="0" cellspacing="0" style="border:1px solid ${borderColor};margin-bottom:44px;">
+  <tr><td style="padding:40px 40px 36px;">
+
+    <!-- TEMPS DE LECTURE -->
+    <p style="font-size:10px;font-weight:300;letter-spacing:0.38em;text-transform:uppercase;color:${fgLow};margin:0 0 24px;">&#9675;&nbsp; ${timeDisplay} de lecture</p>
+
+    <!-- TITRE -->
+    <p style="font-size:36px;font-weight:300;letter-spacing:0.06em;text-transform:uppercase;color:${fg};margin:0 0 10px;line-height:1.1;">${titleDisplay}</p>
+
+    <!-- AUTEUR -->
+    <p style="font-family:Georgia,'Times New Roman',serif;font-size:13px;font-style:italic;color:${fgLow};margin:0 0 24px;letter-spacing:0.04em;">${authorDisplay}</p>
+
+    <!-- SEPARATEUR -->
+    <div style="width:32px;height:1px;background:${fgMid};margin:0 0 28px;"></div>
+
+    <!-- DESCRIPTION -->
+    <p style="font-family:Georgia,'Times New Roman',serif;font-size:15px;line-height:1.8;color:${fgMid};margin:0 0 36px;">${descDisplay}</p>
+
+    <!-- FOOTER CARTE -->
     <table width="100%" cellpadding="0" cellspacing="0"><tr>
-      <td style="font-size:9px;font-weight:300;letter-spacing:0.3em;text-transform:uppercase;color:${fgLow};">&#9675;&nbsp; ${timeDisplay} de lecture</td>
-      <td align="right"><a href="${urlDisplay}" style="font-size:9px;font-weight:400;letter-spacing:0.3em;text-transform:uppercase;color:${fg};text-decoration:none;border-bottom:1px solid ${fgMid};padding-bottom:2px;">Lire l'histoire &rarr;</a></td>
+      <td style="font-size:10px;font-weight:300;letter-spacing:0.32em;text-transform:uppercase;color:${fgLow};">${partDisplay}</td>
+      <td align="right"><a href="${urlDisplay}" style="font-size:10px;font-weight:400;letter-spacing:0.28em;text-transform:uppercase;color:${fg};text-decoration:none;border-bottom:1px solid ${fgMid};padding-bottom:3px;">Lire avec ILi &rarr;</a></td>
     </tr></table>
+
   </td></tr>
   </table>
 
+  <!-- SEPARATEUR BAS -->
   <div style="width:100%;height:1px;background:${ruleColor};margin:0 0 36px;"></div>
 
-  <p style="font-size:9px;font-weight:300;letter-spacing:0.32em;text-transform:uppercase;color:${fgLow};text-align:center;line-height:2;margin:0 0 28px;">${footerMsg}</p>
+  <!-- MESSAGE FOOTER -->
+  <p style="font-size:10px;font-weight:300;letter-spacing:0.32em;text-transform:uppercase;color:${fgLow};text-align:center;line-height:2.2;margin:0 0 28px;">${footerMsg}</p>
 
-  <div style="width:28px;height:1px;background:${borderColor};margin:0 auto 24px;"></div>
+  <!-- MINI REGLE -->
+  <div style="width:28px;height:1px;background:${borderColor};margin:0 auto 28px;"></div>
 
-  <p style="font-size:9px;font-weight:300;letter-spacing:0.35em;text-transform:uppercase;color:${fgLow};text-align:center;line-height:2;margin:0 0 40px;">${signatureHtml}</p>
+  <!-- SIGNATURE -->
+  <p style="font-size:10px;font-weight:300;letter-spacing:0.35em;text-transform:uppercase;color:${fgLow};text-align:center;line-height:2.2;margin:0 0 44px;">${signatureHtml}</p>
 
-  <p style="font-size:10px;font-weight:300;letter-spacing:0.1em;color:${fgLow};text-align:center;margin:0;">Pour vous d&eacute;sinscrire, r&eacute;pondez avec le mot &laquo;&nbsp;d&eacute;sinscription&nbsp;&raquo;.</p>
+  <!-- DESINSCRIPTION -->
+  <p style="font-size:10px;font-weight:300;letter-spacing:0.1em;color:${fgLow};text-align:center;margin:0;">
+    Pour vous d&eacute;sinscrire, <a href="mailto:ili.contact.pierre@gmail.com?subject=D%C3%A9sinscription&body=Je%20souhaite%20me%20d%C3%A9sinscrire%20de%20la%20newsletter%20ILi." style="color:${fgLow};text-decoration:underline;">cliquez ici</a>.
+  </p>
 
 </td></tr>
 </table>
@@ -131,18 +146,18 @@ function NewsletterPage({ password }) {
           password,
           subject: `ILi — ${storyTitle}`,
           body: buildHtml(),
-          isHtml: true,
-          storyNum
+          isHtml: true
         })
       })
       const data = await res.json()
       if (data.success) {
         setResult({ success: data.message })
         setStoryTitle('')
+        setStoryAuthor('')
         setStoryDesc('')
         setReadTime('')
-        setStoryUrl('')
-        setStoryNum(n => String(parseInt(n) + 1).padStart(3, '0'))
+        setStoryPart('')
+        setStoryUrl('https://ili-mvp.vercel.app/lire/')
       } else {
         setResult({ error: data.error || 'Erreur inconnue' })
       }
@@ -186,7 +201,7 @@ function NewsletterPage({ password }) {
   }
 
   return (
-    <div style={{ display: 'flex', gap: '2rem', maxWidth: '1100px', margin: '0 auto', padding: '2rem 1rem', alignItems: 'flex-start', flexWrap: 'wrap' }}>
+    <div style={{ display: 'flex', gap: '2rem', maxWidth: '1200px', margin: '0 auto', padding: '2rem 1rem', alignItems: 'flex-start', flexWrap: 'wrap' }}>
 
       {/* COLONNE GAUCHE : formulaire */}
       <div style={{ flex: '1 1 380px', display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
@@ -224,6 +239,7 @@ function NewsletterPage({ password }) {
         <div style={sectionStyle}>
           <h2 style={{ margin: 0, fontSize: '1rem', color: '#333', fontWeight: 600 }}>Contenu</h2>
 
+          {/* Theme */}
           <div>
             <span style={labelStyle}>Theme</span>
             <div style={{ display: 'flex', gap: '0.5rem' }}>
@@ -245,8 +261,9 @@ function NewsletterPage({ password }) {
             </div>
           </div>
 
+          {/* Label editorial */}
           <div>
-            <span style={labelStyle}>Label / Titre editorial</span>
+            <span style={labelStyle}>Label editorial</span>
             <input
               style={inputStyle}
               value={label}
@@ -255,15 +272,8 @@ function NewsletterPage({ password }) {
             />
           </div>
 
+          {/* Duree + Partie */}
           <div style={{ display: 'flex', gap: '0.75rem' }}>
-            <div style={{ flex: 1 }}>
-              <span style={labelStyle}>N° histoire (auto)</span>
-              <input
-                style={{ ...inputStyle, background: '#fafafa', color: '#aaa' }}
-                value={`#${storyNum}`}
-                readOnly
-              />
-            </div>
             <div style={{ flex: 1 }}>
               <span style={labelStyle}>Temps de lecture</span>
               <input
@@ -273,8 +283,18 @@ function NewsletterPage({ password }) {
                 placeholder="4 min"
               />
             </div>
+            <div style={{ flex: 1 }}>
+              <span style={labelStyle}>Partie (optionnel)</span>
+              <input
+                style={inputStyle}
+                value={storyPart}
+                onChange={e => setStoryPart(e.target.value)}
+                placeholder="1, 2, 3…"
+              />
+            </div>
           </div>
 
+          {/* Titre */}
           <div>
             <span style={labelStyle}>Titre de l'histoire</span>
             <input
@@ -285,16 +305,29 @@ function NewsletterPage({ password }) {
             />
           </div>
 
+          {/* Auteur */}
+          <div>
+            <span style={labelStyle}>Auteur</span>
+            <input
+              style={inputStyle}
+              value={storyAuthor}
+              onChange={e => setStoryAuthor(e.target.value)}
+              placeholder="Guy de Maupassant"
+            />
+          </div>
+
+          {/* Description */}
           <div>
             <span style={labelStyle}>Description courte</span>
             <textarea
-              style={{ ...inputStyle, resize: 'vertical', minHeight: '80px', lineHeight: '1.6' }}
+              style={{ ...inputStyle, resize: 'vertical', minHeight: '90px', lineHeight: '1.6' }}
               value={storyDesc}
               onChange={e => setStoryDesc(e.target.value)}
               placeholder="Un homme retrouve une lettre qu'il aurait prefere oublier…"
             />
           </div>
 
+          {/* URL */}
           <div>
             <span style={labelStyle}>URL de l'histoire</span>
             <input
@@ -329,7 +362,7 @@ function NewsletterPage({ password }) {
           </div>
         </div>
 
-        {/* Envoi */}
+        {/* Bouton envoi */}
         <button
           onClick={handleSend}
           disabled={sending || activeCount === 0}
@@ -358,7 +391,7 @@ function NewsletterPage({ password }) {
       </div>
 
       {/* COLONNE DROITE : apercu live */}
-      <div style={{ flex: '1 1 420px', position: 'sticky', top: '80px' }}>
+      <div style={{ flex: '1 1 460px', position: 'sticky', top: '80px' }}>
         <span style={{ ...labelStyle, marginBottom: '12px', display: 'block' }}>Apercu live</span>
         <div
           style={{ borderRadius: '8px', overflow: 'hidden', border: '1px solid #eee' }}
