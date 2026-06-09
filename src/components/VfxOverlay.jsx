@@ -187,29 +187,47 @@ function VfxOverlay({ activeType, activeMode }) {
             />
 
             {/* ── Nappes HAUT (brasier + inferno seulement) ── */}
-            {topIntensity > 0 && (<>
-              {/* Langue principale haut */}
-              <ellipse cx="300" cy="-80" rx="380" ry="240"
-                fill={ff(fc2, topIntensity * 0.85)}
-                filter="url(#ff-b)"
-                style={{ animation: `fire-top-a ${mode === 'inferno' ? '2.1s' : '3.5s'} ease-in-out infinite alternate` }}
-              />
-              <ellipse cx="100" cy="-40" rx="240" ry="160"
-                fill={ff(fa, topIntensity * 0.65)}
-                filter="url(#ff-a)"
-                style={{ animation: `fire-top-b ${mode === 'inferno' ? '1.7s' : '2.9s'} ease-in-out infinite alternate` }}
-              />
-              <ellipse cx="500" cy="-60" rx="220" ry="150"
-                fill={ff(fb2, topIntensity * 0.60)}
-                filter="url(#ff-d)"
-                style={{ animation: `fire-top-c ${mode === 'inferno' ? '2.5s' : '4.1s'} ease-in-out infinite alternate` }}
-              />
-              <ellipse cx="260" cy="180" rx="180" ry="130"
-                fill={ff(fc2, topIntensity * 0.38)}
-                filter="url(#ff-c)"
-                style={{ animation: `fire-top-d ${mode === 'inferno' ? '1.4s' : '2.3s'} ease-in-out infinite alternate` }}
-              />
-            </>)}
+            <ellipse cx="300" cy="-80" rx="380" ry="240"
+              fill={ff(fc2, 0.85)}
+              filter="url(#ff-b)"
+              style={{
+                animation: `fire-top-a ${mode === 'inferno' ? '2.1s' : '3.5s'} ease-in-out infinite alternate`,
+                opacity: 0,
+                transition: 'opacity 2800ms cubic-bezier(0.37, 0, 0.63, 1)',
+                ...(topIntensity > 0 ? {} : {}),
+              }}
+              ref={el => { if (el) el.style.opacity = String(topIntensity * 0.82) }}
+            />
+            <ellipse cx="100" cy="-40" rx="240" ry="160"
+              fill={ff(fa, 0.65)}
+              filter="url(#ff-a)"
+              style={{
+                animation: `fire-top-b ${mode === 'inferno' ? '1.7s' : '2.9s'} ease-in-out infinite alternate`,
+                opacity: 0,
+                transition: 'opacity 2800ms cubic-bezier(0.37, 0, 0.63, 1)',
+              }}
+              ref={el => { if (el) el.style.opacity = String(topIntensity * 0.65) }}
+            />
+            <ellipse cx="500" cy="-60" rx="220" ry="150"
+              fill={ff(fb2, 0.60)}
+              filter="url(#ff-d)"
+              style={{
+                animation: `fire-top-c ${mode === 'inferno' ? '2.5s' : '4.1s'} ease-in-out infinite alternate`,
+                opacity: 0,
+                transition: 'opacity 2800ms cubic-bezier(0.37, 0, 0.63, 1)',
+              }}
+              ref={el => { if (el) el.style.opacity = String(topIntensity * 0.60) }}
+            />
+            <ellipse cx="260" cy="180" rx="180" ry="130"
+              fill={ff(fc2, 0.38)}
+              filter="url(#ff-c)"
+              style={{
+                animation: `fire-top-d ${mode === 'inferno' ? '1.4s' : '2.3s'} ease-in-out infinite alternate`,
+                opacity: 0,
+                transition: 'opacity 2800ms cubic-bezier(0.37, 0, 0.63, 1)',
+              }}
+              ref={el => { if (el) el.style.opacity = String(topIntensity * 0.38) }}
+            />
 
             {/* Vignette noire haut — dramatise toujours */}
             <defs>
