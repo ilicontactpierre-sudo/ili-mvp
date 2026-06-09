@@ -190,25 +190,22 @@ function VfxOverlay({ activeType, activeMode }) {
             {topIntensity > 0 && (<>
               {/* Langue principale haut */}
               <ellipse cx="300" cy="-80" rx="380" ry="240"
-                fill={ff(fc2.split('').join(''), topIntensity * 0.85)}
+                fill={ff(fc2, topIntensity * 0.85)}
                 filter="url(#ff-b)"
                 style={{ animation: `fire-top-a ${mode === 'inferno' ? '2.1s' : '3.5s'} ease-in-out infinite alternate` }}
               />
-              {/* Langue gauche haut */}
               <ellipse cx="100" cy="-40" rx="240" ry="160"
-                fill={ff(fa.split('').join(''), topIntensity * 0.65)}
+                fill={ff(fa, topIntensity * 0.65)}
                 filter="url(#ff-a)"
                 style={{ animation: `fire-top-b ${mode === 'inferno' ? '1.7s' : '2.9s'} ease-in-out infinite alternate` }}
               />
-              {/* Langue droite haut */}
               <ellipse cx="500" cy="-60" rx="220" ry="150"
-                fill={ff(fb2.split('').join(''), topIntensity * 0.60)}
+                fill={ff(fb2, topIntensity * 0.60)}
                 filter="url(#ff-d)"
                 style={{ animation: `fire-top-c ${mode === 'inferno' ? '2.5s' : '4.1s'} ease-in-out infinite alternate` }}
               />
-              {/* Résidu haut centre — descend légèrement */}
               <ellipse cx="260" cy="180" rx="180" ry="130"
-                fill={ff(fc2.split('').join(''), topIntensity * 0.38)}
+                fill={ff(fc2, topIntensity * 0.38)}
                 filter="url(#ff-c)"
                 style={{ animation: `fire-top-d ${mode === 'inferno' ? '1.4s' : '2.3s'} ease-in-out infinite alternate` }}
               />
