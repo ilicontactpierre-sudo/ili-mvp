@@ -1653,6 +1653,7 @@ function AdminPage() {
           </div>
 
           {/* 4. OrchestrationPanel */}
+          <div ref={refOrchestration} />
           {segments.length > 0 && (
             <OrchestrationPanel
               segments={segments}
