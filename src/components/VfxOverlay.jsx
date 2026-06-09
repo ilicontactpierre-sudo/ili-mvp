@@ -214,11 +214,11 @@ function VfxOverlay({ activeType, activeMode }) {
             {/* Vignette noire haut — dramatise toujours */}
             <defs>
               <radialGradient id="vign-top" cx="50%" cy="0%" r="70%">
-                <stop offset="0%" stopColor={isDark ? 'rgba(5,2,0,0.65)' : 'rgba(15,5,0,0.25)'} />
+                <stop offset="0%" stopColor={isDark ? 'rgba(5,2,0,0.55)' : 'rgba(15,5,0,0.20)'} />
                 <stop offset="100%" stopColor="rgba(0,0,0,0)" />
               </radialGradient>
             </defs>
-            <rect x="0" y="0" width="600" height="400" fill="url(#vign-top)" />
+            <rect x="0" y="0" width="600" height="500" fill="url(#vign-top)" />
 
             <style>{`
               /* ── Base bas ── */
