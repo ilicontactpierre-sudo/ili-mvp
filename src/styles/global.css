@@ -146,7 +146,7 @@ body {
   cursor: pointer;
   user-select: none;
   transform: translateY(0px);
-  opacity: 1;
+  opacity: 0.9;
   transition:
     opacity 280ms ease,
     transform 280ms ease;
