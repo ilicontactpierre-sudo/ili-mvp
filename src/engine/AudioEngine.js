@@ -44,7 +44,7 @@ class AudioEngine {
     } else {
       const instanceId = this._playInstance(howl, soundId, trimStart, trimEnd, key)
       howl.loop(Boolean(loop), instanceId)
-      howl.volume(volume, instanceId)
+      howl.volume(this._toPerceptualVolume(volume), instanceId)
       this.playingSounds.set(key, { howl, soundId, volume, instanceId, loop, loopCrossfade, trimStart, trimEnd, pan, panMode })
     }
     this._applyPan(key, pan, panMode, howl)
