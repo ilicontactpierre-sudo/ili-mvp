@@ -1559,7 +1559,7 @@ function AdminPage() {
                       marginTop: '2rem', 
                       borderTop: '1px solid #eee', 
                       paddingTop: '1.5rem',
-                      scrollMarginTop: '60px',
+                      scrollMarginTop: `${stickyHeight + 12}px`,
                     }}
                   >
                     {isMobile ? (
