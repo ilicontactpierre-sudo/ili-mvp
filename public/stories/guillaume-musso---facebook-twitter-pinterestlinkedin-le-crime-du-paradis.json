@@ -1,0 +1,861 @@
+{
+  "id": "guillaume-musso---facebook-twitter-pinterestlinkedin-le-crime-du-paradis",
+  "title": "  Facebook Twitter PinterestLinkedin Le Crime du paradis",
+  "author": "Guillaume Musso",
+  "published": true,
+  "sounds": [
+    {
+      "id": "ambmisc_rain_distant_thunder_tin_windowsill_loop_01_b00m_one",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/ambmisc_rain_distant_thunder_tin_windowsill_loop_01_b00m_one.mp3",
+      "loop": false
+    },
+    {
+      "id": "ambrest_restaurant_cafe_crowded_b00m_one",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/ambrest_restaurant_cafe_crowded_b00m_one.mp3",
+      "loop": false
+    },
+    {
+      "id": "ambrurl_sheep_herd_distant_calm_04_b00m_one",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/ambrurl_sheep_herd_distant_calm_04_b00m_one.mp3",
+      "loop": false
+    },
+    {
+      "id": "crwdapls_evening_concert_crowd_applauses_exterior_01_b00m_one",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/crwdapls_evening_concert_crowd_applauses_exterior_01_b00m_one.mp3",
+      "loop": false
+    },
+    {
+      "id": "dsgnboom_dark_outer_space_shadow_01_b00m_one",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/dsgnboom_dark_outer_space_shadow_01_b00m_one.mp3",
+      "loop": false
+    },
+    {
+      "id": "dsgnsynth_there_s_a_storm_blowing_01_b00m_one",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/dsgnsynth_there_s_a_storm_blowing_01_b00m_one.mp3",
+      "loop": false
+    },
+    {
+      "id": "dsgnwhsh_tonal_dark_magic_whoosh_b00m_one",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/dsgnwhsh_tonal_dark_magic_whoosh_b00m_one.mp3",
+      "loop": false
+    },
+    {
+      "id": "foodgware_beer_glass_wheat_clink_top_01_b00m_one",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/foodgware_beer_glass_wheat_clink_top_01_b00m_one.mp3",
+      "loop": false
+    },
+    {
+      "id": "hmnbrth_female_soft_breath_01_b00m_one",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/hmnbrth_female_soft_breath_01_b00m_one.mp3",
+      "loop": false
+    },
+    {
+      "id": "hmnhart_heart_beat_sequence_dull_01_b00m_one",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/hmnhart_heart_beat_sequence_dull_01_b00m_one.mp3",
+      "loop": false
+    },
+    {
+      "id": "muscstngr_bass_low_sub_tension_01_b00m_one",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/muscstngr_bass_low_sub_tension_01_b00m_one.mp3",
+      "loop": false
+    },
+    {
+      "id": "winddsgn_wind_machine_long_sequence_close_01_b00m_one",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/winddsgn_wind_machine_long_sequence_close_01_b00m_one.mp3",
+      "loop": false
+    },
+    {
+      "id": "concerto-in-a-minor-bwv-1065--netherlands-bach-society",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/concerto-in-a-minor-bwv-1065--netherlands-bach-society.mp3",
+      "loop": false
+    },
+    {
+      "id": "tuba_skinny_-_jubilee_stomp_-_royal_street_ii",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/tuba_skinny_-_jubilee_stomp_-_royal_street_ii.mp3",
+      "loop": false
+    }
+  ],
+  "segments": [
+    {
+      "id": "seg_1781005462920_0_kbw0y",
+      "lines": [
+        "Comptoir des Pêcheurs"
+      ],
+      "text": "Comptoir des Pêcheurs",
+      "breakAt": null,
+      "isLeader": true,
+      "isChapter": true,
+      "audioEvents": [
+        {
+          "action": "fadeIn",
+          "soundId": "ambrest_restaurant_cafe_crowded_b00m_one",
+          "volume": 0.28,
+          "duration": 4000,
+          "delay": 0,
+          "loop": true
+        }
+      ]
+    },
+    {
+      "id": "seg_1781005462920_1_geryf",
+      "lines": [
+        "Assis seul à sa table, le commissaire Joseph Lèques vida d’un trait son verre de vin blanc puis le reposa lourdement à côté de l’assiette de coquillages qu’il avait à peine entamée."
+      ],
+      "text": "Assis seul à sa table, le commissaire Joseph Lèques vida d’un trait son verre de vin blanc puis le reposa lourdement à côté de l’assiette de coquillages qu’il avait à peine entamée.",
+      "breakAt": null,
+      "isLeader": true,
+      "audioEvents": [
+        {
+          "action": "play",
+          "soundId": "foodgware_beer_glass_wheat_clink_top_01_b00m_one",
+          "volume": 0.65,
+          "delay": 1500,
+          "loop": false
+        }
+      ]
+    },
+    {
+      "id": "seg_1781005462920_2_2h4of",
+      "lines": [
+        "Devant lui, les cadavres de deux bouteilles de sancerre témoignaient de ses excès de la soirée."
+      ],
+      "text": "Devant lui, les cadavres de deux bouteilles de sancerre témoignaient de ses excès de la soirée.",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1781005462920_3_t3dhb",
+      "lines": [
+        "Joseph avait froid.",
+        "Il tremblait."
+      ],
+      "text": "Joseph avait froid. Il tremblait.",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": [
+        {
+          "action": "fadeIn",
+          "soundId": "hmnbrth_female_soft_breath_01_b00m_one",
+          "volume": 0.18,
+          "duration": 2000,
+          "delay": 0,
+          "loop": true
+        }
+      ]
+    },
+    {
+      "id": "seg_1781005462920_4_usxd9",
+      "lines": [
+        "Des remontées acides lui brûlaient l’estomac."
+      ],
+      "text": "Des remontées acides lui brûlaient l’estomac.",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": [
+        {
+          "action": "fadeOut",
+          "soundId": "hmnbrth_female_soft_breath_01_b00m_one",
+          "duration": 2000
+        }
+      ]
+    },
+    {
+      "id": "seg_1781005462921_5_3qytr",
+      "lines": [
+        "La faune du bistrot l’étourdissait.",
+        "Dockers, pêcheurs, commerçants… Une ruche hétéroclite dont la population parlait haut et fort dans une salle saturée d’odeurs de tabac, d’iode, d’anis et de café."
+      ],
+      "text": "La faune du bistrot l’étourdissait. Dockers, pêcheurs, commerçants… Une ruche hétéroclite dont la population parlait haut et fort dans une salle saturée d’odeurs de tabac, d’iode, d’anis et de café.",
+      "breakAt": 67,
+      "isLeader": false,
+      "audioEvents": [
+        {
+          "action": "fadeOut",
+          "soundId": "ambrest_restaurant_cafe_crowded_b00m_one",
+          "duration": 3000
+        },
+        {
+          "action": "fadeIn",
+          "soundId": "ambrest_restaurant_cafe_crowded_b00m_one",
+          "volume": 0.38,
+          "duration": 1000,
+          "delay": 0,
+          "loop": true
+        }
+      ]
+    },
+    {
+      "id": "seg_1781005462921_6_hq4y1",
+      "lines": [
+        "Joseph porta la main à sa poitrine."
+      ],
+      "text": "Joseph porta la main à sa poitrine.",
+      "breakAt": null,
+      "isLeader": true,
+      "isChapter": true,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1781005462921_7_gni5a",
+      "lines": [
+        "Son cœur s’emballait."
+      ],
+      "text": "Son cœur s’emballait.",
+      "breakAt": null,
+      "isLeader": true,
+      "audioEvents": [
+        {
+          "action": "fadeIn",
+          "soundId": "muscstngr_bass_low_sub_tension_01_b00m_one",
+          "volume": 0.22,
+          "duration": 3000,
+          "delay": 0,
+          "loop": true
+        },
+        {
+          "action": "play",
+          "soundId": "hmnhart_heart_beat_sequence_dull_01_b00m_one",
+          "volume": 0.6,
+          "delay": 0,
+          "loop": false
+        }
+      ]
+    },
+    {
+      "id": "seg_1781005462921_8_nhdgf",
+      "lines": [
+        "Saisi de vertige, il ferma les yeux et se massa les paupières."
+      ],
+      "text": "Saisi de vertige, il ferma les yeux et se massa les paupières.",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": [
+        {
+          "action": "fadeOut",
+          "soundId": "ambrest_restaurant_cafe_crowded_b00m_one",
+          "duration": 4000
+        }
+      ]
+    },
+    {
+      "id": "seg_1781005462921_9_p2t5y",
+      "lines": [
+        "La faute à l’alcool bien sûr, mais l’alcool était la conséquence de son tourment, pas sa cause."
+      ],
+      "text": "La faute à l’alcool bien sûr, mais l’alcool était la conséquence de son tourment, pas sa cause.",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1781005462921_10_fyw2y",
+      "lines": [
+        "Depuis la fin de la Grande Guerre, à intervalles réguliers, revenaient les mêmes démons qui lui faisaient vivre un chemin de croix chaque fois plus douloureux."
+      ],
+      "text": "Depuis la fin de la Grande Guerre, à intervalles réguliers, revenaient les mêmes démons qui lui faisaient vivre un chemin de croix chaque fois plus douloureux.",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": [
+        {
+          "action": "fadeOut",
+          "soundId": "muscstngr_bass_low_sub_tension_01_b00m_one",
+          "duration": 5000
+        },
+        {
+          "action": "fadeIn",
+          "soundId": "concerto-in-a-minor-bwv-1065--netherlands-bach-society",
+          "volume": 0.2,
+          "duration": 5000,
+          "delay": 0,
+          "loop": true
+        }
+      ]
+    },
+    {
+      "id": "seg_1781005462921_11_rn3vz",
+      "lines": [
+        "Il avait senti la vague monter dès le matin à son réveil."
+      ],
+      "text": "Il avait senti la vague monter dès le matin à son réveil.",
+      "breakAt": null,
+      "isLeader": true,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1781005462921_12_n7hgz",
+      "lines": [
+        "Elle avait la couleur bleu-gris du ciel de la Meuse, l’intranquillité des plaines de Champagne, la force des paysages du front d’Orient."
+      ],
+      "text": "Elle avait la couleur bleu-gris du ciel de la Meuse, l’intranquillité des plaines de Champagne, la force des paysages du front d’Orient.",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": [
+        {
+          "action": "fadeIn",
+          "soundId": "winddsgn_wind_machine_long_sequence_close_01_b00m_one",
+          "volume": 0.2,
+          "duration": 3000,
+          "delay": 0,
+          "loop": true
+        }
+      ]
+    },
+    {
+      "id": "seg_1781005462921_13_wujgj",
+      "lines": [
+        "Lorsqu’il était allé prendre son café, au bar derrière la cathédrale,"
+      ],
+      "text": "Lorsqu’il était allé prendre son café, au bar derrière la cathédrale,",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": [
+        {
+          "action": "fadeOut",
+          "soundId": "winddsgn_wind_machine_long_sequence_close_01_b00m_one",
+          "duration": 2000
+        }
+      ]
+    },
+    {
+      "id": "seg_1781005462921_14_41w6m",
+      "lines": [
+        "l’angoisse sourde s’était peu à peu transformée en déferlante."
+      ],
+      "text": "l’angoisse sourde s’était peu à peu transformée en déferlante.",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": [
+        {
+          "action": "fadeOut",
+          "soundId": "concerto-in-a-minor-bwv-1065--netherlands-bach-society",
+          "duration": 4000
+        },
+        {
+          "action": "play",
+          "soundId": "dsgnwhsh_tonal_dark_magic_whoosh_b00m_one",
+          "volume": 0.5,
+          "delay": 0,
+          "loop": false
+        }
+      ]
+    },
+    {
+      "id": "seg_1781005462921_15_ptvc4",
+      "lines": [
+        "Des images sinistres colonisaient son esprit."
+      ],
+      "text": "Des images sinistres colonisaient son esprit.",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": [
+        {
+          "action": "fadeIn",
+          "soundId": "dsgnboom_dark_outer_space_shadow_01_b00m_one",
+          "volume": 0.32,
+          "duration": 2000,
+          "delay": 0,
+          "loop": true
+        }
+      ]
+    },
+    {
+      "id": "seg_1781005462921_16_tlc5i",
+      "lines": [
+        "Des visages, pâles, émaciés, hagards.",
+        "Des corps hurlants, déchiquetés."
+      ],
+      "text": "Des visages, pâles, émaciés, hagards. Des corps hurlants, déchiquetés.",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1781005462921_17_dusym",
+      "lines": [
+        "Puis ses oreilles s’étaient mises à bourdonner."
+      ],
+      "text": "Puis ses oreilles s’étaient mises à bourdonner.",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1781005462921_18_e4bxh",
+      "lines": [
+        "Il s’était revu lui-même, sur le champ de bataille,"
+      ],
+      "text": "Il s’était revu lui-même, sur le champ de bataille,",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1781005462921_19_cb5hh",
+      "lines": [
+        "encerclé, vulnérable, terrifié par la pluie d’obus, les éclats des grenades, le « slash » des baïonnettes qui déchiraient les chairs tendres."
+      ],
+      "text": "encerclé, vulnérable, terrifié par la pluie d’obus, les éclats des grenades, le « slash » des baïonnettes qui déchiraient les chairs tendres.",
+      "breakAt": 89,
+      "isLeader": false,
+      "audioEvents": [
+        {
+          "action": "play",
+          "soundId": "ambmisc_rain_distant_thunder_tin_windowsill_loop_01_b00m_one",
+          "volume": 0.7,
+          "delay": 500,
+          "loop": false
+        }
+      ]
+    },
+    {
+      "id": "seg_1781005462921_20_jp862",
+      "lines": [
+        "Il s’était souvenu de la férocité des rats qui surgissaient par centaines la nuit dans les tranchées."
+      ],
+      "text": "Il s’était souvenu de la férocité des rats qui surgissaient par centaines la nuit dans les tranchées.",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": [
+        {
+          "action": "play",
+          "soundId": "dsgnboom_dark_outer_space_shadow_01_b00m_one",
+          "volume": 0.55,
+          "delay": 0,
+          "loop": false
+        }
+      ]
+    },
+    {
+      "id": "seg_1781005462921_21_4r3rc",
+      "lines": [
+        "Des poux et des puces qui rendaient fou à s’arracher la peau."
+      ],
+      "text": "Des poux et des puces qui rendaient fou à s’arracher la peau.",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": [
+        {
+          "action": "fadeOut",
+          "soundId": "dsgnboom_dark_outer_space_shadow_01_b00m_one",
+          "duration": 6000
+        }
+      ]
+    },
+    {
+      "id": "seg_1781005462921_22_9irqd",
+      "lines": [
+        "En dépit de son état fébrile, Joseph était allé travailler à l’Évêché1."
+      ],
+      "text": "En dépit de son état fébrile, Joseph était allé travailler à l’Évêché1.",
+      "breakAt": null,
+      "isLeader": true,
+      "audioEvents": [
+        {
+          "action": "fadeIn",
+          "soundId": "ambrurl_sheep_herd_distant_calm_04_b00m_one",
+          "volume": 0.12,
+          "duration": 4000,
+          "delay": 0,
+          "loop": true
+        }
+      ]
+    },
+    {
+      "id": "seg_1781005462921_23_nbzfb",
+      "lines": [
+        "Il avait essayé de donner le change à ses collègues. Mais le soleil radieux avait beau inonder les bureaux,"
+      ],
+      "text": "Il avait essayé de donner le change à ses collègues. Mais le soleil radieux avait beau inonder les bureaux,",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": [
+        {
+          "action": "fadeOut",
+          "soundId": "ambrurl_sheep_herd_distant_calm_04_b00m_one",
+          "duration": 2000
+        }
+      ]
+    },
+    {
+      "id": "seg_1781005462921_24_a3x0b",
+      "lines": [
+        "le courant froid qui lui congelait les os lui rappelait le temps des engelures, de la pluie incessante, des orteils qu’il fallait amputer."
+      ],
+      "text": "le courant froid qui lui congelait les os lui rappelait le temps des engelures, de la pluie incessante, des orteils qu’il fallait amputer.",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": [
+        {
+          "action": "fadeIn",
+          "soundId": "dsgnsynth_there_s_a_storm_blowing_01_b00m_one",
+          "volume": 0.25,
+          "duration": 3000,
+          "delay": 0,
+          "loop": true
+        }
+      ]
+    },
+    {
+      "id": "seg_1781005462921_25_zf6v7",
+      "lines": [
+        "À midi, quand il était sorti sur le Vieux-Port, la situation avait encore empiré."
+      ],
+      "text": "À midi, quand il était sorti sur le Vieux-Port, la situation avait encore empiré.",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1781005462921_26_7vpue",
+      "lines": [
+        "Des visions d’horreur lui traversaient le cerveau sans qu’il puisse leur faire barrage."
+      ],
+      "text": "Des visions d’horreur lui traversaient le cerveau sans qu’il puisse leur faire barrage.",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": [
+        {
+          "action": "fadeIn",
+          "soundId": "muscstngr_bass_low_sub_tension_01_b00m_one",
+          "volume": 0.35,
+          "duration": 2000,
+          "delay": 0,
+          "loop": true
+        },
+        {
+          "action": "fadeOut",
+          "soundId": "dsgnsynth_there_s_a_storm_blowing_01_b00m_one",
+          "duration": 3000
+        }
+      ]
+    },
+    {
+      "id": "seg_1781005462921_27_txvjj",
+      "lines": [
+        "Il voyait les cadavres revenir d’entre les morts pour se mêler aux vivants."
+      ],
+      "text": "Il voyait les cadavres revenir d’entre les morts pour se mêler aux vivants.",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": [
+        {
+          "action": "fadeIn",
+          "soundId": "crwdapls_evening_concert_crowd_applauses_exterior_01_b00m_one",
+          "volume": 0.18,
+          "duration": 2000,
+          "delay": 0,
+          "loop": true
+        }
+      ]
+    },
+    {
+      "id": "seg_1781005462921_28_ntf35",
+      "lines": [
+        "Les mouches qui recouvraient le visage déformé des agonisants."
+      ],
+      "text": "Les mouches qui recouvraient le visage déformé des agonisants.",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": [
+        {
+          "action": "fadeOut",
+          "soundId": "crwdapls_evening_concert_crowd_applauses_exterior_01_b00m_one",
+          "duration": 3000
+        }
+      ]
+    },
+    {
+      "id": "seg_1781005462921_29_vfa9n",
+      "lines": [
+        "Des légions de corps démembrés s’extirpant des coulées de boue sanglante."
+      ],
+      "text": "Des légions de corps démembrés s’extirpant des coulées de boue sanglante.",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1781005462921_30_wloac",
+      "lines": [
+        "Il avait erré de bar en bar tout l’après-midi avant d’échouer ici, espérant que l’abrutissement dans l’alcool éteindrait l’incendie qui l’enflammait."
+      ],
+      "text": "Il avait erré de bar en bar tout l’après-midi avant d’échouer ici, espérant que l’abrutissement dans l’alcool éteindrait l’incendie qui l’enflammait.",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": [
+        {
+          "action": "fadeOut",
+          "soundId": "muscstngr_bass_low_sub_tension_01_b00m_one",
+          "duration": 6000
+        },
+        {
+          "action": "fadeIn",
+          "soundId": "tuba_skinny_-_jubilee_stomp_-_royal_street_ii",
+          "volume": 0.15,
+          "duration": 5000,
+          "delay": 3000,
+          "loop": false
+        }
+      ]
+    }
+  ],
+  "soundTracks": [
+    {
+      "id": "st_1781005709067_44rewogzh_0",
+      "soundId": "ambrest_restaurant_cafe_crowded_b00m_one",
+      "startSegmentId": "seg_1781005462920_0_kbw0y",
+      "endSegmentId": "seg_1781005462921_5_3qytr",
+      "column": 0,
+      "volume": 0.28,
+      "loop": true,
+      "fadeIn": 4000,
+      "fadeOut": 3000,
+      "delay": 0,
+      "muted": false,
+      "_orchestrationNote": "Brouhaha du bistrot portuaire qui installe l'espace dès le titre — fondu doux pour laisser entrer le lecteur progressivement.",
+      "_orchestrationKeyword": "ambrest_restaurant_cafe_crowded_b00m_one"
+    },
+    {
+      "id": "st_1781005709067_m2qek8fvl_1",
+      "soundId": "foodgware_beer_glass_wheat_clink_top_01_b00m_one",
+      "startSegmentId": "seg_1781005462920_1_geryf",
+      "endSegmentId": "seg_1781005462920_1_geryf",
+      "column": 1,
+      "volume": 0.65,
+      "loop": false,
+      "fadeIn": 0,
+      "fadeOut": 0,
+      "delay": 1500,
+      "muted": false,
+      "_orchestrationNote": "Le verre reposé lourdement sur la table — ancrage physique et sonore de l'état de Joseph.",
+      "_orchestrationKeyword": "foodgware_beer_glass_wheat_clink_top_01_b00m_one"
+    },
+    {
+      "id": "st_1781005709067_jfb5sjudo_2",
+      "soundId": "ambrest_restaurant_cafe_crowded_b00m_one",
+      "startSegmentId": "seg_1781005462921_5_3qytr",
+      "endSegmentId": "seg_1781005462921_8_nhdgf",
+      "column": 1,
+      "volume": 0.38,
+      "loop": true,
+      "fadeIn": 1000,
+      "fadeOut": 4000,
+      "delay": 0,
+      "muted": false,
+      "_orchestrationNote": "Le brouhaha monte en puissance au segment 6 — la foule étourdit Joseph — puis s'efface avec ses yeux fermés au segment 9.",
+      "_orchestrationKeyword": "ambrest_restaurant_cafe_crowded_b00m_one"
+    },
+    {
+      "id": "st_1781005709067_t7c5rzvyo_3",
+      "soundId": "muscstngr_bass_low_sub_tension_01_b00m_one",
+      "startSegmentId": "seg_1781005462921_7_gni5a",
+      "endSegmentId": "seg_1781005462921_10_fyw2y",
+      "column": 0,
+      "volume": 0.22,
+      "loop": true,
+      "fadeIn": 3000,
+      "fadeOut": 5000,
+      "delay": 0,
+      "muted": false,
+      "_orchestrationNote": "Grondement sourd qui s'installe avec le cœur qui s'emballe — la vague intérieure commence à monter.",
+      "_orchestrationKeyword": "muscstngr_bass_low_sub_tension_01_b00m_one"
+    },
+    {
+      "id": "st_1781005709068_rhj44kz57_4",
+      "soundId": "concerto-in-a-minor-bwv-1065--netherlands-bach-society",
+      "startSegmentId": "seg_1781005462921_10_fyw2y",
+      "endSegmentId": "seg_1781005462921_14_41w6m",
+      "column": 1,
+      "volume": 0.2,
+      "loop": true,
+      "fadeIn": 5000,
+      "fadeOut": 4000,
+      "delay": 0,
+      "muted": false,
+      "_orchestrationNote": "Bach en mineur évoque la Grande Guerre et ses démons — une mémoire culturelle qui remonte avec les souvenirs de Joseph.",
+      "_orchestrationKeyword": "concerto-in-a-minor-bwv-1065--netherlands-bach-society"
+    },
+    {
+      "id": "st_1781005709068_ngvh478u1_5",
+      "soundId": "dsgnwhsh_tonal_dark_magic_whoosh_b00m_one",
+      "startSegmentId": "seg_1781005462921_14_41w6m",
+      "endSegmentId": "seg_1781005462921_14_41w6m",
+      "column": 0,
+      "volume": 0.5,
+      "loop": false,
+      "fadeIn": 0,
+      "fadeOut": 0,
+      "delay": 0,
+      "muted": false,
+      "_orchestrationNote": "La déferlante — basculement brutal de l'angoisse sourde aux visions — le whoosh sombre marque le point de rupture.",
+      "_orchestrationKeyword": "dsgnwhsh_tonal_dark_magic_whoosh_b00m_one"
+    },
+    {
+      "id": "st_1781005709068_xdmgtccr4_6",
+      "soundId": "dsgnboom_dark_outer_space_shadow_01_b00m_one",
+      "startSegmentId": "seg_1781005462921_15_ptvc4",
+      "endSegmentId": "seg_1781005462921_21_4r3rc",
+      "column": 0,
+      "volume": 0.32,
+      "loop": true,
+      "fadeIn": 2000,
+      "fadeOut": 6000,
+      "delay": 0,
+      "muted": false,
+      "_orchestrationNote": "Drone sombre et oppressant qui enveloppe toute la séquence des visions de guerre — immersion dans la psychose traumatique.",
+      "_orchestrationKeyword": "dark"
+    },
+    {
+      "id": "st_1781005709068_jftoh3gn3_7",
+      "soundId": "dsgnboom_dark_outer_space_shadow_01_b00m_one",
+      "startSegmentId": "seg_1781005462921_20_jp862",
+      "endSegmentId": "seg_1781005462921_20_jp862",
+      "column": 1,
+      "volume": 0.55,
+      "loop": false,
+      "fadeIn": 0,
+      "fadeOut": 0,
+      "delay": 0,
+      "muted": false,
+      "_orchestrationNote": "Les rats qui surgissent par centaines dans les tranchées — l'impact grave et alien colle aux surgissements nocturnes.",
+      "_orchestrationKeyword": "dsgnboom_dark_outer_space_shadow_01_b00m_one"
+    },
+    {
+      "id": "st_1781005709068_rkzjmcr1j_8",
+      "soundId": "muscstngr_bass_low_sub_tension_01_b00m_one",
+      "startSegmentId": "seg_1781005462921_26_7vpue",
+      "endSegmentId": "seg_1781005462921_30_wloac",
+      "column": 0,
+      "volume": 0.35,
+      "loop": true,
+      "fadeIn": 2000,
+      "fadeOut": 6000,
+      "delay": 0,
+      "muted": false,
+      "_orchestrationNote": "La tension basse revient plus forte pour les visions d'horreur finale — cadavres, boue sanglante, corps démembrés.",
+      "_orchestrationKeyword": "muscstngr_bass_low_sub_tension_01_b00m_one"
+    },
+    {
+      "id": "st_1781005709068_hg7ebjfai_9",
+      "soundId": "tuba_skinny_-_jubilee_stomp_-_royal_street_ii",
+      "startSegmentId": "seg_1781005462921_30_wloac",
+      "endSegmentId": "seg_1781005462921_30_wloac",
+      "column": 1,
+      "volume": 0.15,
+      "loop": false,
+      "fadeIn": 5000,
+      "fadeOut": 0,
+      "delay": 3000,
+      "muted": false,
+      "_orchestrationNote": "Irruption très douce du jazz de rue en toute fin — la vie ordinaire du port qui continue, indifférente à l'incendie intérieur de Joseph.",
+      "_orchestrationKeyword": "tuba_skinny_-_jubilee_stomp_-_royal_street_ii"
+    },
+    {
+      "id": "st_1781005709068_tajpucxa3_10",
+      "soundId": "hmnbrth_female_soft_breath_01_b00m_one",
+      "startSegmentId": "seg_1781005462920_3_t3dhb",
+      "endSegmentId": "seg_1781005462920_4_usxd9",
+      "column": 1,
+      "volume": 0.18,
+      "loop": true,
+      "fadeIn": 2000,
+      "fadeOut": 2000,
+      "delay": 0,
+      "muted": false,
+      "_orchestrationNote": "Souffle discret évoquant le tremblement intérieur et les remontées acides — le corps de Joseph qui lâche.",
+      "_orchestrationKeyword": "breath"
+    },
+    {
+      "id": "st_1781005709068_8hrijcu6a_11",
+      "soundId": "hmnhart_heart_beat_sequence_dull_01_b00m_one",
+      "startSegmentId": "seg_1781005462921_7_gni5a",
+      "endSegmentId": "seg_1781005462921_7_gni5a",
+      "column": 2,
+      "volume": 0.6,
+      "loop": false,
+      "fadeIn": 0,
+      "fadeOut": 0,
+      "delay": 0,
+      "muted": false,
+      "_orchestrationNote": "Le cœur qui s'emballe — ponctuation viscérale et littérale du texte.",
+      "_orchestrationKeyword": "heartbeat"
+    },
+    {
+      "id": "st_1781005709068_o6iu48zle_12",
+      "soundId": "winddsgn_wind_machine_long_sequence_close_01_b00m_one",
+      "startSegmentId": "seg_1781005462921_12_n7hgz",
+      "endSegmentId": "seg_1781005462921_13_wujgj",
+      "column": 0,
+      "volume": 0.2,
+      "loop": true,
+      "fadeIn": 3000,
+      "fadeOut": 2000,
+      "delay": 0,
+      "muted": false,
+      "_orchestrationNote": "Le vent des plaines de Champagne et du front d'Orient — la géographie traumatique surgit dans l'esprit de Joseph.",
+      "_orchestrationKeyword": "wind"
+    },
+    {
+      "id": "st_1781005709068_hnj5zeoju_13",
+      "soundId": "ambmisc_rain_distant_thunder_tin_windowsill_loop_01_b00m_one",
+      "startSegmentId": "seg_1781005462921_19_cb5hh",
+      "endSegmentId": "seg_1781005462921_19_cb5hh",
+      "column": 1,
+      "volume": 0.7,
+      "loop": false,
+      "fadeIn": 0,
+      "fadeOut": 0,
+      "delay": 500,
+      "muted": false,
+      "_orchestrationNote": "La pluie d'obus et les éclats de grenades — le tonnerre fait surgir l'hallucination auditive du champ de bataille.",
+      "_orchestrationKeyword": "thunder"
+    },
+    {
+      "id": "st_1781005709068_orzfnvdhj_14",
+      "soundId": "ambrurl_sheep_herd_distant_calm_04_b00m_one",
+      "startSegmentId": "seg_1781005462921_22_9irqd",
+      "endSegmentId": "seg_1781005462921_23_nbzfb",
+      "column": 0,
+      "volume": 0.12,
+      "loop": true,
+      "fadeIn": 4000,
+      "fadeOut": 2000,
+      "delay": 0,
+      "muted": false,
+      "_orchestrationNote": "Un fragment de normalité — Joseph au travail, les collègues — silence presque total pour faire respirer le texte avant la rechute.",
+      "_orchestrationKeyword": "calm"
+    },
+    {
+      "id": "st_1781005709068_vo52prm1c_15",
+      "soundId": "dsgnsynth_there_s_a_storm_blowing_01_b00m_one",
+      "startSegmentId": "seg_1781005462921_24_a3x0b",
+      "endSegmentId": "seg_1781005462921_26_7vpue",
+      "column": 1,
+      "volume": 0.25,
+      "loop": true,
+      "fadeIn": 3000,
+      "fadeOut": 3000,
+      "delay": 0,
+      "muted": false,
+      "_orchestrationNote": "Le froid qui congèle les os, les engelures — la tempête revient comme métaphore sensorielle du traumatisme.",
+      "_orchestrationKeyword": "storm"
+    },
+    {
+      "id": "st_1781005709068_3dj87ub68_16",
+      "soundId": "crwdapls_evening_concert_crowd_applauses_exterior_01_b00m_one",
+      "startSegmentId": "seg_1781005462921_27_txvjj",
+      "endSegmentId": "seg_1781005462921_28_ntf35",
+      "column": 1,
+      "volume": 0.18,
+      "loop": true,
+      "fadeIn": 2000,
+      "fadeOut": 3000,
+      "delay": 0,
+      "muted": false,
+      "_orchestrationNote": "Les morts se mêlent aux vivants — la foule devient fantomatique, présence trouble entre deux mondes.",
+      "_orchestrationKeyword": "crowd"
+    }
+  ],
+  "vfxTracks": []
+}
