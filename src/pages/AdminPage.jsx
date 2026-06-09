@@ -1502,47 +1502,7 @@ function AdminPage() {
                   )}
                 </div>
                 
-                {/* Boutons Undo/Redo */}
-                <div style={{ display: 'flex', gap: '0.25rem' }}>
-                  <button
-                    onClick={handleUndo}
-                    disabled={historyIndex <= 0}
-                    style={{
-                      padding: '0.75rem 1rem',
-                      fontSize: '1rem',
-                      backgroundColor: historyIndex > 0 ? '#6c757d' : '#ccc',
-                      color: 'white',
-                      border: 'none',
-                      borderRadius: '4px',
-                      cursor: historyIndex > 0 ? 'pointer' : 'not-allowed',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center'
-                    }}
-                    title="Annuler (Cmd+Z)"
-                  >
-                    ↩
-                  </button>
-                  <button
-                    onClick={handleRedo}
-                    disabled={historyIndex >= history.length - 1}
-                    style={{
-                      padding: '0.75rem 1rem',
-                      fontSize: '1rem',
-                      backgroundColor: historyIndex < history.length - 1 ? '#6c757d' : '#ccc',
-                      color: 'white',
-                      border: 'none',
-                      borderRadius: '4px',
-                      cursor: historyIndex < history.length - 1 ? 'pointer' : 'not-allowed',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center'
-                    }}
-                    title="Rétablir (Cmd+Shift+Z)"
-                  >
-                    ↪
-                  </button>
-                </div>
+                
               </div>
               {cutError && (
                 <p style={{ color: 'red', margin: '0.5rem 0 0 0', fontSize: '0.875rem' }}>
