@@ -163,9 +163,9 @@ class AudioEngine {
     const soundState = this.playingSounds.get(key)
     const currentVolume = soundState.howl.volume()
     if (duration && duration > 0) {
-      soundState.howl.fade(currentVolume, volume, duration)
+      soundState.howl.fade(currentVolume, this._toPerceptualVolume(volume), duration)
     } else {
-      soundState.howl.volume(volume)
+      soundState.howl.volume(this._toPerceptualVolume(volume))
     }
     this.playingSounds.set(soundId, { howl: soundState.howl, volume })
   }
