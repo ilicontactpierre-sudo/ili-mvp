@@ -223,79 +223,77 @@ function VfxOverlay({ activeType, activeMode }) {
             <style>{`
               /* ── Base bas ── */
               @keyframes fire-base-a {
-                0%   { transform: translate(-30px, 0px)   scale(1)    opacity(0.88); }
-                15%  { transform: translate( 15px,-45px)  scale(1.08) opacity(0.72); }
-                33%  { transform: translate(-20px,-30px)  scale(0.94) opacity(0.95); }
-                50%  { transform: translate( 40px,-60px)  scale(1.12) opacity(0.68); }
-                67%  { transform: translate(-10px,-20px)  scale(1.05) opacity(0.90); }
-                82%  { transform: translate( 25px,-50px)  scale(0.97) opacity(0.75); }
-                100% { transform: translate(-40px,-80px)  scale(1.10) opacity(0.85); }
+                0%   { transform: translate(-30px,  0px) scale(1);    opacity: 0.88; }
+                15%  { transform: translate( 15px,-45px) scale(1.08); opacity: 0.65; }
+                33%  { transform: translate(-20px,-30px) scale(0.94); opacity: 0.95; }
+                50%  { transform: translate( 40px,-60px) scale(1.12); opacity: 0.58; }
+                67%  { transform: translate(-10px,-20px) scale(1.05); opacity: 0.90; }
+                82%  { transform: translate( 25px,-50px) scale(0.97); opacity: 0.70; }
+                100% { transform: translate(-40px,-80px) scale(1.10); opacity: 0.82; }
               }
               @keyframes fire-base-b {
-                0%   { transform: translate(  0px,  0px)  scale(1)    opacity(0.82); }
-                20%  { transform: translate( 50px,-35px)  scale(1.10) opacity(0.60); }
-                45%  { transform: translate(-30px,-55px)  scale(0.92) opacity(0.90); }
-                65%  { transform: translate( 20px,-25px)  scale(1.06) opacity(0.65); }
-                100% { transform: translate(-50px,-70px)  scale(1.08) opacity(0.88); }
+                0%   { transform: translate(  0px,  0px) scale(1);    opacity: 0.80; }
+                20%  { transform: translate( 50px,-35px) scale(1.10); opacity: 0.52; }
+                45%  { transform: translate(-30px,-55px) scale(0.92); opacity: 0.92; }
+                65%  { transform: translate( 20px,-25px) scale(1.06); opacity: 0.60; }
+                100% { transform: translate(-50px,-70px) scale(1.08); opacity: 0.85; }
               }
               @keyframes fire-base-c {
-                0%   { transform: translate( 20px,  0px)  scale(1.02) opacity(0.78); }
-                25%  { transform: translate(-40px,-40px)  scale(0.95) opacity(0.92); }
-                55%  { transform: translate( 30px,-60px)  scale(1.09) opacity(0.62); }
-                75%  { transform: translate(-15px,-30px)  scale(1.04) opacity(0.85); }
-                100% { transform: translate( 45px,-75px)  scale(0.96) opacity(0.70); }
+                0%   { transform: translate( 20px,  0px) scale(1.02); opacity: 0.75; }
+                25%  { transform: translate(-40px,-40px) scale(0.95); opacity: 0.92; }
+                55%  { transform: translate( 30px,-60px) scale(1.09); opacity: 0.55; }
+                75%  { transform: translate(-15px,-30px) scale(1.04); opacity: 0.85; }
+                100% { transform: translate( 45px,-75px) scale(0.96); opacity: 0.68; }
               }
-              /* ── Résidus / braises montantes ── */
               @keyframes fire-ember-a {
-                0%   { transform: translate(  0px,   0px) scale(1)    opacity(0.65); }
-                18%  { transform: translate( 35px, -80px) scale(1.15) opacity(0.35); }
-                40%  { transform: translate(-25px,-120px) scale(0.88) opacity(0.70); }
-                60%  { transform: translate( 45px, -90px) scale(1.10) opacity(0.28); }
-                80%  { transform: translate(-10px,-150px) scale(1.05) opacity(0.55); }
-                100% { transform: translate( 20px,-180px) scale(0.92) opacity(0.20); }
+                0%   { transform: translate(  0px,   0px) scale(1);    opacity: 0.62; }
+                18%  { transform: translate( 35px, -80px) scale(1.15); opacity: 0.28; }
+                40%  { transform: translate(-25px,-120px) scale(0.88); opacity: 0.68; }
+                60%  { transform: translate( 45px, -90px) scale(1.10); opacity: 0.18; }
+                80%  { transform: translate(-10px,-150px) scale(1.05); opacity: 0.50; }
+                100% { transform: translate( 20px,-180px) scale(0.92); opacity: 0.10; }
               }
               @keyframes fire-ember-b {
-                0%   { transform: translate(  0px,   0px) scale(1)    opacity(0.55); }
-                22%  { transform: translate(-30px, -70px) scale(1.12) opacity(0.28); }
-                48%  { transform: translate( 40px,-110px) scale(0.90) opacity(0.62); }
-                70%  { transform: translate(-20px, -80px) scale(1.08) opacity(0.22); }
-                100% { transform: translate( 10px,-160px) scale(0.95) opacity(0.45); }
+                0%   { transform: translate(  0px,   0px) scale(1);    opacity: 0.52; }
+                22%  { transform: translate(-30px, -70px) scale(1.12); opacity: 0.22; }
+                48%  { transform: translate( 40px,-110px) scale(0.90); opacity: 0.58; }
+                70%  { transform: translate(-20px, -80px) scale(1.08); opacity: 0.15; }
+                100% { transform: translate( 10px,-160px) scale(0.95); opacity: 0.40; }
               }
               @keyframes fire-ember-c {
-                0%   { transform: translate(  0px,   0px) scale(1.05) opacity(0.50); }
-                30%  { transform: translate( 25px, -90px) scale(0.92) opacity(0.30); }
-                55%  { transform: translate(-35px,-130px) scale(1.10) opacity(0.58); }
-                78%  { transform: translate( 15px,-100px) scale(0.96) opacity(0.18); }
-                100% { transform: translate(-20px,-170px) scale(1.04) opacity(0.42); }
+                0%   { transform: translate(  0px,   0px) scale(1.05); opacity: 0.48; }
+                30%  { transform: translate( 25px, -90px) scale(0.92); opacity: 0.22; }
+                55%  { transform: translate(-35px,-130px) scale(1.10); opacity: 0.55; }
+                78%  { transform: translate( 15px,-100px) scale(0.96); opacity: 0.12; }
+                100% { transform: translate(-20px,-170px) scale(1.04); opacity: 0.38; }
               }
-              /* ── Nappes haut ── */
               @keyframes fire-top-a {
-                0%   { transform: translate(-25px,  0px) scale(1)    opacity(0.85); }
-                20%  { transform: translate( 40px, 60px) scale(1.12) opacity(0.55); }
-                42%  { transform: translate(-15px, 35px) scale(0.93) opacity(0.90); }
-                63%  { transform: translate( 30px, 70px) scale(1.08) opacity(0.48); }
-                82%  { transform: translate(-35px, 45px) scale(1.05) opacity(0.78); }
-                100% { transform: translate( 20px, 80px) scale(0.96) opacity(0.62); }
+                0%   { transform: translate(-25px,  0px) scale(1);    opacity: 0.82; }
+                20%  { transform: translate( 40px, 60px) scale(1.12); opacity: 0.45; }
+                42%  { transform: translate(-15px, 35px) scale(0.93); opacity: 0.88; }
+                63%  { transform: translate( 30px, 70px) scale(1.08); opacity: 0.38; }
+                82%  { transform: translate(-35px, 45px) scale(1.05); opacity: 0.75; }
+                100% { transform: translate( 20px, 80px) scale(0.96); opacity: 0.55; }
               }
               @keyframes fire-top-b {
-                0%   { transform: translate( 10px,  0px) scale(1.04) opacity(0.78); }
-                28%  { transform: translate(-45px, 50px) scale(0.94) opacity(0.45); }
-                52%  { transform: translate( 25px, 75px) scale(1.10) opacity(0.82); }
-                74%  { transform: translate(-20px, 40px) scale(0.98) opacity(0.38); }
-                100% { transform: translate( 35px, 85px) scale(1.06) opacity(0.70); }
+                0%   { transform: translate( 10px,  0px) scale(1.04); opacity: 0.75; }
+                28%  { transform: translate(-45px, 50px) scale(0.94); opacity: 0.35; }
+                52%  { transform: translate( 25px, 75px) scale(1.10); opacity: 0.80; }
+                74%  { transform: translate(-20px, 40px) scale(0.98); opacity: 0.28; }
+                100% { transform: translate( 35px, 85px) scale(1.06); opacity: 0.65; }
               }
               @keyframes fire-top-c {
-                0%   { transform: translate(-15px,  0px) scale(1)    opacity(0.72); }
-                32%  { transform: translate( 35px, 55px) scale(1.09) opacity(0.40); }
-                58%  { transform: translate(-30px, 80px) scale(0.92) opacity(0.80); }
-                80%  { transform: translate( 20px, 45px) scale(1.05) opacity(0.35); }
-                100% { transform: translate(-40px, 90px) scale(0.97) opacity(0.65); }
+                0%   { transform: translate(-15px,  0px) scale(1);    opacity: 0.68; }
+                32%  { transform: translate( 35px, 55px) scale(1.09); opacity: 0.32; }
+                58%  { transform: translate(-30px, 80px) scale(0.92); opacity: 0.78; }
+                80%  { transform: translate( 20px, 45px) scale(1.05); opacity: 0.25; }
+                100% { transform: translate(-40px, 90px) scale(0.97); opacity: 0.60; }
               }
               @keyframes fire-top-d {
-                0%   { transform: translate(  0px,  0px) scale(1)    opacity(0.50); }
-                35%  { transform: translate( 30px, 90px) scale(1.14) opacity(0.22); }
-                65%  { transform: translate(-20px, 60px) scale(0.90) opacity(0.55); }
-                100% { transform: translate( 15px,110px) scale(1.08) opacity(0.18); }
+                0%   { transform: translate(  0px,  0px) scale(1);    opacity: 0.48; }
+                35%  { transform: translate( 30px, 90px) scale(1.14); opacity: 0.15; }
+                65%  { transform: translate(-20px, 60px) scale(0.90); opacity: 0.52; }
+                100% { transform: translate( 15px,110px) scale(1.08); opacity: 0.12; }
               }
             `}</style>
           </svg>
