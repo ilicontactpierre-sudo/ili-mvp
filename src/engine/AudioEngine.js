@@ -96,9 +96,9 @@ class AudioEngine {
         console.log('🎚 play event reçu', { key, instanceId, soundStillActive: this.playingSounds.has(key) })
         if (!this.playingSounds.has(key)) return
         if (duration > 0) {
-          howl.fade(0, volume, duration, instanceId)
+          howl.fade(0, this._toPerceptualVolume(volume), duration, instanceId)
         } else {
-          howl.volume(volume, instanceId)
+          howl.volume(this._toPerceptualVolume(volume), instanceId)
         }
         if (loop && crossfadeMs > 0) {
           this._scheduleLoopCrossfade(key, howl, soundId, volume, crossfadeMs, trimStart, trimEnd, loopCrossfade)
