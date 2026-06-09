@@ -1595,7 +1595,7 @@ function AdminPage() {
                         </div>
                       </div>
                     ) : (
-                      <div style={{ height: '600px', marginBottom: '2rem' }}>
+                      <div style={{ height: '850px', marginBottom: '2rem' }}>
                         <UnifiedSegmentsTimeline
                           segments={segments}
                           soundTracks={soundTracks}
