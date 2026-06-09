@@ -91,7 +91,7 @@ function buildExportPrompt(segments, soundLibrary) {
   lines.push('    "fadeIn": 3,              // secondes (0 = pas de fondu)')
   lines.push('    "fadeOut": 4,             // secondes (0 = arrêt net)')
   lines.push('    "delay": 0,              // délai avant déclenchement (secondes)')
-  lines.push('    "type": "ambiance",       // "ambiance" | "diegetique" | "musique" | "transition"')
+  lines.push('    "type": "ambiance",       // VALEURS EXACTES : "ambiance" | "atmosphere"| "diegetique" | "musique" | "transition"')
   lines.push('    "note": "..."             // ton intention artistique en une phrase')
   lines.push('  }')
   lines.push(']')
