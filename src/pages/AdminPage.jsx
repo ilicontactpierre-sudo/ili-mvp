@@ -1322,7 +1322,6 @@ function AdminPage() {
             </button>
           </div>
 
-          <div ref={refTop} />
           {/* 2. StoryLoader (section collapsible) */}
           <StoryLoader
             onLoadStory={handleLoadStory}
@@ -1962,7 +1961,7 @@ function AdminPage() {
           ))}
         </div>
       )}
-      
+
       {/* Bouton de déconnexion */}
       <button
         onClick={handleLogout}
