@@ -1253,7 +1253,7 @@ function AdminPage() {
       minHeight: '100vh'
     }}>
       {/* Onglets admin */}
-      <div style={{ display: 'flex', borderBottom: '1px solid #eee', backgroundColor: '#fff', position: 'sticky', top: 0, zIndex: 100 }}>
+      <div data-sticky="tabbar" style={{ display: 'flex', borderBottom: '1px solid #eee', backgroundColor: '#fff', position: 'sticky', top: 0, zIndex: 100 }}>
         <button
           onClick={() => setAdminTab('stories')}
           style={{
