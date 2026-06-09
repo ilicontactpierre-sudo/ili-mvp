@@ -270,7 +270,7 @@ function DraftManager({
       )}
 
       {/* Barre de statut DraftManager */}
-      <div style={{
+      <div data-sticky="draftbar" style={{
         position: 'sticky',
         top: showDraftBanner ? 52 : 0,
         zIndex: 99,
