@@ -1908,7 +1908,61 @@ function AdminPage() {
       />
 
       </> /* fin onglet stories */}
-
+{/* ── Menu d'ancrage flottant ── */}
+      {adminTab === 'stories' && segments.length > 0 && (
+        <div style={{
+          position: 'fixed',
+          right: '1.25rem',
+          top: '50%',
+          transform: 'translateY(-50%)',
+          zIndex: 500,
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '0.5rem',
+          alignItems: 'flex-end',
+        }}>
+          {[
+            { ref: refTop, label: '↑ Haut', icon: '⬆' },
+            { ref: refTimeline, label: 'Timeline', icon: '▦' },
+            { ref: refOrchestration, label: 'Orchestration', icon: '🎼' },
+          ].map(({ ref, label, icon }) => (
+            <button
+              key={label}
+              onClick={() => ref.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
+              title={label}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.4rem',
+                padding: '0.45rem 0.75rem',
+                backgroundColor: 'rgba(20,20,20,0.82)',
+                color: 'rgba(255,255,255,0.85)',
+                border: '1px solid rgba(255,255,255,0.12)',
+                borderRadius: '999px',
+                cursor: 'pointer',
+                fontSize: '0.72rem',
+                fontWeight: 500,
+                backdropFilter: 'blur(8px)',
+                whiteSpace: 'nowrap',
+                transition: 'all 0.15s ease',
+                boxShadow: '0 2px 8px rgba(0,0,0,0.25)',
+              }}
+              onMouseEnter={e => {
+                e.currentTarget.style.backgroundColor = 'rgba(40,40,40,0.95)'
+                e.currentTarget.style.transform = 'scale(1.04)'
+              }}
+              onMouseLeave={e => {
+                e.currentTarget.style.backgroundColor = 'rgba(20,20,20,0.82)'
+                e.currentTarget.style.transform = 'scale(1)'
+              }}
+            >
+              <span>{icon}</span>
+              <span>{label}</span>
+            </button>
+          ))}
+        </div>
+      )}
+      
       {/* Bouton de déconnexion */}
       <button
         onClick={handleLogout}
