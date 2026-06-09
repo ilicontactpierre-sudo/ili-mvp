@@ -80,7 +80,7 @@ function NewsletterPage({ password }) {
   <tr><td style="padding:40px 40px 36px;">
 
     <!-- TEMPS DE LECTURE -->
-    <p style="font-size:10px;font-weight:300;letter-spacing:0.38em;text-transform:uppercase;color:${fgLow};margin:0 0 24px;">${timeDisplay} de lecture</p>
+    <p style="font-size:10px;font-weight:500;letter-spacing:0.38em;text-transform:uppercase;color:${fgLow};margin:0 0 24px;">${timeDisplay} de lecture</p>
 
     <!-- TITRE -->
     <p style="font-size:36px;font-weight:300;letter-spacing:0.06em;text-transform:uppercase;color:${fg};margin:0 0 10px;line-height:1.1;">${titleDisplay}</p>
