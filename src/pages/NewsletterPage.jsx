@@ -116,7 +116,7 @@ function NewsletterPage({ password }) {
   <p style="font-size:10px;font-weight:300;letter-spacing:0.35em;text-transform:uppercase;color:${fgLow};text-align:center;line-height:2.2;margin:0 0 44px;">${signatureHtml}</p>
 
   <!-- DESINSCRIPTION -->
-  <p style="font-size:10px;font-weight:300;letter-spacing:0.1em;color:${fgLow};text-align:center;margin:0;">
+  <p style="font-size:10px;font-weight:500;letter-spacing:0.1em;color:${fgLow};text-align:center;margin:0;">
     Pour vous d&eacute;sinscrire, <a href="mailto:ili.contact.pierre@gmail.com?subject=D%C3%A9sinscription&body=Je%20souhaite%20me%20d%C3%A9sinscrire%20de%20la%20newsletter%20ILi." style="color:${fgLow};text-decoration:underline;">cliquez ici</a>.
   </p>
 
