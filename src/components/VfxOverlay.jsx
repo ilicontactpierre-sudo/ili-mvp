@@ -187,7 +187,6 @@ function VfxOverlay({ activeType, activeMode }) {
             />
 
             {/* ── Nappes HAUT (brasier + inferno seulement) ── */}
-             {topIntensity > 0 && (<>
             <ellipse cx="300" cy="-80" rx="380" ry="240"
               fill={ff(fc2, 0.85)}
               filter="url(#ff-b)"
@@ -229,7 +228,7 @@ function VfxOverlay({ activeType, activeMode }) {
               }}
               ref={el => { if (el) el.style.opacity = String(topIntensity * 0.38) }}
             />
-          </>)}
+
             {/* Vignette noire haut — dramatise toujours */}
             <defs>
               <radialGradient id="vign-top" cx="50%" cy="0%" r="70%">
