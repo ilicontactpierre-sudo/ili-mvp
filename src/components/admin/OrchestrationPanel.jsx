@@ -164,6 +164,7 @@ function buildExportPrompt(segments, soundLibrary) {
   lines.push('## Volumes de référence')
   lines.push('')
   lines.push('- Ambiance géographique (loop) : 0.15–0.35')
+  lines.push('- Atmosphere émotionnelle (loop) : 0.12–0.3')
   lines.push('- Atmosphère/tension (loop) : 0.15–0.4')
   lines.push('- Son diégétique (ponctuel) : 0.55–0.8')
   lines.push('- Musique (loop ou non) : 0.25–0.5')
