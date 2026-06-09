@@ -241,12 +241,8 @@ class AudioEngine {
       // Lancer la nouvelle instance immédiatement avec fade in
       const newInstanceId = this._playInstance(howl, soundId, trimStart, trimEnd, key)
       howl.loop(false, newInstanceId)
-      if (duration && duration > 0) {
-      soundState.howl.fade(currentVolume, volume, duration)
-    } else {
-      soundState.howl.volume(volume)
-    }
-
+      howl.volume(0, newInstanceId)
+      howl.fade(0, this._toPerceptualVolume(volume), crossfadeMs, newInstanceId)
       // Mettre à jour l'état avec la nouvelle instance
       this.playingSounds.set(key, { ...state, instanceId: newInstanceId })
 
