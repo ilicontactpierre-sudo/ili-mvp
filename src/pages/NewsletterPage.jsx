@@ -67,7 +67,7 @@ function NewsletterPage({ password }) {
 
   <!-- LOGO -->
   <p style="text-align:center;font-size:42px;font-weight:300;letter-spacing:0.22em;color:${fg};margin:0 0 10px;line-height:1;">ILi</p>
-  <p style="text-align:center;font-size:11px;font-weight:350;letter-spacing:0.5em;text-transform:uppercase;color:${fgLow};margin:0 0 44px;">Lecture immersive</p>
+  <p style="text-align:center;font-size:11px;font-weight:360;letter-spacing:0.5em;text-transform:uppercase;color:${fgLow};margin:0 0 44px;">Lecture immersive</p>
 
   <!-- SEPARATEUR HAUT -->
   <div style="width:100%;height:1px;background:${borderColor};margin:0 0 44px;"></div>
