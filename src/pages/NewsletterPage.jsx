@@ -341,7 +341,7 @@ function NewsletterPage({ password }) {
 
         {/* Fin d'email */}
         <div style={sectionStyle}>
-          <h2 style={{ margin: 0, fontSize: '1rem', color: '#333', fontWeight: 600 }}>Fin d'email</h2>
+          <h2 style={{ margin: 0, fontSize: '1rem', color: '#333', fontWeight: 500 }}>Fin d'email</h2>
 
           <div>
             <span style={labelStyle}>Message de cloture</span>
