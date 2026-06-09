@@ -96,7 +96,7 @@ function NewsletterPage({ password }) {
 
     <!-- FOOTER CARTE -->
     <table width="100%" cellpadding="0" cellspacing="0"><tr>
-      <td style="font-size:10px;font-weight:500;letter-spacing:0.32em;text-transform:uppercase;color:${fgLow};">${partDisplay}</td>
+      <td style="font-size:10px;font-weight:400;letter-spacing:0.32em;text-transform:uppercase;color:${fgLow};">${partDisplay}</td>
       <td align="right"><a href="${urlDisplay}" style="font-size:10px;font-weight:400;letter-spacing:0.28em;text-transform:uppercase;color:${fg};text-decoration:none;border-bottom:1px solid ${fgMid};padding-bottom:3px;">Lire avec ILi &rarr;</a></td>
     </tr></table>
 
