@@ -906,6 +906,20 @@ function AdminPage() {
   const refTop = useRef(null)
   const refTimeline = useRef(null)
   const refOrchestration = useRef(null)
+  const [stickyHeight, setStickyHeight] = useState(89)
+  useEffect(() => {
+    const updateStickyHeight = () => {
+      const tabBar = document.querySelector('[data-sticky="tabbar"]')
+      const draftBar = document.querySelector('[data-sticky="draftbar"]')
+      const h = (tabBar?.offsetHeight || 45) + (draftBar?.offsetHeight || 44)
+      setStickyHeight(h)
+    }
+    updateStickyHeight()
+    window.addEventListener('resize', updateStickyHeight)
+    const observer = new MutationObserver(updateStickyHeight)
+    observer.observe(document.body, { childList: true, subtree: true, attributes: true })
+    return () => { window.removeEventListener('resize', updateStickyHeight); observer.disconnect() }
+  }, [])
   // États partagés mobile/desktop pour chapitres + gameMode
   const [collapsedChapters, setCollapsedChapters] = useState(new Set())
   const [gameModePanel, setGameModePanel] = useState(null)
