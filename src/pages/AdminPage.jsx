@@ -1927,56 +1927,91 @@ function AdminPage() {
       />
 
       </> /* fin onglet stories */}
-      {/* ── Menu d'ancrage flottant ── */}
-            {adminTab === 'stories' && segments.length > 0 && (
-              <div style={{
-                position: 'fixed',
-                right: '1.25rem',
-                top: '50%',
-                transform: 'translateY(-50%)',
-                zIndex: 500,
+      {/* ── Panneau latéral flottant (ancres + undo/redo) ── */}
+      {adminTab === 'stories' && segments.length > 0 && (
+        <div style={{
+          position: 'fixed',
+          right: '1rem',
+          top: '50%',
+          transform: 'translateY(-50%)',
+          zIndex: 500,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'stretch',
+          backgroundColor: 'rgba(18,18,18,0.92)',
+          border: '1px solid rgba(255,255,255,0.1)',
+          borderRadius: '12px',
+          overflow: 'hidden',
+          boxShadow: '0 4px 20px rgba(0,0,0,0.35)',
+          minWidth: '110px',
+        }}>
+          {/* ── Ancres ── */}
+          {[
+            { ref: refTop,          label: 'Haut',        icon: '⬆' },
+            { ref: refTimeline,     label: 'Timeline',    icon: '▦'  },
+            { ref: refOrchestration,label: 'Publication', icon: '🎼' },
+          ].map(({ ref, label, icon }, i, arr) => (
+            <button
+              key={label}
+              onClick={() => ref.current?.scrollIntoView({ behavior: 'instant', block: 'start' })}
+              title={label}
+              style={{
                 display: 'flex',
-                flexDirection: 'column',
+                alignItems: 'center',
                 gap: '0.5rem',
-                alignItems: 'flex-end',
-              }}>
-                {[
-                  { ref: refTop, label: 'Haut', icon: '⬆' },
-                  { ref: refTimeline, label: 'Timeline', icon: '▦' },
-                  { ref: refOrchestration, label: 'Publication', icon: '🎼' },
-                ].map(({ ref, label, icon }) => (
-                  <button
-                    key={label}
-                    onClick={() => ref.current?.scrollIntoView({ behavior: 'instant', block: 'start' })}
-                    title={label}
-                    style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '0.4rem',
-                      padding: '0.45rem 0.75rem',
-                      backgroundColor: 'rgba(20,20,20,0.88)',
-                      color: 'rgba(255,255,255,0.85)',
-                      border: '1px solid rgba(255,255,255,0.12)',
-                      borderRadius: '999px',
-                      cursor: 'pointer',
-                      fontSize: '0.72rem',
-                      fontWeight: 500,
-                      whiteSpace: 'nowrap',
-                      boxShadow: '0 2px 8px rgba(0,0,0,0.3)',
-                    }}
-                    onMouseEnter={e => {
-                      e.currentTarget.style.backgroundColor = 'rgba(50,50,50,0.98)'
-                    }}
-                    onMouseLeave={e => {
-                      e.currentTarget.style.backgroundColor = 'rgba(20,20,20,0.88)'
-                    }}
-                  >
-                    <span>{icon}</span>
-                    <span>{label}</span>
-                  </button>
-                ))}
-              </div>
-            )}
+                padding: '0.55rem 0.85rem',
+                backgroundColor: 'transparent',
+                color: 'rgba(255,255,255,0.78)',
+                border: 'none',
+                borderBottom: i < arr.length - 1 ? '1px solid rgba(255,255,255,0.07)' : 'none',
+                cursor: 'pointer',
+                fontSize: '0.72rem',
+                fontWeight: 500,
+                whiteSpace: 'nowrap',
+                textAlign: 'left',
+                transition: 'background 0.12s',
+              }}
+              onMouseEnter={e => e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.08)'}
+              onMouseLeave={e => e.currentTarget.style.backgroundColor = 'transparent'}
+            >
+              <span style={{ fontSize: '0.8rem' }}>{icon}</span>
+              <span>{label}</span>
+            </button>
+          ))}
+
+          {/* ── Séparateur ── */}
+          <div style={{ height: '1px', backgroundColor: 'rgba(255,255,255,0.12)', margin: '0' }} />
+
+          {/* ── Undo / Redo ── */}
+          {[
+            { label: '↩', title: 'Annuler (⌘Z)',        onClick: handleUndo, enabled: historyIndex > 0 },
+            { label: '↪', title: 'Rétablir (⌘⇧Z)',      onClick: handleRedo, enabled: historyIndex < history.length - 1 },
+          ].map(({ label, title, onClick, enabled }) => (
+            <button
+              key={title}
+              onClick={onClick}
+              disabled={!enabled}
+              title={title}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                padding: '0.5rem',
+                backgroundColor: 'transparent',
+                color: enabled ? 'rgba(255,255,255,0.78)' : 'rgba(255,255,255,0.2)',
+                border: 'none',
+                cursor: enabled ? 'pointer' : 'not-allowed',
+                fontSize: '1rem',
+                transition: 'background 0.12s',
+              }}
+              onMouseEnter={e => { if (enabled) e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.08)' }}
+              onMouseLeave={e => e.currentTarget.style.backgroundColor = 'transparent'}
+            >
+              {label}
+            </button>
+          ))}
+        </div>
+      )}
 
       {/* Bouton de déconnexion */}
       <button
