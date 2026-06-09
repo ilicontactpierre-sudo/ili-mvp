@@ -1656,7 +1656,7 @@ function AdminPage() {
           </div>
 
           {/* 4. OrchestrationPanel */}
-          <div ref={refOrchestration} />
+          <div ref={refOrchestration} style={{ scrollMarginTop: '60px' }} />
           {segments.length > 0 && (
             <OrchestrationPanel
               segments={segments}
