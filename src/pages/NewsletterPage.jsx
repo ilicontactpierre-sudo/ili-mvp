@@ -107,7 +107,7 @@ function NewsletterPage({ password }) {
   <div style="width:100%;height:1px;background:${ruleColor};margin:0 0 36px;"></div>
 
   <!-- MESSAGE FOOTER -->
-  <p style="font-size:10px;font-weight:300;letter-spacing:0.32em;text-transform:uppercase;color:${fgLow};text-align:center;line-height:2.2;margin:0 0 28px;">${footerMsg}</p>
+  <p style="font-size:10px;font-weight:500;letter-spacing:0.32em;text-transform:uppercase;color:${fgLow};text-align:center;line-height:2.2;margin:0 0 28px;">${footerMsg}</p>
 
   <!-- MINI REGLE -->
   <div style="width:28px;height:1px;background:${borderColor};margin:0 auto 28px;"></div>
