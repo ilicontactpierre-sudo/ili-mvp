@@ -61,11 +61,10 @@ function VfxOverlay({ activeType, activeMode }) {
   const fc = (a) => `rgba(${fw},${a})`
 
   // ── Couleurs feu selon thème ──
-  const fa  = isDark ? '210,100,5'   : '160,70,0'
-  const fb2 = isDark ? '230,140,10'  : '180,100,0'
-  const fc2 = isDark ? '255,60,0'    : '200,40,0'
-  const ff  = (r,g,b,a) => `rgba(${r},${g},${b},${a})`
-
+  const ff = (rgb, a) => `rgba(${rgb},${a})`
+  const fa  = isDark ? '210,100,5'  : '160,70,0'
+  const fb2 = isDark ? '230,140,10' : '180,100,0'
+  const fc2 = isDark ? '255,80,0'   : '200,40,0'
   const mode = activeMode || 'bougie'
 
   // Intensités des nappes selon mode
