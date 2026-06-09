@@ -155,39 +155,33 @@ function VfxOverlay({ activeType, activeMode }) {
 
             {/* ── Nappes BAS (toujours présentes) ── */}
 
-            {/* Nappe principale — cœur du feu, bas centre */}
             <ellipse cx="300" cy="1180" rx="420" ry="280"
-              fill={ff(fa.split('').join(''), baseIntensity * 0.90)}
+              fill={ff(fa, baseIntensity * 0.90)}
               filter="url(#ff-b)"
               style={{ animation: `fire-base-a ${mode === 'bougie' ? '5.3s' : mode === 'brasier' ? '3.1s' : '1.9s'} ease-in-out infinite alternate` }}
             />
-            {/* Nappe secondaire gauche */}
             <ellipse cx="80" cy="1050" rx="280" ry="200"
-              fill={ff(fa.split('').join(''), baseIntensity * 0.70)}
+              fill={ff(fa, baseIntensity * 0.70)}
               filter="url(#ff-a)"
               style={{ animation: `fire-base-b ${mode === 'bougie' ? '4.7s' : mode === 'brasier' ? '2.8s' : '1.6s'} ease-in-out infinite alternate` }}
             />
-            {/* Nappe secondaire droite */}
             <ellipse cx="520" cy="1080" rx="260" ry="190"
-              fill={ff(fb2.split('').join(''), baseIntensity * 0.65)}
+              fill={ff(fb2, baseIntensity * 0.65)}
               filter="url(#ff-a)"
               style={{ animation: `fire-base-c ${mode === 'bougie' ? '6.1s' : mode === 'brasier' ? '3.6s' : '2.2s'} ease-in-out infinite alternate` }}
             />
-            {/* Résidu lumineux — monte vers le centre */}
             <ellipse cx="300" cy="820" rx="200" ry="160"
-              fill={ff(fb2.split('').join(''), baseIntensity * 0.40)}
+              fill={ff(fb2, baseIntensity * 0.40)}
               filter="url(#ff-c)"
               style={{ animation: `fire-ember-a ${mode === 'bougie' ? '3.8s' : mode === 'brasier' ? '2.2s' : '1.3s'} ease-in-out infinite alternate` }}
             />
-            {/* Résidu droit */}
             <ellipse cx="460" cy="700" rx="160" ry="120"
-              fill={ff(fc2.split('').join(''), baseIntensity * 0.28)}
+              fill={ff(fc2, baseIntensity * 0.28)}
               filter="url(#ff-e)"
               style={{ animation: `fire-ember-b ${mode === 'bougie' ? '4.4s' : mode === 'brasier' ? '2.6s' : '1.5s'} ease-in-out infinite alternate` }}
             />
-            {/* Résidu gauche */}
             <ellipse cx="140" cy="650" rx="150" ry="110"
-              fill={ff(fa.split('').join(''), baseIntensity * 0.25)}
+              fill={ff(fa, baseIntensity * 0.25)}
               filter="url(#ff-e)"
               style={{ animation: `fire-ember-c ${mode === 'bougie' ? '5.8s' : mode === 'brasier' ? '3.4s' : '2.0s'} ease-in-out infinite alternate` }}
             />
