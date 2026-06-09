@@ -903,6 +903,9 @@ function AdminPage() {
 
   // Données pour l'aperçu
   const [previewStoryData, setPreviewStoryData] = useState(null)
+  const refTop = useRef(null)
+  const refTimeline = useRef(null)
+  const refOrchestration = useRef(null)
   // États partagés mobile/desktop pour chapitres + gameMode
   const [collapsedChapters, setCollapsedChapters] = useState(new Set())
   const [gameModePanel, setGameModePanel] = useState(null)
