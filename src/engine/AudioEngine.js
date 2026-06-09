@@ -10,7 +10,7 @@ class AudioEngine {
     _toPerceptualVolume(v) {
       return Math.max(0, Math.min(1, v * v))
     }
-    
+
   async executeEvents(audioEvents = []) {
     for (const event of audioEvents) {
       const delay = Number(event?.delay) || 0
@@ -38,7 +38,7 @@ class AudioEngine {
     if (loop && crossfadeMs > 0) {
       const instanceId = this._playInstance(howl, soundId, trimStart, trimEnd, key)
       howl.loop(false, instanceId)
-      howl.volume(volume, instanceId)
+      howl.volume(this._toPerceptualVolume(volume), instanceId)
       this.playingSounds.set(key, { howl, soundId, volume, instanceId, loop, loopCrossfade, trimStart, trimEnd, pan, panMode })
       this._scheduleLoopCrossfade(key, howl, soundId, volume, crossfadeMs, trimStart, trimEnd, loopCrossfade)
     } else {
