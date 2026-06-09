@@ -12,42 +12,75 @@ const CURATED_VOCABULARY = {
     'birds', 'birdsong', 'crickets', 'insects', 'leaves', 'fire', 'snow',
     'rural', 'nature', 'dawn', 'night', 'morning', 'jungle', 'cave',
     'waterfall', 'lake', 'beach', 'seaside', 'wind chime',
+    'drizzle', 'blizzard', 'fog', 'frost', 'mud', 'grass', 'swamp',
+    'desert', 'mountain', 'field', 'coast',
   ],
   'Ambiances urbaines': [
     'city', 'traffic', 'street', 'crowd', 'urban', 'market', 'restaurant',
     'cafe', 'office', 'airport', 'subway', 'train', 'harbor', 'construction',
     'church', 'indoor', 'outdoor', 'room', 'corridor', 'bar',
+    'port', 'docks', 'station', 'hospital', 'school', 'library',
+    'hotel', 'prison', 'courtyard', 'basement', 'attic',
+  ],
+  'Ambiances historiques & lieux dramatiques': [
+    'tavern', 'castle', 'dungeon', 'crypt', 'cathedral', 'monastery',
+    'battlefield', 'trench', 'ruins', 'forge', 'stable', 'village',
+    'cemetery', 'chapel', 'tower', 'cellar',
   ],
   'Atmosphères & tensions': [
     'dark', 'tension', 'horror', 'eerie', 'mystery', 'drone', 'ambient',
     'atmosphere', 'background', 'calm', 'peaceful', 'ominous', 'spooky',
     'dramatic', 'epic', 'cinematic', 'suspense', 'lonely', 'strange',
+    'melancholic', 'haunting', 'oppressive', 'anxious', 'sacred',
+    'ethereal', 'nostalgic', 'threatening', 'desolate',
+  ],
+  'Corps & états intérieurs': [
+    'heartbeat', 'breath', 'pulse', 'breathing', 'gasp', 'sob',
+    'tinnitus', 'dizzy', 'nausea', 'trembling', 'pain',
+  ],
+  'Guerre & violence': [
+    'explosion', 'gunshot', 'artillery', 'bomb', 'fire', 'battle',
+    'march', 'soldiers', 'siren', 'alarm', 'impact', 'shockwave',
+    'rumble', 'distant', 'war',
   ],
   'Musique & instruments': [
     'piano', 'violin', 'guitar', 'accordion', 'trumpet', 'cello', 'drums',
     'orchestra', 'choir', 'flute', 'saxophone', 'bass', 'concerto', 'jazz',
     'tuba', 'harp', 'organ', 'carillon', 'bells', 'melody',
+    'lullaby', 'requiem', 'waltz', 'march', 'folk', 'blues',
+    'strings', 'brass', 'percussion', 'classical',
   ],
   'Sons diégétiques — lieux & mobilité': [
     'door', 'footstep', 'walk', 'car', 'airplane', 'boat', 'horse', 'stairs',
     'elevator', 'window', 'lock', 'key', 'gate', 'bridge',
+    'motorcycle', 'bicycle', 'ship', 'wagon', 'running',
   ],
   'Sons diégétiques — actions humaines': [
     'knock', 'slam', 'click', 'writing', 'typing', 'phone', 'clock', 'alarm',
     'laugh', 'cry', 'scream', 'whisper', 'breath', 'cough', 'heartbeat',
     'applause', 'crowd', 'voice', 'speech',
+    'drink', 'eat', 'pour', 'chew', 'swallow',
+    'fight', 'punch', 'fall', 'drag', 'snore', 'prayer',
   ],
-  'Sons diégétiques — objets & impacts': [
-    'glass', 'impact', 'crash', 'explosion', 'gun', 'sword', 'hit', 'break',
+  'Sons diégétiques — objets & matières': [
+    'glass', 'crash', 'gun', 'sword', 'hit', 'break',
     'paper', 'metal', 'wood', 'splash', 'drop', 'rattle', 'creak', 'scratch',
+    'chain', 'rope', 'fire', 'candle', 'match', 'bell',
+    'bottle', 'knife', 'hammer', 'saw', 'clock', 'typewriter',
   ],
   'Transitions & effets': [
     'whoosh', 'sweep', 'transition', 'riser', 'stinger', 'shockwave',
     'snap', 'ping', 'beep', 'notification', 'surprising',
+    'boom', 'swoosh', 'sting', 'hit', 'drop',
   ],
   'Science-fiction & fantastique': [
     'spaceship', 'scifi', 'laser', 'alien', 'magic', 'spell', 'portal',
     'robot', 'electric', 'energy', 'futuristic', 'space', 'glitch',
+    'teleport', 'force', 'shield', 'scanner', 'computer',
+  ],
+  'Animaux': [
+    'dog', 'cat', 'horse', 'bird', 'wolf', 'crow', 'owl', 'rat',
+    'insects', 'fly', 'frog', 'whale', 'lion', 'animal',
   ],
 }
 
