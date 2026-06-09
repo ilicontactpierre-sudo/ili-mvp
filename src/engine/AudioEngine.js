@@ -5,7 +5,12 @@ class AudioEngine {
     this._fadeTokens = new Map()
     this._panAnimations = new Map() // intervalId par key pour les modes animés
   }
-
+  // Convertit un volume linéaire (0-1) en volume perçu (courbe quadratique)
+    // 0.5 linéaire → 0.25 réel → perçu comme "moitié moins fort" à l'oreille
+    _toPerceptualVolume(v) {
+      return Math.max(0, Math.min(1, v * v))
+    }
+    
   async executeEvents(audioEvents = []) {
     for (const event of audioEvents) {
       const delay = Number(event?.delay) || 0
