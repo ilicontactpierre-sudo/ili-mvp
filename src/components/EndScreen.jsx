@@ -245,11 +245,40 @@ function EndScreen({ title, author, formUrl, bookUrl, nextPart = null, onNextPar
           </a>
         )}
 
+        {/* ── Partie suivante (mode série) ── */}
+        {nextPart && onNextPart && (
+          <button
+            type="button"
+            onClick={onNextPart}
+            style={{
+              marginTop: '2.2rem',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '0.5rem',
+              marginInline: 'auto',
+              padding: '0.875rem 1.75rem',
+              borderRadius: '999px',
+              background: 'var(--color-text-focus)',
+              color: 'var(--color-bg)',
+              border: 'none',
+              fontFamily: 'var(--font-primary)',
+              fontSize: '1rem',
+              fontWeight: 600,
+              cursor: 'pointer',
+              letterSpacing: '0.02em',
+            }}
+          >
+            <span>{nextPart.title}</span>
+            <span style={{ opacity: 0.6, fontSize: '0.85em' }}>→</span>
+          </button>
+        )}
+
         <button
           type="button"
           onClick={handleReturnHome}
           style={{
-            marginTop: (formUrl || bookUrl) ? '1.5rem' : '2.5rem',
+            marginTop: (nextPart || formUrl || bookUrl) ? '1.5rem' : '2.5rem',
             display: 'block',
             marginInline: 'auto',
             border: 'none',
