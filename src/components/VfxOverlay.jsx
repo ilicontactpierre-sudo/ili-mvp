@@ -241,49 +241,68 @@ function VfxOverlay({ activeType, activeMode }) {
             <style>{`
               /* ── Base bas ── */
               @keyframes fire-base-a {
-                0%   { transform: translate(-30px,  0px) scale(1);    opacity: 0.88; }
-                15%  { transform: translate( 15px,-45px) scale(1.08); opacity: 0.65; }
-                33%  { transform: translate(-20px,-30px) scale(0.94); opacity: 0.95; }
-                50%  { transform: translate( 40px,-60px) scale(1.12); opacity: 0.58; }
-                67%  { transform: translate(-10px,-20px) scale(1.05); opacity: 0.90; }
-                82%  { transform: translate( 25px,-50px) scale(0.97); opacity: 0.70; }
-                100% { transform: translate(-40px,-80px) scale(1.10); opacity: 0.82; }
+                0%   { transform: translate(-30px,  0px) scale(1);    opacity: 0.85; }
+                8%   { transform: translate(  5px,-20px) scale(1.03); opacity: 0.60; }
+                19%  { transform: translate(-15px,-45px) scale(0.96); opacity: 0.92; }
+                31%  { transform: translate( 35px,-30px) scale(1.09); opacity: 0.50; }
+                44%  { transform: translate(-25px,-60px) scale(1.14); opacity: 0.88; }
+                53%  { transform: translate( 10px,-40px) scale(0.98); opacity: 0.55; }
+                68%  { transform: translate(-40px,-70px) scale(1.06); opacity: 0.95; }
+                79%  { transform: translate( 20px,-50px) scale(0.93); opacity: 0.45; }
+                88%  { transform: translate(-10px,-35px) scale(1.11); opacity: 0.80; }
+                100% { transform: translate(-30px,-80px) scale(1.04); opacity: 0.70; }
               }
               @keyframes fire-base-b {
-                0%   { transform: translate(  0px,  0px) scale(1);    opacity: 0.80; }
-                20%  { transform: translate( 50px,-35px) scale(1.10); opacity: 0.52; }
-                45%  { transform: translate(-30px,-55px) scale(0.92); opacity: 0.92; }
-                65%  { transform: translate( 20px,-25px) scale(1.06); opacity: 0.60; }
-                100% { transform: translate(-50px,-70px) scale(1.08); opacity: 0.85; }
+                0%   { transform: translate(  0px,  0px) scale(1);    opacity: 0.78; }
+                11%  { transform: translate( 45px,-25px) scale(1.07); opacity: 0.45; }
+                24%  { transform: translate(-20px,-50px) scale(0.93); opacity: 0.88; }
+                37%  { transform: translate( 30px,-35px) scale(1.11); opacity: 0.38; }
+                51%  { transform: translate(-35px,-65px) scale(0.97); opacity: 0.92; }
+                63%  { transform: translate( 15px,-45px) scale(1.05); opacity: 0.52; }
+                74%  { transform: translate(-50px,-55px) scale(1.13); opacity: 0.82; }
+                86%  { transform: translate( 25px,-30px) scale(0.95); opacity: 0.42; }
+                100% { transform: translate(-40px,-75px) scale(1.08); opacity: 0.75; }
               }
               @keyframes fire-base-c {
-                0%   { transform: translate( 20px,  0px) scale(1.02); opacity: 0.75; }
-                25%  { transform: translate(-40px,-40px) scale(0.95); opacity: 0.92; }
-                55%  { transform: translate( 30px,-60px) scale(1.09); opacity: 0.55; }
-                75%  { transform: translate(-15px,-30px) scale(1.04); opacity: 0.85; }
-                100% { transform: translate( 45px,-75px) scale(0.96); opacity: 0.68; }
+                0%   { transform: translate( 20px,  0px) scale(1.02); opacity: 0.72; }
+                13%  { transform: translate(-30px,-35px) scale(0.94); opacity: 0.90; }
+                27%  { transform: translate( 40px,-55px) scale(1.10); opacity: 0.48; }
+                42%  { transform: translate(-10px,-40px) scale(1.15); opacity: 0.85; }
+                56%  { transform: translate( 25px,-65px) scale(0.96); opacity: 0.40; }
+                69%  { transform: translate(-40px,-45px) scale(1.07); opacity: 0.88; }
+                81%  { transform: translate( 15px,-30px) scale(0.92); opacity: 0.55; }
+                93%  { transform: translate(-20px,-70px) scale(1.12); opacity: 0.78; }
+                100% { transform: translate( 45px,-60px) scale(1.01); opacity: 0.62; }
               }
               @keyframes fire-ember-a {
-                0%   { transform: translate(  0px,   0px) scale(1);    opacity: 0.62; }
-                18%  { transform: translate( 35px, -80px) scale(1.15); opacity: 0.28; }
-                40%  { transform: translate(-25px,-120px) scale(0.88); opacity: 0.68; }
-                60%  { transform: translate( 45px, -90px) scale(1.10); opacity: 0.18; }
-                80%  { transform: translate(-10px,-150px) scale(1.05); opacity: 0.50; }
-                100% { transform: translate( 20px,-180px) scale(0.92); opacity: 0.10; }
+                0%   { transform: translate(  0px,   0px) scale(1);    opacity: 0.58; }
+                12%  { transform: translate( 28px, -55px) scale(1.10); opacity: 0.22; }
+                26%  { transform: translate(-18px, -95px) scale(0.90); opacity: 0.62; }
+                39%  { transform: translate( 42px,-115px) scale(1.14); opacity: 0.15; }
+                54%  { transform: translate(-30px,-140px) scale(0.95); opacity: 0.55; }
+                67%  { transform: translate( 15px,-105px) scale(1.08); opacity: 0.10; }
+                80%  { transform: translate(-22px,-160px) scale(1.02); opacity: 0.45; }
+                100% { transform: translate( 10px,-185px) scale(0.88); opacity: 0.08; }
               }
               @keyframes fire-ember-b {
-                0%   { transform: translate(  0px,   0px) scale(1);    opacity: 0.52; }
-                22%  { transform: translate(-30px, -70px) scale(1.12); opacity: 0.22; }
-                48%  { transform: translate( 40px,-110px) scale(0.90); opacity: 0.58; }
-                70%  { transform: translate(-20px, -80px) scale(1.08); opacity: 0.15; }
-                100% { transform: translate( 10px,-160px) scale(0.95); opacity: 0.40; }
+                0%   { transform: translate(  0px,   0px) scale(1);    opacity: 0.50; }
+                15%  { transform: translate(-25px, -60px) scale(1.08); opacity: 0.18; }
+                30%  { transform: translate( 38px, -95px) scale(0.92); opacity: 0.55; }
+                46%  { transform: translate(-15px,-125px) scale(1.12); opacity: 0.12; }
+                60%  { transform: translate( 30px,-105px) scale(0.97); opacity: 0.48; }
+                75%  { transform: translate(-40px,-145px) scale(1.05); opacity: 0.08; }
+                88%  { transform: translate( 12px,-165px) scale(0.93); opacity: 0.38; }
+                100% { transform: translate(-20px,-170px) scale(1.10); opacity: 0.05; }
               }
               @keyframes fire-ember-c {
-                0%   { transform: translate(  0px,   0px) scale(1.05); opacity: 0.48; }
-                30%  { transform: translate( 25px, -90px) scale(0.92); opacity: 0.22; }
-                55%  { transform: translate(-35px,-130px) scale(1.10); opacity: 0.55; }
-                78%  { transform: translate( 15px,-100px) scale(0.96); opacity: 0.12; }
-                100% { transform: translate(-20px,-170px) scale(1.04); opacity: 0.38; }
+                0%   { transform: translate(  0px,   0px) scale(1.05); opacity: 0.45; }
+                17%  { transform: translate( 22px, -75px) scale(0.91); opacity: 0.25; }
+                33%  { transform: translate(-32px,-115px) scale(1.09); opacity: 0.52; }
+                50%  { transform: translate( 18px,-135px) scale(0.94); opacity: 0.10; }
+                64%  { transform: translate(-28px,-110px) scale(1.13); opacity: 0.48; }
+                78%  { transform: translate( 35px,-155px) scale(0.98); opacity: 0.08; }
+                90%  { transform: translate(-12px,-145px) scale(1.06); opacity: 0.35; }
+                100% { transform: translate( 8px, -175px) scale(0.90); opacity: 0.05; }
               }
               @keyframes fire-top-a {
                 0%   { transform: translate(-25px,  0px) scale(1);    opacity: 0.82; }
