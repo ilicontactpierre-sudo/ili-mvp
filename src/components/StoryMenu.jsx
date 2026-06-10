@@ -131,14 +131,9 @@ function StoryMenu({ isOpen, stories, isLoading, onClose, onDeleteStory }) {
               <div
                 key={story.id}
                 className="story-card"
-                onClick={() => handleStoryClick(story.id)}
-                style={{ '--delay': `${index * 60}ms` }}
+                style={{ '--delay': `${index * 60}ms`, padding: '0 0.25rem' }}
               >
-                <div className="story-content">
-                  <div className="story-title">{story.title}</div>
-                  <div className="story-author">{story.author}</div>
-                </div>
-                
+                <StoryRow story={story} onNavigate={handleStoryClick} />
               </div>
             ))}
           </div>
