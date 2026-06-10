@@ -501,19 +501,33 @@ function VfxOverlay({ activeType, activeMode }) {
 
   // ── Paramètres sous-marin ──
   const uwCfg = {
-    surface: { filterStr: isDark
-      ? 'hue-rotate(160deg) saturate(1.4) brightness(0.88) sepia(0.18)'
-      : 'hue-rotate(155deg) saturate(1.6) brightness(0.92) sepia(0.12)',
-      overlayOp: 0.04, causticOp: 0.13, causticColor: isDark ? '80,180,200' : '40,140,180' },
-    profond: { filterStr: isDark
-      ? 'hue-rotate(185deg) saturate(1.8) brightness(0.72) sepia(0.35)'
-      : 'hue-rotate(180deg) saturate(2.0) brightness(0.78) sepia(0.28)',
-      overlayOp: 0.10, causticColor: isDark ? '50,140,170' : '20,100,150', causticOp: 0.22 },
-    abyssal: { filterStr: isDark
-      ? 'hue-rotate(210deg) saturate(2.2) brightness(0.48) sepia(0.60)'
-      : 'hue-rotate(205deg) saturate(2.4) brightness(0.55) sepia(0.55)',
-      overlayOp: 0.20, causticColor: isDark ? '20,80,120'  : '10,50,90',   causticOp: 0.10 },
-  }[activeMode] ?? { filterStr: 'hue-rotate(160deg) saturate(1.4) brightness(0.88)', overlayOp: 0.06, causticColor: '60,160,190', causticOp: 0.14 }
+    surface: {
+      filterStr: isDark
+        ? 'hue-rotate(160deg) saturate(1.4) brightness(0.88) sepia(0.18)'
+        : 'hue-rotate(155deg) saturate(1.6) brightness(0.92) sepia(0.12)',
+      overlayOp: 0.04, causticOp: 0.13,
+      causticColor: isDark ? '80,180,200' : '40,140,180',
+      dispScale: 12,
+    },
+    profond: {
+      filterStr: isDark
+        ? 'hue-rotate(185deg) saturate(1.8) brightness(0.72) sepia(0.35)'
+        : 'hue-rotate(180deg) saturate(2.0) brightness(0.78) sepia(0.28)',
+      overlayOp: 0.10, causticColor: isDark ? '50,140,170' : '20,100,150', causticOp: 0.22,
+      dispScale: 18,
+    },
+    abyssal: {
+      filterStr: isDark
+        ? 'hue-rotate(210deg) saturate(2.2) brightness(0.48) sepia(0.60)'
+        : 'hue-rotate(205deg) saturate(2.4) brightness(0.55) sepia(0.55)',
+      overlayOp: 0.20, causticColor: isDark ? '20,80,120' : '10,50,90', causticOp: 0.10,
+      dispScale: 26,
+    },
+  }[activeMode] ?? {
+    filterStr: 'hue-rotate(160deg) saturate(1.4) brightness(0.88)',
+    overlayOp: 0.06, causticColor: '60,160,190', causticOp: 0.14,
+    dispScale: 14,
+  }
 
   return (
     <>
