@@ -12,6 +12,8 @@ function PublishPanel({
   segments,
   soundTracks,
   vfxTracks,
+  isSerial = false,
+  parts = [],
   soundLibrary,
   onNewStory,
   onSaveDraft
