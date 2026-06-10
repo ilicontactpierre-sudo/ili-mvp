@@ -420,9 +420,10 @@ function StoryPage() {
 
   useEffect(() => {
     if (!isFading) return
-    // Capturer l'engine dans une variable locale pour qu'il reste en vie
-    // pendant tout le fade, même si audioEngineRef est nullifié entretemps
     const engine = audioEngineRef.current
+    console.log('🔇 isFading — engine:', engine)
+    console.log('🔇 playingSounds size:', engine?.playingSounds?.size)
+    console.log('🔇 playingSounds keys:', engine ? [...engine.playingSounds.keys()] : 'N/A')
     engine?.stopAll(3000)
     const t = setTimeout(() => setIsFinished(true), 3000)
     return () => {
