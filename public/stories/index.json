@@ -105,5 +105,14 @@
     "genre": "Nouvelle",
     "description": "Description 2-3 lignes",
     "type": "serial"
+  },
+  {
+    "id": "test-partie-test-partie",
+    "title": "test partie",
+    "author": "test partie",
+    "mood": "test partie",
+    "genre": "test partie",
+    "description": "test partie",
+    "type": "serial"
   }
 ]
