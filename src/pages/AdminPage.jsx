@@ -2029,9 +2029,11 @@ function AdminPage() {
             mood={storyMood}
             genre={storyGenre}
             description={storyDescription}
-            segments={segments}
-            soundTracks={soundTracks}
-            vfxTracks={vfxTracks}
+            segments={isSerial ? [] : segments}
+            soundTracks={isSerial ? [] : soundTracks}
+            vfxTracks={isSerial ? [] : vfxTracks}
+            isSerial={isSerial}
+            parts={isSerial ? parts : []}
             soundLibrary={soundLibrary}
             onNewStory={handleNewStory}
             onSaveDraft={handleSaveDraft}
