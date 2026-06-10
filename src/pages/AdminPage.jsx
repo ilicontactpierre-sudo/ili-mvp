@@ -1667,6 +1667,9 @@ function AdminPage() {
             author={storyAuthor}
             slug={storySlug}
             bookUrl={storyBookUrl}
+            mood={storyMood}
+            genre={storyGenre}
+            description={storyDescription}
             segments={segments}
             soundTracks={soundTracks}
             vfxTracks={vfxTracks}
