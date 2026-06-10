@@ -190,6 +190,11 @@ class AudioEngine {
       }
     })
     this.playingSounds.clear()
+    // Stopper aussi tous les sons encore actifs dans le howlMap
+    // (ceux retirés de playingSounds avant la fin naturelle)
+    this.howlMap.forEach((howl) => {
+      howl.stop()
+    })
   }
   _applyTrimSprite(howl, soundId, trimStart, trimEnd, trackId) {
     const start = trimStart || 0
