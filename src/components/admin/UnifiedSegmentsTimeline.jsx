@@ -911,9 +911,10 @@ function UnifiedSegmentsTimeline({
   // ── Chapitres ──────────────────────────────────────────────
   const [collapsedChapters, setCollapsedChapters] = useState(new Set())
   const [gameModePanel, setGameModePanel] = useState(null) // index du segment ou null
-  const clipboardRef = useRef(null) // { segments, soundTracks, vfxTracks }
-  const [clipboardSize, setClipboardSize] = useState(0) // pour l'indicateur visuel
-  const [pasteIndicator, setPasteIndicator] = useState(null) // index cible affiché brièvement
+  const clipboardRef = useRef(null)
+  const [clipboardSize, setClipboardSize] = useState(0)
+  const [pasteIndicator, setPasteIndicator] = useState(null)
+  const scrollToSegmentRef = useRef(null)
 
   const [gotoInput, setGotoInput] = useState('')
   const [minimapHovered, setMinimapHovered] = useState(null)
