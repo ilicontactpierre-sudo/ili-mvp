@@ -889,6 +889,9 @@ function UnifiedSegmentsTimeline({
   const [selectedSegmentIndices, setSelectedSegmentIndices] = useState(new Set())
   const selectionAnchorRef = useRef(null) // dernière ancre pour Shift+clic
   const selectedSegmentIndicesRef = useRef(new Set())
+  // Synchroniser la ref avec le state à chaque render
+  selectedSegmentIndicesRef.current = selectedSegmentIndices
+
   const [hoveredRow, setHoveredRow] = useState(null)
   const [hoveredSeparator, setHoveredSeparator] = useState(null)
   const [isCmdPressed, setIsCmdPressed] = useState(false)
