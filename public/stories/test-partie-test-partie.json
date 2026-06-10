@@ -1,0 +1,76 @@
+{
+  "id": "test-partie-test-partie",
+  "title": "test partie",
+  "author": "test partie",
+  "mood": "test partie",
+  "genre": "test partie",
+  "description": "test partie",
+  "type": "serial",
+  "published": true,
+  "parts": [
+    {
+      "id": "part_1781125921497_0",
+      "title": "Partie 1",
+      "subtitle": "test partie",
+      "description": "test partie",
+      "published": true,
+      "sounds": [],
+      "segments": [
+        {
+          "id": "seg_1781125938968_a_mao6s",
+          "lines": [
+            "test partietest partietest partietest partietest partietest partietest partietest partietest partietest partietest partietest partietest partietest partietest partietest partietest partietest partietest partietest partietest partietest partietest"
+          ],
+          "text": "test partietest partietest partietest partietest partietest partietest partietest partiet",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1781125938968_b_kmsng",
+          "lines": [
+            "test partietest partietest partietest partietest partietest partietest partietest partietest partietest partietest partietest partietest partietest partietest partietest partietest partietest partietest partietest partietest partietest partietest"
+          ],
+          "text": "est partietest partietest partietest partietest partietest partietest partietest partietest partietest partietest partietest partietest partietest partietest",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1781125930816_1_xgeh9",
+          "lines": [
+            "partietest partietest partietest partie"
+          ],
+          "text": "partietest partietest partietest partie",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        }
+      ],
+      "soundTracks": [],
+      "vfxTracks": []
+    },
+    {
+      "id": "part_1781125924315_1",
+      "title": "Partie 2",
+      "subtitle": "test partie",
+      "description": "test partie",
+      "published": false,
+      "sounds": [],
+      "segments": [
+        {
+          "id": "seg_1781125935699_0_eum9c",
+          "lines": [
+            "test partietest partietest partietest partietest partietest partietest partie"
+          ],
+          "text": "test partietest partietest partietest partietest partietest partietest partie",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        }
+      ],
+      "soundTracks": [],
+      "vfxTracks": []
+    }
+  ]
+}
