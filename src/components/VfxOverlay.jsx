@@ -725,9 +725,10 @@ function VfxOverlay({ activeType, activeMode }) {
                 result="noise"
               />
               <feDisplacementMap
+                id="uw-displacement"
                 in="SourceGraphic"
                 in2="noise"
-                scale={uwCfg.dispScale}
+                scale="0"
                 xChannelSelector="R"
                 yChannelSelector="G"
               />
