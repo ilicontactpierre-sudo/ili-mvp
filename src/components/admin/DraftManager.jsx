@@ -112,7 +112,7 @@ function DraftManager({
   }, [])
 
   // Sauvegarder dans localStorage
-const saveDraft = useCallback((label) => {
+  const saveDraft = useCallback((label) => {
     const snapshot = createSnapshot(label)
     const draftKey = snapshot.slug ? `ili_draft_${snapshot.slug}` : 'ili_draft_unsaved'
     const historyKey = snapshot.slug ? `ili_history_${snapshot.slug}` : 'ili_history_unsaved'
@@ -166,7 +166,7 @@ const saveDraft = useCallback((label) => {
         clearTimeout(autoSaveTimerRef.current)
       }
     }
-  }, [segments, soundTracks, title, author, slug, saveDraft])
+  }, [segments, soundTracks, parts, isSerial, title, author, slug, saveDraft])
 
   // Sauvegarde avant fermeture de la page
   useEffect(() => {
