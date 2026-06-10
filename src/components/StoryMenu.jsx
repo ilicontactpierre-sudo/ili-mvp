@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 function StoryRow({ story, onNavigate }) {
   const [open, setOpen] = useState(false)
   const hasInfo = story.mood || story.genre || story.description
+  const descRef = useRef(null)
 
   return (
     <div data-story-row style={{ borderBottom: '1px solid rgba(255,255,255,0.07)' }}>
