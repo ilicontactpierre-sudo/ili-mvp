@@ -93,12 +93,13 @@ export default async function handler(req, res) {
     
     const index = Array.isArray(currentIndex) ? currentIndex : [];
     const entry = { 
-      id: slug, 
+      id:    slug, 
       title: storyData.title, 
       author: storyData.author,
-      ...(storyData.mood        ? { mood: storyData.mood }               : {}),
-      ...(storyData.genre       ? { genre: storyData.genre }             : {}),
+      ...(storyData.mood        ? { mood:        storyData.mood }        : {}),
+      ...(storyData.genre       ? { genre:       storyData.genre }       : {}),
       ...(storyData.description ? { description: storyData.description } : {}),
+      ...(storyData.type        ? { type:        storyData.type }        : {}),
     };
     
     const existingPosition = index.findIndex(s => s.id === slug);
