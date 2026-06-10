@@ -149,18 +149,6 @@ function StartScreen({ title, author, segmentCount = 0, segments = [], soundsToP
               animation: 'fadeUp 700ms cubic-bezier(0.16, 1, 0.3, 1) both',
               width: '100%',
             }}>
-              {progressPercent !== null && (
-                <p style={{
-                  opacity: 0.28,
-                  fontSize: 'clamp(0.6rem, 2.2vw, 0.72rem)',
-                  letterSpacing: '0.22em',
-                  textTransform: 'uppercase',
-                  fontFamily: 'var(--font-logo)',
-                  marginBottom: '1.6rem',
-                }}>
-                  {progressPercent}% LU
-                </p>
-              )}
               {prevSegmentText && (
                 <p style={{
                   opacity: 0.2,
