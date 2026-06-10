@@ -353,6 +353,7 @@ function StoryPage() {
         <StartScreen
           title={story?.title ?? ''}
           author={story?.author ?? ''}
+          segmentCount={segments.length}
           soundsToPreload={story?.sounds ?? []}
           savedProgress={story?.id ? loadProgress(story.id) : null}
           onStart={(preloadedHowlMap, resume) => {
