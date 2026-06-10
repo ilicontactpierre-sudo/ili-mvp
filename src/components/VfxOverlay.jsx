@@ -158,32 +158,32 @@ function VfxOverlay({ activeType, activeMode }) {
             <ellipse cx="300" cy="1180" rx="420" ry="280"
               fill={ff(fa, baseIntensity * 0.90)}
               filter="url(#ff-b)"
-              style={{ animation: `fire-base-a ${mode === 'bougie' ? '5.3s' : mode === 'brasier' ? '3.1s' : '1.9s'} ease-in-out infinite alternate` }}
+              style={{ animation: `fire-base-a ${mode === 'bougie' ? '7.7s' : mode === 'brasier' ? '4.3s' : '2.5s'} ease-in-out infinite`, animationDelay: '0s' }}
             />
             <ellipse cx="80" cy="1050" rx="280" ry="200"
               fill={ff(fa, baseIntensity * 0.70)}
               filter="url(#ff-a)"
-              style={{ animation: `fire-base-b ${mode === 'bougie' ? '4.7s' : mode === 'brasier' ? '2.8s' : '1.6s'} ease-in-out infinite alternate` }}
+              style={{ animation: `fire-base-b ${mode === 'bougie' ? '9.3s' : mode === 'brasier' ? '5.1s' : '3.1s'} ease-in-out infinite`, animationDelay: '-2.4s' }}
             />
             <ellipse cx="520" cy="1080" rx="260" ry="190"
               fill={ff(fb2, baseIntensity * 0.65)}
               filter="url(#ff-a)"
-              style={{ animation: `fire-base-c ${mode === 'bougie' ? '6.1s' : mode === 'brasier' ? '3.6s' : '2.2s'} ease-in-out infinite alternate` }}
+              style={{ animation: `fire-base-c ${mode === 'bougie' ? '11.1s' : mode === 'brasier' ? '6.3s' : '3.8s'} ease-in-out infinite`, animationDelay: '-5.1s' }}
             />
             <ellipse cx="300" cy="820" rx="200" ry="160"
               fill={ff(fb2, baseIntensity * 0.40)}
               filter="url(#ff-c)"
-              style={{ animation: `fire-ember-a ${mode === 'bougie' ? '3.8s' : mode === 'brasier' ? '2.2s' : '1.3s'} ease-in-out infinite alternate` }}
+              style={{ animation: `fire-ember-a ${mode === 'bougie' ? '6.2s' : mode === 'brasier' ? '3.5s' : '2.1s'} ease-in-out infinite`, animationDelay: '-1.8s' }}
             />
             <ellipse cx="460" cy="700" rx="160" ry="120"
               fill={ff(fc2, baseIntensity * 0.28)}
               filter="url(#ff-e)"
-              style={{ animation: `fire-ember-b ${mode === 'bougie' ? '4.4s' : mode === 'brasier' ? '2.6s' : '1.5s'} ease-in-out infinite alternate` }}
+              style={{ animation: `fire-ember-b ${mode === 'bougie' ? '8.4s' : mode === 'brasier' ? '4.8s' : '2.9s'} ease-in-out infinite`, animationDelay: '-3.7s' }}
             />
             <ellipse cx="140" cy="650" rx="150" ry="110"
               fill={ff(fa, baseIntensity * 0.25)}
               filter="url(#ff-e)"
-              style={{ animation: `fire-ember-c ${mode === 'bougie' ? '5.8s' : mode === 'brasier' ? '3.4s' : '2.0s'} ease-in-out infinite alternate` }}
+              style={{ animation: `fire-ember-c ${mode === 'bougie' ? '10.6s' : mode === 'brasier' ? '5.9s' : '3.6s'} ease-in-out infinite`, animationDelay: '-6.3s' }}
             />
 
             {/* ── Nappes HAUT (brasier + inferno seulement) ── */}
