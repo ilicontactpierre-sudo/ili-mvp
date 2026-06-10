@@ -1919,16 +1919,16 @@ function AdminPage() {
                             Double-tap pour éditer
                           </span>
                         </div>
-                        {segments.map((segment, index) => (
+                        {activeSegments.map((segment, index) => (
                           <MobileSegmentCard
                             key={segment?.id || index}
                             segment={segment}
                             index={index}
-                            segments={segments}
-                            setSegments={setSegments}
-                            soundTracks={soundTracks}
-                            setSoundTracks={setSoundTracks}
-                            vfxTracks={vfxTracks}
+                            segments={activeSegments}
+                            setSegments={setActiveSegments}
+                            soundTracks={activeSoundTracks}
+                            setSoundTracks={setActiveSoundTracks}
+                            vfxTracks={activeVfxTracks}
                             saveToHistory={saveToHistory}
                             collapsedChapters={collapsedChapters}
                             onToggleChapter={handleToggleChapter}
