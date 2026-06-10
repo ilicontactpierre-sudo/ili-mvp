@@ -919,7 +919,6 @@ function AdminPage() {
 
   // Charger une histoire depuis StoryLoader
   const handleLoadStory = (storyData) => {
-  // ...reste du code
     setStoryTitle(storyData.title || '')
     setStoryAuthor(storyData.author || '')
     setStorySlug(storyData.id || storyData.slug || '')
