@@ -87,18 +87,22 @@ function DraftManager({
     return {
       savedAt: now.toISOString(),
       label: label || `Auto-save ${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`,
-      title: title || 'Sans titre',
-      author: author || '',
-      slug: slug || '',
-      bookUrl: bookUrl || '',
-      mood: mood || '',
-      genre: genre || '',
+      title:       title       || 'Sans titre',
+      author:      author      || '',
+      slug:        slug        || '',
+      bookUrl:     bookUrl     || '',
+      mood:        mood        || '',
+      genre:       genre       || '',
       description: description || '',
-      segments: segments || [],
-      soundTracks: soundTracks || [],
-      vfxTracks: vfxTracks || [],
+      // Mode simple
+      segments:    isSerial ? [] : (segments    || []),
+      soundTracks: isSerial ? [] : (soundTracks || []),
+      vfxTracks:   isSerial ? [] : (vfxTracks   || []),
+      // Mode série
+      isSerial,
+      parts: isSerial ? parts : [],
     }
-  }, [title, author, slug, bookUrl, mood, genre, description, segments, soundTracks, vfxTracks])
+  }, [title, author, slug, bookUrl, mood, genre, description, segments, soundTracks, vfxTracks, isSerial, parts])
 
   // Sauvegarder dans localStorage
   const saveDraft = useCallback((label) => {
