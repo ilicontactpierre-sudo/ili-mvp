@@ -331,25 +331,33 @@ export default function ReaderSettings({
   // ── Fermer si clic en dehors ────────────────────────────────────────────────
   useEffect(() => {
     if (!isOpen) return
-    const handleClick = (e) => {
-    if (
-      menuRef.current && !menuRef.current.contains(e.target) &&
-      gearRef.current && !gearRef.current.contains(e.target)
-    ) {
-      e.stopPropagation()
-      setIsClosing(true)
-      setShowChapters(false)
-      setTimeout(() => {
-        setIsOpen(false)
-        setIsClosing(false)
-      }, 160)
+    const handleDown = (e) => {
+      if (
+        menuRef.current && !menuRef.current.contains(e.target) &&
+        gearRef.current && !gearRef.current.contains(e.target)
+      ) {
+        e.stopPropagation()
+        // Bloquer aussi le click/touchend qui suit ce mousedown/touchstart
+        const blockNext = (ev) => {
+          ev.stopPropagation()
+          document.removeEventListener('click', blockNext, true)
+          document.removeEventListener('touchend', blockNext, true)
+        }
+        document.addEventListener('click', blockNext, true)
+        document.addEventListener('touchend', blockNext, true)
+        setIsClosing(true)
+        setShowChapters(false)
+        setTimeout(() => {
+          setIsOpen(false)
+          setIsClosing(false)
+        }, 160)
+      }
     }
-  }
-    document.addEventListener('mousedown', handleClick)
-    document.addEventListener('touchstart', handleClick)
+    document.addEventListener('mousedown', handleDown)
+    document.addEventListener('touchstart', handleDown)
     return () => {
-      document.removeEventListener('mousedown', handleClick)
-      document.removeEventListener('touchstart', handleClick)
+      document.removeEventListener('mousedown', handleDown)
+      document.removeEventListener('touchstart', handleDown)
     }
   }, [isOpen])
 
