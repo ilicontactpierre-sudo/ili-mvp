@@ -227,7 +227,7 @@ function PublishPanel({
     // Publication activée en local et en prod via Express / Vercel
 
     // Vérifier les prérequis
-    if (!title || !slug || segments.length === 0) {
+    if (isPublishDisabled) {
       return
     }
 
