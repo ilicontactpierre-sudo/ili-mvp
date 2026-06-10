@@ -153,23 +153,59 @@ function PublishPanel({
   }
 
   // Construire les données de l'histoire pour publication
-  // NE PAS inclure soundTracks dans le JSON publié
   const buildStoryData = () => {
-    const segmentsWithAudio = convertSoundTracksToAudioEvents()
-    const usedSounds = getUsedSounds()
+    if (isSerial) {
+      // ── Mode série ──────────────────────────────────────────────────────
+      // Convertir chaque partie indépendamment
+      const builtParts = parts.map((part) => {
+        const partSegmentsWithAudio = convertSoundTracksToAudioEvents(
+          part.segments    || [],
+          part.soundTracks || []
+        )
+        const partUsedSounds = getUsedSounds(part.soundTracks || [])
+        return {
+          id:          part.id,
+          title:       part.title       || '',
+          subtitle:    part.subtitle    || '',
+          description: part.description || '',
+          published:   part.published   ?? false,
+          sounds:      partUsedSounds,
+          segments:    partSegmentsWithAudio,
+          soundTracks: part.soundTracks || [],
+          vfxTracks:   part.vfxTracks   || [],
+        }
+      })
+
+      return {
+        id:    slug,
+        title: title  || 'Sans titre',
+        author: author || 'Anonyme',
+        ...(mood        ? { mood }        : {}),
+        ...(genre       ? { genre }       : {}),
+        ...(description ? { description } : {}),
+        type: 'serial',
+        published: true,
+        ...(bookUrl ? { bookUrl } : {}),
+        parts: builtParts,
+      }
+    }
+
+    // ── Mode simple (comportement original) ────────────────────────────────
+    const segmentsWithAudio = convertSoundTracksToAudioEvents(segments, soundTracks)
+    const usedSounds = getUsedSounds(soundTracks)
     return {
-      id: slug,
-      title: title || 'Sans titre',
+      id:    slug,
+      title: title  || 'Sans titre',
       author: author || 'Anonyme',
       ...(mood        ? { mood }        : {}),
       ...(genre       ? { genre }       : {}),
       ...(description ? { description } : {}),
       published: true,
       ...(bookUrl ? { bookUrl } : {}),
-      sounds: usedSounds,
-      segments: segmentsWithAudio,
+      sounds:      usedSounds,
+      segments:    segmentsWithAudio,
       soundTracks: soundTracks,
-      vfxTracks: vfxTracks || []
+      vfxTracks:   vfxTracks || [],
     }
   }
 
