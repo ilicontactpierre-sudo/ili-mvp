@@ -149,15 +149,17 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle',
   const [emojiMode, setEmojiMode] = useState(() => {
     try { return localStorage.getItem('ili_emoji') === 'true' } catch { return false }
   })
-  // Écouter les changements de DYS en temps réel (via polling léger)
+  // Écouter les changements de DYS + progression en temps réel (via polling léger)
   useEffect(() => {
     const interval = setInterval(() => {
       const d1 = window.__iliDys1 ?? (localStorage.getItem('ili_dys1') === 'true')
       const d2 = window.__iliDys2 ?? (localStorage.getItem('ili_dys2') === 'true')
       const em = window.__iliEmoji ?? (localStorage.getItem('ili_emoji') === 'true')
+      const sp = window.__iliShowProgress ?? (localStorage.getItem('ili_show_progress') !== 'false')
       setDys1(prev => prev !== d1 ? d1 : prev)
       setDys2(prev => prev !== d2 ? d2 : prev)
       setEmojiMode(prev => prev !== em ? em : prev)
+      setShowProgress(prev => prev !== sp ? sp : prev)
     }, 150)
     return () => clearInterval(interval)
   }, [])
