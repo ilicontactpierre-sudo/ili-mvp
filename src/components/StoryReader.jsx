@@ -501,7 +501,7 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle',
       activeMode={activeAmbianceTrack?.mode ?? null}
       isDark={true}
     />
-    {showProgress && finalSegments.length > 0 && (
+    {true && (
       <div
         aria-hidden="true"
         style={{
