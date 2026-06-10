@@ -785,7 +785,7 @@ function AdminPage() {
       return;
     }
 
-    setSegments(prevSegments => {
+    setActiveSegments(prevSegments => {
       const newSegments = [...prevSegments];
       const original = prevSegments[index]
       const part1 = typeof original === 'string'
