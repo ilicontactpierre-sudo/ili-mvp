@@ -127,5 +127,10 @@
     "genre": "Geennre",
     "description": "deesscriipption",
     "type": "serial"
+  },
+  {
+    "id": "guillaume-musso-le-crime-du-paradis-v0",
+    "title": "Le Crime du paradis V0",
+    "author": "Guillaume Musso"
   }
 ]
