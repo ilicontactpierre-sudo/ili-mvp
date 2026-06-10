@@ -663,7 +663,7 @@ function VfxOverlay({ activeType, activeMode }) {
       </div>
 
       {/* ══════════════════════════════════════
-          SOLEIL — SVG + RAF
+          SOLEIL — SVG + RAF premium
       ══════════════════════════════════════ */}
       <div ref={sunRef} style={{
         display: 'none', position: 'fixed', inset: 0,
@@ -673,17 +673,45 @@ function VfxOverlay({ activeType, activeMode }) {
           style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', overflow: 'visible' }}
           xmlns="http://www.w3.org/2000/svg"
         >
-          {/* Halo externe */}
-          <circle id="sun-halo2" cx="0" cy="0" r="100" fill="rgba(255,220,100,0.05)"/>
-          {/* Halo interne */}
-          <circle id="sun-halo1" cx="0" cy="0" r="60"  fill="rgba(255,220,100,0.12)"/>
-          {/* Rayons — 10 lignes, longueurs et phases asymétriques */}
-          {Array.from({ length: 10 }, (_, i) => (
+          <defs>
+            {/* Filtres flou en cascade — du plus intense au plus léger */}
+            <filter id="sun-blur-corona1" x="-80%" y="-80%" width="260%" height="260%">
+              <feGaussianBlur stdDeviation="14"/>
+            </filter>
+            <filter id="sun-blur-corona2" x="-80%" y="-80%" width="260%" height="260%">
+              <feGaussianBlur stdDeviation="28"/>
+            </filter>
+            <filter id="sun-blur-corona3" x="-80%" y="-80%" width="260%" height="260%">
+              <feGaussianBlur stdDeviation="52"/>
+            </filter>
+            <filter id="sun-blur-corona4" x="-80%" y="-80%" width="260%" height="260%">
+              <feGaussianBlur stdDeviation="90"/>
+            </filter>
+            <filter id="sun-blur-glow" x="-80%" y="-80%" width="260%" height="260%">
+              <feGaussianBlur stdDeviation="40"/>
+            </filter>
+            <filter id="sun-blur-disk" x="-30%" y="-30%" width="160%" height="160%">
+              <feGaussianBlur stdDeviation="3.5"/>
+            </filter>
+          </defs>
+
+          {/* Diffusion atmosphérique extrême — couche la plus externe */}
+          <circle id="sun-corona4" cx="0" cy="0" r="230" fill="rgba(255,200,80,0.02)" filter="url(#sun-blur-corona4)"/>
+          {/* Grande auréole */}
+          <circle id="sun-corona3" cx="0" cy="0" r="140" fill="rgba(255,200,80,0.05)" filter="url(#sun-blur-corona3)"/>
+          {/* Anneau diffus */}
+          <circle id="sun-corona2" cx="0" cy="0" r="85"  fill="rgba(255,200,80,0.10)" filter="url(#sun-blur-corona2)"/>
+          {/* Halo immédiat */}
+          <circle id="sun-corona1" cx="0" cy="0" r="52"  fill="rgba(255,200,80,0.22)" filter="url(#sun-blur-corona1)"/>
+          {/* Glow horizontal bas (horizon) */}
+          <ellipse id="sun-glow" cx="0" cy="0" rx="110" ry="30" fill="rgba(255,160,40,0.08)" filter="url(#sun-blur-glow)"/>
+          {/* Rayons — 12 lignes fines */}
+          {Array.from({ length: 12 }, (_, i) => (
             <line key={i} className="sun-ray" x1="0" y1="0" x2="0" y2="0"
-              strokeLinecap="round" stroke="rgba(255,220,100,0.2)" strokeWidth="1.5"/>
+              strokeLinecap="round" stroke="rgba(255,220,120,0.15)" strokeWidth="1"/>
           ))}
-          {/* Disque central */}
-          <circle id="sun-disk" cx="0" cy="0" r="30" fill="rgba(255,220,100,0.9)"/>
+          {/* Disque central — légèrement flou pour éviter le bord dur */}
+          <circle id="sun-disk" cx="0" cy="0" r="30" fill="rgba(255,240,180,0.95)" filter="url(#sun-blur-disk)"/>
         </svg>
       </div>
     </>
