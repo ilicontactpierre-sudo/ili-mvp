@@ -232,11 +232,6 @@ function VfxOverlay({ activeType, activeMode }) {
 
     const flakes = Array.from({ length: cfg.count }, (_, i) => {
       const r = lcg(i * 6271 + 42)
-      // ── Offset temporel initial : chaque flocon démarre à un moment
-      // différent de sa trajectoire, éliminant toute synchro visible ──
-      // On simule un temps de départ fictif entre 0 et 8000 "ticks"
-      // pour que l'animation soit déjà en phase chaotique dès le 1er frame.
-      const tOffset = Math.floor(r() * 8000)
       return {
         x:          r() * W,
         y:          r() * H,
@@ -248,18 +243,32 @@ function VfxOverlay({ activeType, activeMode }) {
         driftAmp:   cfg.driftAmp  * (0.4 + r() * 1.2),
         opPhase:    r() * Math.PI * 2,
         opFreq:     0.0005 + r() * 0.0015,
-        tOffset,
       }
     })
+
+    // ── Pré-simulation : on avance chaque flocon de N ticks AVANT
+    // le premier rendu. Le nombre de ticks est propre à chaque flocon
+    // (entre 600 et 4000), ce qui garantit un état chaotique naturel
+    // dès le frame 1, sans aucune synchro visible. ──
+    for (const f of flakes) {
+      const preSteps = 600 + Math.floor(Math.abs(Math.sin(f.driftPhase * 1000)) * 3400)
+      for (let s = 0; s < preSteps; s++) {
+        f.y += f.speed
+        f.x += Math.sin(s * f.driftFreq * 1000 + f.driftPhase) * 0.4
+        if (activeMode === 'blizzard') f.x += 0.6
+        if (f.y > H + f.rad * 2) { f.y = -f.rad * 2; f.x = Math.random() * W }
+        if (f.x > W + 40) f.x = -40
+        if (f.x < -40)    f.x = W + 40
+      }
+    }
+
     let t = 0
     const tick = () => {
       ctx.clearRect(0, 0, W, H)
       t++
       for (const f of flakes) {
-        const tEff = t + f.tOffset  // temps effectif individuel
         f.y += f.speed
-        // Oscillation sinusoïdale horizontale — chaque flocon utilise son tEff
-        f.x += Math.sin(tEff * f.driftFreq * 1000 + f.driftPhase) * 0.4
+        f.x += Math.sin(t * f.driftFreq * 1000 + f.driftPhase) * 0.4
         if (activeMode === 'blizzard') f.x += 0.6
         if (f.y > H + f.rad * 2) {
           f.y = -f.rad * 2 - Math.random() * 80
@@ -267,8 +276,7 @@ function VfxOverlay({ activeType, activeMode }) {
         }
         if (f.x > W + 40) f.x = -40
         if (f.x < -40)    f.x = W + 40
-        // Opacité pulsée — utilise aussi tEff pour éviter les vagues synchronisées
-        const opFactor = 0.80 + 0.20 * Math.sin(tEff * f.opFreq * 1000 + f.opPhase)
+        const opFactor = 0.80 + 0.20 * Math.sin(t * f.opFreq * 1000 + f.opPhase)
         ctx.save()
         ctx.globalAlpha = f.op * opFactor
         ctx.fillStyle = isDark ? 'rgba(235,242,255,1)' : 'rgba(100,120,160,1)'
