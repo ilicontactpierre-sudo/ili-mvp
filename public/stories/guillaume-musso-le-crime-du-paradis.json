@@ -873,9 +873,9 @@
     {
       "id": "part_1781096197876_1",
       "title": "Partie 2",
-      "subtitle": "ss",
-      "description": "ss",
-      "published": false,
+      "subtitle": "",
+      "description": "",
+      "published": true,
       "sounds": [],
       "segments": [
         {
@@ -883,10 +883,65 @@
           "lines": [
             "zea"
           ],
-          "text": "zea",
+          "text": "PARTIE 2",
           "breakAt": null,
           "isLeader": true,
           "isChapter": true,
+          "audioEvents": []
+        },
+        {
+          "text": "Sans soustitre",
+          "id": "seg_1781096250570",
+          "breakAt": null,
+          "audioEvents": []
+        },
+        {
+          "text": "Et sans description",
+          "id": "seg_1781096260339",
+          "breakAt": null,
+          "audioEvents": []
+        }
+      ],
+      "soundTracks": [],
+      "vfxTracks": []
+    },
+    {
+      "id": "part_1781096271217_2",
+      "title": "Partie 3",
+      "subtitle": "",
+      "description": "",
+      "published": false,
+      "sounds": [],
+      "segments": [
+        {
+          "id": "seg_1781096293072_0_8w4qb",
+          "lines": [
+            "PARTIE 3"
+          ],
+          "text": "PARTIE 3",
+          "breakAt": null,
+          "isLeader": true,
+          "isChapter": true,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1781096293072_1_vdn1b",
+          "lines": [
+            "Pas publié."
+          ],
+          "text": "Pas publié.",
+          "breakAt": null,
+          "isLeader": true,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1781096293072_2_z9mr1",
+          "lines": [
+            "Toujours en brouillon."
+          ],
+          "text": "Toujours en brouillon.",
+          "breakAt": null,
+          "isLeader": false,
           "audioEvents": []
         }
       ],
