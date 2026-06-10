@@ -1636,7 +1636,7 @@ const handleTextSelection = useCallback(() => {
           setTimeout(() => setPasteIndicator(null), 1200)
 
           // Scroller vers les segments collés
-          setTimeout(() => scrollToSegment(insertAfter + 1), 50)
+          setTimeout(() => scrollToSegmentRef.current?.(insertAfter + 1), 50)
         }
       }
 
