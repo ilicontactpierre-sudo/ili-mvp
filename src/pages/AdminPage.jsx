@@ -1913,7 +1913,7 @@ function AdminPage() {
                         }}>
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.25rem' }}>
                           <span style={{ fontSize: '0.85rem', fontWeight: 600, color: '#555' }}>
-                            Segments ({segments.length})
+                            Segments ({activeSegments.length})
                           </span>
                           <span style={{ fontSize: '0.72rem', color: '#aaa' }}>
                             Double-tap pour éditer
