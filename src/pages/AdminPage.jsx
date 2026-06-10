@@ -1011,6 +1011,9 @@ function AdminPage() {
     return {
       title: storyTitle || 'Sans titre',
       author: storyAuthor || 'Anonyme',
+      mood: storyMood || '',
+      genre: storyGenre || '',
+      description: storyDescription || '',
       segments: segments.map((seg, i) => ({
         ...seg,
         text: typeof seg === 'string' ? seg : seg.text || '',
