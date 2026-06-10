@@ -81,7 +81,7 @@ function PublishPanel({
       return base
     })
 
-    soundTracks.forEach(track => {
+    tracks.forEach(track => {
       if (track.muted) return
 
       let startIdx = segmentsWithAudio.findIndex(
