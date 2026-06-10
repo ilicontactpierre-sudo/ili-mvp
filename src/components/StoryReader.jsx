@@ -501,6 +501,30 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle',
       activeMode={activeAmbianceTrack?.mode ?? null}
       isDark={true}
     />
+    {showProgress && finalSegments.length > 1 && (
+      <div
+        aria-hidden="true"
+        style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          width: '2px',
+          height: '100vh',
+          zIndex: 50,
+          pointerEvents: 'none',
+          backgroundColor: 'rgba(255,255,255,0.08)',
+        }}
+      >
+        <div
+          style={{
+            width: '100%',
+            height: `${(currentIndex / (finalSegments.length - 1)) * 100}%`,
+            backgroundColor: 'rgba(255,255,255,0.15)',
+            transition: 'height 400ms cubic-bezier(0.1, 0.0, 0.1, 1.0)',
+          }}
+        />
+      </div>
+    )}
     <div
         ref={flashOverlayRef}
         style={{
