@@ -408,7 +408,7 @@ function StoryPage() {
 
   useEffect(() => {
     if (!isFinished) return
-    audioEngineRef.current?.stopAll(1500)
+    audioEngineRef.current?.stopAll(3000)
   }, [isFinished])
 
   // ── Clavier ────────────────────────────────────────────────────────────────
