@@ -32,6 +32,24 @@ const progressOpacity = { unstarted: 0.38, inprogress: 0.7, finished: 0.55 }
 // ── CoverPage (page de garde des séries) ─────────────────────────────────────
 function CoverPage({ storyData, onSelectPart }) {
   const [visible, setVisible] = useState(false)
+  const [comingSoonMsg, setComingSoonMsg] = useState(null)
+
+  const COMING_SOON_MESSAGES = [
+    "Pas encore là… mais ça arrive. 🌱",
+    "On y travaille. Promis, juré. ✨",
+    "Bientôt disponible — le temps qu'on peaufine les derniers mots. 🖊️",
+    "Patience, belle âme. La suite se prépare. 🌙",
+    "Cette partie mijote encore. Revenez dans quelques jours ! 🍵",
+    "On écrit encore les dernières lignes. À très vite. 📖",
+    "Pas tout à fait prêt·e à vous accueillir ici. Encore un peu… 🤫",
+    "Ce chapitre se fait désirer. C'est signe que ça vaut le coup. 💫",
+  ]
+
+  const showComingSoon = () => {
+    const msg = COMING_SOON_MESSAGES[Math.floor(Math.random() * COMING_SOON_MESSAGES.length)]
+    setComingSoonMsg(msg)
+    setTimeout(() => setComingSoonMsg(null), 3000)
+  }
 
   useEffect(() => {
     const t = setTimeout(() => setVisible(true), 60)
