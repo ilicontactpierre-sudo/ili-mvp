@@ -124,8 +124,12 @@ export const VFX_TYPES = {
   flash:      { label: 'Flash',               modes: ['lent', 'moyen', 'rapide'],      hasLoop: false, hasColor: true,  category: 'texte' },
   static:     { label: 'Parasites',           modes: ['léger', 'normal', 'intense'],   hasLoop: false, hasColor: false, category: 'texte' },
   // ── Effets d'ambiance (overlay plein écran) ──
-  fog:        { label: 'Brouillard',          modes: ['léger', 'dense', 'épais'],      hasLoop: false, hasColor: false, category: 'ambiance' },
-  fire:       { label: 'Feu / Flammes',       modes: ['bougie', 'brasier', 'inferno'], hasLoop: false, hasColor: false, category: 'ambiance' },
+  fog:        { label: 'Brouillard',          modes: ['léger', 'dense', 'épais'],         hasLoop: false, hasColor: false, category: 'ambiance' },
+  fire:       { label: 'Feu / Flammes',       modes: ['bougie', 'brasier', 'inferno'],    hasLoop: false, hasColor: false, category: 'ambiance' },
+  rain:       { label: 'Pluie',               modes: ['bruine', 'averse', 'tempête'],     hasLoop: false, hasColor: false, category: 'ambiance' },
+  snow:       { label: 'Neige',               modes: ['légère', 'normale', 'blizzard'],   hasLoop: false, hasColor: false, category: 'ambiance' },
+  underwater: { label: 'Sous-marin',          modes: ['surface', 'profond', 'abyssal'],   hasLoop: false, hasColor: false, category: 'ambiance' },
+  sun:        { label: 'Soleil',              modes: ['aube', 'zénith', 'crépuscule'],    hasLoop: false, hasColor: false, category: 'ambiance' },
 }
 
 export const VFX_COLORS = {
