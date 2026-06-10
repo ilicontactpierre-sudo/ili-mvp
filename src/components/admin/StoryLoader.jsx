@@ -8,7 +8,15 @@ function StoryLoader({ onLoadStory, onPreviewStory }) {
   const [deletingStoryId, setDeletingStoryId] = useState(null)
   const [deletePassword, setDeletePassword] = useState('')
   const [isLocalDev, setIsLocalDev] = useState(false)
-  const [togglingId, setTogglingId] = useState(null) // id de l'histoire en cours de toggle
+  const [togglingId, setTogglingId] = useState(null)
+  const [sortOrder, setSortOrder] = useState('chronological') // 'chronological' | 'alphabetical'
+
+  const sortedStories = [...stories].sort((a, b) => {
+    if (sortOrder === 'alphabetical') {
+      return (a.title || '').localeCompare(b.title || '', 'fr', { sensitivity: 'base' })
+    }
+    return 0 // chronological = ordre du tableau d'origine
+  })
 
   useEffect(() => {
     const hostname = window.location.hostname
