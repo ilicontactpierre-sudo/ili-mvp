@@ -892,9 +892,22 @@ function AdminPage() {
     setStoryMood(snapshot.mood || '')
     setStoryGenre(snapshot.genre || '')
     setStoryDescription(snapshot.description || '')
-    setSegments(snapshot.segments || [])
-    setSoundTracks(snapshot.soundTracks || [])
-    setVfxTracks(snapshot.vfxTracks || [])
+    if (snapshot.isSerial && Array.isArray(snapshot.parts)) {
+      setIsSerial(true)
+      setParts(snapshot.parts)
+      setActivePartIndex(0)
+      // Vider les states simples pour éviter toute confusion
+      setSegments([])
+      setSoundTracks([])
+      setVfxTracks([])
+    } else {
+      setIsSerial(false)
+      setParts([])
+      setActivePartIndex(0)
+      setSegments(snapshot.segments || [])
+      setSoundTracks(snapshot.soundTracks || [])
+      setVfxTracks(snapshot.vfxTracks || [])
+    }
     window.scrollTo({ top: 400, behavior: 'smooth' })
   }
 
