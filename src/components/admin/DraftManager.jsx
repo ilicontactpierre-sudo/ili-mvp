@@ -112,13 +112,13 @@ function DraftManager({
   }, [])
 
   // Sauvegarder dans localStorage
-  const saveDraft = useCallback((label) => {
+const saveDraft = useCallback((label) => {
     const snapshot = createSnapshot(label)
-
+    const draftKey = snapshot.slug ? `ili_draft_${snapshot.slug}` : 'ili_draft_unsaved'
+    const historyKey = snapshot.slug ? `ili_history_${snapshot.slug}` : 'ili_history_unsaved'
     try {
       // Sauvegarder le brouillon courant
       localStorage.setItem(draftKey, JSON.stringify(snapshot))
-
       // Mettre à jour l'historique (FIFO, max 5 versions)
       const newHistory = [snapshot]
       const existingHistory = JSON.parse(localStorage.getItem(historyKey) || '[]')
