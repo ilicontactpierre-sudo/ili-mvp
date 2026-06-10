@@ -1967,8 +1967,6 @@ function AdminPage() {
                           onSaveToHistory={() => saveToHistory(segments, soundTracks, vfxTracks)}
                           adminPassword={password}
                           onSoundsImported={(updatedSounds) => {
-                            console.log('[onSoundsImported AdminPage] updatedSounds:', updatedSounds)
-                            console.log('[onSoundsImported AdminPage] soundTracks avant patch:', soundTracks)
                             if (Array.isArray(updatedSounds) && updatedSounds.length > 0) {
                               const urlMap = {}
                               updatedSounds.forEach(s => { if (s.id && s.url) urlMap[s.id] = s.url })
