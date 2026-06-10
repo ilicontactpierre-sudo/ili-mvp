@@ -9,8 +9,8 @@ const RAIN_FADE_IN  = 3000
 const RAIN_FADE_OUT = 4000
 const SNOW_FADE_IN  = 10000
 const SNOW_FADE_OUT = 12000
-const UW_FADE_IN    = 8000
-const UW_FADE_OUT   = 9000
+const UW_FADE_IN    = 5000
+const UW_FADE_OUT   = 6000
 const SUN_FADE_IN   = 14000
 const SUN_FADE_OUT  = 10000
 
