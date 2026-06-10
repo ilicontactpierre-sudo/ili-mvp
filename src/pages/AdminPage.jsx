@@ -1887,7 +1887,7 @@ function AdminPage() {
                 </p>
               )}
 
-              {segments.length > 0 && (
+              {activeSegments.length > 0 && (
                 <>
                   {/* Timeline Audio unifiée avec éditeur de segments */}
                   <div
