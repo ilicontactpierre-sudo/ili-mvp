@@ -814,10 +814,10 @@ function AdminPage() {
   };
 
   const handleDeleteSegment = (index) => {
-    if (segments[index].trim() !== '' && !window.confirm("Le segment n'est pas vide. Êtes-vous sûr de vouloir le supprimer ?")) {
+    if ((activeSegments[index]?.text ?? activeSegments[index] ?? '').toString().trim() !== '' && !window.confirm("Le segment n'est pas vide. Êtes-vous sûr de vouloir le supprimer ?")) {
       return;
     }
-    setSegments(prevSegments => {
+    setActiveSegments(prevSegments => {
       const newSegments = [...prevSegments];
       newSegments.splice(index, 1);
       saveToHistory(newSegments)
