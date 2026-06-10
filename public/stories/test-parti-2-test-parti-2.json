@@ -1,0 +1,55 @@
+{
+  "id": "test-parti-2-test-parti-2",
+  "title": "TEst parti 2",
+  "author": "TEst parti 2",
+  "mood": "TEst parti 2",
+  "genre": "TEst parti 2",
+  "type": "serial",
+  "published": true,
+  "parts": [
+    {
+      "id": "part_1781127402619_0",
+      "title": "Partie 1",
+      "subtitle": "TEst parti 2",
+      "description": "TEst parti 2",
+      "published": false,
+      "sounds": [],
+      "segments": [
+        {
+          "id": "seg_1781127407426_0_g71jn",
+          "lines": [
+            "TEst parti 2TEst parti 2"
+          ],
+          "text": "TEst parti 2TEst parti 2",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        }
+      ],
+      "soundTracks": [],
+      "vfxTracks": []
+    },
+    {
+      "id": "part_1781127408733_1",
+      "title": "Partie 2",
+      "subtitle": "TEst parti 2",
+      "description": "TEst parti 2",
+      "published": false,
+      "sounds": [],
+      "segments": [
+        {
+          "id": "seg_1781127413579_0_2lajz",
+          "lines": [
+            "TEst parti 2"
+          ],
+          "text": "TEst parti 2",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        }
+      ],
+      "soundTracks": [],
+      "vfxTracks": []
+    }
+  ]
+}
