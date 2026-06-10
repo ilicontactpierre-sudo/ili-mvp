@@ -111,5 +111,13 @@
     "title": "test partie",
     "author": "test partie",
     "type": "serial"
+  },
+  {
+    "id": "test-parti-0-test-parti-0",
+    "title": "TEst parti 0",
+    "author": "TEst parti 0",
+    "mood": "TEst parti 0",
+    "genre": "TEst parti 0",
+    "description": "TEst parti 0"
   }
 ]
