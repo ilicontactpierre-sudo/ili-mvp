@@ -91,26 +91,25 @@ function DraftManager({
 
   // Créer un snapshot des données courantes
   const createSnapshot = useCallback((label) => {
+    const d = snapshotDataRef.current
     const now = new Date()
     return {
       savedAt: now.toISOString(),
       label: label || `Auto-save ${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`,
-      title:       title       || 'Sans titre',
-      author:      author      || '',
-      slug:        slug        || '',
-      bookUrl:     bookUrl     || '',
-      mood:        mood        || '',
-      genre:       genre       || '',
-      description: description || '',
-      // Mode simple
-      segments:    isSerial ? [] : (segments    || []),
-      soundTracks: isSerial ? [] : (soundTracks || []),
-      vfxTracks:   isSerial ? [] : (vfxTracks   || []),
-      // Mode série
-      isSerial,
-      parts: isSerial ? parts : [],
+      title:       d.title       || 'Sans titre',
+      author:      d.author      || '',
+      slug:        d.slug        || '',
+      bookUrl:     d.bookUrl     || '',
+      mood:        d.mood        || '',
+      genre:       d.genre       || '',
+      description: d.description || '',
+      segments:    d.isSerial ? [] : (d.segments    || []),
+      soundTracks: d.isSerial ? [] : (d.soundTracks || []),
+      vfxTracks:   d.isSerial ? [] : (d.vfxTracks   || []),
+      isSerial:    d.isSerial,
+      parts:       d.isSerial ? d.parts : [],
     }
-  }, [title, author, slug, bookUrl, mood, genre, description, segments, soundTracks, vfxTracks, isSerial, parts])
+  }, [])
 
   // Sauvegarder dans localStorage
   const saveDraft = useCallback((label) => {
