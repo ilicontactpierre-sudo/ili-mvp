@@ -606,6 +606,7 @@ function StoryPage() {
         opacity: isFading ? 0 : 1,
         transition: isFading ? 'opacity 2800ms cubic-bezier(0.4, 0, 1, 1)' : 'none',
         pointerEvents: isFading ? 'none' : 'auto',
+        touchAction: 'manipulation',
       }}
       onClick={!showOverlay && !isFading ? (e) => {
         if (touchDidScrollRef.current) return
