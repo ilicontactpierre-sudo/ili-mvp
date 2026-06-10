@@ -2270,7 +2270,7 @@ function AdminPage() {
 
       </> /* fin onglet stories */}
       {/* ── Panneau latéral flottant (ancres + undo/redo) ── */}
-      {adminTab === 'stories' && segments.length > 0 && (
+      {adminTab === 'stories' && activeSegments.length > 0 && (
         <div style={{
           position: 'fixed',
           right: '1rem',
