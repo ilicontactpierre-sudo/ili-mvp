@@ -68,7 +68,7 @@ function VfxOverlay({ activeType, activeMode }) {
   const mode = activeMode || 'bougie'
 
   // Intensités des nappes selon mode
-  const baseIntensity = mode === 'bougie' ? 0.55 : mode === 'brasier' ? 0.80 : 1.0
+  const baseIntensity = mode === 'bougie' ? 0.32 : mode === 'brasier' ? 0.80 : 1.0
   const topIntensity  = mode === 'brasier' ? 0.45 : mode === 'inferno' ? 0.75 : 0
 
   return (
