@@ -438,6 +438,77 @@ function AdminPage() {
   const [soundTracks, setSoundTracks] = useState([])
   const [vfxTracks, setVfxTracks] = useState([])
 
+  // ── Mode série ────────────────────────────────────────────────────────────
+  const [isSerial, setIsSerial] = useState(false)
+  const [parts, setParts] = useState([])
+  const [activePartIndex, setActivePartIndex] = useState(0)
+
+  // Getters transparents : en mode série, les composants enfants
+  // lisent/écrivent dans la partie active ; en mode simple, comportement inchangé.
+  const activeSegments    = isSerial ? (parts[activePartIndex]?.segments    ?? []) : segments
+  const activeSoundTracks = isSerial ? (parts[activePartIndex]?.soundTracks ?? []) : soundTracks
+  const activeVfxTracks   = isSerial ? (parts[activePartIndex]?.vfxTracks   ?? []) : vfxTracks
+
+  const setActiveSegments = (valOrFn) => {
+    if (!isSerial) {
+      setSegments(valOrFn)
+      return
+    }
+    setParts(prev => {
+      const next = [...prev]
+      const cur  = next[activePartIndex] ?? {}
+      next[activePartIndex] = {
+        ...cur,
+        segments: typeof valOrFn === 'function' ? valOrFn(cur.segments ?? []) : valOrFn,
+      }
+      return next
+    })
+  }
+
+  const setActiveSoundTracks = (valOrFn) => {
+    if (!isSerial) {
+      setSoundTracks(valOrFn)
+      return
+    }
+    setParts(prev => {
+      const next = [...prev]
+      const cur  = next[activePartIndex] ?? {}
+      next[activePartIndex] = {
+        ...cur,
+        soundTracks: typeof valOrFn === 'function' ? valOrFn(cur.soundTracks ?? []) : valOrFn,
+      }
+      return next
+    })
+  }
+
+  const setActiveVfxTracks = (valOrFn) => {
+    if (!isSerial) {
+      setVfxTracks(valOrFn)
+      return
+    }
+    setParts(prev => {
+      const next = [...prev]
+      const cur  = next[activePartIndex] ?? {}
+      next[activePartIndex] = {
+        ...cur,
+        vfxTracks: typeof valOrFn === 'function' ? valOrFn(cur.vfxTracks ?? []) : valOrFn,
+      }
+      return next
+    })
+  }
+
+  // Helpers pour créer une nouvelle partie vide
+  const makeNewPart = (index) => ({
+    id:          `part_${Date.now()}_${index}`,
+    title:       `Partie ${index + 1}`,
+    subtitle:    '',
+    description: '',
+    published:   false,
+    segments:    [],
+    soundTracks: [],
+    vfxTracks:   [],
+  })
+
   // Bibliothèque sonore
   const [soundLibrary, setSoundLibrary] = useState([])
   const [soundSearch, setSoundSearch] = useState('')
