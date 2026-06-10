@@ -229,6 +229,7 @@ function StoryPage() {
   const [isStarted, setIsStarted]     = useState(false)
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isFinished, setIsFinished]   = useState(false)
+  const [isFading, setIsFading]       = useState(false)
   const [isLoading, setIsLoading]     = useState(true)
   const [errorType, setErrorType]     = useState('')
 
