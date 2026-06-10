@@ -2246,6 +2246,17 @@ const handleTextSelection = useCallback(() => {
                   animation: 'ili-placeholder-pulse 1s ease-in-out infinite',
                 }} />
               )}
+              {/* Indicateur de colle (Cmd+V) */}
+              {pasteIndicator === index && (
+                <div style={{
+                  height: '3px',
+                  margin: '2px 0',
+                  backgroundColor: '#10b981',
+                  borderRadius: '2px',
+                  boxShadow: '0 0 8px rgba(16,185,129,0.7)',
+                  animation: 'ili-placeholder-pulse 0.6s ease-in-out',
+                }} />
+              )}
              <div style={{
                 maxHeight: isHidden ? '0px' : '2000px',
                 opacity: isHidden ? 0 : isBeingDragged ? 0.35 : 1,
