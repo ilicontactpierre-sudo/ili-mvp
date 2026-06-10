@@ -533,9 +533,9 @@ function StoryLoader({ onLoadStory, onPreviewStory }) {
                   </div>
                 )
               })}
+            </div>{/* fin liste défilante */}
             </div>
           )}
-
           {/* Légende */}
           {!isLoading && stories.length > 0 && (
             <div style={{
