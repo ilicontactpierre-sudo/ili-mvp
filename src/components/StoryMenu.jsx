@@ -38,7 +38,19 @@ function StoryRow({ story, onNavigate }) {
         {/* Bouton ⓘ — ne déclenche PAS la navigation */}
         {hasInfo && (
           <button
-            onClick={(e) => { e.stopPropagation(); setOpen(o => !o) }}
+            onClick={(e) => {
+              e.stopPropagation()
+              const willOpen = !open
+              setOpen(willOpen)
+              if (willOpen) {
+                // Attendre la fin de la transition CSS (200ms) puis scroller
+                setTimeout(() => {
+                  e.currentTarget
+                    .closest('[data-story-row]')
+                    ?.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
+                }, 220)
+              }
+            }}
             aria-label="Description"
             style={{
               background: 'none',
