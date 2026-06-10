@@ -599,77 +599,23 @@ function VfxOverlay({ activeType, activeMode }) {
       </div>
 
       {/* ══════════════════════════════════════
-          SOUS-MARIN — CSS filter + SVG caustiques
+          SOUS-MARIN — feTurbulence + caustiques
       ══════════════════════════════════════ */}
       <div ref={uwRef} style={{
         display: 'none', position: 'fixed', inset: 0,
         zIndex: 9100, pointerEvents: 'none', opacity: 0, overflow: 'hidden',
       }}>
-        {/* Calque 1 : filtre global sur toute la page via backdrop-filter */}
-        <div style={{
-          position: 'absolute', inset: 0,
-          backdropFilter: uwCfg.filterStr,
-          WebkitBackdropFilter: uwCfg.filterStr,
-        }}/>
-        {/* Calque 2 : voile coloré teinté */}
-        <div style={{
-          position: 'absolute', inset: 0,
-          backgroundColor: isDark
-            ? `rgba(0,30,60,${uwCfg.overlayOp})`
-            : `rgba(0,50,90,${uwCfg.overlayOp})`,
-        }}/>
-        {/* Calque 3 : caustiques SVG — formes de lumière réfractée */}
-        <div style={{ position: 'absolute', inset: 0 }}>
-          <svg style={{ width: '100%', height: '100%', overflow: 'visible' }}
-            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 1100" preserveAspectRatio="xMidYMid slice">
-            <defs>
-              <filter id="uw-blur-a" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="18"/></filter>
-              <filter id="uw-blur-b" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="10"/></filter>
-              <filter id="uw-blur-c" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="25"/></filter>
-            </defs>
-            {/* Caustiques : polygones irréguliers simulant la réfraction de surface */}
-            {/* Chaque forme a durée et direction d'animation différentes */}
-            <polygon points="120,80 180,60 210,110 155,135 95,115"
-              fill={`rgba(${uwCfg.causticColor},${uwCfg.causticOp})`} filter="url(#uw-blur-b)"
-              style={{animation:'uw-caus-a 7.3s ease-in-out infinite alternate'}}/>
-            <polygon points="340,150 410,120 445,185 395,215 320,190"
-              fill={`rgba(${uwCfg.causticColor},${uwCfg.causticOp * 0.8})`} filter="url(#uw-blur-b)"
-              style={{animation:'uw-caus-b 9.7s ease-in-out infinite alternate'}}/>
-            <polygon points="50,300 110,275 135,335 80,360 30,330"
-              fill={`rgba(${uwCfg.causticColor},${uwCfg.causticOp * 0.7})`} filter="url(#uw-blur-a)"
-              style={{animation:'uw-caus-c 11.1s ease-in-out infinite alternate'}}/>
-            <polygon points="480,220 540,195 565,265 510,285 455,250"
-              fill={`rgba(${uwCfg.causticColor},${uwCfg.causticOp * 0.9})`} filter="url(#uw-blur-b)"
-              style={{animation:'uw-caus-d 8.4s ease-in-out infinite alternate'}}/>
-            <polygon points="200,400 260,370 295,440 240,470 185,435"
-              fill={`rgba(${uwCfg.causticColor},${uwCfg.causticOp * 0.6})`} filter="url(#uw-blur-a)"
-              style={{animation:'uw-caus-e 13.6s ease-in-out infinite alternate'}}/>
-            <polygon points="420,500 470,475 500,545 445,560 400,520"
-              fill={`rgba(${uwCfg.causticColor},${uwCfg.causticOp * 0.75})`} filter="url(#uw-blur-b)"
-              style={{animation:'uw-caus-f 6.8s ease-in-out infinite alternate'}}/>
-            {/* Grandes nappes de lumière diffuse */}
-            <ellipse cx="180" cy="200" rx="140" ry="55"
-              fill={`rgba(${uwCfg.causticColor},${(uwCfg.causticOp * 0.35).toFixed(3)})`} filter="url(#uw-blur-c)"
-              style={{animation:'uw-wave-a 15.2s ease-in-out infinite alternate'}}/>
-            <ellipse cx="420" cy="380" rx="160" ry="50"
-              fill={`rgba(${uwCfg.causticColor},${(uwCfg.causticOp * 0.30).toFixed(3)})`} filter="url(#uw-blur-c)"
-              style={{animation:'uw-wave-b 18.8s ease-in-out infinite alternate'}}/>
-            <ellipse cx="290" cy="620" rx="180" ry="60"
-              fill={`rgba(${uwCfg.causticColor},${(uwCfg.causticOp * 0.25).toFixed(3)})`} filter="url(#uw-blur-c)"
-              style={{animation:'uw-wave-c 12.4s ease-in-out infinite alternate'}}/>
-            <style>{`
-              @keyframes uw-caus-a{0%{transform:translate(0,0) scale(1) rotate(0deg);opacity:.9}30%{transform:translate(18px,12px) scale(1.08) rotate(3deg);opacity:.6}65%{transform:translate(-8px,22px) scale(.94) rotate(-2deg);opacity:1}100%{transform:translate(25px,-8px) scale(1.12) rotate(5deg);opacity:.7}}
-              @keyframes uw-caus-b{0%{transform:translate(0,0) scale(1) rotate(0deg);opacity:.7}22%{transform:translate(-20px,15px) scale(1.06) rotate(-4deg);opacity:1}58%{transform:translate(12px,28px) scale(.96) rotate(2deg);opacity:.5}100%{transform:translate(-15px,-18px) scale(1.10) rotate(-6deg);opacity:.85}}
-              @keyframes uw-caus-c{0%{transform:translate(0,0) scale(1);opacity:.8}40%{transform:translate(22px,-10px) scale(1.12);opacity:.45}70%{transform:translate(-14px,18px) scale(.91);opacity:.9}100%{transform:translate(30px,8px) scale(1.08);opacity:.55}}
-              @keyframes uw-caus-d{0%{transform:translate(0,0) scale(1) rotate(0deg);opacity:.85}28%{transform:translate(-16px,20px) scale(1.09) rotate(4deg);opacity:.50}62%{transform:translate(24px,-12px) scale(.93) rotate(-3deg);opacity:.92}100%{transform:translate(-22px,14px) scale(1.14) rotate(6deg);opacity:.65}}
-              @keyframes uw-caus-e{0%{transform:translate(0,0) scale(1);opacity:.65}35%{transform:translate(15px,25px) scale(1.07);opacity:.90}68%{transform:translate(-18px,10px) scale(.95);opacity:.40}100%{transform:translate(20px,-15px) scale(1.11);opacity:.80}}
-              @keyframes uw-caus-f{0%{transform:translate(0,0) scale(1) rotate(0deg);opacity:.75}20%{transform:translate(-24px,-8px) scale(1.10) rotate(-5deg);opacity:.40}55%{transform:translate(16px,22px) scale(.92) rotate(3deg);opacity:.88}100%{transform:translate(-10px,-20px) scale(1.06) rotate(-2deg);opacity:.60}}
-              @keyframes uw-wave-a{0%{transform:translate(0,0) scaleX(1) scaleY(1);opacity:.7}33%{transform:translate(30px,-15px) scaleX(1.15) scaleY(.88);opacity:.35}66%{transform:translate(-20px,25px) scaleX(.90) scaleY(1.12);opacity:.65}100%{transform:translate(40px,10px) scaleX(1.20) scaleY(.82);opacity:.45}}
-              @keyframes uw-wave-b{0%{transform:translate(0,0) scaleX(1) scaleY(1);opacity:.6}28%{transform:translate(-35px,20px) scaleX(.85) scaleY(1.18);opacity:.80}60%{transform:translate(25px,-18px) scaleX(1.22) scaleY(.80);opacity:.30}100%{transform:translate(-15px,30px) scaleX(.92) scaleY(1.14);opacity:.70}}
-              @keyframes uw-wave-c{0%{transform:translate(0,0) scaleX(1) scaleY(1);opacity:.55}42%{transform:translate(28px,18px) scaleX(1.18) scaleY(.85);opacity:.80}78%{transform:translate(-22px,-12px) scaleX(.88) scaleY(1.16);opacity:.35}100%{transform:translate(35px,-20px) scaleX(1.12) scaleY(.90);opacity:.65}}
-            `}</style>
-          </svg>
-        </div>
+        {/* ── Calque 0 : filtre SVG feTurbulence appliqué sur le contenu ──
+            Le filtre est déclaré ici (hors viewport, sans dimensions) puis
+            référencé via backdropFilter ne fonctionnant pas pour SVG inline ;
+            on l'applique en CSS filter sur un div transparent superposé. */}
+        <svg
+          style={{ position: 'absolute', width: 0, height: 0, overflow: 'hidden', pointerEvents: 'none' }}
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <defs>
+            <filter id="uw-water-filter" x="-20%" y="-20%" width="140%" height="140%"
+              colorInterpolationFilters="sRGB">
       </div>
 
       {/* ══════════════════════════════════════
