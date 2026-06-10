@@ -101,7 +101,7 @@ function EndScreen({ title, author, formUrl, bookUrl, nextPart = null, onNextPar
                     flex: 1,
                     padding: '0.75rem 1rem',
                     borderRadius: '999px',
-                    border: '2px solid ' + btnBorder,
+                    border: '1px solid ' + btnBorder,
                     background: 'transparent',
                     color: 'var(--color-text-focus)',
                     fontSize: '0.9rem',
