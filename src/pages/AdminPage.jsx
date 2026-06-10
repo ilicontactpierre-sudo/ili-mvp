@@ -1955,13 +1955,13 @@ function AdminPage() {
                     ) : (
                       <div style={{ height: '850px', marginBottom: '2rem' }}>
                         <UnifiedSegmentsTimeline
-                          segments={segments}
-                          soundTracks={soundTracks}
+                          segments={activeSegments}
+                          soundTracks={activeSoundTracks}
                           soundLibrary={soundLibrary}
-                          vfxTracks={vfxTracks}
-                          onSegmentsChange={setSegments}
-                          onSoundTracksChange={setSoundTracks}
-                          onVfxTracksChange={setVfxTracks}
+                          vfxTracks={activeVfxTracks}
+                          onSegmentsChange={setActiveSegments}
+                          onSoundTracksChange={setActiveSoundTracks}
+                          onVfxTracksChange={setActiveVfxTracks}
                           onSaveToHistory={() => saveToHistory(segments, soundTracks, vfxTracks)}
                           adminPassword={password}
                           onSoundsImported={(updatedSounds) => {
