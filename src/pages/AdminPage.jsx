@@ -921,6 +921,32 @@ function AdminPage() {
     setStoryGenre(storyData.genre || '')
     setStoryDescription(storyData.description || '')
 
+    // ── Mode série ──
+    if (storyData.type === 'serial' && Array.isArray(storyData.parts)) {
+      setIsSerial(true)
+      setParts(storyData.parts.map((p, i) => ({
+        ...makeNewPart(i),
+        ...p,
+        segments:    (p.segments    || []).map((seg, si) => ({
+          ...seg, id: seg.id ?? `seg_${si}`, text: seg.text || '', audioEvents: seg.audioEvents || []
+        })),
+        soundTracks: p.soundTracks || [],
+        vfxTracks:   p.vfxTracks   || [],
+      })))
+      setActivePartIndex(0)
+      setSegments([])
+      setSoundTracks([])
+      setVfxTracks([])
+      alert('Histoire série chargée dans l\'éditeur.')
+      window.scrollTo({ top: 400, behavior: 'smooth' })
+      return
+    }
+
+    // ── Mode simple (comportement original) ──
+    setIsSerial(false)
+    setParts([])
+    setActivePartIndex(0)
+
     // Normaliser les segments
     const loadedSegments = (storyData.segments || []).map((seg, i) => ({
       ...seg,
