@@ -25,6 +25,11 @@ function DraftManager({
   const [saveFeedback, setSaveFeedback] = useState('')
   const autoSaveTimerRef = useRef(null)
   const historyRef = useRef(null)
+  const snapshotDataRef = useRef({})
+  snapshotDataRef.current = {
+    title, author, slug, bookUrl, mood, genre, description,
+    segments, soundTracks, vfxTracks, isSerial, parts
+  }
 
   // Clés localStorage
   const draftKey = slug ? `ili_draft_${slug}` : 'ili_draft_unsaved'
@@ -162,7 +167,7 @@ function DraftManager({
         clearTimeout(autoSaveTimerRef.current)
       }
     }
-  }, [segments, soundTracks, parts, title, author, slug, isSerial, saveDraft])
+  }, [segments, soundTracks, title, author, slug, saveDraft])
 
   // Sauvegarde avant fermeture de la page
   useEffect(() => {
