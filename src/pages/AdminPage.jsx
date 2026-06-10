@@ -1104,14 +1104,14 @@ function AdminPage() {
         return next
       })
     }
-    setSegments(updated)
-    saveToHistory(updated, soundTracks, vfxTracks)
-  }, [segments, soundTracks, vfxTracks])
+    setActiveSegments(updated)
+    saveToHistory(updated, activeSoundTracks, activeVfxTracks)
+  }, [activeSegments, activeSoundTracks, activeVfxTracks, isSerial, activePartIndex])
   
   const handleToggleIsLeader = useCallback((index) => {
-    const segment = segments[index]
+    const segment = activeSegments[index]
     if (!segment) return
-    const updated = [...segments]
+    const updated = [...activeSegments]
     updated[index] = typeof segment === 'string'
       ? { text: segment, isLeader: true }
       : { ...segment, isLeader: !segment.isLeader }
