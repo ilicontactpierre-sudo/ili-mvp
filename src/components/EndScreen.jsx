@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-function EndScreen({ title, author, formUrl, bookUrl }) {
+function EndScreen({ title, author, formUrl, bookUrl, nextPart = null, onNextPart = null }) {
   const navigate = useNavigate()
   const [visible, setVisible] = useState(false)
   const [leaving, setLeaving] = useState(false)
