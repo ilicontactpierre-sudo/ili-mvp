@@ -18,9 +18,6 @@ function StartScreen({ title, author, segmentCount = 0, segments = [], soundsToP
       : `DONT ~ ${minutesRead} MIN DÉJÀ LUES`
     : null
   const hasProgress = savedProgress && savedProgress.segmentIndex > 0
-  const progressPercent = hasProgress && segmentCount > 1
-    ? Math.round((savedProgress.segmentIndex / (segmentCount - 1)) * 100)
-    : null
   const lastSegmentText = hasProgress && segments.length > 0
     ? (() => {
         const seg = segments[savedProgress.segmentIndex]
