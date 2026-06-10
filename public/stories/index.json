@@ -82,7 +82,10 @@
   {
     "id": "jean-christophe-rufin-la-folie-sainte-helene",
     "title": "La Folie Sainte Hélène",
-    "author": "Jean-Christophe Rufin"
+    "author": "Jean-Christophe Rufin",
+    "mood": "Mélancolique",
+    "genre": "Thriller",
+    "description": "Si tu penses connaître l'horreur, alors détrompe toi."
   },
   {
     "id": "test-vfx-2-test-vfx-2",
