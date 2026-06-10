@@ -819,6 +819,9 @@ function AdminPage() {
     setStoryAuthor(storyData.author || '')
     setStorySlug(storyData.id || storyData.slug || '')
     setStoryBookUrl(storyData.bookUrl || '')
+    setStoryMood(storyData.mood || '')
+    setStoryGenre(storyData.genre || '')
+    setStoryDescription(storyData.description || '')
 
     // Normaliser les segments
     const loadedSegments = (storyData.segments || []).map((seg, i) => ({
