@@ -501,7 +501,7 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle',
       activeMode={activeAmbianceTrack?.mode ?? null}
       isDark={true}
     />
-    {showProgress && finalSegments.length > 1 && (
+    {showProgress && finalSegments.length > 0 && (
       <div
         aria-hidden="true"
         style={{
@@ -510,16 +510,19 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle',
           left: 0,
           width: '2px',
           height: '100vh',
-          zIndex: 50,
+          zIndex: 200,
           pointerEvents: 'none',
-          backgroundColor: 'rgba(255,255,255,0.08)',
+          backgroundColor: 'rgba(255,255,255,0.07)',
         }}
       >
         <div
           style={{
             width: '100%',
-            height: `${(currentIndex / (finalSegments.length - 1)) * 100}%`,
-            backgroundColor: 'rgba(255,255,255,0.15)',
+            minHeight: '6px',
+            height: finalSegments.length > 1
+              ? `${Math.max(0.5, (currentIndex / (finalSegments.length - 1)) * 100)}%`
+              : '100%',
+            backgroundColor: 'rgba(255,255,255,0.22)',
             transition: 'height 400ms cubic-bezier(0.1, 0.0, 0.1, 1.0)',
           }}
         />
