@@ -3,6 +3,7 @@ import { Howl } from 'howler'
 
 function StartScreen({ title, author, segmentCount = 0, segments = [], soundsToPreload = [], savedProgress, onStart }) {
   const [phase, setPhase] = useState('idle')
+  const hasProgress = savedProgress && savedProgress.segmentIndex > 0
   const minutes = Math.ceil(segmentCount * 3 / 60)
   const durationLabel = segmentCount === 0
     ? null
@@ -17,7 +18,6 @@ function StartScreen({ title, author, segmentCount = 0, segments = [], soundsToP
       ? 'DONT < 1 MIN DÉJÀ LUES'
       : `DONT ~ ${minutesRead} MIN DÉJÀ LUES`
     : null
-  const hasProgress = savedProgress && savedProgress.segmentIndex > 0
   const lastSegmentText = hasProgress && segments.length > 0
     ? (() => {
         const seg = segments[savedProgress.segmentIndex]
