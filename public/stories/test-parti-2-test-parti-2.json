@@ -2,25 +2,66 @@
   "id": "test-parti-2-test-parti-2",
   "title": "TEst parti 2",
   "author": "TEst parti 2",
-  "mood": "TEst parti 2",
-  "genre": "TEst parti 2",
+  "mood": "Hummmeeuur",
+  "genre": "Geennre",
+  "description": "deesscriipption",
   "type": "serial",
   "published": true,
   "parts": [
     {
-      "id": "part_1781127402619_0",
+      "id": "part_1781128396739_0",
       "title": "Partie 1",
-      "subtitle": "TEst parti 2",
-      "description": "TEst parti 2",
-      "published": false,
+      "subtitle": "partie one",
+      "description": "description de la partie 1",
+      "published": true,
       "sounds": [],
       "segments": [
         {
-          "id": "seg_1781127407426_0_g71jn",
+          "id": "seg_1781128432841_a_kx0cg",
           "lines": [
-            "TEst parti 2TEst parti 2"
+            "TEst parti 2TEst parti 2TEst parti 2.TEst parti 2TEst parti 2.TEst parti 2TEst parti 2TEst parti 2TEst parti 2TEst parti 2.TEst parti 2TEst parti 2.TEst parti 2TEst parti 2TEst parti 2TEst parti 2TEst parti 2.TEst parti 2TEst parti 2.TEst parti 2TEst"
           ],
-          "text": "TEst parti 2TEst parti 2",
+          "text": "TEst parti 2TEst parti 2TEst parti 2.TEst p",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1781128432841_b_uf9cy",
+          "lines": [
+            "TEst parti 2TEst parti 2TEst parti 2.TEst parti 2TEst parti 2.TEst parti 2TEst parti 2TEst parti 2TEst parti 2TEst parti 2.TEst parti 2TEst parti 2.TEst parti 2TEst parti 2TEst parti 2TEst parti 2TEst parti 2.TEst parti 2TEst parti 2.TEst parti 2TEst"
+          ],
+          "text": "arti 2TEst parti 2.TEst parti 2TEst parti 2TEst parti 2TEst parti 2TEst parti 2.TEst part",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1781128432375_b_tvasz",
+          "lines": [
+            "TEst parti 2TEst parti 2TEst parti 2.TEst parti 2TEst parti 2.TEst parti 2TEst parti 2TEst parti 2TEst parti 2TEst parti 2.TEst parti 2TEst parti 2.TEst parti 2TEst parti 2TEst parti 2TEst parti 2TEst parti 2.TEst parti 2TEst parti 2.TEst parti 2TEst"
+          ],
+          "text": "i 2TEst parti 2.TEst parti 2TEst parti 2TEst parti 2TEst parti 2TEst parti 2.TEst parti 2TEst parti 2.TEst parti 2TEst",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1781128500910_a_ylr4q",
+          "lines": [
+            "parti 2TEst parti 2TEst parti 2TEst parti 2.TEst parti 2TEst parti 2.TEst parti 2TEst parti 2"
+          ],
+          "text": "parti 2TEst parti 2TEst parti 2TEst parti 2.TEst parti",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1781128500910_b_yuhca",
+          "lines": [
+            "parti 2TEst parti 2TEst parti 2TEst parti 2.TEst parti 2TEst parti 2.TEst parti 2TEst parti 2"
+          ],
+          "text": "2TEst parti 2.TEst parti 2TEst parti 2",
           "breakAt": null,
           "isLeader": false,
           "audioEvents": []
@@ -30,19 +71,91 @@
       "vfxTracks": []
     },
     {
-      "id": "part_1781127408733_1",
+      "id": "part_1781128435218_1",
       "title": "Partie 2",
-      "subtitle": "TEst parti 2",
-      "description": "TEst parti 2",
+      "subtitle": "Soustitre partie 2",
+      "description": "description partie 2",
       "published": false,
       "sounds": [],
       "segments": [
         {
-          "id": "seg_1781127413579_0_2lajz",
+          "id": "seg_1781128467772_0_mp87q",
           "lines": [
-            "TEst parti 2"
+            "partie non publiée !"
           ],
-          "text": "TEst parti 2",
+          "text": "partie non publiée !",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1781128469053_a_5ky74",
+          "lines": [
+            "BROUILLON TEst parti 2TEst parti 2TEst parti 2.TEst parti 2TEst parti 2.TEst parti 2TEst parti 2TEst parti 2TEst parti 2TEst parti 2.TEst parti 2TEst parti 2.TEst parti 2TEst parti 2"
+          ],
+          "text": "BROUILLON TEst parti 2TEs",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1781128470480_a_2k8q5",
+          "lines": [
+            "BROUILLON TEst parti 2TEst parti 2TEst parti 2.TEst parti 2TEst parti 2.TEst parti 2TEst parti 2TEst parti 2TEst parti 2TEst parti 2.TEst parti 2TEst parti 2.TEst parti 2TEst parti 2"
+          ],
+          "text": "t parti 2TEst parti 2.TEst parti 2TEst parti 2.TEst parti 2TE",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1781128470480_b_wsp98",
+          "lines": [
+            "BROUILLON TEst parti 2TEst parti 2TEst parti 2.TEst parti 2TEst parti 2.TEst parti 2TEst parti 2TEst parti 2TEst parti 2TEst parti 2.TEst parti 2TEst parti 2.TEst parti 2TEst parti 2"
+          ],
+          "text": "st parti 2TEst parti 2TEst parti 2TEst parti 2.TEst parti 2TEst parti 2.TEst parti 2TEst parti 2",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        }
+      ],
+      "soundTracks": [],
+      "vfxTracks": []
+    },
+    {
+      "id": "part_1781128476980_2",
+      "title": "Partie 3",
+      "subtitle": "sous titre 3",
+      "description": "Descrip 3",
+      "published": true,
+      "sounds": [],
+      "segments": [
+        {
+          "id": "seg_1781128492170_a_ab55b",
+          "lines": [
+            "TEst parti 2TEst parti 2TEst parti 2.TEst parti 2TEst parti 2.TEst parti 2TEst parti 2TEst parti 2TEst parti 2TEst parti 2.TEst parti 2TEst parti 2.TEst parti 2TEst parti 2"
+          ],
+          "text": "TEst parti 2TEst parti 2TEst parti 2.TEst parti 2TEst parti 2.TEst parti 2TEst parti 2T",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1781128493490_a_4gr74",
+          "lines": [
+            "TEst parti 2TEst parti 2TEst parti 2.TEst parti 2TEst parti 2.TEst parti 2TEst parti 2TEst parti 2TEst parti 2TEst parti 2.TEst parti 2TEst parti 2.TEst parti 2TEst parti 2"
+          ],
+          "text": "Est parti 2TEst parti 2TEst parti 2.TEst parti 2TEst parti",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1781128493490_b_zcwv8",
+          "lines": [
+            "TEst parti 2TEst parti 2TEst parti 2.TEst parti 2TEst parti 2.TEst parti 2TEst parti 2TEst parti 2TEst parti 2TEst parti 2.TEst parti 2TEst parti 2.TEst parti 2TEst parti 2"
+          ],
+          "text": "2.TEst parti 2TEst parti 2",
           "breakAt": null,
           "isLeader": false,
           "audioEvents": []
