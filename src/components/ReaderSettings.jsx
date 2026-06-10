@@ -219,7 +219,9 @@ export default function ReaderSettings({
   const [emojiMode, setEmojiMode] = useState(() => {
     try { return localStorage.getItem('ili_emoji') === 'true' } catch { return false }
   })
-  
+  const [showProgress, setShowProgress] = useState(() => {
+    try { return localStorage.getItem('ili_show_progress') !== 'false' } catch { return true }
+  })
 
   const menuRef     = useRef(null)
   const gearRef     = useRef(null)
