@@ -32,7 +32,7 @@
       "lines": [
         "VFX Je me demande si j'ai fais beaucoup de fautes ou pas, et franchement, il y a des chances que oui."
       ],
-      "text": "BROUILLARD LEGER Je me demande si j'ai fais beaucoup de fautes ou pas, et franchement, il y a des chances que oui.",
+      "text": "PLUIE LEGER Je me demande si j'ai fais beaucoup de fautes ou pas, et franchement, il y a des chances que oui.",
       "breakAt": null,
       "isLeader": false,
       "audioEvents": []
@@ -48,7 +48,7 @@
       "audioEvents": []
     },
     {
-      "text": "BROUILLARD DENSE Je me demande si j'ai fais beaucoup de fautes ou pas, et franchement, il y a des chances que oui.",
+      "text": "PLUIE DENSE Je me demande si j'ai fais beaucoup de fautes ou pas, et franchement, il y a des chances que oui.",
       "id": "seg_1780955740019",
       "breakAt": null,
       "audioEvents": []
@@ -64,7 +64,7 @@
       "audioEvents": []
     },
     {
-      "text": "BROUILLARD ÉPAIS Je me demande si j'ai fais beaucoup de fautes ou pas, et franchement, il y a des chances que oui.",
+      "text": "PLUIE ÉPAIS Je me demande si j'ai fais beaucoup de fautes ou pas, et franchement, il y a des chances que oui.",
       "id": "seg_1780955750671",
       "breakAt": null,
       "audioEvents": []
@@ -81,7 +81,7 @@
         "Je fais un test avec un text un peu long pour essayer les effets.",
         "On verra si ça marche."
       ],
-      "text": "FIRE BOUGIE Je fais un test avec un text un peu long pour essayer les effets. On verra si ça marche.",
+      "text": "NEIGE LEGEREJe fais un test avec un text un peu long pour essayer les effets. On verra si ça marche.",
       "breakAt": null,
       "isLeader": false,
       "audioEvents": []
@@ -101,7 +101,7 @@
       "lines": [
         "VFX Je me demande si j'ai fais beaucoup de fautes ou pas, et franchement, il y a des chances que oui."
       ],
-      "text": "FIRE BRASIER Je me demande si j'ai fais beaucoup de fautes ou pas, et franchement, il y a des chances que oui.",
+      "text": "NEIGE NORMAL Je me demande si j'ai fais beaucoup de fautes ou pas, et franchement, il y a des chances que oui.",
       "breakAt": null,
       "isLeader": false,
       "audioEvents": []
@@ -121,7 +121,7 @@
       "lines": [
         "Genre un s en trop, et quelque chose du genre."
       ],
-      "text": "FIRE INFERNO Genre un s en trop, et quelque chose du genre.",
+      "text": "NEIGE BLIZZARD Genre un s en trop, et quelque chose du genre.",
       "breakAt": null,
       "isLeader": false,
       "audioEvents": []
@@ -141,7 +141,7 @@
       "lines": [
         "Avec un peu de chance, ça a même ajouter du texte.Avec un peu de chance, ça a même ajouter du texte.Avec un peu de chance, ça a même ajouter du texte.Avec un peu de chance, ça a même ajouter du texte.Avec un peu de chance, ça a même ajouter du texte.Avec un peu de chance,"
       ],
-      "text": "me ajouter du texte.Avec un peu de chance, ça a même ajouter du texte.Avec un peu de chance, ça a même ajouter du",
+      "text": "SOUS MARRIN SURFACEme ajouter du texte.Avec un peu de chance, ça a même ajouter du texte.Avec un peu de chance, ça a même ajouter du",
       "breakAt": null,
       "isLeader": false,
       "audioEvents": []
@@ -161,7 +161,7 @@
       "lines": [
         "Avec un peu de chance, ça a même ajouter du texte.Avec un peu de chance, ça a même ajouter du texte.Avec un peu de chance, ça a même ajouter du texte.Avec un peu de chance, ça a même ajouter du texte.Avec un peu de chance, ça a même ajouter du texte.Avec un peu de chance,"
       ],
-      "text": ".Avec un peu de chance,",
+      "text": "SOUS MARRIN PROFOND.Avec un peu de chance,",
       "breakAt": null,
       "isLeader": false,
       "audioEvents": []
@@ -181,7 +181,7 @@
       "lines": [
         "ça a même ajouter du texte.Avec un peu de chance, ça a même ajouter du texte.Avec un peu de chance, ça a même ajouter du texte.Avec un peu de chance, ça a même ajouter du texte.Avec un peu de chance, ça a même ajouter du texte.Avec un peu de chance, ça a même ajouter du texte.Avec un peu de chance, ça a même ajouter du texte.Avec un peu de chance, ça a même ajouter du texte.Avec un peu de chance,"
       ],
-      "text": "a même ajouter du texte.Avec un peu de chance, ça a même ajouter du texte.Avec un peu de chance, ça a même ajouter du texte.",
+      "text": "SOUS MARRIN ABYSSALa même ajouter du texte.Avec un peu de chance, ça a même ajouter du texte.Avec un peu de chance, ça a même ajouter du texte.",
       "breakAt": null,
       "isLeader": false,
       "audioEvents": []
@@ -201,7 +201,7 @@
       "lines": [
         "ça a même ajouter du texte.Avec un peu de chance, ça a même ajouter du texte.Avec un peu de chance, ça a même ajouter du texte.Avec un peu de chance, ça a même ajouter du texte.Avec un peu de chance, ça a même ajouter du texte.Avec un peu de chance, ça a même ajouter du texte.Avec un peu de chance, ça a même ajouter du texte.Avec un peu de chance, ça a même ajouter du texte.Avec un peu de chance,"
       ],
-      "text": "peu de chance, ça a même ajouter du texte.Avec un peu de chance, ça a même ajouter du texte.",
+      "text": "SOLEIL AUBEpeu de chance, ça a même ajouter du texte.Avec un peu de chance, ça a même ajouter du texte.",
       "breakAt": null,
       "isLeader": false,
       "audioEvents": []
@@ -221,7 +221,7 @@
       "lines": [
         "ça a même ajouter du texte.Avec un peu de chance, ça a même ajouter du"
       ],
-      "text": "ça a même ajouter du texte.Avec un peu de chance, ça a même ajouter du",
+      "text": "SOLEIL ZENITHça a même ajouter du texte.Avec un peu de chance, ça a même ajouter du",
       "breakAt": null,
       "isLeader": false,
       "audioEvents": []
@@ -237,7 +237,7 @@
       "audioEvents": []
     },
     {
-      "text": "ça a même ajouter du texte.Avec un peu de chance, ça a même ajouter du",
+      "text": "SOLEIL CREPUSCULEça a même ajouter du texte.Avec un peu de chance, ça a même ajouter du",
       "id": "seg_1781115577632",
       "breakAt": null,
       "audioEvents": []
