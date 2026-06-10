@@ -834,18 +834,30 @@ function AdminPage() {
     if (historyIndex > 0) {
       const snapshot = history[historyIndex - 1]
       setHistoryIndex(historyIndex - 1)
-      setSegments(JSON.parse(JSON.stringify(snapshot.segments)))
-      setSoundTracks(JSON.parse(JSON.stringify(snapshot.soundTracks)))
-      setVfxTracks(JSON.parse(JSON.stringify(snapshot.vfxTracks)))
+      if (isSerial) {
+        setActiveSegments(JSON.parse(JSON.stringify(snapshot.segments)))
+        setActiveSoundTracks(JSON.parse(JSON.stringify(snapshot.soundTracks)))
+        setActiveVfxTracks(JSON.parse(JSON.stringify(snapshot.vfxTracks)))
+      } else {
+        setSegments(JSON.parse(JSON.stringify(snapshot.segments)))
+        setSoundTracks(JSON.parse(JSON.stringify(snapshot.soundTracks)))
+        setVfxTracks(JSON.parse(JSON.stringify(snapshot.vfxTracks)))
+      }
     }
   }
   const handleRedo = () => {
     if (historyIndex < history.length - 1) {
       const snapshot = history[historyIndex + 1]
       setHistoryIndex(historyIndex + 1)
-      setSegments(JSON.parse(JSON.stringify(snapshot.segments)))
-      setSoundTracks(JSON.parse(JSON.stringify(snapshot.soundTracks)))
-      setVfxTracks(JSON.parse(JSON.stringify(snapshot.vfxTracks)))
+      if (isSerial) {
+        setActiveSegments(JSON.parse(JSON.stringify(snapshot.segments)))
+        setActiveSoundTracks(JSON.parse(JSON.stringify(snapshot.soundTracks)))
+        setActiveVfxTracks(JSON.parse(JSON.stringify(snapshot.vfxTracks)))
+      } else {
+        setSegments(JSON.parse(JSON.stringify(snapshot.segments)))
+        setSoundTracks(JSON.parse(JSON.stringify(snapshot.soundTracks)))
+        setVfxTracks(JSON.parse(JSON.stringify(snapshot.vfxTracks)))
+      }
     }
   }
 
