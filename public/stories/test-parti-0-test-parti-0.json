@@ -4,16 +4,25 @@
   "author": "TEst parti 0",
   "mood": "TEst parti 0",
   "genre": "TEst parti 0",
-  "description": "TEst parti 0",
   "published": true,
   "sounds": [],
   "segments": [
     {
-      "id": "seg_1781127328747_0_8h1fx",
+      "id": "seg_1781127534821_a_op469",
       "lines": [
         "TEst parti 0"
       ],
-      "text": "TEst parti 0",
+      "text": "TEst",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1781127534821_b_pntnq",
+      "lines": [
+        "TEst parti 0"
+      ],
+      "text": "parti 0",
       "breakAt": null,
       "isLeader": false,
       "audioEvents": []
