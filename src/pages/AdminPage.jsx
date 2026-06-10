@@ -1060,8 +1060,8 @@ function AdminPage() {
   const hiddenSegments = useMemo(() => {
     const hidden = new Set()
     let currentChapterCollapsed = false
-    for (let i = 0; i < segments.length; i++) {
-      if (segments[i]?.isChapter === true) {
+    for (let i = 0; i < activeSegments.length; i++) {
+      if (activeSegments[i]?.isChapter === true) {
         currentChapterCollapsed = collapsedChapters.has(i)
       } else if (currentChapterCollapsed) {
         hidden.add(i)
