@@ -1121,8 +1121,19 @@ function AdminPage() {
   
   // Construire les données pour l'aperçu en temps réel
   const getCurrentStoryData = () => {
+    if (isSerial) {
+      return {
+        title:       storyTitle  || 'Sans titre',
+        author:      storyAuthor || 'Anonyme',
+        mood:        storyMood        || '',
+        genre:       storyGenre       || '',
+        description: storyDescription || '',
+        type:        'serial',
+        parts,
+      }
+    }
     const usedSoundIds = new Set(
-      soundTracks.map(t => t.soundId) // inclure aussi les muted/broken
+      soundTracks.map(t => t.soundId)
     )
     const sounds = soundLibrary
       .filter(s => usedSoundIds.has(s.id))
@@ -1131,21 +1142,20 @@ function AdminPage() {
         url: s.url || (s.filename ? `/sounds/${s.filename}` : `/sounds/${s.id}.mp3`),
         loop: s.loop || false,
       }))
-    
     return {
-      title: storyTitle || 'Sans titre',
-      author: storyAuthor || 'Anonyme',
-      mood: storyMood || '',
-      genre: storyGenre || '',
+      title:       storyTitle  || 'Sans titre',
+      author:      storyAuthor || 'Anonyme',
+      mood:        storyMood        || '',
+      genre:       storyGenre       || '',
       description: storyDescription || '',
-      segments: segments.map((seg, i) => ({
+      segments: segments.map((seg) => ({
         ...seg,
-        text: typeof seg === 'string' ? seg : seg.text || '',
-        audioEvents: seg.audioEvents || []
+        text:        typeof seg === 'string' ? seg : seg.text || '',
+        audioEvents: seg.audioEvents || [],
       })),
-      soundTracks: soundTracks,
-      vfxTracks: vfxTracks,
-      sounds: sounds
+      soundTracks,
+      vfxTracks,
+      sounds,
     }
   }
 
