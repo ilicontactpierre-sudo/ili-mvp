@@ -46,7 +46,10 @@ function DraftManager({
         if (!key.startsWith('ili_draft_')) continue
         try {
           const draft = JSON.parse(localStorage.getItem(key))
-          if (draft && draft.savedAt && draft.segments?.length > 0) {
+          const hasContent = draft.isSerial
+            ? Array.isArray(draft.parts) && draft.parts.some(p => (p.segments?.length ?? 0) > 0)
+            : (draft.segments?.length ?? 0) > 0
+          if (draft && draft.savedAt && hasContent) {
             allDrafts.push(draft)
           }
         } catch {}
