@@ -333,8 +333,52 @@ function StoryLoader({ onLoadStory, onPreviewStory }) {
             </div>
           )}
           {!isLoading && !error && stories.length > 0 && (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-              {stories.map((story, index) => {
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+              {/* Barre de tri + compteur */}
+              <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                paddingBottom: '0.5rem',
+                borderBottom: '1px solid var(--color-border)',
+              }}>
+                <span style={{ fontSize: '0.8rem', color: 'var(--color-text-secondary)' }}>
+                  {stories.length} histoire{stories.length > 1 ? 's' : ''}
+                </span>
+                <div style={{ display: 'flex', gap: '0.375rem' }}>
+                  {[
+                    { value: 'chronological', label: '🕐 Récent' },
+                    { value: 'alphabetical',  label: 'A→Z' },
+                  ].map(({ value, label }) => (
+                    <button
+                      key={value}
+                      onClick={() => setSortOrder(value)}
+                      style={{
+                        padding: '0.25rem 0.625rem',
+                        fontSize: '0.75rem',
+                        backgroundColor: sortOrder === value ? 'var(--color-primary)' : 'transparent',
+                        color: sortOrder === value ? 'white' : 'var(--color-text-secondary)',
+                        border: `1px solid ${sortOrder === value ? 'var(--color-primary)' : 'var(--color-border)'}`,
+                        borderRadius: '4px',
+                        cursor: 'pointer',
+                        transition: 'all 0.15s',
+                      }}
+                    >
+                      {label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+              {/* Liste défilante */}
+              <div style={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '0.5rem',
+                maxHeight: '420px',
+                overflowY: 'auto',
+                paddingRight: '0.25rem',
+              }}>
+              {sortedStories.map((story, index) => {
                 const isVisible = !story.hidden
                 const isToggling = togglingId === story.id
 
