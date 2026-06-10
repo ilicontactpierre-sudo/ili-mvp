@@ -154,7 +154,37 @@ function VfxOverlay({ activeType, activeMode }) {
 
     let t = 0
     const tick = () => {
-      ctx.clearRect(0,
+      ctx.clearRect(0, 0, W, H)
+      t++
+      for (const d of drops) {
+        d.x += d.speed * sinAngle
+        d.y += d.speed * cosAngle
+        // Recycle : dès que la goutte sort par le bas ou trop loin à droite,
+        // elle réapparaît en haut dans la zone élargie
+        if (d.y > H + d.len) {
+          d.y = -d.len - Math.random() * 60
+          d.x = -overflow + Math.random() * (W + overflow * 2)
+        } else if (d.x > W + overflow) {
+          d.x = -overflow
+          d.y = Math.random() * H
+        } else if (d.x < -overflow - 20) {
+          d.x = W + overflow
+          d.y = Math.random() * H
+        }
+        const opFactor = 0.75 + 0.25 * Math.sin(t * d.phaseSpeed + d.phase)
+        ctx.save()
+        ctx.globalAlpha = d.op * opFactor
+        ctx.strokeStyle = isDark ? 'rgba(220,230,255,1)' : 'rgba(80,100,140,1)'
+        ctx.lineWidth = d.w
+        ctx.lineCap = 'round'
+        ctx.beginPath()
+        ctx.moveTo(d.x, d.y)
+        ctx.lineTo(d.x + d.len * sinAngle, d.y + d.len * cosAngle)
+        ctx.stroke()
+        ctx.restore()
+      }
+      rainRafRef.current = requestAnimationFrame(tick)
+    }
     rainRafRef.current = requestAnimationFrame(tick)
 
     return () => {
