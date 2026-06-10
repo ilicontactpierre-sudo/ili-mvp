@@ -1646,6 +1646,143 @@ function AdminPage() {
                   </a>
                 )}
               </div>
+              {/* ── Onglets de parties (mode série uniquement) ── */}
+              {isSerial && (
+                <div style={{ marginTop: '0.5rem' }}>
+                  {/* Barre d'onglets */}
+                  <div style={{
+                    display: 'flex', alignItems: 'center', gap: '4px',
+                    borderBottom: '2px solid #e0e0e0', paddingBottom: '0',
+                    overflowX: 'auto', flexWrap: 'nowrap',
+                  }}>
+                    {parts.map((part, pi) => (
+                      <div key={part.id} style={{ display: 'flex', alignItems: 'center', flexShrink: 0 }}>
+                        <button
+                          type="button"
+                          onClick={() => setActivePartIndex(pi)}
+                          style={{
+                            padding: '7px 14px', fontSize: '0.82rem', border: 'none',
+                            borderBottom: pi === activePartIndex ? '2px solid #8B5CF6' : '2px solid transparent',
+                            marginBottom: '-2px',
+                            backgroundColor: pi === activePartIndex ? 'rgba(139,92,246,0.08)' : 'transparent',
+                            color: pi === activePartIndex ? '#7C3AED' : '#666',
+                            fontWeight: pi === activePartIndex ? 700 : 400,
+                            cursor: 'pointer', borderRadius: '4px 4px 0 0',
+                            whiteSpace: 'nowrap',
+                          }}
+                        >
+                          {part.title || `Partie ${pi + 1}`}
+                        </button>
+                        {parts.length > 1 && (
+                          <button
+                            type="button"
+                            title="Supprimer cette partie"
+                            onClick={() => {
+                              if (!window.confirm(`Supprimer "${part.title || `Partie ${pi + 1}`}" ? Cette action est irréversible.`)) return
+                              const next = parts.filter((_, i) => i !== pi)
+                              setParts(next)
+                              setActivePartIndex(Math.min(activePartIndex, next.length - 1))
+                            }}
+                            style={{
+                              background: 'none', border: 'none', cursor: 'pointer',
+                              fontSize: '0.7rem', color: '#ccc', padding: '0 2px 0 0',
+                              lineHeight: 1, marginBottom: '-2px',
+                            }}
+                          >✕</button>
+                        )}
+                      </div>
+                    ))}
+                    {/* Bouton ＋ Partie */}
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const next = [...parts, makeNewPart(parts.length)]
+                        setParts(next)
+                        setActivePartIndex(next.length - 1)
+                      }}
+                      style={{
+                        padding: '6px 10px', fontSize: '0.82rem',
+                        backgroundColor: 'transparent', border: '1px dashed #ccc',
+                        borderRadius: '4px', cursor: 'pointer', color: '#999',
+                        whiteSpace: 'nowrap', flexShrink: 0, marginLeft: '4px',
+                      }}
+                    >＋ Partie</button>
+                  </div>
+
+                  {/* Contenu de la partie active */}
+                  {parts[activePartIndex] && (
+                    <div style={{
+                      border: '1px solid #e0e0e0', borderTop: 'none',
+                      borderRadius: '0 0 8px 8px', padding: '1rem',
+                      backgroundColor: 'rgba(139,92,246,0.03)',
+                      display: 'flex', flexDirection: 'column', gap: '0.75rem',
+                    }}>
+                      <input
+                        type="text"
+                        placeholder="Titre de la partie (ex : Partie I)"
+                        value={parts[activePartIndex].title}
+                        onChange={(e) => setParts(prev => {
+                          const next = [...prev]
+                          next[activePartIndex] = { ...next[activePartIndex], title: e.target.value }
+                          return next
+                        })}
+                        style={{ padding: '0.6rem', fontSize: '0.9rem', border: '1px solid #ddd', borderRadius: '4px' }}
+                      />
+                      <input
+                        type="text"
+                        placeholder="Sous-titre (ex : L'atelier du peintre)"
+                        value={parts[activePartIndex].subtitle}
+                        onChange={(e) => setParts(prev => {
+                          const next = [...prev]
+                          next[activePartIndex] = { ...next[activePartIndex], subtitle: e.target.value }
+                          return next
+                        })}
+                        style={{ padding: '0.6rem', fontSize: '0.9rem', border: '1px solid #ddd', borderRadius: '4px' }}
+                      />
+                      <textarea
+                        placeholder="Description de la partie (facultatif)"
+                        value={parts[activePartIndex].description}
+                        onChange={(e) => setParts(prev => {
+                          const next = [...prev]
+                          next[activePartIndex] = { ...next[activePartIndex], description: e.target.value }
+                          return next
+                        })}
+                        rows={2}
+                        style={{ padding: '0.6rem', fontSize: '0.9rem', border: '1px solid #ddd', borderRadius: '4px', resize: 'vertical', fontFamily: 'inherit' }}
+                      />
+                      {/* Toggle "Publier cette partie" */}
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
+                        <button
+                          type="button"
+                          onClick={() => setParts(prev => {
+                            const next = [...prev]
+                            next[activePartIndex] = { ...next[activePartIndex], published: !next[activePartIndex].published }
+                            return next
+                          })}
+                          style={{
+                            position: 'relative', width: '36px', height: '20px', padding: 0,
+                            backgroundColor: parts[activePartIndex].published ? '#28a745' : '#ccc',
+                            border: 'none', borderRadius: '10px', cursor: 'pointer',
+                            transition: 'background-color 0.2s', flexShrink: 0,
+                          }}
+                        >
+                          <span style={{
+                            position: 'absolute', top: '2px',
+                            left: parts[activePartIndex].published ? '18px' : '2px',
+                            width: '16px', height: '16px', backgroundColor: '#fff',
+                            borderRadius: '50%', transition: 'left 0.2s', display: 'block',
+                            boxShadow: '0 1px 3px rgba(0,0,0,0.2)',
+                          }} />
+                        </button>
+                        <span style={{ fontSize: '0.82rem', color: parts[activePartIndex].published ? '#28a745' : '#999' }}>
+                          {parts[activePartIndex].published ? 'Partie publiée' : 'Partie non publiée (brouillon)'}
+                        </span>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              )}
+
               <textarea
                 placeholder="Colle ton texte ici (10 lignes minimum)"
                 value={storyText}
