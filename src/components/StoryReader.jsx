@@ -135,6 +135,10 @@ function applyBionicReading(text) {
 function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle', viewportHeight }) {
   const segments = storyData ? storyData.segments : []
   const [loadedStory, setLoadedStory] = useState(null)
+  // ── Progression verticale ──
+  const [showProgress, setShowProgress] = useState(() => {
+    try { return localStorage.getItem('ili_show_progress') !== 'false' } catch { return true }
+  })
   // ── Lire les options DYS depuis window (mis à jour par ReaderSettings) ──
   const [dys1, setDys1] = useState(() => {
     try { return localStorage.getItem('ili_dys1') === 'true' } catch { return false }
