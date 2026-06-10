@@ -11,8 +11,8 @@ const SNOW_FADE_IN  = 7000
 const SNOW_FADE_OUT = 9000
 const UW_FADE_IN    = 5000
 const UW_FADE_OUT   = 6000
-const SUN_FADE_IN   = 10000
-const SUN_FADE_OUT  = 8000
+const SUN_FADE_IN   = 14000
+const SUN_FADE_OUT  = 10000
 
 function getIsDark() {
   try {
