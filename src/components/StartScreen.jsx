@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Howl } from 'howler'
 
-function StartScreen({ title, author, segmentCount = 0, soundsToPreload = [], savedProgress, onStart }) {
+function StartScreen({ title, author, segmentCount = 0, segments = [], soundsToPreload = [], savedProgress, onStart }) {
   const [phase, setPhase] = useState('idle')
   const minutes = Math.ceil(segmentCount * 3 / 60)
   const durationLabel = segmentCount === 0
@@ -9,6 +9,14 @@ function StartScreen({ title, author, segmentCount = 0, soundsToPreload = [], sa
     : minutes < 1
       ? '< 1 MIN DE LECTURE'
       : `~ ${minutes} MIN DE LECTURE`
+  const hasProgress = savedProgress && savedProgress.segmentIndex > 0
+  const lastSegmentText = hasProgress && segments.length > 0
+    ? (() => {
+        const seg = segments[savedProgress.segmentIndex]
+        const text = seg?.text ?? ''
+        return text.length > 80 ? text.slice(0, 80).trimEnd() + '…' : text
+      })()
+    : null
 
   async function handleStart(resume) {
     if (phase !== 'idle') return
