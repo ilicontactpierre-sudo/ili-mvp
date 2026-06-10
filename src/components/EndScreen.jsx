@@ -98,7 +98,7 @@ function EndScreen({ title, author, formUrl, bookUrl, nextPart = null, onNextPar
                   onChange={e => setEmail(e.target.value)}
                   onKeyDown={e => e.key === 'Enter' && handleSubscribe()}
                   style={{
-                    flex: 1,
+                    flex: 2,
                     padding: '0.75rem 1rem',
                     borderRadius: '999px',
                     border: '1px solid ' + btnBorder,
