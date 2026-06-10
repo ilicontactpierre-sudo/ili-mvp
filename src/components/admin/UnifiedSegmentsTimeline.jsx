@@ -2014,6 +2014,34 @@ const handleTextSelection = useCallback(() => {
         flexShrink: 0,
         flexWrap: 'wrap',
       }}>
+        {/* Indicateur presse-papiers */}
+        {clipboardSize > 0 && (
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '4px',
+            padding: '2px 8px',
+            backgroundColor: 'rgba(99,102,241,0.1)',
+            border: '1px solid rgba(99,102,241,0.3)',
+            borderRadius: '12px',
+            fontSize: '0.7rem',
+            color: '#6366f1',
+            fontWeight: 600,
+            flexShrink: 0,
+          }}>
+            <span>📋</span>
+            <span>{clipboardSize} segment{clipboardSize > 1 ? 's' : ''} copié{clipboardSize > 1 ? 's' : ''}</span>
+            <button
+              onClick={() => { clipboardRef.current = null; setClipboardSize(0) }}
+              title="Vider le presse-papiers"
+              style={{
+                background: 'none', border: 'none', cursor: 'pointer',
+                fontSize: '0.65rem', color: '#6366f1', padding: '0 0 0 2px',
+                lineHeight: 1,
+              }}
+            >✕</button>
+          </div>
+        )}
         {/* Input numéro de segment */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
           <input
