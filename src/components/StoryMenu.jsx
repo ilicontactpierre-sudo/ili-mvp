@@ -7,7 +7,7 @@ function StoryRow({ story, onNavigate }) {
   const hasInfo = story.mood || story.genre || story.description
 
   return (
-    <div style={{ borderBottom: '1px solid rgba(255,255,255,0.07)' }}>
+    <div data-story-row style={{ borderBottom: '1px solid rgba(255,255,255,0.07)' }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '0.75rem 0' }}>
         {/* Zone titre + méta — cliquable pour naviguer */}
         <div
