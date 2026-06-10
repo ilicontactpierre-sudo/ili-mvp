@@ -149,17 +149,27 @@ function CoverPage({ storyData, onSelectPart }) {
                     fontSize: 'clamp(1rem, 3.5vw, 1.15rem)',
                     fontWeight: 500,
                     letterSpacing: '0.01em',
-                    marginBottom: part.subtitle ? '0.2rem' : 0,
+                    marginBottom: (part.subtitle?.trim() || part.description?.trim()) ? '0.2rem' : 0,
                   }}>
                     {part.title || `Partie ${index + 1}`}
                   </div>
-                  {part.subtitle && (
+                  {part.subtitle?.trim() && (
                     <div style={{
                       opacity: 0.55,
                       fontSize: 'clamp(0.8rem, 2.8vw, 0.9rem)',
                       fontStyle: 'italic',
                     }}>
                       {part.subtitle}
+                    </div>
+                  )}
+                  {part.description?.trim() && (
+                    <div style={{
+                      opacity: 0.38,
+                      fontSize: 'clamp(0.72rem, 2.4vw, 0.82rem)',
+                      lineHeight: 1.5,
+                      marginTop: '0.3rem',
+                    }}>
+                      {part.description}
                     </div>
                   )}
                 </div>
