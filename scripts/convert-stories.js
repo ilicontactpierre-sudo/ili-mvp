@@ -82,7 +82,7 @@ function convertStoryFile(filePath) {
     const newContent = JSON.stringify(story, null, 2);
     fs.writeFileSync(filePath, newContent, 'utf8');
     
-    console.log(`  ✓ Converti avec succès: ${convertedCount}/${originalSegments} segments convertis`);
+    `  ✓ Converti avec succès: ${convertedCount}/${originalSegments} segments convertis`);
     return true;
   } catch (error) {
     console.error(`  ✗ Erreur lors du traitement: ${error.message}`);
