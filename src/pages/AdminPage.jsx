@@ -741,10 +741,11 @@ function AdminPage() {
   }, [historyIndex, history])
 
   const saveToHistory = (newSegments, newSoundTracks, newVfxTracks) => {
+    // En mode série on snapshote les données de la partie active
     const snapshot = {
-      segments: newSegments ?? segments,
-      soundTracks: newSoundTracks ?? soundTracks,
-      vfxTracks: newVfxTracks ?? vfxTracks,
+      segments:    newSegments    ?? (isSerial ? (parts[activePartIndex]?.segments    ?? []) : segments),
+      soundTracks: newSoundTracks ?? (isSerial ? (parts[activePartIndex]?.soundTracks ?? []) : soundTracks),
+      vfxTracks:   newVfxTracks   ?? (isSerial ? (parts[activePartIndex]?.vfxTracks   ?? []) : vfxTracks),
     }
     const newHistory = history.slice(0, historyIndex + 1)
     newHistory.push(JSON.parse(JSON.stringify(snapshot)))
