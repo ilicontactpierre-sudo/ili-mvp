@@ -73,15 +73,19 @@ function StoryRow({ story, onNavigate }) {
         transition: 'max-height 0.2s ease, opacity 0.18s ease',
       }}>
         {story.description && (
-          <p style={{
-            margin: '0 0 0.75rem 0',
-            paddingLeft: '0.75rem',
-            borderLeft: '2px solid rgba(255,255,255,0.1)',
-            color: 'rgba(255,255,255,0.5)',
-            fontSize: '0.8rem',
-            lineHeight: '1.55',
-            fontStyle: 'italic',
-          }}>
+          {story.description && (
+          <p
+            ref={descRef}
+            style={{
+              margin: '0 0 0.75rem 0',
+              paddingLeft: '0.75rem',
+              borderLeft: '2px solid rgba(255,255,255,0.1)',
+              color: 'rgba(255,255,255,0.5)',
+              fontSize: '0.8rem',
+              lineHeight: '1.55',
+              fontStyle: 'italic',
+            }}
+          >
             {story.description}
           </p>
         )}
