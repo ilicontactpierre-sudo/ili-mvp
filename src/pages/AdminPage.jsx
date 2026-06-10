@@ -1115,9 +1115,9 @@ function AdminPage() {
     updated[index] = typeof segment === 'string'
       ? { text: segment, isLeader: true }
       : { ...segment, isLeader: !segment.isLeader }
-    setSegments(updated)
-    saveToHistory(updated, soundTracks, vfxTracks)
-  }, [segments, soundTracks, vfxTracks])
+    setActiveSegments(updated)
+    saveToHistory(updated, activeSoundTracks, activeVfxTracks)
+  }, [activeSegments, activeSoundTracks, activeVfxTracks, isSerial, activePartIndex])
   
   // Construire les données pour l'aperçu en temps réel
   const getCurrentStoryData = () => {
