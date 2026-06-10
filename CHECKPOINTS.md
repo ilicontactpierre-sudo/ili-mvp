@@ -67,4 +67,3 @@ Lance à nouveau le script :
 npm run checkpoint
 Si le push échoue encore, teste manuellement :
 git push origin main
-
