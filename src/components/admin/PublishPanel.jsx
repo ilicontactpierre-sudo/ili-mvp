@@ -629,7 +629,7 @@ function PublishPanel({
       <div style={{ marginTop: '1.5rem', display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
         <button
           onClick={handleGenerateJson}
-          disabled={!segments.length || !slug}
+          disabled={isPublishDisabled}
           style={{
             ...styles.button.secondary,
             fontSize: '0.75rem',
