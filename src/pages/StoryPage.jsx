@@ -143,7 +143,7 @@ function CoverPage({ storyData, onSelectPart }) {
             return (
               <div
                 key={part.id}
-                onClick={published ? () => onSelectPart(part) : undefined}
+                onClick={published ? () => onSelectPart(part) : (e) => { e.stopPropagation(); showComingSoon() }}
                 style={{
                   display: 'flex',
                   alignItems: 'center',
