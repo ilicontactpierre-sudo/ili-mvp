@@ -125,12 +125,31 @@ function CoverPage({ storyData, onSelectPart }) {
           </p>
         )}
 
+        {/* Message "bientôt disponible" */}
+        <div style={{
+          minHeight: '1.8rem',
+          marginTop: '1rem',
+          transition: 'opacity 300ms ease',
+          opacity: comingSoonMsg ? 1 : 0,
+        }}>
+          {comingSoonMsg && (
+            <p style={{
+              fontSize: 'clamp(0.75rem, 2.5vw, 0.88rem)',
+              opacity: 0.65,
+              fontStyle: 'italic',
+              letterSpacing: '0.02em',
+              margin: 0,
+            }}>
+              {comingSoonMsg}
+            </p>
+          )}
+        </div>
         {/* Séparateur */}
         <div style={{
           width: '100%',
           maxWidth: '11rem',
           height: '1px',
-          margin: '2rem auto',
+          margin: '1rem auto 2rem',
           background: lineColor,
         }} />
 
