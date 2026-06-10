@@ -881,31 +881,38 @@ function AdminPage() {
 
   // Restaurer un snapshot (depuis DraftManager ou StoryLoader)
   const handleRestoreSnapshot = (snapshot) => {
-    setStoryTitle(snapshot.title || '')
-    setStoryAuthor(snapshot.author || '')
-    setStorySlug(snapshot.slug || '')
-    setStoryBookUrl(snapshot.bookUrl || '')
-    setStoryMood(snapshot.mood || '')
-    setStoryGenre(snapshot.genre || '')
-    setStoryDescription(snapshot.description || '')
-    // Réinitialiser les deux modes pour éviter tout état résiduel
-    setSegments([])
-    setSoundTracks([])
-    setVfxTracks([])
-    setParts([])
-    setIsSerial(false)
+    // flushSync force React à flusher chaque bloc de setters immédiatement,
+    // sans batching — garantit que le reset est terminé avant la restauration
+    flushSync(() => {
+      setStoryTitle(snapshot.title || '')
+      setStoryAuthor(snapshot.author || '')
+      setStorySlug(snapshot.slug || '')
+      setStoryBookUrl(snapshot.bookUrl || '')
+      setStoryMood(snapshot.mood || '')
+      setStoryGenre(snapshot.genre || '')
+      setStoryDescription(snapshot.description || '')
+      setSegments([])
+      setSoundTracks([])
+      setVfxTracks([])
+      setParts([])
+      setIsSerial(false)
+      setActivePartIndex(0)
+    })
+
     if (snapshot.isSerial && Array.isArray(snapshot.parts) && snapshot.parts.length > 0) {
-      // setTimeout(0) laisse React flusher le reset avant d'appliquer les nouvelles valeurs
-      setTimeout(() => {
+      flushSync(() => {
         setIsSerial(true)
         setParts(snapshot.parts)
         setActivePartIndex(0)
-      }, 0)
+      })
     } else {
-      setSegments(snapshot.segments || [])
-      setSoundTracks(snapshot.soundTracks || [])
-      setVfxTracks(snapshot.vfxTracks || [])
+      flushSync(() => {
+        setSegments(snapshot.segments || [])
+        setSoundTracks(snapshot.soundTracks || [])
+        setVfxTracks(snapshot.vfxTracks || [])
+      })
     }
+
     window.scrollTo({ top: 400, behavior: 'smooth' })
   }
 
