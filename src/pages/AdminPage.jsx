@@ -919,7 +919,6 @@ function AdminPage() {
 
   // Charger une histoire depuis StoryLoader
   const handleLoadStory = (storyData) => {
-  console.log('[loadStory] données reçues :', JSON.stringify(storyData, null, 2))
   // ...reste du code
     setStoryTitle(storyData.title || '')
     setStoryAuthor(storyData.author || '')
