@@ -1,8 +1,54 @@
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Howl } from 'howler'
+
+// ── Détection plateforme ──────────────────────────────────────────────────────
+const isIOS = () => /iPad|iPhone|iPod/.test(navigator.userAgent)
+const isStandalone = () =>
+  window.navigator.standalone === true ||
+  window.matchMedia('(display-mode: standalone)').matches
 
 function StartScreen({ title, author, segmentCount = 0, segments = [], soundsToPreload = [], savedProgress, onStart }) {
   const [phase, setPhase] = useState('idle')
+
+  // ── PWA install prompt (Android/Chrome) ──────────────────────────────────
+  const deferredPromptRef = useRef(null)
+  const [showInstallBtn, setShowInstallBtn]   = useState(false)
+  const [showIOSHint,    setShowIOSHint]       = useState(false)
+
+  useEffect(() => {
+    // Ne rien afficher si déjà installée en standalone
+    if (isStandalone()) return
+
+    if (isIOS()) {
+      // iOS : afficher le hint une seule fois
+      const already = localStorage.getItem('ili_install_hint_shown')
+      if (!already) setShowIOSHint(true)
+      return
+    }
+
+    // Android/Chrome : écouter l'événement beforeinstallprompt
+    const handler = (e) => {
+      e.preventDefault()
+      deferredPromptRef.current = e
+      setShowInstallBtn(true)
+    }
+    window.addEventListener('beforeinstallprompt', handler)
+    return () => window.removeEventListener('beforeinstallprompt', handler)
+  }, [])
+
+  const handleInstall = async () => {
+    const prompt = deferredPromptRef.current
+    if (!prompt) return
+    prompt.prompt()
+    const { outcome } = await prompt.userChoice
+    deferredPromptRef.current = null
+    setShowInstallBtn(false)
+  }
+
+  const dismissIOSHint = () => {
+    localStorage.setItem('ili_install_hint_shown', '1')
+    setShowIOSHint(false)
+  }
   const hasProgress = savedProgress && savedProgress.segmentIndex > 0
   const minutes = Math.ceil(segmentCount * 3 / 60)
   const durationLabel = segmentCount === 0
