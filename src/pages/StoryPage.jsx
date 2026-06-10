@@ -418,9 +418,11 @@ function StoryPage() {
   }, [currentIndex, isStarted])
 
   useEffect(() => {
-    if (!isFinished) return
+    if (!isFading) return
     audioEngineRef.current?.stopAll(3000)
-  }, [isFinished])
+    const t = setTimeout(() => setIsFinished(true), 3000)
+    return () => clearTimeout(t)
+  }, [isFading])
 
   // ── Clavier ────────────────────────────────────────────────────────────────
   useEffect(() => {
