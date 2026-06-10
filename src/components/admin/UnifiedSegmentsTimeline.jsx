@@ -1546,11 +1546,11 @@ const handleTextSelection = useCallback(() => {
       if ((e.metaKey || e.ctrlKey) && e.key === 'c') {
         const active = document.activeElement
         const isTyping = active && (active.tagName === 'TEXTAREA' || active.tagName === 'INPUT')
-        if (!isTyping && selectedSegmentIndices.size > 0) {
+        if (!isTyping && selectedSegmentIndicesRef.current.size > 0) {
           e.preventDefault()
 
           // Copier exactement ce qui est sélectionné, sans expansion automatique
-          const sortedIndices = [...selectedSegmentIndices].sort((a, b) => a - b)
+          const sortedIndices = [...selectedSegmentIndicesRef.current].sort((a, b) => a - b)
           const copiedSegments = sortedIndices.map(i => segments[i])
           const copiedIds = new Set(copiedSegments.map(s => s.id || s._id).filter(Boolean))
 
