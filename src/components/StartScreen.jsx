@@ -29,7 +29,7 @@ function StartScreen({ title, author, segmentCount = 0, segments = [], soundsToP
     ? (() => {
         const seg = segments[savedProgress.segmentIndex - 1]
         const text = seg?.text ?? ''
-        return text.length > 60 ? text.slice(0, 60).trimEnd() + '…' : text
+        return text.length > 60 ? '… ' + text.slice(-60).trimStart() : text
       })()
     : null
 
