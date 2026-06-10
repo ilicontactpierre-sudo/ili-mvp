@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect, useMemo, useCallback } from 'react'
+import { flushSync } from 'react-dom'
 import { segmentText } from '../utils/segmentAlgorithm'
 import { Howl } from 'howler'
 import UnifiedSegmentsTimeline from '../components/admin/UnifiedSegmentsTimeline'
