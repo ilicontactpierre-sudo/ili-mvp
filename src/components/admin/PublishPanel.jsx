@@ -66,8 +66,9 @@ function PublishPanel({
   }, [slug, existingStories])
 
   // Convertir soundTracks en audioEvents pour le format publié
-  const convertSoundTracksToAudioEvents = () => {
-    const segmentsWithAudio = segments.map((seg, index) => {
+  // Accepte des paramètres explicites pour le mode série (par partie)
+  const convertSoundTracksToAudioEvents = (segs = segments, tracks = soundTracks) => {
+    const segmentsWithAudio = segs.map((seg, index) => {
       if (typeof seg === 'string') {
         return { id: `seg_${index}`, text: seg, audioEvents: [] }
       }
