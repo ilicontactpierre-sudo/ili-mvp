@@ -53,8 +53,6 @@ function StartScreen({ title, author, segmentCount = 0, segments = [], soundsToP
     window.setTimeout(() => onStart(howlMap, resume), 520)
   }
 
-  const hasProgress = savedProgress && savedProgress.segmentIndex > 0
-
   const styleTag = (
     <style>{`
       @keyframes fadeUp {
@@ -106,7 +104,13 @@ function StartScreen({ title, author, segmentCount = 0, segments = [], soundsToP
         {/* Bloc à hauteur fixe pour éviter le saut au chargement */}
         <div style={{ marginTop: '4rem', minHeight: '12rem', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
           {phase === 'loading' || phase === 'exiting' ? (
-            <p style={{ opacity: 0.28, fontSize: 'clamp(0.65rem, 2.5vw, 0.78rem)', letterSpacing: '0.2em', textTransform: 'uppercase', fontFamily: 'var(--font-logo)' }}>
+            <p style={{
+              opacity: 0.28,
+              fontSize: 'clamp(0.65rem, 2.5vw, 0.78rem)',
+              letterSpacing: '0.2em',
+              textTransform: 'uppercase',
+              fontFamily: 'var(--font-logo)',
+            }}>
               Chargement...
             </p>
           ) : hasProgress ? (
@@ -116,22 +120,27 @@ function StartScreen({ title, author, segmentCount = 0, segments = [], soundsToP
               alignItems: 'center',
               gap: '0.1rem',
               animation: 'fadeUp 700ms cubic-bezier(0.16, 1, 0.3, 1) both',
+              width: '100%',
             }}>
-              <p style={{
-                opacity: 0.28,
-                fontSize: 'clamp(0.65rem, 2.5vw, 0.78rem)',
-                letterSpacing: '0.2em',
-                textTransform: 'uppercase',
-                fontFamily: 'var(--font-logo)',
-                marginBottom: '2rem',
-              }}>
-                tu as déjà commencé cette histoire
-              </p>
+              {lastSegmentText && (
+                <p style={{
+                  opacity: 0.35,
+                  fontSize: 'clamp(0.85rem, 3vw, 1rem)',
+                  fontStyle: 'italic',
+                  fontFamily: 'var(--font-primary)',
+                  lineHeight: 1.55,
+                  marginBottom: '2rem',
+                  maxWidth: '28rem',
+                  textAlign: 'center',
+                }}>
+                  «&nbsp;{lastSegmentText}&nbsp;»
+                </p>
+              )}
               <button
                 onPointerUp={(e) => { e.stopPropagation(); handleStart(true) }}
                 style={btnStyle(true)}
               >
-                Reprendre
+                Continuer
               </button>
               <div style={{ height: '1.6rem' }} />
               <button
