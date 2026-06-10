@@ -801,10 +801,9 @@ function AdminPage() {
   };
 
   const handleMergeSegments = (index) => {
-    if (index >= segments.length - 1) return; 
-
+    if (index >= activeSegments.length - 1) return; 
     if (window.confirm("Êtes-vous sûr de vouloir fusionner ce segment avec le suivant ?")) {
-      setSegments(prevSegments => {
+      setActiveSegments(prevSegments => {
         const newSegments = [...prevSegments];
         const mergedSegment = newSegments[index] + ' ' + newSegments[index + 1];
         newSegments.splice(index, 2, mergedSegment);
