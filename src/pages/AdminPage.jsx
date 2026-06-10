@@ -1557,6 +1557,69 @@ function AdminPage() {
                 rows={3}
                 style={{ padding: '0.75rem', fontSize: '1rem', border: '1px solid #ccc', borderRadius: '4px', resize: 'vertical', fontFamily: 'inherit' }}
               />
+
+              {/* ── Toggle Histoire simple / Série ── */}
+              <div style={{
+                display: 'flex', alignItems: 'center', gap: '0.75rem',
+                padding: '0.75rem 1rem',
+                backgroundColor: isSerial ? 'rgba(139,92,246,0.06)' : '#f8f9fa',
+                border: `1px solid ${isSerial ? 'rgba(139,92,246,0.25)' : '#e0e0e0'}`,
+                borderRadius: '8px',
+              }}>
+                <button
+                  type="button"
+                  onClick={() => {
+                    const next = !isSerial
+                    setIsSerial(next)
+                    if (next && parts.length === 0) {
+                      // Migrer les segments/soundTracks/vfxTracks existants dans la partie 1
+                      setParts([{
+                        ...makeNewPart(0),
+                        segments:    segments,
+                        soundTracks: soundTracks,
+                        vfxTracks:   vfxTracks,
+                      }])
+                    }
+                    if (!next) {
+                      // Migrer la partie 0 vers les states simples
+                      const p0 = parts[0]
+                      if (p0) {
+                        setSegments(p0.segments    || [])
+                        setSoundTracks(p0.soundTracks || [])
+                        setVfxTracks(p0.vfxTracks   || [])
+                      }
+                      setParts([])
+                      setActivePartIndex(0)
+                    }
+                  }}
+                  style={{
+                    position: 'relative', width: '42px', height: '24px', padding: 0,
+                    backgroundColor: isSerial ? '#8B5CF6' : '#ccc',
+                    border: 'none', borderRadius: '12px', cursor: 'pointer',
+                    transition: 'background-color 0.2s', flexShrink: 0,
+                  }}
+                >
+                  <span style={{
+                    position: 'absolute', top: '3px',
+                    left: isSerial ? '21px' : '3px',
+                    width: '18px', height: '18px',
+                    backgroundColor: '#fff', borderRadius: '50%',
+                    transition: 'left 0.2s', display: 'block',
+                    boxShadow: '0 1px 3px rgba(0,0,0,0.2)',
+                  }} />
+                </button>
+                <div>
+                  <div style={{ fontWeight: 600, fontSize: '0.9rem', color: isSerial ? '#7C3AED' : '#555' }}>
+                    {isSerial ? 'Série (multi-parties)' : 'Histoire simple'}
+                  </div>
+                  <div style={{ fontSize: '0.75rem', color: '#999', marginTop: '1px' }}>
+                    {isSerial
+                      ? 'Chaque partie a ses propres segments, audio et VFX.'
+                      : 'Une seule timeline — comportement actuel.'}
+                  </div>
+                </div>
+              </div>
+
               <input
                 type="text"
                 placeholder="ID / Slug (ex: la-parure)"
