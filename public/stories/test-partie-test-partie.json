@@ -2,46 +2,43 @@
   "id": "test-partie-test-partie",
   "title": "test partie",
   "author": "test partie",
-  "mood": "test partie",
-  "genre": "test partie",
-  "description": "test partie",
   "type": "serial",
   "published": true,
   "parts": [
     {
-      "id": "part_1781125921497_0",
+      "id": "part_1781126894035_0",
       "title": "Partie 1",
-      "subtitle": "test partie",
-      "description": "test partie",
+      "subtitle": "Test parti",
+      "description": "Test parti",
       "published": true,
       "sounds": [],
       "segments": [
         {
-          "id": "seg_1781125938968_a_mao6s",
+          "id": "seg_1781126955565_a_rbpny",
           "lines": [
-            "test partietest partietest partietest partietest partietest partietest partietest partietest partietest partietest partietest partietest partietest partietest partietest partietest partietest partietest partietest partietest partietest partietest"
+            "Test partiTest partiTest partiTest partiTest partiTest partiTest partiTest partiTest partiTest partiTest partiTest partiTest partiTest partiTest partiTest partiTest partiTest partiTest partiTest partiTest partizaza"
           ],
-          "text": "test partietest partietest partietest partietest partietest partietest partietest partiet",
+          "text": "Test partiTest partiTest partiTest partiTest partiT",
           "breakAt": null,
           "isLeader": false,
           "audioEvents": []
         },
         {
-          "id": "seg_1781125938968_b_kmsng",
+          "id": "seg_1781126955565_b_f4et8",
           "lines": [
-            "test partietest partietest partietest partietest partietest partietest partietest partietest partietest partietest partietest partietest partietest partietest partietest partietest partietest partietest partietest partietest partietest partietest"
+            "Test partiTest partiTest partiTest partiTest partiTest partiTest partiTest partiTest partiTest partiTest partiTest partiTest partiTest partiTest partiTest partiTest partiTest partiTest partiTest partiTest partizaza"
           ],
-          "text": "est partietest partietest partietest partietest partietest partietest partietest partietest partietest partietest partietest partietest partietest partietest",
+          "text": "est partiTest partiTest partiTest partiTest partiTest partiTest partiTest partiTest",
           "breakAt": null,
           "isLeader": false,
           "audioEvents": []
         },
         {
-          "id": "seg_1781125930816_1_xgeh9",
+          "id": "seg_1781126951826_b_lq52u",
           "lines": [
-            "partietest partietest partietest partie"
+            "Test partiTest partiTest partiTest partiTest partiTest partiTest partiTest partiTest partiTest partiTest partiTest partiTest partiTest partiTest partiTest partiTest partiTest partiTest partiTest partiTest partizaza"
           ],
-          "text": "partietest partietest partietest partie",
+          "text": "partiTest partiTest partiTest partiTest partiTest partiTest partiTest partizaza",
           "breakAt": null,
           "isLeader": false,
           "audioEvents": []
@@ -51,19 +48,41 @@
       "vfxTracks": []
     },
     {
-      "id": "part_1781125924315_1",
+      "id": "part_1781126911479_1",
       "title": "Partie 2",
-      "subtitle": "test partie",
-      "description": "test partie",
+      "subtitle": "Test parti",
+      "description": "Test parti",
       "published": false,
       "sounds": [],
       "segments": [
         {
-          "id": "seg_1781125935699_0_eum9c",
+          "id": "seg_1781126934637_0_m1lb8",
           "lines": [
-            "test partietest partietest partietest partietest partietest partietest partie"
+            "Test partiTest parti"
           ],
-          "text": "test partietest partietest partietest partietest partietest partietest partie",
+          "text": "Test partiTest parti",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        }
+      ],
+      "soundTracks": [],
+      "vfxTracks": []
+    },
+    {
+      "id": "part_1781126924399_2",
+      "title": "Partie 3",
+      "subtitle": "Test parti",
+      "description": "Test parti",
+      "published": true,
+      "sounds": [],
+      "segments": [
+        {
+          "id": "seg_1781126940978_0_4bjax",
+          "lines": [
+            "Test partiTest partiTest partiTest parti"
+          ],
+          "text": "Test partiTest partiTest partiTest parti",
           "breakAt": null,
           "isLeader": false,
           "audioEvents": []
