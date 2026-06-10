@@ -99,7 +99,7 @@ function EndScreen({ title, author, formUrl, bookUrl, nextPart = null, onNextPar
                   onKeyDown={e => e.key === 'Enter' && handleSubscribe()}
                   style={{
                     flex: 1,
-                    padding: '0.75rem 1rem',
+                    padding: '0.35rem 1rem',
                     borderRadius: '999px',
                     border: '1px solid ' + btnBorder,
                     background: 'transparent',
