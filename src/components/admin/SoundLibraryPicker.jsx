@@ -412,7 +412,7 @@ const handleFileSelected = async (e) => {
             <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
               {/* Bouton import */}
               <button
-                onClick={(e) => { e.stopPropagation(); console.log('Importer cliqué, showImporter avant:', showImporter); setShowImporter(true); console.log('setShowImporter(true) appelé') }}
+                onClick={(e) => { e.stopPropagation(); setShowImporter(true) }}
                 style={{
                   padding: '0.4rem 0.9rem',
                   fontSize: '0.8rem',
