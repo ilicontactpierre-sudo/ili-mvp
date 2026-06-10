@@ -1535,6 +1535,114 @@ const handleTextSelection = useCallback(() => {
       if (e.key === 'Meta' || e.key === 'Control') {
         setIsCmdPressed(true)
       }
+
+      // ── Cmd+C : Copier les segments sélectionnés ──────────────────────────
+      if ((e.metaKey || e.ctrlKey) && e.key === 'c') {
+        const active = document.activeElement
+        const isTyping = active && (active.tagName === 'TEXTAREA' || active.tagName === 'INPUT')
+        if (!isTyping && selectedSegmentIndices.size > 0) {
+          e.preventDefault()
+
+          // Construire la liste triée des indices à copier
+          // Si un chapitre est sélectionné, inclure tous ses enfants
+          const completed = new Set(selectedSegmentIndices)
+          for (const idx of selectedSegmentIndices) {
+            if (segments[idx]?.isChapter === true) {
+              for (let i = idx + 1; i < segments.length; i++) {
+                if (segments[i]?.isChapter === true) break
+                completed.add(i)
+              }
+            }
+          }
+          const sortedIndices = [...completed].sort((a, b) => a - b)
+          const copiedSegments = sortedIndices.map(i => segments[i])
+          const copiedIds = new Set(copiedSegments.map(s => s.id || s._id).filter(Boolean))
+
+          // Copier les soundTracks dont le startSegmentId est dans les segments copiés
+          const copiedSoundTracks = soundTracks.filter(t => copiedIds.has(t.startSegmentId))
+
+          // Copier les vfxTracks dont le startSegmentId est dans les segments copiés
+          const copiedVfxTracks = (vfxTracks || []).filter(t => copiedIds.has(t.startSegmentId))
+
+          clipboardRef.current = {
+            segments: copiedSegments,
+            soundTracks: copiedSoundTracks,
+            vfxTracks: copiedVfxTracks,
+          }
+          setClipboardSize(copiedSegments.length)
+        }
+      }
+
+      // ── Cmd+V : Coller après le segment actif (dernier cliqué) ───────────
+      if ((e.metaKey || e.ctrlKey) && e.key === 'v') {
+        const active = document.activeElement
+        const isTyping = active && (active.tagName === 'TEXTAREA' || active.tagName === 'INPUT')
+        if (!isTyping && clipboardRef.current) {
+          e.preventDefault()
+
+          const clipboard = clipboardRef.current
+          const targetIndex = selectionAnchorRef.current ?? segments.length - 1
+          const insertAfter = targetIndex // on colle APRÈS ce segment
+
+          // Générer de nouveaux IDs pour tous les segments collés
+          const idMap = {} // ancienId → nouvelId
+          const now = Date.now()
+          const newSegments = clipboard.segments.map((seg, i) => {
+            const oldId = seg.id || seg._id || `seg_clipboard_${i}`
+            const newId = `seg_${now}_paste_${i}_${Math.random().toString(36).slice(2, 7)}`
+            idMap[oldId] = newId
+            return {
+              ...seg,
+              id: newId,
+              _id: undefined,
+            }
+          })
+
+          // Relier les soundTracks aux nouveaux IDs de segments
+          const newSoundTracks = clipboard.soundTracks.map(t => ({
+            ...t,
+            id: `st_${now}_paste_${Math.random().toString(36).slice(2, 9)}`,
+            startSegmentId: idMap[t.startSegmentId] ?? t.startSegmentId,
+            endSegmentId: idMap[t.endSegmentId] ?? t.endSegmentId,
+          }))
+
+          // Relier les vfxTracks aux nouveaux IDs de segments
+          const newVfxTracks = clipboard.vfxTracks.map(t => ({
+            ...t,
+            id: `vfx_${now}_paste_${Math.random().toString(36).slice(2, 9)}`,
+            startSegmentId: idMap[t.startSegmentId] ?? t.startSegmentId,
+            endSegmentId: idMap[t.endSegmentId] ?? t.endSegmentId,
+          }))
+
+          // Insérer dans la liste de segments
+          const updatedSegments = [
+            ...segments.slice(0, insertAfter + 1),
+            ...newSegments,
+            ...segments.slice(insertAfter + 1),
+          ]
+
+          // Sélectionner les segments nouvellement collés
+          const pastedIndices = new Set(
+            newSegments.map((_, i) => insertAfter + 1 + i)
+          )
+
+          onSegmentsChange(updatedSegments)
+          onSoundTracksChange([...soundTracks, ...newSoundTracks])
+          if (onVfxTracksChange) onVfxTracksChange([...(vfxTracks || []), ...newVfxTracks])
+          if (onSaveToHistory) onSaveToHistory()
+
+          setSelectedSegmentIndices(pastedIndices)
+          selectionAnchorRef.current = insertAfter + 1
+
+          // Indicateur visuel bref
+          setPasteIndicator(insertAfter + 1)
+          setTimeout(() => setPasteIndicator(null), 1200)
+
+          // Scroller vers les segments collés
+          setTimeout(() => scrollToSegment(insertAfter + 1), 50)
+        }
+      }
+
       // Escape : annuler le drag segment en cours
       if (e.key === 'Escape' && dragStateRef.current.active) {
         dragStateRef.current.active = false
