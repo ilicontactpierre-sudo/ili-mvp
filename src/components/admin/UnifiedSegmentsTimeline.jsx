@@ -1681,8 +1681,7 @@ const handleTextSelection = useCallback(() => {
       window.removeEventListener('keyup', handleKeyUp)
       window.removeEventListener('blur', handleBlur)
     }
-  }, [selectedSoundIds, selectedVfxIds, handleDeleteSoundTrack, handleDeleteVfxTrack, segments, soundTracks, vfxTracks, onSegmentsChange, onSoundTracksChange, onVfxTracksChange, onSaveToHistory, scrollToSegment])
-
+}, [selectedSoundIds, selectedVfxIds, handleDeleteSoundTrack, handleDeleteVfxTrack, segments, soundTracks, vfxTracks, onSegmentsChange, onSoundTracksChange, onVfxTracksChange, onSaveToHistory])
   const handleDoubleClickEmptyCell = useCallback((segmentIndex, column) => {
     if (segmentIndex >= segments.length) return
     
