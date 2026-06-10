@@ -881,6 +881,7 @@ function AdminPage() {
 
   // Restaurer un snapshot (depuis DraftManager ou StoryLoader)
   const handleRestoreSnapshot = (snapshot) => {
+    console.log('[restore] snapshot reçu :', JSON.stringify(snapshot, null, 2))
     // flushSync force React à flusher chaque bloc de setters immédiatement,
     // sans batching — garantit que le reset est terminé avant la restauration
     flushSync(() => {
