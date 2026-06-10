@@ -129,18 +129,6 @@ function SoundBlockPanel({
 
   const startSegmentIndex = getSegmentIndex(soundTrack.startSegmentId)
   const endSegmentIndex = getSegmentIndex(soundTrack.endSegmentId)
-  
-  // Debug pour diagnostic
-  console.log('SoundBlockPanel Debug:', {
-    soundTrackId: soundTrack?.id,
-    startSegmentId: soundTrack?.startSegmentId,
-    endSegmentId: soundTrack?.endSegmentId,
-    startSegmentIndex,
-    endSegmentIndex,
-    segmentsCount: segments?.length,
-    firstSegment: segments?.[0],
-    lastSegment: segments?.[segments?.length - 1]
-  })
 
   // (supprimé — volume maintenant horizontal)
 
