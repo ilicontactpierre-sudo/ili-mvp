@@ -869,10 +869,11 @@ function AdminPage() {
       if (result.length === 0) {
         setCutError("Aucun segment n'a été généré. Vérifiez votre texte.");
       } else {
-        const newSegments = segments.length > 0 ? [...segments, ...result] : result
-        setSegments(newSegments);
-        setStoryText('');
-        saveToHistory(newSegments, soundTracks, vfxTracks)
+        const prevSegs    = isSerial ? (parts[activePartIndex]?.segments ?? []) : segments
+        const newSegments = prevSegs.length > 0 ? [...prevSegs, ...result] : result
+        setActiveSegments(newSegments)
+        setStoryText('')
+        saveToHistory(newSegments, activeSoundTracks, activeVfxTracks)
       }
     } catch (err) {
       console.error("Erreur lors du découpage:", err);
