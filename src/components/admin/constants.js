@@ -144,6 +144,10 @@ export const VFX_COLORS = {
   // ── Ambiance ──
   fog:        '#C8D8E8',
   fire:       '#E87C7C',
+  rain:       '#7CA8C8',
+  snow:       '#C8E0F0',
+  underwater: '#5090B0',
+  sun:        '#F0D080',
 }
 
 // Nombre de colonnes VFX (max 2 effets simultanés)
