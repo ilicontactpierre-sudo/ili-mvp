@@ -377,7 +377,7 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle',
   }, [currentIndex, storyData])
 
   // ── Track d'ambiance actif (fog, rain, snow, etc.) ──
-  const AMBIANCE_TYPES = ['fog', 'fire']
+  const AMBIANCE_TYPES = ['fog', 'fire', 'rain', 'snow', 'underwater', 'sun']
   const activeAmbianceTrack = (() => {
     if (!storyData?.vfxTracks) return null
     return storyData.vfxTracks.find(t => {
