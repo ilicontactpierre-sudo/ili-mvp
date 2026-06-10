@@ -2008,12 +2008,12 @@ function AdminPage() {
 
           {/* 4. OrchestrationPanel */}
           <div ref={refOrchestration} style={{ scrollMarginTop: `${stickyHeight + 12}px` }} />
-          {segments.length > 0 && (
+          {activeSegments.length > 0 && (
             <OrchestrationPanel
-              segments={segments}
+              segments={activeSegments}
               soundLibrary={soundLibrary}
-              soundTracks={soundTracks}
-              onSoundTracksChange={setSoundTracks}
+              soundTracks={activeSoundTracks}
+              onSoundTracksChange={setActiveSoundTracks}
               onSaveToHistory={() => saveToHistory(segments, soundTracks, vfxTracks)}
             />
           )}
