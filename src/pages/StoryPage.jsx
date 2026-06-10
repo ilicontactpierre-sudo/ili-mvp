@@ -48,7 +48,7 @@ function CoverPage({ storyData, onSelectPart }) {
   const showComingSoon = () => {
     const msg = COMING_SOON_MESSAGES[Math.floor(Math.random() * COMING_SOON_MESSAGES.length)]
     setComingSoonMsg(msg)
-    setTimeout(() => setComingSoonMsg(null), 3000)
+    setTimeout(() => setComingSoonMsg(null), 6000)
   }
 
   useEffect(() => {
