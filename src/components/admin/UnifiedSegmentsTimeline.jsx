@@ -1545,18 +1545,8 @@ const handleTextSelection = useCallback(() => {
         if (!isTyping && selectedSegmentIndices.size > 0) {
           e.preventDefault()
 
-          // Construire la liste triée des indices à copier
-          // Si un chapitre est sélectionné, inclure tous ses enfants
-          const completed = new Set(selectedSegmentIndices)
-          for (const idx of selectedSegmentIndices) {
-            if (segments[idx]?.isChapter === true) {
-              for (let i = idx + 1; i < segments.length; i++) {
-                if (segments[i]?.isChapter === true) break
-                completed.add(i)
-              }
-            }
-          }
-          const sortedIndices = [...completed].sort((a, b) => a - b)
+          // Copier exactement ce qui est sélectionné, sans expansion automatique
+          const sortedIndices = [...selectedSegmentIndices].sort((a, b) => a - b)
           const copiedSegments = sortedIndices.map(i => segments[i])
           const copiedIds = new Set(copiedSegments.map(s => s.id || s._id).filter(Boolean))
 
