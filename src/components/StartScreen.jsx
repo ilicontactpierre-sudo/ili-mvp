@@ -80,7 +80,18 @@ function StartScreen({ title, author, segmentCount = 0, soundsToPreload = [], sa
           {title}
         </h1>
         <p style={{ opacity: 0.82, fontSize: 'clamp(1.1rem, 4.6vw, 1.55rem)' }}>{author}</p>
-
+        {durationLabel && (
+          <p style={{
+            opacity: 0.28,
+            fontSize: 'clamp(0.6rem, 2.2vw, 0.72rem)',
+            letterSpacing: '0.22em',
+            textTransform: 'uppercase',
+            fontFamily: 'var(--font-logo)',
+            marginTop: '-0.3rem',
+          }}>
+            {durationLabel}
+          </p>
+        )}
         {/* Bloc à hauteur fixe pour éviter le saut au chargement */}
         <div style={{ marginTop: '4rem', minHeight: '12rem', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
           {phase === 'loading' || phase === 'exiting' ? (
