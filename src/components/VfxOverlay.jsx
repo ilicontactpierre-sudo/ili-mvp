@@ -258,21 +258,42 @@ function VfxOverlay({ activeType, activeMode }) {
   }, [activeType, activeMode, isDark])
 
   // ══════════════════════════════════════════
-  // ── UNDERWATER — SVG caustiques + filtre CSS ──
+  // ── UNDERWATER — feTurbulence + caustiques ──
   // ══════════════════════════════════════════
+  const uwRafRef = useRef(null)
   useEffect(() => {
     const el = uwRef.current
     if (!el) return
-    if (activeType === 'underwater') {
-      el.style.display = 'block'
-      void el.offsetHeight
-      el.style.transition = `opacity ${UW_FADE_IN}ms cubic-bezier(0.37, 0, 0.63, 1)`
-      el.style.opacity = '1'
-    } else {
+    if (activeType !== 'underwater') {
       el.style.transition = `opacity ${UW_FADE_OUT}ms cubic-bezier(0.37, 0, 0.63, 1)`
       el.style.opacity = '0'
-      const t = setTimeout(() => { if (el.style.opacity === '0') el.style.display = 'none' }, UW_FADE_OUT + 100)
+      const t = setTimeout(() => {
+        if (el.style.opacity === '0') {
+          el.style.display = 'none'
+          if (uwRafRef.current) { cancelAnimationFrame(uwRafRef.current); uwRafRef.current = null }
+        }
+      }, UW_FADE_OUT + 100)
       return () => clearTimeout(t)
+    }
+    el.style.display = 'block'
+    void el.offsetHeight
+    el.style.transition = `opacity ${UW_FADE_IN}ms cubic-bezier(0.37, 0, 0.63, 1)`
+    el.style.opacity = '1'
+
+    // ── Animation feTurbulence : ondulation réaliste du texte ──
+    const turbEl = el.querySelector('#uw-turbulence')
+    if (!turbEl) return
+    let uwTime = 0
+    const animateTurb = () => {
+      uwTime += 0.007
+      const bfx = 0.013 + Math.sin(uwTime * 0.7)  * 0.003
+      const bfy = 0.035 + Math.cos(uwTime * 0.5)  * 0.006
+      turbEl.setAttribute('baseFrequency', `${bfx.toFixed(5)} ${bfy.toFixed(5)}`)
+      uwRafRef.current = requestAnimationFrame(animateTurb)
+    }
+    uwRafRef.current = requestAnimationFrame(animateTurb)
+    return () => {
+      if (uwRafRef.current) { cancelAnimationFrame(uwRafRef.current); uwRafRef.current = null }
     }
   }, [activeType, activeMode])
 
