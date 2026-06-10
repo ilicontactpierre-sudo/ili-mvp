@@ -407,7 +407,6 @@ function VfxOverlay({ activeType, activeMode }) {
     const corona3  = el.querySelector('#sun-corona3')
     const corona4  = el.querySelector('#sun-corona4')
     const glowEl   = el.querySelector('#sun-glow')
-    const rayEls   = el.querySelectorAll('.sun-ray')
     if (!diskEl) return
 
     // ── Config par mode ──
