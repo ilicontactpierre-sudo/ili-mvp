@@ -95,7 +95,10 @@ export default async function handler(req, res) {
     const entry = { 
       id: slug, 
       title: storyData.title, 
-      author: storyData.author 
+      author: storyData.author,
+      ...(storyData.mood        ? { mood: storyData.mood }               : {}),
+      ...(storyData.genre       ? { genre: storyData.genre }             : {}),
+      ...(storyData.description ? { description: storyData.description } : {}),
     };
     
     const existingPosition = index.findIndex(s => s.id === slug);
