@@ -550,11 +550,7 @@ function StoryPage() {
     return (
       <>
         <StartScreen
-          title={
-            storyRaw?.type === 'serial'
-              ? `${storyRaw.title} — ${activeStory?.title ?? ''}`
-              : (activeStory?.title ?? '')
-          }
+          title={activeStory?.title ?? ''}
           author={activeStory?.author ?? storyRaw?.author ?? ''}
           segmentCount={segments.length}
           segments={segments}
