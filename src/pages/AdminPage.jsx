@@ -1080,10 +1080,10 @@ function AdminPage() {
   }, [])
 
   const handleToggleIsChapter = useCallback((index) => {
-    const segment = segments[index]
+    const segment = activeSegments[index]
     if (!segment) return
     const wasChapter = segment?.isChapter === true
-    const updated = [...segments]
+    const updated = [...activeSegments]
     if (!wasChapter) {
       updated[index] = typeof segment === 'string'
         ? { text: segment, isChapter: true, isLeader: true }
