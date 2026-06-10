@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 // ── Ligne d'histoire avec accordéon description ───────────────────────────
@@ -38,7 +38,6 @@ function StoryRow({ story, onNavigate }) {
         </div>
         {/* Bouton ⓘ — ne déclenche PAS la navigation */}
         {hasInfo && (
-          {hasInfo && (
           <button
             onClick={(e) => {
               e.stopPropagation()
@@ -73,7 +72,6 @@ function StoryRow({ story, onNavigate }) {
         transition: 'max-height 0.2s ease, opacity 0.18s ease',
       }}>
         {story.description && (
-          {story.description && (
           <p
             ref={descRef}
             style={{
@@ -97,7 +95,9 @@ function StoryRow({ story, onNavigate }) {
 function StoryMenu({ isOpen, stories, isLoading, onClose, onDeleteStory }) {
   const navigate = useNavigate();
   const [exiting, setExiting] = useState(false);
+
   if (!isOpen) return null;
+
   const handleStoryClick = (storyId) => {
     if (exiting) return;
     setExiting(true);
@@ -125,7 +125,6 @@ function StoryMenu({ isOpen, stories, isLoading, onClose, onDeleteStory }) {
     >
       <div className="story-menu-container">
         {isLoading ? (
-          // Skeleton loading state
           <div className="story-list">
             {[1, 2, 3].map((i) => (
               <div key={i} className="story-card skeleton">
@@ -135,12 +134,10 @@ function StoryMenu({ isOpen, stories, isLoading, onClose, onDeleteStory }) {
             ))}
           </div>
         ) : stories.length === 0 ? (
-          // Empty state
           <div className="empty-state">
             Aucune histoire disponible pour le moment.
           </div>
         ) : (
-          // Stories list
           <div className="story-list">
             {stories.map((story, index) => (
               <div
