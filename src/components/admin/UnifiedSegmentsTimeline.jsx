@@ -1756,6 +1756,7 @@ const handleTextSelection = useCallback(() => {
   const rowHeights = measuredRowHeights.length === segments.length ? measuredRowHeights : estimatedRowHeights
 
   const scrollToSegment = useCallback((index) => {
+    scrollToSegmentRef.current = scrollToSegment
     const scrollEl = scrollContainerRef.current
     if (!scrollEl) return
     let cumY = 0
