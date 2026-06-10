@@ -201,6 +201,24 @@ export default function ReaderSettings({
   const [showChapters, setShowChapters] = useState(false)
   const [showSynthwaveBg, setShowSynthwaveBg] = useState(() => loadTheme().isSynthwave)
 
+  // ── Plein écran ─────────────────────────────────────────────────────────────
+  const isIOSDevice = /iPad|iPhone|iPod/.test(navigator.userAgent)
+  const [isFullscreen, setIsFullscreen] = useState(false)
+
+  useEffect(() => {
+    const handler = () => setIsFullscreen(!!document.fullscreenElement)
+    document.addEventListener('fullscreenchange', handler)
+    return () => document.removeEventListener('fullscreenchange', handler)
+  }, [])
+
+  const toggleFullscreen = () => {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen().catch(() => {})
+    } else {
+      document.exitFullscreen().catch(() => {})
+    }
+  }
+
   // ── Thème — initialisé depuis localStorage ──────────────────────────────────
   const [isDark, setIsDark]           = useState(() => loadTheme().isDark)
   const [isToutdoux, setIsToutdoux]   = useState(() => loadTheme().isToutdoux)
