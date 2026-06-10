@@ -1068,7 +1068,7 @@ function AdminPage() {
       }
     }
     return hidden
-  }, [segments, collapsedChapters])
+  }, [activeSegments, collapsedChapters])
 
   const handleToggleChapter = useCallback((index) => {
     setCollapsedChapters(prev => {
