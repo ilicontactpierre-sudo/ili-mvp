@@ -100,7 +100,7 @@ function EndScreen({ title, author, formUrl, bookUrl, nextPart = null, onNextPar
                   style={{
                     flex: 1,
                     padding: '0.75rem 1rem',
-                    borderRadius: '99px',
+                    borderRadius: '999px',
                     border: '1px solid ' + btnBorder,
                     background: 'transparent',
                     color: 'var(--color-text-focus)',
