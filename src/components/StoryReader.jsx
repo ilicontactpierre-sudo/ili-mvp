@@ -496,6 +496,7 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle',
 
     return (
     <>
+    <div style={{ position: 'fixed', top: 0, left: 0, width: '10px', height: '100vh', backgroundColor: 'red', zIndex: 99999 }} />
     <VfxOverlay
       activeType={activeAmbianceTrack?.type ?? null}
       activeMode={activeAmbianceTrack?.mode ?? null}
