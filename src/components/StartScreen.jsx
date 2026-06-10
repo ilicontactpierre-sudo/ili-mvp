@@ -119,6 +119,18 @@ function StartScreen({ title, author, segmentCount = 0, segments = [], soundsToP
             {durationLabel}
           </p>
         )}
+        {dontLabel && (
+          <p style={{
+            opacity: 0.18,
+            fontSize: 'clamp(0.55rem, 2vw, 0.66rem)',
+            letterSpacing: '0.22em',
+            textTransform: 'uppercase',
+            fontFamily: 'var(--font-logo)',
+            marginTop: '-0.5rem',
+          }}>
+            {dontLabel}
+          </p>
+        )}
         {/* Bloc à hauteur fixe pour éviter le saut au chargement */}
         <div style={{ marginTop: '4rem', minHeight: '12rem', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
           {phase === 'loading' || phase === 'exiting' ? (
