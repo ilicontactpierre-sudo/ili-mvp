@@ -288,12 +288,11 @@ function VfxOverlay({ activeType, activeMode }) {
   }, [activeType, activeMode])
 
   // ══════════════════════════════════════════
-  // ── SUN — RAF sur arc paramétrique ──
+  // ── SUN — RAF radiance premium ──
   // ══════════════════════════════════════════
   useEffect(() => {
     const el = sunRef.current
     if (!el) return
-
     if (activeType !== 'sun') {
       el.style.transition = `opacity ${SUN_FADE_OUT}ms cubic-bezier(0.37, 0, 0.63, 1)`
       el.style.opacity = '0'
@@ -305,96 +304,138 @@ function VfxOverlay({ activeType, activeMode }) {
       }, SUN_FADE_OUT + 100)
       return () => clearTimeout(t)
     }
-
     el.style.display = 'block'
     void el.offsetHeight
     el.style.transition = `opacity ${SUN_FADE_IN}ms cubic-bezier(0.37, 0, 0.63, 1)`
     el.style.opacity = '1'
 
-    const diskEl  = el.querySelector('#sun-disk')
-    const halo1El = el.querySelector('#sun-halo1')
-    const halo2El = el.querySelector('#sun-halo2')
-    const rayEls  = el.querySelectorAll('.sun-ray')
+    const diskEl   = el.querySelector('#sun-disk')
+    const corona1  = el.querySelector('#sun-corona1')
+    const corona2  = el.querySelector('#sun-corona2')
+    const corona3  = el.querySelector('#sun-corona3')
+    const corona4  = el.querySelector('#sun-corona4')
+    const glowEl   = el.querySelector('#sun-glow')
+    const rayEls   = el.querySelectorAll('.sun-ray')
     if (!diskEl) return
 
-    // Paramètres d'arc selon mode
-    // arc : t ∈ [0,1] → position sur la trajectoire
-    // aube : t démarre bas-gauche et monte lentement
-    // zénith : milieu de course, haut
-    // crépuscule : descente vers bas-droite, teinte rouge
+    // ── Config par mode ──
+    // xCenter : position horizontale dominante [0..1]
+    // yBase   : hauteur de base (0=haut, 1=bas)
+    // arcH    : amplitude verticale de l'arc
+    // cycleDur: durée d'un aller-retour complet (ms)
+    // palette : [diskRGB, coronaRGB] selon température
     const modeCfg = {
-      aube:       { tStart: 0.02, tEnd: 0.38, cycleDur: 140000, arcH: 0.48 },
-      zénith:     { tStart: 0.28, tEnd: 0.72, cycleDur: 180000, arcH: 0.62 },
-      crépuscule: { tStart: 0.62, tEnd: 0.98, cycleDur: 140000, arcH: 0.48 },
-    }[activeMode] ?? { tStart: 0.0, tEnd: 1.0, cycleDur: 160000, arcH: 0.55 }
+      aube: {
+        xCenter: 0.14, yBase: 0.72, arcH: 0.12,
+        cycleDur: 160000,
+        diskRGB:   [255, 175, 80],   // orangé chaud
+        coronaRGB: [255, 140, 40],
+        diskAlpha: 0.95,
+        diskRadius: 32,
+      },
+      zénith: {
+        xCenter: 0.50, yBase: 0.18, arcH: 0.10,
+        cycleDur: 200000,
+        diskRGB:   [255, 248, 200],  // blanc-jaune
+        coronaRGB: [255, 230, 140],
+        diskAlpha: 0.98,
+        diskRadius: 28,
+      },
+      crépuscule: {
+        xCenter: 0.86, yBase: 0.68, arcH: 0.10,
+        cycleDur: 160000,
+        diskRGB:   [255, 110, 50],   // rouge-orangé
+        coronaRGB: [255, 80, 20],
+        diskAlpha: 0.95,
+        diskRadius: 36,
+      },
+    }[activeMode] ?? {
+      xCenter: 0.50, yBase: 0.30, arcH: 0.15,
+      cycleDur: 180000,
+      diskRGB: [255, 220, 120], coronaRGB: [255, 200, 80],
+      diskAlpha: 0.95, diskRadius: 30,
+    }
 
     let startTs = null
-
     const tick = (ts) => {
       if (!startTs) startTs = ts
       const elapsed = ts - startTs
-      // t oscille aller-retour dans [tStart, tEnd] avec easing sinusoïdal
-      const range    = modeCfg.tEnd - modeCfg.tStart
-      const halfCycle = modeCfg.cycleDur / 2
-      const phase    = (elapsed % modeCfg.cycleDur) / halfCycle  // [0,2)
-      const rawT     = phase <= 1 ? phase : 2 - phase            // triangle [0,1,0]
-      // Easing smooth
-      const eased    = rawT < 0.5
-        ? 2 * rawT * rawT
-        : 1 - Math.pow(-2 * rawT + 2, 2) / 2
-      const tNorm    = modeCfg.tStart + eased * range
 
-      // Arc : parabole inversée avec x linéaire, y en sinus
       const W = window.innerWidth
       const H = window.innerHeight
-      const xRatio = tNorm                          // 0 = gauche, 1 = droite
-      const yRatio = 1 - Math.sin(tNorm * Math.PI) * modeCfg.arcH  // 0 = haut, 1 = bas
 
-      const x = W * 0.05 + xRatio * W * 0.90
-      const y = H * 0.08 + yRatio * H * 0.62
+      // Oscillation douce autour de xCenter
+      const halfCycle = modeCfg.cycleDur / 2
+      const phase  = (elapsed % modeCfg.cycleDur) / halfCycle
+      const rawT   = phase <= 1 ? phase : 2 - phase
+      const eased  = rawT < 0.5
+        ? 2 * rawT * rawT
+        : 1 - Math.pow(-2 * rawT + 2, 2) / 2
+      // Dérive horizontale légère autour du centre du mode (±8% de l'écran)
+      const xRatio = modeCfg.xCenter + (eased - 0.5) * 0.16
+      // Arc vertical doux autour de yBase
+      const yRatio = modeCfg.yBase - Math.sin(eased * Math.PI) * modeCfg.arcH
 
-      // Couleur selon position sur l'arc + mode
-      // Bas (y élevé) → chaud / orangé ; haut → blanc-jaune
-      const sunAltitude = 1 - yRatio  // 0 = horizon, 1 = zénith
-      const warmth = Math.max(0, 1 - sunAltitude * 1.4)
-      const r = Math.round(255)
-      const g = Math.round(200 + (1 - warmth) * 55)
-      const b = Math.round(isDark ? warmth * 30 : warmth * 80)
-      const diskColor  = `rgba(${r},${g},${b},0.92)`
-      const haloColor1 = `rgba(${r},${g},${b},0.12)`
-      const haloColor2 = `rgba(${r},${g},${b},0.05)`
+      const x = W * xRatio
+      const y = H * yRatio
 
-      // Taille du disque : plus grand à l'horizon
-      const diskRadius = 28 + warmth * 18
+      const [dr, dg, db] = modeCfg.diskRGB
+      const [cr, cg, cb] = modeCfg.coronaRGB
+      const baseR = modeCfg.diskRadius
 
-      diskEl.setAttribute('cx', x)
-      diskEl.setAttribute('cy', y)
-      diskEl.setAttribute('r',  diskRadius)
-      diskEl.setAttribute('fill', diskColor)
+      // Pulsation douce du disque
+      const pulse = 1 + 0.018 * Math.sin(ts * 0.00055)
+      const R = baseR * pulse
 
-      halo1El.setAttribute('cx', x)
-      halo1El.setAttribute('cy', y)
-      halo1El.setAttribute('r',  diskRadius + 28 + warmth * 14)
-      halo1El.setAttribute('fill', haloColor1)
+      // ── Disque central ──
+      diskEl.setAttribute('cx', x); diskEl.setAttribute('cy', y)
+      diskEl.setAttribute('r', R)
+      diskEl.setAttribute('fill', `rgba(${dr},${dg},${db},${modeCfg.diskAlpha})`)
 
-      halo2El.setAttribute('cx', x)
-      halo2El.setAttribute('cy', y)
-      halo2El.setAttribute('r',  diskRadius + 70 + warmth * 30)
-      halo2El.setAttribute('fill', haloColor2)
+      // ── Corona 1 — halo immédiat, flou fort ──
+      const r1 = R + 22 + 6 * Math.sin(ts * 0.00038)
+      corona1.setAttribute('cx', x); corona1.setAttribute('cy', y)
+      corona1.setAttribute('r', r1)
+      corona1.setAttribute('fill', `rgba(${cr},${cg},${cb},0.22)`)
 
-      // Rayons — 8 lignes autour du disque, longueurs asymétriques
+      // ── Corona 2 — anneau diffus ──
+      const r2 = R + 55 + 10 * Math.sin(ts * 0.00027 + 1.1)
+      corona2.setAttribute('cx', x); corona2.setAttribute('cy', y)
+      corona2.setAttribute('r', r2)
+      corona2.setAttribute('fill', `rgba(${cr},${cg},${cb},0.10)`)
+
+      // ── Corona 3 — grande auréole ──
+      const r3 = R + 110 + 18 * Math.sin(ts * 0.00019 + 2.3)
+      corona3.setAttribute('cx', x); corona3.setAttribute('cy', y)
+      corona3.setAttribute('r', r3)
+      corona3.setAttribute('fill', `rgba(${cr},${cg},${cb},0.055)`)
+
+      // ── Corona 4 — diffusion atmosphérique extrême ──
+      const r4 = R + 200 + 28 * Math.sin(ts * 0.00013 + 0.7)
+      corona4.setAttribute('cx', x); corona4.setAttribute('cy', y)
+      corona4.setAttribute('r', r4)
+      corona4.setAttribute('fill', `rgba(${cr},${cg},${cb},0.022)`)
+
+      // ── Glow au sol (halo bas allongé, uniquement proche horizon) ──
+      const horizonFactor = Math.max(0, yRatio - 0.35) / 0.65
+      glowEl.setAttribute('cx', x)
+      glowEl.setAttribute('cy', String(y + R * 0.6))
+      glowEl.setAttribute('rx', String((R + 80) * (1 + horizonFactor * 1.2)))
+      glowEl.setAttribute('ry', String((R + 18) * (0.5 + horizonFactor * 0.6)))
+      glowEl.setAttribute('fill', `rgba(${cr},${cg},${cb},${(0.08 + horizonFactor * 0.10).toFixed(3)})`)
+
+      // ── Rayons — fins, longs, pulsés individuellement ──
       rayEls.forEach((ray, i) => {
-        const angle = (i / rayEls.length) * Math.PI * 2 + ts * 0.00004
-        // Longueur pulsée individuellement, chaque rayon a sa propre fréquence
-        const rayLen  = (diskRadius * 0.5) + (diskRadius * 0.35) * Math.sin(ts * (0.00031 + i * 0.000037) + i * 1.17)
-        const x1 = x + Math.cos(angle) * (diskRadius + 4)
-        const y1 = y + Math.sin(angle) * (diskRadius + 4)
-        const x2 = x + Math.cos(angle) * (diskRadius + 4 + rayLen)
-        const y2 = y + Math.sin(angle) * (diskRadius + 4 + rayLen)
-        ray.setAttribute('x1', x1); ray.setAttribute('y1', y1)
-        ray.setAttribute('x2', x2); ray.setAttribute('y2', y2)
-        ray.setAttribute('stroke', `rgba(${r},${g},${b},${(0.28 - warmth * 0.12).toFixed(3)})`)
-        ray.setAttribute('stroke-width', 1.2 + warmth * 0.8)
+        const angle   = (i / rayEls.length) * Math.PI * 2 + ts * 0.000028
+        const rayLen  = R * 0.55 + R * 0.45 * Math.sin(ts * (0.00028 + i * 0.000031) + i * 1.23)
+        const gap     = R + 3
+        ray.setAttribute('x1', String(x + Math.cos(angle) * gap))
+        ray.setAttribute('y1', String(y + Math.sin(angle) * gap))
+        ray.setAttribute('x2', String(x + Math.cos(angle) * (gap + rayLen)))
+        ray.setAttribute('y2', String(y + Math.sin(angle) * (gap + rayLen)))
+        const rayAlpha = (0.18 + 0.10 * Math.sin(ts * 0.00041 + i * 0.9)).toFixed(3)
+        ray.setAttribute('stroke', `rgba(${dr},${dg},${db},${rayAlpha})`)
+        ray.setAttribute('stroke-width', String(0.8 + 0.5 * Math.sin(ts * 0.00033 + i)))
       })
 
       sunRafRef.current = requestAnimationFrame(tick)
