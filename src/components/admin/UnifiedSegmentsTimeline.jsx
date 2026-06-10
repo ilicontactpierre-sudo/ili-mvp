@@ -1314,12 +1314,14 @@ function UnifiedSegmentsTimeline({
       const anchor = selectionAnchorRef.current
       const from = Math.min(anchor, index)
       const to   = Math.max(anchor, index)
-      // Si la cible est un chapitre, étendre jusqu'à son dernier enfant
+      // Étendre la plage pour inclure les enfants de tout chapitre présent dedans
       let rangeTo = to
-      if (segments[to]?.isChapter === true) {
-        for (let i = to + 1; i < segments.length; i++) {
-          if (segments[i]?.isChapter === true) break
-          rangeTo = i
+      for (let i = from; i <= rangeTo; i++) {
+        if (segments[i]?.isChapter === true) {
+          for (let j = i + 1; j < segments.length; j++) {
+            if (segments[j]?.isChapter === true) break
+            if (j > rangeTo) rangeTo = j
+          }
         }
       }
       setSelectedSegmentIndices(prev => {
