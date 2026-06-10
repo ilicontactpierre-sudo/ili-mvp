@@ -887,18 +887,20 @@ function AdminPage() {
     setStoryMood(snapshot.mood || '')
     setStoryGenre(snapshot.genre || '')
     setStoryDescription(snapshot.description || '')
-    if (snapshot.isSerial && Array.isArray(snapshot.parts)) {
-      setIsSerial(true)
-      setParts(snapshot.parts)
-      setActivePartIndex(0)
-      // Vider les states simples pour éviter toute confusion
-      setSegments([])
-      setSoundTracks([])
-      setVfxTracks([])
+    // Réinitialiser les deux modes pour éviter tout état résiduel
+    setSegments([])
+    setSoundTracks([])
+    setVfxTracks([])
+    setParts([])
+    setIsSerial(false)
+    if (snapshot.isSerial && Array.isArray(snapshot.parts) && snapshot.parts.length > 0) {
+      // setTimeout(0) laisse React flusher le reset avant d'appliquer les nouvelles valeurs
+      setTimeout(() => {
+        setIsSerial(true)
+        setParts(snapshot.parts)
+        setActivePartIndex(0)
+      }, 0)
     } else {
-      setIsSerial(false)
-      setParts([])
-      setActivePartIndex(0)
       setSegments(snapshot.segments || [])
       setSoundTracks(snapshot.soundTracks || [])
       setVfxTracks(snapshot.vfxTracks || [])
