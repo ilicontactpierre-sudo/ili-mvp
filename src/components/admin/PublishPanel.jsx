@@ -137,11 +137,11 @@ function PublishPanel({
     return segmentsWithAudio
   }
 
-  // Filtrer les sons utilisés (non mutés) — format {id, url, loop} uniquement
-  const getUsedSounds = () => {
+  // Filtrer les sons utilisés — format {id, url, loop} uniquement
+  // Accepte des tracks explicites pour le mode série (par partie)
+  const getUsedSounds = (tracks = soundTracks) => {
     const usedSoundIds = new Set(
-      soundTracks
-        .map(t => t.soundId)
+      tracks.map(t => t.soundId)
     )
     return soundLibrary
       .filter(s => usedSoundIds.has(s.id))
