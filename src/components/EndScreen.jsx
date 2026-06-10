@@ -90,7 +90,7 @@ function EndScreen({ title, author, formUrl, bookUrl, nextPart = null, onNextPar
               <p style={{ margin: 0, fontSize: '0.85rem', opacity: 0.6, letterSpacing: '0.02em' }}>
                 Être prévenu de la prochaine histoire
               </p>
-              <div style={{ display: 'flex', gap: '0.2rem' }}>
+              <div style={{ display: 'flex', gap: '0.rem' }}>
                 <input
                   type="email"
                   placeholder="votre@email.com"
