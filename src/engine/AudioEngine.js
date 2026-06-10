@@ -294,9 +294,8 @@ class AudioEngine {
         if (fadeOutMs > 0) {
           this.fadeOutSound({ trackId: key, soundId: state.soundId, duration: fadeOutMs })
         } else {
-          // fadeOut = 0 → laisser le son finir naturellement, juste retirer de playingSounds
-          // pour ne pas bloquer un éventuel redémarrage, mais ne pas stopper le howl
-          this.playingSounds.delete(key)
+          // fadeOut = 0 → arrêt immédiat propre
+          this.stopSound(state.soundId, key)
         }
       }
     })
