@@ -298,37 +298,81 @@ function VfxOverlay({ activeType, activeMode }) {
   // ══════════════════════════════════════════
   // ── UNDERWATER — feTurbulence + caustiques ──
   // ══════════════════════════════════════════
-  const uwRafRef = useRef(null)
+  const uwRafRef    = useRef(null)
+  const uwScaleRef  = useRef(0)      // scale courant du displacement (0 = invisible)
+  const uwStateRef  = useRef('off')  // 'fadein' | 'on' | 'fadeout' | 'off'
   useEffect(() => {
     const el = uwRef.current
     if (!el) return
+
     if (activeType !== 'underwater') {
+      // ── Fade-out : scale redescend vers 0 pendant que l'opacité fade ──
+      uwStateRef.current = 'fadeout'
       el.style.transition = `opacity ${UW_FADE_OUT}ms cubic-bezier(0.37, 0, 0.63, 1)`
       el.style.opacity = '0'
       const t = setTimeout(() => {
-        if (el.style.opacity === '0') {
+        if (uwStateRef.current === 'fadeout') {
           el.style.display = 'none'
+          uwStateRef.current = 'off'
+          uwScaleRef.current = 0
           if (uwRafRef.current) { cancelAnimationFrame(uwRafRef.current); uwRafRef.current = null }
         }
       }, UW_FADE_OUT + 100)
       return () => clearTimeout(t)
     }
+
+    // ── Fade-in : on part de scale=0, le RAF monte progressivement ──
+    uwStateRef.current = 'fadein'
+    uwScaleRef.current = 0
     el.style.display = 'block'
     void el.offsetHeight
-    el.style.transition = `opacity ${UW_FADE_IN}ms cubic-bezier(0.37, 0, 0.63, 1)`
+    el.style.transition = `opacity ${UW_FADE_IN}ms cubic-bezier(0.25, 0, 0.35, 1)`
     el.style.opacity = '1'
 
-    // ── Animation feTurbulence : ondulation réaliste du texte ──
-    const turbEl = el.querySelector('#uw-turbulence')
-    if (!turbEl) return
-    let uwTime = 0
-    const animateTurb = () => {
-      uwTime += 0.007
-      const bfx = 0.013 + Math.sin(uwTime * 0.7)  * 0.003
-      const bfy = 0.035 + Math.cos(uwTime * 0.5)  * 0.006
+    const turbEl     = el.querySelector('#uw-turbulence')
+    const dispEl     = el.querySelector('#uw-displacement')
+    if (!turbEl || !dispEl) return
+
+    const targetScale = uwCfg.dispScale
+    // Durée de montée du scale en ms — légèrement plus longue que le fade visuel
+    // pour que l'ondulation arrive *après* que le voile coloré soit déjà là
+    const scaleRampMs = UW_FADE_IN * 1.15
+    let startTs = null
+    let uwTime  = 0
+
+    const animateTurb = (ts) => {
+      if (!startTs) startTs = ts
+      const elapsed = ts - startTs
+
+      // ── Montée progressive du displacement scale ──
+      if (uwStateRef.current === 'fadein') {
+        const progress = Math.min(1, elapsed / scaleRampMs)
+        // Easing cubique : démarre très lentement, accélère doucement
+        const eased = progress < 0.5
+          ? 4 * progress * progress * progress
+          : 1 - Math.pow(-2 * progress + 2, 3) / 2
+        uwScaleRef.current = targetScale * eased
+        if (progress >= 1) uwStateRef.current = 'on'
+      } else if (uwStateRef.current === 'fadeout') {
+        // Descente miroir
+        const progress = Math.min(1, elapsed / (UW_FADE_OUT * 0.85))
+        const eased = 1 - (progress < 0.5
+          ? 4 * progress * progress * progress
+          : 1 - Math.pow(-2 * progress + 2, 3) / 2)
+        uwScaleRef.current = targetScale * eased
+      }
+
+      dispEl.setAttribute('scale', String(uwScaleRef.current.toFixed(3)))
+
+      // ── Turbulence oscillante ──
+      uwTime += 0.006
+      const bfx = 0.013 + Math.sin(uwTime * 0.7) * 0.003
+      const bfy = 0.035 + Math.cos(uwTime * 0.5) * 0.006
       turbEl.setAttribute('baseFrequency', `${bfx.toFixed(5)} ${bfy.toFixed(5)}`)
+
       uwRafRef.current = requestAnimationFrame(animateTurb)
     }
+
     uwRafRef.current = requestAnimationFrame(animateTurb)
     return () => {
       if (uwRafRef.current) { cancelAnimationFrame(uwRafRef.current); uwRafRef.current = null }
