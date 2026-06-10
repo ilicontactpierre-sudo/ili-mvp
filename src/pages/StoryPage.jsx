@@ -284,6 +284,7 @@ function StoryPage() {
     setActivePartIndex(partIdx)
     setCurrentIndex(0)
     setIsFinished(false)
+    setIsFading(false)
     setIsStarted(false)
     setShowCoverPage(false)
   }, [storyRaw])
