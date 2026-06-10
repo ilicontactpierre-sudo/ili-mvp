@@ -420,9 +420,15 @@ function StoryPage() {
 
   useEffect(() => {
     if (!isFading) return
-    audioEngineRef.current?.stopAll(3000)
+    // Capturer l'engine dans une variable locale pour qu'il reste en vie
+    // pendant tout le fade, même si audioEngineRef est nullifié entretemps
+    const engine = audioEngineRef.current
+    engine?.stopAll(3000)
     const t = setTimeout(() => setIsFinished(true), 3000)
-    return () => clearTimeout(t)
+    return () => {
+      clearTimeout(t)
+      engine?.stopAll(0)
+    }
   }, [isFading])
 
   // ── Clavier ────────────────────────────────────────────────────────────────
