@@ -207,8 +207,12 @@ export function getVfxClass(track) {
     }
   
     case 'static':    return '' // effet géré entièrement par JS, pas de classe CSS
-    case 'fog':       return '' // effet géré par VfxOverlay, pas de classe CSS
-    case 'fire':      return '' // effet géré par VfxOverlay, pas de classe CSS
+    case 'fog':        return '' // effet géré par VfxOverlay, pas de classe CSS
+    case 'fire':       return '' // effet géré par VfxOverlay, pas de classe CSS
+    case 'rain':       return '' // effet géré par VfxOverlay, pas de classe CSS
+    case 'snow':       return '' // effet géré par VfxOverlay, pas de classe CSS
+    case 'underwater': return '' // effet géré par VfxOverlay, pas de classe CSS
+    case 'sun':        return '' // effet géré par VfxOverlay, pas de classe CSS'' // effet géré par VfxOverlay, pas de classe CSS
     default:          return ''
   }
 }
