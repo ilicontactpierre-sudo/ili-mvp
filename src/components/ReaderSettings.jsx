@@ -303,10 +303,12 @@ export default function ReaderSettings({
     window.__iliDys1 = dys1
     window.__iliDys2 = dys2
     window.__iliEmoji = emojiMode
+    window.__iliShowProgress = showProgress
     try { localStorage.setItem('ili_dys1', String(dys1)) } catch {}
     try { localStorage.setItem('ili_dys2', String(dys2)) } catch {}
     try { localStorage.setItem('ili_emoji', String(emojiMode)) } catch {}
-  }, [dys1, dys2, emojiMode])
+    try { localStorage.setItem('ili_show_progress', String(showProgress)) } catch {}
+  }, [dys1, dys2, emojiMode, showProgress])
 
   // ── Fermer si clic en dehors ────────────────────────────────────────────────
   useEffect(() => {
