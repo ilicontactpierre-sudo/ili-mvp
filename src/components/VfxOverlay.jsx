@@ -120,56 +120,41 @@ function VfxOverlay({ activeType, activeMode }) {
 
     // Paramètres selon mode
     const cfg = {
-      bruine:  { count: 180, lenMin: 6,  lenMax: 14,  speedMin: 4,   speedMax: 9,   angleRad: 0.06, widthMin: 0.3, widthMax: 0.7, opMin: 0.06, opMax: 0.15 },
-      averse:  { count: 320, lenMin: 14, lenMax: 30,  speedMin: 11,  speedMax: 20,  angleRad: 0.18, widthMin: 0.5, widthMax: 1.0, opMin: 0.09, opMax: 0.22 },
-      tempête: { count: 480, lenMin: 22, lenMax: 55,  speedMin: 22,  speedMax: 40,  angleRad: 0.45, widthMin: 0.6, widthMax: 1.3, opMin: 0.10, opMax: 0.25 },
-    }[activeMode] ?? { count: 250, lenMin: 10, lenMax: 22, speedMin: 8, speedMax: 16, angleRad: 0.18, widthMin: 0.5, widthMax: 1.0, opMin: 0.08, opMax: 0.20 }
+      bruine:  { count: 280, lenMin: 8,   lenMax: 18,  speedMin: 5,   speedMax: 11,  angleRad: 0.06, widthMin: 0.4, widthMax: 0.8, opMin: 0.13, opMax: 0.28 },
+      averse:  { count: 360, lenMin: 14,  lenMax: 30,  speedMin: 11,  speedMax: 20,  angleRad: 0.18, widthMin: 0.5, widthMax: 1.0, opMin: 0.13, opMax: 0.28 },
+      tempête: { count: 500, lenMin: 22,  lenMax: 55,  speedMin: 22,  speedMax: 40,  angleRad: 0.45, widthMin: 0.6, widthMax: 1.3, opMin: 0.13, opMax: 0.28 },
+    }[activeMode] ?? { count: 320, lenMin: 10, lenMax: 22, speedMin: 8, speedMax: 16, angleRad: 0.18, widthMin: 0.5, widthMax: 1.0, opMin: 0.13, opMax: 0.26 }
 
-    // Créer les particules avec graine déterministe par index
+    const sinAngle = Math.sin(cfg.angleRad)
+    const cosAngle = Math.cos(cfg.angleRad)
+
+    // ── Spawn distribué sur toute la diagonale d'entrée ──
+    // Pour couvrir TOUT l'écran même en biais, on initialise les gouttes
+    // sur une zone étendue qui englobe la diagonale de défilement complète.
+    // La zone de spawn horizontal est [-overflow … W + overflow] où overflow
+    // compense exactement la dérive horizontale max pendant la traversée verticale.
+    const maxDrift = (H / cosAngle) * sinAngle  // dérive X max pendant traversée
+    const overflow = Math.ceil(Math.abs(maxDrift) + cfg.lenMax + 10)
+
     const drops = Array.from({ length: cfg.count }, (_, i) => {
       const r = lcg(i * 7919 + 1)
+      // Distribution uniforme sur toute la zone élargie
+      const spawnX = -overflow + r() * (W + overflow * 2)
       return {
-        x:     r() * W,
-        y:     r() * H,
+        x:     spawnX,
+        y:     r() * H,            // position initiale répartie sur toute la hauteur
         len:   cfg.lenMin + r() * (cfg.lenMax   - cfg.lenMin),
         speed: cfg.speedMin + r() * (cfg.speedMax - cfg.speedMin),
         op:    cfg.opMin + r() * (cfg.opMax - cfg.opMin),
         w:     cfg.widthMin + r() * (cfg.widthMax - cfg.widthMin),
-        // phase d'opacité individuelle pour éviter synchronisation
         phase: r() * Math.PI * 2,
         phaseSpeed: 0.003 + r() * 0.009,
       }
     })
 
-    const sinAngle = Math.sin(cfg.angleRad)
-    const cosAngle = Math.cos(cfg.angleRad)
     let t = 0
-
     const tick = () => {
-      ctx.clearRect(0, 0, W, H)
-      t++
-      for (const d of drops) {
-        d.x += d.speed * sinAngle
-        d.y += d.speed * cosAngle
-        if (d.y > H + d.len || d.x > W + d.len) {
-          d.x = Math.random() * W * 1.2 - W * 0.1
-          d.y = -d.len - Math.random() * 40
-        }
-        // Légère variation d'opacité individuelle
-        const opFactor = 0.75 + 0.25 * Math.sin(t * d.phaseSpeed + d.phase)
-        ctx.save()
-        ctx.globalAlpha = d.op * opFactor
-        ctx.strokeStyle = isDark ? 'rgba(220,230,255,1)' : 'rgba(80,100,140,1)'
-        ctx.lineWidth = d.w
-        ctx.lineCap = 'round'
-        ctx.beginPath()
-        ctx.moveTo(d.x, d.y)
-        ctx.lineTo(d.x + d.len * sinAngle, d.y + d.len * cosAngle)
-        ctx.stroke()
-        ctx.restore()
-      }
-      rainRafRef.current = requestAnimationFrame(tick)
-    }
+      ctx.clearRect(0,
     rainRafRef.current = requestAnimationFrame(tick)
 
     return () => {
