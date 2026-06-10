@@ -169,13 +169,21 @@ function StoryLoader({ onLoadStory, onPreviewStory }) {
       }
       if (onLoadStory) {
         onLoadStory({
-          title: data.title || '',
-          author: data.author || '',
-          slug: data.id || storyId,
-          segments: normalizedSegments,
+          title:       data.title       || '',
+          author:      data.author      || '',
+          slug:        data.id          || storyId,
+          bookUrl:     data.bookUrl     || '',
+          mood:        data.mood        || '',
+          genre:       data.genre       || '',
+          description: data.description || '',
+          // Mode série
+          type:        data.type        || 'simple',
+          parts:       data.parts       || [],
+          // Mode simple
+          segments:    normalizedSegments,
           soundTracks,
-          vfxTracks: data.vfxTracks || [],
-          sounds: soundLibrary
+          vfxTracks:   data.vfxTracks   || [],
+          sounds:      soundLibrary
         })
       }
       setIsExpanded(false)
