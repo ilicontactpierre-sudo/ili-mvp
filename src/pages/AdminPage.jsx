@@ -1400,6 +1400,30 @@ function AdminPage() {
                 }}
                 style={{ padding: '0.75rem', fontSize: '1rem', border: '1px solid #ccc', borderRadius: '4px' }}
               />
+              {/* Humeur */}
+              <input
+                type="text"
+                placeholder="Humeur (ex : Mélancolie, Tension, Mystère…)"
+                value={storyMood}
+                onChange={(e) => setStoryMood(e.target.value)}
+                style={{ padding: '0.75rem', fontSize: '1rem', border: '1px solid #ccc', borderRadius: '4px' }}
+              />
+              {/* Genre */}
+              <input
+                type="text"
+                placeholder="Genre (ex : Nouvelle, Roman, Poésie…)"
+                value={storyGenre}
+                onChange={(e) => setStoryGenre(e.target.value)}
+                style={{ padding: '0.75rem', fontSize: '1rem', border: '1px solid #ccc', borderRadius: '4px' }}
+              />
+              {/* Description */}
+              <textarea
+                placeholder="Description (2-3 lignes — accroche pour le lecteur)"
+                value={storyDescription}
+                onChange={(e) => setStoryDescription(e.target.value)}
+                rows={3}
+                style={{ padding: '0.75rem', fontSize: '1rem', border: '1px solid #ccc', borderRadius: '4px', resize: 'vertical', fontFamily: 'inherit' }}
+              />
               <input
                 type="text"
                 placeholder="ID / Slug (ex: la-parure)"
