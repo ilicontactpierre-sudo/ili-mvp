@@ -162,7 +162,7 @@ function DraftManager({
         clearTimeout(autoSaveTimerRef.current)
       }
     }
-  }, [segments, soundTracks, title, author, slug, saveDraft])
+  }, [segments, soundTracks, parts, title, author, slug, isSerial, saveDraft])
 
   // Sauvegarde avant fermeture de la page
   useEffect(() => {
