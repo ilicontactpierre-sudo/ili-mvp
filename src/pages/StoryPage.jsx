@@ -340,7 +340,7 @@ function StoryPage() {
     if (!isStarted || !segments.length || isFinished) return
     setCurrentIndex((prevIndex) => {
       if (prevIndex >= lastIndex) {
-        setIsFinished(true)
+        setIsFading(true)
         // Marquer la partie comme terminée
         if (progressKey) saveProgress(progressKey, prevIndex, true)
         trackFinish(activeStory?.id, segments.length)
