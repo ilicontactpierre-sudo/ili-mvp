@@ -464,18 +464,23 @@ function VfxOverlay({ activeType, activeMode }) {
       glowEl.setAttribute('ry', String((R + 18) * (0.5 + horizonFactor * 0.6)))
       glowEl.setAttribute('fill', `rgba(${cr},${cg},${cb},${(0.08 + horizonFactor * 0.10).toFixed(3)})`)
 
-      // ── Rayons — fins, longs, pulsés individuellement ──
-      rayEls.forEach((ray, i) => {
-        const angle   = (i / rayEls.length) * Math.PI * 2 + ts * 0.000028
-        const rayLen  = R * 0.55 + R * 0.45 * Math.sin(ts * (0.00028 + i * 0.000031) + i * 1.23)
-        const gap     = R + 3
-        ray.setAttribute('x1', String(x + Math.cos(angle) * gap))
-        ray.setAttribute('y1', String(y + Math.sin(angle) * gap))
-        ray.setAttribute('x2', String(x + Math.cos(angle) * (gap + rayLen)))
-        ray.setAttribute('y2', String(y + Math.sin(angle) * (gap + rayLen)))
-        const rayAlpha = (0.18 + 0.10 * Math.sin(ts * 0.00041 + i * 0.9)).toFixed(3)
-        ray.setAttribute('stroke', `rgba(${dr},${dg},${db},${rayAlpha})`)
-        ray.setAttribute('stroke-width', String(0.8 + 0.5 * Math.sin(ts * 0.00033 + i)))
+      // ── Rayons diffus — ellipses floutées tournantes, aucun trait visible ──
+      const rayEls = el.querySelectorAll('.sun-ray-blob')
+      rayEls.forEach((blob, i) => {
+        const totalBlobs = rayEls.length
+        const baseAngle  = (i / totalBlobs) * Math.PI * 2
+        const rot        = baseAngle + ts * (0.000018 + i * 0.000004)
+        // Distance orbitale pulsée individuellement
+        const dist = R * 1.1 + R * 0.5 * Math.sin(ts * (0.00022 + i * 0.000029) + i * 1.37)
+        const bx   = x + Math.cos(rot) * dist
+        const by   = y + Math.sin(rot) * dist
+        // Taille et opacité pulsées
+        const blobR  = R * (0.55 + 0.25 * Math.sin(ts * (0.00019 + i * 0.000037) + i * 0.91))
+        const blobOp = (0.055 + 0.030 * Math.sin(ts * (0.00031 + i * 0.000021) + i * 1.1)).toFixed(4)
+        blob.setAttribute('cx', String(bx))
+        blob.setAttribute('cy', String(by))
+        blob.setAttribute('r',  String(blobR))
+        blob.setAttribute('fill', `rgba(${dr},${dg},${db},${blobOp})`)
       })
 
       sunRafRef.current = requestAnimationFrame(tick)
