@@ -235,10 +235,11 @@ function PublishPanel({
 
     try {
       // Récupérer le mot de passe
-      let adminPassword = sessionStorage.getItem('ili_admin_password')
+      const adminPassword = sessionStorage.getItem('ili_admin_password')
       if (!adminPassword) {
-        // Fallback sur la variable d'environnement (moins sécurisé)
-        adminPassword = import.meta.env.VITE_ADMIN_PASSWORD
+        setAutoPublishError('Session expirée — reconnecte-toi à l\'admin.')
+        setAutoPublishStatus('error')
+        return
       }
 
       const storyData = buildStoryData()
