@@ -25,7 +25,7 @@ function EndScreen({ title, author, formUrl, bookUrl, nextPart = null, onNextPar
   }
 
   useEffect(() => {
-    const t = setTimeout(() => setVisible(true), 80)
+    const t = setTimeout(() => setVisible(true), 200)
     return () => clearTimeout(t)
   }, [])
 
