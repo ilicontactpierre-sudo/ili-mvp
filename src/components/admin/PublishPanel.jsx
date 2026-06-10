@@ -562,7 +562,11 @@ function PublishPanel({
   }
 
   // Vérifier si le bouton de publication est désactivé
-  const isPublishDisabled = !title || !slug || segments.length === 0
+  const isPublishDisabled = !title || !slug || (
+    isSerial
+      ? parts.length === 0 || parts.every(p => (p.segments?.length ?? 0) === 0)
+      : segments.length === 0
+  )
 
   return (
     <div style={styles.container}>
