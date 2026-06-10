@@ -70,7 +70,10 @@ function StartScreen({ title, author, segmentCount = 0, soundsToPreload = [], sa
         padding: '2rem 1.5rem',
         opacity: phase === 'exiting' ? 0 : 1,
         transform: phase === 'exiting' ? 'translateY(-10px)' : 'translateY(0)',
-        transition: 'opacity 520ms cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 520ms cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+        transition: phase === 'exiting'
+          ? 'opacity 520ms cubic-bezier(0.4, 0, 1, 1), transform 520ms cubic-bezier(0.4, 0, 1, 1)'
+          : 'opacity 700ms cubic-bezier(0.16, 1, 0.3, 1), transform 700ms cubic-bezier(0.16, 1, 0.3, 1)',
+        animation: 'fadeUp 700ms cubic-bezier(0.16, 1, 0.3, 1) both',
         cursor: !hasProgress && phase === 'idle' ? 'pointer' : 'default',
       }}
     >
