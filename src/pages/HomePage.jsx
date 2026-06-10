@@ -3,6 +3,80 @@ import StoryMenu from '../components/StoryMenu';
 import ReaderSettings from '../components/ReaderSettings.jsx'
 import { playClicILi } from '../App.jsx'
 
+// ── Composant ligne d'histoire enrichie ──────────────────────────────────────
+function StoryRow({ story, onNavigate }) {
+  const [open, setOpen] = useState(false)
+  const hasInfo = story.mood || story.genre || story.description
+
+  return (
+    <div style={{ borderBottom: '1px solid rgba(255,255,255,0.07)' }}>
+      {/* Ligne principale */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '0.75rem 0' }}>
+        {/* Zone cliquable titre + méta */}
+        <div
+          onClick={() => onNavigate(story)}
+          style={{ flex: 1, cursor: 'pointer', minWidth: 0 }}
+        >
+          <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.6rem', flexWrap: 'wrap' }}>
+            <span style={{ color: '#fff', fontSize: '1rem', fontWeight: 500 }}>{story.title}</span>
+            <span style={{ color: 'rgba(255,255,255,0.45)', fontSize: '0.78rem' }}>{story.author}</span>
+            {(story.mood || story.genre) && (
+              <span style={{
+                color: 'rgba(255,255,255,0.28)',
+                fontSize: '0.62rem',
+                letterSpacing: '0.12em',
+                textTransform: 'uppercase',
+                fontWeight: 400,
+              }}>
+                {[story.mood, story.genre].filter(Boolean).join(' · ')}
+              </span>
+            )}
+          </div>
+        </div>
+        {/* Bouton ⓘ */}
+        {hasInfo && (
+          <button
+            onClick={(e) => { e.stopPropagation(); setOpen(o => !o) }}
+            aria-label="Description"
+            style={{
+              background: 'none',
+              border: 'none',
+              cursor: 'pointer',
+              color: open ? 'rgba(255,255,255,0.7)' : 'rgba(255,255,255,0.25)',
+              fontSize: '1rem',
+              padding: '0 0.25rem',
+              lineHeight: 1,
+              flexShrink: 0,
+              transition: 'color 0.15s',
+            }}
+          >ⓘ</button>
+        )}
+      </div>
+      {/* Zone dépliable */}
+      <div style={{
+        overflow: 'hidden',
+        maxHeight: open ? '120px' : '0',
+        opacity: open ? 1 : 0,
+        transition: 'max-height 0.2s ease, opacity 0.2s ease',
+      }}>
+        {story.description && (
+          <p style={{
+            margin: '0 0 0.75rem 0',
+            paddingLeft: '0.75rem',
+            borderLeft: '2px solid rgba(255,255,255,0.12)',
+            color: 'rgba(255,255,255,0.55)',
+            fontSize: '0.8rem',
+            lineHeight: '1.55',
+            fontStyle: 'italic',
+          }}>
+            {story.description}
+          </p>
+        )}
+      </div>
+    </div>
+  )
+}
+
 function HomePage() {
   const [phase, setPhase] = useState('idle'); // idle | bumping | transitioning | open
   const [stories, setStories] = useState([]);
