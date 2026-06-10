@@ -174,6 +174,57 @@ function StartScreen({ title, author, segmentCount = 0, segments = [], soundsToP
             {dontLabel}
           </p>
         )}
+        {/* Bouton d'installation PWA — Android/Chrome */}
+        {showInstallBtn && (
+          <button
+            onClick={handleInstall}
+            style={{
+              marginTop: '2rem',
+              background: 'transparent',
+              border: 'none',
+              borderBottom: '1px solid color-mix(in srgb, var(--color-text-focus) 15%, transparent)',
+              borderRadius: 0,
+              color: 'color-mix(in srgb, var(--color-text-focus) 28%, transparent)',
+              fontFamily: 'var(--font-logo, sans-serif)',
+              fontSize: 'clamp(0.6rem, 2.2vw, 0.7rem)',
+              letterSpacing: '0.2em',
+              textTransform: 'uppercase',
+              padding: '0.5rem 0',
+              cursor: 'pointer',
+              WebkitTapHighlightColor: 'transparent',
+            }}
+          >
+            Installer l'app
+          </button>
+        )}
+
+        {/* Hint iOS — affiché une seule fois */}
+        {showIOSHint && (
+          <div
+            onClick={dismissIOSHint}
+            style={{
+              marginTop: '2rem',
+              padding: '0.65rem 1rem',
+              border: '1px solid color-mix(in srgb, var(--color-text-focus) 12%, transparent)',
+              borderRadius: '8px',
+              color: 'color-mix(in srgb, var(--color-text-focus) 35%, transparent)',
+              fontFamily: 'var(--font-logo, sans-serif)',
+              fontSize: 'clamp(0.58rem, 2vw, 0.68rem)',
+              letterSpacing: '0.12em',
+              textTransform: 'uppercase',
+              lineHeight: 1.55,
+              maxWidth: '22rem',
+              cursor: 'pointer',
+              textAlign: 'center',
+            }}
+          >
+            Safari → Partager → « Sur l'écran d'accueil »
+            <span style={{ display: 'block', marginTop: '0.35rem', opacity: 0.45, fontSize: '0.85em' }}>
+              (toucher pour fermer)
+            </span>
+          </div>
+        )}
+
         {/* Bloc à hauteur fixe pour éviter le saut au chargement */}
         <div style={{ marginTop: '4rem', minHeight: '12rem', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
           {phase === 'loading' || phase === 'exiting' ? (
