@@ -38,17 +38,15 @@ function StoryRow({ story, onNavigate }) {
         </div>
         {/* Bouton ⓘ — ne déclenche PAS la navigation */}
         {hasInfo && (
+          {hasInfo && (
           <button
             onClick={(e) => {
               e.stopPropagation()
               const willOpen = !open
               setOpen(willOpen)
               if (willOpen) {
-                // Attendre la fin de la transition CSS (200ms) puis scroller
                 setTimeout(() => {
-                  e.currentTarget
-                    .closest('[data-story-row]')
-                    ?.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
+                  descRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
                 }, 220)
               }
             }}
