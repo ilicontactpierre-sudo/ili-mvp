@@ -96,5 +96,14 @@
     "id": "guillaume-musso---facebook-twitter-pinterestlinkedin-le-crime-du-paradis",
     "title": "  Facebook Twitter PinterestLinkedin Le Crime du paradis",
     "author": "Guillaume Musso"
+  },
+  {
+    "id": "guillaume-musso-le-crime-du-paradis",
+    "title": "Le Crime du paradis",
+    "author": "Guillaume Musso",
+    "mood": "Mélancolie",
+    "genre": "Nouvelle",
+    "description": "Description 2-3 lignes",
+    "type": "serial"
   }
 ]
