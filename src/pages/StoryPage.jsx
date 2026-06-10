@@ -17,39 +17,330 @@ const fullScreenStyle = {
   fontFamily: 'var(--font-primary)',
 }
 
+// ── Indicateur de progression d'une partie ───────────────────────────────────
+function partProgress(partId) {
+  const saved = loadProgress(partId)
+  if (!saved) return 'unstarted'
+  if (saved.finished) return 'finished'
+  if (saved.segmentIndex > 0) return 'inprogress'
+  return 'unstarted'
+}
+
+const progressIcon = { unstarted: '●', inprogress: '◑', finished: '✓' }
+const progressOpacity = { unstarted: 0.38, inprogress: 0.7, finished: 0.55 }
+
+// ── CoverPage (page de garde des séries) ─────────────────────────────────────
+function CoverPage({ storyData, onSelectPart }) {
+  const [visible, setVisible] = useState(false)
+
+  useEffect(() => {
+    const t = setTimeout(() => setVisible(true), 60)
+    return () => clearTimeout(t)
+  }, [])
+
+  const lineColor  = 'color-mix(in srgb, var(--color-text-focus) 16%, transparent)'
+  const btnBorder  = 'color-mix(in srgb, var(--color-text-focus) 20%, transparent)'
+  const btnColor   = 'color-mix(in srgb, var(--color-text-focus) 55%, transparent)'
+
+  return (
+    <main
+      style={{
+        minHeight: '100dvh',
+        display: 'grid',
+        gridTemplateRows: '1fr auto 1fr',
+        alignItems: 'center',
+        textAlign: 'center',
+        background: 'var(--color-bg)',
+        color: 'var(--color-text-focus)',
+        fontFamily: 'var(--font-primary)',
+        padding: '2rem 1.5rem',
+        opacity: visible ? 1 : 0,
+        transform: visible ? 'translateY(0)' : 'translateY(14px)',
+        transition: 'opacity 700ms cubic-bezier(0.16, 1, 0.3, 1), transform 700ms cubic-bezier(0.16, 1, 0.3, 1)',
+      }}
+    >
+      <style>{`
+        @keyframes fadeUp {
+          from { opacity: 0; transform: translateY(12px); }
+          to   { opacity: 1; transform: translateY(0); }
+        }
+      `}</style>
+
+      <div />
+
+      <section style={{ width: '100%', maxWidth: '40rem', margin: '0 auto', animation: 'fadeUp 700ms cubic-bezier(0.16, 1, 0.3, 1) both' }}>
+        {/* Titre */}
+        <h1 style={{ fontSize: 'clamp(2.4rem, 9vw, 4rem)', fontWeight: 600, lineHeight: 1.2, marginBottom: '0.6rem' }}>
+          {storyData.title}
+        </h1>
+
+        {/* Auteur */}
+        <p style={{ opacity: 0.82, fontSize: 'clamp(1.1rem, 4.6vw, 1.55rem)', marginBottom: '0.5rem' }}>
+          {storyData.author}
+        </p>
+
+        {/* Mood · Genre */}
+        {(storyData.mood || storyData.genre) && (
+          <p style={{
+            opacity: 0.28,
+            fontSize: 'clamp(0.6rem, 2.2vw, 0.72rem)',
+            letterSpacing: '0.22em',
+            textTransform: 'uppercase',
+            fontFamily: 'var(--font-logo)',
+            marginBottom: '0.5rem',
+          }}>
+            {[storyData.mood, storyData.genre].filter(Boolean).join(' · ')}
+          </p>
+        )}
+
+        {/* Description */}
+        {storyData.description && (
+          <p style={{
+            opacity: 0.5,
+            fontSize: 'clamp(0.85rem, 3vw, 1rem)',
+            fontStyle: 'italic',
+            lineHeight: 1.55,
+            maxWidth: '28rem',
+            margin: '0 auto 0',
+          }}>
+            {storyData.description}
+          </p>
+        )}
+
+        {/* Séparateur */}
+        <div style={{
+          width: '100%',
+          maxWidth: '11rem',
+          height: '1px',
+          margin: '2rem auto',
+          background: lineColor,
+        }} />
+
+        {/* Liste des parties */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '0', width: '100%', maxWidth: '32rem', margin: '0 auto' }}>
+          {(storyData.parts ?? []).map((part, index) => {
+            const published = part.published ?? false
+            const prog = published ? partProgress(part.id) : null
+
+            return (
+              <div
+                key={part.id}
+                onClick={published ? () => onSelectPart(part) : undefined}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  gap: '1rem',
+                  padding: '1rem 0',
+                  borderBottom: index < (storyData.parts.length - 1)
+                    ? '1px solid color-mix(in srgb, var(--color-text-focus) 8%, transparent)'
+                    : 'none',
+                  opacity: published ? 1 : 0.25,
+                  cursor: published ? 'pointer' : 'default',
+                  textAlign: 'left',
+                  transition: 'opacity 200ms ease',
+                }}
+                onMouseEnter={e => { if (published) e.currentTarget.style.opacity = '0.75' }}
+                onMouseLeave={e => { if (published) e.currentTarget.style.opacity = '1' }}
+              >
+                {/* Infos partie */}
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <div style={{
+                    fontSize: 'clamp(1rem, 3.5vw, 1.15rem)',
+                    fontWeight: 500,
+                    letterSpacing: '0.01em',
+                    marginBottom: part.subtitle ? '0.2rem' : 0,
+                  }}>
+                    {part.title || `Partie ${index + 1}`}
+                  </div>
+                  {part.subtitle && (
+                    <div style={{
+                      opacity: 0.55,
+                      fontSize: 'clamp(0.8rem, 2.8vw, 0.9rem)',
+                      fontStyle: 'italic',
+                    }}>
+                      {part.subtitle}
+                    </div>
+                  )}
+                </div>
+
+                {/* Indicateur droit */}
+                {published ? (
+                  <span style={{
+                    opacity: progressOpacity[prog],
+                    fontSize: prog === 'finished' ? '1rem' : '0.85rem',
+                    flexShrink: 0,
+                    letterSpacing: '0.05em',
+                  }}>
+                    {progressIcon[prog]}
+                  </span>
+                ) : (
+                  <span style={{
+                    fontSize: 'clamp(0.55rem, 1.8vw, 0.62rem)',
+                    letterSpacing: '0.18em',
+                    textTransform: 'uppercase',
+                    fontFamily: 'var(--font-logo)',
+                    opacity: 0.6,
+                    flexShrink: 0,
+                  }}>
+                    Bientôt
+                  </span>
+                )}
+              </div>
+            )
+          })}
+        </div>
+      </section>
+
+      <div style={{ alignSelf: 'end', opacity: 0.3, fontSize: '0.95rem', letterSpacing: '0.06em' }}>
+        ILi
+      </div>
+    </main>
+  )
+}
+
+// ── StoryPage ─────────────────────────────────────────────────────────────────
 function StoryPage() {
   const { storyId } = useParams()
-  const [story, setStory] = useState(null)
-  const [isStarted, setIsStarted] = useState(false)
+
+  // Données brutes de la story (JSON complet)
+  const [storyRaw, setStoryRaw] = useState(null)
+
+  // Données de la partie active (ou story complète en mode simple)
+  // activeStory a la même forme qu'une story simple : { id, title, segments, sounds, soundTracks, vfxTracks, … }
+  const [activeStory, setActiveStory] = useState(null)
+
+  // Index de la partie en cours (mode série uniquement)
+  const [activePartIndex, setActivePartIndex] = useState(null)
+
+  // Page de garde série
+  const [showCoverPage, setShowCoverPage] = useState(false)
+
+  const [isStarted, setIsStarted]     = useState(false)
   const [currentIndex, setCurrentIndex] = useState(0)
-  const [isFinished, setIsFinished] = useState(false)
-  const [isLoading, setIsLoading] = useState(true)
-  const [errorType, setErrorType] = useState('')
-  const touchStartY = useRef(null)
-  const touchStartX = useRef(null)
+  const [isFinished, setIsFinished]   = useState(false)
+  const [isLoading, setIsLoading]     = useState(true)
+  const [errorType, setErrorType]     = useState('')
+
+  const touchStartY       = useRef(null)
+  const touchStartX       = useRef(null)
   const touchDidScrollRef = useRef(false)
   const preloadedSoundsRef = useRef(new Map())
-  const audioEngineRef = useRef(null)
+  const audioEngineRef    = useRef(null)
   const ignoreAdvanceUntilRef = useRef(0)
-  const segments = useMemo(() => story?.segments ?? [], [story])
+
+  // La story "active" détermine les segments affichés
+  const segments = useMemo(() => activeStory?.segments ?? [], [activeStory])
   const lastIndex = Math.max(segments.length - 1, 0)
 
-  const goToNext = useCallback(() => {
-    if (!isStarted || !segments.length || isFinished) {
-      return
+  // Clé de progression : part.id en mode série, story.id en mode simple
+  const progressKey = useMemo(() => {
+    if (storyRaw?.type === 'serial' && activeStory?.id) return activeStory.id
+    return storyRaw?.id ?? null
+  }, [storyRaw, activeStory])
+
+  // Partie suivante (mode série)
+  const nextPart = useMemo(() => {
+    if (!storyRaw?.parts || activePartIndex === null) return null
+    const next = storyRaw.parts[activePartIndex + 1]
+    return (next?.published) ? next : null
+  }, [storyRaw, activePartIndex])
+
+  // ── Charger une partie dans les states de lecture ──────────────────────────
+  const loadPart = useCallback((part, partIdx) => {
+    // Stopper l'audio en cours
+    audioEngineRef.current?.stopAll()
+    audioEngineRef.current = null
+    preloadedSoundsRef.current = new Map()
+
+    // Construire l'objet "story active" à partir de la partie
+    const partStory = {
+      id:          part.id,
+      title:       storyRaw?.title ?? '',
+      author:      storyRaw?.author ?? '',
+      mood:        storyRaw?.mood ?? '',
+      genre:       storyRaw?.genre ?? '',
+      description: part.description ?? storyRaw?.description ?? '',
+      bookUrl:     storyRaw?.bookUrl ?? null,
+      formUrl:     storyRaw?.formUrl ?? null,
+      segments:    part.segments    ?? [],
+      sounds:      part.sounds      ?? [],
+      soundTracks: part.soundTracks ?? [],
+      vfxTracks:   part.vfxTracks   ?? [],
     }
+
+    setActiveStory(partStory)
+    setActivePartIndex(partIdx)
+    setCurrentIndex(0)
+    setIsFinished(false)
+    setIsStarted(false)
+    setShowCoverPage(false)
+  }, [storyRaw])
+
+  // ── Chargement du JSON ─────────────────────────────────────────────────────
+  useEffect(() => {
+    let isCancelled = false
+    async function loadStory() {
+      setIsLoading(true)
+      setErrorType('')
+      setCurrentIndex(0)
+      setIsFinished(false)
+      setIsStarted(false)
+      setShowCoverPage(false)
+      setActivePartIndex(null)
+      audioEngineRef.current?.stopAll()
+      audioEngineRef.current = null
+      preloadedSoundsRef.current = new Map()
+
+      try {
+        const response = await fetch(`/stories/${storyId}.json`)
+        if (!response.ok) {
+          throw new Error(response.status === 404 ? 'NOT_FOUND' : 'LOAD_ERROR')
+        }
+        const data = await response.json()
+        if (!isCancelled) {
+          setStoryRaw(data)
+          if (data.type === 'serial') {
+            // Mode série : afficher la page de garde, pas de activeStory encore
+            setActiveStory(null)
+            setShowCoverPage(true)
+          } else {
+            // Mode simple : comportement original
+            setActiveStory(data)
+            setShowCoverPage(false)
+          }
+        }
+      } catch (err) {
+        if (!isCancelled) {
+          setStoryRaw(null)
+          setActiveStory(null)
+          setErrorType(err.message || 'LOAD_ERROR')
+        }
+      } finally {
+        if (!isCancelled) setIsLoading(false)
+      }
+    }
+    loadStory()
+    return () => { isCancelled = true }
+  }, [storyId])
+
+  // ── Navigation ─────────────────────────────────────────────────────────────
+  const goToNext = useCallback(() => {
+    if (!isStarted || !segments.length || isFinished) return
     setCurrentIndex((prevIndex) => {
       if (prevIndex >= lastIndex) {
         setIsFinished(true)
-        trackFinish(story?.id, segments.length)
+        // Marquer la partie comme terminée
+        if (progressKey) saveProgress(progressKey, prevIndex, true)
+        trackFinish(activeStory?.id, segments.length)
         return prevIndex
       }
       const next = prevIndex + 1
-      if (story?.id) saveProgress(story.id, next)
-      trackProgress(story?.id, next, segments.length)
+      if (progressKey) saveProgress(progressKey, next)
+      trackProgress(activeStory?.id, next, segments.length)
       return next
     })
-  }, [isFinished, isStarted, lastIndex, segments.length, story])
+  }, [isFinished, isStarted, lastIndex, segments.length, activeStory, progressKey])
 
   const [jumpPhase, setJumpPhase] = useState('idle')
   const jumpTimersRef = useRef([])
@@ -57,105 +348,37 @@ function StoryPage() {
   const goToIndex = useCallback((index) => {
     if (!isStarted || !segments.length || jumpPhase !== 'idle') return
     const clamped = Math.max(0, Math.min(lastIndex, index))
-
     jumpTimersRef.current.forEach(clearTimeout)
     jumpTimersRef.current = []
-
-    // Phase out : blur + opacité
     setJumpPhase('out')
-
-    // Changer le segment au pic du fondu
     const t1 = setTimeout(() => {
       setCurrentIndex(clamped)
-      if (story?.id) saveProgress(story.id, clamped)
+      if (progressKey) saveProgress(progressKey, clamped)
     }, 550)
-
-    // Démarrer le fade in
-    const t2 = setTimeout(() => {
-      setJumpPhase('in')
-    }, 650)
-
-    // Retour idle
-    const t3 = setTimeout(() => {
-      setJumpPhase('idle')
-    }, 1800)
-
+    const t2 = setTimeout(() => setJumpPhase('in'),  650)
+    const t3 = setTimeout(() => setJumpPhase('idle'), 1800)
     jumpTimersRef.current = [t1, t2, t3]
-  }, [isStarted, segments.length, lastIndex, story, jumpPhase])
+  }, [isStarted, segments.length, lastIndex, progressKey, jumpPhase])
 
   const goToPrevious = useCallback(() => {
-    if (!isStarted || !segments.length) {
-      return
-    }
-
-    if (isFinished) {
-      setIsFinished(false)
-      return
-    }
-
+    if (!isStarted || !segments.length) return
+    if (isFinished) { setIsFinished(false); return }
     setCurrentIndex((prevIndex) => Math.max(0, prevIndex - 1))
   }, [isFinished, isStarted, segments.length])
 
-  useEffect(() => {
-    let isCancelled = false
+  // ── Abandon analytics ──────────────────────────────────────────────────────
+  const abandonSentRef      = useRef(false)
+  const isStartedRef        = useRef(false)
+  const isFinishedRef       = useRef(false)
+  const currentIndexRef     = useRef(0)
+  const segmentsLengthRef   = useRef(0)
+  const activeStoryIdRef    = useRef(null)
 
-    async function loadStory() {
-      setIsLoading(true)
-      setErrorType('')
-      setCurrentIndex(0)
-      setIsFinished(false)
-      setIsStarted(false)
-      audioEngineRef.current?.stopAll()
-      audioEngineRef.current = null
-      preloadedSoundsRef.current = new Map()
-
-      try {
-        const response = await fetch(`/stories/${storyId}.json`)
-
-        if (!response.ok) {
-          if (response.status === 404) {
-            throw new Error('NOT_FOUND')
-          }
-          throw new Error('LOAD_ERROR')
-        }
-
-        const data = await response.json()
-
-        if (!isCancelled) {
-          setStory(data)
-        }
-      } catch (err) {
-        if (!isCancelled) {
-          setStory(null)
-          setErrorType(err.message || 'LOAD_ERROR')
-        }
-      } finally {
-        if (!isCancelled) {
-          setIsLoading(false)
-        }
-      }
-    }
-
-    loadStory()
-
-    return () => {
-      isCancelled = true
-    }
-  }, [storyId])
-
-  const abandonSentRef = useRef(false)
-  const isStartedRef = useRef(false)
-  const isFinishedRef = useRef(false)
-  const currentIndexRef = useRef(0)
-  const segmentsLengthRef = useRef(0)
-  const storyIdRef = useRef(null)
-
-  // Garder les refs synchronisées avec l'état
-  useEffect(() => { isStartedRef.current = isStarted }, [isStarted])
-  useEffect(() => { isFinishedRef.current = isFinished }, [isFinished])
-  useEffect(() => { currentIndexRef.current = currentIndex }, [currentIndex])
-  useEffect(() => { segmentsLengthRef.current = segments.length }, [segments.length])
-  useEffect(() => { storyIdRef.current = story?.id ?? null }, [story])
+  useEffect(() => { isStartedRef.current      = isStarted },       [isStarted])
+  useEffect(() => { isFinishedRef.current      = isFinished },      [isFinished])
+  useEffect(() => { currentIndexRef.current    = currentIndex },    [currentIndex])
+  useEffect(() => { segmentsLengthRef.current  = segments.length }, [segments.length])
+  useEffect(() => { activeStoryIdRef.current   = activeStory?.id ?? null }, [activeStory])
 
   useEffect(() => {
     abandonSentRef.current = false
@@ -164,76 +387,56 @@ function StoryPage() {
       if (
         isStartedRef.current &&
         !isFinishedRef.current &&
-        storyIdRef.current &&
+        activeStoryIdRef.current &&
         !abandonSentRef.current
       ) {
         abandonSentRef.current = true
-        trackAbandon(storyIdRef.current, currentIndexRef.current, segmentsLengthRef.current)
+        trackAbandon(activeStoryIdRef.current, currentIndexRef.current, segmentsLengthRef.current)
       }
     }
   }, [storyId])
 
+  // ── Audio sur changement de segment ───────────────────────────────────────
   useEffect(() => {
-    if (!isStarted || !audioEngineRef.current || !segments[currentIndex]) {
-      return
-    }
-    // Si la story a des soundTracks (nouveau système), on ignore les audioEvents legacy
-    if (story?.soundTracks?.length) {
-      audioEngineRef.current.onSegmentChange(currentIndex, story.soundTracks, segments)
+    if (!isStarted || !audioEngineRef.current || !segments[currentIndex]) return
+    if (activeStory?.soundTracks?.length) {
+      audioEngineRef.current.onSegmentChange(currentIndex, activeStory.soundTracks, segments)
     } else {
-      // Système legacy audioEvents (compatibilité avec les vieilles histoires)
       audioEngineRef.current.executeEvents(segments[currentIndex].audioEvents ?? [])
     }
   }, [currentIndex, isStarted])
 
   useEffect(() => {
-    if (!isFinished) {
-      return
-    }
-
+    if (!isFinished) return
     audioEngineRef.current?.stopAll(1500)
   }, [isFinished])
 
+  // ── Clavier ────────────────────────────────────────────────────────────────
   useEffect(() => {
     function handleKeyDown(event) {
       if (event.key === 'ArrowRight' || event.key === 'ArrowDown') {
-        event.preventDefault()
-        goToNext()
+        event.preventDefault(); goToNext()
       }
-
       if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') {
-        event.preventDefault()
-        goToPrevious()
+        event.preventDefault(); goToPrevious()
       }
     }
-
     window.addEventListener('keydown', handleKeyDown)
-
-    return () => {
-      window.removeEventListener('keydown', handleKeyDown)
-    }
+    return () => window.removeEventListener('keydown', handleKeyDown)
   }, [goToNext, goToPrevious])
 
+  // ── Interactions écran ─────────────────────────────────────────────────────
   function handleScreenClick(event) {
-    if (Date.now() < ignoreAdvanceUntilRef.current) {
-      return
-    }
-    if (event.target.closest('a, button, input, textarea, select, summary, [role="button"]')) {
-      return
-    }
+    if (Date.now() < ignoreAdvanceUntilRef.current) return
+    if (event.target.closest('a, button, input, textarea, select, summary, [role="button"]')) return
     const x = event.clientX
     const width = window.innerWidth
-    if (x / width < 0.40) {
-      goToPrevious()
-    } else {
-      goToNext()
-    }
+    if (x / width < 0.40) goToPrevious()
+    else goToNext()
   }
 
   function handleTouchStart(event) {
-    if (Date.now() < ignoreAdvanceUntilRef.current) {
-      return
-    }
+    if (Date.now() < ignoreAdvanceUntilRef.current) return
     const touch = event.changedTouches[0]
     touchStartY.current = touch?.clientY ?? null
     touchStartX.current = touch?.clientX ?? null
@@ -245,10 +448,7 @@ function StoryPage() {
     const touch = event.changedTouches[0]
     const deltaY = Math.abs((touch?.clientY ?? touchStartY.current) - touchStartY.current)
     const deltaX = Math.abs((touch?.clientX ?? touchStartX.current) - touchStartX.current)
-    // Dès que le doigt bouge de plus de 6px verticalement, on considère que c'est un scroll
-    if (deltaY > 6 && deltaY > deltaX) {
-      touchDidScrollRef.current = true
-    }
+    if (deltaY > 6 && deltaY > deltaX) touchDidScrollRef.current = true
   }
 
   function handleTouchEnd(event) {
@@ -258,29 +458,21 @@ function StoryPage() {
       return
     }
     if (touchStartY.current === null) return
-
     const touchEndY = event.changedTouches[0]?.clientY ?? touchStartY.current
-    const deltaY = touchEndY - touchStartY.current
+    const deltaY    = touchEndY - touchStartY.current
     const didScroll = touchDidScrollRef.current
-
     touchStartY.current = null
     touchStartX.current = null
     touchDidScrollRef.current = false
-
-    // C'était un scroll : bloquer le tap qui suivrait
     if (didScroll) return
-
-    // C'était un swipe intentionnel (ancien comportement)
     if (Math.abs(deltaY) >= 50) {
       if (deltaY < 0) goToNext()
       else goToPrevious()
       return
     }
-
-    // Petit mouvement ou tap franc : laisser le onClick gérer
   }
 
-  // ── Gel du gameMode affiché pour éviter le télescopage entre deux overlays consécutifs ──
+  // ── GameMode ───────────────────────────────────────────────────────────────
   const [frozenGameMode, setFrozenGameMode] = useState(null)
   const [frozenIndex, setFrozenIndex]       = useState(null)
 
@@ -299,96 +491,104 @@ function StoryPage() {
     goToNext()
   }, [goToNext])
 
+  // ── Partie suivante : rechargement ─────────────────────────────────────────
+  const handleNextPart = useCallback(() => {
+    if (!nextPart || activePartIndex === null) return
+    loadPart(nextPart, activePartIndex + 1)
+  }, [nextPart, activePartIndex, loadPart])
+
+  // ── Render ─────────────────────────────────────────────────────────────────
   if (isLoading) {
-    return (
-      <main style={{ ...fullScreenStyle, fontSize: '1.5rem' }}>
-        Chargement...
-      </main>
-    )
+    return <main style={{ ...fullScreenStyle, fontSize: '1.5rem' }}>Chargement...</main>
   }
 
   if (errorType === 'NOT_FOUND') {
     return (
-      <main
-        style={{
-          ...fullScreenStyle,
-          textAlign: 'center',
-          gap: '1rem',
-          padding: '1.5rem',
-        }}
-      >
+      <main style={{ ...fullScreenStyle, textAlign: 'center', gap: '1rem', padding: '1.5rem' }}>
         <div>Histoire introuvable</div>
-        <Link to="/" style={{ color: 'var(--color-text-focus)' }}>
-          Retour a l'accueil
-        </Link>
+        <Link to="/" style={{ color: 'var(--color-text-focus)' }}>Retour a l'accueil</Link>
       </main>
     )
   }
 
   if (errorType) {
+    return <main style={fullScreenStyle}>Erreur de chargement</main>
+  }
+
+  // ── Page de garde série ────────────────────────────────────────────────────
+  if (showCoverPage && storyRaw?.type === 'serial') {
     return (
-      <main style={fullScreenStyle}>
-        Erreur de chargement
-      </main>
+      <CoverPage
+        storyData={storyRaw}
+        onSelectPart={(part) => {
+          const partIdx = storyRaw.parts.findIndex(p => p.id === part.id)
+          loadPart(part, partIdx)
+        }}
+      />
     )
   }
 
+  // ── Écran de fin ──────────────────────────────────────────────────────────
   if (isFinished) {
     return (
       <>
         <EndScreen
-          title={story?.title ?? ''}
-          author={story?.author ?? ''}
-          formUrl={story?.formUrl}
-          bookUrl={story?.bookUrl}
+          title={activeStory?.title ?? storyRaw?.title ?? ''}
+          author={activeStory?.author ?? storyRaw?.author ?? ''}
+          formUrl={activeStory?.formUrl}
+          bookUrl={activeStory?.bookUrl}
+          nextPart={nextPart}
+          onNextPart={handleNextPart}
         />
-        <ReaderSettings storyId={story?.id} segments={[]} />
+        <ReaderSettings storyId={progressKey} segments={[]} />
       </>
     )
   }
 
+  // ── StartScreen ────────────────────────────────────────────────────────────
   if (!isStarted) {
     return (
       <>
         <StartScreen
-          title={story?.title ?? ''}
-          author={story?.author ?? ''}
+          title={
+            storyRaw?.type === 'serial'
+              ? `${storyRaw.title} — ${activeStory?.title ?? ''}`
+              : (activeStory?.title ?? '')
+          }
+          author={activeStory?.author ?? storyRaw?.author ?? ''}
           segmentCount={segments.length}
           segments={segments}
-          soundsToPreload={story?.sounds ?? []}
-          savedProgress={story?.id ? loadProgress(story.id) : null}
+          soundsToPreload={activeStory?.sounds ?? []}
+          savedProgress={progressKey ? loadProgress(progressKey) : null}
           onStart={(preloadedHowlMap, resume) => {
-            console.log('resume =', resume)
             preloadedSoundsRef.current = preloadedHowlMap
             audioEngineRef.current = new AudioEngine(preloadedHowlMap)
             ignoreAdvanceUntilRef.current = Date.now() + 600
             touchStartY.current = null
-            trackStart(story?.id, segments.length)
+            trackStart(activeStory?.id, segments.length)
             if (resume) {
-              const saved = story?.id ? loadProgress(story.id) : null
-              if (saved && saved.segmentIndex > 0) {
-                setCurrentIndex(saved.segmentIndex)
-              }
+              const saved = progressKey ? loadProgress(progressKey) : null
+              if (saved && saved.segmentIndex > 0) setCurrentIndex(saved.segmentIndex)
             } else {
-              if (story?.id) clearProgress(story.id)
+              if (progressKey) clearProgress(progressKey)
               setCurrentIndex(0)
             }
             setIsStarted(true)
           }}
         />
-        <ReaderSettings storyId={story?.id} segments={[]} />
+        <ReaderSettings storyId={progressKey} segments={[]} />
       </>
     )
   }
 
+  // ── Lecture ────────────────────────────────────────────────────────────────
   const currentSegment = segments[currentIndex]
-  const showOverlay = frozenGameMode !== null
+  const showOverlay    = frozenGameMode !== null
 
   return (
     <div
       style={{ minHeight: '100vh' }}
       onClick={!showOverlay ? (e) => {
-        // Si le dernier touch était un scroll, absorber le click fantôme
         if (touchDidScrollRef.current) return
         handleScreenClick(e)
       } : undefined}
@@ -409,9 +609,9 @@ function StoryPage() {
           }}
         />
       )}
-      <StoryReader storyData={story} currentIndex={currentIndex} jumpPhase={jumpPhase} />
+      <StoryReader storyData={activeStory} currentIndex={currentIndex} jumpPhase={jumpPhase} />
       <ReaderSettings
-        storyId={story?.id}
+        storyId={progressKey}
         segments={segments}
         currentIndex={currentIndex}
         onJumpTo={goToIndex}
