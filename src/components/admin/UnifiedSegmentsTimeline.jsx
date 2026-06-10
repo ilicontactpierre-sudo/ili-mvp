@@ -888,8 +888,8 @@ function UnifiedSegmentsTimeline({
   // Sélection multiple de segments
   const [selectedSegmentIndices, setSelectedSegmentIndices] = useState(new Set())
   const selectionAnchorRef = useRef(null) // dernière ancre pour Shift+clic
+  const selectionAnchorRef = useRef(null) // dernière ancre pour Shift+clic
   const selectedSegmentIndicesRef = useRef(new Set())
-  const [hoveredRow, setHoveredRow] = useState(null)
   const [hoveredSeparator, setHoveredSeparator] = useState(null)
   const [isCmdPressed, setIsCmdPressed] = useState(false)
   const [dividerPosition, setDividerPosition] = useState(52)
