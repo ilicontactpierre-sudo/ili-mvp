@@ -655,7 +655,6 @@ function AdminPage() {
       src: [`/sounds/${sound.filename}`],
       volume: 0.5,
       onloaderror: () => {
-        console.error(`Erreur chargement son: ${sound.filename}`)
         setPlayingSound(null)
       }
     })
@@ -1992,7 +1991,6 @@ function AdminPage() {
                                   }
                                   deduped.push(t)
                                 }
-                                console.log('[onSoundsImported AdminPage] soundTracks après patch:', deduped)
                                 return deduped
                               })
                             }
