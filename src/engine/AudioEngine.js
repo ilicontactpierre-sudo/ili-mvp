@@ -179,9 +179,14 @@ class AudioEngine {
         const fromVolume = instanceId != null
           ? howl.volume(undefined, instanceId)
           : howl.volume()
+        // Howler n'accepte pas instanceId sur .once() — on capture la variable
+        const capturedInstanceId = instanceId
+        const capturedHowl = howl
         howl.once('fade', () => {
-          instanceId != null ? howl.stop(instanceId) : howl.stop()
-        }, instanceId)
+          capturedInstanceId != null
+            ? capturedHowl.stop(capturedInstanceId)
+            : capturedHowl.stop()
+        })
         instanceId != null
           ? howl.fade(fromVolume, 0, duration, instanceId)
           : howl.fade(fromVolume, 0, duration)
