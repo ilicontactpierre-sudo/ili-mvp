@@ -202,39 +202,43 @@ function VfxOverlay({ activeType, activeMode }) {
 
     const flakes = Array.from({ length: cfg.count }, (_, i) => {
       const r = lcg(i * 6271 + 42)
+      // ── Offset temporel initial : chaque flocon démarre à un moment
+      // différent de sa trajectoire, éliminant toute synchro visible ──
+      // On simule un temps de départ fictif entre 0 et 8000 "ticks"
+      // pour que l'animation soit déjà en phase chaotique dès le 1er frame.
+      const tOffset = Math.floor(r() * 8000)
       return {
         x:          r() * W,
         y:          r() * H,
         rad:        cfg.radMin + r() * (cfg.radMax - cfg.radMin),
         speed:      cfg.speedMin + r() * (cfg.speedMax - cfg.speedMin),
         op:         cfg.opMin + r() * (cfg.opMax - cfg.opMin),
-        // Phase et fréquence d'oscillation horizontale propres à chaque flocon
         driftPhase: r() * Math.PI * 2,
         driftFreq:  cfg.driftFreq * (0.6 + r() * 0.8),
         driftAmp:   cfg.driftAmp  * (0.4 + r() * 1.2),
-        // Légère pulsation d'opacité indépendante
         opPhase:    r() * Math.PI * 2,
         opFreq:     0.0005 + r() * 0.0015,
+        tOffset,
       }
     })
-
     let t = 0
     const tick = () => {
       ctx.clearRect(0, 0, W, H)
       t++
       for (const f of flakes) {
+        const tEff = t + f.tOffset  // temps effectif individuel
         f.y += f.speed
-        // Oscillation sinusoïdale horizontale unique par flocon
-        f.x += Math.sin(t * f.driftFreq * 1000 + f.driftPhase) * 0.4
-        // Dérive globale en blizzard
+        // Oscillation sinusoïdale horizontale — chaque flocon utilise son tEff
+        f.x += Math.sin(tEff * f.driftFreq * 1000 + f.driftPhase) * 0.4
         if (activeMode === 'blizzard') f.x += 0.6
         if (f.y > H + f.rad * 2) {
-          f.y = -f.rad * 2 - Math.random() * 60
+          f.y = -f.rad * 2 - Math.random() * 80
           f.x = Math.random() * W
         }
         if (f.x > W + 40) f.x = -40
         if (f.x < -40)    f.x = W + 40
-        const opFactor = 0.80 + 0.20 * Math.sin(t * f.opFreq * 1000 + f.opPhase)
+        // Opacité pulsée — utilise aussi tEff pour éviter les vagues synchronisées
+        const opFactor = 0.80 + 0.20 * Math.sin(tEff * f.opFreq * 1000 + f.opPhase)
         ctx.save()
         ctx.globalAlpha = f.op * opFactor
         ctx.fillStyle = isDark ? 'rgba(235,242,255,1)' : 'rgba(100,120,160,1)'
