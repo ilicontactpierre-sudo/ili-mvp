@@ -228,6 +228,9 @@ function DraftManager({
 
   // Calculer le nombre de segments pour l'affichage
   const getSegmentCount = (snapshot) => {
+    if (snapshot.isSerial && Array.isArray(snapshot.parts)) {
+      return snapshot.parts.reduce((acc, p) => acc + (p.segments?.length ?? 0), 0)
+    }
     return snapshot.segments ? snapshot.segments.length : 0
   }
 
