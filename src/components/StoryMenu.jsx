@@ -3,11 +3,12 @@ import { useNavigate } from 'react-router-dom';
 
 function StoryMenu({ isOpen, stories, isLoading, onClose, onDeleteStory }) {
   const navigate = useNavigate();
-
+  const [exiting, setExiting] = useState(false);
   if (!isOpen) return null;
-
   const handleStoryClick = (storyId) => {
-    setTimeout(() => navigate(`/lire/${storyId}`), 1200)
+    if (exiting) return;
+    setExiting(true);
+    setTimeout(() => navigate(`/lire/${storyId}`), 680);
   };
 
   const handleBackdropClick = (e) => {
