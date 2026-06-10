@@ -4,10 +4,11 @@ import { playClicSettings } from '../App.jsx'
 
 // ── localStorage helpers ──────────────────────────────────────────────────────
 const PROGRESS_KEY = (storyId) => `ili_progress_${storyId}`
-export function saveProgress(storyId, segmentIndex) {
+export function saveProgress(storyId, segmentIndex, finished = false) {
   try {
     localStorage.setItem(PROGRESS_KEY(storyId), JSON.stringify({
       segmentIndex,
+      finished,
       timestamp: Date.now()
     }))
   } catch {}
