@@ -1756,7 +1756,6 @@ const handleTextSelection = useCallback(() => {
   const rowHeights = measuredRowHeights.length === segments.length ? measuredRowHeights : estimatedRowHeights
 
   const scrollToSegment = useCallback((index) => {
-    scrollToSegmentRef.current = scrollToSegment
     const scrollEl = scrollContainerRef.current
     if (!scrollEl) return
     let cumY = 0
@@ -1765,6 +1764,7 @@ const handleTextSelection = useCallback(() => {
     }
     scrollEl.scrollTo({ top: cumY, behavior: 'smooth' })
   }, [rowHeights])
+  scrollToSegmentRef.current = scrollToSegment
 
   useEffect(() => {
     const el = scrollContainerRef.current
