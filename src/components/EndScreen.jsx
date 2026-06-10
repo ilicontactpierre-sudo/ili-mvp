@@ -125,7 +125,7 @@ function EndScreen({ title, author, formUrl, bookUrl, nextPart = null, onNextPar
                     whiteSpace: 'nowrap',
                   }}
                 >
-                  {subscribeStatus === 'loading' ? '…' : 'Me prévenir'}
+                  {subscribeStatus === 'loading' ? '…' : '✔'}
                 </button>
               </div>
               {subscribeStatus === 'error' && (
