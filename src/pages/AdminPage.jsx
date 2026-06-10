@@ -757,32 +757,29 @@ function AdminPage() {
   }
 
   const handleSegmentChange = (index, newText) => {
-    setSegments(prevSegments => {
+    setActiveSegments(prevSegments => {
       const newSegments = [...prevSegments];
       newSegments[index] = newText;
       saveToHistory(newSegments)
       return newSegments;
     });
   };
-
   const handleAddSegment = (index) => {
-    setSegments(prevSegments => {
+    setActiveSegments(prevSegments => {
       const newSegments = [...prevSegments];
       newSegments.splice(index + 1, 0, '');
       saveToHistory(newSegments)
       return newSegments;
     });
   };
-
   const handleCutSegment = (index, cursorPosition) => {
     if (cursorPosition === undefined || cursorPosition === null) {
       alert("Veuillez positionner le curseur pour couper le segment.");
       return;
     }
-
-    const segmentToCut = typeof segments[index] === 'string'
-      ? segments[index]
-      : (segments[index]?.text || '')
+    const segmentToCut = typeof activeSegments[index] === 'string'
+      ? activeSegments[index]
+      : (activeSegments[index]?.text || '')
     if (cursorPosition === 0 || cursorPosition >= segmentToCut.length) {
       alert("La position de coupe doit être à l'intérieur du texte du segment.");
       return;
