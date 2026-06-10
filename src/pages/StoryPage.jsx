@@ -421,9 +421,6 @@ function StoryPage() {
   useEffect(() => {
     if (!isFading) return
     const engine = audioEngineRef.current
-    console.log('🔇 isFading — engine:', engine)
-    console.log('🔇 playingSounds size:', engine?.playingSounds?.size)
-    console.log('🔇 playingSounds keys:', engine ? [...engine.playingSounds.keys()] : 'N/A')
     engine?.stopAll(3000)
     const t = setTimeout(() => setIsFinished(true), 3000)
     return () => {
