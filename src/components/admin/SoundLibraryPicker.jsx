@@ -85,6 +85,46 @@ useEffect(() => {
     }
   }, [])
 
+  // Charger l'usage des sons dans les histoires publiées
+  useEffect(() => {
+    async function loadUsage() {
+      try {
+        const indexRes = await fetch('/stories/index.json')
+        if (!indexRes.ok) return
+        const stories = await indexRes.json()
+        const usageMap = {}
+        await Promise.all(stories.map(async (story) => {
+          try {
+            const res = await fetch(`/stories/${story.id}.json`)
+            if (!res.ok) return
+            const data = await res.json()
+            // Collecter les soundIds depuis sounds[], soundTracks[], audioEvents[]
+            const ids = new Set()
+            ;(data.sounds || []).forEach(s => s.id && ids.add(s.id))
+            ;(data.soundTracks || []).forEach(t => t.soundId && ids.add(t.soundId))
+            ;(data.segments || []).forEach(seg =>
+              (seg.audioEvents || []).forEach(ev => ev.soundId && ids.add(ev.soundId))
+            )
+            // Mode série : parcourir les parties
+            ;(data.parts || []).forEach(part => {
+              ;(part.sounds || []).forEach(s => s.id && ids.add(s.id))
+              ;(part.soundTracks || []).forEach(t => t.soundId && ids.add(t.soundId))
+              ;(part.segments || []).forEach(seg =>
+                (seg.audioEvents || []).forEach(ev => ev.soundId && ids.add(ev.soundId))
+              )
+            })
+            ids.forEach(id => {
+              if (!usageMap[id]) usageMap[id] = []
+              usageMap[id].push(story.title || story.id)
+            })
+          } catch { /* histoire inaccessible, on ignore */ }
+        }))
+        setSoundUsageMap(usageMap)
+      } catch { /* index inaccessible */ }
+    }
+    loadUsage()
+  }, [])
+
   // Sons appartenant à la famille sélectionnée
 const familySounds = useMemo(() => {
   if (!selectedFamily) return soundLibrary
