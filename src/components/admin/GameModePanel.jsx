@@ -973,6 +973,28 @@ function ChoiceConfigurator({ isQuiz, data, onChange, parts }) {
               ))}
             </div>
           </div>
+          {/* Tailles identiques — bulles uniquement */}
+          {(layout.style || 'flat') === 'bubble' && (
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            <button
+              type="button"
+              onClick={() => updateLayout({ equalSizes: !layout.equalSizes })}
+              style={{
+                width: '18px', height: '18px', borderRadius: '4px', flexShrink: 0,
+                backgroundColor: layout.equalSizes ? 'rgba(167,139,250,0.8)' : 'rgba(255,255,255,0.06)',
+                border: `1.5px solid ${layout.equalSizes ? 'rgba(167,139,250,0.9)' : 'rgba(255,255,255,0.2)'}`,
+                cursor: 'pointer', transition: 'all 0.15s ease',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+              }}
+            >
+              {layout.equalSizes && <span style={{ fontSize: '9px', color: '#fff', lineHeight: 1 }}>✓</span>}
+            </button>
+            <span style={{ fontSize: '0.72rem', color: layout.equalSizes ? 'rgba(167,139,250,0.9)' : 'rgba(255,255,255,0.4)', cursor: 'pointer' }}
+              onClick={() => updateLayout({ equalSizes: !layout.equalSizes })}>
+              Tailles identiques
+            </span>
+          </div>
+          )}
           {/* Axe (masqué en mode bulles/cartes car disposition automatique) */}
           {(layout.style || 'flat') === 'flat' && (
           <div>
