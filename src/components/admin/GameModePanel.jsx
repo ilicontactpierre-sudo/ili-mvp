@@ -498,6 +498,7 @@ function FormCrypte({ data, onChange }) {
 // Mini-aperçu téléphone + contrôles inline + édition zone par zone
 
 const TINT_PALETTE = [
+  { key: 'auto',     label: 'Auto',     bg: null,      text: null },
   { key: 'noir',     label: 'Noir',     bg: '#080809', text: 'rgba(255,255,255,0.75)' },
   { key: 'ardoise',  label: 'Ardoise',  bg: '#0d0d12', text: 'rgba(255,255,255,0.72)' },
   { key: 'encre',    label: 'Encre',    bg: '#080c10', text: 'rgba(200,220,255,0.75)' },
