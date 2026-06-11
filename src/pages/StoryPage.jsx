@@ -288,10 +288,17 @@ function StoryPage() {
   }, [storyRaw, activeStory])
 
   // Partie suivante (mode série)
+  // Résout la visibilité d'une partie (rétrocompat: published:true sans visibility → 'published')
+  const resolveVisibility = (part) => {
+    if (!part) return 'draft'
+    if (part.visibility) return part.visibility
+    return part.published ? 'published' : 'draft'
+  }
+
   const nextPart = useMemo(() => {
     if (!storyRaw?.parts || activePartIndex === null) return null
     const next = storyRaw.parts[activePartIndex + 1]
-    return (next?.published) ? next : null
+    return next && resolveVisibility(next) === 'published' ? next : null
   }, [storyRaw, activePartIndex])
 
   // ── Charger une partie dans les states de lecture ──────────────────────────
