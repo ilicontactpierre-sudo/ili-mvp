@@ -2416,7 +2416,16 @@ const handleTextSelection = useCallback(() => {
           onSoundsImported={(newSounds) => {
             if (!newSounds?.length) return
             const urlMap = {}
-            newSounds.forEach(s => { if (s.id && s.url) urlMap[s.id] = s.url })
+            const deletedIds = new Set()
+            newSounds.forEach(s => {
+              if (s.id && s.url) urlMap[s.id] = s.url
+              if (s.id && s.url === null) deletedIds.add(s.id)
+            })
+            // Si c'est une suppression, on notifie le parent et on arrête — pas de création de track
+            if (deletedIds.size > 0) {
+              if (onSoundsImported) onSoundsImported(newSounds)
+              return
+            }
             // 1. Mettre à jour la soundLibrary côté AdminPage
             if (onSoundsImported) onSoundsImported(newSounds)
             // 2. Patch ou création des tracks
