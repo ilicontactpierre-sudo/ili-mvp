@@ -32,28 +32,43 @@
           "gameMode": {
             "type": "choice_branch",
             "layout": {
-              "axis": "X",
-              "linesH": 1,
-              "linesV": 1,
+              "axis": "H",
+              "linesH": 3,
+              "linesV": 0,
               "proportions": [
                 1,
                 1,
                 1,
                 1
               ],
-              "tint": "bordeaux"
+              "tint": "bordeaux",
+              "style": "bubble"
             },
             "prompt": "Question.invite",
             "choices": [
               {
                 "id": "c1",
                 "text": "Zone 1 :) pour partie 3",
-                "targetPartId": "part_3"
+                "targetPartId": "part_1781166529537_2",
+                "tint": "cendre"
               },
               {
-                "id": "c2",
-                "text": "Zone 2 :) sans partie",
-                "targetPartId": ""
+                "id": "c1781170444005_1",
+                "text": "RAS",
+                "targetPartId": "",
+                "tint": "cobalt"
+              },
+              {
+                "id": "c1781170444005_2",
+                "text": "tes1",
+                "targetPartId": "",
+                "tint": "noir"
+              },
+              {
+                "id": "c1781170444005_3",
+                "text": "tes2",
+                "targetPartId": "",
+                "tint": "ardoise"
               }
             ]
           },
