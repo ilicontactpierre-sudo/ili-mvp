@@ -2052,7 +2052,7 @@ function GameChoice({ data, onResolved, onNavigateToPart }) {
                   letterSpacing: '0.04em',
                   lineHeight: 1.5,
                   textAlign: 'center',
-                  color: tint.text,
+                  color: (() => { const ct = TINT_MAP[choice.tint]; return ct?.text || tint.text })(),
                   opacity: phase === 'visible' ? 1 : 0,
                   transform: phase === 'visible' ? 'translateY(0)' : 'translateY(12px)',
                   transition: `opacity 600ms ${EASE_S}, transform 600ms ${EASE_S}`,
