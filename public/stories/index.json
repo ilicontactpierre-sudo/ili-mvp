@@ -8,14 +8,5 @@
     "id": "test-vfx-2-test-vfx-2",
     "title": "TEST VFX 2",
     "author": "TEST VFX 2"
-  },
-  {
-    "id": "auteur-choix-multiple-test-choix-multiple",
-    "title": "teST Choix Multiple",
-    "author": "Auteur Choix Multiple",
-    "mood": "Humeur Choix Multiple",
-    "genre": "Genre Choix Multiple",
-    "description": "Description teST Choix Multiple",
-    "type": "serial"
   }
 ]
