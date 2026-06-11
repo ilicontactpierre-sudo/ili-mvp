@@ -699,63 +699,73 @@ function ChoiceConfigurator({ isQuiz, data, onChange, parts }) {
             flexShrink: 0,
           }}>
             {/* Preview selon le style */}
-            {(layout.style === 'bubble' || layout.style === 'card') ? (
-              /* ── Preview Bulles / Cartes ── */
+            {layout.style === 'bubble' ? (
+              /* ── Preview Bulles ── */
+              <div style={{ position: 'absolute', inset: 0, overflow: 'hidden' }}>
+                {(() => {
+                  const n = totalZones
+                  const SZ = n <= 2 ? 68 : n <= 3 ? 58 : n <= 4 ? 50 : n <= 5 ? 44 : 40
+                  const LAYOUTS = {
+                    1: [[50,50]],
+                    2: [[30,50],[70,50]],
+                    3: [[28,38],[72,38],[50,68]],
+                    4: [[25,32],[75,32],[20,65],[80,65]],
+                    5: [[50,22],[20,45],[80,45],[32,72],[68,72]],
+                    6: [[28,20],[72,20],[15,50],[85,50],[32,78],[68,78]],
+                  }
+                  const pos = LAYOUTS[Math.min(n,6)] || LAYOUTS[6]
+                  return Array(n).fill(null).map((_, zi) => {
+                    const choice = choices[zi]
+                    const isActive = zi === activeZone
+                    const ACCENT = { noir:'#e8e8e8', ardoise:'#b0b8d0', encre:'#7ab0f0', charbon:'#c8c8c8', violet:'#c4b0ff', teal:'#60e8c8', bordeaux:'#f08080', brume:'#b8b8f0', ambre:'#f8c860', foret:'#70e890', cobalt:'#80b8ff', cendre:'#d0ccc0', auto:'rgba(255,255,255,0.6)' }
+                    const zoneTintKey = choice?.tint || 'auto'
+                    const accent = ACCENT[zoneTintKey] || 'rgba(255,255,255,0.6)'
+                    const zoneBg = (zoneTintKey !== 'auto' && TINT_PALETTE.find(t=>t.key===zoneTintKey)?.bg) || 'rgba(255,255,255,0.06)'
+                    const p = pos[zi] || [50,50]
+                    return (
+                      <div key={zi} onClick={() => setActiveZone(zi)} style={{
+                        position: 'absolute',
+                        left: `calc(${p[0]}% - ${SZ/2}px)`,
+                        top: `calc(${p[1]}% - ${SZ/2}px)`,
+                        width: `${SZ}px`, height: `${SZ}px`,
+                        borderRadius: '50%',
+                        backgroundColor: zoneBg,
+                        border: isActive ? `1.5px solid ${ACTIVE_OUTLINE}` : `1px solid ${accent}55`,
+                        boxShadow: isActive ? `0 0 0 2px ${ACTIVE_OUTLINE}44` : 'none',
+                        display: 'flex', alignItems: 'center', justifyContent: 'center',
+                        padding: '4px', boxSizing: 'border-box', cursor: 'pointer',
+                        transition: 'all 0.15s ease',
+                      }}>
+                        <span style={{ fontSize: '7px', color: accent, textAlign: 'center', lineHeight: 1.3, fontFamily: 'Georgia, serif', wordBreak: 'break-word' }}>
+                          {choice?.text || <span style={{opacity:0.3}}>{zi+1}</span>}
+                        </span>
+                        {isQuiz && choice?.correct && <span style={{ position:'absolute', bottom:'3px', right:'4px', fontSize:'6px', color:'rgba(39,174,96,0.9)' }}>✓</span>}
+                      </div>
+                    )
+                  })
+                })()}
+              </div>
+            ) : layout.style === 'card' ? (
+              /* ── Preview Cartes ── */
               <div style={{
                 position: 'absolute', inset: 0,
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: layout.style === 'bubble' ? '6px' : '5px',
-                padding: '10px 8px',
+                display: 'flex', flexDirection: 'column',
+                alignItems: 'center', justifyContent: 'center',
+                gap: '5px', padding: '12px 8px',
               }}>
                 {Array(totalZones).fill(null).map((_, zi) => {
                   const choice = choices[zi]
                   const isActive = zi === activeZone
-                  const radius = layout.style === 'bubble' ? '999px' : '6px'
+                  const label = String.fromCharCode(65 + zi)
+                  const ACCENT = { noir:'#e8e8e8', ardoise:'#b0b8d0', encre:'#7ab0f0', charbon:'#c8c8c8', violet:'#c4b0ff', teal:'#60e8c8', bordeaux:'#f08080', brume:'#b8b8f0', ambre:'#f8c860', foret:'#70e890', cobalt:'#80b8ff', cendre:'#d0ccc0', auto:'rgba(255,255,255,0.6)' }
+                  const zoneTintKey = choice?.tint || 'auto'
+                  const accent = ACCENT[zoneTintKey] || 'rgba(255,255,255,0.6)'
+                  const zoneBg = (zoneTintKey !== 'auto' && TINT_PALETTE.find(t=>t.key===zoneTintKey)?.bg) || 'rgba(255,255,255,0.04)'
                   return (
-                    <div
-                      key={zi}
-                      onClick={() => setActiveZone(zi)}
-                      style={{
-                        width: '100%',
-                        padding: layout.style === 'bubble' ? '5px 10px' : '6px 10px',
-                        borderRadius: radius,
-                        backgroundColor: isActive
-                          ? 'rgba(167,139,250,0.25)'
-                          : 'rgba(255,255,255,0.07)',
-                        border: `1px solid ${isActive ? ACTIVE_OUTLINE : 'rgba(255,255,255,0.12)'}`,
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        cursor: 'pointer',
-                        boxSizing: 'border-box',
-                        gap: '4px',
-                        transition: 'all 0.15s ease',
-                        boxShadow: layout.style === 'card' ? '0 2px 8px rgba(0,0,0,0.3)' : 'none',
-                      }}
-                    >
-                      <span style={{
-                        fontSize: '6px', fontFamily: 'monospace', fontWeight: 700,
-                        color: isActive ? ACTIVE_OUTLINE : 'rgba(255,255,255,0.3)',
-                        flexShrink: 0,
-                      }}>{zi + 1}</span>
-                      {choice?.text && (
-                        <span style={{
-                          fontSize: '7px', color: tintObj.text || 'rgba(255,255,255,0.7)',
-                          textAlign: 'center', lineHeight: 1.3, fontFamily: 'Georgia, serif',
-                          overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
-                          maxWidth: '80%',
-                        }}>{choice.text}</span>
-                      )}
-                      {isQuiz && choice?.correct && (
-                        <span style={{ fontSize: '6px', color: 'rgba(39,174,96,0.9)', flexShrink: 0 }}>✓</span>
-                      )}
-                    </div>
-                  )
-                })}
-              </div>
+                    <div key={zi} onClick={() => setActiveZone(zi)} style={{
+                      width: '100%', padding: '5px 7px', borderRadius: '6px',
+                      backgroundColor: zoneBg,
+                      border: isActive ? `1.5px solid ${ACT
             ) : (
               /* ── Preview Zones (flat) ── */
               <>
