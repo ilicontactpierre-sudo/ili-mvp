@@ -1782,4 +1782,310 @@ function GameRiddle({ data, onResolved }) {
   )
 }
 
+// ─── Palette teintes ─────────────────────────────────────────────────────────
+const TINT_MAP = {
+  noir:     { bg: '#080809', text: 'rgba(255,255,255,0.75)' },
+  ardoise:  { bg: '#0d0d12', text: 'rgba(255,255,255,0.72)' },
+  encre:    { bg: '#080c10', text: 'rgba(200,220,255,0.75)' },
+  charbon:  { bg: '#0f0f0f', text: 'rgba(255,255,255,0.70)' },
+  violet:   { bg: '#0c0a14', text: 'rgba(200,190,255,0.78)' },
+  teal:     { bg: '#080e0d', text: 'rgba(160,230,210,0.75)' },
+  bordeaux: { bg: '#0e0808', text: 'rgba(255,200,200,0.75)' },
+  brume:    { bg: '#0a0a0c', text: 'rgba(220,220,255,0.72)' },
+  ambre:    { bg: '#0e0b06', text: 'rgba(255,220,150,0.75)' },
+  foret:    { bg: '#080d09', text: 'rgba(170,230,180,0.72)' },
+  cobalt:   { bg: '#070a10', text: 'rgba(160,200,255,0.75)' },
+  cendre:   { bg: '#0c0c0b', text: 'rgba(220,215,205,0.72)' },
+}
+const EASE_S = 'cubic-bezier(0.76, 0, 0.24, 1)'
+
+// ─── Type : Choix (quiz + branche narrative) ──────────────────────────────────
+function GameChoice({ data, onResolved, onNavigateToPart }) {
+  const isQuiz   = data.type === 'choice_quiz'
+  const layout   = data.layout || { axis: 'H', linesH: 1, linesV: 0, proportions: [1,1], tint: 'noir' }
+  const tint     = TINT_MAP[layout.tint] || TINT_MAP.noir
+  const choices  = data.choices || []
+
+  // ── États d'animation ──────────────────────────────────────────────────────
+  const [linesVisible, setLinesVisible]   = useState(false)
+  const [promptVisible, setPromptVisible] = useState(false)
+  const [choicesPhase, setChoicesPhase]   = useState([]) // index → 'hidden'|'visible'
+  const [selectedIdx, setSelectedIdx]     = useState(null)
+  const [shakeIdx, setShakeIdx]           = useState(null)
+  const [errorMsg, setErrorMsg]           = useState('')
+
+  // Initialise le tableau des phases
+  useEffect(() => {
+    setChoicesPhase(choices.map(() => 'hidden'))
+    // Séquence d'entrée : prompt → traits → textes
+    const t0 = setTimeout(() => setPromptVisible(true), 120)
+    const t1 = setTimeout(() => setLinesVisible(true), 480)
+    const timers = [t0, t1, ...choices.map((_, i) =>
+      setTimeout(() => setChoicesPhase(prev => {
+        const next = [...prev]; next[i] = 'visible'; return next
+      }), 820 + i * 110)
+    )]
+    return () => timers.forEach(clearTimeout)
+  }, [])
+
+  // ── Calcul du layout ───────────────────────────────────────────────────────
+  const axis   = layout.axis  || 'H'
+  const linesH = axis === 'V' ? 0 : (layout.linesH || 0)
+  const linesV = axis === 'H' ? 0 : (layout.linesV || 0)
+  const zonesH = linesH + 1   // nombre de rangées
+  const zonesV = linesV + 1   // nombre de colonnes
+  const totalZones = axis === 'X' ? zonesH * zonesV : (axis === 'H' ? zonesH : zonesV)
+
+  // Normaliser proportions (fallback uniforme)
+  const raw = layout.proportions && layout.proportions.length === totalZones
+    ? layout.proportions
+    : Array(totalZones).fill(1)
+  const sumH = raw.reduce((a, b) => a + b, 0) || 1
+
+  // fr-string pour grid
+  const frH = axis !== 'V'
+    ? (axis === 'X'
+        ? Array(zonesH).fill(0).map((_, i) => {
+            // En X, proportions encodées row-major : on prend une valeur par rangée
+            // On utilise la première valeur de chaque rangée comme poids H
+            const rowVals = Array(zonesV).fill(0).map((_, j) => raw[i * zonesV + j] || 1)
+            const rowSum  = rowVals.reduce((a,b) => a+b, 0) || 1
+            return rowSum + 'fr'
+          }).join(' ')
+        : raw.map(v => v + 'fr').join(' '))
+    : '1fr'
+
+  const frV = axis !== 'H'
+    ? (axis === 'X'
+        ? Array(zonesV).fill(0).map((_, j) => {
+            const colVals = Array(zonesH).fill(0).map((_, i) => raw[i * zonesV + j] || 1)
+            const colSum  = colVals.reduce((a,b) => a+b, 0) || 1
+            return colSum + 'fr'
+          }).join(' ')
+        : raw.map(v => v + 'fr').join(' '))
+    : '1fr'
+
+  // Lignes de trait SVG (pourcentages, depuis le centre, marge 7%)
+  const MARGIN = 7
+  const svgLines = []
+  if (linesH > 0) {
+    // Positions H en %
+    let accH = 0
+    for (let i = 0; i < linesH; i++) {
+      // Poids de cette rangée (en X : somme de la rangée)
+      let w
+      if (axis === 'X') {
+        w = Array(zonesV).fill(0).reduce((acc, _, j) => acc + (raw[i * zonesV + j] || 1), 0)
+      } else {
+        w = raw[i] || 1
+      }
+      accH += w
+      const pct = (accH / sumH) * 100
+      svgLines.push({ type: 'H', pct })
+    }
+  }
+  if (linesV > 0) {
+    let accV = 0
+    const sumV = axis === 'X'
+      ? Array(zonesV).fill(0).reduce((acc, j) => acc + Array(zonesH).fill(0).reduce((a, _, i) => a + (raw[i * zonesV + j] || 1), 0), 0)
+      : sumH
+    for (let i = 0; i < linesV; i++) {
+      let w
+      if (axis === 'X') {
+        w = Array(zonesH).fill(0).reduce((acc, _, ri) => acc + (raw[ri * zonesV + i] || 1), 0)
+      } else {
+        w = raw[i] || 1
+      }
+      accV += w
+      const pct = (accV / sumV) * 100
+      svgLines.push({ type: 'V', pct })
+    }
+  }
+
+  // ── Handlers ───────────────────────────────────────────────────────────────
+  const handleChoiceClick = (idx) => {
+    if (selectedIdx !== null) return
+    const choice = choices[idx]
+
+    // Micro-animation sélection (inversion)
+    setSelectedIdx(idx)
+
+    setTimeout(() => {
+      if (isQuiz) {
+        if (choice.correct) {
+          // Succès → avance
+          setTimeout(onResolved, 280)
+        } else {
+          // Erreur → shake + teinte rouge fugace
+          setShakeIdx(idx)
+          setErrorMsg(data.errorMessage || 'Ce n\'est pas le bon chemin.')
+          setTimeout(() => {
+            setShakeIdx(null)
+            setSelectedIdx(null)
+            setErrorMsg('')
+          }, 700)
+        }
+      } else {
+        // Branche narrative
+        const targetId = choice.targetPartId
+        if (targetId && onNavigateToPart) {
+          onNavigateToPart(targetId)
+        } else {
+          onResolved()
+        }
+      }
+    }, 200) // durée micro-animation
+  }
+
+  // ── Rendu ──────────────────────────────────────────────────────────────────
+  // Construire la liste des zones dans l'ordre de la grille
+  const zoneList = Array(totalZones).fill(null).map((_, i) => choices[i] || null)
+
+  return (
+    <div style={{
+      position: 'fixed', inset: 0,
+      backgroundColor: tint.bg,
+      color: tint.text,
+      fontFamily: 'var(--font-primary, Georgia, serif)',
+      overflow: 'hidden',
+    }}>
+      {/* ── Prompt ── */}
+      {data.prompt && (
+        <div style={{
+          position: 'absolute', top: 0, left: 0, right: 0,
+          zIndex: 10,
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          padding: '1.8rem 2rem 1rem',
+          opacity: promptVisible ? 1 : 0,
+          transform: promptVisible ? 'translateY(0)' : 'translateY(-10px)',
+          transition: `opacity 700ms ${EASE_S}, transform 700ms ${EASE_S}`,
+          pointerEvents: 'none',
+        }}>
+          <p style={{
+            margin: 0,
+            fontSize: 'clamp(0.78rem, 2vw, 0.92rem)',
+            letterSpacing: '0.06em',
+            opacity: 0.55,
+            textAlign: 'center',
+            fontStyle: 'italic',
+            color: tint.text,
+            maxWidth: '32rem',
+          }}>
+            {data.prompt}
+          </p>
+        </div>
+      )}
+
+      {/* ── Traits SVG ── */}
+      <svg
+        style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', pointerEvents: 'none', zIndex: 5 }}
+        viewBox="0 0 100 100"
+        preserveAspectRatio="none"
+      >
+        {svgLines.map((line, li) => {
+          const isH = line.type === 'H'
+          return (
+            <line
+              key={li}
+              x1={isH ? 50 : line.pct}
+              y1={isH ? line.pct : 50}
+              x2={isH ? 50 : line.pct}
+              y2={isH ? line.pct : 50}
+              stroke="rgba(255,255,255,0.22)"
+              strokeWidth="0.15"
+              strokeLinecap="round"
+              style={{
+                transition: linesVisible
+                  ? `x1 900ms ${EASE_S}, y1 900ms ${EASE_S}, x2 900ms ${EASE_S}, y2 900ms ${EASE_S}`
+                  : 'none',
+                ...(linesVisible ? {
+                  x1: isH ? MARGIN         : line.pct,
+                  y1: isH ? line.pct       : MARGIN,
+                  x2: isH ? (100 - MARGIN) : line.pct,
+                  y2: isH ? line.pct       : (100 - MARGIN),
+                } : {}),
+              }}
+            />
+          )
+        })}
+      </svg>
+
+      {/* ── Grille des zones ── */}
+      <div style={{
+        position: 'absolute', inset: 0,
+        display: 'grid',
+        gridTemplateRows: frH,
+        gridTemplateColumns: frV,
+        zIndex: 6,
+      }}>
+        {zoneList.map((choice, zi) => {
+          const isSelected = selectedIdx === zi
+          const isShaking  = shakeIdx === zi
+          const phase      = choicesPhase[zi] || 'hidden'
+          const isEmpty    = !choice || !choice.text
+
+          return (
+            <div
+              key={zi}
+              onClick={() => choice && !isEmpty ? handleChoiceClick(zi) : undefined}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                padding: '1.5rem',
+                cursor: choice && !isEmpty ? 'pointer' : 'default',
+                filter: isSelected
+                  ? 'invert(0.12) brightness(1.4)'
+                  : isShaking ? 'brightness(0.85) saturate(1.4)' : 'none',
+                backgroundColor: isShaking ? 'rgba(192,57,43,0.08)' : 'transparent',
+                animation: isShaking ? `game-shake 0.4s ${EASE.inOut}` : 'none',
+                transition: `filter 180ms ease, background-color 180ms ease`,
+                userSelect: 'none',
+              }}
+            >
+              {choice && (
+                <span style={{
+                  fontSize: 'clamp(0.88rem, 2.5vw, 1.1rem)',
+                  letterSpacing: '0.04em',
+                  lineHeight: 1.5,
+                  textAlign: 'center',
+                  color: tint.text,
+                  opacity: phase === 'visible' ? 1 : 0,
+                  transform: phase === 'visible' ? 'translateY(0)' : 'translateY(12px)',
+                  transition: `opacity 600ms ${EASE_S}, transform 600ms ${EASE_S}`,
+                  maxWidth: '22rem',
+                  display: 'block',
+                }}>
+                  {choice.text}
+                </span>
+              )}
+            </div>
+          )
+        })}
+      </div>
+
+      {/* ── Message d'erreur quiz ── */}
+      {errorMsg && (
+        <div style={{
+          position: 'absolute', bottom: '2rem', left: 0, right: 0,
+          display: 'flex', justifyContent: 'center', zIndex: 20,
+          pointerEvents: 'none',
+        }}>
+          <p style={{
+            margin: 0,
+            fontSize: '0.8rem',
+            color: 'rgba(255,140,140,0.9)',
+            fontStyle: 'italic',
+            letterSpacing: '0.04em',
+            opacity: errorMsg ? 1 : 0,
+            transition: `opacity 200ms ease`,
+          }}>
+            {errorMsg}
+          </p>
+        </div>
+      )}
+    </div>
+  )
+}
+
 export default GameOverlay
