@@ -903,44 +903,52 @@ function ChoiceConfigurator({ isQuiz, data, onChange, parts }) {
           )}
           {/* Dispositions prédéfinies (bulles/cartes) */}
           {(layout.style || 'flat') !== 'flat' && (
-          <div>
-            <div style={sectionLabel}>Disposition</div>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
-              {(layout.style === 'bubble' ? [
-                { n: 2, label: 'Duel',       desc: '● ●',              icon: '⬤ ⬤' },
-                { n: 3, label: 'Triade',     desc: '● ●  ●',           icon: '⬤ ⬤\n  ⬤' },
-                { n: 4, label: 'Carré',      desc: '● ●  ● ●',         icon: '⬤ ⬤\n⬤ ⬤' },
-                { n: 5, label: 'Constellation', desc: '  ●\n● ● ●\n●●', icon: '5' },
-                { n: 6, label: 'Grappe',     desc: '● ● ● ●●●',        icon: '6' },
-              ] : [
-                { n: 2, label: '2 choix',    desc: 'A · B' },
-                { n: 3, label: '3 choix',    desc: 'A · B · C' },
-                { n: 4, label: '4 choix',    desc: 'A · B · C · D' },
-                { n: 5, label: '5 choix',    desc: 'A → E' },
-                { n: 6, label: '6 choix',    desc: 'A → F' },
-              ]).map(preset => (
-                <button key={preset.n} type="button"
-                  onClick={() => {
-                    const next = { ...layout, linesH: preset.n - 1, proportions: Array(preset.n).fill(1) }
-                    onChange({ ...data, layout: next })
-                  }}
-                  style={{
-                    display: 'flex', alignItems: 'center', gap: '0.5rem',
-                    padding: '0.35rem 0.65rem',
-                    fontSize: '0.72rem',
-                    fontWeight: totalZones === preset.n ? 700 : 400,
-                    backgroundColor: totalZones === preset.n ? 'rgba(167,139,250,0.14)' : 'rgba(255,255,255,0.04)',
-                    color: totalZones === preset.n ? 'rgba(167,139,250,0.9)' : 'rgba(255,255,255,0.45)',
-                    border: `1px solid ${totalZones === preset.n ? 'rgba(167,139,250,0.35)' : 'rgba(255,255,255,0.1)'}`,
-                    borderRadius: '8px', cursor: 'pointer', outline: 'none',
-                    transition: 'all 0.12s ease', textAlign: 'left', width: '100%',
-                  }}>
-                  <span style={{ fontWeight: 700, minWidth: '1.2rem', textAlign: 'center' }}>{preset.n}</span>
-                  <span style={{ opacity: 0.7 }}>—</span>
-                  <span>{preset.label}</span>
-                  <span style={{ marginLeft: 'auto', opacity: 0.4, fontSize: '0.65rem', fontFamily: 'system-ui' }}>{preset.desc}</span>
-                </button>
-              ))}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.55rem' }}>
+            {/* ── Nombre d'éléments ── */}
+            <div>
+              <div style={sectionLabel}>Éléments</div>
+              <div style={{ display: 'flex', gap: '0.3rem', flexWrap: 'wrap' }}>
+                {[2,3,4,5,6].map(n => (
+                  <button key={n} type="button"
+                    onClick={() => {
+                      const curVariant = layout.bubbleVariant || 0
+                      onChange({ ...data, layout: { ...layout, linesH: n - 1, proportions: Array(n).fill(1), bubbleVariant: curVariant } })
+                    }}
+                    style={pillBtn(totalZones === n)}
+                  >{n}</button>
+                ))}
+              </div>
+            </div>
+            {/* ── Variante de disposition ── */}
+            <div>
+              <div style={sectionLabel}>Disposition</div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.3rem' }}>
+                {(layout.style === 'bubble'
+                  ? BUBBLE_VARIANTS[Math.min(totalZones, 6)] || BUBBLE_VARIANTS[2]
+                  : CARD_VARIANTS
+                ).map((v, vi) => {
+                  const isActive = (layout.bubbleVariant ?? 0) === vi
+                  return (
+                    <button key={vi} type="button"
+                      onClick={() => onChange({ ...data, layout: { ...layout, bubbleVariant: vi } })}
+                      style={{
+                        display: 'flex', alignItems: 'center', gap: '0.6rem',
+                        padding: '0.38rem 0.65rem',
+                        fontSize: '0.72rem',
+                        fontWeight: isActive ? 700 : 400,
+                        backgroundColor: isActive ? 'rgba(167,139,250,0.14)' : 'rgba(255,255,255,0.04)',
+                        color: isActive ? 'rgba(167,139,250,0.9)' : 'rgba(255,255,255,0.45)',
+                        border: `1px solid ${isActive ? 'rgba(167,139,250,0.35)' : 'rgba(255,255,255,0.1)'}`,
+                        borderRadius: '8px', cursor: 'pointer', outline: 'none',
+                        transition: 'all 0.12s ease', textAlign: 'left', width: '100%',
+                      }}>
+                      <span style={{ fontSize: '0.65rem', letterSpacing: '0.05em', opacity: isActive ? 0.9 : 0.5, fontFamily: 'system-ui', minWidth: '2.2rem' }}>{v.icon}</span>
+                      <span>{v.label}</span>
+                      <span style={{ marginLeft: 'auto', opacity: 0.35, fontSize: '0.62rem', fontFamily: 'system-ui' }}>{v.desc}</span>
+                    </button>
+                  )
+                })}
+              </div>
             </div>
           </div>
           )}
