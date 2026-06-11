@@ -494,6 +494,296 @@ function FormCrypte({ data, onChange }) {
   )
 }
 
+// ─── Sous-composant layout mixed ─────────────────────────────────────────────
+function FormLayoutMixed({ layout, onChange }) {
+  const tint = TINTS.find(t => t.key === layout.tint) || TINTS[0]
+  const axis = layout.axis || 'H'
+  const updateLayout = (patch) => onChange({ ...layout, ...patch })
+
+  // Recalcule proportions quand le nombre de zones change
+  const resetProportions = (newLinesH, newLinesV, newAxis) => {
+    const a = newAxis ?? axis
+    const nH = newLinesH ?? layout.linesH
+    const nV = newLinesV ?? layout.linesV
+    const zonesH = (a === 'V' ? 0 : nH) + 1
+    const zonesV = (a === 'H' ? 0 : nV) + 1
+    const count = a === 'X' ? zonesH * zonesV : Math.max(zonesH, zonesV)
+    return Array(count).fill(1)
+  }
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
+      {/* Axe */}
+      <Field label="Axe de découpe">
+        <div style={{ display: 'flex', gap: '0.5rem' }}>
+          {[['H','Horizontal'], ['V','Vertical'], ['X','Grille (H+V)']].map(([val, lbl]) => (
+            <button
+              key={val}
+              type="button"
+              onClick={() => {
+                const props = resetProportions(layout.linesH, layout.linesV, val)
+                updateLayout({ axis: val, proportions: props })
+              }}
+              style={{
+                flex: 1, padding: '0.45rem 0',
+                fontSize: '0.78rem', fontWeight: axis === val ? 700 : 400,
+                backgroundColor: axis === val ? 'rgba(167,139,250,0.18)' : 'rgba(255,255,255,0.04)',
+                color: axis === val ? 'rgba(167,139,250,1)' : 'rgba(255,255,255,0.5)',
+                border: `1px solid ${axis === val ? 'rgba(167,139,250,0.4)' : 'rgba(255,255,255,0.1)'}`,
+                borderRadius: '6px', cursor: 'pointer',
+              }}
+            >{lbl}</button>
+          ))}
+        </div>
+      </Field>
+
+      {/* Lignes H */}
+      {axis !== 'V' && (
+        <Field label="Lignes horizontales" hint="0 = pas de découpe, 1 = 2 zones, 2 = 3 zones, 3 = 4 zones">
+          <div style={{ display: 'flex', gap: '0.4rem' }}>
+            {[0,1,2,3].map(n => (
+              <button
+                key={n}
+                type="button"
+                onClick={() => {
+                  const props = resetProportions(n, layout.linesV, axis)
+                  updateLayout({ linesH: n, proportions: props })
+                }}
+                style={{
+                  flex: 1, padding: '0.45rem 0', fontSize: '0.82rem',
+                  fontWeight: layout.linesH === n ? 700 : 400,
+                  backgroundColor: layout.linesH === n ? 'rgba(167,139,250,0.18)' : 'rgba(255,255,255,0.04)',
+                  color: layout.linesH === n ? 'rgba(167,139,250,1)' : 'rgba(255,255,255,0.5)',
+                  border: `1px solid ${layout.linesH === n ? 'rgba(167,139,250,0.4)' : 'rgba(255,255,255,0.1)'}`,
+                  borderRadius: '6px', cursor: 'pointer',
+                }}
+              >{n}</button>
+            ))}
+          </div>
+        </Field>
+      )}
+
+      {/* Lignes V */}
+      {axis !== 'H' && (
+        <Field label="Lignes verticales" hint="0 = pas de découpe, 1 = 2 colonnes, 2 = 3 colonnes">
+          <div style={{ display: 'flex', gap: '0.4rem' }}>
+            {[0,1,2].map(n => (
+              <button
+                key={n}
+                type="button"
+                onClick={() => {
+                  const props = resetProportions(layout.linesH, n, axis)
+                  updateLayout({ linesV: n, proportions: props })
+                }}
+                style={{
+                  flex: 1, padding: '0.45rem 0', fontSize: '0.82rem',
+                  fontWeight: layout.linesV === n ? 700 : 400,
+                  backgroundColor: layout.linesV === n ? 'rgba(167,139,250,0.18)' : 'rgba(255,255,255,0.04)',
+                  color: layout.linesV === n ? 'rgba(167,139,250,1)' : 'rgba(255,255,255,0.5)',
+                  border: `1px solid ${layout.linesV === n ? 'rgba(167,139,250,0.4)' : 'rgba(255,255,255,0.1)'}`,
+                  borderRadius: '6px', cursor: 'pointer',
+                }}
+              >{n}</button>
+            ))}
+          </div>
+        </Field>
+      )}
+
+      {/* Teinte */}
+      <Field label="Teinte de fond">
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem' }}>
+          {TINTS.map(t => (
+            <button
+              key={t.key}
+              type="button"
+              onClick={() => updateLayout({ tint: t.key })}
+              title={t.label}
+              style={{
+                width: '28px', height: '28px', borderRadius: '50%',
+                backgroundColor: t.bg,
+                border: layout.tint === t.key ? '2px solid rgba(167,139,250,0.9)' : '2px solid rgba(255,255,255,0.12)',
+                cursor: 'pointer', flexShrink: 0,
+                boxShadow: layout.tint === t.key ? '0 0 0 2px rgba(167,139,250,0.3)' : 'none',
+              }}
+            />
+          ))}
+        </div>
+        <span style={{ fontSize: '0.7rem', color: tint.text, backgroundColor: tint.bg, padding: '0.2rem 0.6rem', borderRadius: '4px', marginTop: '0.3rem', display: 'inline-block' }}>
+          {tint.label} — aperçu texte
+        </span>
+      </Field>
+    </div>
+  )
+}
+
+// ─── Formulaire choice_quiz ──────────────────────────────────────────────────
+function FormChoiceQuiz({ data, onChange }) {
+  const choices = data.choices || [{ id: 'c1', text: '', correct: true }, { id: 'c2', text: '', correct: false }]
+
+  const updateChoice = (i, patch) => {
+    const next = choices.map((c, idx) => idx === i ? { ...c, ...patch } : c)
+    onChange({ ...data, choices: next })
+  }
+  const setCorrect = (i) => {
+    const next = choices.map((c, idx) => ({ ...c, correct: idx === i }))
+    onChange({ ...data, choices: next })
+  }
+  const addChoice = () => {
+    if (choices.length >= 4) return
+    const next = [...choices, { id: `c${Date.now()}`, text: '', correct: false }]
+    onChange({ ...data, choices: next })
+  }
+  const removeChoice = (i) => {
+    if (choices.length <= 2) return
+    const next = choices.filter((_, idx) => idx !== i)
+    // S'assurer qu'il y a toujours une bonne réponse
+    if (!next.some(c => c.correct)) next[0].correct = true
+    onChange({ ...data, choices: next })
+  }
+
+  return (
+    <>
+      <Field label="Layout">
+        <FormLayoutMixed
+          layout={data.layout || DEFAULT_LAYOUT}
+          onChange={layout => onChange({ ...data, layout })}
+        />
+      </Field>
+      <Field label="Question / Invite" hint="Affiché en haut de l'écran (optionnel)">
+        <textarea
+          style={{ ...textareaStyle, minHeight: '56px' }}
+          value={data.prompt || ''}
+          placeholder="Ex : Que faites-vous ?"
+          onChange={e => onChange({ ...data, prompt: e.target.value })}
+        />
+      </Field>
+      <Field label="Choix" hint="Clic sur ● pour désigner la bonne réponse">
+        {choices.map((c, i) => (
+          <div key={c.id} style={{ display: 'flex', gap: '0.5rem', alignItems: 'center', marginBottom: '0.4rem' }}>
+            {/* Bonne réponse selector */}
+            <button
+              type="button"
+              onClick={() => setCorrect(i)}
+              title={c.correct ? 'Bonne réponse' : 'Marquer comme bonne réponse'}
+              style={{
+                width: '20px', height: '20px', borderRadius: '50%', flexShrink: 0,
+                backgroundColor: c.correct ? 'rgba(39,174,96,0.8)' : 'rgba(255,255,255,0.08)',
+                border: `1.5px solid ${c.correct ? 'rgba(39,174,96,0.9)' : 'rgba(255,255,255,0.2)'}`,
+                cursor: 'pointer',
+              }}
+            />
+            <input
+              style={{ ...inputStyle, flex: 1 }}
+              type="text"
+              value={c.text}
+              placeholder={`Option ${i + 1}…`}
+              onChange={e => updateChoice(i, { text: e.target.value })}
+            />
+            {choices.length > 2 && (
+              <button
+                type="button"
+                onClick={() => removeChoice(i)}
+                style={{ background: 'none', border: '1px solid rgba(220,38,38,0.3)', color: 'rgba(220,38,38,0.7)', borderRadius: '6px', padding: '0 0.6rem', cursor: 'pointer', fontSize: '0.75rem', height: '34px' }}
+              >✕</button>
+            )}
+          </div>
+        ))}
+        {choices.length < 4 && (
+          <button
+            type="button"
+            onClick={addChoice}
+            style={{ marginTop: '0.3rem', background: 'none', border: '1px dashed rgba(255,255,255,0.15)', color: 'rgba(255,255,255,0.4)', borderRadius: '6px', padding: '0.4rem 0.75rem', cursor: 'pointer', fontSize: '0.78rem', width: '100%' }}
+          >+ Ajouter une option</button>
+        )}
+      </Field>
+      <Field label="Message d'erreur" hint="Affiché brièvement sur mauvaise réponse">
+        <input
+          style={inputStyle}
+          type="text"
+          value={data.errorMessage || ''}
+          placeholder="Ex : Ce n'est pas le bon chemin."
+          onChange={e => onChange({ ...data, errorMessage: e.target.value })}
+        />
+      </Field>
+    </>
+  )
+}
+
+// ─── Formulaire choice_branch ─────────────────────────────────────────────────
+function FormChoiceBranch({ data, onChange }) {
+  const choices = data.choices || [{ id: 'c1', text: '', targetPartId: '' }, { id: 'c2', text: '', targetPartId: '' }]
+
+  const updateChoice = (i, patch) => {
+    const next = choices.map((c, idx) => idx === i ? { ...c, ...patch } : c)
+    onChange({ ...data, choices: next })
+  }
+  const addChoice = () => {
+    if (choices.length >= 4) return
+    const next = [...choices, { id: `c${Date.now()}`, text: '', targetPartId: '' }]
+    onChange({ ...data, choices: next })
+  }
+  const removeChoice = (i) => {
+    if (choices.length <= 2) return
+    onChange({ ...data, choices: choices.filter((_, idx) => idx !== i) })
+  }
+
+  return (
+    <>
+      <Field label="Layout">
+        <FormLayoutMixed
+          layout={data.layout || DEFAULT_LAYOUT}
+          onChange={layout => onChange({ ...data, layout })}
+        />
+      </Field>
+      <Field label="Question / Invite" hint="Affiché en haut de l'écran (optionnel)">
+        <textarea
+          style={{ ...textareaStyle, minHeight: '56px' }}
+          value={data.prompt || ''}
+          placeholder="Ex : Votre destin se divise ici."
+          onChange={e => onChange({ ...data, prompt: e.target.value })}
+        />
+      </Field>
+      <Field label="Choix narratifs" hint="Laisser le targetPartId vide → avance au segment suivant">
+        {choices.map((c, i) => (
+          <div key={c.id} style={{ display: 'flex', flexDirection: 'column', gap: '0.3rem', marginBottom: '0.75rem', padding: '0.6rem 0.75rem', backgroundColor: 'rgba(255,255,255,0.03)', borderRadius: '6px', border: '1px solid rgba(255,255,255,0.07)' }}>
+            <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
+              <span style={{ fontSize: '0.65rem', color: 'rgba(255,255,255,0.3)', fontFamily: 'monospace', minWidth: '1rem' }}>{i + 1}</span>
+              <input
+                style={{ ...inputStyle, flex: 1 }}
+                type="text"
+                value={c.text}
+                placeholder={`Texte de la zone ${i + 1}…`}
+                onChange={e => updateChoice(i, { text: e.target.value })}
+              />
+              {choices.length > 2 && (
+                <button
+                  type="button"
+                  onClick={() => removeChoice(i)}
+                  style={{ background: 'none', border: '1px solid rgba(220,38,38,0.3)', color: 'rgba(220,38,38,0.7)', borderRadius: '6px', padding: '0 0.6rem', cursor: 'pointer', fontSize: '0.75rem', height: '34px', flexShrink: 0 }}
+                >✕</button>
+              )}
+            </div>
+            <input
+              style={{ ...inputStyle, fontSize: '0.75rem', fontFamily: 'monospace', color: 'rgba(167,139,250,0.85)' }}
+              type="text"
+              value={c.targetPartId || ''}
+              placeholder="targetPartId (ex: part_xxx) — vide = segment suivant"
+              onChange={e => updateChoice(i, { targetPartId: e.target.value.trim() })}
+            />
+          </div>
+        ))}
+        {choices.length < 4 && (
+          <button
+            type="button"
+            onClick={addChoice}
+            style={{ marginTop: '0.3rem', background: 'none', border: '1px dashed rgba(255,255,255,0.15)', color: 'rgba(255,255,255,0.4)', borderRadius: '6px', padding: '0.4rem 0.75rem', cursor: 'pointer', fontSize: '0.78rem', width: '100%' }}
+          >+ Ajouter un choix</button>
+        )}
+      </Field>
+    </>
+  )
+}
+
 function FormEcho({ data, onChange }) {
   return (
     <>
