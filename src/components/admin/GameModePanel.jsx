@@ -42,8 +42,10 @@ const DEFAULTS = {
   filmstrip: { type: 'filmstrip', images: [], interval: 2500, showCounter: true },
   sequence:  { type: 'sequence',  items: ['', '', ''], prompt: '', successMessage: '', sounds: false },
   journal:   { type: 'journal',   prompt: '', placeholder: '', memoryKey: '', continueLabel: '' },
-  echo:      { type: 'echo',      phrase: '', prompt: '', successMessage: '', sounds: false },
-  crypte:    { type: 'crypte',    cipher: 'caesar', shift: 3, encoded: '', answer: '', hint: '', errorMessage: '', sounds: false },
+  echo:         { type: 'echo',         phrase: '', prompt: '', successMessage: '', sounds: false },
+  crypte:       { type: 'crypte',       cipher: 'caesar', shift: 3, encoded: '', answer: '', hint: '', errorMessage: '', sounds: false },
+  choice_quiz:  { type: 'choice_quiz',  layout: { ...DEFAULT_LAYOUT }, prompt: '', choices: [{ id: 'c1', text: '', correct: true }, { id: 'c2', text: '', correct: false }], errorMessage: '' },
+  choice_branch:{ type: 'choice_branch',layout: { ...DEFAULT_LAYOUT }, prompt: '', choices: [{ id: 'c1', text: '', targetPartId: '' }, { id: 'c2', text: '', targetPartId: '' }] },
 }
 
 function Field({ label, hint, children }) {
