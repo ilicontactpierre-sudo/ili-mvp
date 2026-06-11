@@ -45,27 +45,28 @@
               ],
               "tint": "bordeaux",
               "style": "bubble",
-              "bubbleVariant": 2
+              "bubbleVariant": 2,
+              "equalSizes": true
             },
             "prompt": "Question.invite",
             "choices": [
               {
                 "id": "c1",
-                "text": "Zone 1 :) pour partie 3Zone 1 :) pour partie 3",
+                "text": "Zon",
                 "targetPartId": "part_1781166529537_2",
                 "tint": "auto"
               },
               {
                 "id": "c1781170444005_1",
-                "text": "Brouillon 2",
+                "text": "Brouillon 2z",
                 "targetPartId": "part_1781166517335_1",
-                "tint": "noir"
+                "tint": "auto"
               },
               {
                 "id": "c1781171156688_2",
                 "text": "RAD",
                 "targetPartId": "",
-                "tint": "ardoise"
+                "tint": "auto"
               },
               {
                 "id": "c1781174369611_3",
