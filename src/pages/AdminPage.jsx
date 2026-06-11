@@ -1992,6 +1992,7 @@ function AdminPage() {
                         <UnifiedSegmentsTimeline
                           segments={activeSegments}
                           soundTracks={activeSoundTracks}
+                          parts={isSerial ? parts : []}
                           soundLibrary={soundLibrary}
                           vfxTracks={activeVfxTracks}
                           onSegmentsChange={setActiveSegments}
