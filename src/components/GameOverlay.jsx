@@ -1983,39 +1983,38 @@ function GameChoice({ data, onResolved, onNavigateToPart }) {
         </div>
       )}
 
-      {/* ── Traits SVG ── */}
-      <svg
-        style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', pointerEvents: 'none', zIndex: 5 }}
-        viewBox="0 0 100 100"
-        preserveAspectRatio="none"
-      >
-        {svgLines.map((line, li) => {
-          const isH = line.type === 'H'
-          return (
-            <line
-              key={li}
-              x1={isH ? 50 : line.pct}
-              y1={isH ? line.pct : 50}
-              x2={isH ? 50 : line.pct}
-              y2={isH ? line.pct : 50}
-              stroke="rgba(255,255,255,0.22)"
-              strokeWidth="0.15"
-              strokeLinecap="round"
-              style={{
-                transition: linesVisible
-                  ? `x1 900ms ${EASE_S}, y1 900ms ${EASE_S}, x2 900ms ${EASE_S}, y2 900ms ${EASE_S}`
-                  : 'none',
-                ...(linesVisible ? {
-                  x1: isH ? MARGIN         : line.pct,
-                  y1: isH ? line.pct       : MARGIN,
-                  x2: isH ? (100 - MARGIN) : line.pct,
-                  y2: isH ? line.pct       : (100 - MARGIN),
-                } : {}),
-              }}
-            />
-          )
-        })}
-      </svg>
+      {/* ── Traits de séparation (div animées) ── */}
+      {svgLines.map((line, li) => {
+        const isH = line.type === 'H'
+        return (
+          <div
+            key={li}
+            style={{
+              position: 'absolute',
+              pointerEvents: 'none',
+              zIndex: 5,
+              backgroundColor: 'rgba(255,255,255,0.22)',
+              ...(isH ? {
+                left: `${MARGIN}%`,
+                right: `${MARGIN}%`,
+                height: '1px',
+                top: `calc(${line.pct * 100}% - 0.5px)`,
+                transformOrigin: 'center center',
+                transform: linesVisible ? 'scaleX(1)' : 'scaleX(0)',
+                transition: `transform 900ms ${EASE_S} ${li * 80}ms`,
+              } : {
+                top: `${MARGIN}%`,
+                bottom: `${MARGIN}%`,
+                width: '1px',
+                left: `calc(${line.pct * 100}% - 0.5px)`,
+                transformOrigin: 'center center',
+                transform: linesVisible ? 'scaleY(1)' : 'scaleY(0)',
+                transition: `transform 900ms ${EASE_S} ${li * 80}ms`,
+              }),
+            }}
+          />
+        )
+      })}
 
       {/* ── Grille des zones ── */}
       <div style={{
