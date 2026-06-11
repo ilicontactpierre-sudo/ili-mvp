@@ -765,7 +765,7 @@ function ChoiceConfigurator({ isQuiz, data, onChange, parts }) {
           }}>
             {/* Preview selon le style */}
             {layout.style === 'bubble' ? (
-              {/* ── Preview Bulles ── */}
+              /* ── Preview Bulles ── */
               <div style={{ position: 'absolute', inset: 0, overflow: 'hidden' }}>
                 {(() => {
                   const n = totalZones
