@@ -10,15 +10,6 @@
     "author": "TEST VFX 2"
   },
   {
-    "id": "guillaume-musso-le-crime-du-paradis",
-    "title": "Le Crime du paradis",
-    "author": "Guillaume Musso",
-    "mood": "Mélancolie",
-    "genre": "Nouvelle",
-    "description": "Description 2-3 lignes",
-    "type": "serial"
-  },
-  {
     "id": "test-partie-test-partie",
     "title": "test partie",
     "author": "test partie",
