@@ -1791,6 +1791,7 @@ function GameRiddle({ data, onResolved }) {
 
 // ─── Palette teintes ─────────────────────────────────────────────────────────
 const TINT_MAP = {
+  auto:     { bg: null, text: null }, // suit le thème du lecteur
   noir:     { bg: '#080809', text: 'rgba(255,255,255,0.75)' },
   ardoise:  { bg: '#0d0d12', text: 'rgba(255,255,255,0.72)' },
   encre:    { bg: '#080c10', text: 'rgba(200,220,255,0.75)' },
