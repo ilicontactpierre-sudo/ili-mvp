@@ -181,7 +181,7 @@ function ForwardArrow({ onForward }) {
   )
 }
 
-function GameOverlay({ gameMode, onResolved, onBack, segmentIndex }) {
+function GameOverlay({ gameMode, onResolved, onBack, segmentIndex, onNavigateToPart }) {
   const [leaving, setLeaving] = useState(false)
   const [visible, setVisible] = useState(false)
 
