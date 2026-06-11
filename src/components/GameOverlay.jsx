@@ -2095,7 +2095,7 @@ function GameChoice({ data, onResolved, onNavigateToPart }) {
             noir:'rgba(255,255,255,0.9)', ardoise:'rgba(176,184,208,0.9)',
             encre:'rgba(122,176,240,0.95)', charbon:'rgba(220,220,220,0.85)',
             violet:'rgba(196,176,255,0.95)', teal:'rgba(96,232,200,0.95)',
-            bordeaux:'rgba(240,128,128,0.95)', brume:'rgba(184,184,240,0.9)',
+            bordeaux:'rgba(255, 255, 255, 0.95)', brume:'rgba(184,184,240,0.9)',
             ambre:'rgba(248,200,96,0.95)', foret:'rgba(112,232,144,0.95)',
             cobalt:'rgba(128,184,255,0.95)', cendre:'rgba(208,204,192,0.85)',
             auto:'rgba(255,255,255,0.9)',
