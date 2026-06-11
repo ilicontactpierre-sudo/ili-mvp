@@ -1893,9 +1893,7 @@ function GameChoice({ data, onResolved, onNavigateToPart }) {
   }
   if (linesV > 0) {
     let accV = 0
-    const sumV = axis === 'X'
-      ? Array(zonesV).fill(0).reduce((acc, j) => acc + Array(zonesH).fill(0).reduce((a, _, i) => a + (raw[i * zonesV + j] || 1), 0), 0)
-      : sumH
+    const sumV = raw.reduce((a, b) => a + b, 0) || 1
     for (let i = 0; i < linesV; i++) {
       let w
       if (axis === 'X') {
@@ -1904,7 +1902,7 @@ function GameChoice({ data, onResolved, onNavigateToPart }) {
         w = raw[i] || 1
       }
       accV += w
-      const pct = (accV / sumV) * 100
+      const pct = accV / sumV
       svgLines.push({ type: 'V', pct })
     }
   }
