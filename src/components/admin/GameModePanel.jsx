@@ -1,16 +1,18 @@
 import { useState, useEffect } from 'react'
 
 const GAME_TYPES = [
-  { value: 'image',     label: '🖼  Image / Cinématique' },
-  { value: 'filmstrip', label: '🎞  Pellicule' },
-  { value: 'document', label: '📄  Document / Artefact' },
-  { value: 'message',  label: '💬  Message animé' },
-  { value: 'code',     label: '🔢  Code / Digicode' },
-  { value: 'riddle',   label: '🧩  Énigme texte libre' },
-  { value: 'timer',    label: '⏱  Minuteur' },
-  { value: 'sequence', label: '🔀  Séquence à reconstituer' },
-  { value: 'journal',  label: '✍️  Journal / Écriture libre' },
-  { value: 'crypte',   label: '🔐  Crypte / Déchiffrement' },
+  { value: 'image',        label: '🖼  Image / Cinématique' },
+  { value: 'filmstrip',    label: '🎞  Pellicule' },
+  { value: 'document',     label: '📄  Document / Artefact' },
+  { value: 'message',      label: '💬  Message animé' },
+  { value: 'code',         label: '🔢  Code / Digicode' },
+  { value: 'riddle',       label: '🧩  Énigme texte libre' },
+  { value: 'timer',        label: '⏱  Minuteur' },
+  { value: 'sequence',     label: '🔀  Séquence à reconstituer' },
+  { value: 'journal',      label: '✍️  Journal / Écriture libre' },
+  { value: 'crypte',       label: '🔐  Crypte / Déchiffrement' },
+  { value: 'choice_quiz',  label: '🎯  QCM — Une bonne réponse' },
+  { value: 'choice_branch',label: '🌿  Choix narratif — Bifurcation' },
 ]
 
 const DEFAULTS = {
