@@ -1813,7 +1813,8 @@ function GameChoice({ data, onResolved, onNavigateToPart }) {
   const layout      = data.layout || { axis: 'H', linesH: 1, linesV: 0, proportions: [1,1], tint: 'noir', style: 'flat' }
   const layoutStyle = layout.style || 'flat'
   const tintKey     = layout.tint || 'noir'
-  const tint        = TINT_MAP[tintKey] || { bg: null, text: null }
+  const rawTint     = TINT_MAP[tintKey]
+  const tint        = rawTint || TINT_MAP.noir
   const choices  = data.choices || []
 
   // ── États d'animation ──────────────────────────────────────────────────────
