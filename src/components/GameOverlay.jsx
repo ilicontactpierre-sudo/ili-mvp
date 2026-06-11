@@ -1935,13 +1935,15 @@ function GameChoice({ data, onResolved, onNavigateToPart }) {
       } else {
         // Branche narrative
         const targetId = choice.targetPartId
-        if (targetId && onNavigateToPart) {
-          onNavigateToPart(targetId)
-        } else {
-          onResolved()
-        }
+        setTimeout(() => {
+          if (targetId && onNavigateToPart) {
+            onNavigateToPart(targetId)
+          } else {
+            onResolved()
+          }
+        }, 180)
       }
-    }, 200) // durée micro-animation
+    }, 20) // micro-flash sélection seulement
   }
 
   // ── Rendu ──────────────────────────────────────────────────────────────────
