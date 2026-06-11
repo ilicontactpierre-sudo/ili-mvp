@@ -841,32 +841,6 @@ function ChoiceConfigurator({ isQuiz, data, onChange, parts }) {
             </div>
           </div>
 
-          {/* Teinte */}
-          <div>
-            <div style={sectionLabel}>Teinte</div>
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.35rem' }}>
-              {TINT_PALETTE.map(t => (
-                <button
-                  key={t.key}
-                  type="button"
-                  onClick={() => updateLayout({ tint: t.key })}
-                  title={t.label}
-                  style={{
-                    width: '22px', height: '22px', borderRadius: '50%',
-                    backgroundColor: t.bg || 'transparent',
-                    backgroundImage: t.key === 'auto'
-                      ? 'linear-gradient(135deg, #f5f0e8 50%, #111 50%)'
-                      : 'none',
-                    border: layout.tint === t.key ? `2px solid ${ACTIVE_OUTLINE}` : '2px solid rgba(255,255,255,0.1)',
-                    cursor: 'pointer',
-                    boxShadow: layout.tint === t.key ? `0 0 0 2px rgba(167,139,250,0.25)` : 'none',
-                    transition: 'border-color 0.12s, box-shadow 0.12s',
-                    flexShrink: 0,
-                  }}
-                />
-              ))}
-            </div>
-          </div>
         </div>
       </div>
 
