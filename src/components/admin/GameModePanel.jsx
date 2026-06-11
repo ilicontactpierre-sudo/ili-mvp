@@ -983,9 +983,26 @@ function ChoiceConfigurator({ isQuiz, data, onChange, parts }) {
           {/* Teinte de la zone */}
           <div>
             <div style={{ ...sectionLabel, marginBottom: '0.4rem' }}>Teinte de la zone</div>
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.35rem' }}>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem' }}>
               {TINT_PALETTE.map(t => {
                 const isSelected = (activeChoice?.tint || 'auto') === t.key
+                // Couleur d'accent visible pour chaque teinte
+                const ACCENT = {
+                  auto:     null,
+                  noir:     '#e8e8e8',
+                  ardoise:  '#b0b8d0',
+                  encre:    '#7ab0f0',
+                  charbon:  '#c8c8c8',
+                  violet:   '#c4b0ff',
+                  teal:     '#60e8c8',
+                  bordeaux: '#f08080',
+                  brume:    '#b8b8f0',
+                  ambre:    '#f8c860',
+                  foret:    '#70e890',
+                  cobalt:   '#80b8ff',
+                  cendre:   '#d0ccc0',
+                }
+                const accent = ACCENT[t.key] || '#fff'
                 return (
                   <button
                     key={t.key}
@@ -993,28 +1010,42 @@ function ChoiceConfigurator({ isQuiz, data, onChange, parts }) {
                     onClick={() => updateChoice(activeZone, { tint: t.key })}
                     title={t.label}
                     style={{
-                      width: '20px', height: '20px', borderRadius: '50%',
-                      backgroundColor: t.bg || '#888',
+                      width: '22px', height: '22px', borderRadius: '50%',
+                      backgroundColor: t.key === 'auto' ? 'transparent' : (t.bg || '#333'),
                       backgroundImage: t.key === 'auto'
-                        ? 'linear-gradient(135deg, #f5f0e8 50%, #111 50%)'
-                        : 'none',
+                        ? 'linear-gradient(135deg, #f0ebe0 50%, #0d0d0d 50%)'
+                        : `radial-gradient(circle at 35% 35%, ${accent}22 0%, transparent 65%)`,
                       border: isSelected
-                        ? `2px solid ${ACTIVE_OUTLINE}`
-                        : `2px solid ${t.bg ? 'rgba(255,255,255,0.25)' : 'rgba(255,255,255,0.15)'}`,
+                        ? `2px solid ${accent}`
+                        : `2px solid ${accent}55`,
                       cursor: 'pointer',
                       outline: 'none',
                       boxShadow: isSelected
-                        ? `0 0 0 2px rgba(167,139,250,0.35), inset 0 0 0 1px rgba(255,255,255,0.15)`
-                        : 'inset 0 0 0 1px rgba(255,255,255,0.08)',
-                      transition: 'border-color 0.12s, box-shadow 0.12s, transform 0.1s',
-                      transform: isSelected ? 'scale(1.15)' : 'scale(1)',
+                        ? `0 0 0 2px ${accent}44, 0 0 8px ${accent}33`
+                        : `0 0 0 0px transparent`,
+                      transition: 'all 0.15s ease',
+                      transform: isSelected ? 'scale(1.2)' : 'scale(1)',
                       flexShrink: 0,
-                      position: 'relative',
                     }}
                   />
                 )
               })}
             </div>
+            {/* Label de la teinte sélectionnée */}
+            {activeChoice?.tint && (
+              <div style={{
+                fontSize: '0.65rem',
+                color: (() => {
+                  const ACCENT = { noir:'#e8e8e8', ardoise:'#b0b8d0', encre:'#7ab0f0', charbon:'#c8c8c8', violet:'#c4b0ff', teal:'#60e8c8', bordeaux:'#f08080', brume:'#b8b8f0', ambre:'#f8c860', foret:'#70e890', cobalt:'#80b8ff', cendre:'#d0ccc0', auto:'rgba(255,255,255,0.5)' }
+                  return ACCENT[activeChoice.tint] || 'rgba(255,255,255,0.5)'
+                })(),
+                marginTop: '0.2rem',
+                letterSpacing: '0.06em',
+                fontFamily: 'system-ui',
+              }}>
+                {TINT_PALETTE.find(t => t.key === activeChoice.tint)?.label || ''}
+              </div>
+            )}
           </div>
           {/* Lien vers une partie (branche narrative uniquement) */}
           {!isQuiz && (
