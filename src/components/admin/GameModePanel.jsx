@@ -797,7 +797,19 @@ function ChoiceConfigurator({ isQuiz, data, onChange, parts }) {
         {/* ── Contrôles droite ── */}
         <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '0.85rem', minWidth: 0 }}>
 
-          {/* Axe */}
+          {/* Style */}
+          <div>
+            <div style={sectionLabel}>Style</div>
+            <div style={{ display: 'flex', gap: '0.3rem', flexWrap: 'wrap' }}>
+              {[['flat','Zones'],['bubble','Bulles'],['card','Cartes']].map(([val, lbl]) => (
+                <button key={val} type="button"
+                  onClick={() => onChange({ ...data, layout: { ...layout, style: val } })}
+                  style={pillBtn((layout.style || 'flat') === val)}>{lbl}</button>
+              ))}
+            </div>
+          </div>
+          {/* Axe (masqué en mode bulles/cartes car disposition automatique) */}
+          {(layout.style || 'flat') === 'flat' && (
           <div>
             <div style={sectionLabel}>Axe</div>
             <div style={{ display: 'flex', gap: '0.3rem', flexWrap: 'wrap' }}>
@@ -806,6 +818,23 @@ function ChoiceConfigurator({ isQuiz, data, onChange, parts }) {
               ))}
             </div>
           </div>
+          )}
+          {/* Nombre d'éléments (bulles/cartes) */}
+          {(layout.style || 'flat') !== 'flat' && (
+          <div>
+            <div style={sectionLabel}>Nombre</div>
+            <div style={{ display: 'flex', gap: '0.3rem' }}>
+              {[2,3,4,5,6].map(n => (
+                <button key={n} type="button"
+                  onClick={() => {
+                    const next = { ...layout, linesH: n - 1, proportions: Array(n).fill(1) }
+                    onChange({ ...data, layout: next })
+                  }}
+                  style={pillBtn(totalZones === n)}>{n}</button>
+              ))}
+            </div>
+          </div>
+          )}
 
           {/* Lignes H */}
           {axis !== 'V' && (
