@@ -127,5 +127,14 @@
     "id": "guillaume-musso-le-crime-du-paradis-v0",
     "title": "Le Crime du paradis V0",
     "author": "Guillaume Musso"
+  },
+  {
+    "id": "auteur-choix-multiple-test-choix-multiple",
+    "title": "teST Choix Multiple",
+    "author": "Auteur Choix Multiple",
+    "mood": "Humeur Choix Multiple",
+    "genre": "Genre Choix Multiple",
+    "description": "Description teST Choix Multiple",
+    "type": "serial"
   }
 ]
