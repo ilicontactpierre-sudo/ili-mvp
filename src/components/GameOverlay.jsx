@@ -1809,9 +1809,11 @@ const EASE_S = 'cubic-bezier(0.76, 0, 0.24, 1)'
 
 // ─── Type : Choix (quiz + branche narrative) ──────────────────────────────────
 function GameChoice({ data, onResolved, onNavigateToPart }) {
-  const isQuiz   = data.type === 'choice_quiz'
-  const layout   = data.layout || { axis: 'H', linesH: 1, linesV: 0, proportions: [1,1], tint: 'noir' }
-  const tint     = TINT_MAP[layout.tint] || TINT_MAP.noir
+  const isQuiz      = data.type === 'choice_quiz'
+  const layout      = data.layout || { axis: 'H', linesH: 1, linesV: 0, proportions: [1,1], tint: 'noir', style: 'flat' }
+  const layoutStyle = layout.style || 'flat'
+  const tintKey     = layout.tint || 'noir'
+  const tint        = TINT_MAP[tintKey] || { bg: null, text: null }
   const choices  = data.choices || []
 
   // ── États d'animation ──────────────────────────────────────────────────────
