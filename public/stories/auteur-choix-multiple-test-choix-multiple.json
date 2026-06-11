@@ -33,15 +33,19 @@
             "type": "choice_branch",
             "layout": {
               "axis": "H",
-              "linesH": 2,
+              "linesH": 5,
               "linesV": 0,
               "proportions": [
+                1,
+                1,
+                1,
                 1,
                 1,
                 1
               ],
               "tint": "bordeaux",
-              "style": "bubble"
+              "style": "bubble",
+              "bubbleVariant": 2
             },
             "prompt": "Question.invite",
             "choices": [
@@ -49,18 +53,37 @@
                 "id": "c1",
                 "text": "Zone 1 :) pour partie 3",
                 "targetPartId": "part_1781166529537_2",
-                "tint": "cendre"
+                "tint": "auto"
               },
               {
                 "id": "c1781170444005_1",
                 "text": "Brouillon 2",
                 "targetPartId": "part_1781166517335_1",
-                "tint": "cobalt"
+                "tint": "noir"
               },
               {
                 "id": "c1781171156688_2",
                 "text": "RAD",
-                "targetPartId": ""
+                "targetPartId": "",
+                "tint": "ardoise"
+              },
+              {
+                "id": "c1781174369611_3",
+                "text": "",
+                "targetPartId": "",
+                "tint": "cendre"
+              },
+              {
+                "id": "c1781174369611_4",
+                "text": "",
+                "targetPartId": "",
+                "tint": "cobalt"
+              },
+              {
+                "id": "c1781174369611_5",
+                "text": "",
+                "targetPartId": "",
+                "tint": "foret"
               }
             ]
           },
@@ -73,8 +96,64 @@
           "audioEvents": []
         },
         {
+          "text": "",
+          "id": "seg_1781174433500",
+          "gameMode": {
+            "type": "choice_quiz",
+            "layout": {
+              "axis": "H",
+              "linesH": 3,
+              "linesV": 0,
+              "proportions": [
+                1,
+                1,
+                1,
+                1
+              ],
+              "tint": "noir",
+              "style": "card",
+              "bubbleVariant": 3
+            },
+            "prompt": "",
+            "choices": [
+              {
+                "id": "c1",
+                "text": "Bonne rép",
+                "correct": true,
+                "tint": "auto"
+              },
+              {
+                "id": "c2",
+                "text": "2",
+                "correct": false,
+                "tint": "bordeaux"
+              },
+              {
+                "id": "c1781174449252_2",
+                "text": "3",
+                "correct": false,
+                "tint": "ambre"
+              },
+              {
+                "id": "c1781174449252_3",
+                "text": "4",
+                "correct": false,
+                "tint": "teal"
+              }
+            ],
+            "errorMessage": "Nope"
+          },
+          "audioEvents": []
+        },
+        {
           "text": "E",
           "id": "seg_1781171192524",
+          "breakAt": null,
+          "audioEvents": []
+        },
+        {
+          "text": "z",
+          "id": "seg_1781174521845",
           "breakAt": null,
           "audioEvents": []
         }
