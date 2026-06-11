@@ -8,5 +8,13 @@
     "id": "test-vfx-2-test-vfx-2",
     "title": "TEST VFX 2",
     "author": "TEST VFX 2"
+  },
+  {
+    "id": "ili-tutoriel",
+    "title": "TUTORIEL",
+    "author": "ILi",
+    "mood": "Excité",
+    "genre": "Tutu",
+    "description": "Bienvenue chez ILi, une expérience de lecture unique. Bouge pas, on te montre."
   }
 ]
