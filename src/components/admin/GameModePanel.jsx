@@ -886,31 +886,30 @@ function ChoiceConfigurator({ isQuiz, data, onChange, parts }) {
           </div>
           )}
 
-          {/* Lignes H */}
-          {axis !== 'V' && (
-            <div>
-              <div style={sectionLabel}>Lignes H  <span style={{ opacity: 0.5, fontWeight: 400 }}>→ {zonesH} rang{zonesH > 1 ? 'ées' : 'ée'}</span></div>
-              <div style={{ display: 'flex', gap: '0.3rem' }}>
-                {[0,1,2,3].map(n => (
-                  <button key={n} type="button" onClick={() => setLinesH(n)} style={pillBtn(linesH === n)}>{n}</button>
-                ))}
-              </div>
+          {/* Lignes H — flat uniquement */}
+          {(layout.style || 'flat') === 'flat' && axis !== 'V' && (
+          <div>
+            <div style={sectionLabel}>Lignes H  <span style={{ opacity: 0.5, fontWeight: 400 }}>→ {zonesH} rang{zonesH > 1 ? 'ées' : 'ée'}</span></div>
+            <div style={{ display: 'flex', gap: '0.3rem' }}>
+              {[0,1,2,3].map(n => (
+                <button key={n} type="button" onClick={() => setLinesH(n)} style={pillBtn(linesH === n)}>{n}</button>
+              ))}
             </div>
+          </div>
           )}
-
-          {/* Lignes V */}
-          {axis !== 'H' && (
-            <div>
-              <div style={sectionLabel}>Lignes V  <span style={{ opacity: 0.5, fontWeight: 400 }}>→ {zonesV} col.</span></div>
-              <div style={{ display: 'flex', gap: '0.3rem' }}>
-                {[0,1,2].map(n => (
-                  <button key={n} type="button" onClick={() => setLinesV(n)} style={pillBtn(linesV === n)}>{n}</button>
-                ))}
-              </div>
+          {/* Lignes V — flat uniquement */}
+          {(layout.style || 'flat') === 'flat' && axis !== 'H' && (
+          <div>
+            <div style={sectionLabel}>Lignes V  <span style={{ opacity: 0.5, fontWeight: 400 }}>→ {zonesV} col.</span></div>
+            <div style={{ display: 'flex', gap: '0.3rem' }}>
+              {[0,1,2].map(n => (
+                <button key={n} type="button" onClick={() => setLinesV(n)} style={pillBtn(linesV === n)}>{n}</button>
+              ))}
             </div>
+          </div>
           )}
-
-          {/* Proportions */}
+          {/* Proportions — flat uniquement */}
+          {(layout.style || 'flat') === 'flat' && (
           <div>
             <div style={sectionLabel}>Proportions</div>
             <div style={{ display: 'flex', gap: '0.3rem', flexWrap: 'wrap' }}>
@@ -919,6 +918,7 @@ function ChoiceConfigurator({ isQuiz, data, onChange, parts }) {
               ))}
             </div>
           </div>
+          )}
 
         </div>
       </div>
