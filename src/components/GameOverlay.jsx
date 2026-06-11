@@ -2088,16 +2088,42 @@ function GameChoice({ data, onResolved, onNavigateToPart }) {
           const n = zoneList.length
           // Layouts organiques selon le nombre de bulles
           const BUBBLE_SIZE = n <= 2 ? 140 : n <= 3 ? 120 : n <= 4 ? 108 : n <= 5 ? 96 : 84
-          // Positions relatives en % du conteneur (cx, cy en % de 100×200 viewport)
-          const LAYOUTS = {
-            1: [[50, 50]],
-            2: [[30, 50], [70, 50]],
-            3: [[28, 38], [72, 38], [50, 68]],
-            4: [[28, 32], [72, 32], [22, 65], [78, 65]],
-            5: [[50, 22], [22, 42], [78, 42], [32, 68], [68, 68]],
-            6: [[30, 22], [70, 22], [18, 50], [82, 50], [32, 76], [68, 76]],
+          // Positions depuis les variantes de disposition (BUBBLE_VARIANTS défini côté player)
+          const PLAYER_BUBBLE_VARIANTS = {
+            2: [
+              [[28,50],[72,50]],
+              [[25,35],[75,65]],
+              [[50,28],[50,72]],
+              [[30,50],[68,52]],
+            ],
+            3: [
+              [[50,26],[25,65],[75,65]],
+              [[25,36],[75,36],[50,72]],
+              [[20,54],[50,26],[80,54]],
+              [[22,50],[50,50],[78,50]],
+            ],
+            4: [
+              [[28,32],[72,32],[28,68],[72,68]],
+              [[50,20],[80,50],[50,80],[20,50]],
+              [[25,28],[65,28],[25,60],[25,84]],
+              [[50,22],[22,62],[50,72],[78,62]],
+            ],
+            5: [
+              [[25,28],[75,28],[50,50],[25,72],[75,72]],
+              [[50,18],[18,50],[50,50],[82,50],[50,82]],
+              [[50,16],[83,38],[72,76],[28,76],[17,38]],
+              [[30,28],[70,28],[18,65],[50,72],[82,65]],
+            ],
+            6: [
+              [[50,12],[82,30],[82,65],[50,82],[18,65],[18,30]],
+              [[28,22],[72,22],[28,50],[72,50],[28,78],[72,78]],
+              [[50,16],[28,40],[72,40],[18,68],[50,72],[82,68]],
+              [[50,50],[50,18],[77,34],[77,66],[50,82],[23,66]],
+            ],
           }
-          const positions = LAYOUTS[Math.min(n, 6)] || LAYOUTS[6]
+          const variantSet = PLAYER_BUBBLE_VARIANTS[Math.min(n, 6)] || PLAYER_BUBBLE_VARIANTS[2]
+          const variantIdx = layout.bubbleVariant ?? 0
+          const positions  = variantSet[variantIdx % variantSet.length] || variantSet[0]
           return (
             <div style={{
               position: 'relative',
