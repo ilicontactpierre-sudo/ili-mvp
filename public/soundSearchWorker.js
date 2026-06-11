@@ -122,10 +122,40 @@ function scoreSound(sound, termSets, isAmbienceSearch) {
 }
 
 // ── Écoute des messages du thread principal ───────────────────────────────
+// Cache des sons pré-calculé (survit entre les messages)
+let _cachedSounds = null
+
 self.onmessage = function(e) {
   const { sounds, searchQuery, activeTags, onlyUploaded, requestId } = e.data
 
-  let results = sounds
+  // Pré-calculer les champs de scoring une seule fois par batch de sons
+  // (le Worker compare par référence d'id pour détecter un changement de bibliothèque)
+  if (!_cachedSounds || _cachedSounds.length !== sounds.length) {
+    _cachedSounds = sounds.map(sound => {
+      const labelNorm  = normalize(sound.label || '')
+      const boomCat    = cleanBoomField(sound.boomCategory)
+      const boomSub    = cleanBoomField(sound.boomSubcategory)
+      return {
+        ...sound,
+        _cache: {
+          label:       normalizeSoft(sound.label || ''),
+          labelNorm,
+          labelWords:  labelNorm.split(/[\s_\-]+/).filter(Boolean),
+          tags:        (sound.tags || []).map(t => normalizeSoft(t)),
+          tagsNorm:    (sound.tags || []).map(t => normalize(t)),
+          searchStr:   normalizeSoft(sound.searchString || ''),
+          searchStrN:  normalize(sound.searchString || ''),
+          description: normalizeSoft(sound.description || ''),
+          boomCat,
+          boomSub,
+          catId:       normalize(sound.catId || ''),
+          virtual:     buildVirtualSearchField(sound),
+        }
+      }
+    })
+  }
+
+  let results = _cachedSounds
 
   if (onlyUploaded) results = results.filter(s => !!s.url)
   if (activeTags && activeTags.length > 0) {
