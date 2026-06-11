@@ -41,7 +41,7 @@
                 1
               ],
               "tint": "bordeaux",
-              "style": "card"
+              "style": "bubble"
             },
             "prompt": "Question.invite",
             "choices": [
