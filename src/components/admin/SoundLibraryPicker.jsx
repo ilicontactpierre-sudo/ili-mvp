@@ -67,6 +67,11 @@ useEffect(() => {
   const [onlyUploaded, setOnlyUploaded] = useState(false)
   // URLs uploadées pendant cette session (pour mettre à jour l'UI sans attendre le re-render parent)
   const [localSoundOverrides, setLocalSoundOverrides] = useState({})
+
+  // Usage des sons dans les histoires publiées { soundId → ['Titre histoire 1', ...] }
+  const [soundUsageMap, setSoundUsageMap] = useState({})
+  const [cleanupMode, setCleanupMode] = useState(false)
+  const [cleaningIds, setCleaningIds] = useState(new Set())
   const howlRef = useRef(null)
   const timerRef = useRef(null)
   const ffmpegRef = useRef(null)
