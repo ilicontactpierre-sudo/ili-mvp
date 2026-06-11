@@ -2131,7 +2131,7 @@ function GameChoice({ data, onResolved, onNavigateToPart }) {
                   border: isSelected
                     ? `3px solid rgba(255,255,255,0.85)`
                     : isShaking
-                    ? `3px solid rgb(255, 255, 255)`
+                    ? `3px solid rgba(192,57,43,0.8)`
                     : `2.5px solid ${accentColor}`,
                   boxShadow: isSelected
                     ? `0 0 32px ${accentColor.replace(/[\d.]+\)$/, '0.6)')}, 0 0 10px ${accentColor.replace(/[\d.]+\)$/, '0.35)')}`
