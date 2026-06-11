@@ -2013,7 +2013,8 @@ function GameChoice({ data, onResolved, onNavigateToPart }) {
         )
       })}
 
-      {/* ── Grille des zones ── */}
+      {/* ── Grille des zones (flat) ou layout libre (bubble/card) ── */}
+      {layoutStyle === 'flat' ? (
       <div style={{
         position: 'absolute', inset: 0,
         display: 'grid',
@@ -2026,7 +2027,7 @@ function GameChoice({ data, onResolved, onNavigateToPart }) {
           const isShaking  = shakeIdx === zi
           const phase      = choicesPhase[zi] || 'hidden'
           const isEmpty    = !choice || !choice.text
-
+          const zoneTint   = TINT_MAP[choice?.tint] || tint
           return (
             <div
               key={zi}
@@ -2037,11 +2038,9 @@ function GameChoice({ data, onResolved, onNavigateToPart }) {
                 justifyContent: 'center',
                 padding: '1.5rem',
                 cursor: choice && !isEmpty ? 'pointer' : 'default',
-                filter: isSelected
-                  ? 'invert(0.12) brightness(1.4)'
-                  : isShaking ? 'brightness(0.85) saturate(1.4)' : 'none',
+                filter: isSelected ? 'invert(0.12) brightness(1.4)' : isShaking ? 'brightness(0.85) saturate(1.4)' : 'none',
                 backgroundColor: isShaking ? 'rgba(192,57,43,0.08)' : 'transparent',
-                animation: isShaking ? `game-shake 0.4s ${EASE.inOut}` : 'none',
+                animation: isShaking ? `game-shake 0.4s ${EASE_S}` : 'none',
                 transition: `filter 180ms ease, background-color 180ms ease`,
                 userSelect: 'none',
               }}
@@ -2052,7 +2051,7 @@ function GameChoice({ data, onResolved, onNavigateToPart }) {
                   letterSpacing: '0.04em',
                   lineHeight: 1.5,
                   textAlign: 'center',
-                  color: (() => { const ct = TINT_MAP[choice.tint]; return ct?.text || tint.text })(),
+                  color: zoneTint.text || tint.text,
                   opacity: phase === 'visible' ? 1 : 0,
                   transform: phase === 'visible' ? 'translateY(0)' : 'translateY(12px)',
                   transition: `opacity 600ms ${EASE_S}, transform 600ms ${EASE_S}`,
@@ -2066,6 +2065,80 @@ function GameChoice({ data, onResolved, onNavigateToPart }) {
           )
         })}
       </div>
+      ) : (
+      /* ── Bulles / Cartes ── */
+      <div style={{
+        position: 'absolute', inset: 0,
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        gap: layoutStyle === 'bubble' ? '1.1rem' : '0.85rem',
+        padding: '2.5rem 2rem',
+        zIndex: 6,
+      }}>
+        {zoneList.map((choice, zi) => {
+          const isSelected = selectedIdx === zi
+          const isShaking  = shakeIdx === zi
+          const phase      = choicesPhase[zi] || 'hidden'
+          const isEmpty    = !choice || !choice.text
+          const zoneTint   = (choice?.tint && choice.tint !== 'auto' && TINT_MAP[choice.tint])
+            ? TINT_MAP[choice.tint]
+            : null
+          const cardBg     = zoneTint
+            ? zoneTint.bg
+            : layoutStyle === 'bubble'
+              ? 'rgba(255,255,255,0.07)'
+              : 'rgba(255,255,255,0.05)'
+          const cardText   = zoneTint?.text || tint.text
+          const radius     = layoutStyle === 'bubble' ? '999px' : '12px'
+          return (
+            <div
+              key={zi}
+              onClick={() => choice && !isEmpty ? handleChoiceClick(zi) : undefined}
+              style={{
+                width: '100%',
+                maxWidth: layoutStyle === 'bubble' ? '28rem' : '32rem',
+                padding: layoutStyle === 'bubble' ? '0.95rem 2rem' : '1.1rem 1.6rem',
+                borderRadius: radius,
+                backgroundColor: isShaking ? 'rgba(192,57,43,0.15)' : cardBg,
+                border: `1px solid ${isSelected ? 'rgba(255,255,255,0.35)' : 'rgba(255,255,255,0.1)'}`,
+                cursor: choice && !isEmpty ? 'pointer' : 'default',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                backdropFilter: 'blur(8px)',
+                WebkitBackdropFilter: 'blur(8px)',
+                filter: isSelected ? 'brightness(1.35)' : isShaking ? 'brightness(0.85)' : 'none',
+                animation: isShaking ? `game-shake 0.4s ${EASE_S}` : 'none',
+                opacity: phase === 'visible' ? 1 : 0,
+                transform: phase === 'visible'
+                  ? 'translateY(0) scale(1)'
+                  : `translateY(${20 + zi * 4}px) scale(0.96)`,
+                transition: `opacity 700ms ${EASE_S}, transform 700ms ${EASE_S}, filter 180ms ease, background-color 180ms ease, border-color 180ms ease`,
+                userSelect: 'none',
+                boxShadow: layoutStyle === 'card' && !isShaking
+                  ? '0 4px 24px rgba(0,0,0,0.25)'
+                  : 'none',
+              }}
+            >
+              <span style={{
+                fontSize: layoutStyle === 'bubble'
+                  ? 'clamp(0.9rem, 2.4vw, 1.05rem)'
+                  : 'clamp(0.95rem, 2.5vw, 1.1rem)',
+                letterSpacing: '0.03em',
+                lineHeight: 1.5,
+                textAlign: 'center',
+                color: cardText,
+                fontStyle: layoutStyle === 'card' ? 'normal' : 'inherit',
+              }}>
+                {choice?.text || ''}
+              </span>
+            </div>
+          )
+        })}
+      </div>
+      )}
 
       {/* ── Message d'erreur quiz ── */}
       {errorMsg && (
