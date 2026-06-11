@@ -1776,7 +1776,7 @@ function AdminPage() {
                           return next
                         })
                         const opts = [
-                          { key: 'draft',     label: 'Brouillon',       color: '#999',    desc: 'Inaccessible aux lecteurs' },
+                          { key: 'draft',     label: 'Brouillon',       color: '#92654a', desc: 'Inaccessible aux lecteurs' },
                           { key: 'published', label: 'Publiée',          color: '#28a745', desc: 'Visible dans la liste' },
                           { key: 'choice',    label: 'Choix multiple',   color: '#a78bfa', desc: 'Accessible via bifurcation, cachée dans la liste' },
                         ]
