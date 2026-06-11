@@ -412,6 +412,50 @@ const handleFileSelected = async (e) => {
     return m > 0 ? `${m}m${sec.toString().padStart(2, '0')}` : `${sec}s`
   }
 
+  // Sons uploadés sans aucune histoire → candidats au nettoyage
+  const orphanSounds = useMemo(() => {
+    return filteredSounds.filter(s => {
+      const sound = enrichSound(s)
+      if (!sound.url) return false
+      const usage = soundUsageMap[sound.id]
+      return !usage || usage.length === 0
+    })
+  }, [filteredSounds, soundUsageMap, localSoundOverrides])
+
+  const handleCleanupOrphans = async () => {
+    if (orphanSounds.length === 0) return
+    const names = orphanSounds.map(s => `• ${s.label}`).join('\n')
+    if (!window.confirm(
+      `Supprimer définitivement ${orphanSounds.length} son${orphanSounds.length > 1 ? 's' : ''} non utilisé${orphanSounds.length > 1 ? 's' : ''} ?\n\n${names}\n\nCette action est irréversible.`
+    )) return
+    const ids = new Set(orphanSounds.map(s => s.id))
+    setCleaningIds(ids)
+    let successCount = 0
+    let errorCount = 0
+    for (const sound of orphanSounds) {
+      try {
+        const res = await fetch('/api/delete-sound', {
+          method: 'DELETE',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            password: adminPassword,
+            soundId: sound.id,
+            filename: `${sound.id}.mp3`,
+          }),
+        })
+        if (!res.ok) throw new Error()
+        setLocalSoundOverrides(prev => { const n = { ...prev }; delete n[sound.id]; return n })
+        if (onSoundsImported) onSoundsImported([{ ...sound, url: null }])
+        successCount++
+      } catch {
+        errorCount++
+      }
+    }
+    setCleaningIds(new Set())
+    setCleanupMode(false)
+    alert(`✅ ${successCount} son${successCount > 1 ? 's' : ''} supprimé${successCount > 1 ? 's' : ''}${errorCount > 0 ? ` · ❌ ${errorCount} erreur${errorCount > 1 ? 's' : ''}` : ''}.`)
+  }
+
   return (
     <>
       <input
