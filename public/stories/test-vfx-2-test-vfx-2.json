@@ -3,7 +3,13 @@
   "title": "TEST VFX 2",
   "author": "TEST VFX 2",
   "published": true,
-  "sounds": [],
+  "sounds": [
+    {
+      "id": "airblow_balloon_air_release_fart_airy_01_b00m_one",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/airblow_balloon_air_release_fart_airy_01_b00m_one.mp3",
+      "loop": false
+    }
+  ],
   "segments": [
     {
       "id": "seg_1780953039356_0_5lnao",
@@ -15,7 +21,15 @@
       "breakAt": null,
       "isLeader": true,
       "isChapter": true,
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "play",
+          "soundId": "airblow_balloon_air_release_fart_airy_01_b00m_one",
+          "volume": 0.5,
+          "delay": 0,
+          "loop": false
+        }
+      ]
     },
     {
       "id": "seg_1780953039356_1_5sxaa",
@@ -249,7 +263,22 @@
       "audioEvents": []
     }
   ],
-  "soundTracks": [],
+  "soundTracks": [
+    {
+      "id": "st_1781194246894_np9iwlb35",
+      "soundId": "airblow_balloon_air_release_fart_airy_01_b00m_one",
+      "startSegmentId": "seg_1780953039356_0_5lnao",
+      "endSegmentId": "seg_1780953039356_0_5lnao",
+      "column": 0,
+      "volume": 0.5,
+      "fadeIn": 0,
+      "fadeOut": 0,
+      "delay": 0,
+      "loop": false,
+      "muted": false,
+      "broken": false
+    }
+  ],
   "vfxTracks": [
     {
       "id": "vfx_1780953041356_vrhkdujsq",
