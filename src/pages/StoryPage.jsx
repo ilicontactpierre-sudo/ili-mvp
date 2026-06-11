@@ -155,8 +155,12 @@ function CoverPage({ storyData, onSelectPart }) {
 
         {/* Liste des parties */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '0', width: '100%', maxWidth: '32rem', margin: '0 auto' }}>
-          {(storyData.parts ?? []).map((part, index) => {
-            const published = part.published ?? false
+          {(storyData.parts ?? []).filter(part => {
+            const vis = part.visibility || (part.published ? 'published' : 'draft')
+            return vis !== 'choice' // les parties 'choice' sont invisibles dans la liste
+          }).map((part, index) => {
+            const vis = part.visibility || (part.published ? 'published' : 'draft')
+            const published = vis === 'published'
             const prog = published ? partProgress(part.id) : null
 
             return (
