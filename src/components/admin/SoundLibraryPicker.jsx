@@ -738,6 +738,33 @@ const handleFileSelected = async (e) => {
                         </div>
                       </div>
 
+                      {/* Badge usage */}
+                      {(() => {
+                        if (!sound.url) return null
+                        const usage = soundUsageMap[sound.id]
+                        const count = usage?.length ?? 0
+                        const isOrphan = count === 0
+                        const isBeingCleaned = cleaningIds.has(sound.id)
+                        return (
+                          <div
+                            title={isOrphan ? 'Non utilisé dans aucune histoire' : `Utilisé dans : ${usage.join(', ')}`}
+                            style={{
+                              display: 'flex', alignItems: 'center', gap: '3px',
+                              padding: '2px 7px',
+                              borderRadius: '999px',
+                              fontSize: '0.68rem',
+                              fontWeight: 600,
+                              flexShrink: 0,
+                              background: isBeingCleaned ? '#f0f0f0' : isOrphan ? '#dc354515' : '#22a06b18',
+                              color: isBeingCleaned ? '#aaa' : isOrphan ? '#dc3545' : '#22a06b',
+                              border: `1px solid ${isBeingCleaned ? '#ddd' : isOrphan ? '#dc354540' : '#22a06b40'}`,
+                              cursor: 'default',
+                            }}
+                          >
+                            {isBeingCleaned ? '⏳' : isOrphan ? '⚠ 0' : `✦ ${count}`}
+                          </div>
+                        )
+                      })()}
                       {/* Ajouter / Upload */}
                       <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', flexShrink: 0 }}>
                         {!sound.url && sound.localPath && (
