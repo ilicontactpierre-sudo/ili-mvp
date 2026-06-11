@@ -1762,34 +1762,57 @@ function AdminPage() {
                         rows={2}
                         style={{ padding: '0.6rem', fontSize: '0.9rem', border: '1px solid #ddd', borderRadius: '4px', resize: 'vertical', fontFamily: 'inherit' }}
                       />
-                      {/* Toggle "Publier cette partie" */}
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
-                        <button
-                          type="button"
-                          onClick={() => setParts(prev => {
-                            const next = [...prev]
-                            next[activePartIndex] = { ...next[activePartIndex], published: !next[activePartIndex].published }
-                            return next
-                          })}
-                          style={{
-                            position: 'relative', width: '36px', height: '20px', padding: 0,
-                            backgroundColor: parts[activePartIndex].published ? '#28a745' : '#ccc',
-                            border: 'none', borderRadius: '10px', cursor: 'pointer',
-                            transition: 'background-color 0.2s', flexShrink: 0,
-                          }}
-                        >
-                          <span style={{
-                            position: 'absolute', top: '2px',
-                            left: parts[activePartIndex].published ? '18px' : '2px',
-                            width: '16px', height: '16px', backgroundColor: '#fff',
-                            borderRadius: '50%', transition: 'left 0.2s', display: 'block',
-                            boxShadow: '0 1px 3px rgba(0,0,0,0.2)',
-                          }} />
-                        </button>
-                        <span style={{ fontSize: '0.82rem', color: parts[activePartIndex].published ? '#28a745' : '#999' }}>
-                          {parts[activePartIndex].published ? 'Partie publiée' : 'Partie non publiée (brouillon)'}
-                        </span>
-                      </div>
+                      {/* Sélecteur 3 états : Brouillon / Publiée / Choix multiple */}
+                      {(() => {
+                        const part = parts[activePartIndex]
+                        const vis = part.visibility || (part.published ? 'published' : 'draft')
+                        const setVis = (v) => setParts(prev => {
+                          const next = [...prev]
+                          next[activePartIndex] = {
+                            ...next[activePartIndex],
+                            visibility: v,
+                            published: v !== 'draft',
+                          }
+                          return next
+                        })
+                        const opts = [
+                          { key: 'draft',     label: 'Brouillon',       color: '#999',    desc: 'Inaccessible aux lecteurs' },
+                          { key: 'published', label: 'Publiée',          color: '#28a745', desc: 'Visible dans la liste' },
+                          { key: 'choice',    label: 'Choix multiple',   color: '#a78bfa', desc: 'Accessible via bifurcation, cachée dans la liste' },
+                        ]
+                        return (
+                          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
+                            <span style={{ fontSize: '0.72rem', fontWeight: 600, color: 'rgba(0,0,0,0.45)', letterSpacing: '0.04em', textTransform: 'uppercase' }}>
+                              Visibilité
+                            </span>
+                            <div style={{ display: 'flex', gap: '0.4rem' }}>
+                              {opts.map(o => (
+                                <button
+                                  key={o.key}
+                                  type="button"
+                                  onClick={() => setVis(o.key)}
+                                  style={{
+                                    flex: 1,
+                                    padding: '0.45rem 0.3rem',
+                                    fontSize: '0.75rem',
+                                    fontWeight: vis === o.key ? 700 : 400,
+                                    backgroundColor: vis === o.key ? o.color + '1a' : '#f8f9fa',
+                                    color: vis === o.key ? o.color : '#888',
+                                    border: `1.5px solid ${vis === o.key ? o.color + '66' : '#e0e0e0'}`,
+                                    borderRadius: '6px',
+                                    cursor: 'pointer',
+                                    transition: 'all 0.15s ease',
+                                    lineHeight: 1.2,
+                                  }}
+                                >{o.label}</button>
+                              ))}
+                            </div>
+                            <span style={{ fontSize: '0.7rem', color: '#aaa' }}>
+                              {opts.find(o => o.key === vis)?.desc}
+                            </span>
+                          </div>
+                        )
+                      })()}
                     </div>
                   )}
                 </div>
