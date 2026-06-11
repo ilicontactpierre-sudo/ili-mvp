@@ -1431,7 +1431,7 @@ function FormTimer({ data, onChange }) {
 
 // ─── Panel principal ─────────────────────────────────────────────────────────
 
-function GameModePanel({ segment, segmentIndex, onSave, onDelete, onClose }) {
+function GameModePanel({ segment, segmentIndex, onSave, onDelete, onClose, parts }) {
   const existing = segment?.gameMode ?? null
   const [type, setType] = useState(existing?.type || 'code')
   const [data, setData] = useState(existing || DEFAULTS['code'])
