@@ -1042,8 +1042,10 @@ function GameModePanel({ segment, segmentIndex, onSave, onDelete, onClose }) {
         {type === 'timer'    && <FormTimer    data={data} onChange={setData} />}
         {type === 'sequence' && <FormSequence data={data} onChange={setData} />}
         {type === 'journal'  && <FormJournal  data={data} onChange={setData} />}
-        {type === 'echo'     && <FormEcho     data={data} onChange={setData} />}
-        {type === 'crypte'   && <FormCrypte   data={data} onChange={setData} />}
+        {type === 'echo'          && <FormEcho          data={data} onChange={setData} />}
+        {type === 'crypte'        && <FormCrypte        data={data} onChange={setData} />}
+        {type === 'choice_quiz'   && <FormChoiceQuiz    data={data} onChange={setData} />}
+        {type === 'choice_branch' && <FormChoiceBranch  data={data} onChange={setData} />}
 
         {/* Sons de feedback — uniquement pour les types interactifs */}
         {['code', 'riddle', 'echo', 'crypte', 'sequence'].includes(type) && (
