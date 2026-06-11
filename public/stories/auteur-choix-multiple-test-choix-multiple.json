@@ -51,7 +51,7 @@
             "choices": [
               {
                 "id": "c1",
-                "text": "Zone 1 :) pour partie 3",
+                "text": "Zone 1 :) pour partie 3Zone 1 :) pour partie 3",
                 "targetPartId": "part_1781166529537_2",
                 "tint": "auto"
               },
