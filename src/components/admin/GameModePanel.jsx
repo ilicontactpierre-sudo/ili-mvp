@@ -540,6 +540,71 @@ function findClosestPreset(weights, n) {
   return bestIdx
 }
 
+// ─── Variantes de disposition Bulles ────────────────────────────────────────
+const BUBBLE_VARIANTS = {
+  2: [
+    { label: 'Face à face',   desc: '← →',     icon: '⬤  ⬤',
+      positions: [[28,50],[72,50]] },
+    { label: 'Diagonal',      desc: '↖ ↘',     icon: '⬤↗⬤',
+      positions: [[25,35],[75,65]] },
+    { label: 'Vertical',      desc: '↑ ↓',     icon: '⬤\n⬤',
+      positions: [[50,32],[50,68]] },
+    { label: 'Asymétrique',   desc: '● ·',     icon: '⬤·⬤',
+      positions: [[30,50],[68,52]] },
+  ],
+  3: [
+    { label: 'Triangle',      desc: '▲',        icon: '△',
+      positions: [[50,26],[25,65],[75,65]] },
+    { label: 'Triangle inv.', desc: '▽',        icon: '▽',
+      positions: [[25,36],[75,36],[50,72]] },
+    { label: 'Arc',           desc: '⌒',        icon: '⌒',
+      positions: [[20,54],[50,26],[80,54]] },
+    { label: 'Colonne',       desc: '|||',       icon: '|||',
+      positions: [[22,50],[50,50],[78,50]] },
+  ],
+  4: [
+    { label: 'Carré',         desc: '□',        icon: '□',
+      positions: [[28,32],[72,32],[28,68],[72,68]] },
+    { label: 'Diamant',       desc: '◇',        icon: '◇',
+      positions: [[50,20],[80,50],[50,80],[20,50]] },
+    { label: 'En L',          desc: 'L',        icon: 'L',
+      positions: [[25,28],[65,28],[25,60],[25,84]] },
+    { label: 'Solitaire + 3', desc: '1·3',      icon: '1+3',
+      positions: [[50,22],[22,62],[50,72],[78,62]] },
+  ],
+  5: [
+    { label: 'Quinconce',     desc: '⁝',        icon: '⁝',
+      positions: [[25,28],[75,28],[50,50],[25,72],[75,72]] },
+    { label: 'Croix',         desc: '+',        icon: '+',
+      positions: [[50,18],[18,50],[50,50],[82,50],[50,82]] },
+    { label: 'Cercle',        desc: '○',        icon: '○',
+      positions: [[50,16],[83,38],[72,76],[28,76],[17,38]] },
+    { label: '2 + 3',         desc: '2·3',      icon: '2+3',
+      positions: [[30,28],[70,28],[18,65],[50,72],[82,65]] },
+  ],
+  6: [
+    { label: 'Cercle',        desc: '○',        icon: '○',
+      positions: [[50,12],[82,30],[82,65],[50,82],[18,65],[18,30]] },
+    { label: 'Grille 2×3',    desc: '⊞',        icon: '⊞',
+      positions: [[28,22],[72,22],[28,50],[72,50],[28,78],[72,78]] },
+    { label: '1 + 2 + 3',    desc: '1·2·3',    icon: '1+2+3',
+      positions: [[50,16],[28,40],[72,40],[18,68],[50,72],[82,68]] },
+    { label: 'Fleur',         desc: '✿',        icon: '✿',
+      positions: [[50,50],[50,18],[77,34],[77,66],[50,82],[23,66],[23,34]] },
+  ],
+}
+// ─── Variantes de disposition Cartes ────────────────────────────────────────
+const CARD_VARIANTS = [
+  { label: 'Centrées',       desc: 'standard',  icon: '≡',
+    cardLayout: 'centered' },
+  { label: 'Étalées',        desc: 'espacées',  icon: '⇕',
+    cardLayout: 'spaced' },
+  { label: 'Solitaire',      desc: '1 en avant', icon: '①',
+    cardLayout: 'solo' },
+  { label: 'En cascade',     desc: 'décalées',  icon: '≋',
+    cardLayout: 'cascade' },
+]
+
 function ChoiceConfigurator({ isQuiz, data, onChange, parts }) {
   const layout   = data.layout || { axis: 'H', linesH: 1, linesV: 0, proportions: [1,1], tint: 'noir' }
   const choices  = data.choices || []
