@@ -57,20 +57,18 @@ function buildVirtualSearchField(sound) {
   return parts.join(' ')
 }
 function scoreSound(sound, termSets, isAmbienceSearch) {
-  // Utiliser le cache pré-calculé si disponible (évite de tout recalculer à chaque frappe)
-  const c = sound._cache || {}
-  const label        = c.label        ?? normalizeSoft(sound.label || '')
-  const labelNorm    = c.labelNorm    ?? normalize(sound.label || '')
-  const labelWords   = c.labelWords   ?? labelNorm.split(/[\s_\-]+/).filter(Boolean)
-  const tags         = c.tags         ?? (sound.tags || []).map(t => normalizeSoft(t))
-  const tagsNorm     = c.tagsNorm     ?? (sound.tags || []).map(t => normalize(t))
-  const searchStr    = c.searchStr    ?? normalizeSoft(sound.searchString || '')
-  const searchStrN   = c.searchStrN   ?? normalize(sound.searchString || '')
-  const description  = c.description  ?? normalizeSoft(sound.description || '')
-  const boomCat      = c.boomCat      ?? cleanBoomField(sound.boomCategory)
-  const boomSub      = c.boomSub      ?? cleanBoomField(sound.boomSubcategory)
-  const catId        = c.catId        ?? normalize(sound.catId || '')
-  const virtual      = c.virtual      ?? buildVirtualSearchField(sound)
+  const label = normalizeSoft(sound.label || '')
+  const labelNorm = normalize(sound.label || '')
+  const labelWords = labelNorm.split(/[\s_\-]+/).filter(Boolean)
+  const tags = (sound.tags || []).map(t => normalizeSoft(t))
+  const tagsNorm = (sound.tags || []).map(t => normalize(t))
+  const searchStr = normalizeSoft(sound.searchString || '')
+  const searchStrN = normalize(sound.searchString || '')
+  const description = normalizeSoft(sound.description || '')
+  const boomCat = cleanBoomField(sound.boomCategory)
+  const boomSub = cleanBoomField(sound.boomSubcategory)
+  const catId = normalize(sound.catId || '')
+  const virtual = buildVirtualSearchField(sound)
   let score = 0
   let termsCovered = 0
   for (const { direct, expanded } of termSets) {
@@ -122,44 +120,10 @@ function scoreSound(sound, termSets, isAmbienceSearch) {
 }
 
 // ── Écoute des messages du thread principal ───────────────────────────────
-// Cache des sons pré-calculé (survit entre les messages)
-let _cachedSounds = null
-
 self.onmessage = function(e) {
   const { sounds, searchQuery, activeTags, onlyUploaded, requestId } = e.data
 
-  // Pré-calculer les champs de scoring une seule fois par batch de sons
-  // (le Worker compare par référence d'id pour détecter un changement de bibliothèque)
-  if (!_cachedSounds || _cachedSounds.length !== sounds.length) {
-    _cachedSounds = sounds.map(sound => {
-      const labelNorm  = normalize(sound.label || '')
-      const boomCat    = cleanBoomField(sound.boomCategory)
-      const boomSub    = cleanBoomField(sound.boomSubcategory)
-      return {
-        ...sound,
-        _cache: {
-          label:       normalizeSoft(sound.label || ''),
-          labelNorm,
-          labelWords:  labelNorm.split(/[\s_\-]+/).filter(Boolean),
-          tags:        (sound.tags || []).map(t => normalizeSoft(t)),
-          tagsNorm:    (sound.tags || []).map(t => normalize(t)),
-          searchStr:   normalizeSoft(sound.searchString || ''),
-          searchStrN:  normalize(sound.searchString || ''),
-          description: normalizeSoft(sound.description || ''),
-          boomCat,
-          boomSub,
-          catId:       normalize(sound.catId || ''),
-          virtual:     buildVirtualSearchField(sound),
-        }
-      }
-    })
-  }
-
-  // Si sounds est null, on réutilise le cache existant (pas de retransfer)
-  if (sounds !== null && sounds !== undefined) {
-    // Nouveau batch reçu — déjà géré par le bloc de cache ci-dessus
-  }
-  let results = _cachedSounds || []
+  let results = sounds
 
   if (onlyUploaded) results = results.filter(s => !!s.url)
   if (activeTags && activeTags.length > 0) {
