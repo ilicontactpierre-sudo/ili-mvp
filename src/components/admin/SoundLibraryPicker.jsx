@@ -55,9 +55,9 @@ useEffect(() => {
 }, [])
 
 useEffect(() => {
-  const timer = setTimeout(() => setDebouncedSearch(search), 300)
-  return () => clearTimeout(timer)
-}, [search])
+    const timer = setTimeout(() => setDebouncedSearch(search), 150)
+    return () => clearTimeout(timer)
+  }, [search])
   const [selectedFamily, setSelectedFamily] = useState(null)
   const [activeTags, setActiveTags] = useState([])
   const [playingId, setPlayingId] = useState(null)
