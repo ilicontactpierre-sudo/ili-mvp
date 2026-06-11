@@ -559,6 +559,14 @@ function StoryPage() {
     loadPart(nextPart, activePartIndex + 1)
   }, [nextPart, activePartIndex, loadPart])
 
+  // Navigation directe vers une partie par son ID (pour choice_branch)
+  const handleNavigateToPart = useCallback((partId) => {
+    if (!storyRaw?.parts) { onResolved?.(); return }
+    const idx = storyRaw.parts.findIndex(p => p.id === partId)
+    if (idx === -1) { handleGameResolved(); return }
+    loadPart(storyRaw.parts[idx], idx)
+  }, [storyRaw, loadPart, handleGameResolved])
+
   // ── Render ─────────────────────────────────────────────────────────────────
   if (isLoading) {
     return <main style={{ ...fullScreenStyle, fontSize: '1.5rem' }}>Chargement...</main>
