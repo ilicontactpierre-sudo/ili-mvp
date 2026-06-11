@@ -656,6 +656,7 @@ function ChoiceConfigurator({ isQuiz, data, onChange, parts }) {
     border: `1px solid ${active ? 'rgba(167,139,250,0.35)' : 'rgba(255,255,255,0.1)'}`,
     borderRadius: '20px',
     cursor: 'pointer',
+    outline: 'none',
     transition: 'all 0.12s ease',
     whiteSpace: 'nowrap',
   })
