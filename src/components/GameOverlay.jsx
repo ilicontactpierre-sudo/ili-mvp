@@ -1986,8 +1986,8 @@ function GameChoice({ data, onResolved, onNavigateToPart }) {
         </div>
       )}
 
-      {/* ── Traits de séparation (div animées) ── */}
-      {svgLines.map((line, li) => {
+      {/* ── Traits de séparation — flat uniquement ── */}
+      {layoutStyle === 'flat' && svgLines.map((line, li) => {
         const isH = line.type === 'H'
         return (
           <div
