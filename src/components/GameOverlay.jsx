@@ -2112,23 +2112,20 @@ function GameChoice({ data, onResolved, onNavigateToPart }) {
                 const phase      = choicesPhase[zi] || 'hidden'
                 const isEmpty    = !choice || !choice.text
                 const pos        = positions[zi] || [50, 50]
-                // Couleur accent pour le liseré (teinte → couleur lumineuse)
-                const TINT_ACCENT: Record<string, string> = {}
-                const TINT_ACCENTS: {[k:string]: string} = {
-                  noir:'rgba(255,255,255,0.55)', ardoise:'rgba(176,184,208,0.8)',
-                  encre:'rgba(122,176,240,0.85)', charbon:'rgba(220,220,220,0.6)',
-                  violet:'rgba(196,176,255,0.9)', teal:'rgba(96,232,200,0.9)',
-                  bordeaux:'rgba(240,128,128,0.9)', brume:'rgba(184,184,240,0.85)',
-                  ambre:'rgba(248,200,96,0.9)', foret:'rgba(112,232,144,0.9)',
-                  cobalt:'rgba(128,184,255,0.9)', cendre:'rgba(208,204,192,0.75)',
+                const BUBBLE_ACCENTS = {
+                  noir:'rgba(255,255,255,0.55)', ardoise:'rgba(176,184,208,0.85)',
+                  encre:'rgba(122,176,240,0.9)', charbon:'rgba(220,220,220,0.65)',
+                  violet:'rgba(196,176,255,0.95)', teal:'rgba(96,232,200,0.95)',
+                  bordeaux:'rgba(240,128,128,0.95)', brume:'rgba(184,184,240,0.9)',
+                  ambre:'rgba(248,200,96,0.95)', foret:'rgba(112,232,144,0.95)',
+                  cobalt:'rgba(128,184,255,0.95)', cendre:'rgba(208,204,192,0.8)',
                   auto:'rgba(255,255,255,0.55)',
                 }
-                const tintKey2 = (choice?.tint && choice.tint !== 'auto') ? choice.tint : (tintKey || 'noir')
-                const accentColor = TINT_ACCENTS[tintKey2] || 'rgba(255,255,255,0.55)'
-                const bubbleBg   = 'rgba(0,0,0,0.82)'
-                const bubbleText = 'rgba(255,255,255,0.88)'
-                const bubbleBorder = `2px solid ${accentColor}`
-                const bubbleGlow  = `0 0 16px ${accentColor.replace(/[\d.]+\)$/, '0.35)')}, 0 0 4px ${accentColor.replace(/[\d.]+\)$/, '0.2)')}`
+                const bubbleTintKey = (choice?.tint && choice.tint !== 'auto') ? choice.tint : (tintKey || 'noir')
+                const accentColor   = BUBBLE_ACCENTS[bubbleTintKey] || 'rgba(255,255,255,0.55)'
+                const bubbleBg      = 'rgba(0,0,0,0.82)'
+                const bubbleText    = 'rgba(255,255,255,0.88)'
+                const bubbleBorder  = `2px solid ${accentColor}`
                 return (
                   <div
                     key={zi}
