@@ -2206,6 +2206,7 @@ function GameChoice({ data, onResolved, onNavigateToPart }) {
       </div>
       ) : (
       /* ── Cartes : liste verticale avec label lettre ── */
+      <>
       {(() => {
         const cardVariantIdx = layout.bubbleVariant ?? 0
         const PLAYER_CARD_LAYOUTS = ['centered', 'spaced', 'solo', 'cascade']
