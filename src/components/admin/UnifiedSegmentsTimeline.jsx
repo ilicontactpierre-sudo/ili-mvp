@@ -2688,7 +2688,7 @@ const handleTextSelection = useCallback(() => {
       { /* fin zone scrollable + minimap */}
 
       {gameModePanel !== null && (
-        <<GameModePanel
+        <GameModePanel
           segment={activeSegments[gameModePanel]}
           segmentIndex={gameModePanel}
           parts={parts || []}
