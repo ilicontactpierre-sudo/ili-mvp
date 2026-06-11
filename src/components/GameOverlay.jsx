@@ -2072,136 +2072,97 @@ function GameChoice({ data, onResolved, onNavigateToPart }) {
         })}
       </div>
       ) : layoutStyle === 'bubble' ? (
-      /* ── Bulles : disposition organique ── */
+      /* ── Bulles : disposition organique plein écran ── */
       <div style={{
         position: 'absolute', inset: 0,
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
         zIndex: 6,
-        padding: '2rem',
       }}>
-        {/* Prompt au-dessus si présent — géré par le bloc prompt existant */}
-        {/* Disposition organique des bulles */}
         {(() => {
           const n = zoneList.length
-          // Layouts organiques selon le nombre de bulles
-          const BUBBLE_SIZE = n <= 2 ? 140 : n <= 3 ? 120 : n <= 4 ? 108 : n <= 5 ? 96 : 84
-          // Positions depuis les variantes de disposition (BUBBLE_VARIANTS défini côté player)
           const PLAYER_BUBBLE_VARIANTS = {
-            2: [
-              [[28,50],[72,50]],
-              [[25,35],[75,65]],
-              [[50,28],[50,72]],
-              [[30,50],[68,52]],
-            ],
-            3: [
-              [[50,26],[25,65],[75,65]],
-              [[25,36],[75,36],[50,72]],
-              [[20,54],[50,26],[80,54]],
-              [[22,50],[50,50],[78,50]],
-            ],
-            4: [
-              [[28,32],[72,32],[28,68],[72,68]],
-              [[50,20],[80,50],[50,80],[20,50]],
-              [[25,28],[65,28],[25,60],[25,84]],
-              [[50,22],[22,62],[50,72],[78,62]],
-            ],
-            5: [
-              [[25,28],[75,28],[50,50],[25,72],[75,72]],
-              [[50,18],[18,50],[50,50],[82,50],[50,82]],
-              [[50,16],[83,38],[72,76],[28,76],[17,38]],
-              [[30,28],[70,28],[18,65],[50,72],[82,65]],
-            ],
-            6: [
-              [[50,12],[82,30],[82,65],[50,82],[18,65],[18,30]],
-              [[28,22],[72,22],[28,50],[72,50],[28,78],[72,78]],
-              [[50,16],[28,40],[72,40],[18,68],[50,72],[82,68]],
-              [[50,50],[50,18],[77,34],[77,66],[50,82],[23,66]],
-            ],
+            2: [[[28,50],[72,50]],[[25,35],[75,65]],[[50,28],[50,72]],[[30,50],[68,52]]],
+            3: [[[50,26],[25,65],[75,65]],[[25,36],[75,36],[50,72]],[[20,54],[50,26],[80,54]],[[22,50],[50,50],[78,50]]],
+            4: [[[28,32],[72,32],[28,68],[72,68]],[[50,20],[80,50],[50,80],[20,50]],[[25,28],[65,28],[25,60],[25,84]],[[50,22],[22,62],[50,72],[78,62]]],
+            5: [[[25,28],[75,28],[50,50],[25,72],[75,72]],[[50,18],[18,50],[50,50],[82,50],[50,82]],[[50,16],[83,38],[72,76],[28,76],[17,38]],[[30,28],[70,28],[18,65],[50,72],[82,65]]],
+            6: [[[50,12],[82,30],[82,65],[50,82],[18,65],[18,30]],[[28,22],[72,22],[28,50],[72,50],[28,78],[72,78]],[[50,16],[28,40],[72,40],[18,68],[50,72],[82,68]],[[50,50],[50,18],[77,34],[77,66],[50,82],[23,66]]],
           }
           const variantSet = PLAYER_BUBBLE_VARIANTS[Math.min(n, 6)] || PLAYER_BUBBLE_VARIANTS[2]
           const variantIdx = layout.bubbleVariant ?? 0
           const positions  = variantSet[variantIdx % variantSet.length] || variantSet[0]
-          return (
-            <div style={{
-              position: 'relative',
-              width: '100%',
-              maxWidth: '360px',
-              height: '320px',
-              margin: '0 auto',
-            }}>
-              {zoneList.map((choice, zi) => {
-                const isSelected = selectedIdx === zi
-                const isShaking  = shakeIdx === zi
-                const phase      = choicesPhase[zi] || 'hidden'
-                const isEmpty    = !choice || !choice.text
-                const pos        = positions[zi] || [50, 50]
-                const BUBBLE_ACCENTS = {
-                  noir:'rgba(255,255,255,0.55)', ardoise:'rgba(176,184,208,0.85)',
-                  encre:'rgba(122,176,240,0.9)', charbon:'rgba(220,220,220,0.65)',
-                  violet:'rgba(196,176,255,0.95)', teal:'rgba(96,232,200,0.95)',
-                  bordeaux:'rgba(240,128,128,0.95)', brume:'rgba(184,184,240,0.9)',
-                  ambre:'rgba(248,200,96,0.95)', foret:'rgba(112,232,144,0.95)',
-                  cobalt:'rgba(128,184,255,0.95)', cendre:'rgba(208,204,192,0.8)',
-                  auto:'rgba(255,255,255,0.55)',
-                }
-                const bubbleTintKey = (choice?.tint && choice.tint !== 'auto') ? choice.tint : (tintKey || 'noir')
-                const accentColor   = BUBBLE_ACCENTS[bubbleTintKey] || 'rgba(255,255,255,0.55)'
-                const bubbleBg      = 'rgba(0,0,0,0.82)'
-                const bubbleText    = 'rgba(255,255,255,0.88)'
-                const bubbleBorder  = `2px solid ${accentColor}`
-                return (
-                  <div
-                    key={zi}
-                    onClick={() => choice && !isEmpty ? handleChoiceClick(zi) : undefined}
-                    style={{
-                      position: 'absolute',
-                      left: `calc(${pos[0]}% - ${BUBBLE_SIZE / 2}px)`,
-                      top: `calc(${pos[1]}% - ${BUBBLE_SIZE / 2}px)`,
-                      width: `${BUBBLE_SIZE}px`,
-                      height: `${BUBBLE_SIZE}px`,
-                      borderRadius: '50%',
-                      backgroundColor: isShaking ? 'rgba(192,57,43,0.2)' : bubbleBg,
-                      border: isSelected
-                        ? '2px solid rgba(255,255,255,0.7)'
-                        : bubbleBorder,
-                      boxShadow: isSelected
-                        ? `0 0 24px ${accentColor.replace(/[\d.]+\)$/, '0.5)')}, 0 0 6px ${accentColor.replace(/[\d.]+\)$/, '0.3)')}`
-                        : `0 0 12px ${accentColor.replace(/[\d.]+\)$/, '0.25)')}, inset 0 0 0 0 transparent`,
-                      cursor: choice && !isEmpty ? 'pointer' : 'default',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      padding: '0.75rem',
-                      boxSizing: 'border-box',
-                      filter: isSelected ? 'brightness(1.5)' : isShaking ? 'brightness(0.8)' : 'none',
-                      animation: isShaking ? `game-shake 0.4s ${EASE_S}` : 'none',
-                      opacity: phase === 'visible' ? 1 : 0,
-                      transform: phase === 'visible'
-                        ? 'scale(1)'
-                        : 'scale(0.7)',
-                      transition: `opacity 650ms ${EASE_S}, transform 650ms ${EASE_S}, filter 180ms ease`,
-                      userSelect: 'none',
-                    }}
-                  >
-                    <span style={{
-                      fontSize: BUBBLE_SIZE > 110
-                        ? 'clamp(0.82rem, 2vw, 0.95rem)'
-                        : 'clamp(0.72rem, 1.8vw, 0.84rem)',
-                      letterSpacing: '0.02em',
-                      lineHeight: 1.4,
-                      textAlign: 'center',
-                      color: bubbleText,
-                    }}>
-                      {choice?.text || ''}
-                    </span>
-                  </div>
-                )
-              })}
-            </div>
-          )
+          // Taille de base généreuse — le player a tout l'écran
+          const BASE = n <= 2 ? 150 : n <= 3 ? 130 : n <= 4 ? 115 : n <= 5 ? 105 : 92
+          const BUBBLE_ACCENTS = {
+            noir:'rgba(255,255,255,0.9)', ardoise:'rgba(176,184,208,0.9)',
+            encre:'rgba(122,176,240,0.95)', charbon:'rgba(220,220,220,0.85)',
+            violet:'rgba(196,176,255,0.95)', teal:'rgba(96,232,200,0.95)',
+            bordeaux:'rgba(240,128,128,0.95)', brume:'rgba(184,184,240,0.9)',
+            ambre:'rgba(248,200,96,0.95)', foret:'rgba(112,232,144,0.95)',
+            cobalt:'rgba(128,184,255,0.95)', cendre:'rgba(208,204,192,0.85)',
+            auto:'rgba(255,255,255,0.9)',
+          }
+          // Taille adaptée au contenu ou égale
+          const textLengths = zoneList.map(c => (c?.text || '').length)
+          const rawSizes = textLengths.map(len => BASE + Math.min(Math.floor(len / 5) * 8, 40))
+          const maxSz = Math.max(...rawSizes)
+          const finalSizes = layout.equalSizes ? rawSizes.map(() => maxSz) : rawSizes
+          return zoneList.map((choice, zi) => {
+            const isSelected = selectedIdx === zi
+            const isShaking  = shakeIdx === zi
+            const phase      = choicesPhase[zi] || 'hidden'
+            const isEmpty    = !choice || !choice.text
+            const pos        = positions[zi] || [50, 50]
+            const BUBBLE_SIZE = finalSizes[zi] || BASE
+            const bubbleTintKey = (choice?.tint && choice.tint !== 'auto') ? choice.tint : (tintKey || 'noir')
+            const accentColor   = BUBBLE_ACCENTS[bubbleTintKey] || 'rgba(255,255,255,0.9)'
+            // Fond = transparent (on voit le fond de l'écran = var(--color-bg))
+            // Mode clair : --color-bg est clair → cercle noir ; mode sombre : cercle blanc
+            return (
+              <div
+                key={zi}
+                onClick={() => choice && !isEmpty ? handleChoiceClick(zi) : undefined}
+                style={{
+                  position: 'absolute',
+                  left: `calc(${pos[0]}% - ${BUBBLE_SIZE / 2}px)`,
+                  top: `calc(${pos[1]}% - ${BUBBLE_SIZE / 2}px)`,
+                  width: `${BUBBLE_SIZE}px`,
+                  height: `${BUBBLE_SIZE}px`,
+                  borderRadius: '50%',
+                  backgroundColor: isShaking ? 'rgba(192,57,43,0.15)' : 'transparent',
+                  border: isSelected
+                    ? `3px solid rgba(255,255,255,0.85)`
+                    : isShaking
+                    ? `3px solid rgba(192,57,43,0.8)`
+                    : `2.5px solid ${accentColor}`,
+                  boxShadow: isSelected
+                    ? `0 0 32px ${accentColor.replace(/[\d.]+\)$/, '0.6)')}, 0 0 10px ${accentColor.replace(/[\d.]+\)$/, '0.35)')}`
+                    : `0 0 18px ${accentColor.replace(/[\d.]+\)$/, '0.3)')}`,
+                  cursor: choice && !isEmpty ? 'pointer' : 'default',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  padding: '1rem',
+                  boxSizing: 'border-box',
+                  animation: isShaking ? `game-shake 0.4s ${EASE_S}` : 'none',
+                  opacity: phase === 'visible' ? 1 : 0,
+                  transform: phase === 'visible' ? 'scale(1)' : 'scale(0.65)',
+                  transition: `opacity 650ms ${EASE_S}, transform 650ms ${EASE_S}, box-shadow 200ms ease, border-color 200ms ease`,
+                  userSelect: 'none',
+                }}
+              >
+                <span style={{
+                  fontSize: BUBBLE_SIZE > 130
+                    ? 'clamp(0.88rem, 2.2vw, 1rem)'
+                    : 'clamp(0.78rem, 2vw, 0.92rem)',
+                  letterSpacing: '0.03em',
+                  lineHeight: 1.4,
+                  textAlign: 'center',
+                  color: 'var(--color-text-focus, rgba(255,255,255,0.9))',
+                }}>
+                  {choice?.text || ''}
+                </span>
+              </div>
+            )
+          })
         })()}
       </div>
       ) : (
