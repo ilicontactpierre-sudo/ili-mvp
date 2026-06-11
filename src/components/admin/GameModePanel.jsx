@@ -494,8 +494,491 @@ function FormCrypte({ data, onChange }) {
   )
 }
 
-// ─── Sous-composant layout mixed ─────────────────────────────────────────────
-function FormLayoutMixed({ layout, onChange }) {
+// ─── Configurateur visuel Layout Mixte ───────────────────────────────────────
+// Mini-aperçu téléphone + contrôles inline + édition zone par zone
+
+const TINT_PALETTE = [
+  { key: 'noir',     label: 'Noir',     bg: '#080809', text: 'rgba(255,255,255,0.75)' },
+  { key: 'ardoise',  label: 'Ardoise',  bg: '#0d0d12', text: 'rgba(255,255,255,0.72)' },
+  { key: 'encre',    label: 'Encre',    bg: '#080c10', text: 'rgba(200,220,255,0.75)' },
+  { key: 'charbon',  label: 'Charbon',  bg: '#0f0f0f', text: 'rgba(255,255,255,0.70)' },
+  { key: 'violet',   label: 'Violet',   bg: '#0c0a14', text: 'rgba(200,190,255,0.78)' },
+  { key: 'teal',     label: 'Teal',     bg: '#080e0d', text: 'rgba(160,230,210,0.75)' },
+  { key: 'bordeaux', label: 'Bordeaux', bg: '#0e0808', text: 'rgba(255,200,200,0.75)' },
+  { key: 'brume',    label: 'Brume',    bg: '#0a0a0c', text: 'rgba(220,220,255,0.72)' },
+  { key: 'ambre',    label: 'Ambre',    bg: '#0e0b06', text: 'rgba(255,220,150,0.75)' },
+  { key: 'foret',    label: 'Forêt',    bg: '#080d09', text: 'rgba(170,230,180,0.72)' },
+  { key: 'cobalt',   label: 'Cobalt',   bg: '#070a10', text: 'rgba(160,200,255,0.75)' },
+  { key: 'cendre',   label: 'Cendre',   bg: '#0c0c0b', text: 'rgba(220,215,205,0.72)' },
+]
+
+const PROPORTION_PRESETS = {
+  2: [{ label: '50/50', vals: [1,1] }, { label: '60/40', vals: [3,2] }, { label: '40/60', vals: [2,3] }, { label: '70/30', vals: [7,3] }, { label: '30/70', vals: [3,7] }],
+  3: [{ label: '⅓×3',   vals: [1,1,1] }, { label: '50·25·25', vals: [2,1,1] }, { label: '25·50·25', vals: [1,2,1] }, { label: '25·25·50', vals: [1,1,2] }, { label: '40·30·30', vals: [4,3,3] }],
+  4: [{ label: '¼×4',   vals: [1,1,1,1] }, { label: '40·20·20·20', vals: [2,1,1,1] }, { label: '20·30·30·20', vals: [2,3,3,2] }, { label: '30·40·15·15', vals: [3,4,1.5,1.5] }],
+}
+
+function getPresets(n) { return PROPORTION_PRESETS[Math.min(n, 4)] || PROPORTION_PRESETS[2] }
+
+// Normalise un array de poids en fractions
+function toFracs(weights) {
+  const sum = weights.reduce((a,b) => a+b, 0) || 1
+  return weights.map(w => w / sum)
+}
+
+// Trouve le preset le plus proche
+function findClosestPreset(weights, n) {
+  const presets = getPresets(n)
+  const fracs = toFracs(weights)
+  let bestIdx = 0, bestDist = Infinity
+  presets.forEach((p, i) => {
+    const pf = toFracs(p.vals)
+    const dist = pf.reduce((acc, v, j) => acc + Math.abs(v - (fracs[j] ?? 0)), 0)
+    if (dist < bestDist) { bestDist = dist; bestIdx = i }
+  })
+  return bestIdx
+}
+
+function ChoiceConfigurator({ isQuiz, data, onChange, parts }) {
+  const layout   = data.layout || { axis: 'H', linesH: 1, linesV: 0, proportions: [1,1], tint: 'noir' }
+  const choices  = data.choices || []
+  const axis     = layout.axis  || 'H'
+  const linesH   = axis === 'V' ? 0 : (layout.linesH ?? 1)
+  const linesV   = axis === 'H' ? 0 : (layout.linesV ?? 0)
+  const zonesH   = linesH + 1
+  const zonesV   = linesV + 1
+  const totalZones = axis === 'X' ? zonesH * zonesV : (axis === 'H' ? zonesH : zonesV)
+
+  const [activeZone, setActiveZone] = useState(0)
+
+  // Synchroniser choices quand totalZones change
+  useEffect(() => {
+    if (choices.length === totalZones) return
+    const next = Array(totalZones).fill(null).map((_, i) => {
+      if (choices[i]) return choices[i]
+      return isQuiz
+        ? { id: `c${Date.now()}_${i}`, text: '', correct: i === 0 }
+        : { id: `c${Date.now()}_${i}`, text: '', targetPartId: '' }
+    })
+    // S'assurer qu'il y a toujours une bonne réponse pour quiz
+    if (isQuiz && !next.some(c => c.correct)) next[0] = { ...next[0], correct: true }
+    onChange({ ...data, choices: next })
+  }, [totalZones])
+
+  // Proportions
+  const rawWeights = layout.proportions && layout.proportions.length === totalZones
+    ? layout.proportions : Array(totalZones).fill(1)
+  const fracs = toFracs(rawWeights)
+
+  // Fractions H et V pour la grille
+  const fracH = axis === 'V' ? [1] : (
+    axis === 'X'
+      ? Array(zonesH).fill(0).map((_, i) => {
+          const row = Array(zonesV).fill(0).map((_, j) => rawWeights[i * zonesV + j] || 1)
+          return row.reduce((a,b) => a+b, 0)
+        })
+      : rawWeights
+  )
+  const fracV = axis === 'H' ? [1] : (
+    axis === 'X'
+      ? Array(zonesV).fill(0).map((_, j) => {
+          const col = Array(zonesH).fill(0).map((_, i) => rawWeights[i * zonesV + j] || 1)
+          return col.reduce((a,b) => a+b, 0)
+        })
+      : rawWeights
+  )
+  const sumH = fracH.reduce((a,b) => a+b, 0) || 1
+  const sumV = fracV.reduce((a,b) => a+b, 0) || 1
+
+  const tintObj  = TINT_PALETTE.find(t => t.key === layout.tint) || TINT_PALETTE[0]
+  const MARGIN   = 7  // % des bords
+  const PH = 380, PW = 190  // px du mini-téléphone
+
+  // Lignes de séparation
+  const sepLines = []
+  if (axis !== 'V') {
+    let cum = 0
+    fracH.slice(0,-1).forEach(w => {
+      cum += w / sumH
+      sepLines.push({ type: 'H', pct: cum })
+    })
+  }
+  if (axis !== 'H') {
+    let cum = 0
+    fracV.slice(0,-1).forEach(w => {
+      cum += w / sumV
+      sepLines.push({ type: 'V', pct: cum })
+    })
+  }
+
+  const updateLayout = (patch) => onChange({ ...data, layout: { ...layout, ...patch } })
+  const updateChoice = (i, patch) => {
+    const next = choices.map((c, idx) => idx === i ? { ...c, ...patch } : c)
+    // quiz: une seule bonne réponse
+    if (isQuiz && patch.correct === true) {
+      next.forEach((c, idx) => { if (idx !== i) c.correct = false })
+    }
+    onChange({ ...data, choices: next })
+  }
+
+  const setAxis = (a) => {
+    const nH = a === 'V' ? 0 : linesH
+    const nV = a === 'H' ? 0 : linesV
+    const nZones = a === 'X' ? (nH+1)*(nV+1) : (a==='H' ? nH+1 : nV+1)
+    updateLayout({ axis: a, linesH: nH || (a==='H'?1:0), linesV: nV || (a==='V'?1:0), proportions: Array(nZones).fill(1) })
+  }
+
+  const setLinesH = (n) => {
+    const nZones = axis === 'X' ? (n+1)*(linesV+1) : n+1
+    updateLayout({ linesH: n, proportions: Array(nZones).fill(1) })
+  }
+  const setLinesV = (n) => {
+    const nZones = axis === 'X' ? (linesH+1)*(n+1) : n+1
+    updateLayout({ linesV: n, proportions: Array(nZones).fill(1) })
+  }
+  const setProportions = (vals) => updateLayout({ proportions: vals })
+
+  const activeChoice = choices[activeZone] || null
+  const presets      = getPresets(totalZones)
+  const closestPreset = findClosestPreset(rawWeights, totalZones)
+
+  // Couleur de l'indicateur de zone active dans la preview
+  const ACTIVE_OUTLINE = 'rgba(167,139,250,0.9)'
+
+  // ── Styles partagés ──────────────────────────────────────────────────────
+  const pillBtn = (active, color='rgba(167,139,250,0.9)') => ({
+    padding: '0.3rem 0.65rem',
+    fontSize: '0.72rem',
+    fontWeight: active ? 700 : 400,
+    backgroundColor: active ? 'rgba(167,139,250,0.14)' : 'rgba(255,255,255,0.04)',
+    color: active ? color : 'rgba(255,255,255,0.45)',
+    border: `1px solid ${active ? 'rgba(167,139,250,0.35)' : 'rgba(255,255,255,0.1)'}`,
+    borderRadius: '20px',
+    cursor: 'pointer',
+    transition: 'all 0.12s ease',
+    whiteSpace: 'nowrap',
+  })
+
+  const sectionLabel = {
+    fontSize: '0.62rem',
+    fontWeight: 700,
+    letterSpacing: '0.1em',
+    textTransform: 'uppercase',
+    color: 'rgba(255,255,255,0.3)',
+    marginBottom: '0.5rem',
+  }
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '1.1rem' }}>
+
+      {/* ── Prompt ── */}
+      <Field label="Question / Invite" hint="Affiché en fondu au-dessus des zones (optionnel)">
+        <textarea
+          style={{ ...textareaStyle, minHeight: '48px' }}
+          value={data.prompt || ''}
+          placeholder={isQuiz ? 'Ex : Que faites-vous ?' : 'Ex : Votre destin se divise ici.'}
+          onChange={e => onChange({ ...data, prompt: e.target.value })}
+        />
+      </Field>
+
+      {/* ── Configurateur principal : preview + contrôles ── */}
+      <div style={{ display: 'flex', gap: '0.85rem', alignItems: 'flex-start' }}>
+
+        {/* ── Mini-téléphone preview ── */}
+        <div style={{ flexShrink: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.4rem' }}>
+          <div style={{
+            width: `${PW}px`, height: `${PH}px`,
+            backgroundColor: tintObj.bg,
+            borderRadius: '18px',
+            border: '1px solid rgba(255,255,255,0.1)',
+            boxShadow: '0 12px 40px rgba(0,0,0,0.5)',
+            overflow: 'hidden',
+            position: 'relative',
+            flexShrink: 0,
+          }}>
+            {/* Zones cliquables */}
+            {(() => {
+              const cells = []
+              let yAcc = 0
+              const rowFracs = toFracs(fracH)
+              const colFracs = toFracs(fracV)
+              for (let ri = 0; ri < (axis === 'V' ? 1 : zonesH); ri++) {
+                let xAcc = 0
+                for (let ci = 0; ci < (axis === 'H' ? 1 : zonesV); ci++) {
+                  const zi = axis === 'X' ? ri * zonesV + ci : (axis === 'H' ? ri : ci)
+                  const rh = rowFracs[ri] ?? (1 / zonesH)
+                  const cw = colFracs[ci] ?? (1 / zonesV)
+                  const isActive = zi === activeZone
+                  const choice = choices[zi]
+                  cells.push(
+                    <div
+                      key={zi}
+                      onClick={() => setActiveZone(zi)}
+                      style={{
+                        position: 'absolute',
+                        left: `${xAcc * 100}%`,
+                        top: `${yAcc * 100}%`,
+                        width: `${cw * 100}%`,
+                        height: `${rh * 100}%`,
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        cursor: 'pointer',
+                        boxShadow: isActive ? `inset 0 0 0 1.5px ${ACTIVE_OUTLINE}` : 'none',
+                        transition: 'box-shadow 0.15s ease',
+                      }}
+                    >
+                      {/* Numéro de zone */}
+                      <span style={{
+                        position: 'absolute',
+                        top: '5px', left: '7px',
+                        fontSize: '7px',
+                        color: isActive ? ACTIVE_OUTLINE : 'rgba(255,255,255,0.2)',
+                        fontFamily: 'monospace',
+                        fontWeight: 700,
+                        transition: 'color 0.15s',
+                      }}>{zi + 1}</span>
+                      {/* Texte du choix */}
+                      {choice?.text && (
+                        <span style={{
+                          fontSize: '8px',
+                          color: tintObj.text,
+                          textAlign: 'center',
+                          lineHeight: 1.4,
+                          padding: '0.25rem',
+                          fontFamily: 'Georgia, serif',
+                          opacity: 0.85,
+                          maxWidth: '90%',
+                          display: 'block',
+                          wordBreak: 'break-word',
+                        }}>{choice.text}</span>
+                      )}
+                      {/* Indicateur bonne réponse quiz */}
+                      {isQuiz && choice?.correct && (
+                        <span style={{
+                          position: 'absolute', bottom: '4px', right: '5px',
+                          fontSize: '7px', color: 'rgba(39,174,96,0.8)',
+                        }}>✓</span>
+                      )}
+                    </div>
+                  )
+                  xAcc += cw
+                }
+                yAcc += rowFracs[ri] ?? (1/zonesH)
+              }
+              return cells
+            })()}
+
+            {/* Traits de séparation */}
+            {sepLines.map((line, li) => (
+              <div
+                key={li}
+                style={{
+                  position: 'absolute',
+                  pointerEvents: 'none',
+                  backgroundColor: 'rgba(255,255,255,0.22)',
+                  ...(line.type === 'H' ? {
+                    left: `${MARGIN}%`, right: `${MARGIN}%`, height: '1px',
+                    top: `calc(${line.pct * 100}% - 0.5px)`,
+                  } : {
+                    top: `${MARGIN}%`, bottom: `${MARGIN}%`, width: '1px',
+                    left: `calc(${line.pct * 100}% - 0.5px)`,
+                  }),
+                }}
+              />
+            ))}
+          </div>
+          <span style={{ fontSize: '0.58rem', color: 'rgba(255,255,255,0.25)', letterSpacing: '0.06em' }}>
+            {totalZones} zone{totalZones > 1 ? 's' : ''} · cliquer pour éditer
+          </span>
+        </div>
+
+        {/* ── Contrôles droite ── */}
+        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '0.85rem', minWidth: 0 }}>
+
+          {/* Axe */}
+          <div>
+            <div style={sectionLabel}>Axe</div>
+            <div style={{ display: 'flex', gap: '0.3rem', flexWrap: 'wrap' }}>
+              {[['H','Horizontal'],['V','Vertical'],['X','Grille']].map(([val, lbl]) => (
+                <button key={val} type="button" onClick={() => setAxis(val)} style={pillBtn(axis === val)}>{lbl}</button>
+              ))}
+            </div>
+          </div>
+
+          {/* Lignes H */}
+          {axis !== 'V' && (
+            <div>
+              <div style={sectionLabel}>Lignes H  <span style={{ opacity: 0.5, fontWeight: 400 }}>→ {zonesH} rang{zonesH > 1 ? 'ées' : 'ée'}</span></div>
+              <div style={{ display: 'flex', gap: '0.3rem' }}>
+                {[0,1,2,3].map(n => (
+                  <button key={n} type="button" onClick={() => setLinesH(n)} style={pillBtn(linesH === n)}>{n}</button>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Lignes V */}
+          {axis !== 'H' && (
+            <div>
+              <div style={sectionLabel}>Lignes V  <span style={{ opacity: 0.5, fontWeight: 400 }}>→ {zonesV} col.</span></div>
+              <div style={{ display: 'flex', gap: '0.3rem' }}>
+                {[0,1,2].map(n => (
+                  <button key={n} type="button" onClick={() => setLinesV(n)} style={pillBtn(linesV === n)}>{n}</button>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Proportions */}
+          <div>
+            <div style={sectionLabel}>Proportions</div>
+            <div style={{ display: 'flex', gap: '0.3rem', flexWrap: 'wrap' }}>
+              {presets.map((p, i) => (
+                <button key={i} type="button" onClick={() => setProportions(p.vals)} style={pillBtn(closestPreset === i)}>{p.label}</button>
+              ))}
+            </div>
+          </div>
+
+          {/* Teinte */}
+          <div>
+            <div style={sectionLabel}>Teinte</div>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.35rem' }}>
+              {TINT_PALETTE.map(t => (
+                <button
+                  key={t.key}
+                  type="button"
+                  onClick={() => updateLayout({ tint: t.key })}
+                  title={t.label}
+                  style={{
+                    width: '22px', height: '22px', borderRadius: '50%',
+                    backgroundColor: t.bg,
+                    border: layout.tint === t.key ? `2px solid ${ACTIVE_OUTLINE}` : '2px solid rgba(255,255,255,0.1)',
+                    cursor: 'pointer',
+                    boxShadow: layout.tint === t.key ? `0 0 0 2px rgba(167,139,250,0.25)` : 'none',
+                    transition: 'border-color 0.12s, box-shadow 0.12s',
+                    flexShrink: 0,
+                  }}
+                />
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* ── Éditeur de la zone active ── */}
+      {activeChoice !== null && (
+        <div style={{
+          padding: '0.85rem 1rem',
+          backgroundColor: 'rgba(167,139,250,0.06)',
+          border: '1px solid rgba(167,139,250,0.18)',
+          borderRadius: '8px',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '0.65rem',
+        }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <span style={{ ...sectionLabel, marginBottom: 0, color: 'rgba(167,139,250,0.8)' }}>
+              Zone {activeZone + 1} sur {totalZones}
+            </span>
+            {/* Flèches navigation zones */}
+            <div style={{ display: 'flex', gap: '0.3rem' }}>
+              <button type="button" onClick={() => setActiveZone(z => Math.max(0, z-1))} disabled={activeZone === 0}
+                style={{ ...pillBtn(false), padding: '0.2rem 0.5rem', opacity: activeZone === 0 ? 0.3 : 1 }}>‹</button>
+              <button type="button" onClick={() => setActiveZone(z => Math.min(totalZones-1, z+1))} disabled={activeZone === totalZones-1}
+                style={{ ...pillBtn(false), padding: '0.2rem 0.5rem', opacity: activeZone === totalZones-1 ? 0.3 : 1 }}>›</button>
+            </div>
+          </div>
+
+          {/* Texte de la zone */}
+          <Field label="Texte affiché dans la zone">
+            <input
+              style={inputStyle}
+              type="text"
+              value={activeChoice.text || ''}
+              placeholder={isQuiz ? `Option ${activeZone + 1}…` : `Texte de la zone ${activeZone + 1}…`}
+              onChange={e => updateChoice(activeZone, { text: e.target.value })}
+              autoFocus
+            />
+          </Field>
+
+          {/* Bonne réponse (quiz uniquement) */}
+          {isQuiz && (
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
+              <button
+                type="button"
+                onClick={() => updateChoice(activeZone, { correct: !activeChoice.correct })}
+                style={{
+                  width: '20px', height: '20px', borderRadius: '50%', flexShrink: 0,
+                  backgroundColor: activeChoice.correct ? 'rgba(39,174,96,0.8)' : 'rgba(255,255,255,0.06)',
+                  border: `1.5px solid ${activeChoice.correct ? 'rgba(39,174,96,0.9)' : 'rgba(255,255,255,0.2)'}`,
+                  cursor: 'pointer',
+                  transition: 'all 0.15s ease',
+                }}
+              />
+              <span style={{ fontSize: '0.78rem', color: activeChoice.correct ? 'rgba(39,174,96,0.9)' : 'rgba(255,255,255,0.4)' }}>
+                {activeChoice.correct ? 'Bonne réponse ✓' : 'Marquer comme bonne réponse'}
+              </span>
+            </div>
+          )}
+
+          {/* Lien vers une partie (branche narrative uniquement) */}
+          {!isQuiz && (
+            <Field label="Amène vers" hint="Vide ou « Aucune » → avance au segment suivant">
+              {parts && parts.length > 0 ? (
+                <select
+                  style={inputStyle}
+                  value={activeChoice.targetPartId || ''}
+                  onChange={e => updateChoice(activeZone, { targetPartId: e.target.value })}
+                >
+                  <option value="">Aucune (segment suivant)</option>
+                  {parts.map((p, pi) => (
+                    <option key={p.id} value={p.id}>
+                      {p.title || `Partie ${pi + 1}`}{p.visibility === 'choice' ? ' · choix multiple' : p.published === false ? ' · brouillon' : ''}
+                    </option>
+                  ))}
+                </select>
+              ) : (
+                <input
+                  style={{ ...inputStyle, fontFamily: 'monospace', fontSize: '0.75rem', color: 'rgba(167,139,250,0.85)' }}
+                  type="text"
+                  value={activeChoice.targetPartId || ''}
+                  placeholder="ID de la partie cible (ex: part_xxx)"
+                  onChange={e => updateChoice(activeZone, { targetPartId: e.target.value.trim() })}
+                />
+              )}
+            </Field>
+          )}
+        </div>
+      )}
+
+      {/* ── Message d'erreur (quiz uniquement) ── */}
+      {isQuiz && (
+        <Field label="Message d'erreur" hint="Affiché brièvement sur mauvaise réponse">
+          <input
+            style={inputStyle}
+            type="text"
+            value={data.errorMessage || ''}
+            placeholder="Ex : Ce n'est pas le bon chemin."
+            onChange={e => onChange({ ...data, errorMessage: e.target.value })}
+          />
+        </Field>
+      )}
+    </div>
+  )
+}
+
+// ─── Formulaire choice_quiz ──────────────────────────────────────────────────
+function FormChoiceQuiz({ data, onChange, parts }) {
+  return <ChoiceConfigurator isQuiz={true} data={data} onChange={onChange} parts={parts} />
+}
+
+// ─── Formulaire choice_branch ─────────────────────────────────────────────────
+function FormChoiceBranch({ data, onChange, parts }) {
+  return <ChoiceConfigurator isQuiz={false} data={data} onChange={onChange} parts={parts} />
+}
+
+function FormEcho({ data, onChange }) {
   const tint = TINTS.find(t => t.key === layout.tint) || TINTS[0]
   const axis = layout.axis || 'H'
   const updateLayout = (patch) => onChange({ ...layout, ...patch })
