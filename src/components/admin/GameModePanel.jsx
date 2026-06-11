@@ -810,46 +810,62 @@ function ChoiceConfigurator({ isQuiz, data, onChange, parts }) {
               </div>
             ) : layout.style === 'card' ? (
               /* ── Preview Cartes ── */
-              <div style={{
-                position: 'absolute', inset: 0,
-                display: 'flex', flexDirection: 'column',
-                alignItems: 'center', justifyContent: 'center',
-                gap: '5px', padding: '12px 8px',
-              }}>
-                {Array(totalZones).fill(null).map((_, zi) => {
-                  const choice = choices[zi]
-                  const isActive = zi === activeZone
-                  const label = String.fromCharCode(65 + zi)
-                  const ACCENT = { noir:'#e8e8e8', ardoise:'#b0b8d0', encre:'#7ab0f0', charbon:'#c8c8c8', violet:'#c4b0ff', teal:'#60e8c8', bordeaux:'#f08080', brume:'#b8b8f0', ambre:'#f8c860', foret:'#70e890', cobalt:'#80b8ff', cendre:'#d0ccc0', auto:'rgba(255,255,255,0.6)' }
-                  const zoneTintKey = choice?.tint || 'auto'
-                  const accent = ACCENT[zoneTintKey] || 'rgba(255,255,255,0.6)'
-                  const zoneBg = (zoneTintKey !== 'auto' && TINT_PALETTE.find(t=>t.key===zoneTintKey)?.bg) || 'rgba(255,255,255,0.04)'
-                  return (
-                    <div key={zi} onClick={() => setActiveZone(zi)} style={{
-                      width: '100%', padding: '5px 7px', borderRadius: '6px',
-                      backgroundColor: zoneBg,
-                      border: isActive ? `1.5px solid ${ACTIVE_OUTLINE}` : `1px solid ${accent}44`,
-                      display: 'flex', alignItems: 'center', gap: '5px',
-                      cursor: 'pointer', boxSizing: 'border-box',
-                      boxShadow: isActive ? `0 0 0 2px ${ACTIVE_OUTLINE}33` : 'none',
-                      transition: 'all 0.15s ease',
-                    }}>
-                      <div style={{
-                        width: '13px', height: '13px', borderRadius: '3px', flexShrink: 0,
-                        border: `1px solid ${accent}66`,
-                        backgroundColor: 'rgba(255,255,255,0.05)',
-                        display: 'flex', alignItems: 'center', justifyContent: 'center',
-                      }}>
-                        <span style={{ fontSize: '5.5px', color: `${accent}cc`, fontWeight: 700, fontFamily: 'system-ui' }}>{label}</span>
-                      </div>
-                      <span style={{ fontSize: '7px', color: accent, lineHeight: 1.3, fontFamily: 'Georgia, serif', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', flex: 1 }}>
-                        {choice?.text || <span style={{opacity:0.3}}>{zi+1}</span>}
-                      </span>
-                      {isQuiz && choice?.correct && <span style={{ fontSize: '6px', color: 'rgba(39,174,96,0.9)', flexShrink: 0 }}>✓</span>}
-                    </div>
-                  )
-                })}
-              </div>
+              {(() => {
+                const cardVariantIdx = layout.bubbleVariant ?? 0
+                const cardVariant = CARD_VARIANTS[cardVariantIdx % CARD_VARIANTS.length] || CARD_VARIANTS[0]
+                const cardLayout = cardVariant.cardLayout || 'centered'
+                const ACCENT = { noir:'#e8e8e8', ardoise:'#b0b8d0', encre:'#7ab0f0', charbon:'#c8c8c8', violet:'#c4b0ff', teal:'#60e8c8', bordeaux:'#f08080', brume:'#b8b8f0', ambre:'#f8c860', foret:'#70e890', cobalt:'#80b8ff', cendre:'#d0ccc0', auto:'rgba(255,255,255,0.6)' }
+                const soloIdx = 0 // première carte en avant pour le layout "solo"
+                return (
+                  <div style={{
+                    position: 'absolute', inset: 0,
+                    display: 'flex', flexDirection: 'column',
+                    alignItems: 'center',
+                    justifyContent: cardLayout === 'spaced' ? 'space-evenly' : 'center',
+                    gap: cardLayout === 'spaced' ? '0' : '5px',
+                    padding: '10px 8px',
+                  }}>
+                    {Array(totalZones).fill(null).map((_, zi) => {
+                      const choice = choices[zi]
+                      const isActive = zi === activeZone
+                      const label = String.fromCharCode(65 + zi)
+                      const zoneTintKey = choice?.tint || 'auto'
+                      const accent = ACCENT[zoneTintKey] || 'rgba(255,255,255,0.6)'
+                      const isSolo = cardLayout === 'solo' && zi === soloIdx
+                      const cascadeOffset = cardLayout === 'cascade' ? zi * 3 : 0
+                      return (
+                        <div key={zi} onClick={() => setActiveZone(zi)} style={{
+                          width: '100%',
+                          padding: isSolo ? '7px 9px' : '4px 7px',
+                          borderRadius: isSolo ? '8px' : '5px',
+                          backgroundColor: isSolo ? 'rgba(255,255,255,0.06)' : 'transparent',
+                          border: isActive ? `1.5px solid ${ACTIVE_OUTLINE}` : `1px solid ${accent}${isSolo ? '66' : '33'}`,
+                          display: 'flex', alignItems: 'center', gap: '5px',
+                          cursor: 'pointer', boxSizing: 'border-box',
+                          boxShadow: isActive ? `0 0 0 2px ${ACTIVE_OUTLINE}33` : isSolo ? `0 0 6px ${accent}33` : 'none',
+                          transform: `translateX(${cascadeOffset}px)`,
+                          transition: 'all 0.15s ease',
+                          marginLeft: cardLayout === 'cascade' ? `-${cascadeOffset}px` : '0',
+                        }}>
+                          <div style={{
+                            width: isSolo ? '16px' : '13px', height: isSolo ? '16px' : '13px',
+                            borderRadius: '3px', flexShrink: 0,
+                            border: `1px solid ${accent}66`,
+                            backgroundColor: 'rgba(255,255,255,0.05)',
+                            display: 'flex', alignItems: 'center', justifyContent: 'center',
+                          }}>
+                            <span style={{ fontSize: isSolo ? '6.5px' : '5.5px', color: `${accent}cc`, fontWeight: 700, fontFamily: 'system-ui' }}>{label}</span>
+                          </div>
+                          <span style={{ fontSize: isSolo ? '8px' : '7px', color: accent, lineHeight: 1.3, fontFamily: 'Georgia, serif', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', flex: 1 }}>
+                            {choice?.text || <span style={{opacity:0.3}}>{zi+1}</span>}
+                          </span>
+                          {isQuiz && choice?.correct && <span style={{ fontSize: '6px', color: 'rgba(39,174,96,0.9)', flexShrink: 0 }}>✓</span>}
+                        </div>
+                      )
+                    })}
+                  </div>
+                )
+              })()}
             ) : (
               /* ── Preview Zones (flat) ── */
               <>
