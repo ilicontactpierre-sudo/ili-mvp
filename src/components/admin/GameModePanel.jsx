@@ -1527,8 +1527,8 @@ function GameModePanel({ segment, segmentIndex, onSave, onDelete, onClose, parts
         {type === 'journal'  && <FormJournal  data={data} onChange={setData} />}
         {type === 'echo'          && <FormEcho          data={data} onChange={setData} />}
         {type === 'crypte'        && <FormCrypte        data={data} onChange={setData} />}
-        {type === 'choice_quiz'   && <FormChoiceQuiz    data={data} onChange={setData} />}
-        {type === 'choice_branch' && <FormChoiceBranch  data={data} onChange={setData} />}
+        {type === 'choice_quiz'   && <FormChoiceQuiz    data={data} onChange={setData} parts={parts || []} />}
+        {type === 'choice_branch' && <FormChoiceBranch  data={data} onChange={setData} parts={parts || []} />}
 
         {/* Sons de feedback — uniquement pour les types interactifs */}
         {['code', 'riddle', 'echo', 'crypte', 'sequence'].includes(type) && (
