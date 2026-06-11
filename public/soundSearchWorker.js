@@ -57,18 +57,20 @@ function buildVirtualSearchField(sound) {
   return parts.join(' ')
 }
 function scoreSound(sound, termSets, isAmbienceSearch) {
-  const label = normalizeSoft(sound.label || '')
-  const labelNorm = normalize(sound.label || '')
-  const labelWords = labelNorm.split(/[\s_\-]+/).filter(Boolean)
-  const tags = (sound.tags || []).map(t => normalizeSoft(t))
-  const tagsNorm = (sound.tags || []).map(t => normalize(t))
-  const searchStr = normalizeSoft(sound.searchString || '')
-  const searchStrN = normalize(sound.searchString || '')
-  const description = normalizeSoft(sound.description || '')
-  const boomCat = cleanBoomField(sound.boomCategory)
-  const boomSub = cleanBoomField(sound.boomSubcategory)
-  const catId = normalize(sound.catId || '')
-  const virtual = buildVirtualSearchField(sound)
+  // Utiliser le cache pré-calculé si disponible (évite de tout recalculer à chaque frappe)
+  const c = sound._cache || {}
+  const label        = c.label        ?? normalizeSoft(sound.label || '')
+  const labelNorm    = c.labelNorm    ?? normalize(sound.label || '')
+  const labelWords   = c.labelWords   ?? labelNorm.split(/[\s_\-]+/).filter(Boolean)
+  const tags         = c.tags         ?? (sound.tags || []).map(t => normalizeSoft(t))
+  const tagsNorm     = c.tagsNorm     ?? (sound.tags || []).map(t => normalize(t))
+  const searchStr    = c.searchStr    ?? normalizeSoft(sound.searchString || '')
+  const searchStrN   = c.searchStrN   ?? normalize(sound.searchString || '')
+  const description  = c.description  ?? normalizeSoft(sound.description || '')
+  const boomCat      = c.boomCat      ?? cleanBoomField(sound.boomCategory)
+  const boomSub      = c.boomSub      ?? cleanBoomField(sound.boomSubcategory)
+  const catId        = c.catId        ?? normalize(sound.catId || '')
+  const virtual      = c.virtual      ?? buildVirtualSearchField(sound)
   let score = 0
   let termsCovered = 0
   for (const { direct, expanded } of termSets) {
