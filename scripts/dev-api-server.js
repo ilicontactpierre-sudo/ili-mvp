@@ -245,8 +245,36 @@ app.post('/api/get-upload-url', express.json(), async (req, res) => {
     publicUrl: urlData.publicUrl,
   })
 })
-// ── Démarrage ────────────────────────────────────────────────────────────────
-app.listen(3001, () => {
+// ── /api/delete-sound ────────────────────────────────────────────────────────
+app.delete('/api/delete-sound', express.json(), async (req, res) => {
+  const { password, soundId, filename } = req.body ?? {}
+  if (!password || password !== process.env.ADMIN_PASSWORD) {
+    return res.status(401).json({ error: 'Non autorisé' })
+  }
+  if (!soundId) {
+    return res.status(400).json({ error: 'soundId requis' })
+  }
+  const supabase = createClient(
+    process.env.SUPABASE_URL,
+    process.env.SUPABASE_SERVICE_KEY
+  )
+  // 1. Supprimer le fichier du bucket Storage
+  const storageFilename = filename || `${soundId}.mp3`
+  const { error: storageError } = await supabase.storage
+    .from('sounds')
+    .remove([storageFilename])
+  // On ne bloque pas si le fichier n'existe pas (déjà supprimé)
+  // 2. Supprimer la ligne dans la table sounds
+  const { error: dbError } = await supabase
+    .from('sounds')
+    .delete()
+    .eq('id', soundId)
+  if (dbError) {
+    console.error('delete-sound db error:', dbError)
+    return res.status(500).json({ error: dbError.message })
+  }
+  return res.status(200).json({ success: true })
+})
   console.log('\n🔧 Serveur API local prêt sur http://localhost:3001')
   console.log('   GET  /api/preview-sound    → lecture fichiers locaux')
   console.log('   POST /api/get-upload-url   → URL signée Supabase')
