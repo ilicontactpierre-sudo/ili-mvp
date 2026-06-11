@@ -15,6 +15,23 @@ const GAME_TYPES = [
   { value: 'choice_branch',label: '🌿  Choix narratif — Bifurcation' },
 ]
 
+const TINTS = [
+  { key: 'noir',     label: 'Noir',     bg: '#080809', text: 'rgba(255,255,255,0.75)' },
+  { key: 'ardoise',  label: 'Ardoise',  bg: '#0d0d12', text: 'rgba(255,255,255,0.72)' },
+  { key: 'encre',    label: 'Encre',    bg: '#080c10', text: 'rgba(200,220,255,0.75)' },
+  { key: 'charbon',  label: 'Charbon',  bg: '#0f0f0f', text: 'rgba(255,255,255,0.70)' },
+  { key: 'violet',   label: 'Violet',   bg: '#0c0a14', text: 'rgba(200,190,255,0.78)' },
+  { key: 'teal',     label: 'Teal',     bg: '#080e0d', text: 'rgba(160,230,210,0.75)' },
+  { key: 'bordeaux', label: 'Bordeaux', bg: '#0e0808', text: 'rgba(255,200,200,0.75)' },
+  { key: 'brume',    label: 'Brume',    bg: '#0a0a0c', text: 'rgba(220,220,255,0.72)' },
+  { key: 'ambre',    label: 'Ambre',    bg: '#0e0b06', text: 'rgba(255,220,150,0.75)' },
+  { key: 'foret',    label: 'Forêt',    bg: '#080d09', text: 'rgba(170,230,180,0.72)' },
+  { key: 'cobalt',   label: 'Cobalt',   bg: '#070a10', text: 'rgba(160,200,255,0.75)' },
+  { key: 'cendre',   label: 'Cendre',   bg: '#0c0c0b', text: 'rgba(220,215,205,0.72)' },
+]
+
+const DEFAULT_LAYOUT = { axis: 'H', linesH: 1, linesV: 0, proportions: [1, 1], tint: 'noir' }
+
 const DEFAULTS = {
   image:   { type: 'image',   imageUrl: '', caption: '' },
   message: { type: 'message', text: '', interface: 'sms', speed: 'normal' },
