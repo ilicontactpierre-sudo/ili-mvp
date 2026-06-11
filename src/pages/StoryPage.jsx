@@ -565,11 +565,18 @@ function StoryPage() {
 
   // Navigation directe vers une partie par son ID (pour choice_branch)
   const handleNavigateToPart = useCallback((partId) => {
-    if (!storyRaw?.parts) { onResolved?.(); return }
+    // Réinitialiser l'overlay immédiatement
+    setFrozenGameMode(null)
+    setFrozenIndex(null)
+    if (!storyRaw?.parts) return
     const idx = storyRaw.parts.findIndex(p => p.id === partId)
-    if (idx === -1) { handleGameResolved(); return }
+    if (idx === -1) {
+      // Partie introuvable → avancer normalement
+      goToNext()
+      return
+    }
     loadPart(storyRaw.parts[idx], idx)
-  }, [storyRaw, loadPart, handleGameResolved])
+  }, [storyRaw, loadPart, goToNext])
 
   // ── Render ─────────────────────────────────────────────────────────────────
   if (isLoading) {
