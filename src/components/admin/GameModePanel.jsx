@@ -765,28 +765,24 @@ function ChoiceConfigurator({ isQuiz, data, onChange, parts }) {
           }}>
             {/* Preview selon le style */}
             {layout.style === 'bubble' ? (
-              /* ── Preview Bulles ── */
+              {/* ── Preview Bulles ── */}
               <div style={{ position: 'absolute', inset: 0, overflow: 'hidden' }}>
                 {(() => {
                   const n = totalZones
                   const SZ = n <= 2 ? 68 : n <= 3 ? 58 : n <= 4 ? 50 : n <= 5 ? 44 : 40
-                  const LAYOUTS = {
-                    1: [[50,50]],
-                    2: [[30,50],[70,50]],
-                    3: [[28,38],[72,38],[50,68]],
-                    4: [[25,32],[75,32],[20,65],[80,65]],
-                    5: [[50,22],[20,45],[80,45],[32,72],[68,72]],
-                    6: [[28,20],[72,20],[15,50],[85,50],[32,78],[68,78]],
-                  }
-                  const pos = LAYOUTS[Math.min(n,6)] || LAYOUTS[6]
+                  const variantIdx = layout.bubbleVariant ?? 0
+                  const variants = BUBBLE_VARIANTS[Math.min(n, 6)] || BUBBLE_VARIANTS[2]
+                  const variant  = variants[variantIdx % variants.length] || variants[0]
+                  // Positions en % du mini-téléphone (PW×PH). Les positions BUBBLE_VARIANTS
+                  // sont exprimées en % d'un espace 100×100, on les utilise telles quelles.
+                  const positions = variant.positions || [[50,50]]
+                  const ACCENT = { noir:'#e8e8e8', ardoise:'#b0b8d0', encre:'#7ab0f0', charbon:'#c8c8c8', violet:'#c4b0ff', teal:'#60e8c8', bordeaux:'#f08080', brume:'#b8b8f0', ambre:'#f8c860', foret:'#70e890', cobalt:'#80b8ff', cendre:'#d0ccc0', auto:'rgba(255,255,255,0.6)' }
                   return Array(n).fill(null).map((_, zi) => {
                     const choice = choices[zi]
                     const isActive = zi === activeZone
-                    const ACCENT = { noir:'#e8e8e8', ardoise:'#b0b8d0', encre:'#7ab0f0', charbon:'#c8c8c8', violet:'#c4b0ff', teal:'#60e8c8', bordeaux:'#f08080', brume:'#b8b8f0', ambre:'#f8c860', foret:'#70e890', cobalt:'#80b8ff', cendre:'#d0ccc0', auto:'rgba(255,255,255,0.6)' }
                     const zoneTintKey = choice?.tint || 'auto'
                     const accent = ACCENT[zoneTintKey] || 'rgba(255,255,255,0.6)'
-                    const zoneBg = (zoneTintKey !== 'auto' && TINT_PALETTE.find(t=>t.key===zoneTintKey)?.bg) || 'rgba(255,255,255,0.06)'
-                    const p = pos[zi] || [50,50]
+                    const p = positions[zi] || [50, 50]
                     return (
                       <div key={zi} onClick={() => setActiveZone(zi)} style={{
                         position: 'absolute',
@@ -794,14 +790,16 @@ function ChoiceConfigurator({ isQuiz, data, onChange, parts }) {
                         top: `calc(${p[1]}% - ${SZ/2}px)`,
                         width: `${SZ}px`, height: `${SZ}px`,
                         borderRadius: '50%',
-                        backgroundColor: zoneBg,
-                        border: isActive ? `1.5px solid ${ACTIVE_OUTLINE}` : `1px solid ${accent}55`,
-                        boxShadow: isActive ? `0 0 0 2px ${ACTIVE_OUTLINE}44` : 'none',
+                        backgroundColor: '#000',
+                        border: isActive ? `2px solid ${ACTIVE_OUTLINE}` : `2px solid ${accent}88`,
+                        boxShadow: isActive
+                          ? `0 0 0 2px ${ACTIVE_OUTLINE}44, 0 0 10px ${ACTIVE_OUTLINE}44`
+                          : `0 0 8px ${accent}44`,
                         display: 'flex', alignItems: 'center', justifyContent: 'center',
                         padding: '4px', boxSizing: 'border-box', cursor: 'pointer',
                         transition: 'all 0.15s ease',
                       }}>
-                        <span style={{ fontSize: '7px', color: accent, textAlign: 'center', lineHeight: 1.3, fontFamily: 'Georgia, serif', wordBreak: 'break-word' }}>
+                        <span style={{ fontSize: '7px', color: 'rgba(255,255,255,0.85)', textAlign: 'center', lineHeight: 1.3, fontFamily: 'Georgia, serif', wordBreak: 'break-word' }}>
                           {choice?.text || <span style={{opacity:0.3}}>{zi+1}</span>}
                         </span>
                         {isQuiz && choice?.correct && <span style={{ position:'absolute', bottom:'3px', right:'4px', fontSize:'6px', color:'rgba(39,174,96,0.9)' }}>✓</span>}
