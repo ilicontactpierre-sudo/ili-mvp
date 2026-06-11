@@ -900,6 +900,35 @@ function ChoiceConfigurator({ isQuiz, data, onChange, parts }) {
             </div>
           )}
 
+          {/* Teinte de la zone */}
+          <div>
+            <div style={{ ...sectionLabel, marginBottom: '0.4rem' }}>Teinte de la zone</div>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.3rem' }}>
+              {TINT_PALETTE.map(t => (
+                <button
+                  key={t.key}
+                  type="button"
+                  onClick={() => updateChoice(activeZone, { tint: t.key })}
+                  title={t.label}
+                  style={{
+                    width: '18px', height: '18px', borderRadius: '50%',
+                    backgroundColor: t.bg || 'transparent',
+                    backgroundImage: t.key === 'auto'
+                      ? 'linear-gradient(135deg, #f5f0e8 50%, #111 50%)'
+                      : 'none',
+                    border: (activeChoice?.tint || 'auto') === t.key
+                      ? `2px solid ${ACTIVE_OUTLINE}`
+                      : '2px solid rgba(255,255,255,0.08)',
+                    cursor: 'pointer',
+                    boxShadow: (activeChoice?.tint || 'auto') === t.key
+                      ? `0 0 0 2px rgba(167,139,250,0.2)` : 'none',
+                    transition: 'border-color 0.12s, box-shadow 0.12s',
+                    flexShrink: 0,
+                  }}
+                />
+              ))}
+            </div>
+          </div>
           {/* Lien vers une partie (branche narrative uniquement) */}
           {!isQuiz && (
             <Field label="Amène vers" hint="Vide ou « Aucune » → avance au segment suivant">
