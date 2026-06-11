@@ -245,6 +245,7 @@ app.post('/api/get-upload-url', express.json(), async (req, res) => {
     publicUrl: urlData.publicUrl,
   })
 })
+
 // ── /api/delete-sound ────────────────────────────────────────────────────────
 app.delete('/api/delete-sound', express.json(), async (req, res) => {
   const { password, soundId, filename } = req.body ?? {}
@@ -275,6 +276,9 @@ app.delete('/api/delete-sound', express.json(), async (req, res) => {
   }
   return res.status(200).json({ success: true })
 })
+
+// ── Démarrage ────────────────────────────────────────────────────────────────
+app.listen(3001, () => {
   console.log('\n🔧 Serveur API local prêt sur http://localhost:3001')
   console.log('   GET  /api/preview-sound    → lecture fichiers locaux')
   console.log('   POST /api/get-upload-url   → URL signée Supabase')
