@@ -2270,8 +2270,9 @@ function AdminPage() {
       {/* GameModePanel mobile */}
       {gameModePanel !== null && (
         <GameModePanel
-          segment={segments[gameModePanel]}
+          segment={activeSegments[gameModePanel]}
           segmentIndex={gameModePanel}
+          parts={isSerial ? parts : []}
           onSave={(idx, gameMode) => {
             const updated = [...segments]
             updated[idx] = { ...updated[idx], gameMode }
