@@ -150,11 +150,18 @@ const familyTags = useMemo(() => {
     .map(([tag]) => tag)
 }, [familySounds])
 
+const lastSentSoundsRef = useRef(null)
+
 useEffect(() => {
   if (!workerRef.current) return
   const id = ++requestIdRef.current
+  // N'envoyer le tableau de sons que s'il a changé (évite le transfert mémoire à chaque frappe)
+  const soundsToSend = familySounds === lastSentSoundsRef.current
+    ? undefined
+    : familySounds
+  if (soundsToSend !== undefined) lastSentSoundsRef.current = familySounds
   workerRef.current.postMessage({
-    sounds: familySounds,
+    sounds: soundsToSend ?? null,
     searchQuery: debouncedSearch,
     activeTags,
     onlyUploaded,
