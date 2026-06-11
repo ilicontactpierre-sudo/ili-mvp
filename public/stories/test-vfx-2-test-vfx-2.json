@@ -3,13 +3,7 @@
   "title": "TEST VFX 2",
   "author": "TEST VFX 2",
   "published": true,
-  "sounds": [
-    {
-      "id": "airblow_balloon_air_release_fart_airy_01_b00m_one",
-      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/airblow_balloon_air_release_fart_airy_01_b00m_one.mp3",
-      "loop": false
-    }
-  ],
+  "sounds": [],
   "segments": [
     {
       "id": "seg_1780953039356_0_5lnao",
@@ -17,19 +11,11 @@
         "Je fais un test avec un text un peu long pour essayer les effets.",
         "On verra si ça marche."
       ],
-      "text": "Je fais un test avec un text un peu long pour essayer les effets. On verra si ça marche.",
+      "text": "PLUIE",
       "breakAt": null,
       "isLeader": true,
       "isChapter": true,
-      "audioEvents": [
-        {
-          "action": "play",
-          "soundId": "airblow_balloon_air_release_fart_airy_01_b00m_one",
-          "volume": 0.5,
-          "delay": 0,
-          "loop": false
-        }
-      ]
+      "audioEvents": []
     },
     {
       "id": "seg_1780953039356_1_5sxaa",
@@ -90,6 +76,14 @@
       "audioEvents": []
     },
     {
+      "text": "nEIGE",
+      "id": "seg_1781209953223",
+      "isChapter": true,
+      "isLeader": true,
+      "breakAt": null,
+      "audioEvents": []
+    },
+    {
       "id": "seg_1780954829445_0_wslul",
       "lines": [
         "Je fais un test avec un text un peu long pour essayer les effets.",
@@ -97,7 +91,7 @@
       ],
       "text": "FIRE BOUGIE Je fais un test avec un text un peu long pour essayer les effets. On verra si ça marche.",
       "breakAt": null,
-      "isLeader": false,
+      "isLeader": true,
       "audioEvents": []
     },
     {
@@ -148,6 +142,15 @@
       "text": "Avec un peu de chance, ça a même ajouter du texte.Avec un peu de chance, ça a mê",
       "breakAt": null,
       "isLeader": false,
+      "audioEvents": [],
+      "isChapter": false
+    },
+    {
+      "text": "SOUSMARIN",
+      "id": "seg_1781209966923",
+      "isChapter": true,
+      "isLeader": true,
+      "breakAt": null,
       "audioEvents": []
     },
     {
@@ -157,7 +160,7 @@
       ],
       "text": "me ajouter du texte.Avec un peu de chance, ça a même ajouter du texte.Avec un peu de chance, ça a même ajouter du",
       "breakAt": null,
-      "isLeader": false,
+      "isLeader": true,
       "audioEvents": []
     },
     {
@@ -211,13 +214,21 @@
       "audioEvents": []
     },
     {
+      "text": "SOLEIL",
+      "id": "seg_1781209978387",
+      "breakAt": null,
+      "isChapter": true,
+      "isLeader": true,
+      "audioEvents": []
+    },
+    {
       "id": "seg_1781115522516_a_kidlf",
       "lines": [
         "ça a même ajouter du texte.Avec un peu de chance, ça a même ajouter du texte.Avec un peu de chance, ça a même ajouter du texte.Avec un peu de chance, ça a même ajouter du texte.Avec un peu de chance, ça a même ajouter du texte.Avec un peu de chance, ça a même ajouter du texte.Avec un peu de chance, ça a même ajouter du texte.Avec un peu de chance, ça a même ajouter du texte.Avec un peu de chance,"
       ],
       "text": "peu de chance, ça a même ajouter du texte.Avec un peu de chance, ça a même ajouter du texte.",
       "breakAt": null,
-      "isLeader": false,
+      "isLeader": true,
       "audioEvents": []
     },
     {
@@ -261,24 +272,137 @@
       "id": "seg_1781115585465",
       "breakAt": null,
       "audioEvents": []
-    }
-  ],
-  "soundTracks": [
+    },
     {
-      "id": "st_1781194354096_g19curhz4",
-      "soundId": "airblow_balloon_air_release_fart_airy_01_b00m_one",
-      "startSegmentId": "seg_1780953039356_0_5lnao",
-      "endSegmentId": "seg_1780953039356_0_5lnao",
-      "column": 0,
-      "volume": 0.5,
-      "fadeIn": 0,
-      "fadeOut": 0,
-      "delay": 0,
-      "loop": false,
-      "muted": false,
-      "broken": false
+      "text": "",
+      "id": "seg_1781210055720",
+      "isChapter": true,
+      "isLeader": true,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1781210040949_a_kl05h",
+      "lines": [
+        "peu de chance, ça a même ajouter du texte.Avec un peu de chance, ça a même ajouter du texte.Avec un peu de chance, ça a même ajouter du texte.Avec un peu de chance, ça a même ajouter du texte.Avec un peu de chance, ça a même ajouter du texte.Avec un peu de chance, ça a même ajouter du texte.Avec un peu de chance,"
+      ],
+      "text": "TREMBLEMENTpeu de chance, ça a même ajouter du texte.Avec un peu de c",
+      "breakAt": null,
+      "isLeader": true,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1781210042256_a_3d671",
+      "lines": [
+        "peu de chance, ça a même ajouter du texte.Avec un peu de chance, ça a même ajouter du texte.Avec un peu de chance, ça a même ajouter du texte.Avec un peu de chance, ça a même ajouter du texte.Avec un peu de chance, ça a même ajouter du texte.Avec un peu de chance, ça a même ajouter du texte.Avec un peu de chance,"
+      ],
+      "text": "hance, ça a même ajouter du texte.Avec un peu de chance, ça a même ajouter du te",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1781210042256_b_wxu03",
+      "lines": [
+        "peu de chance, ça a même ajouter du texte.Avec un peu de chance, ça a même ajouter du texte.Avec un peu de chance, ça a même ajouter du texte.Avec un peu de chance, ça a même ajouter du texte.Avec un peu de chance, ça a même ajouter du texte.Avec un peu de chance, ça a même ajouter du texte.Avec un peu de chance,"
+      ],
+      "text": "xte.Avec un peu de chance, ça a même ajouter du texte.Avec un peu de chance, ça a même ajouter du texte",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "text": "vec un peu de chance, ça a même ajouter du tex",
+      "id": "seg_1781210120376",
+      "breakAt": null,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1781210041606_b_t0wvo",
+      "lines": [
+        "peu de chance, ça a même ajouter du texte.Avec un peu de chance, ça a même ajouter du texte.Avec un peu de chance, ça a même ajouter du texte.Avec un peu de chance, ça a même ajouter du texte.Avec un peu de chance, ça a même ajouter du texte.Avec un peu de chance, ça a même ajouter du texte.Avec un peu de chance,"
+      ],
+      "text": "LETTRE EFFACÉE.Avec un peu de chance, ça a même ajouter du texte.Avec un peu de chance,",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1781210044368_a_2ejpd",
+      "lines": [
+        "ça a même ajouter du texte.Avec un peu de chance, ça a même ajouter du texte.Avec un peu de chance, ça a même ajouter du texte.Avec un peu de chance, ça a même ajouter du texte.Avec un peu de"
+      ],
+      "text": "ça a même ajouter du texte.Avec un peu de chance, ça",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1781210044369_b_o0clo",
+      "lines": [
+        "ça a même ajouter du texte.Avec un peu de chance, ça a même ajouter du texte.Avec un peu de chance, ça a même ajouter du texte.Avec un peu de chance, ça a même ajouter du texte.Avec un peu de"
+      ],
+      "text": "GLITCHa même ajouter du texte.Avec un peu de chance, ça a même ajouter du tex",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1781210043572_b_8i9g4",
+      "lines": [
+        "ça a même ajouter du texte.Avec un peu de chance, ça a même ajouter du texte.Avec un peu de chance, ça a même ajouter du texte.Avec un peu de chance, ça a même ajouter du texte.Avec un peu de"
+      ],
+      "text": "te.Avec un peu de chance, ça a même ajouter du texte.Avec un peu de",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1781210161294_a_sfzre",
+      "lines": [
+        "chance, ça a même ajouter du texte.Avec un peu de chance, ça a même ajouter du texte.Avec un peu de chance, ça a même ajouter du texte."
+      ],
+      "text": "chance, ça a même ajouter du texte.Avec un pe",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1781210161294_b_lh596",
+      "lines": [
+        "chance, ça a même ajouter du texte.Avec un peu de chance, ça a même ajouter du texte.Avec un peu de chance, ça a même ajouter du texte."
+      ],
+      "text": "u de chance, ça a même ajouter du texte.Avec un peu de chance, ça a même ajouter du texte.",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "text": "u de chance, ça a même ajouter du texte.Avec un",
+      "id": "seg_1781210172411_a_w1d5q",
+      "breakAt": null,
+      "audioEvents": []
+    },
+    {
+      "text": "peu de chance, ça a même ajouter du texte.",
+      "id": "seg_1781210172411_b_3fycg",
+      "breakAt": null,
+      "audioEvents": [],
+      "isLeader": false
+    },
+    {
+      "text": "u de chance, ça a même ajouter du texte.Avec un peu de chance, ça a même ajouter du texte.",
+      "id": "seg_1781210168336",
+      "breakAt": null,
+      "audioEvents": []
+    },
+    {
+      "text": "u de chance, ça a même ajouter du texte.Avec un peu de chance, ça a même ajouter du texte.",
+      "id": "seg_1781210168197",
+      "breakAt": null,
+      "audioEvents": []
     }
   ],
+  "soundTracks": [],
   "vfxTracks": [
     {
       "id": "vfx_1780953041356_vrhkdujsq",
@@ -399,6 +523,76 @@
       "column": 0,
       "startSegmentId": "seg_1781115577632",
       "endSegmentId": "seg_1781115577632"
+    },
+    {
+      "id": "vfx_1781210058872_pa1eu456u",
+      "type": "tremble",
+      "mode": "moyen",
+      "loop": false,
+      "color": "rgba(200, 0, 0, 0.12)",
+      "column": 0,
+      "startSegmentId": "seg_1781210040949_a_kl05h",
+      "endSegmentId": "seg_1781210040949_a_kl05h"
+    },
+    {
+      "id": "vfx_1781210085348_b42bs0pfe",
+      "type": "typewriter",
+      "mode": "lent",
+      "loop": false,
+      "color": "rgba(200, 0, 0, 0.12)",
+      "column": 0,
+      "startSegmentId": "seg_1781210042256_b_wxu03",
+      "endSegmentId": "seg_1781210042256_b_wxu03"
+    },
+    {
+      "id": "vfx_1781210127529_nn8tibmr4",
+      "type": "erased",
+      "mode": "normal",
+      "loop": false,
+      "color": "rgba(200, 0, 0, 0.12)",
+      "column": 0,
+      "startSegmentId": "seg_1781210041606_b_t0wvo",
+      "endSegmentId": "seg_1781210041606_b_t0wvo"
+    },
+    {
+      "id": "vfx_1781210145319_h9oql0zk0",
+      "type": "glitch",
+      "mode": "normal",
+      "loop": false,
+      "color": "rgba(200, 0, 0, 0.12)",
+      "column": 0,
+      "startSegmentId": "seg_1781210044369_b_o0clo",
+      "endSegmentId": "seg_1781210044369_b_o0clo"
+    },
+    {
+      "id": "vfx_1781210181620_t6xa9p1sf",
+      "type": "flicker",
+      "mode": "",
+      "loop": false,
+      "color": "rgba(200, 0, 0, 0.12)",
+      "column": 0,
+      "startSegmentId": "seg_1781210161294_a_sfzre",
+      "endSegmentId": "seg_1781210161294_a_sfzre"
+    },
+    {
+      "id": "vfx_1781210190236_pbo54s6ux",
+      "type": "flash",
+      "mode": "moyen",
+      "loop": false,
+      "color": "rgba(255, 255, 255, 0.18)",
+      "column": 0,
+      "startSegmentId": "seg_1781210172411_a_w1d5q",
+      "endSegmentId": "seg_1781210172411_a_w1d5q"
+    },
+    {
+      "id": "vfx_1781210201049_msxnbubqt",
+      "type": "static",
+      "mode": "normal",
+      "loop": false,
+      "color": "rgba(200, 0, 0, 0.12)",
+      "column": 0,
+      "startSegmentId": "seg_1781210168336",
+      "endSegmentId": "seg_1781210168336"
     }
   ]
 }
