@@ -697,97 +697,147 @@ function ChoiceConfigurator({ isQuiz, data, onChange, parts }) {
             position: 'relative',
             flexShrink: 0,
           }}>
-            {/* Zones cliquables */}
-            {(() => {
-              const cells = []
-              let yAcc = 0
-              const rowFracs = toFracs(fracH)
-              const colFracs = toFracs(fracV)
-              for (let ri = 0; ri < (axis === 'V' ? 1 : zonesH); ri++) {
-                let xAcc = 0
-                for (let ci = 0; ci < (axis === 'H' ? 1 : zonesV); ci++) {
-                  const zi = axis === 'X' ? ri * zonesV + ci : (axis === 'H' ? ri : ci)
-                  const rh = rowFracs[ri] ?? (1 / zonesH)
-                  const cw = colFracs[ci] ?? (1 / zonesV)
-                  const isActive = zi === activeZone
+            {/* Preview selon le style */}
+            {(layout.style === 'bubble' || layout.style === 'card') ? (
+              /* ── Preview Bulles / Cartes ── */
+              <div style={{
+                position: 'absolute', inset: 0,
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: layout.style === 'bubble' ? '6px' : '5px',
+                padding: '10px 8px',
+              }}>
+                {Array(totalZones).fill(null).map((_, zi) => {
                   const choice = choices[zi]
-                  cells.push(
+                  const isActive = zi === activeZone
+                  const radius = layout.style === 'bubble' ? '999px' : '6px'
+                  return (
                     <div
                       key={zi}
                       onClick={() => setActiveZone(zi)}
                       style={{
-                        position: 'absolute',
-                        left: `${xAcc * 100}%`,
-                        top: `${yAcc * 100}%`,
-                        width: `${cw * 100}%`,
-                        height: `${rh * 100}%`,
+                        width: '100%',
+                        padding: layout.style === 'bubble' ? '5px 10px' : '6px 10px',
+                        borderRadius: radius,
+                        backgroundColor: isActive
+                          ? 'rgba(167,139,250,0.25)'
+                          : 'rgba(255,255,255,0.07)',
+                        border: `1px solid ${isActive ? ACTIVE_OUTLINE : 'rgba(255,255,255,0.12)'}`,
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
                         cursor: 'pointer',
-                        boxShadow: isActive ? `inset 0 0 0 1.5px ${ACTIVE_OUTLINE}` : 'none',
-                        transition: 'box-shadow 0.15s ease',
+                        boxSizing: 'border-box',
+                        gap: '4px',
+                        transition: 'all 0.15s ease',
+                        boxShadow: layout.style === 'card' ? '0 2px 8px rgba(0,0,0,0.3)' : 'none',
                       }}
                     >
-                      {/* Numéro de zone */}
                       <span style={{
-                        position: 'absolute',
-                        top: '5px', left: '7px',
-                        fontSize: '7px',
-                        color: isActive ? ACTIVE_OUTLINE : 'rgba(255,255,255,0.2)',
-                        fontFamily: 'monospace',
-                        fontWeight: 700,
-                        transition: 'color 0.15s',
+                        fontSize: '6px', fontFamily: 'monospace', fontWeight: 700,
+                        color: isActive ? ACTIVE_OUTLINE : 'rgba(255,255,255,0.3)',
+                        flexShrink: 0,
                       }}>{zi + 1}</span>
-                      {/* Texte du choix */}
                       {choice?.text && (
                         <span style={{
-                          fontSize: '8px',
-                          color: tintObj.text,
-                          textAlign: 'center',
-                          lineHeight: 1.4,
-                          padding: '0.25rem',
-                          fontFamily: 'Georgia, serif',
-                          opacity: 0.85,
-                          maxWidth: '90%',
-                          display: 'block',
-                          wordBreak: 'break-word',
+                          fontSize: '7px', color: tintObj.text || 'rgba(255,255,255,0.7)',
+                          textAlign: 'center', lineHeight: 1.3, fontFamily: 'Georgia, serif',
+                          overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
+                          maxWidth: '80%',
                         }}>{choice.text}</span>
                       )}
-                      {/* Indicateur bonne réponse quiz */}
                       {isQuiz && choice?.correct && (
-                        <span style={{
-                          position: 'absolute', bottom: '4px', right: '5px',
-                          fontSize: '7px', color: 'rgba(39,174,96,0.8)',
-                        }}>✓</span>
+                        <span style={{ fontSize: '6px', color: 'rgba(39,174,96,0.9)', flexShrink: 0 }}>✓</span>
                       )}
                     </div>
                   )
-                  xAcc += cw
+                })}
+              </div>
+            ) : (
+              /* ── Preview Zones (flat) ── */
+              <>
+              {(() => {
+                const cells = []
+                let yAcc = 0
+                const rowFracs = toFracs(fracH)
+                const colFracs = toFracs(fracV)
+                for (let ri = 0; ri < (axis === 'V' ? 1 : zonesH); ri++) {
+                  let xAcc = 0
+                  for (let ci = 0; ci < (axis === 'H' ? 1 : zonesV); ci++) {
+                    const zi = axis === 'X' ? ri * zonesV + ci : (axis === 'H' ? ri : ci)
+                    const rh = rowFracs[ri] ?? (1 / zonesH)
+                    const cw = colFracs[ci] ?? (1 / zonesV)
+                    const isActive = zi === activeZone
+                    const choice = choices[zi]
+                    cells.push(
+                      <div
+                        key={zi}
+                        onClick={() => setActiveZone(zi)}
+                        style={{
+                          position: 'absolute',
+                          left: `${xAcc * 100}%`,
+                          top: `${yAcc * 100}%`,
+                          width: `${cw * 100}%`,
+                          height: `${rh * 100}%`,
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          cursor: 'pointer',
+                          boxShadow: isActive ? `inset 0 0 0 1.5px ${ACTIVE_OUTLINE}` : 'none',
+                          transition: 'box-shadow 0.15s ease',
+                        }}
+                      >
+                        <span style={{
+                          position: 'absolute', top: '5px', left: '7px',
+                          fontSize: '7px',
+                          color: isActive ? ACTIVE_OUTLINE : 'rgba(255,255,255,0.2)',
+                          fontFamily: 'monospace', fontWeight: 700,
+                        }}>{zi + 1}</span>
+                        {choice?.text && (
+                          <span style={{
+                            fontSize: '8px', color: tintObj.text,
+                            textAlign: 'center', lineHeight: 1.4,
+                            padding: '0.25rem', fontFamily: 'Georgia, serif',
+                            opacity: 0.85, maxWidth: '90%',
+                            display: 'block', wordBreak: 'break-word',
+                          }}>{choice.text}</span>
+                        )}
+                        {isQuiz && choice?.correct && (
+                          <span style={{
+                            position: 'absolute', bottom: '4px', right: '5px',
+                            fontSize: '7px', color: 'rgba(39,174,96,0.8)',
+                          }}>✓</span>
+                        )}
+                      </div>
+                    )
+                    xAcc += cw
+                  }
+                  yAcc += rowFracs[ri] ?? (1/zonesH)
                 }
-                yAcc += rowFracs[ri] ?? (1/zonesH)
-              }
-              return cells
-            })()}
-
-            {/* Traits de séparation */}
-            {sepLines.map((line, li) => (
-              <div
-                key={li}
-                style={{
-                  position: 'absolute',
-                  pointerEvents: 'none',
-                  backgroundColor: 'rgba(255,255,255,0.22)',
-                  ...(line.type === 'H' ? {
-                    left: `${MARGIN}%`, right: `${MARGIN}%`, height: '1px',
-                    top: `calc(${line.pct * 100}% - 0.5px)`,
-                  } : {
-                    top: `${MARGIN}%`, bottom: `${MARGIN}%`, width: '1px',
-                    left: `calc(${line.pct * 100}% - 0.5px)`,
-                  }),
-                }}
-              />
-            ))}
+                return cells
+              })()}
+              {/* Traits de séparation — flat uniquement */}
+              {sepLines.map((line, li) => (
+                <div
+                  key={li}
+                  style={{
+                    position: 'absolute',
+                    pointerEvents: 'none',
+                    backgroundColor: 'rgba(255,255,255,0.22)',
+                    ...(line.type === 'H' ? {
+                      left: `${MARGIN}%`, right: `${MARGIN}%`, height: '1px',
+                      top: `calc(${line.pct * 100}% - 0.5px)`,
+                    } : {
+                      top: `${MARGIN}%`, bottom: `${MARGIN}%`, width: '1px',
+                      left: `calc(${line.pct * 100}% - 0.5px)`,
+                    }),
+                  }}
+                />
+              ))}
+              </>
+            )}
           </div>
           <span style={{ fontSize: '0.58rem', color: 'rgba(255,255,255,0.25)', letterSpacing: '0.06em' }}>
             {totalZones} zone{totalZones > 1 ? 's' : ''} · cliquer pour éditer
