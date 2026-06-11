@@ -2690,7 +2690,7 @@ const handleTextSelection = useCallback(() => {
 
       {gameModePanel !== null && (
         <GameModePanel
-          segment={activeSegments[gameModePanel]}
+          segment={segments[gameModePanel]}
           segmentIndex={gameModePanel}
           parts={parts || []}
           onSave={(idx, gameMode) => {
