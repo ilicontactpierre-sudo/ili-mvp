@@ -1,0 +1,117 @@
+{
+  "id": "auteur-choix-multiple-test-choix-multiple",
+  "title": "teST Choix Multiple",
+  "author": "Auteur Choix Multiple",
+  "mood": "Humeur Choix Multiple",
+  "genre": "Genre Choix Multiple",
+  "description": "Description teST Choix Multiple",
+  "type": "serial",
+  "published": true,
+  "parts": [
+    {
+      "id": "part_1781166481847_0",
+      "title": "Partie 1 publiée",
+      "subtitle": "Partie 1 publiée",
+      "description": "Partie 1 publiée",
+      "published": true,
+      "sounds": [],
+      "segments": [
+        {
+          "id": "seg_1781166500175_0_50g6w",
+          "lines": [
+            "Partie 1 publiée"
+          ],
+          "text": "Partie 1 publiée",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "text": "",
+          "id": "seg_1781166421613",
+          "gameMode": {
+            "type": "choice_branch",
+            "layout": {
+              "axis": "X",
+              "linesH": 1,
+              "linesV": 1,
+              "proportions": [
+                1,
+                1,
+                1,
+                1
+              ],
+              "tint": "bordeaux"
+            },
+            "prompt": "Question.invite",
+            "choices": [
+              {
+                "id": "c1",
+                "text": "Zone 1 :) pour partie 3",
+                "targetPartId": "part_3"
+              },
+              {
+                "id": "c2",
+                "text": "Zone 2 :) sans partie",
+                "targetPartId": ""
+              }
+            ]
+          },
+          "audioEvents": []
+        },
+        {
+          "text": "Suite partie 1",
+          "id": "seg_1781166508461",
+          "breakAt": null,
+          "audioEvents": []
+        }
+      ],
+      "soundTracks": [],
+      "vfxTracks": []
+    },
+    {
+      "id": "part_1781166517335_1",
+      "title": "Partie 2 Bourillone",
+      "subtitle": "Partie 2 Bourillone",
+      "description": "Partie 2 Bourillone",
+      "published": false,
+      "sounds": [],
+      "segments": [
+        {
+          "id": "seg_1781166526894_0_tr1n9",
+          "lines": [
+            "Partie 2 Bourillone"
+          ],
+          "text": "Partie 2 Bourillone",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        }
+      ],
+      "soundTracks": [],
+      "vfxTracks": []
+    },
+    {
+      "id": "part_1781166529537_2",
+      "title": "Partie 3 Choix multiple",
+      "subtitle": "Partie 3 Choix multiple",
+      "description": "Partie 3 Choix multiple",
+      "published": true,
+      "sounds": [],
+      "segments": [
+        {
+          "id": "seg_1781166541444_0_rzyxg",
+          "lines": [
+            "Partie 3 Choix multiple"
+          ],
+          "text": "Partie 3 Choix multiple",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        }
+      ],
+      "soundTracks": [],
+      "vfxTracks": []
+    }
+  ]
+}
