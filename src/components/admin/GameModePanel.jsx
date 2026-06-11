@@ -30,7 +30,7 @@ const TINTS = [
   { key: 'cendre',   label: 'Cendre',   bg: '#0c0c0b', text: 'rgba(220,215,205,0.72)' },
 ]
 
-const DEFAULT_LAYOUT = { axis: 'H', linesH: 1, linesV: 0, proportions: [1, 1], tint: 'noir', style: 'flat' }
+const DEFAULT_LAYOUT = { axis: 'H', linesH: 1, linesV: 0, proportions: [1, 1], tint: 'noir', style: 'flat', equalSizes: false }
 
 const DEFAULTS = {
   image:   { type: 'image',   imageUrl: '', caption: '' },
