@@ -1946,7 +1946,8 @@ function GameChoice({ data, onResolved, onNavigateToPart }) {
 
   // ── Rendu ──────────────────────────────────────────────────────────────────
   // Construire la liste des zones dans l'ordre de la grille
-  const zoneList = Array(totalZones).fill(null).map((_, i) => choices[i] || null)
+  const safeChoices = Array.isArray(choices) ? choices : []
+  const zoneList = Array(Math.max(1, totalZones)).fill(null).map((_, i) => safeChoices[i] || null)
 
   return (
     <div style={{
