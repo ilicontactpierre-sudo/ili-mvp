@@ -853,7 +853,10 @@ function ChoiceConfigurator({ isQuiz, data, onChange, parts }) {
                   title={t.label}
                   style={{
                     width: '22px', height: '22px', borderRadius: '50%',
-                    backgroundColor: t.bg,
+                    backgroundColor: t.bg || 'transparent',
+                    backgroundImage: t.key === 'auto'
+                      ? 'linear-gradient(135deg, #f5f0e8 50%, #111 50%)'
+                      : 'none',
                     border: layout.tint === t.key ? `2px solid ${ACTIVE_OUTLINE}` : '2px solid rgba(255,255,255,0.1)',
                     cursor: 'pointer',
                     boxShadow: layout.tint === t.key ? `0 0 0 2px rgba(167,139,250,0.25)` : 'none',
