@@ -155,7 +155,11 @@ self.onmessage = function(e) {
     })
   }
 
-  let results = _cachedSounds
+  // Si sounds est null, on réutilise le cache existant (pas de retransfer)
+  if (sounds !== null && sounds !== undefined) {
+    // Nouveau batch reçu — déjà géré par le bloc de cache ci-dessus
+  }
+  let results = _cachedSounds || []
 
   if (onlyUploaded) results = results.filter(s => !!s.url)
   if (activeTags && activeTags.length > 0) {
