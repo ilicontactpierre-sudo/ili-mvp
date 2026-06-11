@@ -1259,28 +1259,6 @@ function FormChoiceBranch({ data, onChange }) {
   )
 }
 
-function FormEcho({ data, onChange }) {
-  return (
-    <>
-      <Field label="Phrase à recopier *" hint="Le lecteur devra taper cette phrase exactement">
-        <textarea style={textareaStyle} value={data.phrase || ''}
-          placeholder="Ex : Je ne reverrai jamais ce visage."
-          onChange={e => onChange({ ...data, phrase: e.target.value })} />
-      </Field>
-      <Field label="Invite" hint="Texte affiché au-dessus (optionnel)">
-        <input style={inputStyle} type="text" value={data.prompt || ''}
-          placeholder="Ex : Recopiez cette phrase avant de continuer."
-          onChange={e => onChange({ ...data, prompt: e.target.value })} />
-      </Field>
-      <Field label="Message de succès">
-        <input style={inputStyle} type="text" value={data.successMessage || ''}
-          placeholder="Ex : Vous vous en souviendrez."
-          onChange={e => onChange({ ...data, successMessage: e.target.value })} />
-      </Field>
-    </>
-  )
-}
-
 function FormJournal({ data, onChange }) {
   return (
     <>
