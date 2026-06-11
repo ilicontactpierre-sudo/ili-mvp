@@ -1876,10 +1876,8 @@ function GameChoice({ data, onResolved, onNavigateToPart }) {
   const MARGIN = 7
   const svgLines = []
   if (linesH > 0) {
-    // Positions H en %
     let accH = 0
     for (let i = 0; i < linesH; i++) {
-      // Poids de cette rangée (en X : somme de la rangée)
       let w
       if (axis === 'X') {
         w = Array(zonesV).fill(0).reduce((acc, _, j) => acc + (raw[i * zonesV + j] || 1), 0)
@@ -1887,7 +1885,7 @@ function GameChoice({ data, onResolved, onNavigateToPart }) {
         w = raw[i] || 1
       }
       accH += w
-      const pct = (accH / sumH) * 100
+      const pct = accH / sumH
       svgLines.push({ type: 'H', pct })
     }
   }
