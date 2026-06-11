@@ -55,9 +55,9 @@ useEffect(() => {
 }, [])
 
 useEffect(() => {
-    const timer = setTimeout(() => setDebouncedSearch(search), 150)
-    return () => clearTimeout(timer)
-  }, [search])
+  const timer = setTimeout(() => setDebouncedSearch(search), 300)
+  return () => clearTimeout(timer)
+}, [search])
   const [selectedFamily, setSelectedFamily] = useState(null)
   const [activeTags, setActiveTags] = useState([])
   const [playingId, setPlayingId] = useState(null)
@@ -150,18 +150,11 @@ const familyTags = useMemo(() => {
     .map(([tag]) => tag)
 }, [familySounds])
 
-const lastSentSoundsRef = useRef(null)
-
 useEffect(() => {
   if (!workerRef.current) return
   const id = ++requestIdRef.current
-  // N'envoyer le tableau de sons que s'il a changé (évite le transfert mémoire à chaque frappe)
-  const soundsToSend = familySounds === lastSentSoundsRef.current
-    ? undefined
-    : familySounds
-  if (soundsToSend !== undefined) lastSentSoundsRef.current = familySounds
   workerRef.current.postMessage({
-    sounds: soundsToSend ?? null,
+    sounds: familySounds,
     searchQuery: debouncedSearch,
     activeTags,
     onlyUploaded,
