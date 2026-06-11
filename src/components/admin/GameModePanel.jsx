@@ -968,15 +968,7 @@ function ChoiceConfigurator({ isQuiz, data, onChange, parts }) {
   )
 }
 
-// ─── Formulaire choice_quiz ──────────────────────────────────────────────────
-function FormChoiceQuiz({ data, onChange, parts }) {
-  return <ChoiceConfigurator isQuiz={true} data={data} onChange={onChange} parts={parts} />
-}
 
-// ─── Formulaire choice_branch ─────────────────────────────────────────────────
-function FormChoiceBranch({ data, onChange, parts }) {
-  return <ChoiceConfigurator isQuiz={false} data={data} onChange={onChange} parts={parts} />
-}
 
 function FormEcho({ data, onChange }) {
   const tint = TINTS.find(t => t.key === layout.tint) || TINTS[0]
