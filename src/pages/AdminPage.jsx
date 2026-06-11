@@ -2274,18 +2274,18 @@ function AdminPage() {
           segmentIndex={gameModePanel}
           parts={isSerial ? parts : []}
           onSave={(idx, gameMode) => {
-            const updated = [...segments]
+            const updated = [...activeSegments]
             updated[idx] = { ...updated[idx], gameMode }
-            setSegments(updated)
-            saveToHistory(updated, soundTracks, vfxTracks)
+            setActiveSegments(updated)
+            saveToHistory(updated, activeSoundTracks, activeVfxTracks)
             setGameModePanel(null)
           }}
           onDelete={(idx) => {
-            const updated = [...segments]
+            const updated = [...activeSegments]
             const { gameMode, ...rest } = updated[idx]
             updated[idx] = rest
-            setSegments(updated)
-            saveToHistory(updated, soundTracks, vfxTracks)
+            setActiveSegments(updated)
+            saveToHistory(updated, activeSoundTracks, activeVfxTracks)
             setGameModePanel(null)
           }}
           onClose={() => setGameModePanel(null)}
