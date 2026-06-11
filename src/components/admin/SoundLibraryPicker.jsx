@@ -552,7 +552,7 @@ const handleFileSelected = async (e) => {
             {/* Niveau 1 — Familles + filtre Supabase */}
             <div style={{ display: 'flex', gap: '0.4rem', flexWrap: 'wrap', marginBottom: '0.6rem', alignItems: 'center' }}>
               <button
-                onClick={() => setOnlyUploaded(prev => !prev)}
+                onClick={() => { setOnlyUploaded(prev => !prev); setCleanupMode(false) }}
                 title={onlyUploaded ? 'Afficher tous les sons' : 'Afficher uniquement les sons uploadés sur Supabase'}
                 style={{
                   width: '30px',
@@ -572,6 +572,34 @@ const handleFileSelected = async (e) => {
               >
                 ☁️
               </button>
+              {onlyUploaded && orphanSounds.length > 0 && (
+                <button
+                  onClick={handleCleanupOrphans}
+                  title={`${orphanSounds.length} son${orphanSounds.length > 1 ? 's' : ''} uploadé${orphanSounds.length > 1 ? 's' : ''} mais non utilisé${orphanSounds.length > 1 ? 's' : ''} dans aucune histoire`}
+                  style={{
+                    padding: '0 0.75rem',
+                    height: '30px',
+                    borderRadius: '999px',
+                    border: '1px solid #dc354560',
+                    background: 'transparent',
+                    color: '#dc3545',
+                    cursor: cleaningIds.size > 0 ? 'not-allowed' : 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '0.35rem',
+                    fontSize: '0.75rem',
+                    fontWeight: 600,
+                    flexShrink: 0,
+                    transition: 'all 0.12s',
+                    opacity: cleaningIds.size > 0 ? 0.5 : 1,
+                  }}
+                  disabled={cleaningIds.size > 0}
+                  onMouseEnter={e => { if (cleaningIds.size === 0) e.currentTarget.style.background = '#dc354515' }}
+                  onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
+                >
+                  {cleaningIds.size > 0 ? '⏳' : '🗑'} {orphanSounds.length} orphelin{orphanSounds.length > 1 ? 's' : ''}
+                </button>
+              )}
               {FAMILIES.map(family => (
                 <button
                   key={family.id}
