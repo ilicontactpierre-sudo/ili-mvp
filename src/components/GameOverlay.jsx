@@ -1952,8 +1952,8 @@ function GameChoice({ data, onResolved, onNavigateToPart }) {
   return (
     <div style={{
       position: 'fixed', inset: 0,
-      backgroundColor: tint.bg || 'var(--color-bg, #f5f0e8)',
-      color: tint.text || 'var(--color-text-focus, #222)',
+      backgroundColor: tintKey === 'auto' ? 'var(--color-bg, #f5f0e8)' : '#0a0a0a',
+      color: tintKey === 'auto' ? 'var(--color-text-focus, #222)' : 'rgba(255,255,255,0.75)',
       fontFamily: 'var(--font-primary, Georgia, serif)',
       overflow: 'hidden',
     }}>
