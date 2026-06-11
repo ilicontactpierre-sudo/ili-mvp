@@ -674,6 +674,7 @@ function StoryPage() {
           gameMode={frozenGameMode}
           segmentIndex={frozenIndex}
           onResolved={handleGameResolved}
+          onNavigateToPart={handleNavigateToPart}
           onBack={() => {
             setFrozenGameMode(null)
             setFrozenIndex(null)
