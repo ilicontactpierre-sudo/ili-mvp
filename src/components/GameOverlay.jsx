@@ -2206,92 +2206,111 @@ function GameChoice({ data, onResolved, onNavigateToPart }) {
       </div>
       ) : (
       /* ── Cartes : liste verticale avec label lettre ── */
-      <div style={{
-        position: 'absolute', inset: 0,
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        gap: '0.6rem',
-        padding: '2.5rem 1.6rem',
-        zIndex: 6,
-      }}>
-        {zoneList.map((choice, zi) => {
-          const isSelected = selectedIdx === zi
-          const isShaking  = shakeIdx === zi
-          const phase      = choicesPhase[zi] || 'hidden'
-          const isEmpty    = !choice || !choice.text
-          const label      = String.fromCharCode(65 + zi) // A, B, C…
-          const zoneTintObj = (choice?.tint && choice.tint !== 'auto')
-            ? TINT_MAP[choice.tint]
-            : null
-          const cardBg   = zoneTintObj?.bg || 'rgba(255,255,255,0.04)'
-          const cardText = zoneTintObj?.text || 'rgba(255,255,255,0.78)'
-          return (
-            <div
-              key={zi}
-              onClick={() => choice && !isEmpty ? handleChoiceClick(zi) : undefined}
-              style={{
-                width: '100%',
-                maxWidth: '26rem',
-                padding: '0.95rem 1.1rem',
-                borderRadius: '10px',
-                backgroundColor: isShaking ? 'rgba(192,57,43,0.12)' : cardBg,
-                border: isSelected
-                  ? '1px solid rgba(255,255,255,0.3)'
-                  : '1px solid rgba(255,255,255,0.1)',
-                cursor: choice && !isEmpty ? 'pointer' : 'default',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '0.85rem',
-                filter: isSelected ? 'brightness(1.4)' : isShaking ? 'brightness(0.82)' : 'none',
-                animation: isShaking ? `game-shake 0.4s ${EASE_S}` : 'none',
-                opacity: phase === 'visible' ? 1 : 0,
-                transform: phase === 'visible'
-                  ? 'translateX(0)'
-                  : 'translateX(-18px)',
-                transition: `opacity 600ms ${EASE_S}, transform 600ms ${EASE_S}, filter 180ms ease`,
-                userSelect: 'none',
-                boxSizing: 'border-box',
-              }}
-            >
-              {/* Badge lettre */}
-              <div style={{
-                width: '28px',
-                height: '28px',
-                borderRadius: '6px',
-                border: '1px solid rgba(255,255,255,0.18)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                flexShrink: 0,
-                backgroundColor: 'rgba(255,255,255,0.06)',
-              }}>
-                <span style={{
-                  fontSize: '0.72rem',
-                  fontWeight: 600,
-                  color: 'rgba(255,255,255,0.5)',
-                  letterSpacing: '0.04em',
-                  fontFamily: 'system-ui, sans-serif',
-                }}>
-                  {label}
-                </span>
-              </div>
-              {/* Texte */}
-              <span style={{
-                fontSize: 'clamp(0.88rem, 2.2vw, 1rem)',
-                letterSpacing: '0.02em',
-                lineHeight: 1.5,
-                color: cardText,
-                fontStyle: 'italic',
-                flex: 1,
-              }}>
-                {choice?.text || ''}
-              </span>
-            </div>
-          )
-        })}
-      </div>
+      {(() => {
+        const cardVariantIdx = layout.bubbleVariant ?? 0
+        const PLAYER_CARD_LAYOUTS = ['centered', 'spaced', 'solo', 'cascade']
+        const cardLayout = PLAYER_CARD_LAYOUTS[cardVariantIdx % PLAYER_CARD_LAYOUTS.length] || 'centered'
+        const CARD_ACCENT_MAP = {
+          noir:'rgba(255,255,255,0.55)', ardoise:'rgba(176,184,208,0.85)',
+          encre:'rgba(122,176,240,0.9)', charbon:'rgba(220,220,220,0.65)',
+          violet:'rgba(196,176,255,0.95)', teal:'rgba(96,232,200,0.95)',
+          bordeaux:'rgba(240,128,128,0.95)', brume:'rgba(184,184,240,0.9)',
+          ambre:'rgba(248,200,96,0.95)', foret:'rgba(112,232,144,0.95)',
+          cobalt:'rgba(128,184,255,0.95)', cendre:'rgba(208,204,192,0.8)',
+          auto:'rgba(255,255,255,0.55)',
+        }
+        return (
+          <div style={{
+            position: 'absolute', inset: 0,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: cardLayout === 'spaced' ? 'space-evenly' : 'center',
+            gap: cardLayout === 'spaced' ? '0' : '0.6rem',
+            padding: '2.5rem 1.6rem',
+            zIndex: 6,
+          }}>
+            {zoneList.map((choice, zi) => {
+              const isSelected = selectedIdx === zi
+              const isShaking  = shakeIdx === zi
+              const phase      = choicesPhase[zi] || 'hidden'
+              const isEmpty    = !choice || !choice.text
+              const label      = String.fromCharCode(65 + zi)
+              const cardTintKey = (choice?.tint && choice.tint !== 'auto') ? choice.tint : (tintKey || 'noir')
+              const cardAccent  = CARD_ACCENT_MAP[cardTintKey] || 'rgba(255,255,255,0.55)'
+              const isSolo      = cardLayout === 'solo' && zi === 0
+              const cascadeShift = cardLayout === 'cascade' ? `${zi * 6}px` : '0'
+              const phaseTransform = phase === 'visible' ? `translateX(${cascadeShift})` : `translateX(-18px)`
+              return (
+                <div
+                  key={zi}
+                  onClick={() => choice && !isEmpty ? handleChoiceClick(zi) : undefined}
+                  style={{
+                    width: '100%',
+                    maxWidth: isSolo ? '28rem' : '26rem',
+                    padding: isSolo ? '1.2rem 1.4rem' : '0.95rem 1.1rem',
+                    borderRadius: isSolo ? '14px' : '10px',
+                    backgroundColor: isShaking
+                      ? 'rgba(192,57,43,0.12)'
+                      : isSolo ? 'rgba(255,255,255,0.05)' : 'transparent',
+                    border: isSelected
+                      ? `1px solid rgba(255,255,255,0.4)`
+                      : isShaking ? `1px solid rgba(192,57,43,0.5)` : `1px solid ${cardAccent.replace(/[\d.]+\)$/, '0.18)')}`,
+                    boxShadow: isSelected
+                      ? `0 0 20px ${cardAccent.replace(/[\d.]+\)$/, '0.3)')}`
+                      : isSolo ? `0 0 18px ${cardAccent.replace(/[\d.]+\)$/, '0.2)')}` : 'none',
+                    cursor: choice && !isEmpty ? 'pointer' : 'default',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: isSolo ? '1rem' : '0.85rem',
+                    animation: isShaking ? `game-shake 0.4s ${EASE_S}` : 'none',
+                    opacity: phase === 'visible' ? 1 : 0,
+                    transform: phase === 'visible' ? `translateX(${cascadeShift})` : 'translateX(-18px)',
+                    transition: `opacity 600ms ${EASE_S}, transform 600ms ${EASE_S}, box-shadow 180ms ease`,
+                    userSelect: 'none',
+                    boxSizing: 'border-box',
+                  }}
+                >
+                  {/* Badge lettre */}
+                  <div style={{
+                    width: isSolo ? '34px' : '28px',
+                    height: isSolo ? '34px' : '28px',
+                    borderRadius: isSolo ? '8px' : '6px',
+                    border: `1px solid ${cardAccent.replace(/[\d.]+\)$/, '0.3)')}`,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    flexShrink: 0,
+                    backgroundColor: 'rgba(255,255,255,0.05)',
+                    boxShadow: isSolo ? `0 0 8px ${cardAccent.replace(/[\d.]+\)$/, '0.2)')}` : 'none',
+                  }}>
+                    <span style={{
+                      fontSize: isSolo ? '0.85rem' : '0.72rem',
+                      fontWeight: 600,
+                      color: cardAccent,
+                      letterSpacing: '0.04em',
+                      fontFamily: 'system-ui, sans-serif',
+                    }}>
+                      {label}
+                    </span>
+                  </div>
+                  {/* Texte */}
+                  <span style={{
+                    fontSize: isSolo ? 'clamp(1rem, 2.5vw, 1.15rem)' : 'clamp(0.88rem, 2.2vw, 1rem)',
+                    letterSpacing: '0.02em',
+                    lineHeight: 1.5,
+                    color: 'rgba(255,255,255,0.88)',
+                    fontStyle: 'italic',
+                    flex: 1,
+                  }}>
+                    {choice?.text || ''}
+                  </span>
+                </div>
+              )
+            })}
+          </div>
+        )
+      })()}
       )}
 
       {/* ── Message d'erreur quiz ── */}
