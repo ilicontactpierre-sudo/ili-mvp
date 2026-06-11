@@ -1978,7 +1978,7 @@ function GameChoice({ data, onResolved, onNavigateToPart }) {
             opacity: 0.55,
             textAlign: 'center',
             fontStyle: 'italic',
-            color: tint.text,
+            color: 'var(--color-text-focus, rgba(255,255,255,0.6))',
             maxWidth: '32rem',
           }}>
             {data.prompt}
