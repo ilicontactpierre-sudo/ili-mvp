@@ -2312,8 +2312,8 @@ function GameChoice({ data, onResolved, onNavigateToPart }) {
           </div>
         )
       })()}
+      </>
       )}
-
       {/* ── Message d'erreur quiz ── */}
       {errorMsg && (
         <div style={{
