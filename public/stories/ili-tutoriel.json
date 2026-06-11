@@ -1,0 +1,57 @@
+{
+  "id": "ili-tutoriel",
+  "title": "TUTORIEL",
+  "author": "ILi",
+  "mood": "Excité",
+  "genre": "Tutu",
+  "description": "Bienvenue chez ILi, une expérience de lecture unique. Bouge pas, on te montre.",
+  "published": true,
+  "sounds": [],
+  "segments": [
+    {
+      "id": "seg_1781210384155_0_tasqp",
+      "lines": [
+        "a"
+      ],
+      "text": "",
+      "breakAt": null,
+      "isLeader": false,
+      "gameMode": {
+        "type": "choice_branch",
+        "layout": {
+          "axis": "V",
+          "linesH": 0,
+          "linesV": 1,
+          "proportions": [
+            1
+          ],
+          "tint": "noir",
+          "style": "flat",
+          "equalSizes": false
+        },
+        "prompt": "",
+        "choices": [
+          {
+            "id": "c1",
+            "text": "Si tu tapes ici, tu reviens en arrière !",
+            "targetPartId": ""
+          },
+          {
+            "id": "c2",
+            "text": "Et ici tu vas avance dans l'histoire :)",
+            "targetPartId": ""
+          }
+        ]
+      },
+      "audioEvents": []
+    },
+    {
+      "text": "Bravo, tu as réussi !",
+      "id": "seg_1781210398947",
+      "breakAt": null,
+      "audioEvents": []
+    }
+  ],
+  "soundTracks": [],
+  "vfxTracks": []
+}
