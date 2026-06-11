@@ -2069,16 +2069,114 @@ function GameChoice({ data, onResolved, onNavigateToPart }) {
           )
         })}
       </div>
-      ) : (
-      /* ── Bulles / Cartes ── */
+      ) : layoutStyle === 'bubble' ? (
+      /* ── Bulles : disposition organique ── */
       <div style={{
         position: 'absolute', inset: 0,
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        gap: layoutStyle === 'bubble' ? '1.1rem' : '0.85rem',
-        padding: '2.5rem 2rem',
+        zIndex: 6,
+        padding: '2rem',
+      }}>
+        {/* Prompt au-dessus si présent — géré par le bloc prompt existant */}
+        {/* Disposition organique des bulles */}
+        {(() => {
+          const n = zoneList.length
+          // Layouts organiques selon le nombre de bulles
+          const BUBBLE_SIZE = n <= 2 ? 140 : n <= 3 ? 120 : n <= 4 ? 108 : n <= 5 ? 96 : 84
+          // Positions relatives en % du conteneur (cx, cy en % de 100×200 viewport)
+          const LAYOUTS = {
+            1: [[50, 50]],
+            2: [[30, 50], [70, 50]],
+            3: [[28, 38], [72, 38], [50, 68]],
+            4: [[28, 32], [72, 32], [22, 65], [78, 65]],
+            5: [[50, 22], [22, 42], [78, 42], [32, 68], [68, 68]],
+            6: [[30, 22], [70, 22], [18, 50], [82, 50], [32, 76], [68, 76]],
+          }
+          const positions = LAYOUTS[Math.min(n, 6)] || LAYOUTS[6]
+          return (
+            <div style={{
+              position: 'relative',
+              width: '100%',
+              maxWidth: '360px',
+              height: '320px',
+              margin: '0 auto',
+            }}>
+              {zoneList.map((choice, zi) => {
+                const isSelected = selectedIdx === zi
+                const isShaking  = shakeIdx === zi
+                const phase      = choicesPhase[zi] || 'hidden'
+                const isEmpty    = !choice || !choice.text
+                const pos        = positions[zi] || [50, 50]
+                const zoneTintObj = (choice?.tint && choice.tint !== 'auto')
+                  ? TINT_MAP[choice.tint]
+                  : null
+                const bubbleBg   = zoneTintObj?.bg || 'rgba(255,255,255,0.06)'
+                const bubbleText = zoneTintObj?.text || 'rgba(255,255,255,0.82)'
+                const bubbleBorder = zoneTintObj
+                  ? `1px solid ${zoneTintObj.bg}88`
+                  : '1px solid rgba(255,255,255,0.14)'
+                return (
+                  <div
+                    key={zi}
+                    onClick={() => choice && !isEmpty ? handleChoiceClick(zi) : undefined}
+                    style={{
+                      position: 'absolute',
+                      left: `calc(${pos[0]}% - ${BUBBLE_SIZE / 2}px)`,
+                      top: `calc(${pos[1]}% - ${BUBBLE_SIZE / 2}px)`,
+                      width: `${BUBBLE_SIZE}px`,
+                      height: `${BUBBLE_SIZE}px`,
+                      borderRadius: '50%',
+                      backgroundColor: isShaking ? 'rgba(192,57,43,0.2)' : bubbleBg,
+                      border: isSelected
+                        ? '1px solid rgba(255,255,255,0.4)'
+                        : bubbleBorder,
+                      cursor: choice && !isEmpty ? 'pointer' : 'default',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      padding: '0.75rem',
+                      boxSizing: 'border-box',
+                      filter: isSelected ? 'brightness(1.5)' : isShaking ? 'brightness(0.8)' : 'none',
+                      animation: isShaking ? `game-shake 0.4s ${EASE_S}` : 'none',
+                      opacity: phase === 'visible' ? 1 : 0,
+                      transform: phase === 'visible'
+                        ? 'scale(1)'
+                        : 'scale(0.7)',
+                      transition: `opacity 650ms ${EASE_S}, transform 650ms ${EASE_S}, filter 180ms ease`,
+                      userSelect: 'none',
+                    }}
+                  >
+                    <span style={{
+                      fontSize: BUBBLE_SIZE > 110
+                        ? 'clamp(0.82rem, 2vw, 0.95rem)'
+                        : 'clamp(0.72rem, 1.8vw, 0.84rem)',
+                      letterSpacing: '0.02em',
+                      lineHeight: 1.4,
+                      textAlign: 'center',
+                      color: bubbleText,
+                    }}>
+                      {choice?.text || ''}
+                    </span>
+                  </div>
+                )
+              })}
+            </div>
+          )
+        })()}
+      </div>
+      ) : (
+      /* ── Cartes : liste verticale avec label lettre ── */
+      <div style={{
+        position: 'absolute', inset: 0,
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        gap: '0.6rem',
+        padding: '2.5rem 1.6rem',
         zIndex: 6,
       }}>
         {zoneList.map((choice, zi) => {
@@ -2086,55 +2184,70 @@ function GameChoice({ data, onResolved, onNavigateToPart }) {
           const isShaking  = shakeIdx === zi
           const phase      = choicesPhase[zi] || 'hidden'
           const isEmpty    = !choice || !choice.text
-          const zoneTint   = (choice?.tint && choice.tint !== 'auto' && TINT_MAP[choice.tint])
+          const label      = String.fromCharCode(65 + zi) // A, B, C…
+          const zoneTintObj = (choice?.tint && choice.tint !== 'auto')
             ? TINT_MAP[choice.tint]
             : null
-          const cardBg     = zoneTint
-            ? zoneTint.bg
-            : layoutStyle === 'bubble'
-              ? 'rgba(255,255,255,0.07)'
-              : 'rgba(255,255,255,0.05)'
-          const cardText   = zoneTint?.text || tint.text
-          const radius     = layoutStyle === 'bubble' ? '999px' : '12px'
+          const cardBg   = zoneTintObj?.bg || 'rgba(255,255,255,0.04)'
+          const cardText = zoneTintObj?.text || 'rgba(255,255,255,0.78)'
           return (
             <div
               key={zi}
               onClick={() => choice && !isEmpty ? handleChoiceClick(zi) : undefined}
               style={{
                 width: '100%',
-                maxWidth: layoutStyle === 'bubble' ? '28rem' : '32rem',
-                padding: layoutStyle === 'bubble' ? '0.95rem 2rem' : '1.1rem 1.6rem',
-                borderRadius: radius,
-                backgroundColor: isShaking ? 'rgba(192,57,43,0.15)' : cardBg,
-                border: `1px solid ${isSelected ? 'rgba(255,255,255,0.35)' : 'rgba(255,255,255,0.1)'}`,
+                maxWidth: '26rem',
+                padding: '0.95rem 1.1rem',
+                borderRadius: '10px',
+                backgroundColor: isShaking ? 'rgba(192,57,43,0.12)' : cardBg,
+                border: isSelected
+                  ? '1px solid rgba(255,255,255,0.3)'
+                  : '1px solid rgba(255,255,255,0.1)',
                 cursor: choice && !isEmpty ? 'pointer' : 'default',
                 display: 'flex',
                 alignItems: 'center',
-                justifyContent: 'center',
-                backdropFilter: 'blur(8px)',
-                WebkitBackdropFilter: 'blur(8px)',
-                filter: isSelected ? 'brightness(1.35)' : isShaking ? 'brightness(0.85)' : 'none',
+                gap: '0.85rem',
+                filter: isSelected ? 'brightness(1.4)' : isShaking ? 'brightness(0.82)' : 'none',
                 animation: isShaking ? `game-shake 0.4s ${EASE_S}` : 'none',
                 opacity: phase === 'visible' ? 1 : 0,
                 transform: phase === 'visible'
-                  ? 'translateY(0) scale(1)'
-                  : `translateY(${20 + zi * 4}px) scale(0.96)`,
-                transition: `opacity 700ms ${EASE_S}, transform 700ms ${EASE_S}, filter 180ms ease, background-color 180ms ease, border-color 180ms ease`,
+                  ? 'translateX(0)'
+                  : 'translateX(-18px)',
+                transition: `opacity 600ms ${EASE_S}, transform 600ms ${EASE_S}, filter 180ms ease`,
                 userSelect: 'none',
-                boxShadow: layoutStyle === 'card' && !isShaking
-                  ? '0 4px 24px rgba(0,0,0,0.25)'
-                  : 'none',
+                boxSizing: 'border-box',
               }}
             >
+              {/* Badge lettre */}
+              <div style={{
+                width: '28px',
+                height: '28px',
+                borderRadius: '6px',
+                border: '1px solid rgba(255,255,255,0.18)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                flexShrink: 0,
+                backgroundColor: 'rgba(255,255,255,0.06)',
+              }}>
+                <span style={{
+                  fontSize: '0.72rem',
+                  fontWeight: 600,
+                  color: 'rgba(255,255,255,0.5)',
+                  letterSpacing: '0.04em',
+                  fontFamily: 'system-ui, sans-serif',
+                }}>
+                  {label}
+                </span>
+              </div>
+              {/* Texte */}
               <span style={{
-                fontSize: layoutStyle === 'bubble'
-                  ? 'clamp(0.9rem, 2.4vw, 1.05rem)'
-                  : 'clamp(0.95rem, 2.5vw, 1.1rem)',
-                letterSpacing: '0.03em',
+                fontSize: 'clamp(0.88rem, 2.2vw, 1rem)',
+                letterSpacing: '0.02em',
                 lineHeight: 1.5,
-                textAlign: 'center',
                 color: cardText,
-                fontStyle: layoutStyle === 'card' ? 'normal' : 'inherit',
+                fontStyle: 'italic',
+                flex: 1,
               }}>
                 {choice?.text || ''}
               </span>
