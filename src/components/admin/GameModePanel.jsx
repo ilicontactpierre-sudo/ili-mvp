@@ -765,7 +765,28 @@ function ChoiceConfigurator({ isQuiz, data, onChange, parts }) {
                     <div key={zi} onClick={() => setActiveZone(zi)} style={{
                       width: '100%', padding: '5px 7px', borderRadius: '6px',
                       backgroundColor: zoneBg,
-                      border: isActive ? `1.5px solid ${ACT
+                      border: isActive ? `1.5px solid ${ACTIVE_OUTLINE}` : `1px solid ${accent}44`,
+                      display: 'flex', alignItems: 'center', gap: '5px',
+                      cursor: 'pointer', boxSizing: 'border-box',
+                      boxShadow: isActive ? `0 0 0 2px ${ACTIVE_OUTLINE}33` : 'none',
+                      transition: 'all 0.15s ease',
+                    }}>
+                      <div style={{
+                        width: '13px', height: '13px', borderRadius: '3px', flexShrink: 0,
+                        border: `1px solid ${accent}66`,
+                        backgroundColor: 'rgba(255,255,255,0.05)',
+                        display: 'flex', alignItems: 'center', justifyContent: 'center',
+                      }}>
+                        <span style={{ fontSize: '5.5px', color: `${accent}cc`, fontWeight: 700, fontFamily: 'system-ui' }}>{label}</span>
+                      </div>
+                      <span style={{ fontSize: '7px', color: accent, lineHeight: 1.3, fontFamily: 'Georgia, serif', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', flex: 1 }}>
+                        {choice?.text || <span style={{opacity:0.3}}>{zi+1}</span>}
+                      </span>
+                      {isQuiz && choice?.correct && <span style={{ fontSize: '6px', color: 'rgba(39,174,96,0.9)', flexShrink: 0 }}>✓</span>}
+                    </div>
+                  )
+                })}
+              </div>
             ) : (
               /* ── Preview Zones (flat) ── */
               <>
