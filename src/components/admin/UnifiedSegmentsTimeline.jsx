@@ -871,8 +871,9 @@ const SegmentSeparator = memo(function SegmentSeparator({ index, onMerge, isHove
 })
 // Composant principal unifié
 function UnifiedSegmentsTimeline({
-  segments, 
-  soundTracks, 
+  segments,
+  soundTracks,
+  parts,
   soundLibrary,
   vfxTracks = [],
   onSegmentsChange,
