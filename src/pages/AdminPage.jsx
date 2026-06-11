@@ -2003,10 +2003,16 @@ function AdminPage() {
                           onSoundsImported={(updatedSounds) => {
                             if (Array.isArray(updatedSounds) && updatedSounds.length > 0) {
                               const urlMap = {}
-                              updatedSounds.forEach(s => { if (s.id && s.url) urlMap[s.id] = s.url })
-                              setSoundLibrary(prev => prev.map(sound =>
-                                urlMap[sound.id] ? { ...sound, url: urlMap[sound.id] } : sound
-                              ))
+                              const deletedIds = new Set()
+                              updatedSounds.forEach(s => {
+                                if (s.id && s.url) urlMap[s.id] = s.url
+                                if (s.id && s.url === null) deletedIds.add(s.id)
+                              })
+                              setSoundLibrary(prev => prev.map(sound => {
+                                if (urlMap[sound.id]) return { ...sound, url: urlMap[sound.id] }
+                                if (deletedIds.has(sound.id)) return { ...sound, url: null }
+                                return sound
+                              }))
                               setSoundTracks(prev => {
                                 const patched = prev.map(track => {
                                   if (!urlMap[track.soundId]) return track
