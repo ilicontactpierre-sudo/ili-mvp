@@ -2139,8 +2139,11 @@ function GameChoice({ data, onResolved, onNavigateToPart }) {
                       borderRadius: '50%',
                       backgroundColor: isShaking ? 'rgba(192,57,43,0.2)' : bubbleBg,
                       border: isSelected
-                        ? '1px solid rgba(255,255,255,0.4)'
+                        ? '2px solid rgba(255,255,255,0.7)'
                         : bubbleBorder,
+                      boxShadow: isSelected
+                        ? `0 0 24px ${accentColor.replace(/[\d.]+\)$/, '0.5)')}, 0 0 6px ${accentColor.replace(/[\d.]+\)$/, '0.3)')}`
+                        : `0 0 12px ${accentColor.replace(/[\d.]+\)$/, '0.25)')}, inset 0 0 0 0 transparent`,
                       cursor: choice && !isEmpty ? 'pointer' : 'default',
                       display: 'flex',
                       alignItems: 'center',
