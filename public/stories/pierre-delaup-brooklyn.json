@@ -245,7 +245,7 @@
       "lines": [
         "Les deux regardent la note avec un petit soupire : c’est pas donné."
       ],
-      "text": "</chiffre_up:0;78/>€. Les deux regardent la note avec un petit soupire : c’est pas donné.",
+      "text": "</chiffres_up:0;78/>€. Les deux regardent la note avec un petit soupire : c’est pas donné.",
       "breakAt": null,
       "isLeader": false,
       "audioEvents": []
@@ -255,71 +255,34 @@
       "lines": [
         "Ils décident de prendre un dernier verre au Winchester,"
       ],
-      "text": "Ils décident de prendre un dernier verre au Winchester,",
+      "text": "Ils décident de prendre un dernier verre au Winchester, leur bar préféré, là où tout à commencé.",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": []
-    },
-    {
-      "id": "seg_1781326327990_36_dx8dw",
-      "lines": [
-        "leur bar préféré, là où tout à commencé."
-      ],
-      "text": "leur bar préféré, là où tout à commencé.",
-      "breakAt": null,
-      "isLeader": false,
-      "strikethrough": true,
-      "audioEvents": []
+      "audioEvents": [],
+      "delay": 1800
     },
     {
       "id": "seg_1781326327990_37_24l4g",
       "lines": [
         "Machinalement Rim s’empresse de regarder son poignet."
       ],
-      "text": "Machinalement Rim s’empresse de regarder son poignet.",
+      "text": "Machinalement Rim s’empresse de regarder son poignet. Sur sa peau, un léger bronzage laisse deviner une montre longtemps portée. Elle se fige et pose lentement son regard sur Rob : il a lui aussi les yeux braqués sur son poignet, plus précisément sur sa montre connectée qui orne son poignet…",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": []
-    },
-    {
-      "id": "seg_1781326327990_38_dzpku",
-      "lines": [
-        "Sur sa peau, un léger bronzage laisse deviner une montre longtemps portée."
-      ],
-      "text": "Sur sa peau, un léger bronzage laisse deviner une montre longtemps portée.",
-      "breakAt": null,
-      "isLeader": false,
-      "audioEvents": []
-    },
-    {
-      "id": "seg_1781326327990_39_q7819",
-      "lines": [
-        "Elle se fige et pose lentement son regard sur Rob : il a lui aussi les yeux braqués sur son poignet,"
-      ],
-      "text": "Elle se fige et pose lentement son regard sur Rob : il a lui aussi les yeux braqués sur son poignet,",
-      "breakAt": null,
-      "isLeader": false,
-      "audioEvents": []
-    },
-    {
-      "id": "seg_1781326327990_40_rz4iu",
-      "lines": [
-        "plus précisément sur sa montre qui orne son poignet…"
-      ],
-      "text": "plus précisément sur sa montre qui orne son poignet…",
-      "breakAt": null,
-      "isLeader": false,
-      "audioEvents": []
+      "audioEvents": [],
+      "delay": 8000
     },
     {
       "id": "seg_1781326327990_41_scotp",
       "lines": [
         "\"Rdv au QG immédiatement. Prévoir pour plusieurs nuits. Alertes inhabituelles sur zones à risques.\""
       ],
-      "text": "\"Rdv au QG immédiatement. Prévoir pour plusieurs nuits. Alertes inhabituelles sur zones à risques.\"",
+      "text": "Rdv au QG immédiatement. Prévoir pour plusieurs nuits. Alertes inhabituelles sur zones à risques.",
       "breakAt": null,
       "isLeader": true,
-      "audioEvents": []
+      "audioEvents": [],
+      "italic": false,
+      "bold": true
     },
     {
       "id": "seg_1781326327990_42_va4t4",
@@ -346,30 +309,11 @@
       "lines": [
         "Pas besoin de parler, elle sait qu’elle rentre seule."
       ],
-      "text": "Pas besoin de parler, elle sait qu’elle rentre seule.",
-      "breakAt": null,
+      "text": "Pas besoin de parler, elle sait qu’elle rentre seule. Elle serre son poignet nu aussi fort que se serre son cœur à cet instant. Ils avaient peut-être raison les collègues, on ne sort pas indemne de ce genre de carrière… Et ce que Rob ne dit pas, c’est qu’il le sait et qu’il en a peur.",
+      "breakAt": 220,
       "isLeader": false,
-      "audioEvents": []
-    },
-    {
-      "id": "seg_1781326327990_45_ue0cb",
-      "lines": [
-        "Elle serre son poignet nu aussi fort que se serre son cœur à cet instant."
-      ],
-      "text": "Elle serre son poignet nu aussi fort que se serre son cœur à cet instant.",
-      "breakAt": null,
-      "isLeader": false,
-      "audioEvents": []
-    },
-    {
-      "id": "seg_1781326327990_46_6cwrk",
-      "lines": [
-        "Ils avaient peut-être raison les collègues, on ne sort pas indemne de ce genre de carrière… Et ce que Rob ne dit pas, c’est qu’il le sait et qu’il en a peur."
-      ],
-      "text": "Ils avaient peut-être raison les collègues, on ne sort pas indemne de ce genre de carrière… Et ce que Rob ne dit pas, c’est qu’il le sait et qu’il en a peur.",
-      "breakAt": null,
-      "isLeader": false,
-      "audioEvents": []
+      "audioEvents": [],
+      "delay": 4800
     },
     {
       "id": "seg_1781326327990_47_kzzmi",
@@ -397,93 +341,68 @@
       "lines": [
         "Il y a des matins heureux à Brooklyn."
       ],
-      "text": "Il y a des matins heureux à Brooklyn.",
+      "text": "Il y a des matins heureux à Brooklyn. Quand, sur les peaux endormies, viennent danser les premières lueurs du jour. Quand règne l’odeur d’une nuit aux rêves éveillés.",
       "breakAt": null,
       "isLeader": true,
-      "audioEvents": []
+      "audioEvents": [],
+      "delay": 1600
     },
     {
-      "id": "seg_1781326327990_50_r3d8d",
+      "id": "seg_1781331026409_b_oklap",
       "lines": [
         "Quand, sur les peaux endormies, viennent danser les premières lueurs du jour.",
         "Quand règne l’odeur d’une nuit aux rêves éveillés.",
         "Même le réveil de la ville ne peut émoustiller ces moments hors du temps."
       ],
-      "text": "Quand, sur les peaux endormies, viennent danser les premières lueurs du jour. Quand règne l’odeur d’une nuit aux rêves éveillés. Même le réveil de la ville ne peut émoustiller ces moments hors du temps.",
+      "text": "Même le réveil de la ville ne peut émoustiller ces moments hors du temps. La douceur d’une vie sans soucis.",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": []
-    },
-    {
-      "id": "seg_1781326327990_51_x5uoy",
-      "lines": [
-        "La douceur d’une vie sans soucis."
-      ],
-      "text": "La douceur d’une vie sans soucis.",
-      "breakAt": null,
-      "isLeader": false,
-      "audioEvents": []
+      "audioEvents": [],
+      "delay": 2800
     },
     {
       "id": "seg_1781326327990_52_4b5ts",
       "lines": [
         "Les paupières en bernes, Rim sonde son lit d’un étirement gracieux."
       ],
-      "text": "Les paupières en bernes, Rim sonde son lit d’un étirement gracieux.",
+      "text": "Les paupières en bernes, Rim sonde son lit d’un étirement gracieux. Sentir son petit corps chaud et entendre le doux son de sa voix… \nAucun doute, ce matin sera un de ces matins heureux.",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": []
+      "audioEvents": [],
+      "delay": 5200
     },
     {
-      "id": "seg_1781326327990_53_zm6py",
-      "lines": [
-        "Sentir son petit corps chaud et entendre le doux son de sa voix… Aucun doute,"
-      ],
-      "text": "Sentir son petit corps chaud et entendre le doux son de sa voix… Aucun doute,",
-      "breakAt": null,
-      "isLeader": false,
-      "audioEvents": []
-    },
-    {
-      "id": "seg_1781326327990_54_q74m1",
-      "lines": [
-        "ce matin sera un de ces matins heureux."
-      ],
-      "text": "ce matin sera un de ces matins heureux.",
-      "breakAt": null,
-      "isLeader": false,
-      "audioEvents": []
-    },
-    {
-      "id": "seg_1781326327990_55_qwdcw",
+      "id": "seg_1781331078395_a_pt61p",
       "lines": [
         "La lumière du soleil frappe la rétine de Rim laissant apparaitre ses yeux verts électriques."
       ],
-      "text": "La lumière du soleil frappe la rétine de Rim laissant apparaitre ses yeux verts électriques.",
+      "text": "La lumière du soleil frappe la rétine de Rim laissant apparaitre ses yeux verts électriques. Une pensée furtive vient renforcer ce moment : plus que 15 jours. Le sourire en coin, elle sait ce qui lui reste à faire :",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": []
+      "audioEvents": [],
+      "delay": 5400
     },
     {
-      "id": "seg_1781326327990_56_s3667",
+      "id": "seg_1781331080572_a_ixquw",
       "lines": [
-        "Une pensée furtive vient renforcer ce moment : plus que 15 jours."
+        "La lumière du soleil frappe la rétine de Rim laissant apparaitre ses yeux verts électriques."
       ],
-      "text": "Une pensée furtive vient renforcer ce moment : plus que 15 jours.",
+      "text": "que son rituel commence !",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": []
+      "audioEvents": [],
+      "delay": 5400
     },
     {
-      "id": "seg_1781326327990_57_phwfo",
+      "id": "seg_1781331080572_b_1n503",
       "lines": [
-        "Le sourire en coin, elle sait ce qui lui reste à faire : que son rituel commence !",
-        "Peignoir soyeux, pantoufles enfilées sans respect pour le contrefort, le pas vif et séduisant, les cheveux sauvages."
+        "La lumière du soleil frappe la rétine de Rim laissant apparaitre ses yeux verts électriques."
       ],
-      "text": "Le sourire en coin, elle sait ce qui lui reste à faire : que son rituel commence ! Peignoir soyeux, pantoufles enfilées sans respect pour le contrefort, le pas vif et séduisant, les cheveux sauvages.",
-      "breakAt": 82,
+      "text": "Peignoir soyeux, pantoufles enfilées sans respect pour le contrefort, le pas vif et séduisant, les cheveux sauvages.",
+      "breakAt": null,
       "isLeader": false,
-      "audioEvents": []
+      "audioEvents": [],
+      "delay": 5400
     },
     {
       "id": "seg_1781326327990_58_jd1ul",
@@ -506,86 +425,83 @@
       "audioEvents": []
     },
     {
-      "id": "seg_1781326327990_60_6ri55",
+      "id": "seg_1781331123862_a_80jwg",
       "lines": [
         "Oula, finalement, pas de lait.",
         "Machine prête, bouton pressé, café coulé."
       ],
-      "text": "Oula, finalement, pas de lait. Machine prête, bouton pressé, café coulé.",
+      "text": "Oula, finalement, pas de lait. Machine prête, bouton pressé, café coulé. Table basse, canapé, télé.",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": []
+      "audioEvents": [],
+      "delay": 2200
     },
     {
-      "id": "seg_1781326327990_61_g3q57",
+      "id": "seg_1781331123862_b_nv75m",
       "lines": [
-        "Table basse, canapé, télé.",
-        "Ça y est, Rim est prête pour son matin rêvé."
+        "Oula, finalement, pas de lait.",
+        "Machine prête, bouton pressé, café coulé."
       ],
-      "text": "Table basse, canapé, télé. Ça y est, Rim est prête pour son matin rêvé.",
+      "text": "Ça y est, Rim est prête pour son matin rêvé.",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": []
+      "audioEvents": [],
+      "delay": 2200
     },
     {
       "id": "seg_1781326327990_62_ef3ca",
       "lines": [
         "« Le réconfort de notre petit confort »."
       ],
-      "text": "« Le réconfort de notre petit confort ».",
+      "text": "« Le réconfort de notre petit confort ». Il ne se passe pas une journée sans que Rim n’observe une situation qui illustre à merveille l’un des innombrables dictons dont sa grand-mère avait le secret.",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": []
+      "audioEvents": [],
+      "delay": 1600
     },
     {
-      "id": "seg_1781326327990_63_hrxdh",
-      "lines": [
-        "Il ne se passe pas une journée sans que Rim n’observe une situation qui illustre à merveille l’un des innombrables dictons dont sa grand-mère avait le secret."
-      ],
-      "text": "Il ne se passe pas une journée sans que Rim n’observe une situation qui illustre à merveille l’un des innombrables dictons dont sa grand-mère avait le secret.",
-      "breakAt": null,
-      "isLeader": false,
-      "audioEvents": []
-    },
-    {
-      "id": "seg_1781326327990_64_qd5k9",
+      "id": "seg_1781331231397_a_k42ql",
       "lines": [
         "Elle regarde un instant la photo qui trône près du canapé."
       ],
       "text": "Elle regarde un instant la photo qui trône près du canapé.",
       "breakAt": null,
-      "isLeader": true,
+      "isLeader": false,
+      "audioEvents": [],
+      "delay": 3800
+    },
+    {
+      "text": "",
+      "id": "seg_1781331233156",
+      "gameMode": {
+        "type": "image",
+        "imageUrl": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/Images/ChatGPT%20Image%2013%20juin%202026,%2008_31_53.jpg",
+        "caption": "Rob et elle en train de s’embrasser, Pierre, le grand frère de Rob, qui détourne grossièrement le regard avec ses airs de drama-king, et tous les invités debout, jetant des fleurs et du riz…",
+        "animation": "develop"
+      },
       "audioEvents": []
     },
     {
-      "id": "seg_1781326327990_65_ht2wx",
+      "id": "seg_1781331231397_b_bf852",
       "lines": [
-        "Rob et elle en train de s’embrasser, Pierre,"
+        "Elle regarde un instant la photo qui trône près du canapé."
       ],
-      "text": "Rob et elle en train de s’embrasser, Pierre,",
+      "text": "Rob et elle en train de s’embrasser, Pierre, le grand frère de Rob, qui détourne grossièrement le regard avec ses airs de drama-king, et tous les invités debout, jetant des fleurs et du riz…",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": []
+      "audioEvents": [],
+      "delay": 3800
     },
     {
-      "id": "seg_1781326327990_66_5xbjq",
+      "id": "seg_1781331198222_b_7eji1",
       "lines": [
-        "le grand frère de Rob, qui détourne grossièrement le regard avec ses airs de drama-king, et tous les invités debout, jetant des fleurs et du riz… Qu’il est doux cet instant où le temps s’arrête, et violent ce"
+        "Elle regarde un instant la photo qui trône près du canapé."
       ],
-      "text": "le grand frère de Rob, qui détourne grossièrement le regard avec ses airs de drama-king, et tous les invités debout, jetant des fleurs et du riz… Qu’il est doux cet instant où le temps s’arrête, et violent ce",
-      "breakAt": 145,
-      "isLeader": false,
-      "audioEvents": []
-    },
-    {
-      "id": "seg_1781326327990_67_rgn8n",
-      "lines": [
-        "moment où sonne le réveil."
-      ],
-      "text": "moment où sonne le réveil.",
+      "text": "Qu’il est doux cet instant où le temps s’arrête, et violent ce moment où sonne le réveil.",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": []
+      "audioEvents": [],
+      "delay": 2400
     },
     {
       "id": "seg_1781326327990_68_jy5ya",
@@ -599,65 +515,47 @@
       "audioEvents": []
     },
     {
-      "id": "seg_1781326327990_69_eji07",
+      "text": "",
+      "id": "seg_1781332507204",
+      "gameMode": {
+        "type": "image",
+        "imageUrl": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/Images/Flash%20Special%201%20720p.mov",
+        "caption": ""
+      },
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1781333621522_a_1qt72",
       "lines": [
         "Un dernier coup d'œil aux camarades qui resteront ici."
       ],
-      "text": "Un dernier coup d'œil aux camarades qui resteront ici.",
+      "text": "Un dernier coup d'œil aux camarades qui resteront ici. Tous ont la tête basse et les épaules en bernes. Pourtant, Rob le sait, personne ne manque de courage ici, mais ils tiennent juste à la vie…",
       "breakAt": null,
       "isLeader": true,
-      "audioEvents": []
+      "audioEvents": [],
+      "delay": 4600
     },
     {
-      "id": "seg_1781326327990_70_02qzr",
+      "id": "seg_1781333627667_a_50xtd",
       "lines": [
-        "Tous ont la tête basse et les épaules en bernes. Pourtant, Rob le sait,"
+        "Un dernier coup d'œil aux camarades qui resteront ici."
       ],
-      "text": "Tous ont la tête basse et les épaules en bernes. Pourtant, Rob le sait,",
+      "text": "Ok, dernière vérification avant le grand bain.",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": []
+      "audioEvents": [],
+      "delay": 4600
     },
     {
-      "id": "seg_1781326327990_71_0e9yz",
+      "id": "seg_1781333627667_b_0yu05",
       "lines": [
-        "personne ne manque de courage ici, mais ils tiennent juste à la vie… Ok, dernière vérification avant le grand bain. • Fusil plasma XKO2 chargé"
+        "Un dernier coup d'œil aux camarades qui resteront ici."
       ],
-      "text": "personne ne manque de courage ici, mais ils tiennent juste à la vie… Ok, dernière vérification avant le grand bain. • Fusil plasma XKO2 chargé",
-      "breakAt": 68,
-      "isLeader": false,
-      "audioEvents": []
-    },
-    {
-      "id": "seg_1781326327990_72_lg3ua",
-      "lines": [
-        "• Combinaison fermée",
-        "• Masque intégral verrouillé et dépressurisé"
-      ],
-      "text": "• Combinaison fermée • Masque intégral verrouillé et dépressurisé",
+      "text": "• Fusil plasma XKO2 chargé \n• Combinaison fermée \n• Masque intégral verrouillé et dépressurisé \n• Photo du mariage dans sa poche poitrine,\nO.K. …Quand faut y aller, faut y aller !",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": []
-    },
-    {
-      "id": "seg_1781326327990_73_qm8yj",
-      "lines": [
-        "• Photo du mariage dans sa poche poitrine, O.K."
-      ],
-      "text": "• Photo du mariage dans sa poche poitrine, O.K.",
-      "breakAt": null,
-      "isLeader": false,
-      "audioEvents": []
-    },
-    {
-      "id": "seg_1781326327990_74_589ve",
-      "lines": [
-        "…Quand faut y aller, faut y aller !"
-      ],
-      "text": "…Quand faut y aller, faut y aller !",
-      "breakAt": null,
-      "isLeader": false,
-      "audioEvents": []
+      "audioEvents": [],
+      "delay": 4600
     },
     {
       "id": "seg_1781326327990_75_q30fu",
@@ -665,20 +563,11 @@
         "Durant toute sa carrière, on l’avait préparé pour ce genre de mission.",
         "Six ans qu’il s’entraine avec les collègues à tout type de scénario."
       ],
-      "text": "Durant toute sa carrière, on l’avait préparé pour ce genre de mission. Six ans qu’il s’entraine avec les collègues à tout type de scénario.",
-      "breakAt": null,
+      "text": "Durant toute sa carrière, on l’avait préparé pour ce genre de mission. Six ans qu’il s’entraine avec les collègues à tout type de scénario. Et pourtant, de toute évidence, Rob sait qu’il n’est pas prêt.",
+      "breakAt": 140,
       "isLeader": false,
-      "audioEvents": []
-    },
-    {
-      "id": "seg_1781326327990_76_bn73w",
-      "lines": [
-        "Et pourtant, de toute évidence, Rob sait qu’il n’est pas prêt."
-      ],
-      "text": "Et pourtant, de toute évidence, Rob sait qu’il n’est pas prêt.",
-      "breakAt": null,
-      "isLeader": false,
-      "audioEvents": []
+      "audioEvents": [],
+      "delay": 4800
     },
     {
       "id": "seg_1781326327990_77_mqokw",
@@ -705,40 +594,11 @@
       "lines": [
         "Armes aux points, ils essaient de garder les yeux rivés droit devant,"
       ],
-      "text": "Armes aux points, ils essaient de garder les yeux rivés droit devant,",
+      "text": "Armes aux points, ils essaient de garder les yeux rivés droit devant, lutant pour ne pas croiser les regards éteints qui jonchent le sol. Au détour d'un énième couloir, Jim, dépiégeur fraîchement affecté aux forces spéciales, repère la lumière verte d'un sas de niveau 4.",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": []
-    },
-    {
-      "id": "seg_1781326327990_80_wn5it",
-      "lines": [
-        "lutant pour ne pas croiser les regards éteints qui jonchent le sol."
-      ],
-      "text": "lutant pour ne pas croiser les regards éteints qui jonchent le sol.",
-      "breakAt": null,
-      "isLeader": false,
-      "audioEvents": []
-    },
-    {
-      "id": "seg_1781326327990_81_8z80w",
-      "lines": [
-        "Au détour d'un énième couloir, Jim, dépiégeur fraîchement affecté aux forces spéciales,"
-      ],
-      "text": "Au détour d'un énième couloir, Jim, dépiégeur fraîchement affecté aux forces spéciales,",
-      "breakAt": null,
-      "isLeader": false,
-      "audioEvents": []
-    },
-    {
-      "id": "seg_1781326327990_82_j9wlk",
-      "lines": [
-        "repère la lumière verte d'un sas de niveau 4."
-      ],
-      "text": "repère la lumière verte d'un sas de niveau 4.",
-      "breakAt": null,
-      "isLeader": false,
-      "audioEvents": []
+      "audioEvents": [],
+      "delay": 7200
     },
     {
       "id": "seg_1781326327990_83_mnruc",
@@ -758,6 +618,21 @@
       "text": "Jim se lance.",
       "breakAt": null,
       "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "text": "",
+      "id": "seg_1781333758499",
+      "isLeader": true,
+      "gameMode": {
+        "type": "code",
+        "answer": "4857",
+        "prompt": "Base Centrale",
+        "hint": "Pas sûr de comprendre devant quelle porte vous êtes. Je vous transmets l'intégralité des codes de votre niveau : 3621 / 1963 / 4857 / 0000 On reste en contact.",
+        "errorMessage": "ACCESS DENIED",
+        "sounds": true,
+        "alreadySolvedMessage": "PASSWORD CORRECT"
+      },
       "audioEvents": []
     },
     {
@@ -812,5 +687,16 @@
     }
   ],
   "soundTracks": [],
-  "vfxTracks": []
+  "vfxTracks": [
+    {
+      "id": "vfx_1781330917174_k2lff1bu5",
+      "type": "typewriter",
+      "mode": "lent",
+      "loop": false,
+      "color": "rgba(200, 0, 0, 0.12)",
+      "column": 0,
+      "startSegmentId": "seg_1781326327990_41_scotp",
+      "endSegmentId": "seg_1781326327990_41_scotp"
+    }
+  ]
 }
