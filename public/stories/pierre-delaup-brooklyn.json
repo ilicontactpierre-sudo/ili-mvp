@@ -622,6 +622,22 @@
     },
     {
       "text": "",
+      "id": "seg_1781334569966",
+      "gameMode": {
+        "type": "document",
+        "style": "telegram",
+        "title": "NOUVEAU MESSAGE",
+        "body": "Pas sûr de comprendre devant quelle porte vous êtes. Je vous transmets l'intégralité des codes de votre niveau : 3621 / 1963 / 4857 / 0000\nOn reste en contact.",
+        "date": "13 juin 2026, 09:11.25",
+        "stamp": "",
+        "from": "Base Centrale",
+        "to": "JIM"
+      },
+      "isLeader": true,
+      "audioEvents": []
+    },
+    {
+      "text": "",
       "id": "seg_1781333758499",
       "isLeader": true,
       "gameMode": {
@@ -636,24 +652,36 @@
       "audioEvents": []
     },
     {
-      "id": "seg_1781326327990_85_qq17z",
+      "id": "seg_1781334846850_a_jb04t",
       "lines": [
         "En passant la porte sécurisée, Alex alerte Rob et ses camarades : ils viennent de perdre contact avec la base centrale. Comme prévu,"
       ],
-      "text": "En passant la porte sécurisée, Alex alerte Rob et ses camarades : ils viennent de perdre contact avec la base centrale. Comme prévu,",
+      "text": "En passant la porte sécurisée, Alex alerte Rob et ses camarades : ils viennent de perdre contact avec la base centrale.",
       "breakAt": null,
       "isLeader": true,
       "audioEvents": []
     },
     {
-      "id": "seg_1781326327990_86_iw5wj",
+      "id": "seg_1781334852561_a_5gv0c",
       "lines": [
-        "la radio ne leur servira plus. Quelques regards s’échangent, tous emplis de pudeur face à la peur qui grandit."
+        "En passant la porte sécurisée, Alex alerte Rob et ses camarades : ils viennent de perdre contact avec la base centrale. Comme prévu,"
       ],
-      "text": "la radio ne leur servira plus. Quelques regards s’échangent, tous emplis de pudeur face à la peur qui grandit.",
+      "text": "Comme prévu, la radio ne leur servira plus.",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": []
+      "audioEvents": [],
+      "delay": 400
+    },
+    {
+      "id": "seg_1781334852561_b_hbh2l",
+      "lines": [
+        "En passant la porte sécurisée, Alex alerte Rob et ses camarades : ils viennent de perdre contact avec la base centrale. Comme prévu,"
+      ],
+      "text": "Quelques regards s’échangent, tous emplis de pudeur face à la peur qui grandit.",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": [],
+      "delay": 400
     },
     {
       "id": "seg_1781326327990_87_hi25l",
@@ -672,7 +700,21 @@
       ],
       "text": "Rob le sait : désormais, impossible de revenir en arrière.",
       "breakAt": null,
-      "isLeader": false,
+      "isLeader": true,
+      "audioEvents": []
+    },
+    {
+      "text": "",
+      "id": "seg_1781334941831",
+      "isLeader": true,
+      "gameMode": {
+        "type": "timer",
+        "seconds": 3,
+        "prompt": "",
+        "hint": "",
+        "expireMessage": "",
+        "timerStyle": "hidden"
+      },
       "audioEvents": []
     },
     {
@@ -697,6 +739,16 @@
       "column": 0,
       "startSegmentId": "seg_1781326327990_41_scotp",
       "endSegmentId": "seg_1781326327990_41_scotp"
+    },
+    {
+      "id": "vfx_1781334896707_uv1cetq6a",
+      "type": "typewriter",
+      "mode": "lent",
+      "loop": false,
+      "color": "rgba(200, 0, 0, 0.12)",
+      "column": 0,
+      "startSegmentId": "seg_1781326327990_89_bgkfn",
+      "endSegmentId": "seg_1781326327990_89_bgkfn"
     }
   ]
 }
