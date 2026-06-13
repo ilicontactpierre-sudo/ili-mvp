@@ -124,11 +124,12 @@ export function renderInlineFunction(seg, baseKey, isFocused) {
       const x = parseFloat(xRaw)
       const y = parseFloat(yRaw)
       const decimals = Math.max(countDecimals(xRaw), countDecimals(yRaw))
+      const finalStr = formatNumber(y, decimals)
       if (!isFocused) {
-        return <span key={baseKey} style={{ fontVariantNumeric: 'tabular-nums' }}>{formatNumber(y, decimals)}</span>
+        return <span key={baseKey} style={counterStyle(finalStr)}>{finalStr}</span>
       }
       // La clé change quand isFocused devient true → remount → animation rejouée
-      return <AnimatedCounter key={`${baseKey}_active`} from={x} to={y} decimals={decimals} />
+      return <AnimatedCounter key={`${baseKey}_active`} from={x} to={y} decimals={decimals} finalStr={finalStr} />
     }
     default:
       return <span key={baseKey} style={{ opacity: 0.4 }}>{seg.raw}</span>
