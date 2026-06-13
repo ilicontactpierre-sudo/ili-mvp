@@ -170,6 +170,88 @@ const SegmentTimelineRow = memo(function SegmentTimelineRow({
   const handleSplitPreviewMouseLeave = useCallback(() => {
     setSplitPreviewPosition(null)
   }, [])
+  // ── Menu autocomplete des fonctions inline (</...) ──────────────────────
+  const [fnMenu, setFnMenu] = useState(null)
+  const pendingSelectionRef = useRef(null)
+  useEffect(() => {
+    if (pendingSelectionRef.current && textareaRef.current) {
+      const { start, end } = pendingSelectionRef.current
+      textareaRef.current.setSelectionRange(start, end)
+      textareaRef.current.focus()
+      pendingSelectionRef.current = null
+    }
+  }, [editText])
+  const closeFnMenu = useCallback(() => setFnMenu(null), [])
+  const checkFnTrigger = useCallback((textarea) => {
+    if (textarea.selectionStart !== textarea.selectionEnd) { closeFnMenu(); return }
+    const cursor = textarea.selectionStart
+    const before = textarea.value.slice(0, cursor)
+    const match = before.match(/<\/([a-z_]*)$/)
+    if (!match) { closeFnMenu(); return }
+    const query = match[1]
+    const matches = Object.entries(INLINE_FUNCTIONS).filter(([key]) => key.includes(query))
+    const coords = getCaretCoordinates(textarea, cursor)
+    setFnMenu({ query, matches, selectedIndex: 0, position: coords, cursor })
+  }, [closeFnMenu])
+  const insertInlineFunction = useCallback((fnKey) => {
+    if (!fnMenu || !textareaRef.current) return
+    const def = INLINE_FUNCTIONS[fnKey]
+    const textarea = textareaRef.current
+    const cursor = fnMenu.cursor
+    const matchStart = cursor - 2 - fnMenu.query.length // position du "</"
+    const defaults = def.params.map(p => p.default)
+    const template = `</${fnKey}:${defaults.join(';')}/>`
+    const currentText = textarea.value
+    const newText = currentText.slice(0, matchStart) + template + currentText.slice(cursor)
+    // Sélectionner le 1er paramètre pour saisie immédiate
+    const firstParamStart = matchStart + 2 + fnKey.length + 1 // après "</fnKey:"
+    const firstParamEnd = firstParamStart + defaults[0].length
+    pendingSelectionRef.current = { start: firstParamStart, end: firstParamEnd }
+    setFnMenu(null)
+    onEditChange(index, newText)
+  }, [fnMenu, index, onEditChange])
+  const handleTextareaChange = useCallback((e) => {
+    onEditChange(index, e.target.value)
+    checkFnTrigger(e.target)
+  }, [index, onEditChange, checkFnTrigger])
+  const handleTextareaKeyDown = useCallback((e) => {
+    if (fnMenu) {
+      const count = Math.max(fnMenu.matches.length, 1)
+      if (e.key === 'ArrowDown') {
+        e.preventDefault()
+        setFnMenu(prev => prev && ({ ...prev, selectedIndex: (prev.selectedIndex + 1) % count }))
+        return
+      }
+      if (e.key === 'ArrowUp') {
+        e.preventDefault()
+        setFnMenu(prev => prev && ({ ...prev, selectedIndex: (prev.selectedIndex - 1 + count) % count }))
+        return
+      }
+      if (e.key === 'Enter' || e.key === 'Tab') {
+        if (fnMenu.matches.length > 0) {
+          e.preventDefault()
+          insertInlineFunction(fnMenu.matches[fnMenu.selectedIndex][0])
+          return
+        }
+      }
+      if (e.key === 'Escape') {
+        e.preventDefault()
+        e.stopPropagation()
+        closeFnMenu()
+        return
+      }
+    }
+    onEditKeyDown(index, e)
+  }, [fnMenu, index, onEditKeyDown, insertInlineFunction, closeFnMenu])
+  const handleTextareaKeyUp = useCallback((e) => {
+    if (fnMenu && !['ArrowDown', 'ArrowUp', 'Enter', 'Tab', 'Escape'].includes(e.key)) {
+      checkFnTrigger(e.target)
+    }
+  }, [fnMenu, checkFnTrigger])
+  const handleTextareaBlur = useCallback(() => {
+    closeFnMenu()
+    onEditBlur(index)
+  }, [closeFnMenu, onEditBlur, index])
 
   // État pour suivre la hauteur du contenu texte en mode normal
   const [normalModeHeight, setNormalModeHeight] = useState(null)
