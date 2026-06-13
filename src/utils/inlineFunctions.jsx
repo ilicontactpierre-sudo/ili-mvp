@@ -40,6 +40,16 @@ function formatNumber(value, decimals) {
     ? value.toFixed(decimals)
     : Math.round(value).toLocaleString('fr-FR')
 }
+// Réserve la largeur finale du nombre pour éviter que le texte autour
+// ne bouge pendant l'animation (ex: passage de "9" à "10")
+function counterStyle(finalStr) {
+  return {
+    display: 'inline-block',
+    minWidth: `${finalStr.length}ch`,
+    textAlign: 'right',
+    fontVariantNumeric: 'tabular-nums',
+  }
+}
 
 // ── Composant compteur animé ────────────────────────────────────────────────
 function AnimatedCounter({ from, to, decimals }) {
