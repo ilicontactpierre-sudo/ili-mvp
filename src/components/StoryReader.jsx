@@ -722,22 +722,21 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle',
                         ? applyEmojiMode(segment.text.slice(0, segment.breakAt).trim())
                         : dys1
                           ? applyBionicReading(segment.text.slice(0, segment.breakAt).trim())
-                          : renderMarkdown(segment.text.slice(0, segment.breakAt).trim(), segment)}
+                          : renderMarkdown(segment.text.slice(0, segment.breakAt).trim(), segment, false, { isFocused, keyPrefix: `s${index}a_` })}
                       <br /><br />
                       {emojiMode
                         ? applyEmojiMode(segment.text.slice(segment.breakAt).trim())
                         : dys1
                           ? applyBionicReading(segment.text.slice(segment.breakAt).trim())
-                          : renderMarkdown(segment.text.slice(segment.breakAt).trim(), segment)}
+                          : renderMarkdown(segment.text.slice(segment.breakAt).trim(), segment, false, { isFocused, keyPrefix: `s${index}b_` })}
                     </>
                   )
                 }
-
                 return emojiMode
                   ? applyEmojiMode(segment.text)
                   : dys1
                     ? applyBionicReading(segment.text)
-                    : renderMarkdown(segment.text, segment)
+                    : renderMarkdown(segment.text, segment, false, { isFocused, keyPrefix: `s${index}_` })
               })()}
             </p>
           )
