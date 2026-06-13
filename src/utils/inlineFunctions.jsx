@@ -52,14 +52,14 @@ function counterStyle(finalStr) {
 }
 
 // ── Composant compteur animé ────────────────────────────────────────────────
-function AnimatedCounter({ from, to, decimals }) {
+function AnimatedCounter({ from, to, decimals, finalStr }) {
   const [value, setValue] = useState(from)
   const rafRef = useRef(null)
   useEffect(() => {
     const start = performance.now()
     const tick = (now) => {
       const t = Math.min(1, (now - start) / COUNTER_DURATION)
-      const eased = easeInOutCubic(t)
+      const eased = easeInOutQuint(t)
       setValue(from + (to - from) * eased)
       if (t < 1) rafRef.current = requestAnimationFrame(tick)
     }
@@ -67,7 +67,7 @@ function AnimatedCounter({ from, to, decimals }) {
     return () => { if (rafRef.current) cancelAnimationFrame(rafRef.current) }
   }, [from, to])
   return (
-    <span style={{ fontVariantNumeric: 'tabular-nums' }}>
+    <span style={counterStyle(finalStr)}>
       {formatNumber(value, decimals)}
     </span>
   )
