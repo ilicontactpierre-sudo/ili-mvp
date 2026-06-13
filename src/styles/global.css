@@ -202,8 +202,8 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-end;
-  padding-bottom: 8vh;
+  justify-content: center;
+  padding-top: 28vh;
   z-index: 5;
   pointer-events: none;
 }
