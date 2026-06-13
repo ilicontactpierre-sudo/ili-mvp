@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
 
-// ── Easing "courbe en S" (easeInOutCubic) ───────────────────────────────────
-function easeInOutCubic(t) {
-  return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2
+// ── Easing "courbe en S" (easeInOutQuint — accélération/décélération plus douces) ──
+function easeInOutQuint(t) {
+  return t < 0.5 ? 16 * t * t * t * t * t : 1 - Math.pow(-2 * t + 2, 5) / 2
 }
 
 const COUNTER_DURATION = 1400 // ms
