@@ -245,7 +245,7 @@
       "lines": [
         "Les deux regardent la note avec un petit soupire : c’est pas donné."
       ],
-      "text": "Les deux regardent la note avec un petit soupire : c’est pas donné.",
+      "text": "</chiffre_up:0;78/>€. Les deux regardent la note avec un petit soupire : c’est pas donné.",
       "breakAt": null,
       "isLeader": false,
       "audioEvents": []
@@ -268,6 +268,7 @@
       "text": "leur bar préféré, là où tout à commencé.",
       "breakAt": null,
       "isLeader": false,
+      "strikethrough": true,
       "audioEvents": []
     },
     {
