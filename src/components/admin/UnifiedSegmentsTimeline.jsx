@@ -609,12 +609,15 @@ const SegmentTimelineRow = memo(function SegmentTimelineRow({
           onMouseLeave={handleSplitPreviewMouseLeave}
         >
           {isEditing ? (
+            <>
             <textarea
                 ref={textareaRef}
                 value={editText}
-                onChange={(e) => onEditChange(index, e.target.value)}
-                onBlur={() => onEditBlur(index)}
-                onKeyDown={(e) => onEditKeyDown(index, e)}
+                onChange={handleTextareaChange}
+                onBlur={handleTextareaBlur}
+                onKeyDown={handleTextareaKeyDown}
+                onKeyUp={handleTextareaKeyUp}
+                onClick={(e) => { if (fnMenu) checkFnTrigger(e.target) }}
                 onMouseUp={onTextSelection}
                 autoFocus
                 style={{
@@ -636,6 +639,17 @@ const SegmentTimelineRow = memo(function SegmentTimelineRow({
                   display: 'block'
                 }}
               />
+            {fnMenu && (
+              <InlineFunctionMenu
+                query={fnMenu.query}
+                matches={fnMenu.matches}
+                selectedIndex={fnMenu.selectedIndex}
+                position={fnMenu.position}
+                onSelect={insertInlineFunction}
+                onHover={(i) => setFnMenu(prev => prev && ({ ...prev, selectedIndex: i }))}
+              />
+            )}
+            </>
           ) : (
                 <span ref={textContentRef} style={{ display: 'block', whiteSpace: 'pre-wrap', overflowWrap: 'break-word', lineHeight: '1.4', fontSize: '0.85rem', height: 'auto', fontFamily: segment?.fontFamily || 'inherit' }}>
                 {splitPreviewPosition !== null && isCmdPressed ? (
