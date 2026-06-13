@@ -681,6 +681,33 @@ const SegmentTimelineRow = memo(function SegmentTimelineRow({
             </>
           ) : (
                 <span ref={textContentRef} style={{ display: 'block', whiteSpace: 'pre-wrap', overflowWrap: 'break-word', lineHeight: '1.4', fontSize: '0.85rem', height: 'auto', fontFamily: segment?.fontFamily || 'inherit' }}>
+                {!text && segment?.gameMode?.type && (() => {
+                  const GAME_LABELS = {
+                    image: '🖼  Image / Cinématique',
+                    filmstrip: '🎞  Pellicule',
+                    document: '📄  Document / Artefact',
+                    message: '💬  Message animé',
+                    code: '🔢  Digicode',
+                    riddle: '🧩  Énigme texte libre',
+                    timer: '⏱  Minuteur',
+                    sequence: '🔀  Séquence à reconstituer',
+                    journal: '✍️  Journal / Écriture libre',
+                    crypte: '🔐  Crypte / Déchiffrement',
+                    choice_quiz: '🎯  QCM',
+                    choice_branch: '🌿  Choix narratif',
+                  }
+                  return (
+                    <span style={{
+                      color: 'rgba(167,139,250,0.7)',
+                      fontStyle: 'italic',
+                      fontSize: '0.8rem',
+                      userSelect: 'none',
+                      pointerEvents: 'none',
+                    }}>
+                      {GAME_LABELS[segment.gameMode.type] || '🎮 Gamification'}
+                    </span>
+                  )
+                })()}
                 {splitPreviewPosition !== null && isCmdPressed ? (
                 <>
                   {text.substring(0, splitPreviewPosition)}
