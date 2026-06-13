@@ -152,3 +152,40 @@ export function renderTextWithInlineFunctions(text, fallbackRenderer, options = 
     return <span key={`${keyPrefix}txt${i}`}>{fallbackRenderer(seg.value)}</span>
   })
 }
+
+// ── Calcule la position écran du curseur dans un textarea ──────────────────
+// Technique du "div miroir" : on duplique les styles du textarea dans un div
+// invisible, on y insère le texte jusqu'au curseur, et on mesure la position
+// d'un span marqueur. Retourne des coordonnées "fixed" (viewport).
+const MIRROR_PROPERTIES = [
+  'boxSizing', 'width', 'height', 'overflowX', 'overflowY',
+  'borderTopWidth', 'borderRightWidth', 'borderBottomWidth', 'borderLeftWidth', 'borderStyle',
+  'paddingTop', 'paddingRight', 'paddingBottom', 'paddingLeft',
+  'fontStyle', 'fontVariant', 'fontWeight', 'fontSize', 'fontFamily',
+  'lineHeight', 'textAlign', 'textIndent', 'letterSpacing', 'wordSpacing', 'tabSize',
+]
+export function getCaretCoordinates(textarea, position) {
+  const div = document.createElement('div')
+  const style = getComputedStyle(textarea)
+  div.style.position = 'absolute'
+  div.style.visibility = 'hidden'
+  div.style.whiteSpace = 'pre-wrap'
+  div.style.wordWrap = 'break-word'
+  div.style.top = '0'
+  div.style.left = '0'
+  MIRROR_PROPERTIES.forEach(prop => { div.style[prop] = style[prop] })
+  document.body.appendChild(div)
+  div.textContent = textarea.value.substring(0, position)
+  const span = document.createElement('span')
+  span.textContent = textarea.value.substring(position) || '.'
+  div.appendChild(span)
+  const rect = textarea.getBoundingClientRect()
+  const top = span.offsetTop + parseInt(style.borderTopWidth, 10) - textarea.scrollTop
+  const left = span.offsetLeft + parseInt(style.borderLeftWidth, 10) - textarea.scrollLeft
+  const lineHeight = parseInt(style.lineHeight, 10) || 20
+  document.body.removeChild(div)
+  return {
+    top: rect.top + top + lineHeight,
+    left: rect.left + left,
+  }
+}
