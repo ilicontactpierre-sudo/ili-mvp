@@ -8,6 +8,8 @@ import VfxBlockPanel from './VfxBlockPanel'
 import FormatToolbar from './FormatToolbar'
 import GameModePanel from './GameModePanel'
 import { renderMarkdown } from '../../utils/renderMarkdown'
+import InlineFunctionMenu from './InlineFunctionMenu'
+import { INLINE_FUNCTIONS, getCaretCoordinates } from '../../utils/inlineFunctions'
 
 const getSegmentText = (segment) => {
   if (typeof segment === 'string') {
