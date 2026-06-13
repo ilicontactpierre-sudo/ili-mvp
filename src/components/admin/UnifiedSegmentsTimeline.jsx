@@ -537,6 +537,35 @@ const SegmentTimelineRow = memo(function SegmentTimelineRow({
         >
           🎮
         </button>
+        {segment?.gameMode?.type && (() => {
+          const GAME_LABELS = {
+            image: '🖼', filmstrip: '🎞', document: '📄', message: '💬',
+            code: '🔢', riddle: '🧩', timer: '⏱', sequence: '🔀',
+            journal: '✍️', crypte: '🔐', choice_quiz: '🎯', choice_branch: '🌿',
+          }
+          const label = GAME_LABELS[segment.gameMode.type] || '🎮'
+          return (
+            <span
+              onClick={(e) => { e.stopPropagation(); onGameMode(index); }}
+              title={`Gamification : ${segment.gameMode.type}`}
+              style={{
+                fontSize: '0.58rem',
+                color: '#a78bfa',
+                backgroundColor: 'rgba(167,139,250,0.1)',
+                border: '1px solid rgba(167,139,250,0.25)',
+                borderRadius: '3px',
+                padding: '0 3px',
+                lineHeight: '13px',
+                cursor: 'pointer',
+                whiteSpace: 'nowrap',
+                flexShrink: 0,
+                userSelect: 'none',
+              }}
+            >
+              {label}
+            </span>
+          )
+        })()}
       </div>
           
         {/* Numéro du segment — cliquable si chapitre pour collapse/expand */}
