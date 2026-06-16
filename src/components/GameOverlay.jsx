@@ -1383,8 +1383,13 @@ function GameMessage({ data, onResolved }) {
 // ─── Type : Document / Artefact ───────────────────────────────────────────────
 function GameDocument({ data, onResolved }) {
   const [visible, setVisible] = useState(false)
+  const [tappable, setTappable] = useState(false)
   useEffect(() => {
     const t = setTimeout(() => setVisible(true), 200)
+    return () => clearTimeout(t)
+  }, [])
+  useEffect(() => {
+    const t = setTimeout(() => setTappable(true), 1000)
     return () => clearTimeout(t)
   }, [])
 
