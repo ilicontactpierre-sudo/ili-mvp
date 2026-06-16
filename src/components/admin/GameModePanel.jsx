@@ -133,17 +133,43 @@ function FormImage({ data, onChange }) {
         <input style={inputStyle} type="text" value={data.caption || ''} placeholder="Ex : Document retrouvé le 14 mars…"
           onChange={e => onChange({ ...data, caption: e.target.value })} />
       </Field>
-      <Field label="Animation d'apparition">
-        <select style={inputStyle} value={data.animation || 'fade'}
-          onChange={e => onChange({ ...data, animation: e.target.value })}>
-          <option value="fade">Fondu simple</option>
-          <option value="pixels">Pixels aléatoires</option>
-          <option value="develop">Développement photo</option>
-          <option value="scan">Scan vertical</option>
-          <option value="shards">Éclats de verre</option>
-          <option value="fog">Brume qui se lève</option>
-        </select>
-      </Field>
+      {!isVideo && (
+        <Field label="Animation d'apparition">
+          <select style={inputStyle} value={data.animation || 'fade'}
+            onChange={e => onChange({ ...data, animation: e.target.value })}>
+            <option value="fade">Fondu simple</option>
+            <option value="pixels">Pixels aléatoires</option>
+            <option value="develop">Développement photo</option>
+            <option value="scan">Scan vertical</option>
+            <option value="shards">Éclats de verre</option>
+            <option value="fog">Brume qui se lève</option>
+          </select>
+        </Field>
+      )}
+      {isVideo && (
+        <>
+          <Field label="Lecture en boucle" hint="Si activé : boucle infinie jusqu'au tap du lecteur. Sinon : avance automatiquement à la fin.">
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+              <input type="checkbox" id="videoLoop" checked={!!data.videoLoop}
+                onChange={e => onChange({ ...data, videoLoop: e.target.checked })}
+                style={{ accentColor: '#a78bfa' }} />
+              <label htmlFor="videoLoop" style={{ fontSize: '0.8rem', color: 'rgba(255,255,255,0.6)', cursor: 'pointer' }}>
+                Boucle infinie
+              </label>
+            </div>
+          </Field>
+          <Field label="Son" hint="Les navigateurs bloquent l'autoplay avec son. Recommandé : laisser muet et gérer le son via la timeline audio.">
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+              <input type="checkbox" id="videoMuted" checked={data.videoMuted !== false}
+                onChange={e => onChange({ ...data, videoMuted: e.target.checked })}
+                style={{ accentColor: '#a78bfa' }} />
+              <label htmlFor="videoMuted" style={{ fontSize: '0.8rem', color: 'rgba(255,255,255,0.6)', cursor: 'pointer' }}>
+                Muet (recommandé)
+              </label>
+            </div>
+          </Field>
+        </>
+      )}
     </>
   )
 }
