@@ -1339,7 +1339,7 @@ function GameMessage({ data, onResolved }) {
   ) : null
 
   return (
-    <AnimatedWrapper style={{ gap: '2rem' }}>
+    <AnimatedWrapper style={{ gap: '2rem' }} onClick={() => tappable && onResolved()}>
       {iface === 'sms' && !data.hideHeader && (
         <div style={{ fontSize: '0.68rem', opacity: 0.35, letterSpacing: '0.08em', alignSelf: 'flex-start', marginLeft: '0.5rem' }}>
           {data.headerLabel || 'Message reçu'}
@@ -1523,15 +1523,6 @@ function GameDocument({ data, onResolved }) {
   return (
     <AnimatedWrapper style={{ gap: '2rem' }}>
       {docEl}
-      <div
-        onClick={() => tappable && onResolved()}
-        style={{
-          position: 'fixed',
-          inset: 0,
-          zIndex: 10,
-          cursor: 'default',
-        }}
-      />
     </AnimatedWrapper>
   )
 }
