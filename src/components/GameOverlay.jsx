@@ -269,6 +269,11 @@ function GameOverlay({ gameMode, onResolved, onBack, segmentIndex, onNavigateToP
     <>
       <style>{GLOBAL_KEYFRAMES}</style>
       <div
+        onClick={(e) => {
+          if ((type === 'image' || type === 'document') && e.target === e.currentTarget) {
+            // tap sur les zones vides autour du contenu — géré par GameImage/GameDocument
+          }
+        }}
         style={{
           position: 'fixed',
           inset: 0,
