@@ -1357,7 +1357,15 @@ function GameMessage({ data, onResolved }) {
       <div style={wrapperStyle}>
         {displayed}{cursor}
       </div>
-      {done && <ContinueBtn onClick={onResolved} delay={400} />}
+      <div
+        onClick={handleTap}
+        style={{
+          position: 'fixed',
+          inset: 0,
+          zIndex: 10,
+          cursor: 'default',
+        }}
+      />
     </AnimatedWrapper>
   )
 }
