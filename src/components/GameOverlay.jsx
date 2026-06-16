@@ -599,15 +599,6 @@ function GameImage({ data, onResolved }) {
           {data.caption}
         </p>
       )}
-      <div
-        onClick={() => tappable && onResolved()}
-        style={{
-          position: 'fixed',
-          inset: 0,
-          zIndex: 10,
-          cursor: 'default',
-        }}
-      />
     </AnimatedWrapper>
   )
 }
