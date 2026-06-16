@@ -1299,19 +1299,19 @@ function UnifiedSegmentsTimeline({
   // Actions sur les segments
   const handleStartEdit = useCallback((index) => {
     setEditingSegmentIndex(index)
-    const segment = segments[index]
-    // Si le segment a un breakAt, on l'injecte comme vrai saut de ligne
-    // pour que l'utilisateur puisse le voir et le modifier
-    let editValue = getSegmentText(segment)
-    if (segment && typeof segment === 'object' && segment.breakAt != null) {
-      const before = editValue.slice(0, segment.breakAt).trimEnd()
-      const after = editValue.slice(segment.breakAt).trimStart()
-      editValue = before + '\n\n' + after
-    }
-    setEditTexts(prev => ({
-      ...prev,
-      [index]: editValue
-    }))
+    // Ne ré-initialiser le texte que si on n'a pas déjà une valeur en cours d'édition
+    // pour ce segment (évite d'écraser le texte tapé avant un double-clic)
+    setEditTexts(prev => {
+      if (prev[index] !== undefined) return prev // déjà en édition : conserver
+      const segment = segments[index]
+      let editValue = getSegmentText(segment)
+      if (segment && typeof segment === 'object' && segment.breakAt != null) {
+        const before = editValue.slice(0, segment.breakAt).trimEnd()
+        const after = editValue.slice(segment.breakAt).trimStart()
+        editValue = before + '\n\n' + after
+      }
+      return { ...prev, [index]: editValue }
+    })
   }, [segments])
 
   const handleEditChange = useCallback((index, newText) => {
