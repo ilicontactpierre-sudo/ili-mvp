@@ -1,0 +1,39 @@
+{
+  "id": "test-fonctions-test-fonctions",
+  "title": "test fonctions",
+  "author": "test fonctions",
+  "published": true,
+  "sounds": [],
+  "segments": [
+    {
+      "id": "seg_1781608272393_0_izvb1",
+      "lines": [
+        "v"
+      ],
+      "text": "</ecrire:ambiance;sombre/> segment pour dire que le lecteur est passé ici ?",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "text": "Tu t'en souviens, </lire:prenom|voyageur/> ?",
+      "id": "seg_1781608295818",
+      "breakAt": null,
+      "audioEvents": []
+    },
+    {
+      "text": "La nuit était </lire:ambiance|calme/>.",
+      "id": "seg_1781608295682",
+      "breakAt": null,
+      "audioEvents": []
+    },
+    {
+      "text": "Fin.",
+      "id": "seg_1781608295266",
+      "breakAt": null,
+      "audioEvents": []
+    }
+  ],
+  "soundTracks": [],
+  "vfxTracks": []
+}
