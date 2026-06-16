@@ -1345,6 +1345,11 @@ function UnifiedSegmentsTimeline({
       onSegmentsChange(updatedSegments)
       if (onSaveToHistory) onSaveToHistory()
     }
+    setEditTexts(prev => {
+      const next = { ...prev }
+      delete next[index]
+      return next
+    })
     setEditingSegmentIndex(null)
   }, [editTexts, segments, onSegmentsChange, onSaveToHistory])
 
