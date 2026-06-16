@@ -410,6 +410,10 @@ function useImageAnimation(animation, imgLoaded) {
 
 // ─── Type : Image ─────────────────────────────────────────────────────────────
 function GameImage({ data, onResolved, tappable }) {
+  // Déléguer à GameVideo si l'URL est une vidéo
+  if (isVideoUrl(data.imageUrl)) {
+    return <GameVideo data={data} onResolved={onResolved} tappable={tappable} />
+  }
   const [imgLoaded, setImgLoaded] = useState(false)
   const [cssVisible, setCssVisible] = useState(false)
   const [imgError, setImgError] = useState(false)
