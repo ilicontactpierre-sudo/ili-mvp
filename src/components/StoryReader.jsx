@@ -136,6 +136,28 @@ function applyBionicReading(text) {
 function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle', viewportHeight }) {
   const segments = storyData ? storyData.segments : []
   const [loadedStory, setLoadedStory] = useState(null)
+
+  // ── Mémoire narrative (sessionStorage isolé par histoire) ──────────────────
+  // Chaque histoire a son propre namespace : ili_mem_{storyId}_{clé}
+  // Réinitialisé à chaque nouvelle lecture (nouveau mount du composant).
+  const storyId_ = storyId || storyData?.id || 'default'
+  const memoryRef = useRef({})
+  const narrativeMemory = useMemo(() => ({
+    read: (key, def) => {
+      // 1. Chercher dans le state en mémoire (le plus à jour)
+      if (memoryRef.current[key] !== undefined) return memoryRef.current[key]
+      // 2. Fallback sessionStorage (survit aux re-renders)
+      try {
+        const val = sessionStorage.getItem(`ili_mem_${storyId_}_${key}`)
+        if (val !== null) return val
+      } catch {}
+      return def
+    },
+    write: (key, val) => {
+      memoryRef.current[key] = val
+      try { sessionStorage.setItem(`ili_mem_${storyId_}_${key}`, val) } catch {}
+    },
+  }), [storyId_])
   // ── Progression verticale ──
   const [showProgress, setShowProgress] = useState(() => {
     try { return localStorage.getItem('ili_show_progress') !== 'false' } catch { return true }
