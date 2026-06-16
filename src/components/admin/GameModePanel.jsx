@@ -84,10 +84,14 @@ const textareaStyle = {
 
 // ─── Formulaires par type ────────────────────────────────────────────────────
 
+function isVideoUrl(url) {
+  return /\.(mp4|webm|mov|m4v)(\?.*)?$/i.test(url || '')
+}
 function FormImage({ data, onChange }) {
+  const isVideo = isVideoUrl(data.imageUrl)
   return (
     <>
-      <Field label="URL de l'image *" hint="Lien direct vers une image (jpg, png, webp…)">
+      <Field label="URL de l'image ou de la vidéo *" hint="Image (jpg, png, webp…) ou vidéo (mp4, webm). Upload sur Supabase → colle l'URL ici.">
         <div style={{ display: 'flex', gap: '0.5rem' }}>
   <input style={{ ...inputStyle, flex: 1 }} type="url" value={data.imageUrl || ''} placeholder="https://…"
     onChange={e => onChange({ ...data, imageUrl: e.target.value })} />
