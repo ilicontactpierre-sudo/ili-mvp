@@ -1244,21 +1244,39 @@ function GameMessage({ data, onResolved }) {
   const delay = speed === 'lent' ? 80 : speed === 'rapide' ? 18 : 38
   const [displayed, setDisplayed] = useState('')
   const [done, setDone] = useState(false)
+  const [tappable, setTappable] = useState(false)
   const indexRef = useRef(0)
-
+  const intervalRef = useRef(null)
+  useEffect(() => {
+    const t = setTimeout(() => setTappable(true), 1000)
+    return () => clearTimeout(t)
+  }, [])
   useEffect(() => {
     if (!text) { setDone(true); return }
-    const interval = setInterval(() => {
+    intervalRef.current = setInterval(() => {
       if (indexRef.current >= text.length) {
-        clearInterval(interval)
+        clearInterval(intervalRef.current)
         setDone(true)
         return
       }
       setDisplayed(text.slice(0, indexRef.current + 1))
       indexRef.current += 1
     }, delay)
-    return () => clearInterval(interval)
+    return () => clearInterval(intervalRef.current)
   }, [text, delay])
+  const handleTap = () => {
+    if (!tappable) return
+    if (!done) {
+      // Premier tap : compléter le texte instantanément
+      clearInterval(intervalRef.current)
+      setDisplayed(text)
+      indexRef.current = text.length
+      setDone(true)
+    } else {
+      // Second tap : passer au segment suivant
+      onResolved()
+    }
+  }
 
   const wrapperStyle = (() => {
     if (iface === 'sms') return {
