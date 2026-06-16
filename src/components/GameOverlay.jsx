@@ -599,13 +599,15 @@ function GameImage({ data, onResolved }) {
           {data.caption}
         </p>
       )}
-      <div style={{
-        opacity: isVisible ? 1 : 0,
-        transform: isVisible ? 'translateY(0)' : 'translateY(10px)',
-        transition: `opacity 600ms ${EASE.out} 500ms, transform 600ms ${EASE.out} 500ms`,
-      }}>
-        <ContinueBtn onClick={onResolved} delay={600} />
-      </div>
+      <div
+        onClick={() => tappable && onResolved()}
+        style={{
+          position: 'fixed',
+          inset: 0,
+          zIndex: 10,
+          cursor: 'default',
+        }}
+      />
     </AnimatedWrapper>
   )
 }
