@@ -199,14 +199,32 @@ const SegmentTimelineRow = memo(function SegmentTimelineRow({
     const textarea = textareaRef.current
     const cursor = fnMenu.cursor
     const matchStart = cursor - 2 - fnMenu.query.length // position du "</"
-    const defaults = def.params.map(p => p.default)
-    const template = `</${fnKey}:${defaults.join(';')}/>`
+    const template = def.template()
     const currentText = textarea.value
     const newText = currentText.slice(0, matchStart) + template + currentText.slice(cursor)
-    // Sélectionner le 1er paramètre pour saisie immédiate
-    const firstParamStart = matchStart + 2 + fnKey.length + 1 // après "</fnKey:"
-    const firstParamEnd = firstParamStart + defaults[0].length
-    pendingSelectionRef.current = { start: firstParamStart, end: firstParamEnd }
+    // Positionner le curseur :
+    // - Fonction wrap (cursorAfterPipe) → entre | et />
+    // - Fonction autonome avec params   → sur le 1er param (sélectionné)
+    // - Fonction autonome sans params   → après le tag
+    let selStart, selEnd
+    const insertBase = matchStart
+    if (def.cursorAfterPipe) {
+      // Trouver la position du | dans le template
+      const pipePos = template.indexOf('|')
+      selStart = insertBase + pipePos + 1
+      selEnd   = selStart
+    } else if (def.params.length > 0) {
+      // Sélectionner le 1er param (après ":/fnKey:")
+      const colonPos = template.indexOf(':')
+      const semicolonPos = template.indexOf(';')
+      const endPos = semicolonPos !== -1 ? semicolonPos : template.indexOf('/')
+      selStart = insertBase + colonPos + 1
+      selEnd   = insertBase + (endPos !== -1 ? endPos : template.length)
+    } else {
+      selStart = insertBase + template.length
+      selEnd   = selStart
+    }
+    pendingSelectionRef.current = { start: selStart, end: selEnd }
     setFnMenu(null)
     onEditChange(index, newText)
   }, [fnMenu, index, onEditChange])
