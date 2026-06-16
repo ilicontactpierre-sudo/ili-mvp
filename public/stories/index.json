@@ -24,5 +24,10 @@
     "mood": "Immersif, addictif.",
     "genre": "Nouvelle, Thriller.",
     "description": "Rim le sait : dans ce monde, l'inattendu est le seul mot qui compte. Et pourtant..."
+  },
+  {
+    "id": "test-fonctions-test-fonctions",
+    "title": "test fonctions",
+    "author": "test fonctions"
   }
 ]
