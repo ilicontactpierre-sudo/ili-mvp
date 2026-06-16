@@ -249,11 +249,17 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle',
     if (currentLeaderIndex > 0) {
       for (let i = 0; i < currentLeaderIndex; i++) hiddenFromView.add(i)
     }
-    const isCurrentFinisher =
-      currentIndex < finalSegments.length - 1 &&
-      finalSegments[currentIndex + 1]?.isLeader === true
-    if (isCurrentFinisher) {
-      for (let i = currentIndex + 1; i < finalSegments.length; i++) hiddenFromView.add(i)
+    // Trouver le finisher de la séquence courante (le segment juste avant le prochain Leader)
+    // Il faut masquer tout ce qui est après ce finisher, quel que soit le segment actif
+    let sequenceFinisherIndex = -1
+    for (let i = currentLeaderIndex !== -1 ? currentLeaderIndex : 0; i < finalSegments.length - 1; i++) {
+      if (finalSegments[i + 1]?.isLeader === true) {
+        sequenceFinisherIndex = i
+        break
+      }
+    }
+    if (sequenceFinisherIndex !== -1) {
+      for (let i = sequenceFinisherIndex + 1; i < finalSegments.length; i++) hiddenFromView.add(i)
     }
   }
 
