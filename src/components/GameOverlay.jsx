@@ -1597,7 +1597,7 @@ function GameCode({ data, onResolved }) {
   const dotColor = success ? 'rgba(39,174,96,0.9)' : error ? 'rgba(192,57,43,0.9)' : 'var(--color-text-focus, #222)'
 
   return (
-    <AnimatedWrapper style={{ gap: '1.8rem' }}>
+    <AnimatedWrapper style={{ gap: '1.8rem' }} onClick={() => tappable && onResolved()}>
       {data.prompt && (
         <p style={{
           fontSize: 'clamp(0.88rem, 2vw, 1rem)',
