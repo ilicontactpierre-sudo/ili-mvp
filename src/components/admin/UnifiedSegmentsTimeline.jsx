@@ -1326,13 +1326,16 @@ function UnifiedSegmentsTimeline({
     if (newText !== undefined) {
       // Détecter si l'utilisateur a conservé ou inséré un double saut de ligne
       // et le convertir en breakAt pour l'affichage
-      const doubleBreakMatch = newText.match(/^([\s\S]*?)\n\n([\s\S]*)$/)
+      // Normaliser : \r\n → \n, puis traiter \n\n et \n simples
+      const normalized = newText.replace(/\r\n/g, '\n')
+      const doubleBreakMatch = normalized.match(/^([\s\S]*?)\n\n([\s\S]*)$/)
       let cleanText, breakAt
       if (doubleBreakMatch) {
         cleanText = doubleBreakMatch[1].trimEnd() + ' ' + doubleBreakMatch[2].trimStart()
         breakAt = doubleBreakMatch[1].trimEnd().length + 1 // +1 pour l'espace
       } else {
-        cleanText = newText
+        // Conserver les sauts de ligne simples tels quels dans le texte
+        cleanText = normalized
         breakAt = null
       }
       const updatedSegments = [...segments]
