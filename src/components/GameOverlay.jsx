@@ -242,6 +242,107 @@ function Hint({ children, delay = 400 }) {
   )
 }
 
+// ─── Détection vidéo ──────────────────────────────────────────────────────────
+function isVideoUrl(url) {
+  return /\.(mp4|webm|mov|m4v)(\?.*)?$/i.test(url || '')
+}
+// ─── Type : Vidéo (rendu dans GameImage quand l'URL est une vidéo) ────────────
+function GameVideo({ data, onResolved, tappable }) {
+  const videoRef = useRef(null)
+  const [visible, setCssVisible] = useState(false)
+  const [leaving, setLeaving] = useState(false)
+  const isLoop = !!data.videoLoop
+  const isMuted = data.videoMuted !== false
+
+  useEffect(() => {
+    const t = setTimeout(() => setCssVisible(true), 60)
+    return () => clearTimeout(t)
+  }, [])
+
+  // Fin naturelle de la vidéo → avance (sauf si boucle)
+  const handleEnded = () => {
+    if (isLoop) return // géré par l'attribut loop, ne devrait pas se déclencher
+    triggerLeave()
+  }
+
+  const triggerLeave = () => {
+    if (leaving) return
+    setLeaving(true)
+    // Fondu de sortie puis résolution
+    setTimeout(() => onResolved(), 500)
+  }
+
+  // Tap en mode boucle → fondu + avance
+  const handleTap = (e) => {
+    if (!tappable || !isLoop) return
+    e.stopPropagation()
+    triggerLeave()
+  }
+
+  return (
+    <div
+      onClick={handleTap}
+      style={{
+        width: '100%',
+        maxWidth: '480px',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        gap: '1.2rem',
+        cursor: isLoop && tappable ? 'pointer' : 'default',
+      }}
+    >
+      <div style={{
+        width: '100%',
+        borderRadius: '3px',
+        overflow: 'hidden',
+        boxShadow: '0 12px 60px rgba(0,0,0,0.22)',
+        opacity: visible && !leaving ? 1 : 0,
+        transition: leaving
+          ? 'opacity 480ms cubic-bezier(0.76, 0, 0.24, 1)'
+          : 'opacity 700ms cubic-bezier(0.16, 1, 0.3, 1)',
+      }}>
+        <video
+          ref={videoRef}
+          src={data.imageUrl}
+          autoPlay
+          playsInline
+          muted={isMuted}
+          loop={isLoop}
+          onEnded={handleEnded}
+          style={{ width: '100%', height: 'auto', display: 'block' }}
+        />
+      </div>
+      {data.caption && (
+        <p style={{
+          fontSize: 'clamp(0.82rem, 1.8vw, 0.95rem)',
+          color: 'var(--color-text-focus, #222)',
+          textAlign: 'center',
+          lineHeight: 1.65,
+          opacity: visible && !leaving ? 0.6 : 0,
+          fontStyle: 'italic',
+          margin: 0,
+          transition: `opacity 700ms cubic-bezier(0.76, 0, 0.24, 1) 400ms`,
+        }}>
+          {data.caption}
+        </p>
+      )}
+      {isLoop && tappable && (
+        <p style={{
+          fontSize: '0.68rem',
+          color: 'var(--color-text-focus, #222)',
+          opacity: 0.28,
+          letterSpacing: '0.08em',
+          margin: 0,
+          fontStyle: 'italic',
+          transition: 'opacity 400ms ease',
+        }}>
+          toucher pour continuer
+        </p>
+      )}
+    </div>
+  )
+}
 // ─── Animations d'apparition image ───────────────────────────────────────────
 function useImageAnimation(animation, imgLoaded) {
   const canvasRef = useRef(null)
