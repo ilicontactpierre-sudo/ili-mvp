@@ -767,7 +767,8 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle',
         })}
       </div>
     </main>
-    </>
+   </>
+    </NarrativeMemoryContext.Provider>
   )
 }
 export default StoryReader
