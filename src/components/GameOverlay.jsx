@@ -269,7 +269,6 @@ function GameOverlay({ gameMode, onResolved, onBack, segmentIndex, onNavigateToP
     <>
       <style>{GLOBAL_KEYFRAMES}</style>
       <div
-        onClick={() => type === 'image' || type === 'document' || type === 'message' ? undefined : undefined}
         style={{
           position: 'fixed',
           inset: 0,
