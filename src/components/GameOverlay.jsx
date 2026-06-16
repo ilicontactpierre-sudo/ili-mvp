@@ -552,7 +552,10 @@ function GameImage({ data, onResolved }) {
         <p style={{ opacity: 0.4, fontStyle: 'italic', fontSize: '0.85rem', textAlign: 'center' }}>
           Image non disponible
         </p>
-        <ContinueBtn onClick={onResolved} delay={300} />
+        <div
+          onClick={() => tappable && onResolved()}
+          style={{ position: 'fixed', inset: 0, zIndex: 10, cursor: 'default' }}
+        />
       </AnimatedWrapper>
     )
   }
