@@ -561,7 +561,7 @@ function GameImage({ data, onResolved }) {
   }
 
   return (
-    <AnimatedWrapper style={{ gap: '1.8rem' }}>
+    <AnimatedWrapper style={{ gap: '1.8rem' }} onClick={() => tappable && onResolved()}>
       <div style={{
         width: '100%', maxWidth: '420px',
         borderRadius: '3px', overflow: 'hidden',
