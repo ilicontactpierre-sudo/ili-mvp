@@ -1532,7 +1532,15 @@ function GameDocument({ data, onResolved }) {
   return (
     <AnimatedWrapper style={{ gap: '2rem' }}>
       {docEl}
-      {visible && <ContinueBtn onClick={onResolved} delay={600} />}
+      <div
+        onClick={() => tappable && onResolved()}
+        style={{
+          position: 'fixed',
+          inset: 0,
+          zIndex: 10,
+          cursor: 'default',
+        }}
+      />
     </AnimatedWrapper>
   )
 }
