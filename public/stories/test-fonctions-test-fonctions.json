@@ -10,26 +10,102 @@
       "lines": [
         "v"
       ],
-      "text": "</ecrire:ambiance;sombre/> segment pour dire que le lecteur est passé ici ?",
+      "text": "Ceci est un </pulse:moyen;normal|test pulsation/> pour voir si ça marche",
       "breakAt": null,
       "isLeader": false,
       "audioEvents": []
     },
     {
-      "text": "Tu t'en souviens, </lire:prenom|voyageur/> ?",
+      "text": "Ceci est un </censure|test censure/> pour voir si ça marche",
       "id": "seg_1781608295818",
       "breakAt": null,
       "audioEvents": []
     },
     {
-      "text": "La nuit était </lire:ambiance|calme/>.",
+      "text": "Ceci est un </tremble:moyen|test tremblement/> pour voir si ça marche",
       "id": "seg_1781608295682",
       "breakAt": null,
       "audioEvents": []
     },
     {
-      "text": "Fin.\nOu pas",
+      "text": "Ceci est un </glitch:moyen|test glitch/> pour voir si ça marche",
+      "id": "seg_1781634330436",
+      "breakAt": null,
+      "audioEvents": []
+    },
+    {
+      "text": "Ceci est un </rupture:500|test rupture/> pour voir si ça marche",
+      "id": "seg_1781634330288",
+      "breakAt": null,
+      "audioEvents": []
+    },
+    {
+      "text": "Ceci est un </couleur:#FFFF00|test couleur jaune/> pour voir si ça marche",
+      "id": "seg_1781634330156",
+      "breakAt": null,
+      "audioEvents": []
+    },
+    {
+      "text": "Ceci est un </taille:1.3|test taille/> pour voir si ça marche",
+      "id": "seg_1781634330023",
+      "breakAt": null,
+      "audioEvents": []
+    },
+    {
+      "text": "Ceci est un </fondu_mot:1200|test fondu/> pour voir si ça marche",
+      "id": "seg_1781634329875",
+      "breakAt": null,
+      "audioEvents": []
+    },
+    {
+      "text": "Ceci est un </lire:prenom|test prénom/> pour voir si ça marche",
+      "id": "seg_1781634329742",
+      "breakAt": null,
+      "audioEvents": []
+    },
+    {
+      "text": "Ceci est un </chiffres_up:0;100/> pour voir si ça marche",
+      "id": "seg_1781634475368",
+      "breakAt": null,
+      "audioEvents": []
+    },
+    {
+      "text": "Ceci est un </chiffres_down:100;0/> pour voir si ça marche",
+      "id": "seg_1781634475248",
+      "breakAt": null,
+      "audioEvents": []
+    },
+    {
+      "text": "Ceci est un </obscurcir:1500/> pour voir si ça marche (obscurcir)",
+      "id": "seg_1781634475114",
+      "breakAt": null,
+      "audioEvents": []
+    },
+    {
+      "text": "Ceci est un </ecrire:tomate;légume/> pour voir si ça marche",
+      "id": "seg_1781634474970",
+      "breakAt": null,
+      "audioEvents": []
+    },
+    {
+      "text": "Vidéo à venir",
       "id": "seg_1781608295266",
+      "breakAt": null,
+      "audioEvents": []
+    },
+    {
+      "text": "",
+      "id": "seg_1781633924162",
+      "gameMode": {
+        "type": "image",
+        "imageUrl": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/Images/Flash%20Special%201%20720p.mov",
+        "caption": ""
+      },
+      "audioEvents": []
+    },
+    {
+      "text": "Fin",
+      "id": "seg_1781634149482",
       "breakAt": null,
       "audioEvents": []
     }
