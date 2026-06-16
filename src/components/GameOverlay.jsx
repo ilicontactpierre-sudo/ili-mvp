@@ -498,6 +498,11 @@ function GameImage({ data, onResolved }) {
   const [imgLoaded, setImgLoaded] = useState(false)
   const [cssVisible, setCssVisible] = useState(false)
   const [imgError, setImgError] = useState(false)
+  const [tappable, setTappable] = useState(false)
+  useEffect(() => {
+    const t = setTimeout(() => setTappable(true), 1000)
+    return () => clearTimeout(t)
+  }, [])
   const animation = data.animation || 'fade'
   const useCanvas = animation === 'pixels' || animation === 'scan'
   const { canvasRef, done } = useImageAnimation(useCanvas ? animation : null, imgLoaded)
