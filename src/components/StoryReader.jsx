@@ -1,10 +1,11 @@
-import { useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState, useMemo, useCallback } from 'react'
 import './StoryReader.css'
 import { renderMarkdown } from '../utils/renderMarkdown'
 import { applyEmojiMode } from '../utils/emojiDict.jsx'
 import { getVfxClass } from './admin/constants'
 import hapticEngine from '../engine/HapticEngine'
 import VfxOverlay from './VfxOverlay'
+import { NarrativeMemoryContext } from '../utils/inlineFunctions'
 
 // ── Flash plein écran ──
 const FLASH_SPEED = { lent: 2000, moyen: 1000, rapide: 400 }
