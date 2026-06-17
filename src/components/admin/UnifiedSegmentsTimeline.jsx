@@ -981,7 +981,8 @@ const SegmentTimelineRow = memo(function SegmentTimelineRow({
     prevProps.editingVfxTrack === nextProps.editingVfxTrack &&
     prevProps.soundTracks === nextProps.soundTracks &&
     prevProps.vfxTracks === nextProps.vfxTracks &&
-    prevProps.segments === nextProps.segments
+    prevProps.segments === nextProps.segments &&
+    prevProps.seuilKeys === nextProps.seuilKeys
   )
 })
 
