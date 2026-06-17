@@ -580,12 +580,13 @@ export function renderInlineFunction(seg, baseKey, isFocused, fallbackRenderer) 
       )
     }
     case 'fondu_mot': {
-      const [duree] = resolveArgs('fondu_mot', seg.args)
+      const [duree, vitesse] = resolveArgs('fondu_mot', seg.args)
       return (
         <FonduMotSpan
           key={`${baseKey}_on`}
           text={seg.content || ''}
           duree={duree}
+          vitesse={vitesse}
           isFocused={isFocused}
         />
       )
