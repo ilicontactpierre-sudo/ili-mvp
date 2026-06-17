@@ -18,6 +18,11 @@
       "loop": false
     },
     {
+      "id": "foodcook_cooking_pot_stir_metal_spoon_02_b00m_one",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/foodcook_cooking_pot_stir_metal_spoon_02_b00m_one.mp3",
+      "loop": false
+    },
+    {
       "id": "foodgware_glass_tumblers_chink_01_b00m_one",
       "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/foodgware_glass_tumblers_chink_01_b00m_one.mp3",
       "loop": false
@@ -159,7 +164,15 @@
       "text": "Rob continue sur sa lancée : </couleur:#d4a96a|« Un discours, un discours, un discours ! »./>",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "play",
+          "soundId": "foodcook_cooking_pot_stir_metal_spoon_02_b00m_one",
+          "volume": 0.5,
+          "delay": 0,
+          "loop": false
+        }
+      ]
     },
     {
       "id": "seg_1781326327990_4_4rjrx",
@@ -306,7 +319,7 @@
       "lines": [
         "- C'est mal te connaitre !"
       ],
-      "text": "</couleur:#d4a96a|- C'est mal te connaitre !:>\nLeurs rires complices couvrent le groupe de jazz.",
+      "text": "</couleur:#d4a96a|- C'est mal te connaitre !/>\nLeurs rires complices couvrent le groupe de jazz.",
       "breakAt": null,
       "isLeader": false,
       "delay": 1200,
@@ -926,6 +939,21 @@
       "trimStart": 138,
       "trimEnd": 1567,
       "pan": 0.46
+    },
+    {
+      "id": "st_1781704576873_rm0jjfxpe",
+      "soundId": "foodcook_cooking_pot_stir_metal_spoon_02_b00m_one",
+      "startSegmentId": "seg_1781326327990_3_kn93q",
+      "endSegmentId": "seg_1781326327990_3_kn93q",
+      "column": 2,
+      "volume": 0.5,
+      "fadeIn": 0,
+      "fadeOut": 0,
+      "delay": 0,
+      "loop": false,
+      "muted": false,
+      "trimStart": 0,
+      "trimEnd": 1958
     }
   ],
   "vfxTracks": [
