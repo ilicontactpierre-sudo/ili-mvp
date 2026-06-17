@@ -151,17 +151,8 @@ export const INLINE_FUNCTIONS = {
     template: () => `</obscurcir:1500/>`,
     cursorAfterPipe: false,
   },
-  ecrire: {
-    label: '💾 Mémoriser',
-    description: 'Mémorise une valeur pour cette lecture',
-    wrap: false,
-    params: [
-      { name: 'clé',    default: 'prenom' },
-      { name: 'valeur', default: 'lecteur' },
-    ],
-    template: () => `</ecrire:prenom;lecteur/>`,
-    cursorAfterPipe: false,
-  },
+  // ecrire supprimé — la mémorisation se fait via GameMode "journal"
+  // ou via le Seuil du StartScreen. Cf. {{journal:clé}} et </lire:clé/>
 }
 
 // ── Parser ────────────────────────────────────────────────────────────────────
