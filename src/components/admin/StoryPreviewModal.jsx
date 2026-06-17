@@ -109,6 +109,7 @@ function StoryPreviewModal({ isOpen, storyData, onClose, startSegmentIndex = nul
     setCurrentIndex(0)
     setIsFinished(false)
     setIsStarted(false)
+    setStartFromInput('')
     ignoreAdvanceUntilRef.current = 0
   }
 
