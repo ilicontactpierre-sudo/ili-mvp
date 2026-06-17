@@ -215,9 +215,10 @@ function formatNumber(value, decimals) {
 function counterStyle(finalStr) {
   return {
     display: 'inline-block',
-    minWidth: `${finalStr.length}ch`,
-    textAlign: 'right',
+    width: `${Math.max(finalStr.length, 1)}ch`,
+    textAlign: 'center',
     fontVariantNumeric: 'tabular-nums',
+    overflow: 'hidden',
   }
 }
 
