@@ -540,6 +540,9 @@ function StoryPage() {
   }
 
   // ── GameMode ───────────────────────────────────────────────────────────────
+  const [showSeuil, setShowSeuil]     = useState(false)
+  const [seuilDone, setSeuilDone]     = useState(false)
+  const pendingStartRef               = useRef(null) // stocke { howlMap, resume } pendant le seuil
   const [frozenGameMode, setFrozenGameMode] = useState(null)
   const [frozenIndex, setFrozenIndex]       = useState(null)
 
