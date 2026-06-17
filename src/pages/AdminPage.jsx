@@ -1620,7 +1620,7 @@ function AdminPage() {
         isSerial={isSerial}
         parts={isSerial ? parts : []}
         onRestore={handleRestoreSnapshot}
-        onOpenPreview={() => setIsPreviewOpen(true)}
+        onOpenPreview={() => { setPreviewStartIndex(null); setIsPreviewOpen(true) }}
       />
 
       {/* Contenu principal */}
