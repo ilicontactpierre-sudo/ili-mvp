@@ -2482,7 +2482,8 @@ function AdminPage() {
       <StoryPreviewModal
         isOpen={isPreviewOpen}
         storyData={previewStoryData || getCurrentStoryData()}
-        onClose={() => setIsPreviewOpen(false)}
+        startSegmentIndex={previewStartIndex}
+        onClose={() => { setIsPreviewOpen(false); setPreviewStartIndex(null) }}
       />
 
       </> /* fin onglet stories */}
