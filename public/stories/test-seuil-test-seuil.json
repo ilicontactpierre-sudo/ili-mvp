@@ -1,0 +1,30 @@
+{
+  "id": "test-seuil-test-seuil",
+  "title": "test seuil",
+  "author": "test seuil",
+  "published": true,
+  "seuil": [
+    {
+      "cle": "test_seuil",
+      "texte": "test seuil",
+      "type": "texte",
+      "placeholder": "",
+      "options": []
+    }
+  ],
+  "sounds": [],
+  "segments": [
+    {
+      "id": "seg_1781693890713_0_pl68a",
+      "lines": [
+        "z"
+      ],
+      "text": "</lire:test_seuil|tteesstt/>z",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    }
+  ],
+  "soundTracks": [],
+  "vfxTracks": []
+}
