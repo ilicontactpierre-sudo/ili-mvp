@@ -2551,6 +2551,7 @@ const handleTextSelection = useCallback(() => {
                     onDragHandleMouseDown: dragHandleMouseDownHandlers[index],
                     isDragging: isBeingDragged,
                     onGameMode: (idx) => setGameModePanel(idx),
+                    onPreviewFromSegment,
                     seuilKeys,
                   }}
                 />
