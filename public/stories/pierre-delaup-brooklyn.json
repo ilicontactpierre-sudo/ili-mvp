@@ -43,13 +43,83 @@
       "loop": false
     },
     {
+      "id": "03_s00_ambience_-_room_tone_hum_ambient_leaving_room_atmosphere_1",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/03_s00_ambience_-_room_tone_hum_ambient_leaving_room_atmosphere_1.mp3",
+      "loop": false
+    },
+    {
+      "id": "08_s02_brooklyn_birds",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/08_s02_brooklyn_birds.mp3",
+      "loop": false
+    },
+    {
+      "id": "08_s02_brooklyn_explosion",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/08_s02_brooklyn_explosion.mp3",
+      "loop": false
+    },
+    {
+      "id": "13_s03_ville",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/13_s03_ville.mp3",
+      "loop": false
+    },
+    {
+      "id": "15_s04_respi",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/15_s04_respi.mp3",
+      "loop": false
+    },
+    {
+      "id": "17_s05_drap",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/17_s05_drap.mp3",
+      "loop": false
+    },
+    {
+      "id": "21_s06_soleil",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/21_s06_soleil.mp3",
+      "loop": false
+    },
+    {
+      "id": "30_s07_militaire",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/30_s07_militaire.mp3",
+      "loop": false
+    },
+    {
+      "id": "36_s08_cafe_",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/36_s08_cafe_.mp3",
+      "loop": false
+    },
+    {
+      "id": "40_s09_frigo_lait",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/40_s09_frigo_lait.mp3",
+      "loop": false
+    },
+    {
+      "id": "50_s10_tv_1",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/50_s10_tv_1.mp3",
+      "loop": false
+    },
+    {
+      "id": "54_s02a2_lucia",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/54_s02a2_lucia.mp3",
+      "loop": false
+    },
+    {
       "id": "65_s02a_toast",
       "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/65_s02a_toast.mp3",
       "loop": false
     },
     {
+      "id": "apocalyptic_drone_state_of_emergency_atmosphere_02",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/apocalyptic_drone_state_of_emergency_atmosphere_02.mp3",
+      "loop": false
+    },
+    {
       "id": "best_drum_solo_ever",
       "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/best_drum_solo_ever.mp3",
+      "loop": false
+    },
+    {
+      "id": "bob_marley_get_up_stand_up_instrumental_original",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/bob_marley_get_up_stand_up_instrumental_original.mp3",
       "loop": false
     },
     {
