@@ -551,7 +551,19 @@ export function renderInlineFunction(seg, baseKey, isFocused, fallbackRenderer) 
     }
     case 'taille': {
       const [ratio] = resolveArgs('taille', seg.args)
-      return <span key={baseKey} style={{ fontSize: `${parseFloat(ratio)}em`, lineHeight: 1.2 }}>{inner}</span>
+      const scale = parseFloat(ratio)
+      return (
+        <span key={baseKey} style={{
+          display: 'inline-block',
+          fontSize: isFocused ? `${scale}em` : '1em',
+          lineHeight: isFocused ? 1.2 : 'inherit',
+          transition: isFocused
+            ? 'font-size 380ms cubic-bezier(0.34,1.56,0.64,1)'
+            : 'none',
+        }}>
+          {inner}
+        </span>
+      )
     }
     case 'fondu_mot': {
       const [duree] = resolveArgs('fondu_mot', seg.args)
