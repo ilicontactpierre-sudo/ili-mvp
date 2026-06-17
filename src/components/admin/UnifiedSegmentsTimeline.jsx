@@ -99,10 +99,10 @@ const SegmentTimelineRow = memo(function SegmentTimelineRow({
   onDragHandleMouseDown,
   isDragging,
   onGameMode,
+  seuilKeys = [],
 }) {
   const containerRef = useRef(null)
   const textareaRef = useRef(null)
-
   const text = getSegmentText(segment)
   
   // État pour la position de découpe potentielle (mode Cmd)
