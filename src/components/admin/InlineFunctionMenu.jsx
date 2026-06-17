@@ -111,14 +111,79 @@ function InlineFunctionMenu({ query, matches, selectedIndex, position, onSelect,
   const [subIndex, setSubIndex] = useState(0)      // index navigué
   const subListRef = useRef(null)
   const left = Math.min(position.left, window.innerWidth - 320)
-  const top  = Math.min(position.top + 4, window.innerHeight - 400)
+  const top  = Math.min(position.top + 4, window.innerHeight - 480)
 
-  // Détecte si un seul match est actif et s'il a un sous-menu spécial
-  const activeMatch = matches[selectedIndex] ?? matches[0]
-  const activeFnKey = activeMatch?.[0]
+  // ── Reset étape 2 si la liste principale change ───────────────────────────
+  useEffect(() => {
+    setStep('list')
+    setSubFnKey(null)
+    setSubIndex(0)
+  }, [query, matches.length])
 
-  const hasColorPanel = activeFnKey === 'couleur'
-  const hasLirePanel  = activeFnKey === 'lire' && seuilKeys.length > 0
+  // ── Scroll automatique dans le sous-menu ──────────────────────────────────
+  useEffect(() => {
+    if (step !== 'sub' || !subListRef.current) return
+    const el = subListRef.current.children[subIndex]
+    el?.scrollIntoView({ block: 'nearest' })
+  }, [subIndex, step])
+
+  // ── Entrée dans l'étape 2 ─────────────────────────────────────────────────
+  function openSub(fnKey) {
+    if (fnKey === 'couleur') {
+      setStep('color')
+      setSubFnKey('couleur')
+      return
+    }
+    const opts = buildSubOptions(fnKey, seuilKeys)
+    if (!opts || opts.length === 0) {
+      // Pas de sous-menu → insérer directement
+      onSelect(fnKey)
+      return
+    }
+    setSubFnKey(fnKey)
+    setSubOptions(opts)
+    setSubIndex(0)
+    setStep('sub')
+  }
+
+  // ── Navigation clavier exposée via data-attribute ─────────────────────────
+  // UnifiedSegmentsTimeline appelle onSelect / les flèches via handleTextareaKeyDown.
+  // On expose une ref de handler que le parent peut appeler — mais en réalité,
+  // handleTextareaKeyDown appelle directement setFnMenu({…selectedIndex…}).
+  // Pour intercepter avant ça, on publie les handlers via un effet sur window
+  // en capturant l'event en phase capture, uniquement quand step !== 'list'.
+  useEffect(() => {
+    if (step === 'list') return  // la navigation étape 1 reste dans UnifiedSegmentsTimeline
+
+    const handler = (e) => {
+      if (step === 'color') {
+        // Seul Esc est utile ici (les clics gèrent le reste)
+        if (e.key === 'Escape') {
+          e.preventDefault(); e.stopPropagation()
+          setStep('list')
+        }
+        return
+      }
+      // step === 'sub'
+      if (e.key === 'ArrowDown') {
+        e.preventDefault(); e.stopPropagation()
+        setSubIndex(i => (i + 1) % subOptions.length)
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault(); e.stopPropagation()
+        setSubIndex(i => (i - 1 + subOptions.length) % subOptions.length)
+      } else if (e.key === 'Enter' || e.key === 'Tab') {
+        e.preventDefault(); e.stopPropagation()
+        const opt = subOptions[subIndex]
+        if (opt) onSelect(subFnKey, ...opt.args)
+      } else if (e.key === 'Escape') {
+        e.preventDefault(); e.stopPropagation()
+        setStep('list')
+      }
+    }
+    // Capture phase pour court-circuiter le handler de UnifiedSegmentsTimeline
+    window.addEventListener('keydown', handler, true)
+    return () => window.removeEventListener('keydown', handler, true)
+  }, [step, subOptions, subIndex, subFnKey, onSelect])
 
   return (
     <div
