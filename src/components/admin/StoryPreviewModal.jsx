@@ -192,7 +192,7 @@ function StoryPreviewModal({ isOpen, storyData, onClose, startSegmentIndex = nul
         ✕ Fermer
       </button>
 
-      {!isStarted && (
+      {!isStarted && startSegmentIndex == null && (
         <div style={{
           position: 'absolute',
           bottom: '3rem',
