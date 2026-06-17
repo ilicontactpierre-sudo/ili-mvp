@@ -694,6 +694,7 @@ const SegmentTimelineRow = memo(function SegmentTimelineRow({
                 position={fnMenu.position}
                 onSelect={insertInlineFunction}
                 onHover={(i) => setFnMenu(prev => prev && ({ ...prev, selectedIndex: i }))}
+                seuilKeys={seuilKeys}
               />
             )}
             </>
