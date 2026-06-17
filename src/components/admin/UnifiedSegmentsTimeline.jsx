@@ -1094,6 +1094,7 @@ function UnifiedSegmentsTimeline({
   onSaveToHistory,
   adminPassword,
   onSoundsImported,
+  onPreviewFromSegment,
   seuilKeys = [],
 }) {
   const [selectedSoundIds, setSelectedSoundIds] = useState(new Set())
