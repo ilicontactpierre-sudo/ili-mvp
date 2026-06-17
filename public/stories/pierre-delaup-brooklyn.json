@@ -18,8 +18,18 @@
       "loop": false
     },
     {
+      "id": "foodgware_glass_tumblers_chink_01_b00m_one",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/foodgware_glass_tumblers_chink_01_b00m_one.mp3",
+      "loop": false
+    },
+    {
       "id": "la_valle_e_du_okuno",
       "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/la_valle_e_du_okuno.mp3",
+      "loop": false
+    },
+    {
+      "id": "tuba_skinny_-_jubilee_stomp_-_royal_street_ii_1_",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/tuba_skinny_-_jubilee_stomp_-_royal_street_ii_1_.mp3",
       "loop": false
     }
   ],
@@ -75,16 +85,27 @@
       "breakAt": null,
       "isLeader": true,
       "isChapter": true,
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "play",
+          "soundId": "tuba_skinny_-_jubilee_stomp_-_royal_street_ii_1_",
+          "volume": 0.5,
+          "delay": 0,
+          "loop": true
+        }
+      ]
     },
     {
-      "id": "seg_1781326327990_1_6gjnf",
-      "lines": [
-        "- À nos six années ici, et surtout, à ta fin de mission ! \"Well done\" comme on dit !"
-      ],
-      "text": "- À nos six années ici, et surtout, à ta fin de mission ! \"Well done\" comme on dit !",
-      "breakAt": 57,
-      "isLeader": true,
+      "text": "",
+      "id": "seg_1781702886138",
+      "gameMode": {
+        "type": "timer",
+        "seconds": 1,
+        "prompt": "",
+        "hint": "",
+        "expireMessage": "",
+        "timerStyle": "hidden"
+      },
       "audioEvents": [
         {
           "action": "play",
@@ -92,11 +113,29 @@
           "volume": 0.35,
           "delay": 0,
           "loop": false
-        },
+        }
+      ]
+    },
+    {
+      "id": "seg_1781326327990_1_6gjnf",
+      "lines": [
+        "- À nos six années ici, et surtout, à ta fin de mission ! \"Well done\" comme on dit !"
+      ],
+      "text": "</couleur:|/>- À nos six années ici, et surtout, à ta fin de mission !/> \"Well done\" comme on dit !",
+      "breakAt": 73,
+      "isLeader": true,
+      "audioEvents": [
         {
           "action": "play",
           "soundId": "ambrest_restaurant_german_crowd_bar_01_b00m_one",
           "volume": 0.5,
+          "delay": 0,
+          "loop": true
+        },
+        {
+          "action": "play",
+          "soundId": "foodgware_glass_tumblers_chink_01_b00m_one",
+          "volume": 0.2,
           "delay": 0,
           "loop": false
         }
@@ -107,7 +146,7 @@
       "lines": [
         "- Merci mon cœur…"
       ],
-      "text": "- Merci mon cœur…",
+      "text": "</couleur:#3e8639|- Merci mon cœur…/>",
       "breakAt": null,
       "isLeader": false,
       "audioEvents": []
@@ -117,7 +156,7 @@
       "lines": [
         "Rob continue sur sa lancée : « Un discours, un discours, un discours ! »."
       ],
-      "text": "Rob continue sur sa lancée : « Un discours, un discours, un discours ! ».",
+      "text": "Rob continue sur sa lancée : </couleur:#d4a96a|« Un discours, un discours, un discours ! »./>",
       "breakAt": null,
       "isLeader": false,
       "audioEvents": []
@@ -169,7 +208,7 @@
       "lines": [
         "- Un petit mot peut être pour nos téléspectateurs qui vous admirent tant ?"
       ],
-      "text": "- Un petit mot peut être pour nos téléspectateurs qui vous admirent tant ? \n- J’aimerai d’abord remercier toute ma famille qui a su ne pas croire en moi et me donner la force. »",
+      "text": "</couleur:#3e8639|- Un petit mot peut être pour nos téléspectateurs qui vous admirent tant ?/>\n</couleur:#3e8639|- J’aimerai d’abord remercier toute ma famille qui a su ne pas croire en moi et me donner la force. »/>",
       "breakAt": null,
       "isLeader": false,
       "delay": 2800,
@@ -191,8 +230,8 @@
       "lines": [
         "- Remercier ma chienne, Agatha, partie trop tôt,"
       ],
-      "text": "- Remercier ma chienne, Agatha, partie trop tôt, qui me manque terriblement, et sans qui ça n'aurait pas été la même. Rob lève son verre faisant un signe de croix.",
-      "breakAt": 118,
+      "text": "</couleur:#3e8639|- Remercier ma chienne, Agatha, partie trop tôt, qui me manque terriblement, et sans qui ça n'aurait pas été la même./> Rob lève son verre faisant un signe de croix.",
+      "breakAt": 138,
       "isLeader": false,
       "delay": 4200,
       "audioEvents": []
@@ -202,8 +241,8 @@
       "lines": [
         "- Je remercie aussi Marcel, notre raison d’être,"
       ],
-      "text": "- Je remercie aussi Marcel, notre raison d’être, qui nous unis pour la vie, et sans qui nos nuits existeraient encore. Rob lève son verre faisant, là encore, un signe de croix.",
-      "breakAt": 119,
+      "text": "</couleur:#3e8639|- Je remercie aussi Marcel, notre raison d’être, qui nous unis pour la vie, et sans qui nos nuits existeraient encore./> Rob lève son verre faisant, là encore, un signe de croix.",
+      "breakAt": 139,
       "isLeader": false,
       "delay": 1600,
       "audioEvents": []
@@ -213,7 +252,7 @@
       "lines": [
         "- Et enfin je remercie Rob Corpe, grâce à qui ces six années sont passées si vite,"
       ],
-      "text": "- Et enfin je remercie Rob Corpe, grâce à qui ces six années sont passées si vite, et avec qui je souhaite passer toutes mes heures à venir…",
+      "text": "</couleur:#3e8639|- Et enfin je remercie Rob Corpe, grâce à qui ces six années sont passées si vite, et avec qui je souhaite passer toutes mes heures à venir…/>",
       "breakAt": null,
       "isLeader": false,
       "delay": 3400,
@@ -256,7 +295,7 @@
       "lines": [
         "« Ils disent tous que ça va me manquer… Le terrain,"
       ],
-      "text": "« Ils disent tous que ça va me manquer… Le terrain, l'adrénaline, les collègues, le danger. » Elle fait une de ces grimaces sur-jouées dont elle seule a le secret.",
+      "text": "</couleur:#3e8639|Ils disent tous que ça va me manquer… Le terrain, l'adrénaline, les collègues, le danger./> Elle fait une de ces grimaces sur-jouées dont elle seule a le secret.",
       "breakAt": null,
       "isLeader": false,
       "delay": 3400,
@@ -267,7 +306,7 @@
       "lines": [
         "- C'est mal te connaitre !"
       ],
-      "text": "- C'est mal te connaitre !\nLeurs rires complices couvrent le groupe de jazz.",
+      "text": "</couleur:#d4a96a|- C'est mal te connaitre !:>\nLeurs rires complices couvrent le groupe de jazz.",
       "breakAt": null,
       "isLeader": false,
       "delay": 1200,
@@ -278,7 +317,7 @@
       "lines": [
         "- J'ai juste hâte que tu termines aussi, et après, Hasta la vista baby, let's go pour la vraie vie !"
       ],
-      "text": "- J'ai juste hâte que tu termines aussi, et après, Hasta la vista baby, let's go pour la vraie vie !",
+      "text": "</couleur:#3e8639|- J'ai juste hâte que tu termines aussi, et après, Hasta la vista baby, let's go pour la vraie vie !/>",
       "breakAt": null,
       "isLeader": false,
       "audioEvents": []
@@ -342,7 +381,18 @@
       "text": "Machinalement Rim s’empresse de regarder son poignet. Sur sa peau, un léger bronzage laisse deviner une montre longtemps portée. Elle se fige et pose lentement son regard sur Rob : il a lui aussi les yeux braqués sur son poignet, plus précisément sur sa montre connectée qui orne son poignet…",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": [],
+      "audioEvents": [
+        {
+          "action": "fadeOut",
+          "soundId": "ambrest_restaurant_german_crowd_bar_01_b00m_one",
+          "duration": 182
+        },
+        {
+          "action": "fadeOut",
+          "soundId": "tuba_skinny_-_jubilee_stomp_-_royal_street_ii_1_",
+          "duration": 193
+        }
+      ],
       "delay": 8000
     },
     {
@@ -819,8 +869,8 @@
     {
       "id": "st_1781701827604_9qpktd73n",
       "soundId": "doorwood_wooden_door_open_outdoor_single_01_b00m_one",
-      "startSegmentId": "seg_1781326327990_1_6gjnf",
-      "endSegmentId": "seg_1781326327990_1_6gjnf",
+      "startSegmentId": "seg_1781702886138",
+      "endSegmentId": "seg_1781702886138",
       "column": 0,
       "volume": 0.35,
       "fadeIn": 0,
@@ -829,20 +879,53 @@
       "loop": false,
       "muted": false,
       "trimStart": 0,
-      "trimEnd": 3544
+      "trimEnd": 3544,
+      "loopCrossfade": "medium"
     },
     {
       "id": "st_1781702107719_cfepb3zjb",
       "soundId": "ambrest_restaurant_german_crowd_bar_01_b00m_one",
       "startSegmentId": "seg_1781326327990_1_6gjnf",
-      "endSegmentId": "seg_1781326327990_1_6gjnf",
+      "endSegmentId": "seg_1781326327990_37_24l4g",
+      "column": 0,
+      "volume": 0.5,
+      "fadeIn": 0,
+      "fadeOut": 182,
+      "delay": 0,
+      "loop": true,
+      "muted": false,
+      "loopCrossfade": "medium"
+    },
+    {
+      "id": "st_1781702691915_hbd149cf1",
+      "soundId": "tuba_skinny_-_jubilee_stomp_-_royal_street_ii_1_",
+      "startSegmentId": "seg_1781326327990_0_yqe1e",
+      "endSegmentId": "seg_1781326327990_37_24l4g",
       "column": 1,
       "volume": 0.5,
+      "fadeIn": 0,
+      "fadeOut": 193,
+      "delay": 0,
+      "loop": true,
+      "muted": false,
+      "broken": false,
+      "loopCrossfade": "medium"
+    },
+    {
+      "id": "st_1781702792335_hseb9urfq",
+      "soundId": "foodgware_glass_tumblers_chink_01_b00m_one",
+      "startSegmentId": "seg_1781326327990_1_6gjnf",
+      "endSegmentId": "seg_1781326327990_1_6gjnf",
+      "column": 3,
+      "volume": 0.2,
       "fadeIn": 0,
       "fadeOut": 0,
       "delay": 0,
       "loop": false,
-      "muted": false
+      "muted": false,
+      "trimStart": 138,
+      "trimEnd": 1567,
+      "pan": 0.46
     }
   ],
   "vfxTracks": [
