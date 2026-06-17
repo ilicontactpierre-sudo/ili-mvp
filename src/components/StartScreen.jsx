@@ -7,7 +7,7 @@ const isStandalone = () =>
   window.navigator.standalone === true ||
   window.matchMedia('(display-mode: standalone)').matches
 
-function StartScreen({ title, author, segmentCount = 0, segments = [], soundsToPreload = [], savedProgress, onStart }) {
+function StartScreen({ title, author, segmentCount = 0, segments = [], soundsToPreload = [], savedProgress, onStart, autoStart = false }) {
   const [phase, setPhase] = useState('idle')
 
   // ── PWA install prompt (Android/Chrome) ──────────────────────────────────
