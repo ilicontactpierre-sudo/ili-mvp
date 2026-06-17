@@ -3,6 +3,22 @@
   "title": "test fonctions",
   "author": "test fonctions",
   "published": true,
+  "seuil": [
+    {
+      "cle": "prenom2",
+      "texte": "Ton prénom ??",
+      "type": "texte",
+      "placeholder": "",
+      "options": []
+    },
+    {
+      "cle": "age2",
+      "texte": "Ton âge ??",
+      "type": "texte",
+      "placeholder": "",
+      "options": []
+    }
+  ],
   "sounds": [],
   "segments": [
     {
@@ -66,7 +82,7 @@
       "audioEvents": []
     },
     {
-      "text": "Ceci est un </lire:prenom|test prénom/> pour voir si ça marche",
+      "text": "Ceci est un </lire:prenom|test prénom/> pour voir si ça marche </lire:prenom2|??/>  ",
       "id": "seg_1781634329742",
       "breakAt": null,
       "audioEvents": []
