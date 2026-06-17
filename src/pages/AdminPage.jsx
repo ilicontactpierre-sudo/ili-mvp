@@ -409,6 +409,147 @@ function MobileSegmentCard({
   )
 }
 
+function SeuilEditor({ seuil = [], onChange }) {
+  const addQuestion = () => onChange([
+    ...seuil,
+    { cle: `q${Date.now()}`, texte: '', type: 'texte', placeholder: '', options: [] }
+  ])
+  const update = (i, patch) => {
+    const next = seuil.map((q, idx) => idx === i ? { ...q, ...patch } : q)
+    onChange(next)
+  }
+  const remove = (i) => onChange(seuil.filter((_, idx) => idx !== i))
+
+  return (
+    <div style={{
+      border: '1px solid rgba(139,92,246,0.2)',
+      borderRadius: '8px',
+      padding: '1rem',
+      backgroundColor: 'rgba(139,92,246,0.03)',
+      display: 'flex',
+      flexDirection: 'column',
+      gap: '0.75rem',
+    }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <span style={{ fontSize: '0.78rem', fontWeight: 600, color: '#7C3AED' }}>
+          ✦ Seuil — questions avant lecture
+          <span style={{ fontWeight: 400, color: '#aaa', marginLeft: '0.5rem' }}>
+            ({seuil.length} question{seuil.length > 1 ? 's' : ''})
+          </span>
+        </span>
+        <button
+          type="button"
+          onClick={addQuestion}
+          style={{
+            fontSize: '0.72rem', padding: '0.25rem 0.65rem',
+            border: '1px solid rgba(139,92,246,0.35)',
+            borderRadius: '6px', background: 'none',
+            color: '#7C3AED', cursor: 'pointer',
+          }}
+        >
+          + Ajouter
+        </button>
+      </div>
+
+      {seuil.length === 0 && (
+        <p style={{ fontSize: '0.75rem', color: '#bbb', fontStyle: 'italic', margin: 0 }}>
+          Aucune question — la lecture démarre directement.
+        </p>
+      )}
+
+      {seuil.map((q, i) => (
+        <div key={i} style={{
+          padding: '0.75rem',
+          border: '1px solid #eee',
+          borderRadius: '6px',
+          backgroundColor: '#fff',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '0.5rem',
+        }}>
+          <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'flex-start' }}>
+            <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
+              <input
+                type="text"
+                placeholder="Question posée au lecteur (ex : Avant d'entrer, dis-moi ton prénom.)"
+                value={q.texte}
+                onChange={e => update(i, { texte: e.target.value })}
+                style={{ padding: '0.45rem 0.65rem', fontSize: '0.82rem', border: '1px solid #ddd', borderRadius: '5px', width: '100%', boxSizing: 'border-box' }}
+              />
+              <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
+                <input
+                  type="text"
+                  placeholder="Clé mémoire (ex : prenom)"
+                  value={q.cle}
+                  onChange={e => update(i, { cle: e.target.value.replace(/\s/g, '_') })}
+                  style={{ padding: '0.35rem 0.55rem', fontSize: '0.75rem', border: '1px solid #ddd', borderRadius: '5px', width: '120px', fontFamily: 'monospace' }}
+                />
+                <select
+                  value={q.type || 'texte'}
+                  onChange={e => update(i, { type: e.target.value })}
+                  style={{ padding: '0.35rem 0.5rem', fontSize: '0.75rem', border: '1px solid #ddd', borderRadius: '5px' }}
+                >
+                  <option value="texte">Texte libre</option>
+                  <option value="choix">Choix</option>
+                </select>
+                {q.type === 'texte' && (
+                  <input
+                    type="text"
+                    placeholder="Placeholder (ex : ton prénom…)"
+                    value={q.placeholder || ''}
+                    onChange={e => update(i, { placeholder: e.target.value })}
+                    style={{ padding: '0.35rem 0.55rem', fontSize: '0.75rem', border: '1px solid #ddd', borderRadius: '5px', flex: 1 }}
+                  />
+                )}
+              </div>
+              {q.type === 'choix' && (
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.3rem' }}>
+                  {(q.options || []).map((opt, oi) => (
+                    <div key={oi} style={{ display: 'flex', gap: '0.4rem' }}>
+                      <input
+                        type="text"
+                        placeholder={`Option ${oi + 1}`}
+                        value={opt}
+                        onChange={e => {
+                          const next = [...(q.options || [])]
+                          next[oi] = e.target.value
+                          update(i, { options: next })
+                        }}
+                        style={{ padding: '0.3rem 0.5rem', fontSize: '0.75rem', border: '1px solid #ddd', borderRadius: '5px', flex: 1 }}
+                      />
+                      <button
+                        type="button"
+                        onClick={() => update(i, { options: (q.options || []).filter((_, j) => j !== oi) })}
+                        style={{ border: 'none', background: 'none', color: '#dc3545', cursor: 'pointer', fontSize: '0.8rem' }}
+                      >✕</button>
+                    </div>
+                  ))}
+                  <button
+                    type="button"
+                    onClick={() => update(i, { options: [...(q.options || []), ''] })}
+                    style={{ fontSize: '0.7rem', color: '#888', border: '1px dashed #ddd', borderRadius: '5px', padding: '0.25rem', background: 'none', cursor: 'pointer' }}
+                  >+ option</button>
+                </div>
+              )}
+              {/* Aperçu clé mémoire */}
+              {q.cle && (
+                <span style={{ fontSize: '0.68rem', fontFamily: 'monospace', color: '#7C3AED', opacity: 0.7 }}>
+                  → réutilisable via <code>{`</lire:${q.cle}|défaut/>`}</code> ou <code>{`{{journal:${q.cle}}}`}</code>
+                </span>
+              )}
+            </div>
+            <button
+              type="button"
+              onClick={() => remove(i)}
+              style={{ border: 'none', background: 'none', color: '#dc3545', cursor: 'pointer', fontSize: '1rem', padding: '0.2rem', flexShrink: 0 }}
+            >✕</button>
+          </div>
+        </div>
+      ))}
+    </div>
+  )
+}
+
 function AdminPage() {
   const isMobile = useIsMobile()
   const [isAuthenticated, setIsAuthenticated] = useState(false)
