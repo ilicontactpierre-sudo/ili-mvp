@@ -204,6 +204,7 @@ function PublishPanel({
       ...(description ? { description } : {}),
       published: true,
       ...(bookUrl ? { bookUrl } : {}),
+      ...(seuil?.length > 0 ? { seuil } : {}),
       sounds:      usedSounds,
       segments:    segmentsWithAudio,
       soundTracks: soundTracks,
