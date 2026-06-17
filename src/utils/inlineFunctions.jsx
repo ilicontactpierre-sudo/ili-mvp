@@ -60,13 +60,13 @@ export const INLINE_FUNCTIONS = {
   },
   glitch: {
     label: '📺 Glitch',
-    description: 'Le texte glitch puis se stabilise',
+    description: 'Le texte glitch puis se stabilise (loop par défaut)',
     wrap: true,
     params: [
       { name: 'intensité', default: 'moyen', hint: 'faible · moyen · fort' },
-      { name: 'mode',      default: 'once',  hint: 'once · loop' },
+      { name: 'mode',      default: '',      hint: 'loop (défaut) · laisser vide = once' },
     ],
-    template: () => `</glitch:moyen;once|/>`,
+    template: () => `</glitch:moyen;loop|/>`,
     cursorAfterPipe: true,
   },
   rupture: {
