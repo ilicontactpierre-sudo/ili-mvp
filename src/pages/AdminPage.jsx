@@ -1095,9 +1095,11 @@ function AdminPage() {
     setIsSerial(false)
     setParts([])
     setActivePartIndex(0)
+    console.log('[handleLoadStory] seuil reçu:', storyData.seuil)
     // flushSync garantit que le seuil est appliqué avant le reste
     flushSync(() => {
       setStoryExtraMeta({ seuil: storyData.seuil ?? [] })
+      console.log('[handleLoadStory] storyExtraMeta mis à jour avec:', storyData.seuil ?? [])
     })
     // Normaliser les segments
     const loadedSegments = (storyData.segments || []).map((seg, i) => ({
