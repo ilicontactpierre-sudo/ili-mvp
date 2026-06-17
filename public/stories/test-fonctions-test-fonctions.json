@@ -24,6 +24,12 @@
       "isLeader": true
     },
     {
+      "text": "</lire:prenom|je connais pas ton nom/>, ça va ? C'est quoi ton âge déjà ? Ah oui ! </lire:âge|10/>",
+      "id": "seg_1781686531953",
+      "breakAt": null,
+      "audioEvents": []
+    },
+    {
       "text": "Ceci est un </tremble:moyen|test tremblement/> pour voir si ça marche",
       "id": "seg_1781608295682",
       "breakAt": null,
