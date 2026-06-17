@@ -19,7 +19,7 @@ const NARRATIVE_COLORS = [
 ]
 
 function InlineFunctionMenu({ query, matches, selectedIndex, position, onSelect, onHover, seuilKeys = [] }) {
-  const [customHex, setCustomHex] = React.useState('')
+  const [customHex, setCustomHex] = useState('')
   const left = Math.min(position.left, window.innerWidth - 320)
   const top  = Math.min(position.top + 4, window.innerHeight - 400)
 
