@@ -2162,6 +2162,11 @@ function AdminPage() {
                           onVfxTracksChange={setActiveVfxTracks}
                           onSaveToHistory={() => saveToHistory(segments, soundTracks, vfxTracks)}
                           adminPassword={password}
+                          seuilKeys={
+                            isSerial
+                              ? (parts[activePartIndex]?.seuil ?? []).map(q => q.cle).filter(Boolean)
+                              : (storyExtraMeta.seuil ?? []).map(q => q.cle).filter(Boolean)
+                          }
                           onSoundsImported={(updatedSounds) => {
                             if (Array.isArray(updatedSounds) && updatedSounds.length > 0) {
                               const urlMap = {}
