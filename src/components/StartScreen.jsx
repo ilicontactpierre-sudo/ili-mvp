@@ -128,7 +128,7 @@ function StartScreen({ title, author, segmentCount = 0, segments = [], soundsToP
 
   return (
     <main
-      onPointerUp={!hasProgress && phase === 'idle' ? (e) => { e.stopPropagation(); handleStart(false) } : undefined}
+      onPointerUp={!hasProgress && phase === 'idle' && !autoStart ? (e) => { e.stopPropagation(); handleStart(false) } : undefined}
       style={{
         minHeight: '100dvh',
         display: 'grid',
