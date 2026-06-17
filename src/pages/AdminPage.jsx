@@ -2233,6 +2233,7 @@ function AdminPage() {
             vfxTracks={isSerial ? [] : vfxTracks}
             isSerial={isSerial}
             parts={isSerial ? parts : []}
+            seuil={isSerial ? [] : (storyExtraMeta.seuil ?? [])}
             soundLibrary={soundLibrary}
             onNewStory={handleNewStory}
             onSaveDraft={handleSaveDraft}
