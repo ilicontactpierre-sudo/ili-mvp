@@ -540,7 +540,14 @@ export function renderInlineFunction(seg, baseKey, isFocused, fallbackRenderer) 
     }
     case 'couleur': {
       const [hex] = resolveArgs('couleur', seg.args)
-      return <span key={baseKey} style={{ color: hex }}>{inner}</span>
+      return (
+        <span key={baseKey} style={{
+          color: isFocused ? hex : 'inherit',
+          transition: isFocused ? 'color 480ms cubic-bezier(0.4,0,0.2,1)' : 'none',
+        }}>
+          {inner}
+        </span>
+      )
     }
     case 'taille': {
       const [ratio] = resolveArgs('taille', seg.args)
