@@ -280,32 +280,60 @@ function TrembleSpan({ children, intensité }) {
   )
 }
 
-function GlitchSpan({ children, intensité, isFocused }) {
-  const amp = resolveIntensity(intensité)
-  const dur = Math.round(800 + amp * 400)
-  const id  = useRef(`glitch_${Math.random().toString(36).slice(2, 8)}`)
+function GlitchSpan({ children, intensité, mode, isFocused }) {
+  const amp      = resolveIntensity(intensité)
+  const isLoop   = mode === 'loop'
+  const dur      = Math.round(800 + amp * 400)
+  const pauseDur = Math.round(1800 + amp * 600) // silence entre deux glitches en loop
+  const id       = useRef(`glitch_${Math.random().toString(36).slice(2, 8)}`)
   const [done, setDone] = useState(false)
+
   useEffect(() => {
     if (!isFocused) { setDone(false); return }
+    if (isLoop) return // loop : jamais done
     const t = setTimeout(() => setDone(true), dur)
     return () => clearTimeout(t)
-  }, [isFocused, dur])
-  if (!isFocused || done) return <span>{children}</span>
-  const px = Math.round(amp * 3)
+  }, [isFocused, dur, isLoop])
+
+  if (!isFocused || (!isLoop && done)) return <span>{children}</span>
+
+  const px          = Math.round(amp * 3)
+  const totalCycle  = dur + pauseDur
+  const glitchFrac  = (dur / totalCycle * 100).toFixed(2)
+
+  // En loop : l'animation joue sur totalCycle, glitch pendant dur puis stable
+  const loopKeyframes = `
+    @keyframes ${id.current} {
+      0%                       { clip-path:inset(0 0 100% 0); transform:translate(0); }
+      ${(dur*0.15/totalCycle*100).toFixed(2)}% { clip-path:inset(10% 0 60% 0); transform:translate(-${px}px,1px); }
+      ${(dur*0.30/totalCycle*100).toFixed(2)}% { clip-path:inset(40% 0 20% 0); transform:translate(${px}px,-1px); }
+      ${(dur*0.50/totalCycle*100).toFixed(2)}% { clip-path:inset(70% 0 5% 0);  transform:translate(-${px}px,0); }
+      ${(dur*0.65/totalCycle*100).toFixed(2)}% { clip-path:inset(20% 0 50% 0); transform:translate(${px}px,1px); }
+      ${(dur*0.80/totalCycle*100).toFixed(2)}% { clip-path:inset(0 0 0 0);     transform:translate(-1px,0); }
+      ${glitchFrac}%           { clip-path:inset(0 0 0 0);     transform:translate(0); }
+      100%                     { clip-path:inset(0 0 0 0);     transform:translate(0); }
+    }
+  `
+  const onceKeyframes = `
+    @keyframes ${id.current} {
+      0%   { clip-path:inset(0 0 100% 0); transform:translate(0); }
+      15%  { clip-path:inset(10% 0 60% 0); transform:translate(-${px}px,1px); }
+      30%  { clip-path:inset(40% 0 20% 0); transform:translate(${px}px,-1px); }
+      50%  { clip-path:inset(70% 0 5% 0);  transform:translate(-${px}px,0); }
+      65%  { clip-path:inset(20% 0 50% 0); transform:translate(${px}px,1px); }
+      80%  { clip-path:inset(0 0 0 0);     transform:translate(-1px,0); }
+      100% { clip-path:inset(0 0 0 0);     transform:translate(0); }
+    }
+  `
   return (
     <>
-      <style>{`
-        @keyframes ${id.current} {
-          0%   { clip-path:inset(0 0 100% 0); transform:translate(0); }
-          15%  { clip-path:inset(10% 0 60% 0); transform:translate(-${px}px,1px); }
-          30%  { clip-path:inset(40% 0 20% 0); transform:translate(${px}px,-1px); }
-          50%  { clip-path:inset(70% 0 5% 0);  transform:translate(-${px}px,0); }
-          65%  { clip-path:inset(20% 0 50% 0); transform:translate(${px}px,1px); }
-          80%  { clip-path:inset(0 0 0 0);     transform:translate(-1px,0); }
-          100% { clip-path:inset(0 0 0 0);     transform:translate(0); }
-        }
-      `}</style>
-      <span style={{ display: 'inline-block', animation: `${id.current} ${dur}ms steps(1) forwards` }}>
+      <style>{isLoop ? loopKeyframes : onceKeyframes}</style>
+      <span style={{
+        display: 'inline-block',
+        animation: isLoop
+          ? `${id.current} ${totalCycle}ms steps(1) infinite`
+          : `${id.current} ${dur}ms steps(1) forwards`,
+      }}>
         {children}
       </span>
     </>
