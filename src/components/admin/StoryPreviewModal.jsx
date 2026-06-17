@@ -276,6 +276,7 @@ function StoryPreviewModal({ isOpen, storyData, onClose, startSegmentIndex = nul
               author={storyData?.author || ''}
               soundsToPreload={storyData?.sounds || []}
               onStart={handleStart}
+              autoStart={startSegmentIndex != null}
             />
           )}
           {isStarted && !isFinished && (
