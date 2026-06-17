@@ -193,18 +193,23 @@ const SegmentTimelineRow = memo(function SegmentTimelineRow({
     const coords = getCaretCoordinates(textarea, cursor)
     setFnMenu({ query, matches, selectedIndex: 0, position: coords, cursor })
   }, [closeFnMenu])
-  const insertInlineFunction = useCallback((fnKey, subValue) => {
+  const insertInlineFunction = useCallback((fnKey, ...args) => {
     if (!fnMenu || !textareaRef.current) return
     const def = INLINE_FUNCTIONS[fnKey]
     const textarea = textareaRef.current
     const cursor = fnMenu.cursor
     const matchStart = cursor - 2 - fnMenu.query.length // position du "</"
-    // Si subValue fourni (palette couleur ou clé lire), construire le template sur mesure
+    // Construire le template :
+    // - args fournis par le sous-menu → on les injecte directement dans le tag
+    // - sinon → template par défaut de la définition
     let template
-    if (subValue && fnKey === 'couleur') {
-      template = `</couleur:${subValue}|/>`
-    } else if (subValue && fnKey === 'lire') {
-      template = `</lire:${subValue}|/>`
+    if (args.length > 0) {
+      const argsStr = args.join(';')
+      if (def.wrap) {
+        template = `</${fnKey}:${argsStr}|/>`
+      } else {
+        template = `</${fnKey}:${argsStr}/>`
+      }
     } else {
       template = def.template()
     }
