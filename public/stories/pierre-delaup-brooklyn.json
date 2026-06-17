@@ -43,13 +43,88 @@
       "loop": false
     },
     {
+      "id": "03_s00_ambience_-_room_tone_hum_ambient_leaving_room_atmosphere_1",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/03_s00_ambience_-_room_tone_hum_ambient_leaving_room_atmosphere_1.mp3",
+      "loop": false
+    },
+    {
+      "id": "08_s02_brooklyn_birds",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/08_s02_brooklyn_birds.mp3",
+      "loop": false
+    },
+    {
+      "id": "08_s02_brooklyn_explosion",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/08_s02_brooklyn_explosion.mp3",
+      "loop": false
+    },
+    {
+      "id": "13_s03_ville",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/13_s03_ville.mp3",
+      "loop": false
+    },
+    {
+      "id": "15_s04_respi",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/15_s04_respi.mp3",
+      "loop": false
+    },
+    {
+      "id": "17_s05_drap",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/17_s05_drap.mp3",
+      "loop": false
+    },
+    {
+      "id": "21_s06_soleil",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/21_s06_soleil.mp3",
+      "loop": false
+    },
+    {
+      "id": "30_s07_militaire",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/30_s07_militaire.mp3",
+      "loop": false
+    },
+    {
+      "id": "36_s08_cafe_",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/36_s08_cafe_.mp3",
+      "loop": false
+    },
+    {
+      "id": "40_s09_frigo_lait",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/40_s09_frigo_lait.mp3",
+      "loop": false
+    },
+    {
+      "id": "50_s10_tv_1",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/50_s10_tv_1.mp3",
+      "loop": false
+    },
+    {
+      "id": "54_s02a2_lucia",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/54_s02a2_lucia.mp3",
+      "loop": false
+    },
+    {
       "id": "65_s02a_toast",
       "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/65_s02a_toast.mp3",
       "loop": false
     },
     {
-      "id": "la_valle_e_du_okuno",
-      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/la_valle_e_du_okuno.mp3",
+      "id": "apocalyptic_drone_state_of_emergency_atmosphere_02",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/apocalyptic_drone_state_of_emergency_atmosphere_02.mp3",
+      "loop": false
+    },
+    {
+      "id": "best_drum_solo_ever",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/best_drum_solo_ever.mp3",
+      "loop": false
+    },
+    {
+      "id": "bob_marley_get_up_stand_up_instrumental_original",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/bob_marley_get_up_stand_up_instrumental_original.mp3",
+      "loop": false
+    },
+    {
+      "id": "printer_receipt",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/printer_receipt.mp3",
       "loop": false
     },
     {
@@ -59,48 +134,6 @@
     }
   ],
   "segments": [
-    {
-      "text": "",
-      "id": "seg_1781700181728",
-      "gameMode": {
-        "type": "choice_quiz",
-        "layout": {
-          "axis": "H",
-          "linesH": 0,
-          "linesV": 0,
-          "proportions": [
-            1
-          ],
-          "tint": "noir",
-          "style": "flat",
-          "equalSizes": false
-        },
-        "prompt": "Petit test sonore :)\nRègle le volume !",
-        "choices": [
-          {
-            "id": "c1",
-            "text": "Touche l'écran pour entrer dans l'histoire",
-            "correct": true,
-            "tint": "cendre"
-          }
-        ],
-        "errorMessage": ""
-      },
-      "audioEvents": [
-        {
-          "action": "play",
-          "soundId": "la_valle_e_du_okuno",
-          "volume": 0.5,
-          "delay": 0,
-          "loop": false
-        },
-        {
-          "action": "fadeOut",
-          "soundId": "la_valle_e_du_okuno",
-          "duration": 2442
-        }
-      ]
-    },
     {
       "id": "seg_1781326327990_0_yqe1e",
       "lines": [
@@ -112,9 +145,10 @@
       "isChapter": true,
       "audioEvents": [
         {
-          "action": "play",
+          "action": "fadeIn",
           "soundId": "tuba_skinny_-_jubilee_stomp_-_royal_street_ii_1_",
-          "volume": 0.5,
+          "volume": 0.15,
+          "duration": 234,
           "delay": 0,
           "loop": true
         }
@@ -146,21 +180,22 @@
       "lines": [
         "- À nos six années ici, et surtout, à ta fin de mission ! \"Well done\" comme on dit !"
       ],
-      "text": "</couleur:|/>- À nos six années ici, et surtout, à ta fin de mission !/> \"Well done\" comme on dit !",
-      "breakAt": 73,
+      "text": "</couleur|- À nos six années ici, et surtout, à ta fin de mission !/> </couleur:#d4a96a|\"Well done\" comme on dit !/>",
+      "breakAt": 70,
       "isLeader": true,
       "audioEvents": [
         {
-          "action": "play",
+          "action": "fadeIn",
           "soundId": "ambrest_restaurant_german_crowd_bar_01_b00m_one",
           "volume": 0.5,
+          "duration": 397,
           "delay": 0,
           "loop": true
         },
         {
           "action": "play",
           "soundId": "foodgware_glass_tumblers_chink_01_b00m_one",
-          "volume": 0.2,
+          "volume": 0.35,
           "delay": 0,
           "loop": false
         }
@@ -188,8 +223,8 @@
         {
           "action": "play",
           "soundId": "65_s02a_toast",
-          "volume": 0.5,
-          "delay": 0,
+          "volume": 0.15,
+          "delay": 1400,
           "loop": false
         }
       ]
@@ -393,9 +428,14 @@
       "isLeader": false,
       "audioEvents": [
         {
+          "action": "fadeOut",
+          "soundId": "tuba_skinny_-_jubilee_stomp_-_royal_street_ii_1_",
+          "duration": 3400
+        },
+        {
           "action": "play",
           "soundId": "objfurn_wood_chair_take_slide_medium_02_b00m_one",
-          "volume": 0.5,
+          "volume": 0.7,
           "delay": 0,
           "loop": false
         }
@@ -413,7 +453,7 @@
         {
           "action": "play",
           "soundId": "printer_receipt",
-          "volume": 0.15,
+          "volume": 0.25,
           "delay": 0,
           "loop": false
         }
@@ -429,9 +469,11 @@
       "isLeader": false,
       "audioEvents": [
         {
-          "action": "fadeOut",
-          "soundId": "tuba_skinny_-_jubilee_stomp_-_royal_street_ii_1_",
-          "duration": 193
+          "action": "play",
+          "soundId": "best_drum_solo_ever",
+          "volume": 0.3,
+          "delay": 0,
+          "loop": false
         }
       ],
       "delay": 1800
@@ -449,13 +491,6 @@
           "action": "fadeOut",
           "soundId": "ambrest_restaurant_german_crowd_bar_01_b00m_one",
           "duration": 182
-        },
-        {
-          "action": "play",
-          "soundId": "best_drum_solo_ever",
-          "volume": 0.5,
-          "delay": 0,
-          "loop": false
         },
         {
           "action": "fadeOut",
@@ -510,7 +545,7 @@
         {
           "action": "fadeIn",
           "soundId": "tuba_skinny_-_jubilee_stomp_-_royal_street_ii_1_",
-          "volume": 0.5,
+          "volume": 0.25,
           "duration": 600,
           "delay": 0,
           "loop": false
@@ -575,7 +610,23 @@
       "breakAt": null,
       "isLeader": true,
       "isChapter": true,
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "play",
+          "soundId": "08_s02_brooklyn_explosion",
+          "volume": 0.5,
+          "delay": 0,
+          "loop": false
+        },
+        {
+          "action": "fadeIn",
+          "soundId": "bob_marley_get_up_stand_up_instrumental_original",
+          "volume": 0.15,
+          "duration": 200,
+          "delay": 3000,
+          "loop": false
+        }
+      ]
     },
     {
       "id": "seg_1781326327990_49_yzh1o",
@@ -585,7 +636,24 @@
       "text": "Il y a des matins heureux à Brooklyn. Quand, sur les peaux endormies, viennent danser les premières lueurs du jour. Quand règne l’odeur d’une nuit aux rêves éveillés.",
       "breakAt": null,
       "isLeader": true,
-      "audioEvents": [],
+      "audioEvents": [
+        {
+          "action": "fadeIn",
+          "soundId": "08_s02_brooklyn_birds",
+          "volume": 0.4,
+          "duration": 2300,
+          "delay": 0,
+          "loop": true
+        },
+        {
+          "action": "fadeIn",
+          "soundId": "03_s00_ambience_-_room_tone_hum_ambient_leaving_room_atmosphere_1",
+          "volume": 0.4,
+          "duration": 2000,
+          "delay": 0,
+          "loop": true
+        }
+      ],
       "delay": 1600
     },
     {
@@ -598,7 +666,16 @@
       "text": "Même le réveil de la ville ne peut émoustiller ces moments hors du temps. La douceur d’une vie sans soucis.",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": [],
+      "audioEvents": [
+        {
+          "action": "fadeIn",
+          "soundId": "13_s03_ville",
+          "volume": 0.25,
+          "duration": 1500,
+          "delay": 0,
+          "loop": true
+        }
+      ],
       "delay": 2800
     },
     {
@@ -609,7 +686,22 @@
       "text": "Les paupières en bernes, Rim sonde son lit d’un étirement gracieux. Sentir son petit corps chaud et entendre le doux son de sa voix… \nAucun doute, ce matin sera un de ces matins heureux.",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": [],
+      "audioEvents": [
+        {
+          "action": "play",
+          "soundId": "15_s04_respi",
+          "volume": 0.4,
+          "delay": 0,
+          "loop": false
+        },
+        {
+          "action": "play",
+          "soundId": "17_s05_drap",
+          "volume": 0.5,
+          "delay": 1000,
+          "loop": false
+        }
+      ],
       "delay": 5200
     },
     {
@@ -620,7 +712,15 @@
       "text": "La lumière du soleil frappe la rétine de Rim laissant apparaitre ses yeux verts électriques. Une pensée furtive vient renforcer ce moment : plus que 15 jours. Le sourire en coin, elle sait ce qui lui reste à faire :",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": [],
+      "audioEvents": [
+        {
+          "action": "play",
+          "soundId": "21_s06_soleil",
+          "volume": 0.6,
+          "delay": 0,
+          "loop": false
+        }
+      ],
       "delay": 5400
     },
     {
@@ -631,7 +731,23 @@
       "text": "que son rituel commence !",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": [],
+      "audioEvents": [
+        {
+          "action": "fadeOut",
+          "soundId": "bob_marley_get_up_stand_up_instrumental_original",
+          "duration": 500
+        },
+        {
+          "action": "fadeOut",
+          "soundId": "03_s00_ambience_-_room_tone_hum_ambient_leaving_room_atmosphere_1",
+          "duration": 2300
+        },
+        {
+          "action": "fadeOut",
+          "soundId": "13_s03_ville",
+          "duration": 601
+        }
+      ],
       "delay": 5400
     },
     {
@@ -642,7 +758,15 @@
       "text": "Peignoir soyeux, pantoufles enfilées sans respect pour le contrefort, le pas vif et séduisant, les cheveux sauvages.",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": [],
+      "audioEvents": [
+        {
+          "action": "play",
+          "soundId": "30_s07_militaire",
+          "volume": 0.5,
+          "delay": 0,
+          "loop": true
+        }
+      ],
       "delay": 5400
     },
     {
@@ -653,7 +777,15 @@
       "text": "Tasse posée, capsule parée, eau à température dans 19 secondes.",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "play",
+          "soundId": "36_s08_cafe_",
+          "volume": 0.5,
+          "delay": 0,
+          "loop": false
+        }
+      ]
     },
     {
       "id": "seg_1781326327990_59_r0vw2",
@@ -663,7 +795,15 @@
       "text": "Dans le frigo : yaourt, beurre, fromage, lait… ?",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "play",
+          "soundId": "40_s09_frigo_lait",
+          "volume": 0.5,
+          "delay": 0,
+          "loop": false
+        }
+      ]
     },
     {
       "id": "seg_1781331123862_a_80jwg",
@@ -674,7 +814,13 @@
       "text": "Oula, finalement, pas de lait. Machine prête, bouton pressé, café coulé. Table basse, canapé, télé.",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": [],
+      "audioEvents": [
+        {
+          "action": "fadeOut",
+          "soundId": "30_s07_militaire",
+          "duration": 1762
+        }
+      ],
       "delay": 2200
     },
     {
@@ -720,7 +866,20 @@
         "caption": "Rob et elle en train de s’embrasser, Pierre, le grand frère de Rob, qui détourne grossièrement le regard avec ses airs de drama-king, et tous les invités debout, jetant des fleurs et du riz…",
         "animation": "develop"
       },
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "play",
+          "soundId": "54_s02a2_lucia",
+          "volume": 0.5,
+          "delay": 0,
+          "loop": false
+        },
+        {
+          "action": "fadeOut",
+          "soundId": "54_s02a2_lucia",
+          "duration": 1412
+        }
+      ]
     },
     {
       "id": "seg_1781331231397_b_bf852",
@@ -741,7 +900,13 @@
       "text": "Qu’il est doux cet instant où le temps s’arrête, et violent ce moment où sonne le réveil.",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": [],
+      "audioEvents": [
+        {
+          "action": "fadeOut",
+          "soundId": "08_s02_brooklyn_birds",
+          "duration": 1900
+        }
+      ],
       "delay": 2400
     },
     {
@@ -753,7 +918,20 @@
       "breakAt": null,
       "isLeader": true,
       "isChapter": true,
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "play",
+          "soundId": "apocalyptic_drone_state_of_emergency_atmosphere_02",
+          "volume": 0.5,
+          "delay": 0,
+          "loop": false
+        },
+        {
+          "action": "fadeOut",
+          "soundId": "apocalyptic_drone_state_of_emergency_atmosphere_02",
+          "duration": 1493
+        }
+      ]
     },
     {
       "text": "",
@@ -763,7 +941,15 @@
         "imageUrl": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/Images/Flash%20Special%201%20720p.mov",
         "caption": ""
       },
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "play",
+          "soundId": "50_s10_tv_1",
+          "volume": 0.5,
+          "delay": 0,
+          "loop": false
+        }
+      ]
     },
     {
       "id": "seg_1781333621522_a_1qt72",
@@ -971,19 +1157,6 @@
   ],
   "soundTracks": [
     {
-      "id": "st_1781700474152_hte5g4abn",
-      "soundId": "la_valle_e_du_okuno",
-      "startSegmentId": "seg_1781700181728",
-      "endSegmentId": "seg_1781700181728",
-      "column": 0,
-      "volume": 0.5,
-      "fadeIn": 0,
-      "fadeOut": 2442,
-      "delay": 0,
-      "loop": false,
-      "muted": false
-    },
-    {
       "id": "st_1781701827604_9qpktd73n",
       "soundId": "doorwood_wooden_door_open_outdoor_single_01_b00m_one",
       "startSegmentId": "seg_1781702886138",
@@ -1006,7 +1179,7 @@
       "endSegmentId": "seg_1781326327990_37_24l4g",
       "column": 0,
       "volume": 0.5,
-      "fadeIn": 0,
+      "fadeIn": 397,
       "fadeOut": 182,
       "delay": 0,
       "loop": true,
@@ -1017,16 +1190,17 @@
       "id": "st_1781702691915_hbd149cf1",
       "soundId": "tuba_skinny_-_jubilee_stomp_-_royal_street_ii_1_",
       "startSegmentId": "seg_1781326327990_0_yqe1e",
-      "endSegmentId": "seg_1781326327990_35_revw1",
+      "endSegmentId": "seg_1781326327990_32_l7g87",
       "column": 1,
-      "volume": 0.5,
-      "fadeIn": 0,
-      "fadeOut": 193,
+      "volume": 0.15,
+      "fadeIn": 234,
+      "fadeOut": 3400,
       "delay": 0,
       "loop": true,
       "muted": false,
       "broken": false,
-      "loopCrossfade": "medium"
+      "loopCrossfade": "medium",
+      "pan": 0.48
     },
     {
       "id": "st_1781702792335_hseb9urfq",
@@ -1034,7 +1208,7 @@
       "startSegmentId": "seg_1781326327990_1_6gjnf",
       "endSegmentId": "seg_1781326327990_1_6gjnf",
       "column": 3,
-      "volume": 0.2,
+      "volume": 0.35,
       "fadeIn": 0,
       "fadeOut": 0,
       "delay": 0,
@@ -1042,7 +1216,7 @@
       "muted": false,
       "trimStart": 138,
       "trimEnd": 1567,
-      "pan": 0.46
+      "pan": 0
     },
     {
       "id": "st_1781704576873_rm0jjfxpe",
@@ -1050,14 +1224,15 @@
       "startSegmentId": "seg_1781326327990_3_kn93q",
       "endSegmentId": "seg_1781326327990_3_kn93q",
       "column": 2,
-      "volume": 0.5,
+      "volume": 0.15,
       "fadeIn": 0,
       "fadeOut": 0,
-      "delay": 0,
+      "delay": 1400,
       "loop": false,
       "muted": false,
       "trimStart": 0,
-      "trimEnd": 1958
+      "trimEnd": 1958,
+      "pan": -0.46
     },
     {
       "id": "st_1781706026602_e5x5fcvrx",
@@ -1080,14 +1255,15 @@
       "startSegmentId": "seg_1781326327990_32_l7g87",
       "endSegmentId": "seg_1781326327990_32_l7g87",
       "column": 2,
-      "volume": 0.5,
+      "volume": 0.7,
       "fadeIn": 0,
       "fadeOut": 0,
       "delay": 0,
       "loop": false,
       "muted": false,
       "trimStart": 0,
-      "trimEnd": 1998
+      "trimEnd": 1998,
+      "pan": -0.27
     },
     {
       "id": "st_1781706711099_8jeborkj0",
@@ -1095,27 +1271,27 @@
       "startSegmentId": "seg_1781326327990_34_8zrkw",
       "endSegmentId": "seg_1781326327990_34_8zrkw",
       "column": 2,
-      "volume": 0.15,
+      "volume": 0.25,
       "fadeIn": 0,
       "fadeOut": 0,
       "delay": 0,
       "loop": false,
       "muted": false,
-      "pan": 0.59
+      "pan": 0.73
     },
     {
       "id": "st_1781707000433_daizk52j5",
       "soundId": "best_drum_solo_ever",
-      "startSegmentId": "seg_1781326327990_37_24l4g",
+      "startSegmentId": "seg_1781326327990_35_revw1",
       "endSegmentId": "seg_1781326327990_37_24l4g",
       "column": 2,
-      "volume": 0.5,
+      "volume": 0.3,
       "fadeIn": 0,
       "fadeOut": 1263,
       "delay": 0,
       "loop": false,
       "muted": false,
-      "pan": 0.02
+      "pan": 0.37
     },
     {
       "id": "st_1781707137938_nj9rxp3vc",
@@ -1123,7 +1299,7 @@
       "startSegmentId": "seg_1781326327990_42_va4t4",
       "endSegmentId": "seg_1781326327990_47_kzzmi",
       "column": 1,
-      "volume": 0.5,
+      "volume": 0.25,
       "fadeIn": 600,
       "fadeOut": 600,
       "delay": 0,
@@ -1131,7 +1307,8 @@
       "muted": false,
       "broken": false,
       "trimStart": 8425,
-      "trimEnd": 231079.1666666667
+      "trimEnd": 231079.1666666667,
+      "pan": 0.59
     },
     {
       "id": "st_1781707244241_u45unxui3",
@@ -1166,6 +1343,194 @@
       "startSegmentId": "seg_1781326327990_41_scotp",
       "endSegmentId": "seg_1781326327990_41_scotp",
       "column": 2,
+      "volume": 0.5,
+      "fadeIn": 0,
+      "fadeOut": 0,
+      "delay": 0,
+      "loop": false,
+      "muted": false
+    },
+    {
+      "id": "st_1781712537890_rtxvxchft",
+      "soundId": "08_s02_brooklyn_explosion",
+      "startSegmentId": "seg_1781326327990_48_z3jy6",
+      "endSegmentId": "seg_1781326327990_48_z3jy6",
+      "column": 0,
+      "volume": 0.5,
+      "fadeIn": 0,
+      "fadeOut": 0,
+      "delay": 0,
+      "loop": false,
+      "muted": false
+    },
+    {
+      "id": "st_1781712654245_zvjzdfj0v",
+      "soundId": "08_s02_brooklyn_birds",
+      "startSegmentId": "seg_1781326327990_49_yzh1o",
+      "endSegmentId": "seg_1781331198222_b_7eji1",
+      "column": 0,
+      "volume": 0.4,
+      "fadeIn": 2300,
+      "fadeOut": 1900,
+      "delay": 0,
+      "loop": true,
+      "muted": false,
+      "loopCrossfade": "medium"
+    },
+    {
+      "id": "st_1781712711191_9rwtjjq1o",
+      "soundId": "bob_marley_get_up_stand_up_instrumental_original",
+      "startSegmentId": "seg_1781326327990_48_z3jy6",
+      "endSegmentId": "seg_1781331080572_a_ixquw",
+      "column": 1,
+      "volume": 0.15,
+      "fadeIn": 200,
+      "fadeOut": 500,
+      "delay": 3000,
+      "loop": false,
+      "muted": false
+    },
+    {
+      "id": "st_1781712762452_x2emdi9n6",
+      "soundId": "03_s00_ambience_-_room_tone_hum_ambient_leaving_room_atmosphere_1",
+      "startSegmentId": "seg_1781326327990_49_yzh1o",
+      "endSegmentId": "seg_1781331080572_a_ixquw",
+      "column": 2,
+      "volume": 0.4,
+      "fadeIn": 2000,
+      "fadeOut": 2300,
+      "delay": 0,
+      "loop": true,
+      "muted": false,
+      "loopCrossfade": "medium"
+    },
+    {
+      "id": "st_1781713002279_pn5x6pap3",
+      "soundId": "13_s03_ville",
+      "startSegmentId": "seg_1781331026409_b_oklap",
+      "endSegmentId": "seg_1781331080572_a_ixquw",
+      "column": 3,
+      "volume": 0.25,
+      "fadeIn": 1500,
+      "fadeOut": 601,
+      "delay": 0,
+      "loop": true,
+      "muted": false,
+      "loopCrossfade": "medium"
+    },
+    {
+      "id": "st_1781713694217_xd8ipzdvl",
+      "soundId": "15_s04_respi",
+      "startSegmentId": "seg_1781326327990_52_4b5ts",
+      "endSegmentId": "seg_1781326327990_52_4b5ts",
+      "column": 4,
+      "volume": 0.4,
+      "fadeIn": 0,
+      "fadeOut": 0,
+      "delay": 0,
+      "loop": false,
+      "muted": false
+    },
+    {
+      "id": "st_1781713767847_nfstmzxhz",
+      "soundId": "17_s05_drap",
+      "startSegmentId": "seg_1781326327990_52_4b5ts",
+      "endSegmentId": "seg_1781326327990_52_4b5ts",
+      "column": 5,
+      "volume": 0.5,
+      "fadeIn": 0,
+      "fadeOut": 0,
+      "delay": 1000,
+      "loop": false,
+      "muted": false
+    },
+    {
+      "id": "st_1781713810038_zeeovnizo",
+      "soundId": "21_s06_soleil",
+      "startSegmentId": "seg_1781331078395_a_pt61p",
+      "endSegmentId": "seg_1781331078395_a_pt61p",
+      "column": 4,
+      "volume": 0.6,
+      "fadeIn": 0,
+      "fadeOut": 0,
+      "delay": 0,
+      "loop": false,
+      "muted": false
+    },
+    {
+      "id": "st_1781713849055_5vjazcio3",
+      "soundId": "30_s07_militaire",
+      "startSegmentId": "seg_1781331080572_b_1n503",
+      "endSegmentId": "seg_1781331123862_a_80jwg",
+      "column": 3,
+      "volume": 0.5,
+      "fadeIn": 0,
+      "fadeOut": 1762,
+      "delay": 0,
+      "loop": true,
+      "muted": false,
+      "loopCrossfade": "medium"
+    },
+    {
+      "id": "st_1781713911785_ei80jm7m0",
+      "soundId": "36_s08_cafe_",
+      "startSegmentId": "seg_1781326327990_58_jd1ul",
+      "endSegmentId": "seg_1781326327990_58_jd1ul",
+      "column": 4,
+      "volume": 0.5,
+      "fadeIn": 0,
+      "fadeOut": 0,
+      "delay": 0,
+      "loop": false,
+      "muted": false,
+      "pan": -0.37
+    },
+    {
+      "id": "st_1781713953302_s72ik8bv2",
+      "soundId": "40_s09_frigo_lait",
+      "startSegmentId": "seg_1781326327990_59_r0vw2",
+      "endSegmentId": "seg_1781326327990_59_r0vw2",
+      "column": 4,
+      "volume": 0.5,
+      "fadeIn": 0,
+      "fadeOut": 0,
+      "delay": 0,
+      "loop": false,
+      "muted": false,
+      "pan": -0.31
+    },
+    {
+      "id": "st_1781714161380_qv3v0rlaw",
+      "soundId": "54_s02a2_lucia",
+      "startSegmentId": "seg_1781331233156",
+      "endSegmentId": "seg_1781331233156",
+      "column": 1,
+      "volume": 0.5,
+      "fadeIn": 0,
+      "fadeOut": 1412,
+      "delay": 0,
+      "loop": false,
+      "muted": false
+    },
+    {
+      "id": "st_1781714380524_ak08g3lm3",
+      "soundId": "apocalyptic_drone_state_of_emergency_atmosphere_02",
+      "startSegmentId": "seg_1781326327990_68_jy5ya",
+      "endSegmentId": "seg_1781326327990_68_jy5ya",
+      "column": 1,
+      "volume": 0.5,
+      "fadeIn": 0,
+      "fadeOut": 1493,
+      "delay": 0,
+      "loop": false,
+      "muted": false
+    },
+    {
+      "id": "st_1781714416411_5wa9di35o",
+      "soundId": "50_s10_tv_1",
+      "startSegmentId": "seg_1781332507204",
+      "endSegmentId": "seg_1781332507204",
+      "column": 0,
       "volume": 0.5,
       "fadeIn": 0,
       "fadeOut": 0,
