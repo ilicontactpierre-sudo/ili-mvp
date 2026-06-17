@@ -394,18 +394,29 @@ function RuptureSpan({ children, délai, vitesse, isFocused }) {
   )
 }
 
-function FonduMotSpan({ text, duree, isFocused }) {
-  const words  = text.split(/(\s+)/)
-  const total  = words.filter(w => w.trim()).length
-  const perWord = Math.max(80, parseInt(duree) / Math.max(total, 1))
-  let wordIdx  = 0
+const FONDU_SPEED_MAP = { lent: 0.45, normal: 1, rapide: 2.2 }
+function resolveFonduSpeed(v) { return FONDU_SPEED_MAP[v] ?? parseFloat(v) ?? 1 }
+
+function FonduMotSpan({ text, duree, vitesse, isFocused }) {
+  const words    = text.split(/(\s+)/)
+  const total    = words.filter(w => w.trim()).length
+  const speedMul = resolveFonduSpeed(vitesse)
+  // Durée totale ajustée par vitesse ; perWord = intervalle entre mots
+  const baseDur  = parseInt(duree) || 1200
+  const totalDur = Math.round(baseDur / speedMul)
+  const perWord  = Math.max(40, totalDur / Math.max(total, 1))
+  // Durée de fondu d'un mot : plus lent → plus langoureux, rapide → plus sec
+  const wordFadeDur = Math.round(Math.max(120, perWord * (vitesse === 'lent' ? 1.8 : vitesse === 'rapide' ? 0.6 : 1.1)))
+
+  let wordIdx = 0
   return (
     <>
       {isFocused && (
         <style>{`
           @keyframes ili-fondu-in {
-            from { opacity:0; transform:translateY(4px); }
-            to   { opacity:1; transform:translateY(0); }
+            from { opacity:0; filter:blur(4px); transform:translateY(6px) scale(0.97); }
+            60%  { filter:blur(0); }
+            to   { opacity:1; filter:blur(0); transform:translateY(0) scale(1); }
           }
         `}</style>
       )}
@@ -416,7 +427,9 @@ function FonduMotSpan({ text, duree, isFocused }) {
           <span key={i} style={{
             display: 'inline-block',
             opacity: isFocused ? 0 : 1,
-            animation: isFocused ? `ili-fondu-in 400ms ease forwards ${delay}ms` : 'none',
+            animation: isFocused
+              ? `ili-fondu-in ${wordFadeDur}ms cubic-bezier(0.25,0.46,0.45,0.94) forwards ${delay}ms`
+              : 'none',
           }}>
             {w}
           </span>
