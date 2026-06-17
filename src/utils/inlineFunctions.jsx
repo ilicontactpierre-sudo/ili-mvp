@@ -406,7 +406,7 @@ function CensureSpan({ children }) {
   return (
     <span style={{
       display: 'inline-block',
-      backgroundColor: 'currentColor',
+      backgroundColor: 'var(--color-text-focus, currentColor)',
       color: 'transparent',
       borderRadius: '2px',
       userSelect: 'none',
