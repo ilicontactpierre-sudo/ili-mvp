@@ -1787,7 +1787,7 @@ function AdminPage() {
               <SeuilEditor
                 seuil={isSerial
                   ? (parts[activePartIndex]?.seuil ?? [])
-                  : (window.__iliSeuilTemp ?? [])}
+                  : (storyExtraMeta.seuil ?? [])}
                 onChange={(newSeuil) => {
                   if (isSerial) {
                     setParts(prev => {
@@ -1796,8 +1796,6 @@ function AdminPage() {
                       return next
                     })
                   } else {
-                    window.__iliSeuilTemp = newSeuil
-                    // Injecter dans activeStory pour que StoryPage le lise
                     setStoryExtraMeta(prev => ({ ...prev, seuil: newSeuil }))
                   }
                 }}
