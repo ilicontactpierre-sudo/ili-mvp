@@ -193,13 +193,21 @@ const SegmentTimelineRow = memo(function SegmentTimelineRow({
     const coords = getCaretCoordinates(textarea, cursor)
     setFnMenu({ query, matches, selectedIndex: 0, position: coords, cursor })
   }, [closeFnMenu])
-  const insertInlineFunction = useCallback((fnKey) => {
+  const insertInlineFunction = useCallback((fnKey, subValue) => {
     if (!fnMenu || !textareaRef.current) return
     const def = INLINE_FUNCTIONS[fnKey]
     const textarea = textareaRef.current
     const cursor = fnMenu.cursor
     const matchStart = cursor - 2 - fnMenu.query.length // position du "</"
-    const template = def.template()
+    // Si subValue fourni (palette couleur ou clé lire), construire le template sur mesure
+    let template
+    if (subValue && fnKey === 'couleur') {
+      template = `</couleur:${subValue}|/>`
+    } else if (subValue && fnKey === 'lire') {
+      template = `</lire:${subValue}|/>`
+    } else {
+      template = def.template()
+    }
     const currentText = textarea.value
     const newText = currentText.slice(0, matchStart) + template + currentText.slice(cursor)
     // Positionner le curseur :
