@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
+
 // ── Palette couleurs narratives ──────────────────────────────────────────────
 const NARRATIVE_COLORS = [
   { name: 'Sang',    hex: '#c0392b' },
@@ -19,7 +20,96 @@ const NARRATIVE_COLORS = [
   { name: 'Carmin',  hex: '#8b0000' },
 ]
 
+// ── Définition des sous-menus par fonction ───────────────────────────────────
+// Chaque entrée produit un tableau d'options { label, hint, args[] }
+// args[] correspond aux valeurs positionnelles passées à onSelect(fnKey, ...args)
+function buildSubOptions(fnKey, seuilKeys) {
+  switch (fnKey) {
+    case 'pulse': {
+      const intensites = [
+        { k: 'faible', emoji: '·',  hint: 'à peine perceptible' },
+        { k: 'moyen',  emoji: '💓', hint: 'frémissement visible' },
+        { k: 'fort',   emoji: '❤️', hint: 'battement prononcé' },
+      ]
+      const vitesses = [
+        { k: 'lent',   hint: 'lent' },
+        { k: 'normal', hint: 'normal' },
+        { k: 'rapide', hint: 'rapide' },
+      ]
+      return intensites.flatMap(i =>
+        vitesses.map(v => ({
+          label: `${i.emoji} ${i.k} · ${v.k}`,
+          hint:  `${i.hint}, rythme ${v.hint}`,
+          args:  [i.k, v.k],
+        }))
+      )
+    }
+    case 'tremble':
+      return [
+        { label: '〰️ faible',  hint: 'à peine perceptible', args: ['faible'] },
+        { label: '〰️ moyen',   hint: 'tremblement visible',  args: ['moyen']  },
+        { label: '〰️ fort',    hint: 'secousse intense',     args: ['fort']   },
+      ]
+    case 'glitch': {
+      const intensites = [
+        { k: 'faible', hint: 'léger' },
+        { k: 'moyen',  hint: 'visible' },
+        { k: 'fort',   hint: 'intense' },
+      ]
+      const modes = [
+        { k: 'loop', hint: 'en boucle' },
+        { k: 'once', hint: 'une seule fois' },
+      ]
+      return intensites.flatMap(i =>
+        modes.map(m => ({
+          label: `📺 ${i.k} · ${m.k}`,
+          hint:  `${i.hint}, ${m.hint}`,
+          args:  [i.k, m.k],
+        }))
+      )
+    }
+    case 'rupture':
+      return [
+        { label: '~~lent~~',   hint: 'barre qui glisse lentement', args: ['500', 'lent']   },
+        { label: '~~normal~~', hint: 'vitesse standard',            args: ['500', 'normal'] },
+        { label: '~~rapide~~', hint: 'coup de sabre',               args: ['500', 'rapide'] },
+      ]
+    case 'fondu_mot':
+      return [
+        { label: '🌫️ lent',   hint: 'apparition languide',  args: ['1200', 'lent']   },
+        { label: '🌫️ normal', hint: 'rythme équilibré',     args: ['1200', 'normal'] },
+        { label: '🌫️ rapide', hint: 'flash instantané',     args: ['800',  'rapide'] },
+      ]
+    case 'lire':
+      return seuilKeys.map(k => ({
+        label: k,
+        hint:  `</lire:${k}|défaut/>`,
+        args:  [k],
+      }))
+    case 'couleur':
+      // Géré à part via la palette — pas d'options textuelles
+      return null
+    default:
+      return null
+  }
+}
+
+// ── Fonctions qui déclenchent l'étape 2 ─────────────────────────────────────
+function needsSubMenu(fnKey, seuilKeys) {
+  if (fnKey === 'couleur') return true
+  const opts = buildSubOptions(fnKey, seuilKeys)
+  return opts !== null && opts.length > 0
+}
+
 function InlineFunctionMenu({ query, matches, selectedIndex, position, onSelect, onHover, seuilKeys = [] }) {
+  const [customHex, setCustomHex] = useState('')
+  // ── État étape 2 ──────────────────────────────────────────────────────────
+  // step: 'list' = liste principale | 'sub' = sous-menu | 'color' = palette
+  const [step, setStep]         = useState('list')
+  const [subFnKey, setSubFnKey] = useState(null)   // clé de la fn active
+  const [subOptions, setSubOptions] = useState([]) // options calculées
+  const [subIndex, setSubIndex] = useState(0)      // index navigué
+  const subListRef = useRef(null)
   const [customHex, setCustomHex] = useState('')
   const left = Math.min(position.left, window.innerWidth - 320)
   const top  = Math.min(position.top + 4, window.innerHeight - 400)
