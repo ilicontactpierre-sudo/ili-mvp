@@ -202,99 +202,142 @@ function InlineFunctionMenu({ query, matches, selectedIndex, position, onSelect,
         fontSize: '0.78rem',
       }}
     >
-      {/* Header */}
+      {/* ── Header adaptatif selon l'étape ── */}
       <div style={{
         padding: '6px 10px', fontSize: '0.66rem', color: 'rgba(255,255,255,0.4)',
         borderBottom: '1px solid rgba(255,255,255,0.08)',
         textTransform: 'uppercase', letterSpacing: '0.05em',
         position: 'sticky', top: 0, background: '#1a1a2e', zIndex: 1,
+        display: 'flex', alignItems: 'center', gap: '6px',
       }}>
-        Fonctions{query ? ` · "${query}"` : ''}
+        {step !== 'list' && (
+          <button
+            onMouseDown={e => e.preventDefault()}
+            onClick={() => setStep('list')}
+            style={{
+              background: 'none', border: 'none', cursor: 'pointer',
+              color: 'rgba(255,255,255,0.45)', fontSize: '0.7rem',
+              padding: '0 4px 0 0', lineHeight: 1,
+              transition: 'color 0.1s ease',
+            }}
+            onMouseEnter={e => e.currentTarget.style.color = '#fff'}
+            onMouseLeave={e => e.currentTarget.style.color = 'rgba(255,255,255,0.45)'}
+            title="Retour à la liste (Esc)"
+          >←</button>
+        )}
+        <span>
+          {step === 'list'
+            ? `Fonctions${query ? ` · "${query}"` : ''}`
+            : step === 'color'
+              ? '🎨 Palette narrative'
+              : `${subFnKey ? (matches.find(([k]) => k === subFnKey)?.[1]?.label ?? subFnKey) : ''} — variantes`
+          }
+        </span>
       </div>
 
-      {/* Liste de fonctions */}
-      {matches.length === 0 ? (
-        <div style={{ padding: '10px', color: 'rgba(255,255,255,0.4)', fontStyle: 'italic' }}>
-          Aucune fonction correspondante
-        </div>
-      ) : (
-        matches.map(([key, def], i) => {
-          // Pour 'lire' avec des clés seuil dispo, et pour 'couleur' :
-          // cliquer sur la ligne principale ne doit PAS insérer directement
-          // → le sous-panneau ci-dessous prend le relais
-          const hasSubPanel =
-            (key === 'lire' && seuilKeys.length > 0) ||
-            key === 'couleur'
-          return (
-            <div
-              key={key}
-              onMouseDown={(e) => e.preventDefault()}
-              onClick={() => { if (!hasSubPanel) onSelect(key) }}
-              onMouseEnter={() => onHover(i)}
-              style={{
-                padding: '8px 10px',
-                cursor: 'pointer',
-                backgroundColor: i === selectedIndex ? 'rgba(99,102,241,0.25)' : 'transparent',
-                borderLeft: i === selectedIndex ? '2px solid #6366f1' : '2px solid transparent',
-                transition: 'background-color 0.1s ease',
-                opacity: hasSubPanel ? 0.85 : 1,
-              }}
-            >
-              <div style={{ color: '#fff', fontWeight: 600 }}>
-                {def.label}
-                {hasSubPanel && (
-                  <span style={{ fontSize: '0.6rem', color: 'rgba(99,102,241,0.8)', marginLeft: '6px', fontWeight: 400 }}>
-                    ↓ choisir ci-dessous
-                  </span>
+      {/* ── Étape 1 : liste des fonctions ── */}
+      {step === 'list' && (
+        matches.length === 0 ? (
+          <div style={{ padding: '10px', color: 'rgba(255,255,255,0.4)', fontStyle: 'italic' }}>
+            Aucune fonction correspondante
+          </div>
+        ) : (
+          matches.map(([key, def], i) => {
+            const hasSub = needsSubMenu(key, seuilKeys)
+            const isActive = i === selectedIndex
+            return (
+              <div
+                key={key}
+                onMouseDown={e => e.preventDefault()}
+                onClick={() => hasSub ? openSub(key) : onSelect(key)}
+                onMouseEnter={() => onHover(i)}
+                style={{
+                  padding: '8px 10px',
+                  cursor: 'pointer',
+                  backgroundColor: isActive ? 'rgba(99,102,241,0.25)' : 'transparent',
+                  borderLeft: isActive ? '2px solid #6366f1' : '2px solid transparent',
+                  transition: 'background-color 0.1s ease',
+                  display: 'flex', flexDirection: 'column', gap: '2px',
+                }}
+              >
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                  <span style={{ color: '#fff', fontWeight: 600 }}>{def.label}</span>
+                  {hasSub && (
+                    <span style={{
+                      fontSize: '0.62rem', color: '#6366f1', opacity: 0.8,
+                      background: 'rgba(99,102,241,0.12)',
+                      padding: '1px 5px', borderRadius: '3px',
+                    }}>↵ variantes</span>
+                  )}
+                </div>
+                <div style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.7rem' }}>
+                  {def.description}
+                </div>
+                {!hasSub && (
+                  <div style={{ color: 'rgba(255,255,255,0.3)', fontSize: '0.67rem', fontFamily: 'monospace' }}>
+                    {`</${key}:${def.params.map(p => p.default).join(';') || ''}${def.wrap ? '|' : ''}/>`}
+                  </div>
                 )}
               </div>
-              <div style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.7rem', marginTop: '2px' }}>
-                {def.description}
-              </div>
-              {!hasSubPanel && (
-                <div style={{ color: 'rgba(255,255,255,0.35)', fontSize: '0.68rem', marginTop: '2px', fontFamily: 'monospace' }}>
-                  {`</${key}:${def.params.map(p => p.default).join(';') || ''}${def.wrap ? '|' : ''}/>`}
-                </div>
-              )}
-            </div>
-          )
-        })
+            )
+          })
+        )
       )}
 
-      {/* ── Sous-panneau palette couleur ── */}
-      {hasColorPanel && (
-        <div style={{
-          borderTop: '1px solid rgba(255,255,255,0.1)',
-          padding: '8px 10px',
-          background: 'rgba(255,255,255,0.03)',
-        }}>
-          <div style={{ fontSize: '0.62rem', color: 'rgba(255,255,255,0.35)', marginBottom: '6px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-            Palette narrative
-          </div>
+      {/* ── Étape 2a : sous-menu texte (variations nommées) ── */}
+      {step === 'sub' && (
+        <div ref={subListRef} style={{ overflowY: 'auto', maxHeight: '320px' }}>
+          {subOptions.map((opt, i) => {
+            const isActive = i === subIndex
+            return (
+              <div
+                key={i}
+                onMouseDown={e => e.preventDefault()}
+                onClick={() => onSelect(subFnKey, ...opt.args)}
+                onMouseEnter={() => setSubIndex(i)}
+                style={{
+                  padding: '8px 12px',
+                  cursor: 'pointer',
+                  backgroundColor: isActive ? 'rgba(99,102,241,0.25)' : 'transparent',
+                  borderLeft: isActive ? '2px solid #6366f1' : '2px solid transparent',
+                  transition: 'background-color 0.1s ease',
+                  display: 'flex', flexDirection: 'column', gap: '2px',
+                }}
+              >
+                <span style={{ color: '#fff', fontWeight: 600, fontSize: '0.8rem' }}>
+                  {opt.label}
+                </span>
+                <span style={{ color: 'rgba(255,255,255,0.45)', fontSize: '0.68rem' }}>
+                  {opt.hint}
+                </span>
+              </div>
+            )
+          })}
+        </div>
+      )}
+
+      {/* ── Étape 2b : palette couleur ── */}
+      {step === 'color' && (
+        <div style={{ padding: '8px 10px' }}>
           {/* Grille 4×4 */}
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '4px', marginBottom: '8px' }}>
             {NARRATIVE_COLORS.map(({ name, hex }) => (
               <button
                 key={hex}
-                title={`${name} ${hex}`}
-                onMouseDown={(e) => e.preventDefault()}
-                onClick={() => {
-                  // Insérer </couleur:#hex|/> directement
-                  onSelect('couleur', hex)
-                }}
+                title={`${name}  ${hex}`}
+                onMouseDown={e => e.preventDefault()}
+                onClick={() => onSelect('couleur', hex)}
                 style={{
-                  width: '100%',
-                  aspectRatio: '1',
+                  width: '100%', aspectRatio: '1',
                   backgroundColor: hex,
                   border: '1px solid rgba(255,255,255,0.15)',
-                  borderRadius: '4px',
-                  cursor: 'pointer',
+                  borderRadius: '4px', cursor: 'pointer',
                   position: 'relative',
-                  transition: 'transform 0.1s ease, box-shadow 0.1s ease',
+                  transition: 'transform 0.12s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.12s ease',
                 }}
                 onMouseEnter={e => {
-                  e.currentTarget.style.transform = 'scale(1.12)'
-                  e.currentTarget.style.boxShadow = `0 0 0 2px ${hex}66`
+                  e.currentTarget.style.transform = 'scale(1.14)'
+                  e.currentTarget.style.boxShadow = `0 0 0 2px ${hex}88`
                   e.currentTarget.style.zIndex = '2'
                 }}
                 onMouseLeave={e => {
@@ -303,18 +346,7 @@ function InlineFunctionMenu({ query, matches, selectedIndex, position, onSelect,
                   e.currentTarget.style.zIndex = '1'
                 }}
               >
-                <span style={{
-                  position: 'absolute', inset: 0,
-                  display: 'flex', alignItems: 'flex-end', justifyContent: 'center',
-                  fontSize: '0.45rem', color: parseInt(hex.slice(1), 16) > 0x888888 ? '#000' : '#fff',
-                  opacity: 0, transition: 'opacity 0.1s',
-                  paddingBottom: '1px', lineHeight: 1,
-                  pointerEvents: 'none',
-                }}
-                  className="color-label"
-                >
-                  {name}
-                </span>
+                {/* Nom en tooltip natif via title — clean, pas besoin d'overlay */}
               </button>
             ))}
           </div>
@@ -329,13 +361,14 @@ function InlineFunctionMenu({ query, matches, selectedIndex, position, onSelect,
               type="text"
               placeholder="#hex…"
               value={customHex}
-              onMouseDown={(e) => e.stopPropagation()}
-              onChange={(e) => setCustomHex(e.target.value)}
-              onKeyDown={(e) => {
+              onMouseDown={e => e.stopPropagation()}
+              onChange={e => setCustomHex(e.target.value)}
+              onKeyDown={e => {
                 if (e.key === 'Enter' && /^#[0-9a-fA-F]{6}$/.test(customHex)) {
                   onSelect('couleur', customHex)
                 }
-                e.stopPropagation() // ne pas propager vers le menu principal
+                if (e.key === 'Escape') setStep('list')
+                e.stopPropagation()
               }}
               style={{
                 flex: 1, background: 'rgba(255,255,255,0.08)',
@@ -345,7 +378,7 @@ function InlineFunctionMenu({ query, matches, selectedIndex, position, onSelect,
               }}
             />
             <button
-              onMouseDown={(e) => e.preventDefault()}
+              onMouseDown={e => e.preventDefault()}
               onClick={() => {
                 if (/^#[0-9a-fA-F]{6}$/.test(customHex)) onSelect('couleur', customHex)
               }}
@@ -359,49 +392,18 @@ function InlineFunctionMenu({ query, matches, selectedIndex, position, onSelect,
         </div>
       )}
 
-      {/* ── Sous-panneau clés lire ── */}
-      {hasLirePanel && (
-        <div style={{
-          borderTop: '1px solid rgba(255,255,255,0.1)',
-          padding: '8px 10px',
-          background: 'rgba(255,255,255,0.03)',
-        }}>
-          <div style={{ fontSize: '0.62rem', color: 'rgba(255,255,255,0.35)', marginBottom: '6px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-            Clés disponibles (Seuil)
-          </div>
-          {seuilKeys.map((cle) => (
-            <div
-              key={cle}
-              onMouseDown={(e) => e.preventDefault()}
-              onClick={() => onSelect('lire', cle)}
-              style={{
-                padding: '5px 8px',
-                cursor: 'pointer',
-                borderRadius: '4px',
-                fontFamily: 'monospace',
-                fontSize: '0.72rem',
-                color: '#a5b4fc',
-                backgroundColor: 'rgba(99,102,241,0.08)',
-                marginBottom: '3px',
-                border: '1px solid rgba(99,102,241,0.2)',
-                transition: 'background-color 0.1s ease',
-              }}
-              onMouseEnter={e => e.currentTarget.style.backgroundColor = 'rgba(99,102,241,0.2)'}
-              onMouseLeave={e => e.currentTarget.style.backgroundColor = 'rgba(99,102,241,0.08)'}
-            >
-              {`</lire:${cle}|défaut/>`}
-            </div>
-          ))}
-        </div>
-      )}
-
-      {/* Footer */}
+      {/* ── Footer adaptatif ── */}
       <div style={{
         padding: '4px 10px', fontSize: '0.62rem', color: 'rgba(255,255,255,0.3)',
         borderTop: '1px solid rgba(255,255,255,0.08)',
         position: 'sticky', bottom: 0, background: '#1a1a2e',
       }}>
-        ↑↓ naviguer · ↵ insérer · Esc fermer
+        {step === 'list'
+          ? '↑↓ naviguer · ↵ choisir · Esc fermer'
+          : step === 'color'
+            ? 'cliquer pour choisir · Esc retour'
+            : '↑↓ naviguer · ↵ insérer · Esc retour'
+        }
       </div>
     </div>
   )
