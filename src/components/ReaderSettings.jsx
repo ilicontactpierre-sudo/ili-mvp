@@ -741,7 +741,6 @@ export default function ReaderSettings({
                 className={`rs-dys-btn${dys1 ? ' active' : ''}`}
                 onClick={() => { playClicSettings(); setDys1(v => !v) }}
                 title="Lecture assistée : met en gras les premières lettres de chaque mot"
-<<<<<<< Updated upstream
               >
                 DYS 1
               </button>
@@ -761,7 +760,6 @@ export default function ReaderSettings({
               </button>
             </div>
           </div>
-
           {/* Barre de progression */}
           <div className="rs-section">
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '6px 10px' }}>
@@ -802,17 +800,6 @@ export default function ReaderSettings({
                   background: isDark ? '#fff' : '#1a1a18',
                   transition: 'left 0.2s ease',
                 }} />
-=======
-              >
-                DYS 1
-              </button>
-              <button
-                className={`rs-dys-btn${dys2 ? ' active' : ''}`}
-                onClick={() => { playClicSettings(); setDys2(v => !v) }}
-                title="Police Lexend, conçue pour la dyslexie"
-              >
-                DYS 2
->>>>>>> Stashed changes
               </button>
             </div>
           </div>
