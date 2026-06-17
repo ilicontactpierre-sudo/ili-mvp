@@ -144,16 +144,7 @@ export const INLINE_FUNCTIONS = {
     template: () => `</chiffres_down:100;0/>`,
     cursorAfterPipe: false,
   },
-  obscurcir: {
-    label: '🌑 Obscurcissement',
-    description: "L'écran noircit puis revient",
-    wrap: false,
-    params: [
-      { name: 'durée', default: '1500', hint: 'ms' },
-    ],
-    template: () => `</obscurcir:1500/>`,
-    cursorAfterPipe: false,
-  },
+  
   // ecrire supprimé — la mémorisation se fait via GameMode "journal"
   // ou via le Seuil du StartScreen. Cf. {{journal:clé}} et </lire:clé/>
 }
@@ -419,30 +410,6 @@ function FonduMotSpan({ text, duree, vitesse, isFocused }) {
   )
 }
 
-function ObscurirOverlay({ duree, isFocused }) {
-  const [phase, setPhase] = useState('idle')
-  const dur = parseInt(duree) || 1500
-  useEffect(() => {
-    if (!isFocused) { setPhase('idle'); return }
-    setPhase('in')
-    const t1 = setTimeout(() => setPhase('out'), dur * 0.5)
-    const t2 = setTimeout(() => setPhase('idle'), dur)
-    return () => { clearTimeout(t1); clearTimeout(t2) }
-  }, [isFocused, dur])
-  if (phase === 'idle') return null
-  return (
-    <span aria-hidden="true" style={{
-      position: 'fixed', inset: 0,
-      backgroundColor: '#000',
-      zIndex: 8000,
-      pointerEvents: 'none',
-      opacity: phase === 'in' ? 1 : 0,
-      transition: phase === 'in'
-        ? `opacity ${Math.round(dur * 0.45)}ms ease-in`
-        : `opacity ${Math.round(dur * 0.45)}ms ease-out`,
-    }} />
-  )
-}
 
 function CensureSpan({ children }) {
   const text = typeof children === 'string' ? children : ''
@@ -576,11 +543,8 @@ export function renderInlineFunction(seg, baseKey, isFocused, fallbackRenderer) 
     }
 
     // ── Autonomes ──
-    case 'obscurcir': {
-      const [duree] = resolveArgs('obscurcir', seg.args)
-      return <ObscurirOverlay key={`${baseKey}_on`} duree={duree} isFocused={isFocused} />
-    }
     // case 'ecrire' supprimé
+    // case 'obscurcir' supprimé
     case 'lire': {
       const [cle] = resolveArgs('lire', seg.args)
       // Le contenu après | est le texte par défaut
