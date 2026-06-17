@@ -73,19 +73,19 @@ export default function FormatToolbar({ position, onFormat, onFontChange, curren
         style={{
           position: 'fixed',
           top,
-          left: 'calc(50% - 400px - 16px)',
+          left: 'min(calc(50% - 400px - 12px), calc(100vw - 60px))',
           transform: 'translateX(-100%)',
           display: 'flex',
+          flexDirection: 'column',
           alignItems: 'center',
           gap: '2px',
-          padding: '5px 8px',
+          padding: '6px 5px',
           backgroundColor: '#1a1a1a',
           borderRadius: '10px',
           boxShadow: '0 6px 24px rgba(0,0,0,0.4)',
           zIndex: 9999,
           animation: 'iliToolbarIn 0.15s ease',
           userSelect: 'none',
-          whiteSpace: 'nowrap',
         }}
       >
         <button className={`ili-fmt-btn${boldActive ? ' active' : ''}`}
