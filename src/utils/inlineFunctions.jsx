@@ -535,8 +535,8 @@ export function renderInlineFunction(seg, baseKey, isFocused, fallbackRenderer) 
       return <GlitchSpan key={`${baseKey}_on`} intensité={intensité} mode={mode} isFocused={isFocused}>{inner}</GlitchSpan>
     }
     case 'rupture': {
-      const [délai] = resolveArgs('rupture', seg.args)
-      return <RuptureSpan key={`${baseKey}_on`} délai={délai} isFocused={isFocused}>{inner}</RuptureSpan>
+      const [délai, vitesse] = resolveArgs('rupture', seg.args)
+      return <RuptureSpan key={`${baseKey}_on`} délai={délai} vitesse={vitesse} isFocused={isFocused}>{inner}</RuptureSpan>
     }
     case 'couleur': {
       const [hex] = resolveArgs('couleur', seg.args)
