@@ -105,9 +105,10 @@ export const INLINE_FUNCTIONS = {
     description: 'Les mots apparaissent un par un en fondu',
     wrap: true,
     params: [
-      { name: 'durée', default: '1200', hint: 'durée totale en ms' },
+      { name: 'durée',   default: '1200',   hint: 'durée totale en ms' },
+      { name: 'vitesse', default: 'normal', hint: 'lent · normal · rapide' },
     ],
-    template: () => `</fondu_mot:1200|/>`,
+    template: () => `</fondu_mot:1200;normal|/>`,
     cursorAfterPipe: true,
   },
   lire: {
