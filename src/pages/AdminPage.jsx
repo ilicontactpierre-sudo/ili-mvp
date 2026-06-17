@@ -2172,6 +2172,7 @@ function AdminPage() {
                           onVfxTracksChange={setActiveVfxTracks}
                           onSaveToHistory={() => saveToHistory(segments, soundTracks, vfxTracks)}
                           adminPassword={password}
+                          onPreviewFromSegment={handlePreviewFromSegment}
                           seuilKeys={
                             isSerial
                               ? (parts[activePartIndex]?.seuil ?? []).map(q => q.cle).filter(Boolean)
