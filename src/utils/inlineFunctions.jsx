@@ -228,16 +228,23 @@ function counterStyle(finalStr) {
 function AnimatedCounter({ from, to, decimals, finalStr }) {
   const [value, setValue] = useState(from)
   const rafRef = useRef(null)
+
+  // Réinitialise la valeur si `from` change (ex: re-focus)
+  useEffect(() => { setValue(from) }, [from])
+
   useEffect(() => {
+    setValue(from)
     const start = performance.now()
     const tick = (now) => {
       const t = Math.min(1, (now - start) / COUNTER_DURATION)
       setValue(from + (to - from) * easeInOutQuint(t))
       if (t < 1) rafRef.current = requestAnimationFrame(tick)
+      else setValue(to) // valeur finale exacte
     }
     rafRef.current = requestAnimationFrame(tick)
     return () => { if (rafRef.current) cancelAnimationFrame(rafRef.current) }
   }, [from, to])
+
   return <span style={counterStyle(finalStr)}>{formatNumber(value, decimals)}</span>
 }
 
