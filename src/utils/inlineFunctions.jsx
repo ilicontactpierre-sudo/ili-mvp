@@ -74,9 +74,10 @@ export const INLINE_FUNCTIONS = {
     description: 'Le texte se barre de gauche à droite',
     wrap: true,
     params: [
-      { name: 'délai', default: '500', hint: 'ms avant apparition du barré' },
+      { name: 'délai',   default: '500',    hint: 'ms avant apparition du barré' },
+      { name: 'vitesse', default: 'normal', hint: 'lent · normal · rapide' },
     ],
-    template: () => `</rupture:500|/>`,
+    template: () => `</rupture:500;normal|/>`,
     cursorAfterPipe: true,
   },
   couleur: {
@@ -511,8 +512,8 @@ export function renderInlineFunction(seg, baseKey, isFocused, fallbackRenderer) 
       return <TrembleSpan key={baseKey} intensité={intensité}>{inner}</TrembleSpan>
     }
     case 'glitch': {
-      const [intensité] = resolveArgs('glitch', seg.args)
-      return <GlitchSpan key={`${baseKey}_on`} intensité={intensité} isFocused={isFocused}>{inner}</GlitchSpan>
+      const [intensité, mode] = resolveArgs('glitch', seg.args)
+      return <GlitchSpan key={`${baseKey}_on`} intensité={intensité} mode={mode} isFocused={isFocused}>{inner}</GlitchSpan>
     }
     case 'rupture': {
       const [délai] = resolveArgs('rupture', seg.args)
