@@ -543,6 +543,13 @@ function StoryPage() {
   const [showSeuil, setShowSeuil]     = useState(false)
   const [seuilDone, setSeuilDone]     = useState(false)
   const pendingStartRef               = useRef(null) // stocke { howlMap, resume } pendant le seuil
+
+  // ── Seuil — doit être avec tous les autres hooks, AVANT tout return ────────
+  const seuilQuestions = useMemo(() => {
+    if (!activeStory) return []
+    const q = activeStory.seuil ?? []
+    return Array.isArray(q) ? q.filter(s => s?.cle && s?.texte) : []
+  }, [activeStory]) 
   const [frozenGameMode, setFrozenGameMode] = useState(null)
   const [frozenIndex, setFrozenIndex]       = useState(null)
 
