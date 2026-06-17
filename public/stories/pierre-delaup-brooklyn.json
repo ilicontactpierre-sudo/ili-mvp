@@ -48,8 +48,13 @@
       "loop": false
     },
     {
-      "id": "la_valle_e_du_okuno",
-      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/la_valle_e_du_okuno.mp3",
+      "id": "best_drum_solo_ever",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/best_drum_solo_ever.mp3",
+      "loop": false
+    },
+    {
+      "id": "printer_receipt",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/printer_receipt.mp3",
       "loop": false
     },
     {
@@ -59,48 +64,6 @@
     }
   ],
   "segments": [
-    {
-      "text": "",
-      "id": "seg_1781700181728",
-      "gameMode": {
-        "type": "choice_quiz",
-        "layout": {
-          "axis": "H",
-          "linesH": 0,
-          "linesV": 0,
-          "proportions": [
-            1
-          ],
-          "tint": "noir",
-          "style": "flat",
-          "equalSizes": false
-        },
-        "prompt": "Petit test sonore :)\nRègle le volume !",
-        "choices": [
-          {
-            "id": "c1",
-            "text": "Touche l'écran pour entrer dans l'histoire",
-            "correct": true,
-            "tint": "cendre"
-          }
-        ],
-        "errorMessage": ""
-      },
-      "audioEvents": [
-        {
-          "action": "play",
-          "soundId": "la_valle_e_du_okuno",
-          "volume": 0.5,
-          "delay": 0,
-          "loop": false
-        },
-        {
-          "action": "fadeOut",
-          "soundId": "la_valle_e_du_okuno",
-          "duration": 2442
-        }
-      ]
-    },
     {
       "id": "seg_1781326327990_0_yqe1e",
       "lines": [
@@ -112,9 +75,10 @@
       "isChapter": true,
       "audioEvents": [
         {
-          "action": "play",
+          "action": "fadeIn",
           "soundId": "tuba_skinny_-_jubilee_stomp_-_royal_street_ii_1_",
-          "volume": 0.5,
+          "volume": 0.15,
+          "duration": 234,
           "delay": 0,
           "loop": true
         }
@@ -146,21 +110,22 @@
       "lines": [
         "- À nos six années ici, et surtout, à ta fin de mission ! \"Well done\" comme on dit !"
       ],
-      "text": "</couleur:|/>- À nos six années ici, et surtout, à ta fin de mission !/> \"Well done\" comme on dit !",
-      "breakAt": 73,
+      "text": "</couleur|- À nos six années ici, et surtout, à ta fin de mission !/> </couleur:#d4a96a|\"Well done\" comme on dit !/>",
+      "breakAt": 70,
       "isLeader": true,
       "audioEvents": [
         {
-          "action": "play",
+          "action": "fadeIn",
           "soundId": "ambrest_restaurant_german_crowd_bar_01_b00m_one",
           "volume": 0.5,
+          "duration": 397,
           "delay": 0,
           "loop": true
         },
         {
           "action": "play",
           "soundId": "foodgware_glass_tumblers_chink_01_b00m_one",
-          "volume": 0.2,
+          "volume": 0.35,
           "delay": 0,
           "loop": false
         }
@@ -188,8 +153,8 @@
         {
           "action": "play",
           "soundId": "65_s02a_toast",
-          "volume": 0.5,
-          "delay": 0,
+          "volume": 0.15,
+          "delay": 1400,
           "loop": false
         }
       ]
@@ -393,9 +358,14 @@
       "isLeader": false,
       "audioEvents": [
         {
+          "action": "fadeOut",
+          "soundId": "tuba_skinny_-_jubilee_stomp_-_royal_street_ii_1_",
+          "duration": 3400
+        },
+        {
           "action": "play",
           "soundId": "objfurn_wood_chair_take_slide_medium_02_b00m_one",
-          "volume": 0.5,
+          "volume": 0.7,
           "delay": 0,
           "loop": false
         }
@@ -413,7 +383,7 @@
         {
           "action": "play",
           "soundId": "printer_receipt",
-          "volume": 0.15,
+          "volume": 0.25,
           "delay": 0,
           "loop": false
         }
@@ -429,9 +399,11 @@
       "isLeader": false,
       "audioEvents": [
         {
-          "action": "fadeOut",
-          "soundId": "tuba_skinny_-_jubilee_stomp_-_royal_street_ii_1_",
-          "duration": 193
+          "action": "play",
+          "soundId": "best_drum_solo_ever",
+          "volume": 0.3,
+          "delay": 0,
+          "loop": false
         }
       ],
       "delay": 1800
@@ -449,13 +421,6 @@
           "action": "fadeOut",
           "soundId": "ambrest_restaurant_german_crowd_bar_01_b00m_one",
           "duration": 182
-        },
-        {
-          "action": "play",
-          "soundId": "best_drum_solo_ever",
-          "volume": 0.5,
-          "delay": 0,
-          "loop": false
         },
         {
           "action": "fadeOut",
@@ -510,7 +475,7 @@
         {
           "action": "fadeIn",
           "soundId": "tuba_skinny_-_jubilee_stomp_-_royal_street_ii_1_",
-          "volume": 0.5,
+          "volume": 0.25,
           "duration": 600,
           "delay": 0,
           "loop": false
@@ -971,19 +936,6 @@
   ],
   "soundTracks": [
     {
-      "id": "st_1781700474152_hte5g4abn",
-      "soundId": "la_valle_e_du_okuno",
-      "startSegmentId": "seg_1781700181728",
-      "endSegmentId": "seg_1781700181728",
-      "column": 0,
-      "volume": 0.5,
-      "fadeIn": 0,
-      "fadeOut": 2442,
-      "delay": 0,
-      "loop": false,
-      "muted": false
-    },
-    {
       "id": "st_1781701827604_9qpktd73n",
       "soundId": "doorwood_wooden_door_open_outdoor_single_01_b00m_one",
       "startSegmentId": "seg_1781702886138",
@@ -1006,7 +958,7 @@
       "endSegmentId": "seg_1781326327990_37_24l4g",
       "column": 0,
       "volume": 0.5,
-      "fadeIn": 0,
+      "fadeIn": 397,
       "fadeOut": 182,
       "delay": 0,
       "loop": true,
@@ -1017,16 +969,17 @@
       "id": "st_1781702691915_hbd149cf1",
       "soundId": "tuba_skinny_-_jubilee_stomp_-_royal_street_ii_1_",
       "startSegmentId": "seg_1781326327990_0_yqe1e",
-      "endSegmentId": "seg_1781326327990_35_revw1",
+      "endSegmentId": "seg_1781326327990_32_l7g87",
       "column": 1,
-      "volume": 0.5,
-      "fadeIn": 0,
-      "fadeOut": 193,
+      "volume": 0.15,
+      "fadeIn": 234,
+      "fadeOut": 3400,
       "delay": 0,
       "loop": true,
       "muted": false,
       "broken": false,
-      "loopCrossfade": "medium"
+      "loopCrossfade": "medium",
+      "pan": 0.48
     },
     {
       "id": "st_1781702792335_hseb9urfq",
@@ -1034,7 +987,7 @@
       "startSegmentId": "seg_1781326327990_1_6gjnf",
       "endSegmentId": "seg_1781326327990_1_6gjnf",
       "column": 3,
-      "volume": 0.2,
+      "volume": 0.35,
       "fadeIn": 0,
       "fadeOut": 0,
       "delay": 0,
@@ -1042,7 +995,7 @@
       "muted": false,
       "trimStart": 138,
       "trimEnd": 1567,
-      "pan": 0.46
+      "pan": 0
     },
     {
       "id": "st_1781704576873_rm0jjfxpe",
@@ -1050,14 +1003,15 @@
       "startSegmentId": "seg_1781326327990_3_kn93q",
       "endSegmentId": "seg_1781326327990_3_kn93q",
       "column": 2,
-      "volume": 0.5,
+      "volume": 0.15,
       "fadeIn": 0,
       "fadeOut": 0,
-      "delay": 0,
+      "delay": 1400,
       "loop": false,
       "muted": false,
       "trimStart": 0,
-      "trimEnd": 1958
+      "trimEnd": 1958,
+      "pan": -0.46
     },
     {
       "id": "st_1781706026602_e5x5fcvrx",
@@ -1080,14 +1034,15 @@
       "startSegmentId": "seg_1781326327990_32_l7g87",
       "endSegmentId": "seg_1781326327990_32_l7g87",
       "column": 2,
-      "volume": 0.5,
+      "volume": 0.7,
       "fadeIn": 0,
       "fadeOut": 0,
       "delay": 0,
       "loop": false,
       "muted": false,
       "trimStart": 0,
-      "trimEnd": 1998
+      "trimEnd": 1998,
+      "pan": -0.27
     },
     {
       "id": "st_1781706711099_8jeborkj0",
@@ -1095,27 +1050,27 @@
       "startSegmentId": "seg_1781326327990_34_8zrkw",
       "endSegmentId": "seg_1781326327990_34_8zrkw",
       "column": 2,
-      "volume": 0.15,
+      "volume": 0.25,
       "fadeIn": 0,
       "fadeOut": 0,
       "delay": 0,
       "loop": false,
       "muted": false,
-      "pan": 0.59
+      "pan": 0.73
     },
     {
       "id": "st_1781707000433_daizk52j5",
       "soundId": "best_drum_solo_ever",
-      "startSegmentId": "seg_1781326327990_37_24l4g",
+      "startSegmentId": "seg_1781326327990_35_revw1",
       "endSegmentId": "seg_1781326327990_37_24l4g",
       "column": 2,
-      "volume": 0.5,
+      "volume": 0.3,
       "fadeIn": 0,
       "fadeOut": 1263,
       "delay": 0,
       "loop": false,
       "muted": false,
-      "pan": 0.02
+      "pan": 0.37
     },
     {
       "id": "st_1781707137938_nj9rxp3vc",
@@ -1123,7 +1078,7 @@
       "startSegmentId": "seg_1781326327990_42_va4t4",
       "endSegmentId": "seg_1781326327990_47_kzzmi",
       "column": 1,
-      "volume": 0.5,
+      "volume": 0.25,
       "fadeIn": 600,
       "fadeOut": 600,
       "delay": 0,
@@ -1131,7 +1086,8 @@
       "muted": false,
       "broken": false,
       "trimStart": 8425,
-      "trimEnd": 231079.1666666667
+      "trimEnd": 231079.1666666667,
+      "pan": 0.59
     },
     {
       "id": "st_1781707244241_u45unxui3",
