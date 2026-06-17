@@ -28,6 +28,7 @@
   {
     "id": "test-fonctions-test-fonctions",
     "title": "test fonctions",
-    "author": "test fonctions"
+    "author": "test fonctions",
+    "hidden": true
   }
 ]
