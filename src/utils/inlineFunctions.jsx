@@ -436,7 +436,16 @@ function EcrireEffect({ cle, valeur }) {
 
 function LireSpan({ cle, defaut }) {
   const mem = useNarrativeMemory()
-  return <span>{mem.read(cle, defaut)}</span>
+  // Lire d'abord dans ili_journal_ (GameMode journal, seuil),
+  // puis dans ili_mem_ (mémoire narrative), puis le défaut
+  const val = (() => {
+    try {
+      const journal = sessionStorage.getItem(`ili_journal_${cle}`)
+      if (journal !== null) return journal
+    } catch {}
+    return mem.read(cle, defaut)
+  })()
+  return <span>{val}</span>
 }
 
 // ── Rendu d'un segment fonction ───────────────────────────────────────────────
