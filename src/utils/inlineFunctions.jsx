@@ -312,6 +312,36 @@ function GlitchSpan({ children, intensité, mode, isFocused }) {
       ${pct(dur*0.30)}% { clip-path:inset(40% 0 20% 0); transform:translate(${px}px,-1px); }
       ${pct(dur*0.50)}% { clip-path:inset(70% 0 5% 0);  transform:translate(-${px}px,0); }
       ${pct(dur*0.65)}% { clip-path:inset(20% 0 50% 0); transform:translate(${px}px,1px); }
+      ${pct(dur*0.80)}% { clip-path:inset(0 0 0 0);     transform:translate(-1px,0); }
+      ${pct(dur)}%      { clip-path:inset(0 0 0 0);     transform:translate(0); }
+      100%              { clip-path:inset(0 0 0 0);     transform:translate(0); }
+    }
+  `
+  const onceKeyframes = `
+    @keyframes ${id.current} {
+      0%   { clip-path:inset(0 0 100% 0); transform:translate(0); }
+      15%  { clip-path:inset(10% 0 60% 0); transform:translate(-${px}px,1px); }
+      30%  { clip-path:inset(40% 0 20% 0); transform:translate(${px}px,-1px); }
+      50%  { clip-path:inset(70% 0 5% 0);  transform:translate(-${px}px,0); }
+      65%  { clip-path:inset(20% 0 50% 0); transform:translate(${px}px,1px); }
+      80%  { clip-path:inset(0 0 0 0);     transform:translate(-1px,0); }
+      100% { clip-path:inset(0 0 0 0);     transform:translate(0); }
+    }
+  `
+  return (
+    <>
+      <style>{isLoop ? loopKeyframes : onceKeyframes}</style>
+      <span style={{
+        display: 'inline-block',
+        animation: isLoop
+          ? `${id.current} ${totalCycle}ms steps(1) infinite`
+          : `${id.current} ${dur}ms steps(1) forwards`,
+      }}>
+        {children}
+      </span>
+    </>
+  )
+}
 
 const RUPTURE_SPEED_MAP = { lent: 700, normal: 320, rapide: 130 }
 function resolveRuptureSpeed(v) { return RUPTURE_SPEED_MAP[v] ?? parseInt(v) ?? 320 }
