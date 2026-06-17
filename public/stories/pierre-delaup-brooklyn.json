@@ -6,8 +6,61 @@
   "genre": "Nouvelle, Thriller.",
   "description": "Rim le sait : dans ce monde, l'inattendu est le seul mot qui compte. Et pourtant...",
   "published": true,
-  "sounds": [],
+  "sounds": [
+    {
+      "id": "doorwood_wooden_door_open_outdoor_single_01_b00m_one",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/doorwood_wooden_door_open_outdoor_single_01_b00m_one.mp3",
+      "loop": false
+    },
+    {
+      "id": "la_valle_e_du_okuno",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/la_valle_e_du_okuno.mp3",
+      "loop": false
+    }
+  ],
   "segments": [
+    {
+      "text": "",
+      "id": "seg_1781700181728",
+      "gameMode": {
+        "type": "choice_quiz",
+        "layout": {
+          "axis": "H",
+          "linesH": 0,
+          "linesV": 0,
+          "proportions": [
+            1
+          ],
+          "tint": "noir",
+          "style": "flat",
+          "equalSizes": false
+        },
+        "prompt": "Petit test sonore :)\nRègle le volume !",
+        "choices": [
+          {
+            "id": "c1",
+            "text": "Touche l'écran pour entrer dans l'histoire",
+            "correct": true,
+            "tint": "cendre"
+          }
+        ],
+        "errorMessage": ""
+      },
+      "audioEvents": [
+        {
+          "action": "play",
+          "soundId": "la_valle_e_du_okuno",
+          "volume": 0.5,
+          "delay": 0,
+          "loop": false
+        },
+        {
+          "action": "fadeOut",
+          "soundId": "la_valle_e_du_okuno",
+          "duration": 2442
+        }
+      ]
+    },
     {
       "id": "seg_1781326327990_0_yqe1e",
       "lines": [
@@ -27,7 +80,15 @@
       "text": "- À nos six années ici, et surtout, à ta fin de mission ! \"Well done\" comme on dit !",
       "breakAt": 57,
       "isLeader": true,
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "play",
+          "soundId": "doorwood_wooden_door_open_outdoor_single_01_b00m_one",
+          "volume": 0.35,
+          "delay": 0,
+          "loop": false
+        }
+      ]
     },
     {
       "id": "seg_1781326327990_2_9vmif",
@@ -282,7 +343,8 @@
       "isLeader": true,
       "audioEvents": [],
       "italic": false,
-      "bold": true
+      "bold": true,
+      "fontFamily": "'VT323', monospace"
     },
     {
       "id": "seg_1781326327990_42_va4t4",
@@ -728,7 +790,36 @@
       "audioEvents": []
     }
   ],
-  "soundTracks": [],
+  "soundTracks": [
+    {
+      "id": "st_1781700474152_hte5g4abn",
+      "soundId": "la_valle_e_du_okuno",
+      "startSegmentId": "seg_1781700181728",
+      "endSegmentId": "seg_1781700181728",
+      "column": 0,
+      "volume": 0.5,
+      "fadeIn": 0,
+      "fadeOut": 2442,
+      "delay": 0,
+      "loop": false,
+      "muted": false
+    },
+    {
+      "id": "st_1781701827604_9qpktd73n",
+      "soundId": "doorwood_wooden_door_open_outdoor_single_01_b00m_one",
+      "startSegmentId": "seg_1781326327990_1_6gjnf",
+      "endSegmentId": "seg_1781326327990_1_6gjnf",
+      "column": 0,
+      "volume": 0.35,
+      "fadeIn": 0,
+      "fadeOut": 0,
+      "delay": 0,
+      "loop": false,
+      "muted": false,
+      "trimStart": 0,
+      "trimEnd": 3544
+    }
+  ],
   "vfxTracks": [
     {
       "id": "vfx_1781330917174_k2lff1bu5",
