@@ -643,6 +643,33 @@ function StoryPage() {
   if (!isStarted) {
     return (
       <>
+        {showSeuil && seuilQuestions.length > 0 ? (
+          <SeuilScreen
+            questions={seuilQuestions}
+            storyTitle={activeStory?.title ?? ''}
+            onComplete={() => {
+              setShowSeuil(false)
+              // Finaliser le démarrage avec les données mises en attente
+              const { howlMap, resume } = pendingStartRef.current ?? {}
+              if (howlMap !== undefined) {
+                preloadedSoundsRef.current = howlMap
+                audioEngineRef.current = new AudioEngine(howlMap)
+              }
+              ignoreAdvanceUntilRef.current = Date.now() + 600
+              touchStartY.current = null
+              trackStart(activeStory?.id, segments.length)
+              if (resume) {
+                const saved = progressKey ? loadProgress(progressKey) : null
+                if (saved && saved.segmentIndex > 0) setCurrentIndex(saved.segmentIndex)
+              } else {
+                if (progressKey) clearProgress(progressKey)
+                setCurrentIndex(0)
+              }
+              setIsStarted(true)
+              pendingStartRef.current = null
+            }}
+          />
+        ) : (
         <StartScreen
           title={activeStory?.title ?? ''}
           author={activeStory?.author ?? storyRaw?.author ?? ''}
@@ -651,6 +678,14 @@ function StoryPage() {
           soundsToPreload={activeStory?.sounds ?? []}
           savedProgress={progressKey ? loadProgress(progressKey) : null}
           onStart={(preloadedHowlMap, resume) => {
+            // Preload audio commence ici (StartScreen l'a déjà lancé)
+            // Si seuil → afficher les questions pendant ce temps
+            if (seuilQuestions.length > 0 && !seuilDone) {
+              pendingStartRef.current = { howlMap: preloadedHowlMap, resume }
+              setShowSeuil(true)
+              return
+            }
+            // Pas de seuil → démarrer directement
             preloadedSoundsRef.current = preloadedHowlMap
             audioEngineRef.current = new AudioEngine(preloadedHowlMap)
             ignoreAdvanceUntilRef.current = Date.now() + 600
@@ -666,6 +701,7 @@ function StoryPage() {
             setIsStarted(true)
           }}
         />
+        )}
         <ReaderSettings storyId={progressKey} segments={[]} />
       </>
     )
