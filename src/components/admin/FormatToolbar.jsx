@@ -73,8 +73,8 @@ export default function FormatToolbar({ position, onFormat, onFontChange, curren
         style={{
           position: 'fixed',
           top,
-          left: position.left,
-          transform: 'translateX(-50%)',
+          left: 'calc(50% - 400px - 16px)',
+          transform: 'translateX(-100%)',
           display: 'flex',
           alignItems: 'center',
           gap: '2px',
