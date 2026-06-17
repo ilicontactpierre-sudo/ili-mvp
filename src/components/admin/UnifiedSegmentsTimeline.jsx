@@ -502,6 +502,30 @@ const SegmentTimelineRow = memo(function SegmentTimelineRow({
         marginTop: '2px',
       }}>
         <button
+          onClick={(e) => { e.stopPropagation(); onPreviewFromSegment?.(index); }}
+          title="Aperçu depuis ce segment"
+          style={{
+            background: 'none',
+            border: 'none',
+            cursor: 'pointer',
+            padding: '0 1px',
+            fontSize: '0.6rem',
+            lineHeight: 1,
+            color: (hovered || isSelected) ? '#6366f1' : 'rgba(0,0,0,0.12)',
+            flexShrink: 0,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: '14px',
+            height: '14px',
+            opacity: (hovered || isSelected) ? 1 : 0.6,
+            transform: (hovered || isSelected) ? 'scale(1)' : 'scale(0.8)',
+            transition: 'color 0.2s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1), transform 0.32s cubic-bezier(0.34, 1.56, 0.64, 1)',
+          }}
+        >
+          ▶
+        </button>
+        <button
           onClick={(e) => { e.stopPropagation(); onAdd(index); }}
           title="Ajouter un segment après"
           style={{
