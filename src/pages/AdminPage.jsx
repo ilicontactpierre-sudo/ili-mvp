@@ -1605,6 +1605,7 @@ function AdminPage() {
         segments={isSerial ? [] : segments}
         soundTracks={isSerial ? [] : soundTracks}
         vfxTracks={isSerial ? [] : vfxTracks}
+        seuil={isSerial ? [] : (storyExtraMeta.seuil ?? [])}
         isSerial={isSerial}
         parts={isSerial ? parts : []}
         onRestore={handleRestoreSnapshot}
