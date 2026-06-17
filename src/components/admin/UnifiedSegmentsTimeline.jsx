@@ -2510,6 +2510,7 @@ const handleTextSelection = useCallback(() => {
                     onDragHandleMouseDown: dragHandleMouseDownHandlers[index],
                     isDragging: isBeingDragged,
                     onGameMode: (idx) => setGameModePanel(idx),
+                    seuilKeys,
                   }}
                 />
                 {index < segments.length - 1 && (
