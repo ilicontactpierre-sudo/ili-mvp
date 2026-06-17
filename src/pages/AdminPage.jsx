@@ -421,6 +421,7 @@ function AdminPage() {
   const [storyAuthor, setStoryAuthor] = useState('')
   const [storySlug, setStorySlug] = useState('')
   const [storyBookUrl, setStoryBookUrl] = useState('')
+  const [storyExtraMeta, setStoryExtraMeta] = useState({}) // seuil, etc.
   const [storyMood, setStoryMood] = useState('')
   const [storyGenre, setStoryGenre] = useState('')
   const [storyDescription, setStoryDescription] = useState('')
