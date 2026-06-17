@@ -29,7 +29,7 @@ function DraftManager({
   const snapshotDataRef = useRef({})
   snapshotDataRef.current = {
     title, author, slug, bookUrl, mood, genre, description,
-    segments, soundTracks, vfxTracks, isSerial, parts
+    segments, soundTracks, vfxTracks, seuil, isSerial, parts
   }
 
   // Clés localStorage
