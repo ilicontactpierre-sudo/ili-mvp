@@ -1034,6 +1034,7 @@ function AdminPage() {
       setStoryMood(snapshot.mood || '')
       setStoryGenre(snapshot.genre || '')
       setStoryDescription(snapshot.description || '')
+      setStoryExtraMeta(prev => ({ ...prev, seuil: snapshot.seuil ?? [] }))
       setSegments([])
       setSoundTracks([])
       setVfxTracks([])
