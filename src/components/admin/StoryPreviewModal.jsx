@@ -5,7 +5,7 @@ import EndScreen from '../EndScreen'
 import AudioEngine from '../../engine/AudioEngine'
 import GameOverlay from '../GameOverlay'
 
-function StoryPreviewModal({ isOpen, storyData, onClose }) {
+function StoryPreviewModal({ isOpen, storyData, onClose, startSegmentIndex = null }) {
   const [isStarted, setIsStarted] = useState(false)
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isFinished, setIsFinished] = useState(false)
