@@ -184,6 +184,7 @@ function StoryLoader({ onLoadStory, onPreviewStory }) {
           mood:        data.mood        || '',
           genre:       data.genre       || '',
           description: data.description || '',
+          seuil:       data.seuil       || [],
           // Mode série
           type:        data.type        || 'simple',
           parts:       data.parts       || [],
