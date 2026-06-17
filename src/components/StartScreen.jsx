@@ -35,7 +35,10 @@ function StartScreen({ title, author, segmentCount = 0, segments = [], soundsToP
     window.addEventListener('beforeinstallprompt', handler)
     return () => window.removeEventListener('beforeinstallprompt', handler)
   }, [])
-
+  // ── Démarrage automatique (aperçu lancé depuis un segment) ────────────────
+  useEffect(() => {
+    if (autoStart) handleStart(false)
+  }, [autoStart])
   const handleInstall = async () => {
     const prompt = deferredPromptRef.current
     if (!prompt) return
