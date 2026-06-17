@@ -1,3 +1,4 @@
+import { useState } from 'react'
 // ── Palette couleurs narratives ──────────────────────────────────────────────
 const NARRATIVE_COLORS = [
   { name: 'Sang',    hex: '#c0392b' },
