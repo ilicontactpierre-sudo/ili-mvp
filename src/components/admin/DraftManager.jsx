@@ -107,6 +107,7 @@ function DraftManager({
       segments:    d.isSerial ? [] : (d.segments    || []),
       soundTracks: d.isSerial ? [] : (d.soundTracks || []),
       vfxTracks:   d.isSerial ? [] : (d.vfxTracks   || []),
+      seuil:       d.isSerial ? [] : (d.seuil        || []),
       isSerial:    d.isSerial,
       parts:       d.isSerial ? d.parts : [],
     }
