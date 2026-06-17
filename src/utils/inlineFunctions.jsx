@@ -64,8 +64,9 @@ export const INLINE_FUNCTIONS = {
     wrap: true,
     params: [
       { name: 'intensité', default: 'moyen', hint: 'faible · moyen · fort' },
+      { name: 'mode',      default: 'once',  hint: 'once · loop' },
     ],
-    template: () => `</glitch:moyen|/>`,
+    template: () => `</glitch:moyen;once|/>`,
     cursorAfterPipe: true,
   },
   rupture: {
