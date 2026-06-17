@@ -5,15 +5,8 @@
   "published": true,
   "seuil": [
     {
-      "cle": "prenom2",
-      "texte": "Ton prénom ??",
-      "type": "texte",
-      "placeholder": "",
-      "options": []
-    },
-    {
-      "cle": "age2",
-      "texte": "Ton âge ??",
+      "cle": "seuil",
+      "texte": "Seuil test",
       "type": "texte",
       "placeholder": "",
       "options": []
@@ -38,6 +31,12 @@
       "breakAt": null,
       "audioEvents": [],
       "isLeader": true
+    },
+    {
+      "text": "Seul : </lire:seuil|erreur/>",
+      "id": "seg_1781692813738",
+      "breakAt": null,
+      "audioEvents": []
     },
     {
       "text": "</lire:prenom|je connais pas ton nom/>, ça va ? C'est quoi ton âge déjà ? Ah oui ! </lire:age|10/>",
