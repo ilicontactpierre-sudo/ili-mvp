@@ -8,6 +8,11 @@
   "published": true,
   "sounds": [
     {
+      "id": "ambdsgn_digital_bubbles_01_b00m_one",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/ambdsgn_digital_bubbles_01_b00m_one.mp3",
+      "loop": false
+    },
+    {
       "id": "ambrest_restaurant_german_crowd_bar_01_b00m_one",
       "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/ambrest_restaurant_german_crowd_bar_01_b00m_one.mp3",
       "loop": false
@@ -18,13 +23,28 @@
       "loop": false
     },
     {
-      "id": "foodcook_cooking_pot_stir_metal_spoon_02_b00m_one",
-      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/foodcook_cooking_pot_stir_metal_spoon_02_b00m_one.mp3",
+      "id": "foodgware_glass_tumblers_chink_01_b00m_one",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/foodgware_glass_tumblers_chink_01_b00m_one.mp3",
       "loop": false
     },
     {
-      "id": "foodgware_glass_tumblers_chink_01_b00m_one",
-      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/foodgware_glass_tumblers_chink_01_b00m_one.mp3",
+      "id": "objfurn_wood_chair_take_slide_medium_02_b00m_one",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/objfurn_wood_chair_take_slide_medium_02_b00m_one.mp3",
+      "loop": false
+    },
+    {
+      "id": "whsh_cinematic_low_impact_muffled_hit_01_b00m_one",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/whsh_cinematic_low_impact_muffled_hit_01_b00m_one.mp3",
+      "loop": false
+    },
+    {
+      "id": "watrpour_water_fill_glass_ring_01_b00m_one",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/watrpour_water_fill_glass_ring_01_b00m_one.mp3",
+      "loop": false
+    },
+    {
+      "id": "65_s02a_toast",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/65_s02a_toast.mp3",
       "loop": false
     },
     {
@@ -167,7 +187,7 @@
       "audioEvents": [
         {
           "action": "play",
-          "soundId": "foodcook_cooking_pot_stir_metal_spoon_02_b00m_one",
+          "soundId": "65_s02a_toast",
           "volume": 0.5,
           "delay": 0,
           "loop": false
@@ -291,7 +311,15 @@
       "breakAt": null,
       "isLeader": false,
       "delay": 1600,
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "play",
+          "soundId": "watrpour_water_fill_glass_ring_01_b00m_one",
+          "volume": 0.3,
+          "delay": 0,
+          "loop": false
+        }
+      ]
     },
     {
       "id": "seg_1781326327990_23_mjl8b",
@@ -363,7 +391,15 @@
       "text": "Il est l’heure de partir s’ils veulent profiter encore un peu de leur soirée avant la fin de la baby-sitter.",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "play",
+          "soundId": "objfurn_wood_chair_take_slide_medium_02_b00m_one",
+          "volume": 0.5,
+          "delay": 0,
+          "loop": false
+        }
+      ]
     },
     {
       "id": "seg_1781326327990_34_8zrkw",
@@ -373,7 +409,15 @@
       "text": "</chiffres_up:0;78/>€. Les deux regardent la note avec un petit soupire : c’est pas donné.",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "play",
+          "soundId": "printer_receipt",
+          "volume": 0.15,
+          "delay": 0,
+          "loop": false
+        }
+      ]
     },
     {
       "id": "seg_1781326327990_35_revw1",
@@ -383,7 +427,13 @@
       "text": "Ils décident de prendre un dernier verre au Winchester, leur bar préféré, là où tout à commencé.",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": [],
+      "audioEvents": [
+        {
+          "action": "fadeOut",
+          "soundId": "tuba_skinny_-_jubilee_stomp_-_royal_street_ii_1_",
+          "duration": 193
+        }
+      ],
       "delay": 1800
     },
     {
@@ -401,9 +451,16 @@
           "duration": 182
         },
         {
+          "action": "play",
+          "soundId": "best_drum_solo_ever",
+          "volume": 0.5,
+          "delay": 0,
+          "loop": false
+        },
+        {
           "action": "fadeOut",
-          "soundId": "tuba_skinny_-_jubilee_stomp_-_royal_street_ii_1_",
-          "duration": 193
+          "soundId": "best_drum_solo_ever",
+          "duration": 1263
         }
       ],
       "delay": 8000
@@ -416,7 +473,27 @@
       "text": "Rdv au QG immédiatement. Prévoir pour plusieurs nuits. Alertes inhabituelles sur zones à risques.",
       "breakAt": null,
       "isLeader": true,
-      "audioEvents": [],
+      "audioEvents": [
+        {
+          "action": "play",
+          "soundId": "ambdsgn_digital_bubbles_01_b00m_one",
+          "volume": 0.5,
+          "delay": 0,
+          "loop": false
+        },
+        {
+          "action": "fadeOut",
+          "soundId": "ambdsgn_digital_bubbles_01_b00m_one",
+          "duration": 2368
+        },
+        {
+          "action": "play",
+          "soundId": "whsh_cinematic_low_impact_muffled_hit_01_b00m_one",
+          "volume": 0.5,
+          "delay": 0,
+          "loop": false
+        }
+      ],
       "italic": false,
       "bold": true,
       "fontFamily": "'VT323', monospace"
@@ -429,7 +506,23 @@
       "text": "Elle connaît ce petit rictus sur son visage, elle le connait par cœur.",
       "breakAt": null,
       "isLeader": true,
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "fadeIn",
+          "soundId": "tuba_skinny_-_jubilee_stomp_-_royal_street_ii_1_",
+          "volume": 0.5,
+          "duration": 600,
+          "delay": 0,
+          "loop": false
+        },
+        {
+          "action": "play",
+          "soundId": "ambrest_restaurant_german_crowd_bar_01_b00m_one",
+          "volume": 0.5,
+          "delay": 0,
+          "loop": false
+        }
+      ]
     },
     {
       "id": "seg_1781326327990_43_scpyv",
@@ -460,7 +553,18 @@
       "text": "Dans 18 jours, tout ça, c’est fini pour lui aussi.",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "fadeOut",
+          "soundId": "tuba_skinny_-_jubilee_stomp_-_royal_street_ii_1_",
+          "duration": 600
+        },
+        {
+          "action": "fadeOut",
+          "soundId": "ambrest_restaurant_german_crowd_bar_01_b00m_one",
+          "duration": 2048
+        }
+      ]
     },
     {
       "id": "seg_1781326327990_48_z3jy6",
@@ -913,7 +1017,7 @@
       "id": "st_1781702691915_hbd149cf1",
       "soundId": "tuba_skinny_-_jubilee_stomp_-_royal_street_ii_1_",
       "startSegmentId": "seg_1781326327990_0_yqe1e",
-      "endSegmentId": "seg_1781326327990_37_24l4g",
+      "endSegmentId": "seg_1781326327990_35_revw1",
       "column": 1,
       "volume": 0.5,
       "fadeIn": 0,
@@ -942,7 +1046,7 @@
     },
     {
       "id": "st_1781704576873_rm0jjfxpe",
-      "soundId": "foodcook_cooking_pot_stir_metal_spoon_02_b00m_one",
+      "soundId": "65_s02a_toast",
       "startSegmentId": "seg_1781326327990_3_kn93q",
       "endSegmentId": "seg_1781326327990_3_kn93q",
       "column": 2,
@@ -954,6 +1058,120 @@
       "muted": false,
       "trimStart": 0,
       "trimEnd": 1958
+    },
+    {
+      "id": "st_1781706026602_e5x5fcvrx",
+      "soundId": "watrpour_water_fill_glass_ring_01_b00m_one",
+      "startSegmentId": "seg_1781326327990_21_7rsro",
+      "endSegmentId": "seg_1781326327990_21_7rsro",
+      "column": 2,
+      "volume": 0.3,
+      "fadeIn": 0,
+      "fadeOut": 0,
+      "delay": 0,
+      "loop": false,
+      "muted": false,
+      "trimStart": 0,
+      "trimEnd": 3048.6666666666665
+    },
+    {
+      "id": "st_1781706390679_zszyrmdfw",
+      "soundId": "objfurn_wood_chair_take_slide_medium_02_b00m_one",
+      "startSegmentId": "seg_1781326327990_32_l7g87",
+      "endSegmentId": "seg_1781326327990_32_l7g87",
+      "column": 2,
+      "volume": 0.5,
+      "fadeIn": 0,
+      "fadeOut": 0,
+      "delay": 0,
+      "loop": false,
+      "muted": false,
+      "trimStart": 0,
+      "trimEnd": 1998
+    },
+    {
+      "id": "st_1781706711099_8jeborkj0",
+      "soundId": "printer_receipt",
+      "startSegmentId": "seg_1781326327990_34_8zrkw",
+      "endSegmentId": "seg_1781326327990_34_8zrkw",
+      "column": 2,
+      "volume": 0.15,
+      "fadeIn": 0,
+      "fadeOut": 0,
+      "delay": 0,
+      "loop": false,
+      "muted": false,
+      "pan": 0.59
+    },
+    {
+      "id": "st_1781707000433_daizk52j5",
+      "soundId": "best_drum_solo_ever",
+      "startSegmentId": "seg_1781326327990_37_24l4g",
+      "endSegmentId": "seg_1781326327990_37_24l4g",
+      "column": 2,
+      "volume": 0.5,
+      "fadeIn": 0,
+      "fadeOut": 1263,
+      "delay": 0,
+      "loop": false,
+      "muted": false,
+      "pan": 0.02
+    },
+    {
+      "id": "st_1781707137938_nj9rxp3vc",
+      "soundId": "tuba_skinny_-_jubilee_stomp_-_royal_street_ii_1_",
+      "startSegmentId": "seg_1781326327990_42_va4t4",
+      "endSegmentId": "seg_1781326327990_47_kzzmi",
+      "column": 1,
+      "volume": 0.5,
+      "fadeIn": 600,
+      "fadeOut": 600,
+      "delay": 0,
+      "loop": false,
+      "muted": false,
+      "broken": false,
+      "trimStart": 8425,
+      "trimEnd": 231079.1666666667
+    },
+    {
+      "id": "st_1781707244241_u45unxui3",
+      "soundId": "ambrest_restaurant_german_crowd_bar_01_b00m_one",
+      "startSegmentId": "seg_1781326327990_42_va4t4",
+      "endSegmentId": "seg_1781326327990_47_kzzmi",
+      "column": 0,
+      "volume": 0.5,
+      "fadeIn": 0,
+      "fadeOut": 2048,
+      "delay": 0,
+      "loop": false,
+      "muted": false,
+      "broken": false
+    },
+    {
+      "id": "st_1781707433641_xmpqdu0tv",
+      "soundId": "ambdsgn_digital_bubbles_01_b00m_one",
+      "startSegmentId": "seg_1781326327990_41_scotp",
+      "endSegmentId": "seg_1781326327990_41_scotp",
+      "column": 1,
+      "volume": 0.5,
+      "fadeIn": 0,
+      "fadeOut": 2368,
+      "delay": 0,
+      "loop": false,
+      "muted": false
+    },
+    {
+      "id": "st_1781707698475_rbxkcqmqo",
+      "soundId": "whsh_cinematic_low_impact_muffled_hit_01_b00m_one",
+      "startSegmentId": "seg_1781326327990_41_scotp",
+      "endSegmentId": "seg_1781326327990_41_scotp",
+      "column": 2,
+      "volume": 0.5,
+      "fadeIn": 0,
+      "fadeOut": 0,
+      "delay": 0,
+      "loop": false,
+      "muted": false
     }
   ],
   "vfxTracks": [
