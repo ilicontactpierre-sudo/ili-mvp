@@ -399,7 +399,7 @@ export default function ReaderSettings({
   return (
     <>
       <style>{`
-<<<<<<< Updated upstream
+<style>{`
         @keyframes synthwave-flicker {
           0%   { opacity: 1; }
           5%   { opacity: 0.4; }
@@ -413,8 +413,6 @@ export default function ReaderSettings({
           81%  { opacity: 0.3; }
           82%  { opacity: 1; }
         }
-=======
->>>>>>> Stashed changes
         @keyframes settings-out {
           from { opacity: 1; transform: scale(1)    translateY(0); }
           to   { opacity: 0; transform: scale(0.92) translateY(-6px); }
