@@ -670,6 +670,7 @@ function AdminPage() {
 
   // État pour l'aperçu
   const [isPreviewOpen, setIsPreviewOpen] = useState(false)
+  const [previewStartIndex, setPreviewStartIndex] = useState(null)
 
   // Charger la bibliothèque sonore : JSON local + enrichissement Supabase
   useEffect(() => {
