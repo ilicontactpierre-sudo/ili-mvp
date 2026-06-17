@@ -600,15 +600,6 @@ function StoryPage() {
     return <main style={fullScreenStyle}>Erreur de chargement</main>
   }
 
-  // ── Seuil (questions avant lecture) ───────────────────────────────────────
-  // Les questions proviennent de activeStory.seuil (mode simple)
-  // ou de la partie active (mode série)
-  const seuilQuestions = useMemo(() => {
-    if (!activeStory) return []
-    const q = activeStory.seuil ?? []
-    return Array.isArray(q) ? q.filter(s => s?.cle && s?.texte) : []
-  }, [activeStory])
-
   // ── Page de garde série ────────────────────────────────────────────────────
   if (showCoverPage && storyRaw?.type === 'serial') {
     return (
