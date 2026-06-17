@@ -110,7 +110,6 @@ function InlineFunctionMenu({ query, matches, selectedIndex, position, onSelect,
   const [subOptions, setSubOptions] = useState([]) // options calculées
   const [subIndex, setSubIndex] = useState(0)      // index navigué
   const subListRef = useRef(null)
-  const [customHex, setCustomHex] = useState('')
   const left = Math.min(position.left, window.innerWidth - 320)
   const top  = Math.min(position.top + 4, window.innerHeight - 400)
 
