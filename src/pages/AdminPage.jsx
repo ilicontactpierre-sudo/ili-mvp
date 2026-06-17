@@ -1179,6 +1179,7 @@ function AdminPage() {
   )
   const sounds = soundLibrary.filter(s => usedSoundIds.has(s.id))
   
+  setPreviewStartIndex(null)
   setIsPreviewOpen(true)
   // Stocker les données d'aperçu dans un ref ou state temporaire
   setPreviewStoryData({
@@ -1186,7 +1187,12 @@ function AdminPage() {
     sounds
   })
 }
-
+  // Ouvrir l'aperçu directement depuis un segment de l'éditeur en cours
+  const handlePreviewFromSegment = (index) => {
+    setPreviewStoryData(null)
+    setPreviewStartIndex(index)
+    setIsPreviewOpen(true)
+  }
   // Données pour l'aperçu
   const [previewStoryData, setPreviewStoryData] = useState(null)
   const refTop = useRef(null)
