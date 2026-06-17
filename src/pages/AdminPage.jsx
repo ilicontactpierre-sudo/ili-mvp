@@ -1640,9 +1640,28 @@ function AdminPage() {
                 style={{ padding: '0.75rem', fontSize: '1rem', border: '1px solid #ccc', borderRadius: '4px' }}
               />
               <div style={{ position: 'relative' }}>
-                <input
-                  type="url"
-                  placeholder="URL librairie (ex: https://www.librairiesindependantes.com/product/...)"
+                {/* ── Seuil — questions avant lecture ── */}
+              <SeuilEditor
+                seuil={isSerial
+                  ? (parts[activePartIndex]?.seuil ?? [])
+                  : (window.__iliSeuilTemp ?? [])}
+                onChange={(newSeuil) => {
+                  if (isSerial) {
+                    setParts(prev => {
+                      const next = [...prev]
+                      next[activePartIndex] = { ...next[activePartIndex], seuil: newSeuil }
+                      return next
+                    })
+                  } else {
+                    window.__iliSeuilTemp = newSeuil
+                    // Injecter dans activeStory pour que StoryPage le lise
+                    setStoryExtraMeta(prev => ({ ...prev, seuil: newSeuil }))
+                  }
+                }}
+              />
+              <input
+                type="url"
+                placeholder="URL librairie (ex: https://www.librairiesindependantes.com/product/...)"
                   value={storyBookUrl}
                   onChange={(e) => setStoryBookUrl(e.target.value)}
                   style={{ padding: '0.75rem', fontSize: '1rem', border: '1px solid #ccc', borderRadius: '4px', width: '100%', boxSizing: 'border-box' }}
