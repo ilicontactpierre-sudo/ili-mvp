@@ -3,22 +3,6 @@
   "title": "test fonctions",
   "author": "test fonctions",
   "published": true,
-  "seuil": [
-    {
-      "cle": "prenom",
-      "texte": "Ton prénom ?",
-      "type": "texte",
-      "placeholder": "",
-      "options": []
-    },
-    {
-      "cle": "age",
-      "texte": "Ton âge ?",
-      "type": "texte",
-      "placeholder": "",
-      "options": []
-    }
-  ],
   "sounds": [],
   "segments": [
     {
@@ -52,7 +36,7 @@
       "audioEvents": []
     },
     {
-      "text": "Ceci est un </glitch:moyen|test glitch/> pour voir si ça marche",
+      "text": "Ceci est un </glitch:moyen;loop|test glitch/> pour voir si ça marche",
       "id": "seg_1781634330436",
       "breakAt": null,
       "audioEvents": []
