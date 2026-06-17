@@ -144,7 +144,7 @@ function StartScreen({ title, author, segmentCount = 0, segments = [], soundsToP
           ? 'opacity 520ms cubic-bezier(0.4, 0, 1, 1), transform 520ms cubic-bezier(0.4, 0, 1, 1)'
           : 'opacity 700ms cubic-bezier(0.16, 1, 0.3, 1), transform 700ms cubic-bezier(0.16, 1, 0.3, 1)',
         animation: 'fadeUp 700ms cubic-bezier(0.16, 1, 0.3, 1) both',
-        cursor: !hasProgress && phase === 'idle' ? 'pointer' : 'default',
+        cursor: !hasProgress && phase === 'idle' && !autoStart ? 'pointer' : 'default',
       }}
     >
       {styleTag}
