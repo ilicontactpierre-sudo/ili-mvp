@@ -517,10 +517,7 @@ export function renderInlineFunction(seg, baseKey, isFocused, fallbackRenderer) 
       const [duree] = resolveArgs('obscurcir', seg.args)
       return <ObscurirOverlay key={`${baseKey}_on`} duree={duree} isFocused={isFocused} />
     }
-    case 'ecrire': {
-      const [cle, valeur] = resolveArgs('ecrire', seg.args)
-      return <EcrireEffect key={baseKey} cle={cle} valeur={valeur} />
-    }
+    // case 'ecrire' supprimé
     case 'lire': {
       const [cle] = resolveArgs('lire', seg.args)
       // Le contenu après | est le texte par défaut
