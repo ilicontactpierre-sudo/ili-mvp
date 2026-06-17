@@ -54,9 +54,20 @@ function slugify(filename) {
 }
 
 // Encode un AudioBuffer stéréo en MP3 via lamejs (chargé dynamiquement)
+async function loadLamejs() {
+  if (window.lamejs) return window.lamejs
+  return new Promise((resolve, reject) => {
+    const script = document.createElement('script')
+    script.src = 'https://cdnjs.cloudflare.com/ajax/libs/lamejs/1.2.1/lame.min.js'
+    script.onload = () => resolve(window.lamejs)
+    script.onerror = () => reject(new Error('Impossible de charger lamejs'))
+    document.head.appendChild(script)
+  })
+}
+
 async function encodeToMp3(audioBuffer, bitrate = BITRATE) {
-  const lamejs = await import('lamejs')
-  const Mp3Encoder = lamejs.Mp3Encoder ?? lamejs.default?.Mp3Encoder ?? lamejs.default
+  const lamejs = await loadLamejs()
+  const Mp3Encoder = lamejs.Mp3Encoder
   const sampleRate = audioBuffer.sampleRate
   const channels = Math.min(audioBuffer.numberOfChannels, 2)
   const encoder = new Mp3Encoder(channels, sampleRate, bitrate)
