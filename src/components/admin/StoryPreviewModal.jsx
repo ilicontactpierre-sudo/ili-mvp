@@ -24,12 +24,12 @@ function StoryPreviewModal({ isOpen, storyData, onClose, startSegmentIndex = nul
       setIsStarted(false)
       setCurrentIndex(0)
       setIsFinished(false)
-      setStartFromInput('')
+      setStartFromInput(startSegmentIndex != null ? String(startSegmentIndex + 1) : '')
       audioEngineRef.current = null
       ignoreAdvanceUntilRef.current = 0
       touchStartYRef.current = null
     }
-  }, [isOpen])
+  }, [isOpen, startSegmentIndex])
 
   // Nettoyer l'audio au démontage
   useEffect(() => {
