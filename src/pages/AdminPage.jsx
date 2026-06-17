@@ -1296,6 +1296,7 @@ function AdminPage() {
       mood:        storyMood        || '',
       genre:       storyGenre       || '',
       description: storyDescription || '',
+      ...(storyExtraMeta.seuil?.length > 0 && { seuil: storyExtraMeta.seuil }),
       segments: segments.map((seg) => ({
         ...seg,
         text:        typeof seg === 'string' ? seg : seg.text || '',
