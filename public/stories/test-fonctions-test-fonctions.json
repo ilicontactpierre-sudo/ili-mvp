@@ -24,7 +24,7 @@
       "isLeader": true
     },
     {
-      "text": "</lire:prenom|je connais pas ton nom/>, ça va ? C'est quoi ton âge déjà ? Ah oui ! </lire:âge|10/>",
+      "text": "</lire:prenom|je connais pas ton nom/>, ça va ? C'est quoi ton âge déjà ? Ah oui ! </lire:age|10/>",
       "id": "seg_1781686531953",
       "breakAt": null,
       "audioEvents": []
