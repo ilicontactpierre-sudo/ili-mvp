@@ -399,7 +399,6 @@ export default function ReaderSettings({
   return (
     <>
       <style>{`
-<style>{`
         @keyframes synthwave-flicker {
           0%   { opacity: 1; }
           5%   { opacity: 0.4; }
