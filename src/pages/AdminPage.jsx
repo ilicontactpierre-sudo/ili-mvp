@@ -1095,7 +1095,10 @@ function AdminPage() {
     setIsSerial(false)
     setParts([])
     setActivePartIndex(0)
-    setStoryExtraMeta(prev => ({ ...prev, seuil: storyData.seuil ?? [] }))
+    // flushSync garantit que le seuil est appliqué avant le reste
+    flushSync(() => {
+      setStoryExtraMeta({ seuil: storyData.seuil ?? [] })
+    })
     // Normaliser les segments
     const loadedSegments = (storyData.segments || []).map((seg, i) => ({
       ...seg,
