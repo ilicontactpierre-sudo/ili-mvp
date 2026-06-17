@@ -341,36 +341,55 @@ function GlitchSpan({ children, intensité, mode, isFocused }) {
   )
 }
 
-function RuptureSpan({ children, délai, isFocused }) {
-  const [shown, setShown] = useState(false)
-  const delay = parseInt(délai) || 500
+const RUPTURE_SPEED_MAP = { lent: 700, normal: 320, rapide: 130 }
+function resolveRuptureSpeed(v) { return RUPTURE_SPEED_MAP[v] ?? parseInt(v) ?? 320 }
+
+function RuptureSpan({ children, délai, vitesse, isFocused }) {
+  const [phase, setPhase] = useState('idle') // idle → strike → done
+  const delay    = parseInt(délai) || 500
+  const strikeDur = resolveRuptureSpeed(vitesse)
+
   useEffect(() => {
-    if (!isFocused) { setShown(false); return }
-    const t = setTimeout(() => setShown(true), delay)
-    return () => clearTimeout(t)
-  }, [isFocused, delay])
+    if (!isFocused) { setPhase('idle'); return }
+    const t1 = setTimeout(() => setPhase('strike'), delay)
+    const t2 = setTimeout(() => setPhase('done'), delay + strikeDur + 80)
+    return () => { clearTimeout(t1); clearTimeout(t2) }
+  }, [isFocused, delay, strikeDur])
+
   return (
-    <>
-      <style>{`
-        @keyframes ili-strikethrough {
-          from { transform: scaleX(0); }
-          to   { transform: scaleX(1); }
-        }
-      `}</style>
-      <span style={{ display: 'inline-block', position: 'relative' }}>
-        {children}
-        {shown && (
-          <span style={{
-            position: 'absolute',
-            left: 0, right: 0, top: '50%',
-            height: '1.5px',
-            backgroundColor: 'currentColor',
-            transformOrigin: 'left center',
-            animation: 'ili-strikethrough 350ms cubic-bezier(0.4,0,0.2,1) forwards',
-          }} />
-        )}
-      </span>
-    </>
+    <span style={{ display: 'inline-block', position: 'relative' }}>
+      {children}
+      {phase !== 'idle' && (
+        <span style={{
+          position: 'absolute',
+          left: 0,
+          top: '50%',
+          marginTop: '-0.8px',
+          height: '1.5px',
+          backgroundColor: 'currentColor',
+          transformOrigin: 'left center',
+          width: phase === 'done' ? '100%' : '100%',
+          transform: phase === 'strike' ? 'scaleX(1)' : 'scaleX(1)',
+          // Transition uniquement à l'entrée strike
+          transition: phase === 'strike'
+            ? `transform ${strikeDur}ms cubic-bezier(0.77,0,0.175,1)`
+            : 'none',
+          // Au mount de strike, on part de scaleX(0)
+          ...(phase === 'strike' && {
+            animation: `ili-rupture-strike ${strikeDur}ms cubic-bezier(0.77,0,0.175,1) forwards`,
+          }),
+        }} />
+      )}
+      {phase === 'strike' && (
+        <style>{`
+          @keyframes ili-rupture-strike {
+            from { clip-path: inset(0 100% 0 0); opacity: 0.6; }
+            15%  { opacity: 1; }
+            to   { clip-path: inset(0 0% 0 0); opacity: 1; }
+          }
+        `}</style>
+      )}
+    </span>
   )
 }
 
