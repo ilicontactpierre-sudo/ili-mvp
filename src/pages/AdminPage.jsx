@@ -1095,7 +1095,7 @@ function AdminPage() {
     setIsSerial(false)
     setParts([])
     setActivePartIndex(0)
-
+    setStoryExtraMeta(prev => ({ ...prev, seuil: storyData.seuil ?? [] }))
     // Normaliser les segments
     const loadedSegments = (storyData.segments || []).map((seg, i) => ({
       ...seg,
