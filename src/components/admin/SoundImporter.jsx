@@ -55,7 +55,8 @@ function slugify(filename) {
 
 // Encode un AudioBuffer stéréo en MP3 via lamejs (chargé dynamiquement)
 async function encodeToMp3(audioBuffer, bitrate = BITRATE) {
-  const { Mp3Encoder } = await import('lamejs')
+  const lamejs = await import('lamejs')
+  const Mp3Encoder = lamejs.Mp3Encoder ?? lamejs.default?.Mp3Encoder ?? lamejs.default
   const sampleRate = audioBuffer.sampleRate
   const channels = Math.min(audioBuffer.numberOfChannels, 2)
   const encoder = new Mp3Encoder(channels, sampleRate, bitrate)
