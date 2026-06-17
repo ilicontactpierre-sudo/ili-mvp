@@ -214,11 +214,12 @@ function formatNumber(value, decimals) {
 }
 function counterStyle(finalStr) {
   return {
-    display: 'inline-block',
-    width: `${Math.max(finalStr.length, 1)}ch`,
+    display: 'inline',
+    minWidth: `${Math.max(finalStr.length, 1)}ch`,
     textAlign: 'center',
     fontVariantNumeric: 'tabular-nums',
-    overflow: 'hidden',
+    fontFeatureSettings: '"tnum"',
+    letterSpacing: '0.01em',
   }
 }
 
