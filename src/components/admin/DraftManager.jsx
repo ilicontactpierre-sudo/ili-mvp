@@ -11,6 +11,7 @@ function DraftManager({
   segments,
   soundTracks,
   vfxTracks,
+  seuil = [],
   isSerial = false,
   parts = [],
   onRestore,
