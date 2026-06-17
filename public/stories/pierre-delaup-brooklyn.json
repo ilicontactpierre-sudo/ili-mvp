@@ -8,6 +8,11 @@
   "published": true,
   "sounds": [
     {
+      "id": "ambrest_restaurant_german_crowd_bar_01_b00m_one",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/ambrest_restaurant_german_crowd_bar_01_b00m_one.mp3",
+      "loop": false
+    },
+    {
       "id": "doorwood_wooden_door_open_outdoor_single_01_b00m_one",
       "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/doorwood_wooden_door_open_outdoor_single_01_b00m_one.mp3",
       "loop": false
@@ -85,6 +90,13 @@
           "action": "play",
           "soundId": "doorwood_wooden_door_open_outdoor_single_01_b00m_one",
           "volume": 0.35,
+          "delay": 0,
+          "loop": false
+        },
+        {
+          "action": "play",
+          "soundId": "ambrest_restaurant_german_crowd_bar_01_b00m_one",
+          "volume": 0.5,
           "delay": 0,
           "loop": false
         }
@@ -818,6 +830,19 @@
       "muted": false,
       "trimStart": 0,
       "trimEnd": 3544
+    },
+    {
+      "id": "st_1781702107719_cfepb3zjb",
+      "soundId": "ambrest_restaurant_german_crowd_bar_01_b00m_one",
+      "startSegmentId": "seg_1781326327990_1_6gjnf",
+      "endSegmentId": "seg_1781326327990_1_6gjnf",
+      "column": 1,
+      "volume": 0.5,
+      "fadeIn": 0,
+      "fadeOut": 0,
+      "delay": 0,
+      "loop": false,
+      "muted": false
     }
   ],
   "vfxTracks": [
