@@ -105,7 +105,7 @@ export default function FormatToolbar({ position, onFormat, onFontChange, curren
           <span style={{ textDecoration: 'line-through' }}>S</span>
         </button>
 
-        <div style={{ width: 1, height: 18, backgroundColor: 'rgba(255,255,255,0.2)', margin: '0 4px', flexShrink: 0 }} />
+        <div style={{ width: 18, height: 1, backgroundColor: 'rgba(255,255,255,0.2)', margin: '4px 0', flexShrink: 0 }} />
 
         {FONTS.map(font => (
           <button
