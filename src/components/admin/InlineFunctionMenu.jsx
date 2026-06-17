@@ -64,29 +64,47 @@ function InlineFunctionMenu({ query, matches, selectedIndex, position, onSelect,
           Aucune fonction correspondante
         </div>
       ) : (
-        matches.map(([key, def], i) => (
-          <div
-            key={key}
-            onMouseDown={(e) => e.preventDefault()}
-            onClick={() => onSelect(key)}
-            onMouseEnter={() => onHover(i)}
-            style={{
-              padding: '8px 10px',
-              cursor: 'pointer',
-              backgroundColor: i === selectedIndex ? 'rgba(99,102,241,0.25)' : 'transparent',
-              borderLeft: i === selectedIndex ? '2px solid #6366f1' : '2px solid transparent',
-              transition: 'background-color 0.1s ease',
-            }}
-          >
-            <div style={{ color: '#fff', fontWeight: 600 }}>{def.label}</div>
-            <div style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.7rem', marginTop: '2px' }}>
-              {def.description}
+        matches.map(([key, def], i) => {
+          // Pour 'lire' avec des clés seuil dispo, et pour 'couleur' :
+          // cliquer sur la ligne principale ne doit PAS insérer directement
+          // → le sous-panneau ci-dessous prend le relais
+          const hasSubPanel =
+            (key === 'lire' && seuilKeys.length > 0) ||
+            key === 'couleur'
+          return (
+            <div
+              key={key}
+              onMouseDown={(e) => e.preventDefault()}
+              onClick={() => { if (!hasSubPanel) onSelect(key) }}
+              onMouseEnter={() => onHover(i)}
+              style={{
+                padding: '8px 10px',
+                cursor: 'pointer',
+                backgroundColor: i === selectedIndex ? 'rgba(99,102,241,0.25)' : 'transparent',
+                borderLeft: i === selectedIndex ? '2px solid #6366f1' : '2px solid transparent',
+                transition: 'background-color 0.1s ease',
+                opacity: hasSubPanel ? 0.85 : 1,
+              }}
+            >
+              <div style={{ color: '#fff', fontWeight: 600 }}>
+                {def.label}
+                {hasSubPanel && (
+                  <span style={{ fontSize: '0.6rem', color: 'rgba(99,102,241,0.8)', marginLeft: '6px', fontWeight: 400 }}>
+                    ↓ choisir ci-dessous
+                  </span>
+                )}
+              </div>
+              <div style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.7rem', marginTop: '2px' }}>
+                {def.description}
+              </div>
+              {!hasSubPanel && (
+                <div style={{ color: 'rgba(255,255,255,0.35)', fontSize: '0.68rem', marginTop: '2px', fontFamily: 'monospace' }}>
+                  {`</${key}:${def.params.map(p => p.default).join(';') || ''}${def.wrap ? '|' : ''}/>`}
+                </div>
+              )}
             </div>
-            <div style={{ color: 'rgba(255,255,255,0.35)', fontSize: '0.68rem', marginTop: '2px', fontFamily: 'monospace' }}>
-              {`</${key}:${def.params.map(p => p.default).join(';') || ''}${def.wrap ? '|' : ''}/>`}
-            </div>
-          </div>
-        ))
+          )
+        })
       )}
 
       {/* ── Sous-panneau palette couleur ── */}
