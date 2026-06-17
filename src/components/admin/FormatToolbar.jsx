@@ -45,8 +45,8 @@ export default function FormatToolbar({ position, onFormat, onFontChange, curren
     <>
       <style>{`
         @keyframes iliToolbarIn {
-          from { opacity: 0; transform: translateX(-50%) translateY(6px); }
-          to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+          from { opacity: 0; transform: translateX(-8px); }
+          to   { opacity: 1; transform: translateX(0); }
         }
         .ili-fmt-btn {
           background: transparent;
