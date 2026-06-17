@@ -171,6 +171,7 @@ function PublishPanel({
           subtitle:    part.subtitle    || '',
           description: part.description || '',
           published:   part.published   ?? false,
+          ...(part.seuil?.length > 0 ? { seuil: part.seuil } : {}),
           sounds:      partUsedSounds,
           segments:    partSegmentsWithAudio,
           soundTracks: part.soundTracks || [],
