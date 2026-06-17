@@ -5,8 +5,8 @@
   "published": true,
   "seuil": [
     {
-      "cle": "seuil",
-      "texte": "Seuil test",
+      "cle": "seuil2",
+      "texte": "seuil test 2",
       "type": "texte",
       "placeholder": "",
       "options": []
@@ -33,7 +33,7 @@
       "isLeader": true
     },
     {
-      "text": "Seul : </lire:seuil|erreur/>",
+      "text": "Seul : </lire:seuil2|erreur/>",
       "id": "seg_1781692813738",
       "breakAt": null,
       "audioEvents": []
