@@ -10,6 +10,13 @@
       "type": "texte",
       "placeholder": "",
       "options": []
+    },
+    {
+      "cle": "seuil3",
+      "texte": "seuil3",
+      "type": "texte",
+      "placeholder": "",
+      "options": []
     }
   ],
   "sounds": [],
@@ -81,7 +88,7 @@
       "audioEvents": []
     },
     {
-      "text": "Ceci est un </lire:prenom|test prénom/> pour voir si ça marche </lire:prenom2|??/>  ",
+      "text": "Ceci est un </lire:prenom|test prénom/> pour voir si ça marche </lire:prenom2|??/>   </lire:seuil2|/>",
       "id": "seg_1781634329742",
       "breakAt": null,
       "audioEvents": []
