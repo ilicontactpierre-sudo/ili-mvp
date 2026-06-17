@@ -99,6 +99,7 @@ const SegmentTimelineRow = memo(function SegmentTimelineRow({
   onDragHandleMouseDown,
   isDragging,
   onGameMode,
+  onPreviewFromSegment,
   seuilKeys = [],
 }) {
   const containerRef = useRef(null)
