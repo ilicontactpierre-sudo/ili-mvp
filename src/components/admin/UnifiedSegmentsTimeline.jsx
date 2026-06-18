@@ -832,9 +832,9 @@ const SegmentTimelineRow = memo(function SegmentTimelineRow({
         style={{
           flex: '0 0 auto',
           width: `${dividerPosition}%`,
-          padding: '0.5rem 0.75rem',
+          padding: '0.4rem 0.4rem 0.4rem 0.5rem',
           display: 'flex',
-          gap: '0.5rem',
+          gap: '3px',
           alignItems: 'flex-start',
           boxSizing: 'border-box',
           cursor: isCmdPressed && !isEditing ? 'crosshair' : 'default',
