@@ -373,6 +373,8 @@ class AudioEngine {
             if (ptIdx !== -1 && ptIdx <= currentIndex) {
               targetVolume = pt.volume
               fadeMs = ptIdx === currentIndex ? (pt.fadeMs ?? 0) : 0
+              // Si on est exactement sur ce segment, on a trouvé le bon point — on s'arrête
+              if (ptIdx === currentIndex) break
             }
           }
           const state = this.playingSounds.get(key)
