@@ -162,6 +162,7 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle',
   const [showProgress, setShowProgress] = useState(() => {
     try { return localStorage.getItem('ili_show_progress') !== 'false' } catch { return true }
   })
+  const [themeKey, setThemeKey] = useState(0)
   // ── Lire les options DYS depuis window (mis à jour par ReaderSettings) ──
   const [dys1, setDys1] = useState(() => {
     try { return localStorage.getItem('ili_dys1') === 'true' } catch { return false }
