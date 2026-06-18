@@ -202,6 +202,19 @@
       ]
     },
     {
+      "text": "",
+      "id": "seg_1781781904990",
+      "gameMode": {
+        "type": "code",
+        "answer": "1111",
+        "prompt": "",
+        "hint": "",
+        "errorMessage": "",
+        "sounds": false
+      },
+      "audioEvents": []
+    },
+    {
       "id": "seg_1781326327990_2_9vmif",
       "lines": [
         "- Merci mon cœur…"
