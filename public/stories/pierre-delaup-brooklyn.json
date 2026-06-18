@@ -103,6 +103,26 @@
       "loop": false
     },
     {
+      "id": "53_s11_drone_ambience",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/53_s11_drone_ambience.mp3",
+      "loop": false
+    },
+    {
+      "id": "53_s11_drone_heatbit",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/53_s11_drone_heatbit.mp3",
+      "loop": false
+    },
+    {
+      "id": "53_s11_drone_porte",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/53_s11_drone_porte.mp3",
+      "loop": false
+    },
+    {
+      "id": "53_s11_drone_respiration",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/53_s11_drone_respiration.mp3",
+      "loop": false
+    },
+    {
       "id": "54_s02a2_lucia",
       "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/54_s02a2_lucia.mp3",
       "loop": false
@@ -113,8 +133,53 @@
       "loop": false
     },
     {
+      "id": "61_s11_1_base_central_sourde",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/61_s11_1_base_central_sourde.mp3",
+      "loop": false
+    },
+    {
+      "id": "61_s12_comando_drone",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/61_s12_comando_drone.mp3",
+      "loop": false
+    },
+    {
+      "id": "61_s12_comando_pression",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/61_s12_comando_pression.mp3",
+      "loop": false
+    },
+    {
+      "id": "61_s12_comando_walk",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/61_s12_comando_walk.mp3",
+      "loop": false
+    },
+    {
+      "id": "61_s12_2_de_compress",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/61_s12_2_de_compress.mp3",
+      "loop": false
+    },
+    {
       "id": "65_s02a_toast",
       "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/65_s02a_toast.mp3",
+      "loop": false
+    },
+    {
+      "id": "73_s13_porte_radio",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/73_s13_porte_radio.mp3",
+      "loop": false
+    },
+    {
+      "id": "73_s13_1_beep_accept",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/73_s13_1_beep_accept.mp3",
+      "loop": false
+    },
+    {
+      "id": "73_s13_1_beep_msg",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/73_s13_1_beep_msg.mp3",
+      "loop": false
+    },
+    {
+      "id": "73_s14_sweep_3",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/73_s14_sweep_3.mp3",
       "loop": false
     },
     {
@@ -1305,7 +1370,7 @@
       "lines": [
         "À suivre…"
       ],
-      "text": "À suivre…",
+      "text": "</glitch:moyen;loop|À suivre…/>",
       "breakAt": null,
       "isLeader": true,
       "audioEvents": [
