@@ -137,8 +137,25 @@ function SoundBlock({
     if (e.button !== 0) return
     if (e.target.dataset.fadeHandle)   return
     if (e.target.dataset.resizeHandle) return
+    // Cmd+clic : créer un point d'automation sur le segment sous le curseur
+    if (e.metaKey || e.ctrlKey) {
+      e.stopPropagation()
+      const { timelineRect } = getTimelineInfo()
+      const segs = segmentsRef.current
+      const rh = rowHeightsRef.current || []
+      const cursorY = e.clientY - (timelineRect?.top ?? 0) + (document.querySelector('[data-timeline-root]')?.scrollTop ?? 0)
+      let accumulated = 0
+      let targetSegIdx = startSegmentIndex
+      for (let i = startSegmentIndex; i <= actualEndIndex; i++) {
+        const h = rh[i] || SEGMENT_HEIGHT
+        if (cursorY <= accumulated + h) { targetSegIdx = i; break }
+        accumulated += h + 8
+        targetSegIdx = i
+      }
+      handleAutomationCreate(e, targetSegIdx)
+      return
+    }
     e.stopPropagation()
-
     const p = propsRef.current
     p.onSelect(p.soundTrack.id, e.shiftKey)
 
