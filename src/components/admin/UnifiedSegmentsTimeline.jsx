@@ -1432,7 +1432,25 @@ function UnifiedSegmentsTimeline({
         // Seulement créer si le segment suivant n'existe pas
         const newSegment = typeof segments[0] === 'string'
           ? ''
-          : {
+          : { text: '', id: `seg_${Date.now()}_${Math.random().toString(36).slice(2, 7)}` }
+        updatedSegments.splice(nextIndex, 0, newSegment)
+      }
+      // 3. Nettoyer l'état d'édition du segment courant
+      setEditTexts(prev => {
+        const next = { ...prev }
+        delete next[index]
+        return next
+      })
+      setEditingSegmentIndex(null)
+      // 4. Appliquer les changements
+      onSegmentsChange(updatedSegments)
+      if (onSaveToHistory) onSaveToHistory()
+      // 5. Ouvrir le segment suivant en édition après le re-render
+      setTimeout(() => {
+        handleStartEdit(nextIndex)
+        scrollToSegmentRef.current?.(nextIndex)
+      }, 30)
+    }
   }, [handleEditBlur, segments, onSegmentsChange, onSaveToHistory, handleStartEdit])
 
   const handleMergeSegments = useCallback((index) => {
