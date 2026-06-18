@@ -400,10 +400,40 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle',
     }) ?? null
   })()
 
-  // ── Overlay flash plein écran ──
+  // ── Overlay flash plein écran + transitions de segment pause ──
   const flashOverlayRef = useRef(null)
-
   useEffect(() => {
+    const overlay = flashOverlayRef.current
+    if (!overlay) return
+
+    // Priorité 1 : transition de segment pause
+    const currentSeg = finalSegments[currentIndex]
+    if (currentSeg?.pause && currentSeg?.transition) {
+      const tr = currentSeg.transition
+      const color = tr.color ?? '#000000'
+      const easing = TRANSITION_EASINGS[tr.easing] ?? TRANSITION_EASINGS['ease-in-out']
+      const fadeIn  = tr.fadeInDuration  ?? 400
+      const hold    = tr.holdDuration    ?? 0
+      const fadeOut = tr.fadeOutDuration ?? 400
+      overlay.style.display = 'block'
+      overlay.style.backgroundColor = color
+      overlay.style.opacity = '0'
+      let t1, t2
+      requestAnimationFrame(() => {
+        overlay.style.transition = `opacity ${fadeIn}ms ${easing}`
+        overlay.style.opacity = tr.type === 'veil' ? '0.55' : '1'
+        t1 = setTimeout(() => {
+          overlay.style.transition = `opacity ${fadeOut}ms ${easing}`
+          overlay.style.opacity = '0'
+          t2 = setTimeout(() => {
+            if (overlay.style.opacity === '0') overlay.style.display = 'none'
+          }, fadeOut + 50)
+        }, fadeIn + hold)
+      })
+      return () => { clearTimeout(t1); clearTimeout(t2) }
+    }
+
+    // Priorité 2 : flash VFX track
     const flashTrack = storyData?.vfxTracks?.find(t => {
       if (t.type !== 'flash') return false
       const segs = storyData.segments || []
@@ -412,10 +442,6 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle',
       const te = ei !== -1 ? ei : si
       return si <= currentIndex && currentIndex <= te
     })
-
-    const overlay = flashOverlayRef.current
-    if (!overlay) return
-
     if (flashTrack) {
       const isDark = (() => {
         try { return JSON.parse(localStorage.getItem('ili_theme') || '{}').isDark !== false } catch { return true }
@@ -434,7 +460,7 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle',
         if (overlay.style.opacity === '0') overlay.style.display = 'none'
       }, 900)
     }
-  }, [currentIndex, storyData])
+  }, [currentIndex, storyData, finalSegments])
   
       // Hauteur réservée pour le spacer (sticky ou focused → même hauteur)
   const STICKY_HEIGHT = 56 // px — doit correspondre au padding du sticky dans le CSS
