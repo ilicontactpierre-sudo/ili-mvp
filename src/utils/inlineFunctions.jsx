@@ -1,5 +1,50 @@
 import { useEffect, useRef, useState, createContext, useContext } from 'react'
 
+// ── Adaptation couleur selon thème ───────────────────────────────────────────
+function adaptColorForTheme(hex) {
+  try {
+    const theme = JSON.parse(localStorage.getItem('ili_theme') || '{}')
+    if (theme.isDark === false) {
+      // Mode clair : assombrir la couleur pour garantir le contraste
+      const r = parseInt(hex.slice(1, 3), 16)
+      const g = parseInt(hex.slice(3, 5), 16)
+      const b = parseInt(hex.slice(5, 7), 16)
+      // Convertir en HSL pour réduire la luminosité
+      const rN = r / 255, gN = g / 255, bN = b / 255
+      const max = Math.max(rN, gN, bN), min = Math.min(rN, gN, bN)
+      let h, s, l = (max + min) / 2
+      if (max === min) {
+        h = s = 0
+      } else {
+        const d = max - min
+        s = l > 0.5 ? d / (2 - max - min) : d / (max + min)
+        switch (max) {
+          case rN: h = ((gN - bN) / d + (gN < bN ? 6 : 0)) / 6; break
+          case gN: h = ((bN - rN) / d + 2) / 6; break
+          case bN: h = ((rN - gN) / d + 4) / 6; break
+        }
+      }
+      // Forcer luminosité max à 35% en mode clair (contraste sur fond clair garanti)
+      l = Math.min(l, 0.35)
+      s = Math.min(s * 1.1, 1) // légère saturation pour compenser
+      // Reconvertir HSL → hex
+      const hue2rgb = (p, q, t) => {
+        if (t < 0) t += 1
+        if (t > 1) t -= 1
+        if (t < 1/6) return p + (q - p) * 6 * t
+        if (t < 1/2) return q
+        if (t < 2/3) return p + (q - p) * (2/3 - t) * 6
+        return p
+      }
+      const q = l < 0.5 ? l * (1 + s) : l + s - l * s
+      const p = 2 * l - q
+      const toHex = (x) => Math.round(x * 255).toString(16).padStart(2, '0')
+      return `#${toHex(hue2rgb(p, q, h + 1/3))}${toHex(hue2rgb(p, q, h))}${toHex(hue2rgb(p, q, h - 1/3))}`
+    }
+  } catch {}
+  return hex // mode sombre ou erreur → couleur inchangée
+}
+
 // ── Easing ───────────────────────────────────────────────────────────────────
 function easeInOutQuint(t) {
   return t < 0.5 ? 16 * t * t * t * t * t : 1 - Math.pow(-2 * t + 2, 5) / 2
