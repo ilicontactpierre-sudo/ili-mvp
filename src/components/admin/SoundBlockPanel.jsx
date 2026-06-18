@@ -46,7 +46,23 @@ function SoundBlockPanel({
     setEditedTrack({ ...soundTrack })
     setShowDeleteConfirm(false)
     setShowDelayInput(false)
-  }, [soundTrack])
+    // Resynchroniser le texte affiché des champs segment début/fin
+    const findIdx = (id) => {
+      if (!id) return -1
+      const idx = segments.findIndex(s => s.id === id || s._id === id)
+      if (idx !== -1) return idx
+      const match = id?.match(/^seg(?:ment)?_(\d+)$/)
+      if (match) {
+        const i = parseInt(match[1], 10)
+        if (i >= 0 && i < segments.length) return i
+      }
+      return -1
+    }
+    const sIdx = findIdx(soundTrack.startSegmentId)
+    const eIdx = findIdx(soundTrack.endSegmentId)
+    setStartSegText(sIdx >= 0 ? String(sIdx + 1) : '')
+    setEndSegText(eIdx >= 0 ? String(eIdx + 1) : (sIdx >= 0 ? String(sIdx + 1) : ''))
+  }, [soundTrack, segments])
 
   // Animation de rotation pour loop
   useEffect(() => {
