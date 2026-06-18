@@ -21,7 +21,11 @@ export function renderMarkdown(text, segment, isDysMode = false, options = {}) {
       return '…'
     }
   })
-  const fallbackRenderer = (chunk) => isDysMode ? applyBionicReading(chunk) : chunk
+  const fallbackRenderer = (chunk) => {
+    if (emojiMode) return applyEmojiMode(chunk)
+    if (isDysMode) return applyBionicReading(chunk)
+    return chunk
+  }
   let content = renderTextWithInlineFunctions(resolvedText, fallbackRenderer, { isFocused, keyPrefix })
   if (segment?.strikethrough) content = <s>{content}</s>
   if (segment?.underline)     content = <u>{content}</u>
