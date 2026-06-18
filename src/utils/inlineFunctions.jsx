@@ -505,17 +505,21 @@ function ApparitionSpan({ children, délai, vitesse, isFocused }) {
   const [visible, setVisible] = useState(false)
   useEffect(() => {
     if (!isFocused) { setVisible(false); return }
-    let raf1, raf2
-    raf1 = requestAnimationFrame(() => {
-      raf2 = requestAnimationFrame(() => setVisible(true))
-    })
-    return () => { cancelAnimationFrame(raf1); cancelAnimationFrame(raf2) }
+    const id = setTimeout(() => setVisible(true), 32)
+    return () => clearTimeout(id)
   }, [isFocused])
+  if (!isFocused) {
+    return (
+      <span style={{ opacity: 0.4, fontStyle: 'italic' }}>
+        {children}
+      </span>
+    )
+  }
   return (
     <span style={{
       display: 'inline',
       opacity: visible ? 1 : 0,
-      transition: visible ? `opacity ${duration}ms ease ${delay}ms` : 'none',
+      transition: `opacity ${duration}ms ease ${delay}ms`,
     }}>
       {children}
     </span>
