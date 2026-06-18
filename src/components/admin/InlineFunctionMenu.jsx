@@ -1,23 +1,26 @@
 import { useState, useEffect, useRef } from 'react'
 
 // ── Palette couleurs narratives ──────────────────────────────────────────────
+// Chaque couleur a une variante sombre (lisible sur fond noir) et claire (lisible sur fond blanc)
+// L'éditeur admin est toujours sombre → on affiche dark dans la palette
+// La valeur insérée dans le tag est dark (la plus lisible en lecture immersive, mode sombre par défaut)
 const NARRATIVE_COLORS = [
-  { name: 'Sang',    hex: '#c0392b' },
-  { name: 'Braise',  hex: '#e67e22' },
-  { name: 'Or',      hex: '#f1c40f' },
-  { name: 'Citron',  hex: '#d4e157' },
-  { name: 'Forêt',   hex: '#27ae60' },
-  { name: 'Jade',    hex: '#1abc9c' },
-  { name: 'Ciel',    hex: '#3498db' },
-  { name: 'Nuit',    hex: '#2c3e50' },
-  { name: 'Lilas',   hex: '#9b59b6' },
-  { name: 'Rose',    hex: '#e91e63' },
-  { name: 'Craie',   hex: '#ecf0f1' },
-  { name: 'Sable',   hex: '#d4a96a' },
-  { name: 'Brume',   hex: '#95a5a6' },
-  { name: 'Encre',   hex: '#1a1a2e' },
-  { name: 'Ivoire',  hex: '#fffff0' },
-  { name: 'Carmin',  hex: '#8b0000' },
+  { name: 'Braise',    dark: '#ff8c69', light: '#c0392b' },
+  { name: 'Abricot',   dark: '#ffb347', light: '#e67e22' },
+  { name: 'Or',        dark: '#ffe066', light: '#b8860b' },
+  { name: 'Citron',    dark: '#e8f5a3', light: '#7a8c00' },
+  { name: 'Menthe',    dark: '#a8f0c6', light: '#1a7a4a' },
+  { name: 'Jade',      dark: '#7fffd4', light: '#007a5e' },
+  { name: 'Ciel',      dark: '#87ceeb', light: '#1565c0' },
+  { name: 'Lavande',   dark: '#c9b8f5', light: '#4a2ab8' },
+  { name: 'Lilas',     dark: '#ddb6f2', light: '#7b1fa2' },
+  { name: 'Rose',      dark: '#ffb6c1', light: '#ad1457' },
+  { name: 'Pêche',     dark: '#ffd5b8', light: '#bf4f00' },
+  { name: 'Craie',     dark: '#f5f0e8', light: '#5a5248' },
+  { name: 'Brume',     dark: '#c8d8e8', light: '#37474f' },
+  { name: 'Sable',     dark: '#e8d5a8', light: '#7a5c1e' },
+  { name: 'Nacre',     dark: '#e8e8f5', light: '#3a3a6a' },
+  { name: 'Corail',    dark: '#ff9a8b', light: '#b5270f' },
 ]
 
 // ── Définition des sous-menus par fonction ───────────────────────────────────
