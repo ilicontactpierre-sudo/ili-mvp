@@ -2241,6 +2241,26 @@
       "column": 0,
       "startSegmentId": "seg_1781326327990_41_scotp",
       "endSegmentId": "seg_1781326327990_41_scotp"
+    },
+    {
+      "id": "vfx_1781802926886_gtrev77mq",
+      "type": "fog",
+      "mode": "léger",
+      "loop": false,
+      "color": "rgba(200, 0, 0, 0.12)",
+      "column": 0,
+      "startSegmentId": "seg_1781326327990_78_toa8o",
+      "endSegmentId": "seg_1781326327990_84_n5h5t"
+    },
+    {
+      "id": "vfx_1781802969020_hxqjj88m3",
+      "type": "underwater",
+      "mode": "surface",
+      "loop": false,
+      "color": "rgba(200, 0, 0, 0.12)",
+      "column": 1,
+      "startSegmentId": "seg_1781326327990_78_toa8o",
+      "endSegmentId": "seg_1781326327990_84_n5h5t"
     }
   ]
 }
