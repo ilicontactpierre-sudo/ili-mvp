@@ -551,17 +551,27 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle',
           backgroundColor: 'rgba(255,255,255,0.07)',
         }}
       >
-        <div
-          style={{
-            width: '100%',
-            minHeight: '6px',
-            height: finalSegments.length > 1
-              ? `${Math.max(0.5, (currentIndex / (finalSegments.length - 1)) * 100)}%`
-              : '100%',
-            backgroundColor: 'rgba(255,255,255,0.22)',
-            transition: 'height 400ms cubic-bezier(0.1, 0.0, 0.1, 1.0)',
-          }}
-        />
+        {(() => {
+          // Exclure les segments pause du calcul de progression
+          const visibleSegments = finalSegments.filter(s => !s.pause)
+          const visibleIndex = finalSegments
+            .slice(0, currentIndex + 1)
+            .filter(s => !s.pause).length - 1
+          const progress = visibleSegments.length > 1
+            ? Math.max(0.5, (visibleIndex / (visibleSegments.length - 1)) * 100)
+            : 100
+          return (
+            <div
+              style={{
+                width: '100%',
+                minHeight: '6px',
+                height: `${progress}%`,
+                backgroundColor: 'rgba(255,255,255,0.22)',
+                transition: 'height 400ms cubic-bezier(0.1, 0.0, 0.1, 1.0)',
+              }}
+            />
+          )
+        })()}
       </div>
     )}
     <div
