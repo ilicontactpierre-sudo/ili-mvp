@@ -1405,7 +1405,7 @@ function UnifiedSegmentsTimeline({
       e.preventDefault()
       handleEditBlur(index)
     }
-    if (e.key === 'Enter' && e.shiftKey) {
+    if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) {
       e.preventDefault()
       // Sauvegarder le segment courant
       handleEditBlur(index)
