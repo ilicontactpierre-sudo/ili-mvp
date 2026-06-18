@@ -507,7 +507,7 @@ function SoundBlock({
         ...backgroundStyle,
         border: `2px solid ${borderColor}`,
         borderRadius: '6px',
-        cursor: isDragging ? 'grabbing' : (propsRef.current?.isCmdPressed ?? false) ? 'crosshair' : 'grab',
+        cursor: isDragging ? 'grabbing' : isCmdPressed ? 'crosshair' : 'grab',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
