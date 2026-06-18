@@ -509,6 +509,7 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle',
       } else {
         nextTranslateY = Math.max(minTranslateY, Math.min(maxTranslateY, desiredTranslateY))
       }
+      console.log(`[StoryReader] → setTranslateY(${nextTranslateY}) anchorY=${anchorY} focusedCenterY=${focusedCenterY}`)
       setTranslateY(nextTranslateY)
     }
 
