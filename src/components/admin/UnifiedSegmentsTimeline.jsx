@@ -109,72 +109,8 @@ const SegmentTimelineRow = memo(function SegmentTimelineRow({
   const textareaRef = useRef(null)
   const text = getSegmentText(segment)
 
-  // ── Rendu compact pour les segments pause ─────────────────────────────────
-  if (isPause) {
-    return (
-      <div
-        ref={rowRef}
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          height: '28px',
-          minHeight: '28px',
-          backgroundColor: '#f3f4f6',
-          borderBottom: '1px solid #e8e8e8',
-          borderLeft: '3px solid #d1d5db',
-          paddingLeft: '8px',
-          gap: '6px',
-          position: 'relative',
-          opacity: isSelected ? 0.9 : 0.7,
-          transition: 'opacity 0.15s ease',
-        }}
-        onClick={(e) => onSelect(index, e)}
-      >
-        <span style={{ fontSize: '0.65rem', color: '#9ca3af' }}>⏱</span>
-        <input
-          type="number"
-          min="100"
-          max="30000"
-          step="100"
-          value={pauseDuration ?? 1500}
-          onClick={e => e.stopPropagation()}
-          onChange={e => onPauseDurationChange(index, Number(e.target.value))}
-          style={{
-            width: '58px',
-            fontSize: '0.7rem',
-            color: '#6b7280',
-            border: '1px solid #e5e7eb',
-            borderRadius: '4px',
-            padding: '1px 4px',
-            background: 'transparent',
-            outline: 'none',
-            fontFamily: 'system-ui, sans-serif',
-          }}
-        />
-        <span style={{ fontSize: '0.65rem', color: '#9ca3af' }}>ms</span>
-        <button
-          onClick={(e) => { e.stopPropagation(); onDelete(index) }}
-          title="Supprimer la pause"
-          style={{
-            marginLeft: 'auto',
-            marginRight: '8px',
-            background: 'none',
-            border: 'none',
-            cursor: 'pointer',
-            fontSize: '0.6rem',
-            color: '#d1d5db',
-            lineHeight: 1,
-            padding: '0 2px',
-            transition: 'color 0.15s ease',
-          }}
-          onMouseEnter={e => e.currentTarget.style.color = '#f44336'}
-          onMouseLeave={e => e.currentTarget.style.color = '#d1d5db'}
-        >
-          ✕
-        </button>
-      </div>
-    )
-  }
+  // ── Config transition (état local, segment pause uniquement) ──────────────
+  const [showTransitionConfig, setShowTransitionConfig] = useState(false)
 
   // État pour la position de découpe potentielle (mode Cmd)
   const [splitPreviewPosition, setSplitPreviewPosition] = useState(null)
