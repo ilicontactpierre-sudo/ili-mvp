@@ -299,6 +299,7 @@ function StoryPreviewModal({ isOpen, storyData, onClose, startSegmentIndex = nul
                 storyData={storyData}
                 currentIndex={currentIndex}
                 viewportHeight={667}
+                _debugLabel="preview"
               />
               {activeGameMode && (
                 <GameOverlay
