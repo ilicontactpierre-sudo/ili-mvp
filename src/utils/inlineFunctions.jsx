@@ -4,7 +4,7 @@ import { useEffect, useRef, useState, createContext, useContext } from 'react'
 function adaptColorForTheme(hex) {
   try {
     const theme = JSON.parse(localStorage.getItem('ili_theme') || '{}')
-    if (theme.isDark === false) {
+    if (theme.isDark === false || theme.isToutdoux === true) {
       // Mode clair : assombrir la couleur pour garantir le contraste
       const r = parseInt(hex.slice(1, 3), 16)
       const g = parseInt(hex.slice(3, 5), 16)
