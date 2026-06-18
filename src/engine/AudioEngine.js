@@ -243,27 +243,34 @@ class AudioEngine {
     const durationMs = trimEnd != null
       ? (trimEnd - (trimStart || 0))
       : ((howl.duration() || 0) * 1000 - (trimStart || 0))
-
     if (durationMs <= crossfadeMs) {
       // Son trop court pour le crossfade choisi → loop native sans fondu
       const state = this.playingSounds.get(key)
       if (state) howl.loop(true, state.instanceId)
       return
     }
-
     // Programmer le crossfade avant la fin
     const timeout = setTimeout(() => {
       const state = this.playingSounds.get(key)
       if (!state) return // son arrêté entretemps
 
-      // Fade out sur l'instance en cours — courbe sigmoid pour crossfade naturel
-      this._animatedFade(howl, state.instanceId, volume, 0, crossfadeMs, 'sigmoid')
-      // Lancer la nouvelle instance immédiatement avec fade in
+      // ── Lire le volume EFFECTIF courant (post-automation) ──────────────
+      // On ne réutilise pas la closure `volume` (valeur initiale) mais le
+      // volume perceptuel réel de l'instance en cours, pour que le loop
+      // reparte exactement au niveau atteint par les PA.
+      const currentPerceptualVol = howl.volume(undefined, state.instanceId) ?? this._toPerceptualVolume(state.volume ?? volume)
+      const currentLinearVol = state.volume ?? volume // version linéaire stockée dans le state
+
+      // Fade out sur l'instance en cours
+      this._animatedFade(howl, state.instanceId, currentPerceptualVol, 0, crossfadeMs, 'sigmoid')
+
+      // Lancer la nouvelle instance immédiatement avec fade in depuis 0
       const newInstanceId = this._playInstance(howl, soundId, trimStart, trimEnd, key)
       howl.loop(false, newInstanceId)
       howl.volume(0, newInstanceId)
-      this._animatedFade(howl, newInstanceId, 0, this._toPerceptualVolume(volume), crossfadeMs, 'sigmoid')
-      // Mettre à jour l'état avec la nouvelle instance
+      this._animatedFade(howl, newInstanceId, 0, currentPerceptualVol, crossfadeMs, 'sigmoid')
+
+      // Mettre à jour l'état avec la nouvelle instance — volume linéaire inchangé
       this.playingSounds.set(key, { ...state, instanceId: newInstanceId })
 
       // Arrêter l'ancienne instance après le crossfade
@@ -272,9 +279,9 @@ class AudioEngine {
         howl.stop(oldInstanceId)
       }, crossfadeMs)
 
-      // Replanifier pour le prochain cycle
-      this._scheduleLoopCrossfade(key, howl, soundId, volume, crossfadeMs, trimStart, trimEnd, loopCrossfade)
-
+      // Replanifier pour le prochain cycle — on passe currentLinearVol
+      // pour que la prochaine itération parte du bon niveau si aucun PA ne change
+      this._scheduleLoopCrossfade(key, howl, soundId, currentLinearVol, crossfadeMs, trimStart, trimEnd, loopCrossfade)
     }, durationMs - crossfadeMs)
 
     // Stocker le timeout pour pouvoir l'annuler si stopSound est appelé
