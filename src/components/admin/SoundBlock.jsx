@@ -46,6 +46,8 @@ function SoundBlock({
 
   useEffect(() => { segmentsRef.current   = segments   }, [segments])
   useEffect(() => { rowHeightsRef.current = rowHeights }, [rowHeights])
+  const soundTrackRef = useRef(soundTrack)
+  useEffect(() => { soundTrackRef.current = soundTrack }, [soundTrack])
   useEffect(() => {
     propsRef.current = { onSelect, onDoubleClick, onResize, onColumnChange, onUpdate, onDragStart, onDragEnd, onDragTargetChange, soundTrack, onMove, isCmdPressed }
   })
