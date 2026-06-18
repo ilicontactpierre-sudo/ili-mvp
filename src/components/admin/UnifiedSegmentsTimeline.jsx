@@ -393,6 +393,223 @@ const SegmentTimelineRow = memo(function SegmentTimelineRow({
     return startIdx === index
   })
 
+  // ── Rendu compact pause : partie texte remplacée, timeline intacte ────────
+  if (isPause) {
+    return (
+      <div
+        ref={rowRef}
+        style={{
+          display: 'flex',
+          borderBottom: '1px solid #e8e8e8',
+          minHeight: '36px',
+          backgroundColor: isSelected ? '#f0f0f3' : '#f7f7f9',
+          borderLeft: '3px solid #c4b5fd',
+          position: 'relative',
+          transition: 'background-color 0.15s ease',
+        }}
+        onClick={(e) => onSelect(index, e)}
+        onMouseEnter={() => onHover(index)}
+        onMouseLeave={() => onHover(null)}
+      >
+        {/* Partie gauche compacte (pause config) */}
+        <div style={{
+          flex: `0 0 ${dividerPosition}%`,
+          display: 'flex',
+          alignItems: 'center',
+          gap: '5px',
+          padding: '0 8px',
+          boxSizing: 'border-box',
+          minWidth: 0,
+        }}>
+          {/* Numéro */}
+          <span style={{ fontSize: '0.62rem', color: '#a78bfa', fontWeight: 700, flexShrink: 0, minWidth: '18px', textAlign: 'center' }}>
+            {index + 1}
+          </span>
+
+          {/* Icône */}
+          <span style={{ fontSize: '0.7rem', flexShrink: 0 }}>⏱</span>
+
+          {/* Durée */}
+          <input
+            type="number"
+            min="100"
+            max="30000"
+            step="100"
+            value={pauseDuration ?? 1500}
+            onClick={e => e.stopPropagation()}
+            onChange={e => onPauseDurationChange(index, Number(e.target.value))}
+            style={{
+              width: '54px',
+              fontSize: '0.7rem',
+              color: '#6b7280',
+              border: '1px solid #e5e7eb',
+              borderRadius: '4px',
+              padding: '1px 4px',
+              background: 'transparent',
+              outline: 'none',
+              fontFamily: 'system-ui, sans-serif',
+              flexShrink: 0,
+            }}
+          />
+          <span style={{ fontSize: '0.62rem', color: '#9ca3af', flexShrink: 0 }}>ms</span>
+
+          {/* Bouton transition */}
+          <button
+            onClick={(e) => { e.stopPropagation(); setShowTransitionConfig(v => !v) }}
+            title="Configurer la transition visuelle"
+            style={{
+              background: segment?.transition ? 'rgba(167,139,250,0.15)' : 'none',
+              border: segment?.transition ? '1px solid rgba(167,139,250,0.4)' : '1px solid #e5e7eb',
+              borderRadius: '4px',
+              cursor: 'pointer',
+              fontSize: '0.6rem',
+              color: segment?.transition ? '#7c3aed' : '#9ca3af',
+              padding: '1px 5px',
+              lineHeight: '16px',
+              flexShrink: 0,
+              transition: 'all 0.15s ease',
+            }}
+          >
+            {segment?.transition ? '✦ fondu' : '+ fondu'}
+          </button>
+
+          {/* Supprimer */}
+          <button
+            onClick={(e) => { e.stopPropagation(); onDelete(index) }}
+            title="Supprimer la pause"
+            style={{
+              marginLeft: 'auto',
+              background: 'none',
+              border: 'none',
+              cursor: 'pointer',
+              fontSize: '0.6rem',
+              color: '#d1d5db',
+              padding: '0 2px',
+              flexShrink: 0,
+              transition: 'color 0.15s ease',
+            }}
+            onMouseEnter={e => e.currentTarget.style.color = '#f44336'}
+            onMouseLeave={e => e.currentTarget.style.color = '#d1d5db'}
+          >
+            ✕
+          </button>
+        </div>
+
+        {/* Séparateur */}
+        <div style={{ width: '6px', flexShrink: 0, backgroundColor: 'transparent' }} />
+
+        {/* Zone timeline audio — identique aux segments normaux */}
+        <div
+          data-timeline-container="true"
+          style={{
+            flex: '1 1 auto',
+            display: 'flex',
+            position: 'relative',
+            overflow: 'visible',
+            minWidth: `${COLUMN_COUNT * COLUMN_WIDTH}px`,
+          }}
+        >
+          {Array.from({ length: COLUMN_COUNT }).map((_, colIndex) => {
+            const hasSound = soundTracks.some(track => {
+              const startIdx = getSegmentIndexFromId(track.startSegmentId)
+              const endIdx = getSegmentIndexFromId(track.endSegmentId)
+              const trackEnd = endIdx !== -1 ? endIdx : startIdx
+              return track.column === colIndex && startIdx <= index && trackEnd >= index
+            })
+            const isDragTarget = isAnyBlockDragging &&
+              dragTargetCell.segmentIndex === index &&
+              dragTargetCell.column === colIndex
+            return (
+              <div
+                key={colIndex}
+                style={{
+                  width: `${COLUMN_WIDTH}px`,
+                  flexShrink: 0,
+                  height: '100%',
+                  minHeight: '36px',
+                  borderRight: colIndex < COLUMN_COUNT - 1 ? '1px solid #f0f0f0' : 'none',
+                  backgroundColor: isDragTarget
+                    ? 'rgba(33, 150, 243, 0.2)'
+                    : hasSound ? 'transparent' : 'rgba(167,139,250,0.04)',
+                  cursor: hasSound ? 'default' : 'pointer',
+                  position: 'relative',
+                  transition: 'background-color 0.1s ease',
+                }}
+                onDoubleClick={() => !hasSound && onAddSoundToCell(index, colIndex)}
+                title={!hasSound ? 'Double-cliquez pour ajouter un son' : ''}
+              >
+                {isDragTarget && (
+                  <div style={{
+                    position: 'absolute', top: 0, left: 0, right: 0, bottom: 0,
+                    border: '2px dashed #2196F3',
+                    borderRadius: '4px',
+                    pointerEvents: 'none',
+                    boxSizing: 'border-box',
+                  }} />
+                )}
+              </div>
+            )
+          })}
+          {rowSoundTracks.map(track => (
+            <SoundBlock
+              key={track.id}
+              soundTrack={track}
+              segments={segments}
+              soundLibrary={soundLibrary}
+              rowHeights={rowHeights}
+              isSelected={selectedSoundIds.has(track.id) || track.id === editingSoundTrack?.id}
+              onSelect={onSoundSelect}
+              onDoubleClick={onSoundDoubleClick}
+              onColumnChange={onSoundColumnChange}
+              onResize={onSoundResize}
+              onMove={onSoundMove}
+              onUpdate={onSoundUpdate}
+              onDragStart={onDragStart}
+              onDragEnd={onDragEnd}
+              onDragTargetChange={onDragTargetChange}
+              currentSegmentIndex={index}
+              isCmdPressed={isCmdPressed}
+            />
+          ))}
+        </div>
+
+        {/* Zone VFX */}
+        <div style={{
+          flex: '0 0 auto',
+          width: `${VFX_COLUMN_COUNT * VFX_COLUMN_WIDTH}px`,
+          display: 'flex',
+          position: 'relative',
+          overflow: 'visible',
+          borderLeft: '2px solid #e0e0e0',
+          alignSelf: 'stretch',
+        }}>
+          {Array.from({ length: VFX_COLUMN_COUNT }).map((_, colIndex) => (
+            <div
+              key={colIndex}
+              style={{
+                width: `${VFX_COLUMN_WIDTH}px`,
+                flexShrink: 0,
+                height: '100%',
+                minHeight: '36px',
+                borderRight: colIndex < VFX_COLUMN_COUNT - 1 ? '1px solid #f0f0f0' : 'none',
+                backgroundColor: 'rgba(120,80,220,0.03)',
+              }}
+            />
+          ))}
+        </div>
+
+        {/* Panneau config transition (inline, sous la ligne) */}
+        {showTransitionConfig && (
+          <TransitionConfigPanel
+            transition={segment?.transition ?? null}
+            onChange={(tr) => onPauseDurationChange(index, pauseDuration, tr)}
+            onClose={() => setShowTransitionConfig(false)}
+          />
+        )}
+      </div>
+    )
+  }
+
   return (
     <div
       ref={rowRef}
