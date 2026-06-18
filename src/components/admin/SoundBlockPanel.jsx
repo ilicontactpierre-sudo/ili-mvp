@@ -127,8 +127,8 @@ function SoundBlockPanel({
     return -1
   }, [segments])
 
-  const startSegmentIndex = getSegmentIndex(soundTrack.startSegmentId)
-  const endSegmentIndex = getSegmentIndex(soundTrack.endSegmentId)
+  const startSegmentIndex = getSegmentIndex(editedTrack.startSegmentId)
+  const endSegmentIndex = getSegmentIndex(editedTrack.endSegmentId)
 
   // (supprimé — volume maintenant horizontal)
 
