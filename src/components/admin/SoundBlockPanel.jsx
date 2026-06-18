@@ -48,8 +48,23 @@ function SoundBlockPanel({
   const previewEngineRef = useRef(null)
   const previewTimeoutRef = useRef(null)
   const color = getSoundColor(sound)
-
+  const stopPreview = useCallback(() => {
+    if (previewTimeoutRef.current) {
+      clearTimeout(previewTimeoutRef.current)
+      previewTimeoutRef.current = null
+    }
+    if (previewEngineRef.current) {
+      previewEngineRef.current.stopAll(120)
+      previewEngineRef.current = null
+    }
+    if (previewHowlRef.current) {
+      previewHowlRef.current.unload()
+      previewHowlRef.current = null
+    }
+    setIsPreviewPlaying(false)
+  }, [])
   useEffect(() => {
+    stopPreview()
     setEditedTrack({ ...soundTrack })
     setShowDeleteConfirm(false)
     setShowDelayInput(false)
