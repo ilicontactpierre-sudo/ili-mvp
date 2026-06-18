@@ -468,11 +468,11 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle',
   useLayoutEffect(() => {
     function computeTranslate() {
       if (chapterMode === 'focused') { setTranslateY(0); return }
-
       const focusedNode = segmentRefs.current[currentIndex]
+      console.log(`[StoryReader] computeTranslate — currentIndex=${currentIndex} focusedNode=`, focusedNode, 'offsetTop=', focusedNode?.offsetTop, 'offsetHeight=', focusedNode?.offsetHeight)
       if (!focusedNode) return
-
       const vh = viewportHeight || window.innerHeight
+      console.log(`[StoryReader] vh=${vh} viewportHeight=${viewportHeight} window.innerHeight=${window.innerHeight}`)
       // On réserve toujours STICKY_HEIGHT quand un chapitre est visible (focused ou sticky)
       // Ça évite le saut quand on passe de sticky à gone
       const reservedH = chapterMode !== 'gone' ? STICKY_HEIGHT : 0
