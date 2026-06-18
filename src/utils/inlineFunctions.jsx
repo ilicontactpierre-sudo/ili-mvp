@@ -534,7 +534,7 @@ export function renderInlineFunction(seg, baseKey, isFocused, fallbackRenderer) 
       return (
         <span key={baseKey} style={{
           color: isFocused ? hex : 'inherit',
-          transition: isFocused ? 'color 480ms cubic-bezier(0.4,0,0.2,1)' : 'none',
+          transition: 'color 600ms cubic-bezier(0.4,0,0.2,1)',
         }}>
           {inner}
         </span>
