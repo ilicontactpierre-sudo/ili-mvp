@@ -47,7 +47,44 @@ function SoundBlock({
   useEffect(() => { segmentsRef.current   = segments   }, [segments])
   useEffect(() => { rowHeightsRef.current = rowHeights }, [rowHeights])
   const soundTrackRef = useRef(soundTrack)
-  useEffect(() => { soundTrackRef.current = soundTrack }, [soundTrack])
+  const prevStartSegmentIdRef = useRef(soundTrack.startSegmentId)
+  useEffect(() => {
+    const prev = prevStartSegmentIdRef.current
+    const curr = soundTrack.startSegmentId
+    prevStartSegmentIdRef.current = curr
+    // Si le startSegmentId a changé ET qu'il y a des PA, les translater
+    if (prev !== curr && soundTrack.automationPoints?.length > 0) {
+      const segs = segmentsRef.current
+      const prevStartIdx = segs.findIndex(s => s.id === prev || s._id === prev)
+      const currStartIdx = segs.findIndex(s => s.id === curr || s._id === curr)
+      if (prevStartIdx === -1 || currStartIdx === -1) return
+      const delta = currStartIdx - prevStartIdx
+      if (delta === 0) return
+      const newPoints = soundTrack.automationPoints
+        .map(pt => {
+          const ptIdx = segs.findIndex(s => s.id === pt.segmentId || s._id === pt.segmentId)
+          if (ptIdx === -1) return null
+          const newIdx = ptIdx + delta
+          if (newIdx < 0 || newIdx >= segs.length) return null
+          const newSeg = segs[newIdx]
+          if (!newSeg) return null
+          return { ...pt, segmentId: newSeg.id || newSeg._id || `seg_${newIdx}` }
+        })
+        .filter(Boolean)
+      // Vérifier que les points restent dans les bornes du bloc
+      const endIdx = segs.findIndex(s => s.id === soundTrack.endSegmentId || s._id === soundTrack.endSegmentId)
+      const endIdxSafe = endIdx !== -1 ? endIdx : currStartIdx
+      const filteredPoints = newPoints.filter(pt => {
+        const ptIdx = segs.findIndex(s => s.id === pt.segmentId || s._id === pt.segmentId)
+        return ptIdx >= currStartIdx && ptIdx <= endIdxSafe
+      })
+      if (filteredPoints.length !== soundTrack.automationPoints.length ||
+          filteredPoints.some((pt, i) => pt.segmentId !== soundTrack.automationPoints[i]?.segmentId)) {
+        propsRef.current.onUpdate(soundTrack.id, { automationPoints: filteredPoints })
+      }
+    }
+    soundTrackRef.current = soundTrack
+  }, [soundTrack])
   useEffect(() => {
     propsRef.current = { onSelect, onDoubleClick, onResize, onColumnChange, onUpdate, onDragStart, onDragEnd, onDragTargetChange, soundTrack, onMove, isCmdPressed }
   })
