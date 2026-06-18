@@ -446,8 +446,8 @@ function SoundBlock({
   }, [soundTrack])
 
   const renderAutomationShape = (fadeStepIndex, x, y, size, color, isSelected) => {
-    const fill = '#fff'
-    const stroke = isSelected ? '#fff' : color
+    const fill = '#000000'
+    const stroke = isSelected ? '#000000' : color
     const sw = isSelected ? 2.5 : 2
     const shadow = color
     if (fadeStepIndex === 0) {
