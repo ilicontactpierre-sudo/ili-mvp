@@ -178,10 +178,11 @@ const [realDurationMs, setRealDurationMs] = useState((sound.duration || 0) * 100
     const onMove = (e) => {
       if (!dragging.current) return
       const ms = Math.round(xToMs(e.clientX))
+      const minGap = Math.max(10, durationMs * 0.01)
       if (dragging.current === 'start') {
-        setTrimStart(Math.max(0, Math.min(ms, trimEnd - 100)))
+        setTrimStart(Math.max(0, Math.min(ms, trimEnd - minGap)))
       } else {
-        setTrimEnd(Math.min(durationMs, Math.max(ms, trimStart + 100)))
+        setTrimEnd(Math.min(durationMs, Math.max(ms, trimStart + minGap)))
       }
     }
     const onUp = () => { dragging.current = null }
