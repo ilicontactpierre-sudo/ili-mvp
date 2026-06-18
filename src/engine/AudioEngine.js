@@ -52,7 +52,6 @@ class AudioEngine {
 
   stopSound(soundId, trackId) {
     const key = trackId || soundId
-    console.log(`[AudioEngine] stopSound: key=${key} soundId=${soundId}`)
     this._fadeTokens.delete(key)
     this._stopPanAnimation(key)
     const soundState = this.playingSounds.get(key)
@@ -188,7 +187,6 @@ class AudioEngine {
   }
 
   stopAll(duration = 0) {
-    console.log(`[AudioEngine] stopAll appelé, duration=${duration}, sons actifs:`, [...this.playingSounds.keys()])
     this._fadeTokens.clear()
     this._panAnimations.forEach((_, key) => this._stopPanAnimation(key))
     this.playingSounds.forEach(({ howl, instanceId, _loopTimeout }) => {
@@ -323,14 +321,12 @@ class AudioEngine {
           this.stopSound(state.soundId, key)
         } else {
           // One-shot sans fadeOut → laisser le son finir naturellement.
-          console.log(`[AudioEngine] ONE-SHOT laisser finir: key=${key} soundId=${state.soundId} instanceId=${state.instanceId}`)
           this._fadeTokens.delete(key)
           this._stopPanAnimation(key)
           if (state._loopTimeout) clearTimeout(state._loopTimeout)
           this.playingSounds.delete(key)
           // Quand le son finit naturellement, nettoyer l'instance
           state.howl.once('end', () => {
-            console.log(`[AudioEngine] ONE-SHOT fin naturelle: key=${key} soundId=${state.soundId}`)
             if (state.instanceId != null) {
               try { state.howl.stop(state.instanceId) } catch (_) {}
             }
