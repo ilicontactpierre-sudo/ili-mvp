@@ -2259,7 +2259,15 @@
       "delay": 0,
       "loop": false,
       "muted": false,
-      "pan": -0.58
+      "pan": -0.58,
+      "automationPoints": [
+        {
+          "segmentId": "seg_1781326327990_37_24l4g",
+          "volume": 0.65,
+          "fadeMs": 0,
+          "_isAnchor": true
+        }
+      ]
     },
     {
       "id": "st_1781801526277_9szkdtyfm",
