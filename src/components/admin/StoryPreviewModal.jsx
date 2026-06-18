@@ -126,9 +126,12 @@ function StoryPreviewModal({ isOpen, storyData, onClose, startSegmentIndex = nul
     // StoryReader monte avec currentIndex correct mais offsetTop=0 au premier paint.
     // On re-set le même index 150ms après pour déclencher le useLayoutEffect
     // une fois que les segments sont vraiment positionnés dans le DOM.
+    // Forcer un recalcul du translateY après que le DOM soit peint :
+    // au premier mount, offsetTop=0 pour tous les segments.
+    // On recrée StoryReader 150ms après pour qu'il recalcule avec le bon DOM.
     if (startIndex > 0) {
       setTimeout(() => {
-        setCurrentIndex(idx => idx) // re-trigger sans changer la valeur
+        setReaderKey(k => k + 1)
       }, 150)
     }
   }
