@@ -131,15 +131,33 @@ class AudioEngine {
         this._fadeTokens.delete(key)
         return
       }
-      howl.once('fade', () => {
-        if (this._fadeTokens.get(key) === token) {
+      // Choisir la courbe selon la durée
+      const OUT_CURVES = [
+        { ms: 80,   curve: 'linear'   },
+        { ms: 300,  curve: 'ease-out' },
+        { ms: 800,  curve: 'sigmoid'  },
+        { ms: 2000, curve: 'sigmoid'  },
+        { ms: 4000, curve: 'cubic'    },
+        { ms: 8000, curve: 'log'      },
+      ]
+      const outStep = OUT_CURVES.reduce((best, s) =>
+        Math.abs(s.ms - duration) < Math.abs(best.ms - duration) ? s : best
+      , OUT_CURVES[0])
+      const capturedToken = token
+      const capturedKey = key
+      // _animatedFade ne déclenche pas d'event 'fade' — on arrête le son à la fin via setTimeout
+      this._animatedFade(
+        instanceId != null ? howl : howl,
+        instanceId,
+        fromVolume, 0, duration,
+        outStep.curve
+      )
+      setTimeout(() => {
+        if (this._fadeTokens.get(capturedKey) === capturedToken) {
           instanceId != null ? howl.stop(instanceId) : howl.stop()
-          this._fadeTokens.delete(key)
+          this._fadeTokens.delete(capturedKey)
         }
-      }, instanceId)
-      instanceId != null
-        ? howl.fade(fromVolume, 0, duration, instanceId)
-        : howl.fade(fromVolume, 0, duration)
+      }, duration + 32) // +32ms pour laisser le dernier tick se terminer
     }
 
     // Si le son est en état 'loading' ou en attente de play, attendre qu'il démarre
