@@ -388,11 +388,19 @@ class AudioEngine {
           const currentVol = state.howl.volume(undefined, state.instanceId) ?? targetVolume
           const targetPerceptual = this._toPerceptualVolume(targetVolume)
           if (Math.abs(currentVol - targetPerceptual) > 0.01) {
-            if (fadeMs > 0) {
-              state.howl.fade(currentVol, targetPerceptual, fadeMs, state.instanceId)
-            } else {
-              state.howl.volume(targetPerceptual, state.instanceId)
-            }
+            // Trouver la courbe associée à ce fadeMs
+            const AUTOMATION_FADE_STEPS = [
+              { ms: 0,    curve: 'cut'      },
+              { ms: 80,   curve: 'linear'   },
+              { ms: 300,  curve: 'ease-out' },
+              { ms: 800,  curve: 'sigmoid'  },
+              { ms: 2000, curve: 'sigmoid'  },
+              { ms: 4000, curve: 'cubic'    },
+              { ms: 8000, curve: 'log'      },
+            ]
+            const step = AUTOMATION_FADE_STEPS.find(s => s.ms === fadeMs)
+            const curve = step?.curve ?? 'sigmoid'
+            this._animatedFade(state.howl, state.instanceId, currentVol, targetPerceptual, fadeMs, curve)
             this.playingSounds.set(key, { ...state, volume: targetVolume })
           }
         }
