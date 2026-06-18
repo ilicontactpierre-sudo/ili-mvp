@@ -629,13 +629,9 @@ function SoundBlock({
       onMouseDown={handleMouseDown}
       onDoubleClick={() => onDoubleClick && onDoubleClick(soundTrack)}
       onMouseEnter={() => {
-        console.log('mouseenter SoundBlock', soundTrack.soundId)
         setIsHovered(true)
         clearTimeout(hoverTimerRef.current)
-        hoverTimerRef.current = setTimeout(() => {
-          console.log('tooltip should show now')
-          setShowTitleTooltip(true)
-        }, 500)
+        hoverTimerRef.current = setTimeout(() => setShowTitleTooltip(true), 500)
       }}
       onMouseLeave={(e) => {
         // Ne déclencher que si la souris quitte vraiment le bloc (pas un enfant)
