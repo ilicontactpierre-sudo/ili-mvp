@@ -907,136 +907,98 @@ const SegmentTimelineRow = memo(function SegmentTimelineRow({
           {isLeader ? '◆' : '◇'}
         </button>
 
-      {/* Boutons d'action — sous l'étoile et le losange */}
+      {/* Boutons d'action — grid 2×3 compact */}
       <div style={{
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '3px',
+        display: 'grid',
+        gridTemplateColumns: '14px 14px',
+        gridTemplateRows: 'repeat(3, 14px)',
+        gap: '2px',
         flexShrink: 0,
-        alignItems: 'center',
+        alignSelf: 'flex-start',
         marginTop: '2px',
       }}>
+        {/* Ligne 1 : Aperçu | Ajouter */}
         <button
           onClick={(e) => { e.stopPropagation(); onPreviewFromSegment?.(index); }}
           title="Aperçu depuis ce segment"
           style={{
-            background: 'none',
-            border: 'none',
-            cursor: 'pointer',
-            padding: '0 1px',
-            fontSize: '0.6rem',
-            lineHeight: 1,
+            background: 'none', border: 'none', cursor: 'pointer', padding: 0,
+            fontSize: '0.58rem', lineHeight: 1,
             color: (hovered || isSelected) ? '#6366f1' : 'rgba(0,0,0,0.12)',
-            flexShrink: 0,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            width: '14px',
-            height: '14px',
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            width: '14px', height: '14px',
             opacity: (hovered || isSelected) ? 1 : 0.6,
-            transform: (hovered || isSelected) ? 'scale(1)' : 'scale(0.8)',
-            transition: 'color 0.2s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1), transform 0.32s cubic-bezier(0.34, 1.56, 0.64, 1)',
+            transition: 'color 0.2s ease, opacity 0.2s ease',
           }}
-        >
-          ▶
-        </button>
+        >▶</button>
         <button
           onClick={(e) => { e.stopPropagation(); onAdd(index); }}
           title="Ajouter un segment après"
           style={{
-            background: 'none',
-            border: 'none',
-            cursor: 'pointer',
-            padding: '0 1px',
-            fontSize: '0.65rem',
-            lineHeight: 1,
+            background: 'none', border: 'none', cursor: 'pointer', padding: 0,
+            fontSize: '0.65rem', lineHeight: 1,
             color: (hovered || isSelected) ? '#4CAF50' : 'rgba(0,0,0,0.12)',
-            flexShrink: 0,
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            width: '14px', height: '14px',
             transition: 'color 0.2s ease',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            width: '14px',
-            height: '14px',
           }}
-        >
-          ＋
-        </button>
+        >＋</button>
+        {/* Ligne 2 : Supprimer | Gamification */}
         <button
           onClick={(e) => { e.stopPropagation(); onDelete(index); }}
           title="Supprimer le segment"
           style={{
-            background: 'none',
-            border: 'none',
-            cursor: 'pointer',
-            padding: '0 1px',
-            fontSize: '0.6rem',
-            lineHeight: 1,
+            background: 'none', border: 'none', cursor: 'pointer', padding: 0,
+            fontSize: '0.58rem', lineHeight: 1,
             color: (hovered || isSelected) ? '#f44336' : 'rgba(0,0,0,0.12)',
-            flexShrink: 0,
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            width: '14px', height: '14px',
             transition: 'color 0.2s ease',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            width: '14px',
-            height: '14px',
           }}
-        >
-          ✕
-        </button>
+        >✕</button>
         <button
           onClick={(e) => { e.stopPropagation(); onGameMode(index); }}
           title={segment?.gameMode ? 'Modifier la gamification' : 'Ajouter une gamification'}
           style={{
-            background: 'none',
-            border: 'none',
-            cursor: 'pointer',
-            padding: '0 1px',
-            fontSize: '0.6rem',
-            lineHeight: 1,
-            color: segment?.gameMode
-              ? '#a78bfa'
-              : (hovered || isSelected) ? 'rgba(167,139,250,0.5)' : 'rgba(0,0,0,0.12)',
-            flexShrink: 0,
+            background: 'none', border: 'none', cursor: 'pointer', padding: 0,
+            fontSize: '0.58rem', lineHeight: 1,
+            color: segment?.gameMode ? '#a78bfa' : (hovered || isSelected) ? 'rgba(167,139,250,0.5)' : 'rgba(0,0,0,0.12)',
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            width: '14px', height: '14px',
             transition: 'color 0.2s ease',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            width: '14px',
-            height: '14px',
           }}
-        >
-          🎮
-        </button>
-        {segment?.gameMode?.type && (() => {
+        >🎮</button>
+        {/* Ligne 3 : badge gameMode type (occupe les 2 colonnes si présent) */}
+        {segment?.gameMode?.type ? (() => {
           const GAME_LABELS = {
             image: '🖼', filmstrip: '🎞', document: '📄', message: '💬',
             code: '🔢', riddle: '🧩', timer: '⏱', sequence: '🔀',
             journal: '✍️', crypte: '🔐', choice_quiz: '🎯', choice_branch: '🌿',
           }
-          const label = GAME_LABELS[segment.gameMode.type] || '🎮'
           return (
             <span
               onClick={(e) => { e.stopPropagation(); onGameMode(index); }}
               title={`Gamification : ${segment.gameMode.type}`}
               style={{
-                fontSize: '0.58rem',
+                gridColumn: '1 / -1',
+                fontSize: '0.55rem',
                 color: '#a78bfa',
                 backgroundColor: 'rgba(167,139,250,0.1)',
                 border: '1px solid rgba(167,139,250,0.25)',
                 borderRadius: '3px',
-                padding: '0 3px',
+                padding: '0 2px',
                 lineHeight: '13px',
                 cursor: 'pointer',
                 whiteSpace: 'nowrap',
-                flexShrink: 0,
                 userSelect: 'none',
+                textAlign: 'center',
+                overflow: 'hidden',
               }}
             >
-              {label}
+              {GAME_LABELS[segment.gameMode.type] || '🎮'}
             </span>
           )
-        })()}
+        })() : <span style={{ gridColumn: '1 / -1' }} />}
       </div>
           
         {/* Numéro du segment — cliquable si chapitre pour collapse/expand */}
