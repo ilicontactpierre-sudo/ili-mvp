@@ -762,6 +762,19 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle',
                     </>
                   )
                 }
+                const lines = segment.text.split('\n')
+                if (lines.length > 1) {
+                  return lines.map((line, li) => (
+                    <span key={li}>
+                      {emojiMode
+                        ? applyEmojiMode(line)
+                        : dys1
+                          ? applyBionicReading(line)
+                          : renderMarkdown(line, segment, false, { isFocused, keyPrefix: `s${index}_l${li}_` })}
+                      {li < lines.length - 1 && <br />}
+                    </span>
+                  ))
+                }
                 return emojiMode
                   ? applyEmojiMode(segment.text)
                   : dys1
