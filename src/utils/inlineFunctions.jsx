@@ -7,14 +7,9 @@ function getTheme() {
 function adaptColorForTheme(hex, theme) {
   try {
     if (theme.isDark === false || theme.isToutdoux === true) {
-  try {
-    const theme = JSON.parse(localStorage.getItem('ili_theme') || '{}')
-    if (theme.isDark === false || theme.isToutdoux === true) {
-      // Mode clair : assombrir la couleur pour garantir le contraste
       const r = parseInt(hex.slice(1, 3), 16)
       const g = parseInt(hex.slice(3, 5), 16)
       const b = parseInt(hex.slice(5, 7), 16)
-      // Convertir en HSL pour réduire la luminosité
       const rN = r / 255, gN = g / 255, bN = b / 255
       const max = Math.max(rN, gN, bN), min = Math.min(rN, gN, bN)
       let h, s, l = (max + min) / 2
