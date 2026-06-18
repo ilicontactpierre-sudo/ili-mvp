@@ -47,7 +47,7 @@ function SoundBlock({
   useEffect(() => { segmentsRef.current   = segments   }, [segments])
   useEffect(() => { rowHeightsRef.current = rowHeights }, [rowHeights])
   useEffect(() => {
-    propsRef.current = { onSelect, onDoubleClick, onResize, onColumnChange, onUpdate, onDragStart, onDragEnd, onDragTargetChange, soundTrack, onMove }
+    propsRef.current = { onSelect, onDoubleClick, onResize, onColumnChange, onUpdate, onDragStart, onDragEnd, onDragTargetChange, soundTrack, onMove, isCmdPressed }
   })
 
   // ── Couleurs ─────────────────────────────────────────────
