@@ -412,26 +412,30 @@ function SoundBlock({
   }
 
   // ── Automation : Cmd+clic pour créer un point ────────────
-  const handleAutomationCreate = useCallback((e, segIdx) => {
-    if (!e.metaKey && !e.ctrlKey) return
-    e.stopPropagation()
-    e.preventDefault()
-    const p = propsRef.current
+  const handleAutomationCreate = useCallback((segIdx) => {
+    const track = soundTrackRef.current
     const segs = segmentsRef.current
     const seg = segs[segIdx]
     if (!seg) return
     const segId = seg.id || seg._id || `seg_${segIdx}`
-    const effectiveVol = getEffectiveVolume(segIdx)
-    const existing = (p.soundTrack.automationPoints || []).find(
-      pt => pt.segmentId === segId
-    )
-    if (existing) return // point déjà là
+    const existing = (track.automationPoints || []).find(pt => pt.segmentId === segId)
+    if (existing) return
+    // Volume effectif à ce segment
+    const sortedPoints = [...(track.automationPoints || [])]
+      .map(pt => ({ pt, idx: segs.findIndex(s => s.id === pt.segmentId || s._id === pt.segmentId) }))
+      .filter(({ idx }) => idx !== -1)
+      .sort((a, b) => a.idx - b.idx)
+    let effectiveVol = track.volume ?? 0.5
+    for (const { pt, idx } of sortedPoints) {
+      if (idx <= segIdx) effectiveVol = pt.volume
+      else break
+    }
     const newPoints = [
-      ...(p.soundTrack.automationPoints || []),
+      ...(track.automationPoints || []),
       { segmentId: segId, volume: effectiveVol, fadeMs: 300 }
     ]
-    p.onUpdate(p.soundTrack.id, { automationPoints: newPoints })
-  }, [getEffectiveVolume])
+    propsRef.current.onUpdate(track.id, { automationPoints: newPoints })
+  }, [])
 
   // ── Automation : drag gauche/droite pour changer le volume ──
   const handleAutomationDrag = useCallback((e, ptIndex) => {
