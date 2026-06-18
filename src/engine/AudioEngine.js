@@ -256,14 +256,13 @@ class AudioEngine {
       const state = this.playingSounds.get(key)
       if (!state) return // son arrêté entretemps
 
-      // Fade out sur l'instance en cours
-      howl.fade(volume, 0, crossfadeMs, state.instanceId)
-
+      // Fade out sur l'instance en cours — courbe sigmoid pour crossfade naturel
+      this._animatedFade(howl, state.instanceId, volume, 0, crossfadeMs, 'sigmoid')
       // Lancer la nouvelle instance immédiatement avec fade in
       const newInstanceId = this._playInstance(howl, soundId, trimStart, trimEnd, key)
       howl.loop(false, newInstanceId)
       howl.volume(0, newInstanceId)
-      howl.fade(0, this._toPerceptualVolume(volume), crossfadeMs, newInstanceId)
+      this._animatedFade(howl, newInstanceId, 0, this._toPerceptualVolume(volume), crossfadeMs, 'sigmoid')
       // Mettre à jour l'état avec la nouvelle instance
       this.playingSounds.set(key, { ...state, instanceId: newInstanceId })
 
