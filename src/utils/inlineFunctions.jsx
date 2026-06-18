@@ -497,6 +497,21 @@ function FonduMotSpan({ text, duree, vitesse, isFocused }) {
 }
 
 
+const APPARITION_SPEED_MAP = { lent: 1200, normal: 600, rapide: 200 }
+function resolveApparitionSpeed(v) { return APPARITION_SPEED_MAP[v] ?? parseInt(v) ?? 600 }
+function ApparitionSpan({ children, délai, vitesse, isFocused }) {
+  const delay    = parseInt(délai) || 0
+  const duration = resolveApparitionSpeed(vitesse)
+  return (
+    <span style={{
+      display: 'inline',
+      opacity: isFocused ? 1 : 0,
+      transition: isFocused ? `opacity ${duration}ms ease ${delay}ms` : 'none',
+    }}>
+      {children}
+    </span>
+  )
+}
 function CensureSpan({ children }) {
   const text = typeof children === 'string' ? children : ''
   return (
