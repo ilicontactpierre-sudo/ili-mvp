@@ -1552,6 +1552,19 @@ function UnifiedSegmentsTimeline({
     if (onSaveToHistory) onSaveToHistory()
   }, [segments, soundTracks, onSegmentsChange, onSoundTracksChange, onSaveToHistory])
 
+  // ── Insérer un segment pause entre deux segments ───────────────────────────
+  const handleInsertPause = useCallback((afterIndex) => {
+    const newPause = {
+      id: `seg_pause_${Date.now()}_${Math.random().toString(36).slice(2, 7)}`,
+      text: '',
+      pause: 1500, // durée par défaut en ms, éditable dans la cellule
+    }
+    const updated = [...segments]
+    updated.splice(afterIndex + 1, 0, newPause)
+    onSegmentsChange(updated)
+    if (onSaveToHistory) onSaveToHistory()
+  }, [segments, onSegmentsChange, onSaveToHistory])
+
   const handleSplitSegment = useCallback((index, splitPosition) => {
     const segment = segments[index]
     const text = getSegmentText(segment)
