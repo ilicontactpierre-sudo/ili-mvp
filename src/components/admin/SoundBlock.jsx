@@ -54,6 +54,32 @@ function SoundBlock({
     const prev = prevStartSegmentIdRef.current
     const curr = soundTrack.startSegmentId
     prevStartSegmentIdRef.current = curr
+
+    // ── PA général : injecter un point au segment de départ si aucun n'existe ──
+    // Ce PA "ancre" le volume du track et permet de le modifier directement
+    // depuis la timeline sans passer par le panel.
+    const points = soundTrack.automationPoints ?? []
+    const hasAnchorPoint = points.some(pt => pt.segmentId === curr && pt._isAnchor)
+    if (!hasAnchorPoint && curr) {
+      // Vérifier qu'il n'y a pas déjà un PA manuel sur ce segment
+      const hasManualPoint = points.some(pt => pt.segmentId === curr)
+      if (!hasManualPoint) {
+        const newAnchor = {
+          segmentId: curr,
+          volume: soundTrack.volume ?? 0.5,
+          fadeMs: 0,
+          _isAnchor: true, // flag interne pour identifier ce PA auto-généré
+        }
+        // Ne mettre à jour que si le composant est monté et les props disponibles
+        // (propsRef.current.onUpdate peut être absent au premier render)
+        if (propsRef.current.onUpdate) {
+          propsRef.current.onUpdate(soundTrack.id, {
+            automationPoints: [newAnchor, ...points],
+          })
+        }
+      }
+    }
+
     // Si le startSegmentId a changé ET qu'il y a des PA, les translater
     if (prev !== curr && soundTrack.automationPoints?.length > 0) {
       const segs = segmentsRef.current
