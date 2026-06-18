@@ -2272,8 +2272,20 @@ const handleTextSelection = useCallback(() => {
   }, [soundTracks, onSoundTracksChange, onSaveToHistory])
 
   const handleSaveSoundTrack = useCallback((updatedTrack) => {
+    // Synchroniser le PA ancre avec le volume final du panel
+    let finalTrack = updatedTrack
+    if (updatedTrack.automationPoints?.length > 0) {
+      const anchorIdx = updatedTrack.automationPoints.findIndex(
+        pt => pt.segmentId === updatedTrack.startSegmentId && pt._isAnchor
+      )
+      if (anchorIdx !== -1) {
+        const newPoints = [...updatedTrack.automationPoints]
+        newPoints[anchorIdx] = { ...newPoints[anchorIdx], volume: updatedTrack.volume ?? 0.5 }
+        finalTrack = { ...updatedTrack, automationPoints: newPoints }
+      }
+    }
     const updatedTracks = soundTracks.map(track =>
-      track.id === updatedTrack.id ? updatedTrack : track
+      track.id === finalTrack.id ? finalTrack : track
     )
     onSoundTracksChange(updatedTracks)
     if (onSaveToHistory) onSaveToHistory()
