@@ -245,3 +245,10 @@
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
 }
+
+/* Segment pause : invisible mais présent dans le flux (préserve le calcul translateY) */
+.story-reader__segment--pause {
+  visibility: hidden;
+  pointer-events: none;
+  user-select: none;
+}
