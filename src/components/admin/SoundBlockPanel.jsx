@@ -480,12 +480,11 @@ function SoundBlockPanel({
                 <input
                   type="number"
                   min="0"
-                  max="10000"
                   step="100"
                   value={editedTrack.delay || 0}
                   onChange={(e) => handleChange('delay', parseInt(e.target.value) || 0)}
                   style={{
-                    width: '70px',
+                    width: '80px',
                     padding: '0.25rem 0.5rem',
                     backgroundColor: 'rgba(255,255,255,0.1)',
                     border: `1px solid ${color}60`,
