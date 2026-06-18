@@ -445,11 +445,11 @@ function SoundBlock({
     return last
   }, [soundTrack])
 
-  // Dessine la forme SVG d'un point selon l'index du fade (0→cercle, 1→triangle, 2→losange, 3→pentagone, 4→hexagone)
   const renderAutomationShape = (fadeStepIndex, x, y, size, color, isSelected) => {
+    const fill = '#fff'
     const stroke = isSelected ? '#fff' : color
-    const fill = color
-    const sw = isSelected ? 2 : 1.5
+    const sw = isSelected ? 2.5 : 2
+    const shadow = color
     if (fadeStepIndex === 0) {
       // Cercle plein — instantané
       return <circle cx={x} cy={y} r={size / 2} fill={fill} stroke={stroke} strokeWidth={sw} />
