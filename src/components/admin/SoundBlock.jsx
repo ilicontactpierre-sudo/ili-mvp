@@ -628,8 +628,15 @@ function SoundBlock({
       }}
       onMouseDown={handleMouseDown}
       onDoubleClick={() => onDoubleClick && onDoubleClick(soundTrack)}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+      onMouseEnter={() => {
+        setIsHovered(true)
+        hoverTimerRef.current = setTimeout(() => setShowTitleTooltip(true), 500)
+      }}
+      onMouseLeave={() => {
+        setIsHovered(false)
+        clearTimeout(hoverTimerRef.current)
+        setShowTitleTooltip(false)
+      }}
     >
       {/* Poignée resize haut */}
       <div
