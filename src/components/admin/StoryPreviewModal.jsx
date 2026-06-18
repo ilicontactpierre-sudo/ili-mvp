@@ -273,11 +273,12 @@ function StoryPreviewModal({ isOpen, storyData, onClose, startSegmentIndex = nul
             width: '390px',
             height: '844px',
             transformOrigin: 'top left',
-            transform: 'scale(0.792)',  /* 375/390 ≈ 0.96 en largeur, 667/844 ≈ 0.79 en hauteur */
+            transform: 'scale(0.792)',
             overflow: 'hidden',
             position: 'absolute',
             top: 0,
             left: 0,
+            contain: 'strict',
           }}
           onClick={handleScreenClick}
           onTouchStart={handleTouchStart}
