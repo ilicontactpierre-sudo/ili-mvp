@@ -785,7 +785,7 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle',
                   ? applyEmojiMode(segment.text)
                   : dys1
                     ? applyBionicReading(segment.text)
-                    : renderMarkdown(segment.text, segment, false, { isFocused, keyPrefix: `s${index}_` })
+                    : renderMarkdown(segment.text, segment, false, { isFocused, keyPrefix: `s${index}_t${themeKey}_` })
               })()}
             </p>
           )
