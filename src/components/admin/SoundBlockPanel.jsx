@@ -156,7 +156,50 @@ function SoundBlockPanel({
   const handleCancelDelete = useCallback(() => {
     setShowDeleteConfirm(false)
   }, [])
-
+  // Lecture d'un aperçu avec les réglages actuels (volume, pan, trim, fades)
+  const handlePreviewPlay = useCallback(() => {
+    if (isPreviewPlaying) {
+      stopPreview()
+      return
+    }
+    if (!sound?.url) return
+    const howl = new Howl({ src: [sound.url], preload: true })
+    previewHowlRef.current = howl
+    const engine = new AudioEngine(new Map([[editedTrack.soundId, howl]]))
+    previewEngineRef.current = engine
+    const playSettings = {
+      trackId: 'preview',
+      soundId: editedTrack.soundId,
+      volume: editedTrack.volume ?? 0.5,
+      loop: false,
+      trimStart: editedTrack.trimStart,
+      trimEnd: editedTrack.trimEnd,
+      pan: editedTrack.pan ?? 0,
+      panMode: editedTrack.panMode ?? 'static',
+    }
+    howl.once('load', () => {
+      setIsPreviewPlaying(true)
+      const fadeInMs = editedTrack.fadeIn || 0
+      const fadeOutMs = editedTrack.fadeOut || 0
+      const fullDurationMs = (howl.duration() || 0) * 1000
+      const trimmedDurationMs = playSettings.trimEnd != null
+        ? playSettings.trimEnd - (playSettings.trimStart || 0)
+        : fullDurationMs - (playSettings.trimStart || 0)
+      if (fadeInMs > 0) {
+        engine.fadeInSound({ ...playSettings, duration: fadeInMs })
+      } else {
+        engine.playSound(playSettings)
+      }
+      if (fadeOutMs > 0 && trimmedDurationMs > fadeOutMs) {
+        previewTimeoutRef.current = setTimeout(() => {
+          engine.fadeOutSound({ trackId: 'preview', soundId: editedTrack.soundId, duration: fadeOutMs })
+        }, trimmedDurationMs - fadeOutMs)
+      }
+      howl.once('end', () => setIsPreviewPlaying(false))
+    })
+    howl.once('loaderror', () => setIsPreviewPlaying(false))
+    howl.load()
+  }, [isPreviewPlaying, stopPreview, sound, editedTrack])
   // Trouver les indexes des segments
   const getSegmentIndex = useCallback((segmentId) => {
     if (!segmentId) return -1
