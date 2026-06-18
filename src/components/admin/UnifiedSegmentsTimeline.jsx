@@ -1445,8 +1445,8 @@ function TransitionConfigPanel({ transition, onChange, onClose }) {
   )
 }
 
-// Composant pour le séparateur entre segments (double-clic pour fusionner)
-const SegmentSeparator = memo(function SegmentSeparator({ index, onMerge, isHovered, onHover }) {  return 
+// Composant pour le séparateur entre segments (double-clic pour fusionner, clic ⏱ pour pause)
+const SegmentSeparator = memo(function SegmentSeparator({ index, onMerge, onInsertPause, isHovered, onHover }) {
   const hovered = isHovered === index
   const [showPauseHint, setShowPauseHint] = useState(false)
 
@@ -1473,7 +1473,7 @@ const SegmentSeparator = memo(function SegmentSeparator({ index, onMerge, isHove
         transition: 'background-color 0.15s ease',
       }} />
 
-      {/* Zone centrale : fusion (double-clic) + pause (simple clic sur ⏱) */}
+      {/* Boutons (visibles au survol) */}
       {hovered && (
         <div style={{
           position: 'absolute',
@@ -1484,7 +1484,7 @@ const SegmentSeparator = memo(function SegmentSeparator({ index, onMerge, isHove
           gap: '4px',
           zIndex: 10,
         }}>
-          {/* Bouton fusion */}
+          {/* Fusion */}
           <div
             onDoubleClick={(e) => { e.stopPropagation(); onMerge(index) }}
             title="Double-cliquez pour fusionner"
@@ -1507,14 +1507,14 @@ const SegmentSeparator = memo(function SegmentSeparator({ index, onMerge, isHove
             ⊕
           </div>
 
-          {/* Bouton insérer pause */}
+          {/* Pause */}
           <div
             onClick={(e) => { e.stopPropagation(); onInsertPause(index) }}
             onMouseEnter={() => setShowPauseHint(true)}
             onMouseLeave={() => setShowPauseHint(false)}
-            title="Insérer une pause (segment invisible, auto-avance)"
+            title="Insérer une pause"
             style={{
-              backgroundColor: '#9ca3af',
+              backgroundColor: '#a78bfa',
               color: 'white',
               borderRadius: '50%',
               width: '20px',
@@ -1528,17 +1528,15 @@ const SegmentSeparator = memo(function SegmentSeparator({ index, onMerge, isHove
               flexShrink: 0,
               transition: 'background-color 0.15s ease',
             }}
-            onMouseDown={e => e.currentTarget.style.backgroundColor = '#6b7280'}
-            onMouseUp={e => e.currentTarget.style.backgroundColor = '#9ca3af'}
           >
             ⏱
           </div>
 
-          {/* Tooltip pause */}
+          {/* Tooltip */}
           {showPauseHint && (
             <div style={{
               position: 'absolute',
-              top: '26px',
+              top: '24px',
               left: '50%',
               transform: 'translateX(-50%)',
               backgroundColor: '#1a1a2e',
