@@ -454,12 +454,31 @@ function SoundBlock({
 
   // ── Automation : drag gauche/droite pour changer le volume ──
   const handleAutomationDrag = useCallback((e, ptIndex) => {
-    if (e.shiftKey) return // Maj+clic géré séparément
+    if (e.shiftKey) return
     e.stopPropagation()
     e.preventDefault()
     const p = propsRef.current
     const startX = e.clientX
     const initVolume = (soundTrackRef.current.automationPoints || [])[ptIndex]?.volume ?? 0.5
+    let lastVolume = initVolume
+    const onMove = (ev) => {
+      const dx = ev.clientX - startX
+      const newVol = Math.max(0, Math.min(1, initVolume + dx / 100))
+      lastVolume = Math.round(newVol * 100) / 100
+      setAutomationTooltip({ pointIndex: ptIndex, volume: Math.round(lastVolume * 100) })
+      const newPoints = (soundTrackRef.current.automationPoints || []).map((pt, i) =>
+        i === ptIndex ? { ...pt, volume: lastVolume } : pt
+      )
+      p.onUpdate(soundTrackRef.current.id, { automationPoints: newPoints })
+    }
+    const onUp = () => {
+      window.removeEventListener('mousemove', onMove)
+      window.removeEventListener('mouseup', onUp)
+      setAutomationTooltip(null)
+    }
+    window.addEventListener('mousemove', onMove)
+    window.addEventListener('mouseup', onUp)
+  }, [])
     let lastVolume = initVolume
     const onMove = (ev) => {
       const dx = ev.clientX - startX
