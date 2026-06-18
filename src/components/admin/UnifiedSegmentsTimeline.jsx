@@ -848,8 +848,8 @@ const SegmentTimelineRow = memo(function SegmentTimelineRow({
           title="Déplacer ce segment"
           style={{
             cursor: isDragging ? 'grabbing' : 'grab',
-            padding: '0 2px',
-            fontSize: '0.75rem',
+            padding: '0 1px',
+            fontSize: '0.7rem',
             color: 'rgba(0,0,0,0.2)',
             flexShrink: 0,
             alignSelf: 'flex-start',
@@ -863,56 +863,50 @@ const SegmentTimelineRow = memo(function SegmentTimelineRow({
         >
           ⠿
         </div>
-      {/* Étoile : bascule le statut chapitre */}
+      {/* Étoile + Losange : empilés verticalement pour gagner de la largeur */}
+      <div style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '1px',
+        flexShrink: 0,
+        alignSelf: 'flex-start',
+        marginTop: '3px',
+      }}>
         <button
           onClick={(e) => { e.stopPropagation(); onToggleIsChapter(index) }}
           title={isChapter ? 'Retirer le statut chapitre' : 'Marquer comme chapitre'}
           style={{
-            background: 'none',
-            border: 'none',
-            cursor: 'pointer',
-            padding: '0 1px',
-            fontSize: '0.65rem',
-            lineHeight: 1,
+            background: 'none', border: 'none', cursor: 'pointer',
+            padding: 0, fontSize: '0.6rem', lineHeight: 1,
             color: isChapter ? '#8B5CF6' : 'rgba(0,0,0,0.18)',
-            flexShrink: 0,
+            width: '12px', height: '12px',
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
             transition: 'color 0.2s ease',
-            alignSelf: 'flex-start',
-            marginTop: '3px',
           }}
-
         >
           {isChapter ? '★' : '☆'}
         </button>
-
-        {/* Losange : bascule le statut leader */}
         <button
           onClick={(e) => { e.stopPropagation(); onToggleIsLeader(index) }}
           title={isLeader ? 'Retirer le statut leader' : 'Marquer comme leader (nouvelle séquence)'}
           style={{
-            background: 'none',
-            border: 'none',
-            cursor: 'pointer',
-            padding: '0 1px',
-            fontSize: '0.6rem',
-            lineHeight: 1,
+            background: 'none', border: 'none', cursor: 'pointer',
+            padding: 0, fontSize: '0.55rem', lineHeight: 1,
             color: isLeader ? '#F97316' : 'rgba(0,0,0,0.18)',
-            flexShrink: 0,
+            width: '12px', height: '12px',
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
             transition: 'color 0.2s ease',
-            alignSelf: 'flex-start',
-            marginTop: '3px',
           }}
-
         >
           {isLeader ? '◆' : '◇'}
         </button>
-
+      </div>
       {/* Boutons d'action — grid 2×3 compact */}
       <div style={{
         display: 'grid',
-        gridTemplateColumns: '14px 14px',
-        gridTemplateRows: 'repeat(3, 14px)',
-        gap: '2px',
+        gridTemplateColumns: '13px 13px',
+        gridTemplateRows: 'repeat(3, 13px)',
+        gap: '1px',
         flexShrink: 0,
         alignSelf: 'flex-start',
         marginTop: '2px',
