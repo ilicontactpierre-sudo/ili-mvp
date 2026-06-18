@@ -514,7 +514,7 @@
         {
           "action": "play",
           "soundId": "objfurn_wood_chair_take_slide_medium_02_b00m_one",
-          "volume": 0.7,
+          "volume": 0.75,
           "delay": 0,
           "loop": false
         }
@@ -1500,7 +1500,7 @@
       "startSegmentId": "seg_1781326327990_32_l7g87",
       "endSegmentId": "seg_1781326327990_32_l7g87",
       "column": 2,
-      "volume": 0.7,
+      "volume": 0.75,
       "fadeIn": 0,
       "fadeOut": 0,
       "delay": 0,
