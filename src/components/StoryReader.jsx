@@ -174,39 +174,82 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle',
     try { return localStorage.getItem('ili_emoji') === 'true' } catch { return false }
   })
   // Écouter les changements de DYS + progression en temps réel (via polling léger)
-  useEffect(() => {
-    const interval = setInterval(() => {
-      const d1 = window.__iliDys1 ?? (localStorage.getItem('ili_dys1') === 'true')
-      const d2 = window.__iliDys2 ?? (localStorage.getItem('ili_dys2') === 'true')
-      const em = window.__iliEmoji ?? (localStorage.getItem('ili_emoji') === 'true')
-      const sp = window.__iliShowProgress ?? (localStorage.getItem('ili_show_progress') !== 'false')
-      setDys1(prev => prev !== d1 ? d1 : prev)
-      setDys2(prev => prev !== d2 ? d2 : prev)
-      setEmojiMode(prev => prev !== em ? em : prev)
-      setShowProgress(prev => prev !== sp ? sp : prev)
-      const theme = localStorage.getItem('ili_theme') || ''
-      setThemeKey(prev => {
-        const next = theme
-        return prev !== next ? next : prev
-      })
-    }, 150)
-    return () => clearInterval(interval)
-  }, [])
+  // ── Courbes bézier nommées pour les transitions ──
+  const TRANSITION_EASINGS = {
+    'ease-in-out':  'cubic-bezier(0.4, 0, 0.2, 1)',
+    'ease-in':      'cubic-bezier(0.4, 0, 1, 1)',
+    'ease-out':     'cubic-bezier(0, 0, 0.2, 1)',
+    's-curve':      'cubic-bezier(0.87, 0, 0.13, 1)',
+    'spring':       'cubic-bezier(0.34, 1.56, 0.64, 1)',
+  }
 
-  useLayoutEffect(() => {
-    if (storyData || !storyId) return
-    let isCancelled = false
-    async function loadStory() {
-      try {
-        const response = await fetch(`/stories/${storyId}.json`)
-        if (!response.ok) { console.error(`Erreur chargement histoire: ${storyId}`); return }
-        const data = await response.json()
-        if (!isCancelled) setLoadedStory(data)
-      } catch (err) { console.error('Erreur chargement histoire:', err) }
+  useEffect(() => {
+    const overlay = flashOverlayRef.current
+    if (!overlay) return
+
+    // ── Priorité 1 : transition de segment pause ───────────────────────────
+    const currentSeg = finalSegments[currentIndex]
+    if (currentSeg?.pause && currentSeg?.transition) {
+      const tr = currentSeg.transition
+      const color = tr.color ?? '#000000'
+      const easing = TRANSITION_EASINGS[tr.easing] ?? TRANSITION_EASINGS['ease-in-out']
+      const fadeIn  = tr.fadeInDuration  ?? 400
+      const hold    = tr.holdDuration    ?? 0
+      const fadeOut = tr.fadeOutDuration ?? 400
+
+      overlay.style.display = 'block'
+      overlay.style.backgroundColor = color
+      overlay.style.opacity = '0'
+
+      // Phase 1 : fondu entrant
+      requestAnimationFrame(() => {
+        overlay.style.transition = `opacity ${fadeIn}ms ${easing}`
+        overlay.style.opacity = tr.type === 'veil' ? '0.55' : '1'
+
+        // Phase 2 : tenue → fondu sortant
+        const t = setTimeout(() => {
+          overlay.style.transition = `opacity ${fadeOut}ms ${easing}`
+          overlay.style.opacity = '0'
+          const t2 = setTimeout(() => {
+            if (overlay.style.opacity === '0') overlay.style.display = 'none'
+          }, fadeOut + 50)
+          return () => clearTimeout(t2)
+        }, fadeIn + hold)
+
+        return () => clearTimeout(t)
+      })
+      return
     }
-    loadStory()
-    return () => { isCancelled = true }
-  }, [storyId, storyData])
+
+    // ── Priorité 2 : flash VFX track (comportement inchangé) ──────────────
+    const flashTrack = storyData?.vfxTracks?.find(t => {
+      if (t.type !== 'flash') return false
+      const segs = storyData.segments || []
+      const si = segs.findIndex(s => s.id === t.startSegmentId || s._id === t.startSegmentId)
+      const ei = segs.findIndex(s => s.id === t.endSegmentId   || s._id === t.endSegmentId)
+      const te = ei !== -1 ? ei : si
+      return si <= currentIndex && currentIndex <= te
+    })
+
+    if (flashTrack) {
+      const isDark = (() => {
+        try { return JSON.parse(localStorage.getItem('ili_theme') || '{}').isDark !== false } catch { return true }
+      })()
+      const color = getFlashColor(flashTrack.color, isDark)
+      const duration = FLASH_SPEED[flashTrack.mode] ?? 1000
+      overlay.style.setProperty('--flash-color', color)
+      overlay.style.setProperty('--flash-duration', `${duration}ms`)
+      overlay.style.transition = 'opacity 400ms ease-in'
+      overlay.style.opacity = '1'
+      overlay.style.display = 'block'
+    } else {
+      overlay.style.transition = 'opacity 900ms ease-out'
+      overlay.style.opacity = '0'
+      setTimeout(() => {
+        if (overlay.style.opacity === '0') overlay.style.display = 'none'
+      }, 900)
+    }
+  }, [currentIndex, storyData, finalSegments])
 
   const rawSegments = storyData ? segments : loadedStory ? loadedStory.segments || [] : segments
 
