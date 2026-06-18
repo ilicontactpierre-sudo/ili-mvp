@@ -52,6 +52,7 @@ class AudioEngine {
 
   stopSound(soundId, trackId) {
     const key = trackId || soundId
+    console.log(`[AudioEngine] stopSound: key=${key} soundId=${soundId}`)
     this._fadeTokens.delete(key)
     this._stopPanAnimation(key)
     const soundState = this.playingSounds.get(key)
@@ -187,6 +188,7 @@ class AudioEngine {
   }
 
   stopAll(duration = 0) {
+    console.log(`[AudioEngine] stopAll appelé, duration=${duration}, sons actifs:`, [...this.playingSounds.keys()])
     this._fadeTokens.clear()
     this._panAnimations.forEach((_, key) => this._stopPanAnimation(key))
     this.playingSounds.forEach(({ howl, instanceId, _loopTimeout }) => {
@@ -309,15 +311,30 @@ class AudioEngine {
     // Arrêter les sons qui ne doivent plus jouer
     this.playingSounds.forEach((state, key) => {
       if (!activeKeys.has(key)) {
-        // Retrouver le track via la key (qui est le trackId ou le soundId)
         const track = soundTracks.find(t => t.id === key || t.soundId === key)
-        // fadeOut déjà en ms dans le JSON
         const fadeOutMs = track?.fadeOut ?? 0
+        const isLoop = track?.loop ?? state.loop ?? false
+
         if (fadeOutMs > 0) {
+          // Fade out explicite
           this.fadeOutSound({ trackId: key, soundId: state.soundId, duration: fadeOutMs })
-        } else {
-          // fadeOut = 0 → arrêt immédiat propre
+        } else if (isLoop) {
+          // Loop sans fadeOut → arrêt immédiat (sinon il joue à l'infini)
           this.stopSound(state.soundId, key)
+        } else {
+          // One-shot sans fadeOut → laisser le son finir naturellement.
+          console.log(`[AudioEngine] ONE-SHOT laisser finir: key=${key} soundId=${state.soundId} instanceId=${state.instanceId}`)
+          this._fadeTokens.delete(key)
+          this._stopPanAnimation(key)
+          if (state._loopTimeout) clearTimeout(state._loopTimeout)
+          this.playingSounds.delete(key)
+          // Quand le son finit naturellement, nettoyer l'instance
+          state.howl.once('end', () => {
+            console.log(`[AudioEngine] ONE-SHOT fin naturelle: key=${key} soundId=${state.soundId}`)
+            if (state.instanceId != null) {
+              try { state.howl.stop(state.instanceId) } catch (_) {}
+            }
+          }, state.instanceId)
         }
       }
     })
