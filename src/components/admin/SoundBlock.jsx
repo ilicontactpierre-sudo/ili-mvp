@@ -51,14 +51,14 @@ function SoundBlock({
   // ── Couleurs ─────────────────────────────────────────────
   const sound = soundLibrary.find(s => s.id === soundTrack.soundId)
   const getColor = useCallback(() => {
+    if (soundTrack.color) return soundTrack.color
     if (!sound) return '#ccc'
     const categories = sound.categories || []
     for (const cat of categories) {
       if (CATEGORY_COLORS[cat]) return CATEGORY_COLORS[cat]
     }
     return CATEGORY_COLORS['Autre']
-  }, [sound])
-
+  }, [sound, soundTrack.color])
   const baseColor   = getColor()
   const darkerColor = getDarkerColor(baseColor)
   const bgColor     = soundTrack.muted ? '#888' : (isSelected ? baseColor : `${baseColor}99`)
