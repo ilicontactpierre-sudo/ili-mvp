@@ -358,6 +358,36 @@ class AudioEngine {
         }
       }
       // (fadeOut géré à la sortie du bloc, pas sur isLastSegment)
+
+      // ── Automation de volume ──────────────────────────────
+      // Si le track a des automationPoints, calculer le volume cible
+      // au segment courant et l'appliquer avec le fade du point concerné
+      if (track.automationPoints && track.automationPoints.length > 0) {
+        const key = track.id || track.soundId
+        if (this.playingSounds.has(key)) {
+          // Trouver le dernier point d'automation dont le segment est ≤ currentIndex
+          let targetVolume = track.volume ?? 0.5
+          let fadeMs = 0
+          for (const pt of track.automationPoints) {
+            const ptIdx = getIndex(pt.segmentId)
+            if (ptIdx !== -1 && ptIdx <= currentIndex) {
+              targetVolume = pt.volume
+              fadeMs = ptIdx === currentIndex ? (pt.fadeMs ?? 0) : 0
+            }
+          }
+          const state = this.playingSounds.get(key)
+          const currentVol = state?.howl?.volume(undefined, state?.instanceId) ?? targetVolume
+          const targetPerceptual = this._toPerceptualVolume(targetVolume)
+          if (Math.abs(currentVol - targetPerceptual) > 0.01) {
+            if (fadeMs > 0) {
+              state.howl.fade(currentVol, targetPerceptual, fadeMs, state.instanceId)
+            } else {
+              state.howl.volume(targetPerceptual, state.instanceId)
+            }
+            this.playingSounds.set(key, { ...state, volume: targetVolume })
+          }
+        }
+      }
     })
   }
 
