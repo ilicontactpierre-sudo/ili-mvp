@@ -2623,6 +2623,14 @@ const handleTextSelection = useCallback(() => {
                     onEditChange: handleEditChange,
                     onEditBlur: handleEditBlur,
                     onEditKeyDown: handleEditKeyDown,
+                    isPause: segment?.pause != null,
+                    pauseDuration: segment?.pause ?? null,
+                    onPauseDurationChange: (idx, ms) => {
+                      const updated = [...segments]
+                      updated[idx] = { ...updated[idx], pause: ms }
+                      onSegmentsChange(updated)
+                      if (onSaveToHistory) onSaveToHistory()
+                    },
                     isEditing: editingSegmentIndex === index,
                     editText: editTexts[index] || '',
                     onSplitAtPosition: handleSplitSegment,
