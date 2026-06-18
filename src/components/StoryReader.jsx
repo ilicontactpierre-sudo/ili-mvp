@@ -620,7 +620,11 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle',
           key={chapterSegment.id}
         >
           <span className="story-reader__chapter-float-text">
-            {chapterSegment.text}
+            {renderMarkdown(chapterSegment.text, chapterSegment, dys1, {
+              isFocused: chapterMode === 'focused',
+              keyPrefix: `chapter_${chapterSegment.id}_`,
+              emojiMode,
+            })}
           </span>
           <div className="story-reader__chapter-float-line" />
         </div>
