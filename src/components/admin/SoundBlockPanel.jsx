@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { createPortal } from 'react-dom'
 import { Howl } from 'howler'
-import { CATEGORY_COLORS } from './constants'
+import { CATEGORY_COLORS, SOUND_BLOCK_COLORS } from './constants'
 import WaveformTrimmer from './WaveformTrimmer'
 import SoundLibraryPicker from './SoundLibraryPicker'
 import AudioEngine from '../../engine/AudioEngine'
