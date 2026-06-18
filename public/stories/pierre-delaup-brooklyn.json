@@ -180,8 +180,8 @@
       "lines": [
         "- À nos six années ici, et surtout, à ta fin de mission ! \"Well done\" comme on dit !"
       ],
-      "text": "</couleur|- À nos six années ici, et surtout, à ta fin de mission !/> </couleur:#d4a96a|\"Well done\" comme on dit !/>",
-      "breakAt": 70,
+      "text": "</couleur:#ffe066|- À nos six années ici, et surtout, à ta fin de mission !/> </couleur:#ffe066|\"Well done\" comme on dit !/>",
+      "breakAt": 78,
       "isLeader": true,
       "audioEvents": [
         {
@@ -206,7 +206,7 @@
       "lines": [
         "- Merci mon cœur…"
       ],
-      "text": "</couleur:#3e8639|- Merci mon cœur…/>",
+      "text": "</couleur:#a8f0c6|- Merci mon cœur…/>",
       "breakAt": null,
       "isLeader": false,
       "audioEvents": []
