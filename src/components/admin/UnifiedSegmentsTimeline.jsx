@@ -2281,9 +2281,25 @@ const handleTextSelection = useCallback(() => {
   }, [soundTracks, onSoundTracksChange, onSaveToHistory])
 
   const handleUpdateSoundTrack = useCallback((soundId, updates) => {
-    const updatedTracks = soundTracks.map(track =>
-      track.id === soundId ? { ...track, ...updates } : track
-    )
+    const updatedTracks = soundTracks.map(track => {
+      if (track.id !== soundId) return track
+      const merged = { ...track, ...updates }
+
+      // ── Synchroniser le PA ancre si le volume du bloc change ──────────
+      // Le PA _isAnchor au segment de départ reflète toujours le volume du panel.
+      if ('volume' in updates && merged.automationPoints?.length > 0) {
+        const anchorIdx = merged.automationPoints.findIndex(
+          pt => pt.segmentId === merged.startSegmentId && pt._isAnchor
+        )
+        if (anchorIdx !== -1) {
+          const newPoints = [...merged.automationPoints]
+          newPoints[anchorIdx] = { ...newPoints[anchorIdx], volume: updates.volume }
+          merged.automationPoints = newPoints
+        }
+      }
+
+      return merged
+    })
     onSoundTracksChange(updatedTracks)
     if (onSaveToHistory) onSaveToHistory()
   }, [soundTracks, onSoundTracksChange, onSaveToHistory])
