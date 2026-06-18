@@ -441,11 +441,7 @@ function SoundBlock({
       }}>
         {sound ? sound.label.substring(0, 15) : soundTrack.soundId}
       </div>
-      {blockHeight > 30 && (
-        <div style={{ fontSize: '9px', color: '#666', marginTop: '2px', position: 'relative', zIndex: 1 }}>
-          Col {soundTrack.column}
-        </div>
-      )}
+      
 
       {/* Fade out */}
       <div
