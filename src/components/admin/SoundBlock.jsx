@@ -27,7 +27,8 @@ function SoundBlock({
   onDragStart,
   onDragEnd,
   onDragTargetChange,
-  currentSegmentIndex
+  currentSegmentIndex,
+  isCmdPressed,
 }) {
   // ── States visuels uniquement ────────────────────────────
   const [isDragging, setIsDragging]               = useState(false)
