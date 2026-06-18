@@ -298,7 +298,7 @@ function StoryPreviewModal({ isOpen, storyData, onClose, startSegmentIndex = nul
                 key={`preview-reader-${storyData?.id || 'draft'}-${readerKey}`}
                 storyData={storyData}
                 currentIndex={currentIndex}
-                viewportHeight={667}
+                viewportHeight={844}
                 _debugLabel="preview"
               />
               {activeGameMode && (
