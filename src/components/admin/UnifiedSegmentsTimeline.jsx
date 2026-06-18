@@ -1446,7 +1446,7 @@ function TransitionConfigPanel({ transition, onChange, onClose }) {
 }
 
 // Composant pour le séparateur entre segments (double-clic pour fusionner)
-const SegmentSeparator = memo(function SegmentSeparator({ index, onMerge, isHovered, onHover }) {  return (
+const SegmentSeparator = memo(function SegmentSeparator({ index, onMerge, isHovered, onHover }) {  return 
   const hovered = isHovered === index
   const [showPauseHint, setShowPauseHint] = useState(false)
 
