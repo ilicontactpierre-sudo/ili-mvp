@@ -30,11 +30,12 @@ function SoundBlock({
   currentSegmentIndex
 }) {
   // ── States visuels uniquement ────────────────────────────
-  const [isDragging, setIsDragging]       = useState(false)
-  const [isResizing, setIsResizing]       = useState(null)
-  const [isAdjustingFade, setIsAdjustingFade] = useState(null)
-  const [dragOffset, setDragOffset]       = useState({ x: 0, y: 0 })
-  const [isHovered, setIsHovered]         = useState(false)
+  const [isDragging, setIsDragging]               = useState(false)
+  const [isResizing, setIsResizing]               = useState(null)
+  const [isAdjustingFade, setIsAdjustingFade]     = useState(null)
+  const [dragOffset, setDragOffset]               = useState({ x: 0, y: 0 })
+  const [isHovered, setIsHovered]                 = useState(false)
+  const [automationTooltip, setAutomationTooltip] = useState(null) // { pointIndex, volume }
 
   // ── Refs — jamais de closure périmée ────────────────────
   const blockRef      = useRef(null)
