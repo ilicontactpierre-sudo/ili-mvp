@@ -27,8 +27,6 @@ export const FILTER_INTENSITY = ['Douce', 'Moyenne', 'Forte']
 export const SEGMENT_HEIGHT = 40
 export const COLUMN_COUNT = 7
 export const COLUMN_WIDTH = 42
-export const VFX_COLUMN_COUNT = 2
-export const VFX_COLUMN_WIDTH = 48
 
 // Structure par défaut d'un soundTrack
 // Points d'automation de volume
