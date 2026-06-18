@@ -34,6 +34,10 @@ function SoundBlockPanel({
   const [showTrimmer, setShowTrimmer] = useState(false)
   const [showSoundPicker, setShowSoundPicker] = useState(false)
   const [pickerInitialSearch, setPickerInitialSearch] = useState('')
+  // Texte brut des champs segment début/fin — découplé du calcul d'index,
+  // pour ne jamais écraser ce que l'utilisateur est en train de taper.
+  const [startSegText, setStartSegText] = useState('')
+  const [endSegText, setEndSegText] = useState('')
   const panelRef = useRef(null)
   const animationRef = useRef(null)
   const color = getSoundColor(sound)
