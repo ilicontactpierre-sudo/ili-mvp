@@ -468,10 +468,10 @@ function SoundBlock({
             fill={fill}
             stroke={shadow}
             strokeWidth={0.5}
-            fontSize={size + 2}
+            fontSize={size + 6}
             fontFamily="Georgia, serif"
             style={{ pointerEvents: 'none', userSelect: 'none' }}
-          >+</text>
+          >*</text>
         </g>
       )
     }
