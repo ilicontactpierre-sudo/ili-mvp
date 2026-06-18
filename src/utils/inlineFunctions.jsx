@@ -505,8 +505,11 @@ function ApparitionSpan({ children, délai, vitesse, isFocused }) {
   const [visible, setVisible] = useState(false)
   useEffect(() => {
     if (!isFocused) { setVisible(false); return }
-    const raf = requestAnimationFrame(() => setVisible(true))
-    return () => cancelAnimationFrame(raf)
+    let raf1, raf2
+    raf1 = requestAnimationFrame(() => {
+      raf2 = requestAnimationFrame(() => setVisible(true))
+    })
+    return () => { cancelAnimationFrame(raf1); cancelAnimationFrame(raf2) }
   }, [isFocused])
   return (
     <span style={{
