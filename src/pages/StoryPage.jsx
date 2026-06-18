@@ -467,6 +467,19 @@ function StoryPage() {
     }
   }, [currentIndex, isStarted])
 
+  // ── Auto-avance pour les segments "pause" ──────────────────────────────────
+  // Un segment pause (segment.pause = durée en ms) est transparent pour le lecteur :
+  // les sons se lancent normalement, mais le texte est invisible et on avance automatiquement.
+  useEffect(() => {
+    if (!isStarted || isFinished || isFading) return
+    const seg = segments[currentIndex]
+    if (!seg?.pause || seg.pause <= 0) return
+    const t = setTimeout(() => {
+      goToNext()
+    }, seg.pause)
+    return () => clearTimeout(t)
+  }, [currentIndex, isStarted, isFinished, isFading, segments, goToNext])
+
   useEffect(() => {
     if (!isFading) return
     const engine = audioEngineRef.current
