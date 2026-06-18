@@ -1446,7 +1446,7 @@ function TransitionConfigPanel({ transition, onChange, onClose }) {
 }
 
 // Composant pour le séparateur entre segments (double-clic pour fusionner)
-const SegmentSeparator = memo(function SegmentSeparator({ index, onMerge, isHovered, onHover }) {  return 
+const SegmentSeparator = memo(function SegmentSeparator({ index, onMerge, isHovered, onHover }) {  return (
   const hovered = isHovered === index
   const [showPauseHint, setShowPauseHint] = useState(false)
 
@@ -3044,9 +3044,15 @@ const handleTextSelection = useCallback(() => {
                     onEditKeyDown: handleEditKeyDown,
                     isPause: segment?.pause != null,
                     pauseDuration: segment?.pause ?? null,
-                    onPauseDurationChange: (idx, ms) => {
+                    onPauseDurationChange: (idx, ms, transition) => {
                       const updated = [...segments]
-                      updated[idx] = { ...updated[idx], pause: ms }
+                      const seg = { ...updated[idx], pause: ms }
+                      if (transition === null) {
+                        delete seg.transition
+                      } else if (transition !== undefined) {
+                        seg.transition = transition
+                      }
+                      updated[idx] = seg
                       onSegmentsChange(updated)
                       if (onSaveToHistory) onSaveToHistory()
                     },
