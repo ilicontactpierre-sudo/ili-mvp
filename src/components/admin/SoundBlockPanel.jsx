@@ -1,8 +1,10 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { createPortal } from 'react-dom'
+import { Howl } from 'howler'
 import { CATEGORY_COLORS } from './constants'
 import WaveformTrimmer from './WaveformTrimmer'
 import SoundLibraryPicker from './SoundLibraryPicker'
+import AudioEngine from '../../engine/AudioEngine'
 
 // Fonction pour obtenir une couleur de son
 function getSoundColor(sound) {
