@@ -533,8 +533,8 @@ export function renderInlineFunction(seg, baseKey, isFocused, fallbackRenderer) 
       const [hex] = resolveArgs('couleur', seg.args)
       return (
         <span key={baseKey} style={{
-          color: isFocused ? hex : 'inherit',
-          transition: 'color 600ms cubic-bezier(0.4,0,0.2,1)',
+          color: isFocused ? hex : 'var(--color-text-focus)',
+          transition: 'color 700ms cubic-bezier(0.4,0,0.2,1)',
         }}>
           {inner}
         </span>
