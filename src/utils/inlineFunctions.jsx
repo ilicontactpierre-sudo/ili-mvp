@@ -178,6 +178,17 @@ export const INLINE_FUNCTIONS = {
     template: () => `</chiffres_up:0;100/>`,
     cursorAfterPipe: false,
   },
+  apparition: {
+    label: '✨ Apparition',
+    description: 'Le texte apparaît en fondu avec un délai optionnel',
+    wrap: true,
+    params: [
+      { name: 'délai',   default: '0',      hint: 'ms avant apparition (ex: 500)' },
+      { name: 'vitesse', default: 'normal',  hint: 'lent · normal · rapide' },
+    ],
+    template: () => `</apparition:0;normal|/>`,
+    cursorAfterPipe: true,
+  },
   chiffres_down: {
     label: '🔢 Compteur ↓',
     description: 'Compteur animé décroissant',
