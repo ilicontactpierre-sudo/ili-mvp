@@ -63,7 +63,7 @@ function SoundBlock({
   }, [sound, soundTrack.color])
   const baseColor   = getColor()
   const darkerColor = getDarkerColor(baseColor)
-  const bgColor     = soundTrack.muted ? '#888' : (isSelected ? baseColor : `${baseColor}99`)
+  const bgColor     = soundTrack.muted ? '#888' : `${baseColor}99`
   const borderColor = isSelected ? '#333' : baseColor
 
   // ── Indices et dimensions ────────────────────────────────
