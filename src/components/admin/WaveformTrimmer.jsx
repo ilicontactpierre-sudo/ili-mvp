@@ -350,9 +350,9 @@ const [realDurationMs, setRealDurationMs] = useState((sound.duration || 0) * 100
               Point de sortie
             </label>
             <input
-              type="range" min={0} max={durationMs} step={10}
+              type="range" min={0} max={durationMs} step={Math.max(1, Math.round(durationMs / 1000))}
               value={trimEnd}
-              onChange={e => setTrimEnd(Math.max(Number(e.target.value), trimStart + 100))}
+              onChange={e => setTrimEnd(Math.max(Number(e.target.value), trimStart + Math.max(10, durationMs * 0.01)))}
               style={{ width: '100%', accentColor: COLOR_END }}
             />
           </div>
