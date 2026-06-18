@@ -84,7 +84,11 @@ function SoundBlockPanel({
     const eIdx = findIdx(soundTrack.endSegmentId)
     setStartSegText(sIdx >= 0 ? String(sIdx + 1) : '')
     setEndSegText(eIdx >= 0 ? String(eIdx + 1) : (sIdx >= 0 ? String(sIdx + 1) : ''))
-  }, [soundTrack, segments])
+  }, [soundTrack, segments, stopPreview])
+  // Arrêter l'aperçu si le panneau se ferme/démonte
+  useEffect(() => {
+    return () => stopPreview()
+  }, [stopPreview])
 
   // Animation de rotation pour loop
   useEffect(() => {
