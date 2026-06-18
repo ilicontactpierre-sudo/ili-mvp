@@ -144,15 +144,29 @@ function SoundBlock({
     if (e.metaKey || e.ctrlKey) {
       e.stopPropagation()
       const rh = rowHeightsRef.current || []
+      const segs = segmentsRef.current
+      const track = soundTrackRef.current
+      // Recalculer startIdx et endIdx depuis les refs (pas depuis la closure)
+      const getIdx = (id) => {
+        if (!id) return -1
+        const i = segs.findIndex(s => s.id === id || s._id === id)
+        if (i !== -1) return i
+        const m = id?.match(/^seg(?:ment)?_(\d+)$/)
+        return m ? parseInt(m[1], 10) : -1
+      }
+      const startIdx = getIdx(track.startSegmentId)
+      const endIdx = getIdx(track.endSegmentId)
+      const endIdxSafe = endIdx !== -1 ? endIdx : startIdx
+      if (startIdx === -1) return
       const blockEl = blockRef.current
       if (!blockEl) return
       const blockRect = blockEl.getBoundingClientRect()
       const cursorYInBlock = e.clientY - blockRect.top
       let accumulated = 0
-      let targetSegIdx = startSegmentIndex
-      for (let i = startSegmentIndex; i <= actualEndIndex; i++) {
+      let targetSegIdx = startIdx
+      for (let i = startIdx; i <= endIdxSafe; i++) {
         const h = rh[i] || SEGMENT_HEIGHT
-        const sep = i < actualEndIndex ? 8 : 0
+        const sep = i < endIdxSafe ? 8 : 0
         if (cursorYInBlock <= accumulated + h + sep) {
           targetSegIdx = i
           break
