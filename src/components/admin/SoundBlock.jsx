@@ -387,6 +387,83 @@ function SoundBlock({
     return <polygon points={points} fill={fill} stroke={stroke} strokeWidth={sw} />
   }
 
+  // ── Automation : Cmd+clic pour créer un point ────────────
+  const handleAutomationCreate = useCallback((e, segIdx) => {
+    if (!e.metaKey && !e.ctrlKey) return
+    e.stopPropagation()
+    e.preventDefault()
+    const p = propsRef.current
+    const segs = segmentsRef.current
+    const seg = segs[segIdx]
+    if (!seg) return
+    const segId = seg.id || seg._id || `seg_${segIdx}`
+    const effectiveVol = getEffectiveVolume(segIdx)
+    const existing = (p.soundTrack.automationPoints || []).find(
+      pt => pt.segmentId === segId
+    )
+    if (existing) return // point déjà là
+    const newPoints = [
+      ...(p.soundTrack.automationPoints || []),
+      { segmentId: segId, volume: effectiveVol, fadeMs: 300 }
+    ]
+    p.onUpdate(p.soundTrack.id, { automationPoints: newPoints })
+  }, [getEffectiveVolume])
+
+  // ── Automation : drag gauche/droite pour changer le volume ──
+  const handleAutomationDrag = useCallback((e, ptIndex) => {
+    if (e.shiftKey) return // Maj+clic géré séparément
+    e.stopPropagation()
+    e.preventDefault()
+    const p = propsRef.current
+    const startX = e.clientX
+    const initVolume = (p.soundTrack.automationPoints || [])[ptIndex]?.volume ?? 0.5
+    let lastVolume = initVolume
+    const onMove = (ev) => {
+      const dx = ev.clientX - startX
+      // 100px = 100% volume
+      const newVol = Math.max(0, Math.min(1, initVolume + dx / 100))
+      lastVolume = Math.round(newVol * 100) / 100
+      setAutomationTooltip({ pointIndex: ptIndex, volume: Math.round(lastVolume * 100) })
+      const newPoints = (p.soundTrack.automationPoints || []).map((pt, i) =>
+        i === ptIndex ? { ...pt, volume: lastVolume } : pt
+      )
+      p.onUpdate(p.soundTrack.id, { automationPoints: newPoints })
+    }
+    const onUp = () => {
+      window.removeEventListener('mousemove', onMove)
+      window.removeEventListener('mouseup', onUp)
+      setAutomationTooltip(null)
+    }
+    window.addEventListener('mousemove', onMove)
+    window.addEventListener('mouseup', onUp)
+  }, [])
+
+  // ── Automation : Maj+clic pour cycler le fade ────────────
+  const handleAutomationShiftClick = useCallback((e, ptIndex) => {
+    if (!e.shiftKey) return
+    e.stopPropagation()
+    e.preventDefault()
+    const p = propsRef.current
+    const points = p.soundTrack.automationPoints || []
+    const pt = points[ptIndex]
+    if (!pt) return
+    const currentStepIdx = AUTOMATION_FADE_STEPS.findIndex(s => s.ms === pt.fadeMs)
+    const nextStepIdx = (currentStepIdx + 1) % AUTOMATION_FADE_STEPS.length
+    const newPoints = points.map((p, i) =>
+      i === ptIndex ? { ...p, fadeMs: AUTOMATION_FADE_STEPS[nextStepIdx].ms } : p
+    )
+    propsRef.current.onUpdate(p.soundTrack.id, { automationPoints: newPoints })
+  }, [])
+
+  // ── Automation : double-clic pour supprimer ──────────────
+  const handleAutomationDelete = useCallback((e, ptIndex) => {
+    e.stopPropagation()
+    e.preventDefault()
+    const p = propsRef.current
+    const newPoints = (p.soundTrack.automationPoints || []).filter((_, i) => i !== ptIndex)
+    p.onUpdate(p.soundTrack.id, { automationPoints: newPoints })
+  }, [])
+
   // ── Rendu ────────────────────────────────────────────────
   const backgroundStyle = soundTrack.loop ? { background: loopPattern } : {}
   const mutedOverlay = soundTrack.muted ? (
