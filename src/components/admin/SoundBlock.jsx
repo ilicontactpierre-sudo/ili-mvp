@@ -151,15 +151,16 @@ function SoundBlock({
       let accumulated = 0
       let targetSegIdx = startSegmentIndex
       for (let i = startSegmentIndex; i <= actualEndIndex; i++) {
-        const h = (rh[i] || SEGMENT_HEIGHT) + 8 // +8 pour le séparateur, comme dans le calcul de blockHeight
-        if (cursorYInBlock <= accumulated + h) {
+        const h = rh[i] || SEGMENT_HEIGHT
+        const sep = i < actualEndIndex ? 8 : 0
+        if (cursorYInBlock <= accumulated + h + sep) {
           targetSegIdx = i
           break
         }
-        accumulated += h
+        accumulated += h + sep
         targetSegIdx = i
       }
-      handleAutomationCreate(e, targetSegIdx)
+      handleAutomationCreate(targetSegIdx)
       return
     }
     e.stopPropagation()
