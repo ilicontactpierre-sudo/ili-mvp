@@ -8,18 +8,14 @@ export const CATEGORY_COLORS = {
 }
 
 export const SOUND_BLOCK_COLORS = [
-  '#A8C5DA', // bleu brume
-  '#B8D4C8', // vert sauge
-  '#D4B8C8', // mauve poudré
-  '#D4C8A8', // sable doré
-  '#C8B8D4', // lavande
-  '#A8C8C8', // cyan glacier
-  '#D4A8B8', // rose poudré
-  '#B8C8A8', // vert mousse
-  '#C8A8A8', // terre cuite douce
-  '#A8B8D4', // bleu ardoise
-  '#D4D4A8', // jaune ivoire
-  '#B8A8C8', // prune doux
+  '#D4A8A8', // rouge poudré
+  '#D4BBA8', // saumon
+  '#D4D0A8', // jaune ivoire
+  '#B8D4A8', // vert tendre
+  '#A8D4C8', // menthe glacée
+  '#A8BDD4', // bleu ciel
+  '#B8A8D4', // lavande
+  '#D4A8C8', // rose poudré
 ]
 
 // Options de filtres
