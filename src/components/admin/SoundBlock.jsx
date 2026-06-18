@@ -695,11 +695,14 @@ function SoundBlock({
       {/* Tooltip titre au survol */}
       {showTitleTooltip && sound && (
         <div style={{
-          position: 'absolute',
-          bottom: '100%',
-          left: '50%',
-          transform: 'translateX(-50%)',
-          marginBottom: '6px',
+          position: 'fixed',
+          left: blockRef.current
+            ? blockRef.current.getBoundingClientRect().left + blockRef.current.getBoundingClientRect().width / 2
+            : 0,
+          top: blockRef.current
+            ? blockRef.current.getBoundingClientRect().top - 8
+            : 0,
+          transform: 'translate(-50%, -100%)',
           backgroundColor: 'rgba(0,0,0,0.8)',
           color: '#fff',
           fontSize: '11px',
