@@ -676,6 +676,7 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle',
               className={[
                 'story-reader__segment',
                 (segment.isChapter && chapterMode === 'sticky') ? 'story-reader__segment--chapter-in-track' : '',
+                segment.pause ? 'story-reader__segment--pause' : '',
                 isFocused
                   ? 'story-reader__segment--focus'
                   : isHidden
