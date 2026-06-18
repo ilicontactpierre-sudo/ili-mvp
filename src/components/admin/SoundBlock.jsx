@@ -471,7 +471,7 @@ function SoundBlock({
             fontSize={size + 6}
             fontFamily="Georgia, serif"
             style={{ pointerEvents: 'none', userSelect: 'none' }}
-          >*</text>
+          >+</text>
         </g>
       )
     }
