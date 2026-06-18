@@ -324,15 +324,15 @@ function InlineFunctionMenu({ query, matches, selectedIndex, position, onSelect,
         <div style={{ padding: '8px 10px' }}>
           {/* Grille 4×4 */}
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '4px', marginBottom: '8px' }}>
-            {NARRATIVE_COLORS.map(({ name, hex }) => (
+            {NARRATIVE_COLORS.map(({ name, dark, light }) => (
               <button
-                key={hex}
-                title={`${name}  ${hex}`}
+                key={dark}
+                title={`${name}  ☾ ${dark}  ☀ ${light}`}
                 onMouseDown={e => e.preventDefault()}
-                onClick={() => onSelect('couleur', hex)}
+                onClick={() => onSelect('couleur', dark)}
                 style={{
                   width: '100%', aspectRatio: '1',
-                  backgroundColor: hex,
+                  background: `linear-gradient(135deg, ${dark} 50%, ${light} 50%)`,
                   border: '1px solid rgba(255,255,255,0.15)',
                   borderRadius: '4px', cursor: 'pointer',
                   position: 'relative',
@@ -340,7 +340,7 @@ function InlineFunctionMenu({ query, matches, selectedIndex, position, onSelect,
                 }}
                 onMouseEnter={e => {
                   e.currentTarget.style.transform = 'scale(1.14)'
-                  e.currentTarget.style.boxShadow = `0 0 0 2px ${hex}88`
+                  e.currentTarget.style.boxShadow = `0 0 0 2px ${dark}88`
                   e.currentTarget.style.zIndex = '2'
                 }}
                 onMouseLeave={e => {
@@ -349,7 +349,11 @@ function InlineFunctionMenu({ query, matches, selectedIndex, position, onSelect,
                   e.currentTarget.style.zIndex = '1'
                 }}
               >
-                {/* Nom en tooltip natif via title — clean, pas besoin d'overlay */}
+                <span style={{
+                  position: 'absolute', bottom: '2px', right: '3px',
+                  fontSize: '0.45rem', color: 'rgba(0,0,0,0.4)',
+                  lineHeight: 1, pointerEvents: 'none',
+                }}>☾☀</span>
               </button>
             ))}
           </div>
