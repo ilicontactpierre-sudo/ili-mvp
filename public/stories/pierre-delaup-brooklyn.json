@@ -198,6 +198,11 @@
       "loop": false
     },
     {
+      "id": "la_valle_e_du_okuno",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/la_valle_e_du_okuno.mp3",
+      "loop": false
+    },
+    {
       "id": "printer_receipt",
       "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/printer_receipt.mp3",
       "loop": false
@@ -209,6 +214,19 @@
     }
   ],
   "segments": [
+    {
+      "text": "",
+      "id": "seg_1781794386339",
+      "audioEvents": [
+        {
+          "action": "play",
+          "soundId": "la_valle_e_du_okuno",
+          "volume": 1,
+          "delay": 0,
+          "loop": false
+        }
+      ]
+    },
     {
       "id": "seg_1781326327990_0_yqe1e",
       "lines": [
@@ -222,31 +240,10 @@
         {
           "action": "fadeIn",
           "soundId": "tuba_skinny_-_jubilee_stomp_-_royal_street_ii_1_",
-          "volume": 0.15,
-          "duration": 234,
+          "volume": 0.35,
+          "duration": 370,
           "delay": 0,
           "loop": true
-        }
-      ]
-    },
-    {
-      "text": "",
-      "id": "seg_1781702886138",
-      "gameMode": {
-        "type": "timer",
-        "seconds": 1,
-        "prompt": "",
-        "hint": "",
-        "expireMessage": "",
-        "timerStyle": "hidden"
-      },
-      "audioEvents": [
-        {
-          "action": "play",
-          "soundId": "doorwood_wooden_door_open_outdoor_single_01_b00m_one",
-          "volume": 0.35,
-          "delay": 0,
-          "loop": false
         }
       ]
     },
@@ -260,34 +257,28 @@
       "isLeader": true,
       "audioEvents": [
         {
+          "action": "play",
+          "soundId": "doorwood_wooden_door_open_outdoor_single_01_b00m_one",
+          "volume": 0.35,
+          "delay": 0,
+          "loop": false
+        },
+        {
           "action": "fadeIn",
           "soundId": "ambrest_restaurant_german_crowd_bar_01_b00m_one",
-          "volume": 0.5,
-          "duration": 397,
-          "delay": 0,
+          "volume": 0.6,
+          "duration": 244,
+          "delay": 500,
           "loop": true
         },
         {
           "action": "play",
           "soundId": "foodgware_glass_tumblers_chink_01_b00m_one",
           "volume": 0.35,
-          "delay": 0,
+          "delay": 2000,
           "loop": false
         }
       ]
-    },
-    {
-      "text": "",
-      "id": "seg_1781781904990",
-      "gameMode": {
-        "type": "code",
-        "answer": "1111",
-        "prompt": "",
-        "hint": "",
-        "errorMessage": "",
-        "sounds": false
-      },
-      "audioEvents": []
     },
     {
       "id": "seg_1781326327990_2_9vmif",
@@ -311,7 +302,7 @@
         {
           "action": "play",
           "soundId": "65_s02a_toast",
-          "volume": 0.15,
+          "volume": 0.4,
           "delay": 1400,
           "loop": false
         }
@@ -364,7 +355,7 @@
       "lines": [
         "- Un petit mot peut être pour nos téléspectateurs qui vous admirent tant ?"
       ],
-      "text": "</couleur:#3e8639|- Un petit mot peut être pour nos téléspectateurs qui vous admirent tant ?/>\n</couleur:#3e8639|- J’aimerai d’abord remercier toute ma famille qui a su ne pas croire en moi et me donner la force. »/>",
+      "text": "</couleur:#ffe066|- Un petit mot peut être pour nos téléspectateurs qui vous admirent tant ?/>\n</couleur:#a8f0c6|- J’aimerai d’abord remercier toute ma famille qui a su ne pas croire en moi et me donner la force. »/>",
       "breakAt": null,
       "isLeader": false,
       "delay": 2800,
@@ -386,7 +377,7 @@
       "lines": [
         "- Remercier ma chienne, Agatha, partie trop tôt,"
       ],
-      "text": "</couleur:#3e8639|- Remercier ma chienne, Agatha, partie trop tôt, qui me manque terriblement, et sans qui ça n'aurait pas été la même./> Rob lève son verre faisant un signe de croix.",
+      "text": "</couleur:#a8f0c6|- Remercier ma chienne, Agatha, partie trop tôt, qui me manque terriblement, et sans qui ça n'aurait pas été la même./> Rob lève son verre faisant un signe de croix.",
       "breakAt": 138,
       "isLeader": false,
       "delay": 4200,
@@ -397,7 +388,7 @@
       "lines": [
         "- Je remercie aussi Marcel, notre raison d’être,"
       ],
-      "text": "</couleur:#3e8639|- Je remercie aussi Marcel, notre raison d’être, qui nous unis pour la vie, et sans qui nos nuits existeraient encore./> Rob lève son verre faisant, là encore, un signe de croix.",
+      "text": "</couleur:#a8f0c6|- Je remercie aussi Marcel, notre raison d’être, qui nous unis pour la vie, et sans qui nos nuits existeraient encore./> Rob lève son verre faisant, là encore, un signe de croix.",
       "breakAt": 139,
       "isLeader": false,
       "delay": 1600,
@@ -408,7 +399,7 @@
       "lines": [
         "- Et enfin je remercie Rob Corpe, grâce à qui ces six années sont passées si vite,"
       ],
-      "text": "</couleur:#3e8639|- Et enfin je remercie Rob Corpe, grâce à qui ces six années sont passées si vite, et avec qui je souhaite passer toutes mes heures à venir…/>",
+      "text": "</couleur:#a8f0c6|- Et enfin je remercie Rob Corpe, grâce à qui ces six années sont passées si vite, et avec qui je souhaite passer toutes mes heures à venir…/>",
       "breakAt": null,
       "isLeader": false,
       "delay": 3400,
@@ -439,7 +430,7 @@
           "action": "play",
           "soundId": "watrpour_water_fill_glass_ring_01_b00m_one",
           "volume": 0.3,
-          "delay": 0,
+          "delay": 4000,
           "loop": false
         }
       ]
@@ -459,7 +450,7 @@
       "lines": [
         "« Ils disent tous que ça va me manquer… Le terrain,"
       ],
-      "text": "</couleur:#3e8639|Ils disent tous que ça va me manquer… Le terrain, l'adrénaline, les collègues, le danger./> Elle fait une de ces grimaces sur-jouées dont elle seule a le secret.",
+      "text": "</couleur:#a8f0c6|Ils disent tous que ça va me manquer… Le terrain, l'adrénaline, les collègues, le danger./> Elle fait une de ces grimaces sur-jouées dont elle seule a le secret.",
       "breakAt": null,
       "isLeader": false,
       "delay": 3400,
@@ -470,7 +461,7 @@
       "lines": [
         "- C'est mal te connaitre !"
       ],
-      "text": "</couleur:#d4a96a|- C'est mal te connaitre !/>\nLeurs rires complices couvrent le groupe de jazz.",
+      "text": "</couleur:#ffe066|- C'est mal te connaitre !/>\nLeurs rires complices couvrent le groupe de jazz.",
       "breakAt": null,
       "isLeader": false,
       "delay": 1200,
@@ -481,7 +472,7 @@
       "lines": [
         "- J'ai juste hâte que tu termines aussi, et après, Hasta la vista baby, let's go pour la vraie vie !"
       ],
-      "text": "</couleur:#3e8639|- J'ai juste hâte que tu termines aussi, et après, Hasta la vista baby, let's go pour la vraie vie !/>",
+      "text": "</couleur:#a8f0c6|- J'ai juste hâte que tu termines aussi, et après, Hasta la vista baby, let's go pour la vraie vie !/>",
       "breakAt": null,
       "isLeader": false,
       "audioEvents": []
@@ -1349,7 +1340,7 @@
       "isLeader": true,
       "gameMode": {
         "type": "timer",
-        "seconds": 3,
+        "seconds": 5,
         "prompt": "",
         "hint": "",
         "expireMessage": "",
@@ -1370,7 +1361,7 @@
       "lines": [
         "À suivre…"
       ],
-      "text": "</glitch:moyen;loop|À suivre…/>",
+      "text": "À suivre…",
       "breakAt": null,
       "isLeader": true,
       "audioEvents": [
@@ -1401,9 +1392,9 @@
     {
       "id": "st_1781701827604_9qpktd73n",
       "soundId": "doorwood_wooden_door_open_outdoor_single_01_b00m_one",
-      "startSegmentId": "seg_1781702886138",
-      "endSegmentId": "seg_1781702886138",
-      "column": 0,
+      "startSegmentId": "seg_1781326327990_1_6gjnf",
+      "endSegmentId": "seg_1781326327990_1_6gjnf",
+      "column": 2,
       "volume": 0.35,
       "fadeIn": 0,
       "fadeOut": 0,
@@ -1420,10 +1411,10 @@
       "startSegmentId": "seg_1781326327990_1_6gjnf",
       "endSegmentId": "seg_1781326327990_37_24l4g",
       "column": 0,
-      "volume": 0.5,
-      "fadeIn": 397,
+      "volume": 0.6,
+      "fadeIn": 244,
       "fadeOut": 182,
-      "delay": 0,
+      "delay": 500,
       "loop": true,
       "muted": false,
       "loopCrossfade": "medium"
@@ -1434,15 +1425,27 @@
       "startSegmentId": "seg_1781326327990_0_yqe1e",
       "endSegmentId": "seg_1781326327990_32_l7g87",
       "column": 1,
-      "volume": 0.15,
-      "fadeIn": 234,
+      "volume": 0.35,
+      "fadeIn": 370,
       "fadeOut": 3400,
       "delay": 0,
       "loop": true,
       "muted": false,
       "broken": false,
       "loopCrossfade": "medium",
-      "pan": 0.48
+      "pan": 0.53,
+      "automationPoints": [
+        {
+          "segmentId": "seg_1781326327990_3_kn93q",
+          "volume": 0.12,
+          "fadeMs": 2000
+        },
+        {
+          "segmentId": "seg_1781326327990_1_6gjnf",
+          "volume": 0.24,
+          "fadeMs": 2000
+        }
+      ]
     },
     {
       "id": "st_1781702792335_hseb9urfq",
@@ -1453,7 +1456,7 @@
       "volume": 0.35,
       "fadeIn": 0,
       "fadeOut": 0,
-      "delay": 0,
+      "delay": 2000,
       "loop": false,
       "muted": false,
       "trimStart": 138,
@@ -1466,7 +1469,7 @@
       "startSegmentId": "seg_1781326327990_3_kn93q",
       "endSegmentId": "seg_1781326327990_3_kn93q",
       "column": 2,
-      "volume": 0.15,
+      "volume": 0.4,
       "fadeIn": 0,
       "fadeOut": 0,
       "delay": 1400,
@@ -1485,7 +1488,7 @@
       "volume": 0.3,
       "fadeIn": 0,
       "fadeOut": 0,
-      "delay": 0,
+      "delay": 4000,
       "loop": false,
       "muted": false,
       "trimStart": 0,
@@ -1978,7 +1981,23 @@
       "fadeOut": 0,
       "delay": 0,
       "loop": false,
-      "muted": false
+      "muted": false,
+      "trimStart": 0,
+      "trimEnd": 12576
+    },
+    {
+      "id": "st_1781794425494_nvni9kv9t",
+      "soundId": "la_valle_e_du_okuno",
+      "startSegmentId": "seg_1781794386339",
+      "endSegmentId": "seg_1781794386339",
+      "column": 0,
+      "volume": 1,
+      "fadeIn": 0,
+      "fadeOut": 0,
+      "delay": 0,
+      "loop": false,
+      "muted": false,
+      "broken": false
     }
   ],
   "vfxTracks": [
@@ -1991,16 +2010,6 @@
       "column": 0,
       "startSegmentId": "seg_1781326327990_41_scotp",
       "endSegmentId": "seg_1781326327990_41_scotp"
-    },
-    {
-      "id": "vfx_1781334896707_uv1cetq6a",
-      "type": "typewriter",
-      "mode": "lent",
-      "loop": false,
-      "color": "rgba(200, 0, 0, 0.12)",
-      "column": 0,
-      "startSegmentId": "seg_1781326327990_89_bgkfn",
-      "endSegmentId": "seg_1781326327990_89_bgkfn"
     }
   ]
 }
