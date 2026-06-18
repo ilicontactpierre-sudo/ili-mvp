@@ -1424,7 +1424,7 @@
       "lines": [
         "À suivre…"
       ],
-      "text": "</apparition:5500;normal|/>À suivre…",
+      "text": "</apparition:5500;normal|À suivre…/>",
       "breakAt": null,
       "isLeader": true,
       "audioEvents": [
@@ -2254,7 +2254,7 @@
     {
       "id": "vfx_1781802926886_gtrev77mq",
       "type": "fog",
-      "mode": "léger",
+      "mode": "dense",
       "loop": false,
       "color": "rgba(200, 0, 0, 0.12)",
       "column": 0,
@@ -2264,12 +2264,22 @@
     {
       "id": "vfx_1781802969020_hxqjj88m3",
       "type": "underwater",
-      "mode": "surface",
+      "mode": "profond",
       "loop": false,
       "color": "rgba(200, 0, 0, 0.12)",
       "column": 1,
       "startSegmentId": "seg_1781326327990_78_toa8o",
       "endSegmentId": "seg_1781326327990_84_n5h5t"
+    },
+    {
+      "id": "vfx_1781804861045_hs8tfpugs",
+      "type": "shake",
+      "mode": "normal",
+      "loop": false,
+      "color": "rgba(200, 0, 0, 0.12)",
+      "column": 0,
+      "startSegmentId": "seg_1781334846850_a_jb04t",
+      "endSegmentId": "seg_1781334846850_a_jb04t"
     }
   ]
 }
