@@ -459,42 +459,51 @@ function SoundBlock({
       )
     }
     if (fadeStepIndex === 5) {
-      // ∫ pour 4000ms
       return (
-        <text
-          x={x} y={y + size / 2 - 1}
-          textAnchor="middle"
-          fill={fill}
-          stroke={stroke}
-          strokeWidth={0.3}
-          fontSize={size + 2}
-          fontFamily="Georgia, serif"
-          style={{ pointerEvents: 'none', userSelect: 'none' }}
-        >∫</text>
+        <g>
+          <circle cx={x} cy={y} r={size / 2 + 2} fill={shadow} opacity={0.35} />
+          <text
+            x={x} y={y + size / 2 - 1}
+            textAnchor="middle"
+            fill={fill}
+            stroke={shadow}
+            strokeWidth={0.5}
+            fontSize={size + 2}
+            fontFamily="Georgia, serif"
+            style={{ pointerEvents: 'none', userSelect: 'none' }}
+          >∫</text>
+        </g>
       )
     }
     if (fadeStepIndex === 6) {
-      // ∞ pour 8000ms
       return (
-        <text
-          x={x} y={y + size / 2 - 1}
-          textAnchor="middle"
-          fill={fill}
-          stroke={stroke}
-          strokeWidth={0.3}
-          fontSize={size}
-          fontFamily="Georgia, serif"
-          style={{ pointerEvents: 'none', userSelect: 'none' }}
-        >∞</text>
+        <g>
+          <circle cx={x} cy={y} r={size / 2 + 2} fill={shadow} opacity={0.35} />
+          <text
+            x={x} y={y + size / 2 - 1}
+            textAnchor="middle"
+            fill={fill}
+            stroke={shadow}
+            strokeWidth={0.5}
+            fontSize={size}
+            fontFamily="Georgia, serif"
+            style={{ pointerEvents: 'none', userSelect: 'none' }}
+          >∞</text>
+        </g>
       )
     }
     const sides = fadeStepIndex === 1 ? 3 : fadeStepIndex === 2 ? 4 : fadeStepIndex === 3 ? 5 : 6
     const rotation = fadeStepIndex === 2 ? 45 : -90
-    const points = Array.from({ length: sides }).map((_, i) => {
+    const polyPoints = Array.from({ length: sides }).map((_, i) => {
       const angle = ((i * 360) / sides + rotation) * (Math.PI / 180)
       return `${x + (size / 2) * Math.cos(angle)},${y + (size / 2) * Math.sin(angle)}`
     }).join(' ')
-    return <polygon points={points} fill={fill} stroke={stroke} strokeWidth={sw} />
+    return (
+      <g>
+        <circle cx={x} cy={y} r={size / 2 + 2} fill={shadow} opacity={0.35} />
+        <polygon points={polyPoints} fill={fill} stroke={stroke} strokeWidth={sw} />
+      </g>
+    )
   }
 
   // ── Automation : Cmd+clic pour créer un point ────────────
