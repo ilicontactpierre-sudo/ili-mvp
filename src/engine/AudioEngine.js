@@ -366,19 +366,26 @@ class AudioEngine {
         const key = track.id || track.soundId
         if (this.playingSounds.has(key)) {
           // Trouver le dernier point d'automation dont le segment est ≤ currentIndex
+          // Trier les points par index de segment pour garantir l'ordre
+          const sortedPoints = [...track.automationPoints]
+            .map(pt => ({ pt, idx: getIndex(pt.segmentId) }))
+            .filter(({ idx }) => idx !== -1)
+            .sort((a, b) => a.idx - b.idx)
+
           let targetVolume = track.volume ?? 0.5
           let fadeMs = 0
-          for (const pt of track.automationPoints) {
-            const ptIdx = getIndex(pt.segmentId)
-            if (ptIdx !== -1 && ptIdx <= currentIndex) {
+          for (const { pt, idx } of sortedPoints) {
+            if (idx <= currentIndex) {
               targetVolume = pt.volume
-              fadeMs = ptIdx === currentIndex ? (pt.fadeMs ?? 0) : 0
-              // Si on est exactement sur ce segment, on a trouvé le bon point — on s'arrête
-              if (ptIdx === currentIndex) break
+              fadeMs = idx === currentIndex ? (pt.fadeMs ?? 0) : 0
+            } else {
+              break // les points suivants sont après currentIndex, inutile de continuer
             }
           }
+
           const state = this.playingSounds.get(key)
-          const currentVol = state?.howl?.volume(undefined, state?.instanceId) ?? targetVolume
+          if (!state) continue
+          const currentVol = state.howl.volume(undefined, state.instanceId) ?? targetVolume
           const targetPerceptual = this._toPerceptualVolume(targetVolume)
           if (Math.abs(currentVol - targetPerceptual) > 0.01) {
             if (fadeMs > 0) {
