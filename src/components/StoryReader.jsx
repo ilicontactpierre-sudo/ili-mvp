@@ -772,21 +772,12 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle',
                 if (lines.length > 1) {
                   return lines.map((line, li) => (
                     <span key={li}>
-                      {renderMarkdown(line, segment, dys1, { isFocused, keyPrefix: `s${index}_l${li}_t${themeKey}_`, emojiMode })}
+                     {renderMarkdown(line, segment, dys1, { isFocused, keyPrefix: `s${index}_l${li}_t${themeKey}_`, emojiMode })}
                       {li < lines.length - 1 && <br />}
                     </span>
                   ))
                 }
                 return renderMarkdown(segment.text, segment, dys1, { isFocused, keyPrefix: `s${index}_t${themeKey}_`, emojiMode })
-                      {li < lines.length - 1 && <br />}
-                    </span>
-                  ))
-                }
-                return emojiMode
-                  ? applyEmojiMode(segment.text)
-                  : dys1
-                    ? applyBionicReading(segment.text)
-                    : renderMarkdown(segment.text, segment, false, { isFocused, keyPrefix: `s${index}_t${themeKey}_` })
               })()}
             </p>
           )
