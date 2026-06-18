@@ -354,6 +354,39 @@ function SoundBlock({
     window.addEventListener('mouseup',  onUp)
   }, [blockHeight])
 
+  // ── Helpers automation ───────────────────────────────────
+
+  // Retourne le volume effectif à un segment donné (en tenant compte des points d'automation)
+  const getEffectiveVolume = useCallback((segIdx) => {
+    const points = soundTrack.automationPoints
+    if (!points || points.length === 0) return soundTrack.volume ?? 0.5
+    const segs = segmentsRef.current
+    let last = soundTrack.volume ?? 0.5
+    for (const pt of points) {
+      const ptIdx = segs.findIndex(s => s.id === pt.segmentId || s._id === pt.segmentId)
+      if (ptIdx !== -1 && ptIdx <= segIdx) last = pt.volume
+    }
+    return last
+  }, [soundTrack])
+
+  // Dessine la forme SVG d'un point selon l'index du fade (0→cercle, 1→triangle, 2→losange, 3→pentagone, 4→hexagone)
+  const renderAutomationShape = (fadeStepIndex, x, y, size, color, isSelected) => {
+    const stroke = isSelected ? '#fff' : color
+    const fill = color
+    const sw = isSelected ? 2 : 1.5
+    if (fadeStepIndex === 0) {
+      // Cercle plein — instantané
+      return <circle cx={x} cy={y} r={size / 2} fill={fill} stroke={stroke} strokeWidth={sw} />
+    }
+    const sides = fadeStepIndex === 1 ? 3 : fadeStepIndex === 2 ? 4 : fadeStepIndex === 3 ? 5 : 6
+    const rotation = fadeStepIndex === 2 ? 45 : -90 // losange à 45°, autres pointent vers le haut
+    const points = Array.from({ length: sides }).map((_, i) => {
+      const angle = ((i * 360) / sides + rotation) * (Math.PI / 180)
+      return `${x + (size / 2) * Math.cos(angle)},${y + (size / 2) * Math.sin(angle)}`
+    }).join(' ')
+    return <polygon points={points} fill={fill} stroke={stroke} strokeWidth={sw} />
+  }
+
   // ── Rendu ────────────────────────────────────────────────
   const backgroundStyle = soundTrack.loop ? { background: loopPattern } : {}
   const mutedOverlay = soundTrack.muted ? (
