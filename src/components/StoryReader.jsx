@@ -6,7 +6,6 @@ import { getVfxClass } from './admin/constants'
 import hapticEngine from '../engine/HapticEngine'
 import VfxOverlay from './VfxOverlay'
 import { NarrativeMemoryContext } from '../utils/inlineFunctions'
-import { renderMarkdown } from '../utils/renderMarkdown'
 
 // ── Flash plein écran ──
 const FLASH_SPEED = { lent: 2000, moyen: 1000, rapide: 400 }
