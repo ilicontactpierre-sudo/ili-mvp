@@ -454,8 +454,38 @@ function SoundBlock({
       // Cercle plein — instantané
       return <circle cx={x} cy={y} r={size / 2} fill={fill} stroke={stroke} strokeWidth={sw} />
     }
+    if (fadeStepIndex === 5) {
+      // ∫ pour 4000ms
+      return (
+        <text
+          x={x} y={y + size / 2 - 1}
+          textAnchor="middle"
+          fill={fill}
+          stroke={stroke}
+          strokeWidth={0.3}
+          fontSize={size + 2}
+          fontFamily="Georgia, serif"
+          style={{ pointerEvents: 'none', userSelect: 'none' }}
+        >∫</text>
+      )
+    }
+    if (fadeStepIndex === 6) {
+      // ∞ pour 8000ms
+      return (
+        <text
+          x={x} y={y + size / 2 - 1}
+          textAnchor="middle"
+          fill={fill}
+          stroke={stroke}
+          strokeWidth={0.3}
+          fontSize={size}
+          fontFamily="Georgia, serif"
+          style={{ pointerEvents: 'none', userSelect: 'none' }}
+        >∞</text>
+      )
+    }
     const sides = fadeStepIndex === 1 ? 3 : fadeStepIndex === 2 ? 4 : fadeStepIndex === 3 ? 5 : 6
-    const rotation = fadeStepIndex === 2 ? 45 : -90 // losange à 45°, autres pointent vers le haut
+    const rotation = fadeStepIndex === 2 ? 45 : -90
     const points = Array.from({ length: sides }).map((_, i) => {
       const angle = ((i * 360) / sides + rotation) * (Math.PI / 180)
       return `${x + (size / 2) * Math.cos(angle)},${y + (size / 2) * Math.sin(angle)}`
