@@ -121,6 +121,15 @@ function StoryPreviewModal({ isOpen, storyData, onClose, startSegmentIndex = nul
     const startIndex = Math.max(0, Math.min(segments.length - 1, parseInt(startFromInput) - 1 || 0))
     setCurrentIndex(startIndex)
     setIsStarted(true)
+    // Forcer un second rendu après que le DOM soit peint :
+    // StoryReader monte avec currentIndex correct mais offsetTop=0 au premier paint.
+    // On re-set le même index 150ms après pour déclencher le useLayoutEffect
+    // une fois que les segments sont vraiment positionnés dans le DOM.
+    if (startIndex > 0) {
+      setTimeout(() => {
+        setCurrentIndex(idx => idx) // re-trigger sans changer la valeur
+      }, 150)
+    }
   }
 
   // Gestion du clic sur l'overlay
