@@ -3,7 +3,7 @@ import { useEffect, useRef } from 'react'
 const FONTS = [
   { label: 'Lora',      css: "'Lora', serif" },
   { label: 'Oanteh',    css: "'Oanteh', serif" },
-  { label: 'Namora',    css: "'NamoraD ayana', cursive" },
+  { label: 'Benedict',    css: "'Benedict, regular" },
   { label: 'Terminal',  css: "'VT323', monospace" },
   { label: 'Script',    css: "'Meie Script', cursive" },
 ]
