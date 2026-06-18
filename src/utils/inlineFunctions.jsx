@@ -502,11 +502,17 @@ function resolveApparitionSpeed(v) { return APPARITION_SPEED_MAP[v] ?? parseInt(
 function ApparitionSpan({ children, délai, vitesse, isFocused }) {
   const delay    = parseInt(délai) || 0
   const duration = resolveApparitionSpeed(vitesse)
+  const [visible, setVisible] = useState(false)
+  useEffect(() => {
+    if (!isFocused) { setVisible(false); return }
+    const raf = requestAnimationFrame(() => setVisible(true))
+    return () => cancelAnimationFrame(raf)
+  }, [isFocused])
   return (
     <span style={{
       display: 'inline',
-      opacity: isFocused ? 1 : 0,
-      transition: isFocused ? `opacity ${duration}ms ease ${delay}ms` : 'none',
+      opacity: visible ? 1 : 0,
+      transition: visible ? `opacity ${duration}ms ease ${delay}ms` : 'none',
     }}>
       {children}
     </span>
