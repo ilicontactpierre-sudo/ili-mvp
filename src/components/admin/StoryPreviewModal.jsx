@@ -9,6 +9,7 @@ function StoryPreviewModal({ isOpen, storyData, onClose, startSegmentIndex = nul
   const [isStarted, setIsStarted] = useState(false)
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isFinished, setIsFinished] = useState(false)
+  const [readerKey, setReaderKey] = useState(0)
   const audioEngineRef = useRef(null)
   const ignoreAdvanceUntilRef = useRef(0)
   const touchStartYRef = useRef(null)
