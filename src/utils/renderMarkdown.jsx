@@ -1,4 +1,5 @@
 import { applyBionicReading } from './bionicReading.jsx'
+import { applyEmojiMode } from './emojiDict.jsx'
 import { renderTextWithInlineFunctions } from './inlineFunctions.jsx'
 /**
  * renderMarkdown(text, segment, isDysMode, options)
