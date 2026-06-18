@@ -1212,6 +1212,66 @@ const SegmentTimelineRow = memo(function SegmentTimelineRow({
               ) : (
                 renderMarkdown(text, segment)
               )}
+              {(() => {
+                if (!text) return null
+                // Détecter toutes les fonctions inline </xxx:...
+                const fnMatches = [...text.matchAll(/<\/([a-z_]+):[^>]*>/g)]
+                if (!fnMatches.length) return null
+                // Dédoublonner par nom de fonction
+                const seen = new Set()
+                const badges = []
+                for (const m of fnMatches) {
+                  const fnName = m[1]
+                  if (seen.has(fnName)) continue
+                  seen.add(fnName)
+                  // Couleur par type de fonction
+                  const FN_COLORS = {
+                    couleur:      { bg: 'rgba(251,191,36,0.15)',  border: 'rgba(251,191,36,0.5)',  text: '#b45309' },
+                    apparition:   { bg: 'rgba(99,102,241,0.12)',  border: 'rgba(99,102,241,0.4)',  text: '#4338ca' },
+                    lire:         { bg: 'rgba(16,185,129,0.12)',  border: 'rgba(16,185,129,0.4)',  text: '#065f46' },
+                    chiffres_up:  { bg: 'rgba(239,68,68,0.10)',   border: 'rgba(239,68,68,0.35)',  text: '#991b1b' },
+                    chiffres_down:{ bg: 'rgba(239,68,68,0.10)',   border: 'rgba(239,68,68,0.35)',  text: '#991b1b' },
+                    journal:      { bg: 'rgba(139,92,246,0.12)',  border: 'rgba(139,92,246,0.4)',  text: '#5b21b6' },
+                  }
+                  const style = FN_COLORS[fnName] ?? { bg: 'rgba(107,114,128,0.10)', border: 'rgba(107,114,128,0.3)', text: '#374151' }
+                  badges.push(
+                    <span
+                      key={fnName}
+                      title={`Fonction inline : </${fnName}:…>`}
+                      style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '2px',
+                        fontSize: '0.58rem',
+                        fontFamily: 'monospace',
+                        backgroundColor: style.bg,
+                        border: `1px solid ${style.border}`,
+                        color: style.text,
+                        borderRadius: '3px',
+                        padding: '0px 4px',
+                        lineHeight: '14px',
+                        userSelect: 'none',
+                        pointerEvents: 'none',
+                        fontStyle: 'normal',
+                        letterSpacing: '0.01em',
+                        flexShrink: 0,
+                      }}
+                    >
+                      {'</'}{ fnName }
+                    </span>
+                  )
+                }
+                return (
+                  <span style={{
+                    display: 'flex',
+                    flexWrap: 'wrap',
+                    gap: '3px',
+                    marginTop: '3px',
+                  }}>
+                    {badges}
+                  </span>
+                )
+              })()}
             </span>
           )}
           
