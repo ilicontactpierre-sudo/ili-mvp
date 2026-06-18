@@ -98,8 +98,18 @@
       "loop": false
     },
     {
+      "id": "50_s10_tv_explosions_2",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/50_s10_tv_explosions_2.mp3",
+      "loop": false
+    },
+    {
       "id": "54_s02a2_lucia",
       "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/54_s02a2_lucia.mp3",
+      "loop": false
+    },
+    {
+      "id": "61_s11_1_base_central_clean",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/61_s11_1_base_central_clean.mp3",
       "loop": false
     },
     {
@@ -1002,7 +1012,7 @@
         {
           "action": "fadeOut",
           "soundId": "61_s11_1_base_central_clean",
-          "duration": 687
+          "duration": 2600
         }
       ],
       "delay": 4600
@@ -1015,7 +1025,28 @@
       "text": "• Fusil plasma XKO2 chargé \n• Combinaison fermée \n• Masque intégral verrouillé et dépressurisé \n• Photo du mariage dans sa poche poitrine,\nO.K. …Quand faut y aller, faut y aller !",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": [],
+      "audioEvents": [
+        {
+          "action": "fadeIn",
+          "soundId": "61_s11_1_base_central_sourde",
+          "volume": 0.5,
+          "duration": 464,
+          "delay": 0,
+          "loop": false
+        },
+        {
+          "action": "fadeOut",
+          "soundId": "61_s11_1_base_central_sourde",
+          "duration": 1258
+        },
+        {
+          "action": "play",
+          "soundId": "61_s12_2_de_compress",
+          "volume": 0.5,
+          "delay": 0,
+          "loop": false
+        }
+      ],
       "delay": 4600
     },
     {
@@ -1027,7 +1058,36 @@
       "text": "Durant toute sa carrière, on l’avait préparé pour ce genre de mission. Six ans qu’il s’entraine avec les collègues à tout type de scénario. Et pourtant, de toute évidence, Rob sait qu’il n’est pas prêt.",
       "breakAt": 140,
       "isLeader": false,
-      "audioEvents": [],
+      "audioEvents": [
+        {
+          "action": "play",
+          "soundId": "53_s11_drone_porte",
+          "volume": 0.5,
+          "delay": 0,
+          "loop": false
+        },
+        {
+          "action": "play",
+          "soundId": "53_s11_drone_ambience",
+          "volume": 0.5,
+          "delay": 0,
+          "loop": true
+        },
+        {
+          "action": "play",
+          "soundId": "53_s11_drone_heatbit",
+          "volume": 0.5,
+          "delay": 0,
+          "loop": true
+        },
+        {
+          "action": "play",
+          "soundId": "53_s11_drone_respiration",
+          "volume": 0.5,
+          "delay": 0,
+          "loop": true
+        }
+      ],
       "delay": 4800
     },
     {
@@ -1048,17 +1108,48 @@
       "text": "Depuis qu’ils sont entrés dans le bâtiment Sud, Rob et son équipe avancent dans une fumée nauséabonde.",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "fadeIn",
+          "soundId": "61_s12_comando_drone",
+          "volume": 0.5,
+          "duration": 4000,
+          "delay": 0,
+          "loop": false
+        },
+        {
+          "action": "fadeIn",
+          "soundId": "61_s12_comando_pression",
+          "volume": 0.5,
+          "duration": 4000,
+          "delay": 0,
+          "loop": true
+        },
+        {
+          "action": "fadeIn",
+          "soundId": "61_s12_comando_walk",
+          "volume": 0.5,
+          "duration": 735,
+          "delay": 0,
+          "loop": false
+        }
+      ]
     },
     {
       "id": "seg_1781326327990_79_cqkqg",
       "lines": [
         "Armes aux points, ils essaient de garder les yeux rivés droit devant,"
       ],
-      "text": "Armes aux points, ils essaient de garder les yeux rivés droit devant, lutant pour ne pas croiser les regards éteints qui jonchent le sol. Au détour d'un énième couloir, Jim, dépiégeur fraîchement affecté aux forces spéciales, repère la lumière verte d'un sas de niveau 4.",
+      "text": "Armes aux points, ils essaient de garder les yeux rivés droit devant, lutant pour ne pas croiser les regards éteints qui jonchent le sol. \nAu détour d'un énième couloir, Jim, dépiégeur fraîchement affecté aux forces spéciales, repère la lumière verte d'un sas de niveau 4.",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": [],
+      "audioEvents": [
+        {
+          "action": "fadeOut",
+          "soundId": "61_s12_comando_walk",
+          "duration": 479
+        }
+      ],
       "delay": 7200
     },
     {
@@ -1095,7 +1186,15 @@
         "to": "JIM"
       },
       "isLeader": true,
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "play",
+          "soundId": "73_s13_1_beep_msg",
+          "volume": 0.5,
+          "delay": 0,
+          "loop": false
+        }
+      ]
     },
     {
       "text": "",
@@ -1120,7 +1219,22 @@
       "text": "En passant la porte sécurisée, Alex alerte Rob et ses camarades : ils viennent de perdre contact avec la base centrale.",
       "breakAt": null,
       "isLeader": true,
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "play",
+          "soundId": "73_s13_1_beep_accept",
+          "volume": 0.5,
+          "delay": 0,
+          "loop": false
+        },
+        {
+          "action": "play",
+          "soundId": "73_s13_porte_radio",
+          "volume": 0.5,
+          "delay": 0,
+          "loop": false
+        }
+      ]
     },
     {
       "id": "seg_1781334852561_a_5gv0c",
@@ -1176,7 +1290,15 @@
         "expireMessage": "",
         "timerStyle": "hidden"
       },
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "play",
+          "soundId": "73_s14_sweep_3",
+          "volume": 0.5,
+          "delay": 0,
+          "loop": false
+        }
+      ]
     },
     {
       "id": "seg_1781326327990_89_bgkfn",
@@ -1186,7 +1308,28 @@
       "text": "À suivre…",
       "breakAt": null,
       "isLeader": true,
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "fadeOut",
+          "soundId": "53_s11_drone_ambience",
+          "duration": 2900
+        },
+        {
+          "action": "fadeOut",
+          "soundId": "53_s11_drone_heatbit",
+          "duration": 1377
+        },
+        {
+          "action": "fadeOut",
+          "soundId": "53_s11_drone_respiration",
+          "duration": 1383
+        },
+        {
+          "action": "fadeOut",
+          "soundId": "61_s12_comando_pression",
+          "duration": 1330
+        }
+      ]
     }
   ],
   "soundTracks": [
@@ -1593,11 +1736,184 @@
       "column": 3,
       "volume": 0.5,
       "fadeIn": 2687,
-      "fadeOut": 687,
+      "fadeOut": 2600,
       "delay": 19000,
       "loop": true,
       "muted": false,
       "loopCrossfade": "medium"
+    },
+    {
+      "id": "st_1781791055092_naejo88um",
+      "soundId": "61_s11_1_base_central_sourde",
+      "startSegmentId": "seg_1781333627667_b_0yu05",
+      "endSegmentId": "seg_1781333627667_b_0yu05",
+      "column": 0,
+      "volume": 0.5,
+      "fadeIn": 464,
+      "fadeOut": 1258,
+      "delay": 0,
+      "loop": false,
+      "muted": false
+    },
+    {
+      "id": "st_1781791174117_rbc7sy78s",
+      "soundId": "61_s12_2_de_compress",
+      "startSegmentId": "seg_1781333627667_b_0yu05",
+      "endSegmentId": "seg_1781333627667_b_0yu05",
+      "column": 1,
+      "volume": 0.5,
+      "fadeIn": 0,
+      "fadeOut": 0,
+      "delay": 0,
+      "loop": false,
+      "muted": false
+    },
+    {
+      "id": "st_1781791217335_a14onlakl",
+      "soundId": "53_s11_drone_porte",
+      "startSegmentId": "seg_1781326327990_75_q30fu",
+      "endSegmentId": "seg_1781326327990_75_q30fu",
+      "column": 3,
+      "volume": 0.5,
+      "fadeIn": 0,
+      "fadeOut": 0,
+      "delay": 0,
+      "loop": false,
+      "muted": false
+    },
+    {
+      "id": "st_1781791239309_ce0hz8aik",
+      "soundId": "53_s11_drone_ambience",
+      "startSegmentId": "seg_1781326327990_75_q30fu",
+      "endSegmentId": "seg_1781326327990_89_bgkfn",
+      "column": 0,
+      "volume": 0.5,
+      "fadeIn": 0,
+      "fadeOut": 2900,
+      "delay": 0,
+      "loop": true,
+      "muted": false,
+      "loopCrossfade": "medium"
+    },
+    {
+      "id": "st_1781791341405_1jcr3xpjz",
+      "soundId": "53_s11_drone_heatbit",
+      "startSegmentId": "seg_1781326327990_75_q30fu",
+      "endSegmentId": "seg_1781326327990_89_bgkfn",
+      "column": 1,
+      "volume": 0.5,
+      "fadeIn": 0,
+      "fadeOut": 1377,
+      "delay": 0,
+      "loop": true,
+      "muted": false,
+      "loopCrossfade": "medium"
+    },
+    {
+      "id": "st_1781791501971_ffs6ivpsj",
+      "soundId": "53_s11_drone_respiration",
+      "startSegmentId": "seg_1781326327990_75_q30fu",
+      "endSegmentId": "seg_1781326327990_89_bgkfn",
+      "column": 2,
+      "volume": 0.5,
+      "fadeIn": 0,
+      "fadeOut": 1383,
+      "delay": 0,
+      "loop": true,
+      "muted": false,
+      "loopCrossfade": "medium"
+    },
+    {
+      "id": "st_1781791612849_rzmqxhafn",
+      "soundId": "61_s12_comando_drone",
+      "startSegmentId": "seg_1781326327990_78_toa8o",
+      "endSegmentId": "seg_1781333758499",
+      "column": 3,
+      "volume": 0.5,
+      "fadeIn": 4000,
+      "fadeOut": 0,
+      "delay": 0,
+      "loop": false,
+      "muted": false
+    },
+    {
+      "id": "st_1781791705749_obp2wjhje",
+      "soundId": "61_s12_comando_pression",
+      "startSegmentId": "seg_1781326327990_78_toa8o",
+      "endSegmentId": "seg_1781326327990_89_bgkfn",
+      "column": 4,
+      "volume": 0.5,
+      "fadeIn": 4000,
+      "fadeOut": 1330,
+      "delay": 0,
+      "loop": true,
+      "muted": false,
+      "loopCrossfade": "medium"
+    },
+    {
+      "id": "st_1781791833442_iypz7zt0e",
+      "soundId": "61_s12_comando_walk",
+      "startSegmentId": "seg_1781326327990_78_toa8o",
+      "endSegmentId": "seg_1781326327990_79_cqkqg",
+      "column": 5,
+      "volume": 0.5,
+      "fadeIn": 735,
+      "fadeOut": 479,
+      "delay": 0,
+      "loop": false,
+      "muted": false
+    },
+    {
+      "id": "st_1781791948647_3zxx2lvc9",
+      "soundId": "73_s13_1_beep_msg",
+      "startSegmentId": "seg_1781334569966",
+      "endSegmentId": "seg_1781334569966",
+      "column": 5,
+      "volume": 0.5,
+      "fadeIn": 0,
+      "fadeOut": 0,
+      "delay": 0,
+      "loop": false,
+      "muted": false
+    },
+    {
+      "id": "st_1781792012236_ay6km96rt",
+      "soundId": "73_s13_1_beep_accept",
+      "startSegmentId": "seg_1781334846850_a_jb04t",
+      "endSegmentId": "seg_1781334846850_a_jb04t",
+      "column": 3,
+      "volume": 0.5,
+      "fadeIn": 0,
+      "fadeOut": 0,
+      "delay": 0,
+      "loop": false,
+      "muted": false
+    },
+    {
+      "id": "st_1781792034642_544doft5r",
+      "soundId": "73_s13_porte_radio",
+      "startSegmentId": "seg_1781334846850_a_jb04t",
+      "endSegmentId": "seg_1781334846850_a_jb04t",
+      "column": 5,
+      "volume": 0.5,
+      "fadeIn": 0,
+      "fadeOut": 0,
+      "delay": 0,
+      "loop": false,
+      "muted": false
+    },
+    {
+      "id": "st_1781792061476_d01x8w5yn",
+      "soundId": "73_s14_sweep_3",
+      "startSegmentId": "seg_1781334941831",
+      "endSegmentId": "seg_1781334941831",
+      "column": 3,
+      "volume": 0.5,
+      "fadeIn": 0,
+      "fadeOut": 0,
+      "delay": 0,
+      "loop": false,
+      "muted": false
     }
   ],
   "vfxTracks": [
