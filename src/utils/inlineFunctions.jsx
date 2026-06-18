@@ -581,7 +581,7 @@ export function renderInlineFunction(seg, baseKey, isFocused, fallbackRenderer) 
     }
     case 'couleur': {
       const [hex] = resolveArgs('couleur', seg.args)
-      const adaptedColor = isFocused ? adaptColorForTheme(hex) : 'inherit'
+      const adaptedColor = isFocused ? adaptColorForTheme(hex, getTheme()) : 'inherit'
       return (
         <span key={baseKey} style={{
           color: adaptedColor,
