@@ -422,6 +422,15 @@ function OrchestrationPanel({
   const handleApply = useCallback(() => {
     if (!diagnosis) return
 
+    // Couleurs par type — basées sur CATEGORY_COLORS existants
+    const TYPE_COLORS = {
+      ambiance:    '#7EC8C8',
+      atmosphere:  '#C8C8A8',
+      diegetique:  '#F0A87E',
+      musique:     '#B59FD8',
+      transition:  '#A8D4A8',
+    }
+
     const newTracks = []
 
     const resolveSegmentId = (segNum) => {
@@ -431,9 +440,9 @@ function OrchestrationPanel({
       return { id: seg?.id || `seg_${idx}`, idx }
     }
 
-    const findFreeColumn = (startIdx, endIdx, existingTracks) => {
+    const findFreeColumn = (startIdx, endIdx) => {
       for (let c = 0; c < 6; c++) {
-        const conflict = [...soundTracks, ...newTracks, ...existingTracks].some(track => {
+        const conflict = [...soundTracks, ...newTracks].some(track => {
           const ts = segments.findIndex(s => (s.id || `seg_${segments.indexOf(s)}`) === track.startSegmentId)
           const te = segments.findIndex(s => (s.id || `seg_${segments.indexOf(s)}`) === track.endSegmentId)
           const teR = te !== -1 ? te : ts
@@ -444,12 +453,80 @@ function OrchestrationPanel({
       return 0
     }
 
+    // Calcule le délai en ms à partir d'un mot cible dans le texte du segment
+    const computeDelayFromTarget = (block, segmentText) => {
+      if (!block.delayTarget || !segmentText) return Math.round((block.delay ?? 0) * 1000)
+      const words = segmentText.trim().split(/\s+/)
+      const target = block.delayTarget.toLowerCase()
+      const targetIdx = words.findIndex(w => w.toLowerCase().includes(target))
+      if (targetIdx === -1) return Math.round((block.delay ?? 0) * 1000)
+      // 200 mots/min = 300ms/mot
+      return Math.round(targetIdx * 300)
+    }
+
+    // Convertit une volumeEnvelope en automationPoints
+    const buildAutomationPoints = (block, startSeg, endSeg) => {
+      const envelope = block.volumeEnvelope || 'flat'
+      if (envelope === 'flat') return []
+      const vol = block.volume ?? 0.5
+      const segs = segments
+
+      const makePoint = (segIdx, volume) => {
+        const seg = segs[segIdx]
+        if (!seg) return null
+        return {
+          segmentId: seg.id || seg._id || `seg_${segIdx}`,
+          volume: Math.round(volume * 100) / 100,
+          fadeMs: 800,
+        }
+      }
+
+      const startIdx = startSeg.idx
+      const endIdx = endSeg.idx
+      const midIdx = Math.round((startIdx + endIdx) / 2)
+
+      if (envelope === 'crescendo') {
+        return [
+          makePoint(startIdx, vol * 0.3),
+          makePoint(endIdx, vol),
+        ].filter(Boolean)
+      }
+      if (envelope === 'decrescendo') {
+        return [
+          makePoint(startIdx, vol),
+          makePoint(endIdx, vol * 0.3),
+        ].filter(Boolean)
+      }
+      if (envelope === 'swell') {
+        return [
+          makePoint(startIdx, vol * 0.3),
+          makePoint(midIdx, vol),
+          makePoint(endIdx, vol * 0.3),
+        ].filter(Boolean)
+      }
+      return []
+    }
+
     const buildTrack = (sound, block, muted = false, broken = false) => {
       const start = resolveSegmentId(block.startSegment)
       const end = resolveSegmentId(block.endSegment)
       if (!start || !end) return null
 
-      const col = findFreeColumn(start.idx, end.idx, newTracks)
+      const col = findFreeColumn(start.idx, end.idx)
+      const segmentText = (() => {
+        const seg = segments[start.idx]
+        if (!seg) return ''
+        return typeof seg === 'string' ? seg : (seg.text || '')
+      })()
+
+      const delayMs = computeDelayFromTarget(block, segmentText)
+      const automationPoints = buildAutomationPoints(block, start, end)
+      const color = TYPE_COLORS[block.type] || TYPE_COLORS.ambiance
+
+      // Pan : uniquement pour les sons diégétiques
+      const isDiegetique = block.type === 'diegetique'
+      const pan = isDiegetique ? (block.pan ?? 0) : 0
+      const panMode = isDiegetique ? (block.panMode ?? 'static') : 'static'
 
       return {
         id: `st_${Date.now()}_${Math.random().toString(36).substr(2, 9)}_${newTracks.length}`,
@@ -461,9 +538,13 @@ function OrchestrationPanel({
         loop: block.loop ?? false,
         fadeIn: Math.round((block.fadeIn ?? 0) * 1000),
         fadeOut: Math.round((block.fadeOut ?? 0) * 1000),
-        delay: Math.round((block.delay ?? 0) * 1000),
+        delay: delayMs,
+        pan,
+        panMode,
         muted,
         broken: broken || undefined,
+        color,
+        automationPoints: automationPoints.length > 0 ? automationPoints : undefined,
         _orchestrationNote: block.note || '',
         _orchestrationKeyword: block.soundId || block.keyword || '',
       }
@@ -473,17 +554,13 @@ function OrchestrationPanel({
       const track = buildTrack(sound, block, false, false)
       if (track) newTracks.push(track)
     })
-
     diagnosis.missing.forEach(({ block, ghostSound }) => {
       if (!block || !ghostSound) return
       const track = buildTrack(ghostSound, block, true, true)
       if (track) newTracks.push(track)
     })
 
-    if (newTracks.length === 0) {
-      setApplyStatus('error')
-      return
-    }
+    if (newTracks.length === 0) { setApplyStatus('error'); return }
 
     onSoundTracksChange([...soundTracks, ...newTracks])
     if (onSaveToHistory) onSaveToHistory()
