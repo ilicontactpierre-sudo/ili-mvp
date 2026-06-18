@@ -1092,7 +1092,9 @@ const SegmentTimelineRow = memo(function SegmentTimelineRow({
     prevProps.soundTracks === nextProps.soundTracks &&
     prevProps.vfxTracks === nextProps.vfxTracks &&
     prevProps.segments === nextProps.segments &&
-    prevProps.seuilKeys === nextProps.seuilKeys
+    prevProps.seuilKeys === nextProps.seuilKeys &&
+    prevProps.isPause === nextProps.isPause &&
+    prevProps.pauseDuration === nextProps.pauseDuration
   )
 })
 
