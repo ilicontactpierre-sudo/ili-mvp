@@ -123,11 +123,6 @@
       "loop": false
     },
     {
-      "id": "54_s02a2_lucia",
-      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/54_s02a2_lucia.mp3",
-      "loop": false
-    },
-    {
       "id": "61_s11_1_base_central_clean",
       "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/61_s11_1_base_central_clean.mp3",
       "loop": false
@@ -548,9 +543,10 @@
       "isLeader": false,
       "audioEvents": [
         {
-          "action": "play",
+          "action": "fadeIn",
           "soundId": "best_drum_solo_ever",
-          "volume": 0.3,
+          "volume": 0.55,
+          "duration": 300,
           "delay": 0,
           "loop": false
         }
@@ -580,6 +576,12 @@
       "delay": 8000
     },
     {
+      "id": "seg_pause_1781795749614_x31f6",
+      "text": "",
+      "pause": 1500,
+      "audioEvents": []
+    },
+    {
       "id": "seg_1781326327990_41_scotp",
       "lines": [
         "\"Rdv au QG immédiatement. Prévoir pour plusieurs nuits. Alertes inhabituelles sur zones à risques.\""
@@ -598,12 +600,13 @@
         {
           "action": "fadeOut",
           "soundId": "ambdsgn_digital_bubbles_01_b00m_one",
-          "duration": 2368
+          "duration": 1000
         },
         {
-          "action": "play",
+          "action": "fadeIn",
           "soundId": "whsh_cinematic_low_impact_muffled_hit_01_b00m_one",
           "volume": 0.5,
+          "duration": 700,
           "delay": 0,
           "loop": false
         }
@@ -617,7 +620,7 @@
       "lines": [
         "Elle connaît ce petit rictus sur son visage, elle le connait par cœur."
       ],
-      "text": "</couleur:#f59e0b|Elle connaît ce petit rictus sur son visage, elle le connait par cœur./>",
+      "text": "Elle connaît ce petit rictus sur son visage, elle le connait par cœur.",
       "breakAt": null,
       "isLeader": true,
       "audioEvents": [
@@ -649,12 +652,23 @@
       "audioEvents": []
     },
     {
-      "id": "seg_1781326327990_44_uyg8t",
+      "id": "seg_1781795888167_a_9sxmy",
       "lines": [
         "Pas besoin de parler, elle sait qu’elle rentre seule."
       ],
-      "text": "Pas besoin de parler, elle sait qu’elle rentre seule. Elle serre son poignet nu aussi fort que se serre son cœur à cet instant. Ils avaient peut-être raison les collègues, on ne sort pas indemne de ce genre de carrière… Et ce que Rob ne dit pas, c’est qu’il le sait et qu’il en a peur.",
-      "breakAt": 220,
+      "text": "Pas besoin de parler, elle sait qu’elle rentre seule.",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": [],
+      "delay": 4800
+    },
+    {
+      "id": "seg_1781795888167_b_xp1zo",
+      "lines": [
+        "Pas besoin de parler, elle sait qu’elle rentre seule."
+      ],
+      "text": "Elle serre son poignet nu aussi fort que se serre son cœur à cet instant. Ils avaient peut-être raison les collègues, on ne sort pas indemne de ce genre de carrière… Et ce que Rob ne dit pas, c’est qu’il le sait et qu’il en a peur.",
+      "breakAt": null,
       "isLeader": false,
       "audioEvents": [],
       "delay": 4800
@@ -671,7 +685,7 @@
         {
           "action": "fadeOut",
           "soundId": "tuba_skinny_-_jubilee_stomp_-_royal_street_ii_1_",
-          "duration": 600
+          "duration": 400
         },
         {
           "action": "fadeOut",
@@ -700,9 +714,9 @@
         {
           "action": "fadeIn",
           "soundId": "bob_marley_get_up_stand_up_instrumental_original",
-          "volume": 0.15,
+          "volume": 0.75,
           "duration": 200,
-          "delay": 3000,
+          "delay": 2000,
           "loop": false
         }
       ]
@@ -719,7 +733,7 @@
         {
           "action": "fadeIn",
           "soundId": "08_s02_brooklyn_birds",
-          "volume": 0.4,
+          "volume": 0.15,
           "duration": 2300,
           "delay": 0,
           "loop": true
@@ -749,7 +763,7 @@
         {
           "action": "fadeIn",
           "soundId": "13_s03_ville",
-          "volume": 0.25,
+          "volume": 0.45,
           "duration": 1500,
           "delay": 0,
           "loop": true
@@ -769,14 +783,14 @@
         {
           "action": "play",
           "soundId": "15_s04_respi",
-          "volume": 0.4,
+          "volume": 0.8,
           "delay": 0,
           "loop": false
         },
         {
           "action": "play",
           "soundId": "17_s05_drap",
-          "volume": 0.5,
+          "volume": 0.95,
           "delay": 1000,
           "loop": false
         }
@@ -841,7 +855,7 @@
         {
           "action": "play",
           "soundId": "30_s07_militaire",
-          "volume": 0.5,
+          "volume": 0.6,
           "delay": 0,
           "loop": true
         }
@@ -860,7 +874,7 @@
         {
           "action": "play",
           "soundId": "36_s08_cafe_",
-          "volume": 0.5,
+          "volume": 0.75,
           "delay": 0,
           "loop": false
         }
@@ -878,7 +892,7 @@
         {
           "action": "play",
           "soundId": "40_s09_frigo_lait",
-          "volume": 0.5,
+          "volume": 0.65,
           "delay": 0,
           "loop": false
         }
@@ -948,15 +962,22 @@
       "audioEvents": [
         {
           "action": "play",
-          "soundId": "54_s02a2_lucia",
+          "soundId": "54_s02a2_lucia_flash",
           "volume": 0.5,
           "delay": 0,
           "loop": false
         },
         {
+          "action": "play",
+          "soundId": "54_s02a2_lucia_film",
+          "volume": 0.5,
+          "delay": 0,
+          "loop": true
+        },
+        {
           "action": "fadeOut",
-          "soundId": "54_s02a2_lucia",
-          "duration": 1412
+          "soundId": "54_s02a2_lucia_film",
+          "duration": 1275
         }
       ]
     },
@@ -968,7 +989,15 @@
       "text": "Rob et elle en train de s’embrasser, Pierre, le grand frère de Rob, qui détourne grossièrement le regard avec ses airs de drama-king, et tous les invités debout, jetant des fleurs et du riz…",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": [],
+      "audioEvents": [
+        {
+          "action": "play",
+          "soundId": "54_s02a2_lucia_whoosh",
+          "volume": 0.5,
+          "delay": 0,
+          "loop": false
+        }
+      ],
       "delay": 3800
     },
     {
@@ -1417,7 +1446,14 @@
       "delay": 500,
       "loop": true,
       "muted": false,
-      "loopCrossfade": "medium"
+      "loopCrossfade": "medium",
+      "automationPoints": [
+        {
+          "segmentId": "seg_1781326327990_35_revw1",
+          "volume": 0.29,
+          "fadeMs": 4000
+        }
+      ]
     },
     {
       "id": "st_1781702691915_hbd149cf1",
@@ -1522,7 +1558,9 @@
       "delay": 0,
       "loop": false,
       "muted": false,
-      "pan": 0.73
+      "pan": 0.73,
+      "trimStart": 1040,
+      "trimEnd": 4512
     },
     {
       "id": "st_1781707000433_daizk52j5",
@@ -1530,13 +1568,14 @@
       "startSegmentId": "seg_1781326327990_35_revw1",
       "endSegmentId": "seg_1781326327990_37_24l4g",
       "column": 2,
-      "volume": 0.3,
-      "fadeIn": 0,
+      "volume": 0.55,
+      "fadeIn": 300,
       "fadeOut": 1263,
       "delay": 0,
       "loop": false,
       "muted": false,
-      "pan": 0.37
+      "pan": 0.37,
+      "panMode": "static"
     },
     {
       "id": "st_1781707137938_nj9rxp3vc",
@@ -1546,7 +1585,7 @@
       "column": 1,
       "volume": 0.25,
       "fadeIn": 600,
-      "fadeOut": 600,
+      "fadeOut": 400,
       "delay": 0,
       "loop": false,
       "muted": false,
@@ -1577,7 +1616,7 @@
       "column": 1,
       "volume": 0.5,
       "fadeIn": 0,
-      "fadeOut": 2368,
+      "fadeOut": 1000,
       "delay": 0,
       "loop": false,
       "muted": false
@@ -1589,11 +1628,13 @@
       "endSegmentId": "seg_1781326327990_41_scotp",
       "column": 2,
       "volume": 0.5,
-      "fadeIn": 0,
+      "fadeIn": 700,
       "fadeOut": 0,
       "delay": 0,
       "loop": false,
-      "muted": false
+      "muted": false,
+      "trimStart": 549,
+      "trimEnd": 8879.895833333334
     },
     {
       "id": "st_1781712537890_rtxvxchft",
@@ -1614,13 +1655,20 @@
       "startSegmentId": "seg_1781326327990_49_yzh1o",
       "endSegmentId": "seg_1781331198222_b_7eji1",
       "column": 0,
-      "volume": 0.4,
+      "volume": 0.15,
       "fadeIn": 2300,
       "fadeOut": 1900,
       "delay": 0,
       "loop": true,
       "muted": false,
-      "loopCrossfade": "medium"
+      "loopCrossfade": "medium",
+      "automationPoints": [
+        {
+          "segmentId": "seg_1781331080572_a_ixquw",
+          "volume": 0.15,
+          "fadeMs": 300
+        }
+      ]
     },
     {
       "id": "st_1781712711191_9rwtjjq1o",
@@ -1628,12 +1676,26 @@
       "startSegmentId": "seg_1781326327990_48_z3jy6",
       "endSegmentId": "seg_1781331080572_a_ixquw",
       "column": 1,
-      "volume": 0.15,
+      "volume": 0.75,
       "fadeIn": 200,
       "fadeOut": 500,
-      "delay": 3000,
+      "delay": 2000,
       "loop": false,
-      "muted": false
+      "muted": false,
+      "trimStart": 1854,
+      "trimEnd": 206080,
+      "automationPoints": [
+        {
+          "segmentId": "seg_1781326327990_49_yzh1o",
+          "volume": 0.25,
+          "fadeMs": 4000
+        },
+        {
+          "segmentId": "seg_1781331080572_a_ixquw",
+          "volume": 0,
+          "fadeMs": 4000
+        }
+      ]
     },
     {
       "id": "st_1781712762452_x2emdi9n6",
@@ -1655,13 +1717,20 @@
       "startSegmentId": "seg_1781331026409_b_oklap",
       "endSegmentId": "seg_1781331080572_a_ixquw",
       "column": 3,
-      "volume": 0.25,
+      "volume": 0.45,
       "fadeIn": 1500,
       "fadeOut": 601,
       "delay": 0,
       "loop": true,
       "muted": false,
-      "loopCrossfade": "medium"
+      "loopCrossfade": "medium",
+      "automationPoints": [
+        {
+          "segmentId": "seg_1781331080572_a_ixquw",
+          "volume": 0.32,
+          "fadeMs": 300
+        }
+      ]
     },
     {
       "id": "st_1781713694217_xd8ipzdvl",
@@ -1669,12 +1738,14 @@
       "startSegmentId": "seg_1781326327990_52_4b5ts",
       "endSegmentId": "seg_1781326327990_52_4b5ts",
       "column": 4,
-      "volume": 0.4,
+      "volume": 0.8,
       "fadeIn": 0,
       "fadeOut": 0,
       "delay": 0,
       "loop": false,
-      "muted": false
+      "muted": false,
+      "trimStart": 0,
+      "trimEnd": 4824
     },
     {
       "id": "st_1781713767847_nfstmzxhz",
@@ -1682,12 +1753,14 @@
       "startSegmentId": "seg_1781326327990_52_4b5ts",
       "endSegmentId": "seg_1781326327990_52_4b5ts",
       "column": 5,
-      "volume": 0.5,
+      "volume": 0.95,
       "fadeIn": 0,
       "fadeOut": 0,
       "delay": 1000,
       "loop": false,
-      "muted": false
+      "muted": false,
+      "trimStart": 0,
+      "trimEnd": 10296
     },
     {
       "id": "st_1781713810038_zeeovnizo",
@@ -1708,13 +1781,27 @@
       "startSegmentId": "seg_1781331080572_b_1n503",
       "endSegmentId": "seg_1781331123862_a_80jwg",
       "column": 3,
-      "volume": 0.5,
+      "volume": 0.6,
       "fadeIn": 0,
       "fadeOut": 1762,
       "delay": 0,
       "loop": true,
       "muted": false,
-      "loopCrossfade": "medium"
+      "loopCrossfade": "medium",
+      "trimStart": 0,
+      "trimEnd": 8112,
+      "automationPoints": [
+        {
+          "segmentId": "seg_1781326327990_59_r0vw2",
+          "volume": 0,
+          "fadeMs": 80
+        },
+        {
+          "segmentId": "seg_1781331123862_a_80jwg",
+          "volume": 0.51,
+          "fadeMs": 2000
+        }
+      ]
     },
     {
       "id": "st_1781713911785_ei80jm7m0",
@@ -1722,7 +1809,7 @@
       "startSegmentId": "seg_1781326327990_58_jd1ul",
       "endSegmentId": "seg_1781326327990_58_jd1ul",
       "column": 4,
-      "volume": 0.5,
+      "volume": 0.75,
       "fadeIn": 0,
       "fadeOut": 0,
       "delay": 0,
@@ -1736,26 +1823,13 @@
       "startSegmentId": "seg_1781326327990_59_r0vw2",
       "endSegmentId": "seg_1781326327990_59_r0vw2",
       "column": 4,
-      "volume": 0.5,
+      "volume": 0.65,
       "fadeIn": 0,
       "fadeOut": 0,
       "delay": 0,
       "loop": false,
       "muted": false,
       "pan": -0.31
-    },
-    {
-      "id": "st_1781714161380_qv3v0rlaw",
-      "soundId": "54_s02a2_lucia",
-      "startSegmentId": "seg_1781331233156",
-      "endSegmentId": "seg_1781331233156",
-      "column": 1,
-      "volume": 0.5,
-      "fadeIn": 0,
-      "fadeOut": 1412,
-      "delay": 0,
-      "loop": false,
-      "muted": false
     },
     {
       "id": "st_1781714380524_ak08g3lm3",
@@ -1998,6 +2072,46 @@
       "loop": false,
       "muted": false,
       "broken": false
+    },
+    {
+      "id": "st_1781797814605_qn3q6knjn",
+      "soundId": "54_s02a2_lucia_flash",
+      "startSegmentId": "seg_1781331233156",
+      "endSegmentId": "seg_1781331233156",
+      "column": 2,
+      "volume": 0.5,
+      "fadeIn": 0,
+      "fadeOut": 0,
+      "delay": 0,
+      "loop": false,
+      "muted": false
+    },
+    {
+      "id": "st_1781797832113_skphweuou",
+      "soundId": "54_s02a2_lucia_film",
+      "startSegmentId": "seg_1781331233156",
+      "endSegmentId": "seg_1781331233156",
+      "column": 3,
+      "volume": 0.5,
+      "fadeIn": 0,
+      "fadeOut": 1275,
+      "delay": 0,
+      "loop": true,
+      "muted": false,
+      "loopCrossfade": "medium"
+    },
+    {
+      "id": "st_1781797853414_p66rxqljt",
+      "soundId": "54_s02a2_lucia_whoosh",
+      "startSegmentId": "seg_1781331231397_b_bf852",
+      "endSegmentId": "seg_1781331231397_b_bf852",
+      "column": 1,
+      "volume": 0.5,
+      "fadeIn": 0,
+      "fadeOut": 0,
+      "delay": 0,
+      "loop": false,
+      "muted": false
     }
   ],
   "vfxTracks": [
