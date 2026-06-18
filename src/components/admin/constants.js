@@ -32,12 +32,12 @@ export const COLUMN_WIDTH = 42 // Environ 2 fois plus serré (était 80)
 // Points d'automation de volume
 export const AUTOMATION_FADE_STEPS = [
   { ms: 0,    label: 'Instantané',      curve: 'cut'       },
-  { ms: 80,   label: 'Imperceptible',   curve: 'linear'    },
-  { ms: 300,  label: 'Court',           curve: 'ease-out'  },
-  { ms: 800,  label: 'Naturel',         curve: 'sigmoid'   },
-  { ms: 2000, label: 'Long',            curve: 'sigmoid'   },
-  { ms: 4000, label: 'Scénique',        curve: 'cubic'     },
-  { ms: 8000, label: 'Cinématique',     curve: 'log'       },
+  { ms: 300,   label: 'Imperceptible',   curve: 'linear'    },
+  { ms: 600,  label: 'Court',           curve: 'ease-out'  },
+  { ms: 1500,  label: 'Naturel',         curve: 'sigmoid'   },
+  { ms: 2500, label: 'Long',            curve: 'sigmoid'   },
+  { ms: 5000, label: 'Scénique',        curve: 'cubic'     },
+  { ms: 10000, label: 'Cinématique',     curve: 'log'       },
 ]
 
 export const DEFAULT_SOUNDTRACK = {
