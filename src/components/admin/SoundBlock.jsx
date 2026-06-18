@@ -451,8 +451,12 @@ function SoundBlock({
     const sw = isSelected ? 2.5 : 2
     const shadow = color
     if (fadeStepIndex === 0) {
-      // Cercle plein — instantané
-      return <circle cx={x} cy={y} r={size / 2} fill={fill} stroke={stroke} strokeWidth={sw} />
+      return (
+        <g>
+          <circle cx={x} cy={y} r={size / 2 + 2} fill={shadow} opacity={0.35} />
+          <circle cx={x} cy={y} r={size / 2} fill={fill} stroke={stroke} strokeWidth={sw} />
+        </g>
+      )
     }
     if (fadeStepIndex === 5) {
       // ∫ pour 4000ms
