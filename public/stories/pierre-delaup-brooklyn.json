@@ -961,6 +961,21 @@
           "volume": 0.5,
           "delay": 0,
           "loop": false
+        },
+        {
+          "action": "play",
+          "soundId": "50_s10_tv_explosions_2",
+          "volume": 0.5,
+          "delay": 17000,
+          "loop": false
+        },
+        {
+          "action": "fadeIn",
+          "soundId": "61_s11_1_base_central_clean",
+          "volume": 0.5,
+          "duration": 2687,
+          "delay": 19000,
+          "loop": true
         }
       ]
     },
@@ -983,7 +998,13 @@
       "text": "Ok, dernière vérification avant le grand bain.",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": [],
+      "audioEvents": [
+        {
+          "action": "fadeOut",
+          "soundId": "61_s11_1_base_central_clean",
+          "duration": 687
+        }
+      ],
       "delay": 4600
     },
     {
@@ -1550,6 +1571,33 @@
       "delay": 0,
       "loop": false,
       "muted": false
+    },
+    {
+      "id": "st_1781790400950_jy0rx7jys",
+      "soundId": "50_s10_tv_explosions_2",
+      "startSegmentId": "seg_1781332507204",
+      "endSegmentId": "seg_1781332507204",
+      "column": 2,
+      "volume": 0.5,
+      "fadeIn": 0,
+      "fadeOut": 0,
+      "delay": 17000,
+      "loop": false,
+      "muted": false
+    },
+    {
+      "id": "st_1781790561927_ianbq37so",
+      "soundId": "61_s11_1_base_central_clean",
+      "startSegmentId": "seg_1781332507204",
+      "endSegmentId": "seg_1781333627667_a_50xtd",
+      "column": 3,
+      "volume": 0.5,
+      "fadeIn": 2687,
+      "fadeOut": 687,
+      "delay": 19000,
+      "loop": true,
+      "muted": false,
+      "loopCrossfade": "medium"
     }
   ],
   "vfxTracks": [
