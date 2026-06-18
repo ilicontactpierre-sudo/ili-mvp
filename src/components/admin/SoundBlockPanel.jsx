@@ -667,23 +667,24 @@ function SoundBlockPanel({
               type="number"
               min="1"
               max={segments.length}
-              value={endSegmentIndex >= 0 ? endSegmentIndex + 1 : (startSegmentIndex >= 0 ? startSegmentIndex + 1 : '')}
+              value={endSegText}
               onChange={(e) => {
                 const value = e.target.value
-                if (value === '') return // Laisser vide pendant l'édition
+                setEndSegText(value)
+                if (value === '') return
                 const numValue = parseInt(value)
                 if (!isNaN(numValue) && numValue >= 1 && numValue <= segments.length) {
                   const newIndex = numValue - 1
-                  // La fin doit être >= au début
-                  if (newIndex >= startSegmentIndex) {
-                    // Utiliser l'ID réel du segment
-                    handleChange('endSegmentId', segments[newIndex].id ?? `seg_${newIndex}`)
-                  } else {
+                  handleChange('endSegmentId', segments[newIndex].id ?? `seg_${newIndex}`)
+                  if (newIndex < startSegmentIndex) {
                     // Si on met une fin avant le début, on ajuste le début aussi
-                    handleChange('endSegmentId', segments[newIndex].id ?? `seg_${newIndex}`)
                     handleChange('startSegmentId', segments[newIndex].id ?? `seg_${newIndex}`)
+                    setStartSegText(String(newIndex + 1))
                   }
                 }
+              }}
+              onBlur={() => {
+                setEndSegText(endSegmentIndex >= 0 ? String(endSegmentIndex + 1) : (startSegmentIndex >= 0 ? String(startSegmentIndex + 1) : ''))
               }}
               style={{ 
                 width: '100%', 
