@@ -469,7 +469,7 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle',
     function computeTranslate() {
       if (chapterMode === 'focused') { setTranslateY(0); return }
       const focusedNode = segmentRefs.current[currentIndex]
-      console.log(`[StoryReader] computeTranslate — currentIndex=${currentIndex} focusedNode=`, focusedNode, 'offsetTop=', focusedNode?.offsetTop, 'offsetHeight=', focusedNode?.offsetHeight)
+      console.log(`[StoryReader] computeTranslate — currentIndex=${currentIndex} offsetTop=`, focusedNode?.offsetTop, 'offsetHeight=', focusedNode?.offsetHeight, 'offsetParent=', focusedNode?.offsetParent, 'trackRef=', trackRef.current, 'trackOffsetTop=', trackRef.current?.offsetTop)
       if (!focusedNode) return
       const vh = viewportHeight || window.innerHeight
       console.log(`[StoryReader] vh=${vh} viewportHeight=${viewportHeight} window.innerHeight=${window.innerHeight}`)
