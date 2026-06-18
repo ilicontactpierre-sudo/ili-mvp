@@ -1,7 +1,12 @@
 import { useEffect, useRef, useState, createContext, useContext } from 'react'
 
 // ── Adaptation couleur selon thème ───────────────────────────────────────────
-function adaptColorForTheme(hex) {
+function getTheme() {
+  try { return JSON.parse(localStorage.getItem('ili_theme') || '{}') } catch { return {} }
+}
+function adaptColorForTheme(hex, theme) {
+  try {
+    if (theme.isDark === false || theme.isToutdoux === true) {
   try {
     const theme = JSON.parse(localStorage.getItem('ili_theme') || '{}')
     if (theme.isDark === false || theme.isToutdoux === true) {
