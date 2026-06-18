@@ -624,23 +624,26 @@ function SoundBlockPanel({
               type="number"
               min="1"
               max={segments.length}
-              value={startSegmentIndex >= 0 ? startSegmentIndex + 1 : ''}
+              value={startSegText}
               onChange={(e) => {
                 const value = e.target.value
-                if (value === '') return // Laisser vide pendant l'édition
+                setStartSegText(value) // toujours refléter ce qui est tapé, même invalide/partiel
+                if (value === '') return
                 const numValue = parseInt(value)
                 if (!isNaN(numValue) && numValue >= 1 && numValue <= segments.length) {
                   const newIndex = numValue - 1
                   const currentEndIndex = endSegmentIndex !== -1 ? endSegmentIndex : startSegmentIndex
-                  // Si le nouveau début est après la fin actuelle, on ajuste la fin
                   if (newIndex >= currentEndIndex) {
                     const newEndIndex = Math.min(newIndex + 1, segments.length - 1)
-                    // Utiliser l'ID réel du segment
                     handleChange('endSegmentId', segments[newEndIndex].id ?? `seg_${newEndIndex}`)
+                    setEndSegText(String(newEndIndex + 1))
                   }
-                  // Utiliser l'ID réel du segment
                   handleChange('startSegmentId', segments[newIndex].id ?? `seg_${newIndex}`)
                 }
+              }}
+              onBlur={() => {
+                // Si la saisie en cours était invalide/incomplète, on revient à la vraie valeur
+                setStartSegText(startSegmentIndex >= 0 ? String(startSegmentIndex + 1) : '')
               }}
               style={{ 
                 width: '100%', 
