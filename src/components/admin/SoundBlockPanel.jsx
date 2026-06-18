@@ -42,6 +42,11 @@ function SoundBlockPanel({
   const [endSegText, setEndSegText] = useState('')
   const panelRef = useRef(null)
   const animationRef = useRef(null)
+  // ── Aperçu sonore (lecture avec les réglages actuels) ──────────────────────
+  const [isPreviewPlaying, setIsPreviewPlaying] = useState(false)
+  const previewHowlRef = useRef(null)
+  const previewEngineRef = useRef(null)
+  const previewTimeoutRef = useRef(null)
   const color = getSoundColor(sound)
 
   useEffect(() => {
