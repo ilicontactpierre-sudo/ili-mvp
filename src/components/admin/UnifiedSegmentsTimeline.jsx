@@ -889,22 +889,24 @@ const SegmentTimelineRow = memo(function SegmentTimelineRow({
         {/* Blocs sonores pour cette ligne */}
         {rowSoundTracks.map(track => (
           <SoundBlock
-            key={track.id}
-            soundTrack={track}
-            segments={segments}
-            soundLibrary={soundLibrary}
-            rowHeights={rowHeights}
-            isSelected={selectedSoundIds.has(track.id) || track.id === editingSoundTrack?.id}            onSelect={onSoundSelect}
-            onDoubleClick={onSoundDoubleClick}
-            onColumnChange={onSoundColumnChange}
-            onResize={onSoundResize}
-            onMove={onSoundMove}
-            onUpdate={onSoundUpdate}
-            onDragStart={onDragStart}
-            onDragEnd={onDragEnd}
-            onDragTargetChange={onDragTargetChange}
-            currentSegmentIndex={index}
-          />
+              key={track.id}
+              soundTrack={track}
+              segments={segments}
+              soundLibrary={soundLibrary}
+              rowHeights={rowHeights}
+              isSelected={selectedSoundIds.has(track.id) || track.id === editingSoundTrack?.id}
+              onSelect={onSoundSelect}
+              onDoubleClick={onSoundDoubleClick}
+              onColumnChange={onSoundColumnChange}
+              onResize={onSoundResize}
+              onMove={onSoundMove}
+              onUpdate={onSoundUpdate}
+              onDragStart={onDragStart}
+              onDragEnd={onDragEnd}
+              onDragTargetChange={onDragTargetChange}
+              currentSegmentIndex={index}
+              isCmdPressed={isCmdPressed}
+            />
         ))}
       </div>
 
