@@ -471,8 +471,8 @@ function SoundBlock({
     if (!e.shiftKey) return
     e.stopPropagation()
     e.preventDefault()
-    const p = propsRef.current
-    const points = p.soundTrack.automationPoints || []
+    const track = soundTrackRef.current
+    const points = track.automationPoints || []
     const pt = points[ptIndex]
     if (!pt) return
     const currentStepIdx = AUTOMATION_FADE_STEPS.findIndex(s => s.ms === pt.fadeMs)
@@ -480,16 +480,16 @@ function SoundBlock({
     const newPoints = points.map((p, i) =>
       i === ptIndex ? { ...p, fadeMs: AUTOMATION_FADE_STEPS[nextStepIdx].ms } : p
     )
-    propsRef.current.onUpdate(p.soundTrack.id, { automationPoints: newPoints })
+    propsRef.current.onUpdate(track.id, { automationPoints: newPoints })
   }, [])
 
   // ── Automation : double-clic pour supprimer ──────────────
   const handleAutomationDelete = useCallback((e, ptIndex) => {
     e.stopPropagation()
     e.preventDefault()
-    const p = propsRef.current
-    const newPoints = (p.soundTrack.automationPoints || []).filter((_, i) => i !== ptIndex)
-    p.onUpdate(p.soundTrack.id, { automationPoints: newPoints })
+    const track = soundTrackRef.current
+    const newPoints = (track.automationPoints || []).filter((_, i) => i !== ptIndex)
+    propsRef.current.onUpdate(track.id, { automationPoints: newPoints })
   }, [])
 
   // ── Rendu ────────────────────────────────────────────────
