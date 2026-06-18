@@ -1407,22 +1407,32 @@ function UnifiedSegmentsTimeline({
     }
     if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) {
       e.preventDefault()
-      // Sauvegarder le segment courant
-      handleEditBlur(index)
-      // Créer un nouveau segment juste après
-      const updatedSegments = [...segments]
-      const newSegment = typeof segments[0] === 'string'
-        ? ''
-        : { text: '', id: `seg_${Date.now()}_${Math.random().toString(36).slice(2, 7)}` }
-      updatedSegments.splice(index + 1, 0, newSegment)
-      onSegmentsChange(updatedSegments)
-      if (onSaveToHistory) onSaveToHistory()
-      // Ouvrir le nouveau segment en édition après le re-render
-      setTimeout(() => {
-        handleStartEdit(index + 1)
-        scrollToSegmentRef.current?.(index + 1)
-      }, 30)
-    }
+      // 1. Sauvegarder le texte du segment courant immédiatement
+      const newText = editTexts[index]
+      let updatedSegments = [...segments]
+      if (newText !== undefined) {
+        const normalized = newText.replace(/\r\n/g, '\n')
+        const doubleBreakMatch = normalized.match(/^([\s\S]*?)\n\n([\s\S]*)$/)
+        let cleanText, breakAt
+        if (doubleBreakMatch) {
+          cleanText = doubleBreakMatch[1].trimEnd() + ' ' + doubleBreakMatch[2].trimStart()
+          breakAt = doubleBreakMatch[1].trimEnd().length + 1
+        } else {
+          cleanText = normalized
+          breakAt = null
+        }
+        updatedSegments[index] = typeof segments[index] === 'string'
+          ? cleanText
+          : { ...segments[index], text: cleanText, breakAt }
+      }
+      // 2. Créer un nouveau segment juste après
+      const nextIndex = index + 1
+      const existingNext = updatedSegments[nextIndex]
+      if (!existingNext) {
+        // Seulement créer si le segment suivant n'existe pas
+        const newSegment = typeof segments[0] === 'string'
+          ? ''
+          : {
   }, [handleEditBlur, segments, onSegmentsChange, onSaveToHistory, handleStartEdit])
 
   const handleMergeSegments = useCallback((index) => {
