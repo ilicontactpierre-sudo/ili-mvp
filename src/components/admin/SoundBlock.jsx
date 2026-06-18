@@ -142,7 +142,6 @@ function SoundBlock({
     if (e.metaKey || e.ctrlKey) {
       e.stopPropagation()
       const rh = rowHeightsRef.current || []
-      // Calculer la position Y relative au coin supérieur du bloc lui-même
       const blockEl = blockRef.current
       if (!blockEl) return
       const blockRect = blockEl.getBoundingClientRect()
@@ -150,9 +149,12 @@ function SoundBlock({
       let accumulated = 0
       let targetSegIdx = startSegmentIndex
       for (let i = startSegmentIndex; i <= actualEndIndex; i++) {
-        const h = rh[i] || SEGMENT_HEIGHT
-        if (cursorYInBlock <= accumulated + h) { targetSegIdx = i; break }
-        accumulated += h + 8
+        const h = (rh[i] || SEGMENT_HEIGHT) + 8 // +8 pour le séparateur, comme dans le calcul de blockHeight
+        if (cursorYInBlock <= accumulated + h) {
+          targetSegIdx = i
+          break
+        }
+        accumulated += h
         targetSegIdx = i
       }
       handleAutomationCreate(e, targetSegIdx)
