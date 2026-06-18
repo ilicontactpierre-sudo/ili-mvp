@@ -32,7 +32,199 @@ const getSegmentText = (segment) => {
 
   return ''
 }
+// ── Panneau de configuration de transition visuelle ───────────────────────────
+const EASING_OPTIONS = [
+  { value: 'ease-in-out', label: 'Symétrique',  hint: 'doux des deux côtés' },
+  { value: 's-curve',     label: 'S-curve',      hint: 'filmique, pro' },
+  { value: 'ease-in',     label: 'Entrée lente', hint: 'tension → relâchement' },
+  { value: 'ease-out',    label: 'Sortie lente', hint: 'apparition soudaine' },
+]
+const TRANSITION_TYPES = [
+  { value: 'fade', label: 'Fondu', hint: 'couleur plein écran' },
+  { value: 'veil', label: 'Voile', hint: 'semi-transparent (55%)' },
+  { value: 'blur', label: 'Flou',  hint: 'blur du texte seul' },
+]
+function TransitionConfigPanel({ transition, onChange, onClose }) {
+  const tr = transition ?? {
+    type: 'fade',
+    color: '#000000',
+    easing: 'ease-in-out',
+    fadeInDuration: 400,
+    holdDuration: 0,
+    fadeOutDuration: 400,
+  }
+  const update = (patch) => onChange({ ...tr, ...patch })
+  const label = { fontSize: '0.62rem', color: '#6b7280', marginBottom: '2px', display: 'block' }
+  const input = {
+    fontSize: '0.72rem',
+    border: '1px solid #e5e7eb',
+    borderRadius: '4px',
+    padding: '2px 5px',
+    outline: 'none',
+    fontFamily: 'system-ui, sans-serif',
+    background: '#fff',
+    color: '#374151',
+  }
+  return (
+    <div
+      onClick={e => e.stopPropagation()}
+      style={{
+        position: 'absolute',
+        top: '100%',
+        left: 0,
+        zIndex: 50,
+        backgroundColor: '#fff',
+        border: '1px solid #e5e7eb',
+        borderRadius: '8px',
+        boxShadow: '0 8px 24px rgba(0,0,0,0.10)',
+        padding: '12px 14px',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '10px',
+        minWidth: '320px',
+        maxWidth: '420px',
+      }}
+    >
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <span style={{ fontSize: '0.72rem', fontWeight: 700, color: '#7c3aed', letterSpacing: '0.04em' }}>
+          ✦ TRANSITION VISUELLE
+        </span>
+        <div style={{ display: 'flex', gap: '6px' }}>
+          {transition && (
+            <button
+              onClick={() => { onChange(null); onClose() }}
+              style={{ ...input, color: '#ef4444', border: '1px solid #fecaca', cursor: 'pointer', padding: '2px 7px' }}
+            >
+              Supprimer
+            </button>
+          )}
+          <button onClick={onClose} style={{ ...input, cursor: 'pointer', padding: '2px 7px' }}>
+            Fermer
+          </button>
+        </div>
+      </div>
 
+      {/* Type */}
+      <div>
+        <span style={label}>Type</span>
+        <div style={{ display: 'flex', gap: '5px' }}>
+          {TRANSITION_TYPES.map(t => (
+            <button
+              key={t.value}
+              onClick={() => update({ type: t.value })}
+              title={t.hint}
+              style={{
+                ...input,
+                cursor: 'pointer',
+                padding: '3px 8px',
+                backgroundColor: tr.type === t.value ? '#ede9fe' : '#f9fafb',
+                borderColor: tr.type === t.value ? '#a78bfa' : '#e5e7eb',
+                color: tr.type === t.value ? '#7c3aed' : '#6b7280',
+                fontWeight: tr.type === t.value ? 600 : 400,
+                transition: 'all 0.15s ease',
+              }}
+            >
+              {t.label}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Couleur (seulement pour fade et veil) */}
+      {(tr.type === 'fade' || tr.type === 'veil') && (
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <span style={{ ...label, margin: 0 }}>Couleur</span>
+          <input
+            type="color"
+            value={tr.color ?? '#000000'}
+            onChange={e => update({ color: e.target.value })}
+            style={{ width: '32px', height: '22px', border: '1px solid #e5e7eb', borderRadius: '4px', cursor: 'pointer', padding: '1px' }}
+          />
+          <span style={{ fontSize: '0.65rem', color: '#9ca3af' }}>{tr.color ?? '#000000'}</span>
+          {/* Présets */}
+          {['#000000', '#ffffff', '#1a0a2e', '#0a1628'].map(c => (
+            <div
+              key={c}
+              onClick={() => update({ color: c })}
+              title={c}
+              style={{
+                width: '16px', height: '16px',
+                backgroundColor: c,
+                borderRadius: '3px',
+                border: tr.color === c ? '2px solid #7c3aed' : '1px solid #e5e7eb',
+                cursor: 'pointer',
+                flexShrink: 0,
+              }}
+            />
+          ))}
+        </div>
+      )}
+
+      {/* Durées */}
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '8px' }}>
+        {[
+          { key: 'fadeInDuration',  label: 'Fondu entrant' },
+          { key: 'holdDuration',    label: 'Tenue' },
+          { key: 'fadeOutDuration', label: 'Fondu sortant' },
+        ].map(({ key, label: l }) => (
+          <div key={key}>
+            <span style={label}>{l}</span>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '3px' }}>
+              <input
+                type="number"
+                min="0"
+                max="5000"
+                step="50"
+                value={tr[key] ?? 400}
+                onChange={e => update({ [key]: Number(e.target.value) })}
+                style={{ ...input, width: '56px' }}
+              />
+              <span style={{ fontSize: '0.6rem', color: '#9ca3af' }}>ms</span>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Courbe */}
+      <div>
+        <span style={label}>Courbe</span>
+        <div style={{ display: 'flex', gap: '5px', flexWrap: 'wrap' }}>
+          {EASING_OPTIONS.map(e => (
+            <button
+              key={e.value}
+              onClick={() => update({ easing: e.value })}
+              title={e.hint}
+              style={{
+                ...input,
+                cursor: 'pointer',
+                padding: '3px 7px',
+                backgroundColor: tr.easing === e.value ? '#ede9fe' : '#f9fafb',
+                borderColor: tr.easing === e.value ? '#a78bfa' : '#e5e7eb',
+                color: tr.easing === e.value ? '#7c3aed' : '#6b7280',
+                fontWeight: tr.easing === e.value ? 600 : 400,
+                transition: 'all 0.15s ease',
+              }}
+            >
+              {e.label}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Résumé visuel */}
+      <div style={{
+        fontSize: '0.62rem',
+        color: '#9ca3af',
+        padding: '6px 8px',
+        backgroundColor: '#f9fafb',
+        borderRadius: '5px',
+        fontFamily: 'monospace',
+      }}>
+        {tr.type} · {tr.fadeInDuration ?? 400}ms in · {tr.holdDuration ?? 0}ms hold · {tr.fadeOutDuration ?? 400}ms out · {tr.easing ?? 'ease-in-out'}
+      </div>
+    </div>
+  )
+}
 // Composant pour une ligne unifiée Segment + Timeline
 const SegmentTimelineRow = memo(function SegmentTimelineRow({ 
   segment, 
@@ -1250,200 +1442,6 @@ const SegmentTimelineRow = memo(function SegmentTimelineRow({
     prevProps.pauseDuration === nextProps.pauseDuration
   )
 })
-
-// ── Panneau de configuration de transition visuelle ───────────────────────────
-const EASING_OPTIONS = [
-  { value: 'ease-in-out', label: 'Symétrique',  hint: 'doux des deux côtés' },
-  { value: 's-curve',     label: 'S-curve',      hint: 'filmique, pro' },
-  { value: 'ease-in',     label: 'Entrée lente', hint: 'tension → relâchement' },
-  { value: 'ease-out',    label: 'Sortie lente', hint: 'apparition soudaine' },
-]
-const TRANSITION_TYPES = [
-  { value: 'fade', label: 'Fondu', hint: 'couleur plein écran' },
-  { value: 'veil', label: 'Voile', hint: 'semi-transparent (55%)' },
-  { value: 'blur', label: 'Flou',  hint: 'blur du texte seul' },
-]
-function TransitionConfigPanel({ transition, onChange, onClose }) {
-  const tr = transition ?? {
-    type: 'fade',
-    color: '#000000',
-    easing: 'ease-in-out',
-    fadeInDuration: 400,
-    holdDuration: 0,
-    fadeOutDuration: 400,
-  }
-  const update = (patch) => onChange({ ...tr, ...patch })
-  const label = { fontSize: '0.62rem', color: '#6b7280', marginBottom: '2px', display: 'block' }
-  const input = {
-    fontSize: '0.72rem',
-    border: '1px solid #e5e7eb',
-    borderRadius: '4px',
-    padding: '2px 5px',
-    outline: 'none',
-    fontFamily: 'system-ui, sans-serif',
-    background: '#fff',
-    color: '#374151',
-  }
-  return (
-    <div
-      onClick={e => e.stopPropagation()}
-      style={{
-        position: 'absolute',
-        top: '100%',
-        left: 0,
-        zIndex: 50,
-        backgroundColor: '#fff',
-        border: '1px solid #e5e7eb',
-        borderRadius: '8px',
-        boxShadow: '0 8px 24px rgba(0,0,0,0.10)',
-        padding: '12px 14px',
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '10px',
-        minWidth: '320px',
-        maxWidth: '420px',
-      }}
-    >
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-        <span style={{ fontSize: '0.72rem', fontWeight: 700, color: '#7c3aed', letterSpacing: '0.04em' }}>
-          ✦ TRANSITION VISUELLE
-        </span>
-        <div style={{ display: 'flex', gap: '6px' }}>
-          {transition && (
-            <button
-              onClick={() => { onChange(null); onClose() }}
-              style={{ ...input, color: '#ef4444', border: '1px solid #fecaca', cursor: 'pointer', padding: '2px 7px' }}
-            >
-              Supprimer
-            </button>
-          )}
-          <button onClick={onClose} style={{ ...input, cursor: 'pointer', padding: '2px 7px' }}>
-            Fermer
-          </button>
-        </div>
-      </div>
-
-      {/* Type */}
-      <div>
-        <span style={label}>Type</span>
-        <div style={{ display: 'flex', gap: '5px' }}>
-          {TRANSITION_TYPES.map(t => (
-            <button
-              key={t.value}
-              onClick={() => update({ type: t.value })}
-              title={t.hint}
-              style={{
-                ...input,
-                cursor: 'pointer',
-                padding: '3px 8px',
-                backgroundColor: tr.type === t.value ? '#ede9fe' : '#f9fafb',
-                borderColor: tr.type === t.value ? '#a78bfa' : '#e5e7eb',
-                color: tr.type === t.value ? '#7c3aed' : '#6b7280',
-                fontWeight: tr.type === t.value ? 600 : 400,
-                transition: 'all 0.15s ease',
-              }}
-            >
-              {t.label}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      {/* Couleur (seulement pour fade et veil) */}
-      {(tr.type === 'fade' || tr.type === 'veil') && (
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <span style={{ ...label, margin: 0 }}>Couleur</span>
-          <input
-            type="color"
-            value={tr.color ?? '#000000'}
-            onChange={e => update({ color: e.target.value })}
-            style={{ width: '32px', height: '22px', border: '1px solid #e5e7eb', borderRadius: '4px', cursor: 'pointer', padding: '1px' }}
-          />
-          <span style={{ fontSize: '0.65rem', color: '#9ca3af' }}>{tr.color ?? '#000000'}</span>
-          {/* Présets */}
-          {['#000000', '#ffffff', '#1a0a2e', '#0a1628'].map(c => (
-            <div
-              key={c}
-              onClick={() => update({ color: c })}
-              title={c}
-              style={{
-                width: '16px', height: '16px',
-                backgroundColor: c,
-                borderRadius: '3px',
-                border: tr.color === c ? '2px solid #7c3aed' : '1px solid #e5e7eb',
-                cursor: 'pointer',
-                flexShrink: 0,
-              }}
-            />
-          ))}
-        </div>
-      )}
-
-      {/* Durées */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '8px' }}>
-        {[
-          { key: 'fadeInDuration',  label: 'Fondu entrant' },
-          { key: 'holdDuration',    label: 'Tenue' },
-          { key: 'fadeOutDuration', label: 'Fondu sortant' },
-        ].map(({ key, label: l }) => (
-          <div key={key}>
-            <span style={label}>{l}</span>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '3px' }}>
-              <input
-                type="number"
-                min="0"
-                max="5000"
-                step="50"
-                value={tr[key] ?? 400}
-                onChange={e => update({ [key]: Number(e.target.value) })}
-                style={{ ...input, width: '56px' }}
-              />
-              <span style={{ fontSize: '0.6rem', color: '#9ca3af' }}>ms</span>
-            </div>
-          </div>
-        ))}
-      </div>
-
-      {/* Courbe */}
-      <div>
-        <span style={label}>Courbe</span>
-        <div style={{ display: 'flex', gap: '5px', flexWrap: 'wrap' }}>
-          {EASING_OPTIONS.map(e => (
-            <button
-              key={e.value}
-              onClick={() => update({ easing: e.value })}
-              title={e.hint}
-              style={{
-                ...input,
-                cursor: 'pointer',
-                padding: '3px 7px',
-                backgroundColor: tr.easing === e.value ? '#ede9fe' : '#f9fafb',
-                borderColor: tr.easing === e.value ? '#a78bfa' : '#e5e7eb',
-                color: tr.easing === e.value ? '#7c3aed' : '#6b7280',
-                fontWeight: tr.easing === e.value ? 600 : 400,
-                transition: 'all 0.15s ease',
-              }}
-            >
-              {e.label}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      {/* Résumé visuel */}
-      <div style={{
-        fontSize: '0.62rem',
-        color: '#9ca3af',
-        padding: '6px 8px',
-        backgroundColor: '#f9fafb',
-        borderRadius: '5px',
-        fontFamily: 'monospace',
-      }}>
-        {tr.type} · {tr.fadeInDuration ?? 400}ms in · {tr.holdDuration ?? 0}ms hold · {tr.fadeOutDuration ?? 400}ms out · {tr.easing ?? 'ease-in-out'}
-      </div>
-    </div>
-  )
-}
 
 // Composant pour le séparateur entre segments (double-clic pour fusionner, clic ⏱ pour pause)
 const SegmentSeparator = memo(function SegmentSeparator({ index, onMerge, onInsertPause, isHovered, onHover }) {
