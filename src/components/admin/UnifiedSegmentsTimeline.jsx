@@ -1027,7 +1027,11 @@ const SegmentTimelineRow = memo(function SegmentTimelineRow({
 })
 
 // Composant pour le séparateur entre segments (double-clic pour fusionner)
-const SegmentSeparator = memo(function SegmentSeparator({ index, onMerge, isHovered, onHover }) {  return (
+const SegmentSeparator = memo(function SegmentSeparator({ index, onMerge, onInsertPause, isHovered, onHover }) {
+  const hovered = isHovered === index
+  const [showPauseHint, setShowPauseHint] = useState(false)
+
+  return (
     <div
       style={{
         height: '8px',
@@ -1037,48 +1041,108 @@ const SegmentSeparator = memo(function SegmentSeparator({ index, onMerge, isHove
         cursor: 'pointer',
         position: 'relative',
         backgroundColor: '#f8f9fa',
-        borderBottom: '1px solid #f0f0f0'
+        borderBottom: '1px solid #f0f0f0',
       }}
-      onDoubleClick={() => onMerge(index)}
       onMouseEnter={() => onHover(index)}
-      onMouseLeave={() => onHover(null)}
-      title="Double-cliquez pour fusionner les segments"
+      onMouseLeave={() => { onHover(null); setShowPauseHint(false) }}
     >
-      {/* Ligne séparatrice */}
+      {/* Ligne gauche */}
       <div style={{
         flex: 1,
         height: '1px',
-        backgroundColor: isHovered === index ? '#2196F3' : '#e0e0e0',
-        transition: 'background-color 0.15s ease'
+        backgroundColor: hovered ? '#2196F3' : '#e0e0e0',
+        transition: 'background-color 0.15s ease',
       }} />
-      
-      {/* Icône de fusion (visible au survol) */}
-      {isHovered === index && (
+
+      {/* Zone centrale : fusion (double-clic) + pause (simple clic sur ⏱) */}
+      {hovered && (
         <div style={{
           position: 'absolute',
           left: '50%',
           transform: 'translateX(-50%)',
-          backgroundColor: '#2196F3',
-          color: 'white',
-          borderRadius: '50%',
-          width: '20px',
-          height: '20px',
           display: 'flex',
           alignItems: 'center',
-          justifyContent: 'center',
-          fontSize: '10px',
-          fontWeight: 'bold',
-          boxShadow: '0 2px 4px rgba(0,0,0,0.2)'
+          gap: '4px',
+          zIndex: 10,
         }}>
-          ⊕
+          {/* Bouton fusion */}
+          <div
+            onDoubleClick={(e) => { e.stopPropagation(); onMerge(index) }}
+            title="Double-cliquez pour fusionner"
+            style={{
+              backgroundColor: '#2196F3',
+              color: 'white',
+              borderRadius: '50%',
+              width: '20px',
+              height: '20px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              fontSize: '10px',
+              fontWeight: 'bold',
+              boxShadow: '0 2px 4px rgba(0,0,0,0.2)',
+              cursor: 'pointer',
+              flexShrink: 0,
+            }}
+          >
+            ⊕
+          </div>
+
+          {/* Bouton insérer pause */}
+          <div
+            onClick={(e) => { e.stopPropagation(); onInsertPause(index) }}
+            onMouseEnter={() => setShowPauseHint(true)}
+            onMouseLeave={() => setShowPauseHint(false)}
+            title="Insérer une pause (segment invisible, auto-avance)"
+            style={{
+              backgroundColor: '#9ca3af',
+              color: 'white',
+              borderRadius: '50%',
+              width: '20px',
+              height: '20px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              fontSize: '10px',
+              boxShadow: '0 2px 4px rgba(0,0,0,0.15)',
+              cursor: 'pointer',
+              flexShrink: 0,
+              transition: 'background-color 0.15s ease',
+            }}
+            onMouseDown={e => e.currentTarget.style.backgroundColor = '#6b7280'}
+            onMouseUp={e => e.currentTarget.style.backgroundColor = '#9ca3af'}
+          >
+            ⏱
+          </div>
+
+          {/* Tooltip pause */}
+          {showPauseHint && (
+            <div style={{
+              position: 'absolute',
+              top: '26px',
+              left: '50%',
+              transform: 'translateX(-50%)',
+              backgroundColor: '#1a1a2e',
+              color: '#fff',
+              fontSize: '0.65rem',
+              padding: '3px 7px',
+              borderRadius: '4px',
+              whiteSpace: 'nowrap',
+              pointerEvents: 'none',
+              zIndex: 20,
+            }}>
+              Insérer une pause
+            </div>
+          )}
         </div>
       )}
-      
+
+      {/* Ligne droite */}
       <div style={{
         flex: 1,
         height: '1px',
-        backgroundColor: isHovered === index ? '#2196F3' : '#e0e0e0',
-        transition: 'background-color 0.15s ease'
+        backgroundColor: hovered ? '#2196F3' : '#e0e0e0',
+        transition: 'background-color 0.15s ease',
       }} />
     </div>
   )
