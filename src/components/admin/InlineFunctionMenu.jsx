@@ -83,6 +83,17 @@ function buildSubOptions(fnKey, seuilKeys) {
         { label: '🌫️ normal', hint: 'rythme équilibré',     args: ['1200', 'normal'] },
         { label: '🌫️ rapide', hint: 'flash instantané',     args: ['800',  'rapide'] },
       ]
+    case 'apparition':
+      return [
+        { label: '✨ lent · sans délai',    hint: 'fondu lent, immédiat',         args: ['0',   'lent']   },
+        { label: '✨ normal · sans délai',  hint: 'fondu standard, immédiat',     args: ['0',   'normal'] },
+        { label: '✨ rapide · sans délai',  hint: 'apparition rapide, immédiate', args: ['0',   'rapide'] },
+        { label: '✨ lent · délai 500ms',   hint: 'fondu lent après 500ms',       args: ['500', 'lent']   },
+        { label: '✨ normal · délai 500ms', hint: 'fondu standard après 500ms',   args: ['500', 'normal'] },
+        { label: '✨ rapide · délai 500ms', hint: 'apparition rapide après 500ms',args: ['500', 'rapide'] },
+        { label: '✨ lent · délai 1000ms',  hint: 'fondu lent après 1 seconde',   args: ['1000','lent']   },
+        { label: '✨ normal · délai 1000ms',hint: 'fondu standard après 1 seconde',args:['1000','normal'] },
+      ]
     case 'lire':
       return seuilKeys.map(k => ({
         label: k,
