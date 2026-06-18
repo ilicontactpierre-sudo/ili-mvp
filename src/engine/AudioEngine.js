@@ -299,7 +299,7 @@ class AudioEngine {
     })
 
     // Démarrer ou mettre à jour les sons actifs
-    activeTracks.forEach(track => {
+    for (const track of activeTracks) {
       const startIdx = getIndex(track.startSegmentId)
       const endIdx = getIndex(track.endSegmentId)
       const end = endIdx !== -1 ? endIdx : startIdx
