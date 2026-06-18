@@ -684,6 +684,28 @@ function SoundBlock({
       }}>
         {sound ? sound.label.substring(0, 15) : soundTrack.soundId}
       </div>
+
+      {/* Tooltip titre au survol */}
+      {showTitleTooltip && sound && (
+        <div style={{
+          position: 'absolute',
+          bottom: '100%',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          marginBottom: '6px',
+          backgroundColor: 'rgba(0,0,0,0.8)',
+          color: '#fff',
+          fontSize: '11px',
+          fontWeight: '500',
+          padding: '4px 8px',
+          borderRadius: '4px',
+          whiteSpace: 'nowrap',
+          pointerEvents: 'none',
+          zIndex: 9999,
+        }}>
+          {sound.label}
+        </div>
+      )}
       
 
       {/* Fade out */}
