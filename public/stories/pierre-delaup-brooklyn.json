@@ -235,7 +235,7 @@
   ],
   "segments": [
     {
-      "text": "",
+      "text": "Petit test pour le volume :) Clic quand tu es ready.",
       "id": "seg_1781794386339",
       "audioEvents": [
         {
@@ -244,7 +244,16 @@
           "volume": 1,
           "delay": 0,
           "loop": false
-        },
+        }
+      ],
+      "breakAt": 29,
+      "isLeader": true
+    },
+    {
+      "id": "seg_pause_1781803095254_mkdky",
+      "text": "",
+      "pause": 1500,
+      "audioEvents": [
         {
           "action": "fadeOut",
           "soundId": "la_valle_e_du_okuno",
@@ -2146,7 +2155,7 @@
       "id": "st_1781794425494_nvni9kv9t",
       "soundId": "la_valle_e_du_okuno",
       "startSegmentId": "seg_1781794386339",
-      "endSegmentId": "seg_1781794386339",
+      "endSegmentId": "seg_pause_1781803095254_mkdky",
       "column": 0,
       "volume": 1,
       "fadeIn": 0,
