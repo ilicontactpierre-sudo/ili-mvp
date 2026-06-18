@@ -578,6 +578,123 @@ function SoundBlock({
         }} />
       )}
 
+      {/* ── Ligne d'automation + points ── */}
+      {(() => {
+        const points = soundTrack.automationPoints
+        if (!points || points.length === 0) {
+          // Pas de points : juste la ligne centrale fine
+          return (
+            <div style={{
+              position: 'absolute',
+              left: '50%',
+              top: 0,
+              bottom: 0,
+              width: '1px',
+              backgroundColor: `${baseColor}40`,
+              pointerEvents: 'none',
+              transform: 'translateX(-50%)',
+            }} />
+          )
+        }
+        // Avec points : SVG qui couvre tout le bloc
+        const segs = segmentsRef.current
+        const rh = rowHeightsRef.current || []
+        const svgW = width
+        const svgH = blockHeight
+        const centerX = svgW / 2
+        // Calculer la position Y du centre de chaque segment couvert
+        const segCenterYs = {}
+        let accumulated = 0
+        for (let i = startSegmentIndex; i <= actualEndIndex; i++) {
+          const h = rh[i] || SEGMENT_HEIGHT
+          segCenterYs[i] = accumulated + h / 2
+          accumulated += h + 8
+        }
+        return (
+          <svg
+            style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              width: '100%',
+              height: '100%',
+              pointerEvents: 'none',
+              overflow: 'visible',
+              zIndex: 4,
+            }}
+            viewBox={`0 0 ${svgW} ${svgH}`}
+            preserveAspectRatio="none"
+          >
+            {/* Ligne centrale */}
+            <line
+              x1={centerX} y1={0}
+              x2={centerX} y2={svgH}
+              stroke={`${baseColor}50`}
+              strokeWidth={1}
+            />
+            {/* Points d'automation */}
+            {points.map((pt, ptIdx) => {
+              const ptSegIdx = segs.findIndex(s => s.id === pt.segmentId || s._id === pt.segmentId)
+              if (ptSegIdx < startSegmentIndex || ptSegIdx > actualEndIndex) return null
+              const centerY = segCenterYs[ptSegIdx] ?? 0
+              // Position X selon le volume : 0% = leftEdge+4, 100% = rightEdge-4
+              const margin = 4
+              const x = margin + (pt.volume) * (svgW - margin * 2)
+              const fadeStepIdx = AUTOMATION_FADE_STEPS.findIndex(s => s.ms === pt.fadeMs)
+              const stepIdx = fadeStepIdx === -1 ? 2 : fadeStepIdx
+              const isTooltipVisible = automationTooltip?.pointIndex === ptIdx
+              const SHAPE_SIZE = 10
+              return (
+                <g
+                  key={ptIdx}
+                  style={{ pointerEvents: 'all', cursor: 'ew-resize' }}
+                  onMouseDown={(e) => {
+                    if (e.shiftKey) handleAutomationShiftClick(e, ptIdx)
+                    else handleAutomationDrag(e, ptIdx)
+                  }}
+                  onDoubleClick={(e) => handleAutomationDelete(e, ptIdx)}
+                >
+                  {/* Zone de clic plus large */}
+                  <rect
+                    x={x - 10} y={centerY - 10}
+                    width={20} height={20}
+                    fill="transparent"
+                  />
+                  {/* Trait horizontal du point jusqu'à la ligne centrale */}
+                  <line
+                    x1={x} y1={centerY}
+                    x2={centerX} y2={centerY}
+                    stroke={`${baseColor}60`}
+                    strokeWidth={1}
+                    strokeDasharray="2,2"
+                  />
+                  {/* Forme selon fade */}
+                  {renderAutomationShape(stepIdx, x, centerY, SHAPE_SIZE, baseColor, isTooltipVisible)}
+                  {/* Tooltip volume */}
+                  {isTooltipVisible && (
+                    <g>
+                      <rect
+                        x={x - 14} y={centerY - 22}
+                        width={28} height={14}
+                        rx={3} fill="rgba(0,0,0,0.75)"
+                      />
+                      <text
+                        x={x} y={centerY - 12}
+                        textAnchor="middle"
+                        fill="#fff"
+                        fontSize={9}
+                        fontFamily="system-ui"
+                      >
+                        {Math.round(pt.volume * 100)}%
+                      </text>
+                    </g>
+                  )}
+                </g>
+              )
+            })}
+          </svg>
+        )
+      })()}
       {/* Poignée resize bas */}
       <div
         data-resize-handle="true"
