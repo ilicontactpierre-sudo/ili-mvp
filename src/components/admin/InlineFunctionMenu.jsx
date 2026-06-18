@@ -5,23 +5,23 @@ import { useState, useEffect, useRef } from 'react'
 // L'éditeur admin est toujours sombre → on affiche dark dans la palette
 // La valeur insérée dans le tag est dark (la plus lisible en lecture immersive, mode sombre par défaut)
 const NARRATIVE_COLORS = [
-  { name: 'Braise',   dark: '#ffd7cf', light: '#382826' },
-  { name: 'Abricot',  dark: '#ffe3c8', light: '#3a2d22' },
-  { name: 'Or',       dark: '#fff0c7', light: '#38321f' },
-  { name: 'Citron',   dark: '#f3f8d8', light: '#30361d' },
-  { name: 'Menthe',   dark: '#daf6e5', light: '#203229' },
-  { name: 'Jade',     dark: '#d4f6ee', light: '#1d332e' },
-  { name: 'Ciel',     dark: '#dceef8', light: '#1f2d38' },
-  { name: 'Lavande',  dark: '#e7defa', light: '#2c2538' },
-  { name: 'Lilas',    dark: '#eeddf8', light: '#34253a' },
-  { name: 'Rose',     dark: '#f9dde5', light: '#38242c' },
-  { name: 'Pêche',    dark: '#ffe9dc', light: '#3b2b24' },
-  { name: 'Craie',    dark: '#faf7f2', light: '#2f2d2a' },
-  { name: 'Brume',    dark: '#e1e9f0', light: '#252d31' },
-  { name: 'Sable',    dark: '#f3ead7', light: '#353022' },
-  { name: 'Nacre',    dark: '#ececf8', light: '#282838' },
-  { name: 'Corail',   dark: '#ffdcd6', light: '#392623' },
-];
+  { name: 'Braise',    dark: '#ffebe6', light: '#2c140e' }, // Blanc rosé / Brun très sombre
+  { name: 'Abricot',   dark: '#fff2e0', light: '#2d190b' }, // Blanc orangé / Marron chaud
+  { name: 'Or',        dark: '#fff9db', light: '#2a2100' }, // Blanc doré / Olive très sombre
+  { name: 'Citron',    dark: '#fafdcd', light: '#1e2300' }, // Blanc lime / Vert-jaune sombre
+  { name: 'Menthe',    dark: '#ebfdf3', light: '#092716' }, // Blanc menthe / Vert forêt profond
+  { name: 'Jade',      dark: '#e6fffa', light: '#00261d' }, // Blanc turquoise / Sarcelle profond
+  { name: 'Ciel',      dark: '#e6f4ff', light: '#051b2c' }, // Blanc bleu / Bleu nuit
+  { name: 'Lavande',   dark: '#f0ebfe', light: '#160d33' }, // Blanc lavande / Indigo très sombre
+  { name: 'Lilas',     dark: '#faebff', light: '#240a34' }, // Blanc lilas / Aubergine
+  { name: 'Rose',      dark: '#ffe6ed', light: '#2d0612' }, // Blanc rosé / Bordeaux profond
+  { name: 'Pêche',     dark: '#fff4eb', light: '#2d170a' }, // Blanc chair / Marron terre
+  { name: 'Craie',     dark: '#faf9f6', light: '#1f1e1c' }, // Blanc pur chaud / Anthracite chaud
+  { name: 'Brume',     dark: '#f0f4f8', light: '#151c24' }, // Blanc bleuté / Ardoise foncé
+  { name: 'Sable',     dark: '#f7f4eb', light: '#211d14' }, // Blanc crème / Sépia sombre
+  { name: 'Nacre',     dark: '#f5f5fa', light: '#131325' }, // Blanc perle / Bleu-violet nuit
+  { name: 'Corail',    dark: '#fff0ee', light: '#300f0a' }, // Blanc saumon / Rouge brique sombre
+]
 
 // ── Définition des sous-menus par fonction ───────────────────────────────────
 // Chaque entrée produit un tableau d'options { label, hint, args[] }
