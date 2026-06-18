@@ -292,7 +292,7 @@ function StoryPreviewModal({ isOpen, storyData, onClose, startSegmentIndex = nul
           {isStarted && !isFinished && (
             <>
               <StoryReader
-                key={`preview-reader-${storyData?.id || 'draft'}`}
+                key={`preview-reader-${storyData?.id || 'draft'}-${readerKey}`}
                 storyData={storyData}
                 currentIndex={currentIndex}
                 viewportHeight={844}
