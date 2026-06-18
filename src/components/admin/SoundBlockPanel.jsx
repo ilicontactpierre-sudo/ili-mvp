@@ -929,6 +929,25 @@ function SoundBlockPanel({
               Fermer
             </button>
             <button
+              onClick={handlePreviewPlay}
+              disabled={!sound?.url}
+              title={sound?.url ? (isPreviewPlaying ? 'Arrêter l\'aperçu' : 'Écouter avec les réglages actuels') : 'Son indisponible'}
+              style={{
+                padding: '0.5rem 0.75rem',
+                backgroundColor: isPreviewPlaying ? `${color}25` : 'transparent',
+                color: sound?.url ? color : '#555',
+                border: `1px solid ${sound?.url ? color : '#444'}60`,
+                borderRadius: '6px',
+                cursor: sound?.url ? 'pointer' : 'not-allowed',
+                fontSize: '0.85rem',
+                opacity: sound?.url ? 1 : 0.5,
+                transition: 'background-color 0.15s ease, transform 0.15s ease',
+                transform: isPreviewPlaying ? 'scale(1.04)' : 'scale(1)',
+              }}
+            >
+              {isPreviewPlaying ? '⏸' : '▶'}
+            </button>
+            <button
               onClick={handleDelete}
               style={{
                 padding: '0.5rem 0.75rem',
