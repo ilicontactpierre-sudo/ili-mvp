@@ -140,15 +140,17 @@ function SoundBlock({
     // Cmd+clic : créer un point d'automation sur le segment sous le curseur
     if (e.metaKey || e.ctrlKey) {
       e.stopPropagation()
-      const { timelineRect } = getTimelineInfo()
-      const segs = segmentsRef.current
       const rh = rowHeightsRef.current || []
-      const cursorY = e.clientY - (timelineRect?.top ?? 0) + (document.querySelector('[data-timeline-root]')?.scrollTop ?? 0)
+      // Calculer la position Y relative au coin supérieur du bloc lui-même
+      const blockEl = blockRef.current
+      if (!blockEl) return
+      const blockRect = blockEl.getBoundingClientRect()
+      const cursorYInBlock = e.clientY - blockRect.top
       let accumulated = 0
       let targetSegIdx = startSegmentIndex
       for (let i = startSegmentIndex; i <= actualEndIndex; i++) {
         const h = rh[i] || SEGMENT_HEIGHT
-        if (cursorY <= accumulated + h) { targetSegIdx = i; break }
+        if (cursorYInBlock <= accumulated + h) { targetSegIdx = i; break }
         accumulated += h + 8
         targetSegIdx = i
       }
