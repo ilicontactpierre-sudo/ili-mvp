@@ -685,7 +685,7 @@ function SoundBlock({
       {/* Label */}
       <div style={{
         fontSize: '10px', textAlign: 'center', fontWeight: 'bold', color: '#333',
-        overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
+        overflow: 'visible', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
         width: '100%', position: 'relative', zIndex: 1,
         pointerEvents: 'none',
       }}>
