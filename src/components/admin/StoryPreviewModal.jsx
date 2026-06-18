@@ -119,8 +119,15 @@ function StoryPreviewModal({ isOpen, storyData, onClose, startSegmentIndex = nul
     ignoreAdvanceUntilRef.current = Date.now() + 600
     touchStartYRef.current = null
     const startIndex = Math.max(0, Math.min(segments.length - 1, parseInt(startFromInput) - 1 || 0))
-    setCurrentIndex(startIndex)
+    // Monter StoryReader à l'index 0 d'abord pour que le DOM existe,
+    // puis sauter au bon index après un tick — évite le translateY=0 au mount
+    setCurrentIndex(0)
     setIsStarted(true)
+    if (startIndex > 0) {
+      setTimeout(() => {
+        setCurrentIndex(startIndex)
+      }, 80)
+    }
   }
 
   // Gestion du clic sur l'overlay
