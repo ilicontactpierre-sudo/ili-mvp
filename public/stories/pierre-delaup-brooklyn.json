@@ -28,6 +28,11 @@
       "loop": false
     },
     {
+      "id": "machappl_razor_smooth_double_01_b00m_one",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/machappl_razor_smooth_double_01_b00m_one.mp3",
+      "loop": false
+    },
+    {
       "id": "objfurn_wood_chair_take_slide_medium_02_b00m_one",
       "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/objfurn_wood_chair_take_slide_medium_02_b00m_one.mp3",
       "loop": false
@@ -234,6 +239,11 @@
           "volume": 1,
           "delay": 0,
           "loop": false
+        },
+        {
+          "action": "fadeOut",
+          "soundId": "la_valle_e_du_okuno",
+          "duration": 2353
         }
       ]
     },
@@ -262,7 +272,7 @@
       "lines": [
         "- À nos six années ici, et surtout, à ta fin de mission ! \"Well done\" comme on dit !"
       ],
-      "text": "</couleur:#ffe066|- À nos six années ici, et surtout, à ta fin de mission !/> </couleur:#ffe066|\"Well done\" comme on dit !/>",
+      "text": "</couleur:#fff0c7|- À nos six années ici, et surtout, à ta fin de mission !/> </couleur:#fff0c7|\"Well done\" comme on dit !/>",
       "breakAt": 78,
       "isLeader": true,
       "audioEvents": [
@@ -295,7 +305,7 @@
       "lines": [
         "- Merci mon cœur…"
       ],
-      "text": "</couleur:#a8f0c6|- Merci mon cœur…/>",
+      "text": "</couleur:#daf6e5|- Merci mon cœur…/>",
       "breakAt": null,
       "isLeader": false,
       "audioEvents": []
@@ -305,7 +315,7 @@
       "lines": [
         "Rob continue sur sa lancée : « Un discours, un discours, un discours ! »."
       ],
-      "text": "Rob continue sur sa lancée : </couleur:#d4a96a|« Un discours, un discours, un discours ! »./>",
+      "text": "Rob continue sur sa lancée : \n</couleur:#fff0c7|« Un discours, un discours, un discours ! »./>",
       "breakAt": null,
       "isLeader": false,
       "audioEvents": [
@@ -323,7 +333,7 @@
       "lines": [
         "Rim se redresse et se lève d’un air solennel,"
       ],
-      "text": "Rim se redresse et se lève d’un air solennel, son verre brandit vers le ciel. Quand elle voit une partie des clients la dévisager avec étonnement, elle se ravise faisant petit geste à tous ces spectateurs inattendus, comme pour signifier que le show est déjà fini.",
+      "text": "Rim se lève d’un air solennel, son verre brandit vers le ciel. Quand elle voit une partie des clients la dévisager avec étonnement, elle se ravise, honorant d'un petit geste ces spectateurs inattendus : le show est déjà fini.",
       "breakAt": null,
       "isLeader": false,
       "delay": 5200,
@@ -345,7 +355,7 @@
       "lines": [
         "Il décide de simuler une interview, tendant à Rim sa coupe de champagne comme on tend un micro,"
       ],
-      "text": "Il décide de simuler une interview, tendant à Rim sa coupe de champagne comme on tend un micro,",
+      "text": "Soudain, il prend la coupe de champagne de Rim, la finit cul sec, puis la tend vers elle, à quelque centimètre du visage, comme on tend un micro,",
       "breakAt": null,
       "isLeader": false,
       "audioEvents": []
@@ -365,11 +375,12 @@
       "lines": [
         "- Un petit mot peut être pour nos téléspectateurs qui vous admirent tant ?"
       ],
-      "text": "</couleur:#ffe066|- Un petit mot peut être pour nos téléspectateurs qui vous admirent tant ?/>\n</couleur:#a8f0c6|- J’aimerai d’abord remercier toute ma famille qui a su ne pas croire en moi et me donner la force. »/>",
-      "breakAt": null,
+      "text": "</couleur:#fff0c7|- Un petit mot peut être pour nos téléspectateurs qui vous admirent tant ?/> Elle prend un air sérieux.\n</couleur:#daf6e5|- J’aimerai d’abord remercier toute ma famille qui a su ne PAS croire en moi et me donner la force. />",
+      "breakAt": 95,
       "isLeader": false,
       "delay": 2800,
-      "audioEvents": []
+      "audioEvents": [],
+      "bold": false
     },
     {
       "id": "seg_1781326457837_b_g8bir",
@@ -387,7 +398,7 @@
       "lines": [
         "- Remercier ma chienne, Agatha, partie trop tôt,"
       ],
-      "text": "</couleur:#a8f0c6|- Remercier ma chienne, Agatha, partie trop tôt, qui me manque terriblement, et sans qui ça n'aurait pas été la même./> Rob lève son verre faisant un signe de croix.",
+      "text": "</couleur:#daf6e5|- Remercier ma chienne, Agatha, partie trop tôt, qui me manque terriblement, et sans qui ça n'aurait pas été la même./> Rob lève son verre.",
       "breakAt": 138,
       "isLeader": false,
       "delay": 4200,
@@ -398,7 +409,7 @@
       "lines": [
         "- Je remercie aussi Marcel, notre raison d’être,"
       ],
-      "text": "</couleur:#a8f0c6|- Je remercie aussi Marcel, notre raison d’être, qui nous unis pour la vie, et sans qui nos nuits existeraient encore./> Rob lève son verre faisant, là encore, un signe de croix.",
+      "text": "</couleur:#daf6e5|- Je remercie aussi Marcel, notre raison d’être, qui nous unis pour la vie, et sans qui nos nuits existeraient encore./> Rob lève son verre, hochant de la tête.",
       "breakAt": 139,
       "isLeader": false,
       "delay": 1600,
@@ -409,7 +420,7 @@
       "lines": [
         "- Et enfin je remercie Rob Corpe, grâce à qui ces six années sont passées si vite,"
       ],
-      "text": "</couleur:#a8f0c6|- Et enfin je remercie Rob Corpe, grâce à qui ces six années sont passées si vite, et avec qui je souhaite passer toutes mes heures à venir…/>",
+      "text": "</couleur:#daf6e5|- Et enfin je remercie Rob Corpe, grâce à qui ces six années sont passées si vite, et avec qui je souhaite passer toutes mes heures à venir…/>",
       "breakAt": null,
       "isLeader": false,
       "delay": 3400,
@@ -460,7 +471,7 @@
       "lines": [
         "« Ils disent tous que ça va me manquer… Le terrain,"
       ],
-      "text": "</couleur:#a8f0c6|Ils disent tous que ça va me manquer… Le terrain, l'adrénaline, les collègues, le danger./> Elle fait une de ces grimaces sur-jouées dont elle seule a le secret.",
+      "text": "</couleur:#daf6e5|Ils disent tous que ça va me manquer… Le terrain, l'adrénaline, les collègues, le danger./> Elle fait une de ces grimaces sur-jouées dont elle seule a le secret.",
       "breakAt": null,
       "isLeader": false,
       "delay": 3400,
@@ -471,7 +482,7 @@
       "lines": [
         "- C'est mal te connaitre !"
       ],
-      "text": "</couleur:#ffe066|- C'est mal te connaitre !/>\nLeurs rires complices couvrent le groupe de jazz.",
+      "text": "</couleur:#fff0c7|C'est mal te connaitre !/>\nLeurs rires complices couvrent le groupe de jazz.",
       "breakAt": null,
       "isLeader": false,
       "delay": 1200,
@@ -482,7 +493,7 @@
       "lines": [
         "- J'ai juste hâte que tu termines aussi, et après, Hasta la vista baby, let's go pour la vraie vie !"
       ],
-      "text": "</couleur:#a8f0c6|- J'ai juste hâte que tu termines aussi, et après, Hasta la vista baby, let's go pour la vraie vie !/>",
+      "text": "</couleur:#daf6e5|J'ai juste hâte que tu termines aussi, et après, Hasta la vista baby, let's go pour la vraie vie !/>",
       "breakAt": null,
       "isLeader": false,
       "audioEvents": []
@@ -586,6 +597,20 @@
           "action": "fadeOut",
           "soundId": "best_drum_solo_ever",
           "duration": 1263
+        },
+        {
+          "action": "play",
+          "soundId": "notification_futuristic_beep_05",
+          "volume": 0.75,
+          "delay": 0,
+          "loop": false
+        },
+        {
+          "action": "play",
+          "soundId": "machappl_razor_smooth_double_01_b00m_one",
+          "volume": 0.85,
+          "delay": 0,
+          "loop": false
         }
       ],
       "delay": 8000
@@ -2084,7 +2109,7 @@
       "column": 0,
       "volume": 1,
       "fadeIn": 0,
-      "fadeOut": 0,
+      "fadeOut": 2353,
       "delay": 0,
       "loop": false,
       "muted": false,
@@ -2129,6 +2154,36 @@
       "delay": 0,
       "loop": false,
       "muted": false
+    },
+    {
+      "id": "st_1781801366635_2byxxzuoo",
+      "soundId": "notification_futuristic_beep_05",
+      "startSegmentId": "seg_1781326327990_37_24l4g",
+      "endSegmentId": "seg_1781326327990_37_24l4g",
+      "column": 3,
+      "volume": 0.75,
+      "fadeIn": 0,
+      "fadeOut": 0,
+      "delay": 0,
+      "loop": false,
+      "muted": false,
+      "pan": -0.58
+    },
+    {
+      "id": "st_1781801526277_9szkdtyfm",
+      "soundId": "machappl_razor_smooth_double_01_b00m_one",
+      "startSegmentId": "seg_1781326327990_37_24l4g",
+      "endSegmentId": "seg_1781326327990_37_24l4g",
+      "column": 4,
+      "volume": 0.85,
+      "fadeIn": 0,
+      "fadeOut": 0,
+      "delay": 0,
+      "loop": false,
+      "muted": false,
+      "trimStart": 0,
+      "trimEnd": 1222,
+      "pan": -0.61
     }
   ],
   "vfxTracks": [
