@@ -2,15 +2,15 @@
 
 @font-face {
   font-family: 'Oanteh';
-  src: url('/fonts/Oanteh.otf') format('opentype');
+  src: url('/fonts/Oanteh.ttf') format('opentype');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'NamoraD ayana';
-  src: url('/fonts/NamoraD ayana.ttf') format('truetype');
+  font-family: 'Benedict Regular';
+  src: url('/fonts/Benedict-Regular.otf') format('truetype');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
