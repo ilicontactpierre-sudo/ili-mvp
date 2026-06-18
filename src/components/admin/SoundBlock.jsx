@@ -444,7 +444,7 @@ function SoundBlock({
     e.preventDefault()
     const p = propsRef.current
     const startX = e.clientX
-    const initVolume = (p.soundTrack.automationPoints || [])[ptIndex]?.volume ?? 0.5
+    const initVolume = (soundTrackRef.current.automationPoints || [])[ptIndex]?.volume ?? 0.5
     let lastVolume = initVolume
     const onMove = (ev) => {
       const dx = ev.clientX - startX
