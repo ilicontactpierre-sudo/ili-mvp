@@ -101,6 +101,9 @@ const SegmentTimelineRow = memo(function SegmentTimelineRow({
   onGameMode,
   onPreviewFromSegment,
   seuilKeys = [],
+  isPause = false,
+  pauseDuration = null,
+  onPauseDurationChange,
 }) {
   const containerRef = useRef(null)
   const textareaRef = useRef(null)
