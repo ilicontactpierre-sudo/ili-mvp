@@ -486,7 +486,7 @@ function SoundBlock({
             stroke={shadow}
             strokeWidth={0.5}
             fontSize={size}
-            fontFamily="Georgia, serif"
+            fontFamily="Georgia, sans serif"
             style={{ pointerEvents: 'none', userSelect: 'none' }}
           >∞</text>
         </g>
