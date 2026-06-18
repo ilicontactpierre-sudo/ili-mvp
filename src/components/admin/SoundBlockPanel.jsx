@@ -846,7 +846,7 @@ function SoundBlockPanel({
           <input
             type="range"
             min="0"
-            max="4000"
+            max="7000"
             step="100"
             value={editedTrack.fadeIn || 0}
             onChange={(e) => handleChange('fadeIn', parseInt(e.target.value))}
@@ -863,7 +863,7 @@ function SoundBlockPanel({
           <input
             type="range"
             min="0"
-            max="4000"
+            max="7000"
             step="100"
             value={editedTrack.fadeOut || 0}
             onChange={(e) => handleChange('fadeOut', parseInt(e.target.value))}
