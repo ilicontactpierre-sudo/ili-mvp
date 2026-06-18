@@ -183,15 +183,6 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle',
     try { return localStorage.getItem('ili_emoji') === 'true' } catch { return false }
   })
   // Écouter les changements de DYS + progression en temps réel (via polling léger)
-  // ── Courbes bézier nommées pour les transitions ──
-  const TRANSITION_EASINGS = {
-    'ease-in-out':  'cubic-bezier(0.4, 0, 0.2, 1)',
-    'ease-in':      'cubic-bezier(0.4, 0, 1, 1)',
-    'ease-out':     'cubic-bezier(0, 0, 0.2, 1)',
-    's-curve':      'cubic-bezier(0.87, 0, 0.13, 1)',
-    'spring':       'cubic-bezier(0.34, 1.56, 0.64, 1)',
-  }
-
   useEffect(() => {
     const overlay = flashOverlayRef.current
     if (!overlay) return
