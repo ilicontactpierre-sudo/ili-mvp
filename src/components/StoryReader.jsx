@@ -184,6 +184,11 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle',
       setDys2(prev => prev !== d2 ? d2 : prev)
       setEmojiMode(prev => prev !== em ? em : prev)
       setShowProgress(prev => prev !== sp ? sp : prev)
+      const theme = localStorage.getItem('ili_theme') || ''
+      setThemeKey(prev => {
+        const next = theme
+        return prev !== next ? next : prev
+      })
     }, 150)
     return () => clearInterval(interval)
   }, [])
