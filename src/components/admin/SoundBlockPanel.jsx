@@ -777,27 +777,32 @@ function SoundBlockPanel({
           Le son sera actif sur les segments {startSegmentIndex >= 0 ? startSegmentIndex + 1 : '-'} à {endSegmentIndex >= 0 ? endSegmentIndex + 1 : (startSegmentIndex >= 0 ? startSegmentIndex + 1 : '-')}
         </div>
 
-        {/* Colonne */}
+        {/* Couleur du bloc */}
         <div>
-          <label style={{ fontSize: '0.75rem', color: '#888', display: 'block', marginBottom: '0.5rem' }}>Colonne</label>
-          <div style={{ display: 'flex', gap: '6px' }}>
-            {Array.from({ length: 6 }).map((_, i) => (
+          <label style={{ fontSize: '0.75rem', color: '#888', display: 'block', marginBottom: '0.5rem' }}>Couleur</label>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
+            {SOUND_BLOCK_COLORS.map((c) => (
               <div
-                key={i}
-                onClick={() => handleChange('column', i)}
-                title={`Colonne ${i}`}
+                key={c}
+                onClick={() => handleChange('color', c)}
+                title={c}
                 style={{
-                  width: '28px',
-                  height: '28px',
-                  borderRadius: '5px',
-                  border: `2px solid ${color}`,
-                  backgroundColor: editedTrack.column === i ? color : 'transparent',
+                  width: '24px',
+                  height: '24px',
+                  borderRadius: '50%',
+                  backgroundColor: c,
                   cursor: 'pointer',
-                  transition: 'background-color 0.15s ease, transform 0.1s ease',
                   flexShrink: 0,
+                  border: editedTrack.color === c
+                    ? '2px solid #fff'
+                    : '2px solid transparent',
+                  boxShadow: editedTrack.color === c
+                    ? `0 0 0 1px ${c}`
+                    : 'none',
+                  transition: 'transform 0.1s ease, box-shadow 0.1s ease',
                 }}
-                onMouseEnter={e => { if (editedTrack.column !== i) e.currentTarget.style.backgroundColor = `${color}40` }}
-                onMouseLeave={e => { if (editedTrack.column !== i) e.currentTarget.style.backgroundColor = 'transparent' }}
+                onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.2)'}
+                onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
               />
             ))}
           </div>
