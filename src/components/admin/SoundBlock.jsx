@@ -442,17 +442,21 @@ function SoundBlock({
       const msPerPixel   = 4000 / (maxFH > 0 ? maxFH : 1)
       if (type === 'fadeIn') {
         const newFadeIn = Math.max(0, Math.min(initFadeIn + deltaY * msPerPixel, 4000))
-        p.onUpdate(p.soundTrack.id, { fadeIn: Math.round(newFadeIn) })
+        const rounded = Math.round(newFadeIn)
+        p.onUpdate(p.soundTrack.id, { fadeIn: rounded })
+        setFadeTooltip({ type: 'fadeIn', ms: rounded })
       } else {
         const newFadeOut = Math.max(0, Math.min(initFadeOut + (-deltaY) * msPerPixel, 4000))
-        p.onUpdate(p.soundTrack.id, { fadeOut: Math.round(newFadeOut) })
+        const rounded = Math.round(newFadeOut)
+        p.onUpdate(p.soundTrack.id, { fadeOut: rounded })
+        setFadeTooltip({ type: 'fadeOut', ms: rounded })
       }
     }
-
     const onUp = () => {
       window.removeEventListener('mousemove', onMove)
       window.removeEventListener('mouseup',  onUp)
       setIsAdjustingFade(null)
+      setFadeTooltip(null)
     }
 
     window.addEventListener('mousemove', onMove)
