@@ -123,6 +123,21 @@
       "loop": false
     },
     {
+      "id": "54_s02a2_lucia_film",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/54_s02a2_lucia_film.mp3",
+      "loop": false
+    },
+    {
+      "id": "54_s02a2_lucia_flash",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/54_s02a2_lucia_flash.mp3",
+      "loop": false
+    },
+    {
+      "id": "54_s02a2_lucia_whoosh",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/54_s02a2_lucia_whoosh.mp3",
+      "loop": false
+    },
+    {
       "id": "61_s11_1_base_central_clean",
       "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/61_s11_1_base_central_clean.mp3",
       "loop": false
@@ -1051,9 +1066,10 @@
       },
       "audioEvents": [
         {
-          "action": "play",
+          "action": "fadeIn",
           "soundId": "50_s10_tv_1",
           "volume": 0.5,
+          "duration": 300,
           "delay": 0,
           "loop": false
         },
@@ -1067,7 +1083,7 @@
         {
           "action": "fadeIn",
           "soundId": "61_s11_1_base_central_clean",
-          "volume": 0.5,
+          "volume": 0.35,
           "duration": 2687,
           "delay": 19000,
           "loop": true
@@ -1147,7 +1163,7 @@
         {
           "action": "play",
           "soundId": "53_s11_drone_porte",
-          "volume": 0.5,
+          "volume": 0.65,
           "delay": 0,
           "loop": false
         },
@@ -1168,7 +1184,7 @@
         {
           "action": "play",
           "soundId": "53_s11_drone_respiration",
-          "volume": 0.5,
+          "volume": 0.3,
           "delay": 0,
           "loop": true
         }
@@ -1205,7 +1221,7 @@
         {
           "action": "fadeIn",
           "soundId": "61_s12_comando_pression",
-          "volume": 0.5,
+          "volume": 0.4,
           "duration": 4000,
           "delay": 0,
           "loop": true
@@ -1213,7 +1229,7 @@
         {
           "action": "fadeIn",
           "soundId": "61_s12_comando_walk",
-          "volume": 0.5,
+          "volume": 0.35,
           "duration": 735,
           "delay": 0,
           "loop": false
@@ -1308,7 +1324,7 @@
         {
           "action": "play",
           "soundId": "73_s13_1_beep_accept",
-          "volume": 0.5,
+          "volume": 0.65,
           "delay": 0,
           "loop": false
         },
@@ -1361,20 +1377,6 @@
       "text": "Rob le sait : désormais, impossible de revenir en arrière.",
       "breakAt": null,
       "isLeader": true,
-      "audioEvents": []
-    },
-    {
-      "text": "",
-      "id": "seg_1781334941831",
-      "isLeader": true,
-      "gameMode": {
-        "type": "timer",
-        "seconds": 5,
-        "prompt": "",
-        "hint": "",
-        "expireMessage": "",
-        "timerStyle": "hidden"
-      },
       "audioEvents": [
         {
           "action": "play",
@@ -1384,6 +1386,12 @@
           "loop": false
         }
       ]
+    },
+    {
+      "id": "seg_pause_1781798520571_dd4ne",
+      "text": "",
+      "pause": 1500,
+      "audioEvents": []
     },
     {
       "id": "seg_1781326327990_89_bgkfn",
@@ -1851,11 +1859,13 @@
       "endSegmentId": "seg_1781332507204",
       "column": 0,
       "volume": 0.5,
-      "fadeIn": 0,
+      "fadeIn": 300,
       "fadeOut": 0,
       "delay": 0,
       "loop": false,
-      "muted": false
+      "muted": false,
+      "trimStart": 990,
+      "trimEnd": 18408
     },
     {
       "id": "st_1781790400950_jy0rx7jys",
@@ -1876,7 +1886,7 @@
       "startSegmentId": "seg_1781332507204",
       "endSegmentId": "seg_1781333627667_a_50xtd",
       "column": 3,
-      "volume": 0.5,
+      "volume": 0.35,
       "fadeIn": 2687,
       "fadeOut": 2600,
       "delay": 19000,
@@ -1916,7 +1926,7 @@
       "startSegmentId": "seg_1781326327990_75_q30fu",
       "endSegmentId": "seg_1781326327990_75_q30fu",
       "column": 3,
-      "volume": 0.5,
+      "volume": 0.65,
       "fadeIn": 0,
       "fadeOut": 0,
       "delay": 0,
@@ -1949,7 +1959,14 @@
       "delay": 0,
       "loop": true,
       "muted": false,
-      "loopCrossfade": "medium"
+      "loopCrossfade": "medium",
+      "automationPoints": [
+        {
+          "segmentId": "seg_1781334846850_a_jb04t",
+          "volume": 0.6,
+          "fadeMs": 4000
+        }
+      ]
     },
     {
       "id": "st_1781791501971_ffs6ivpsj",
@@ -1957,7 +1974,7 @@
       "startSegmentId": "seg_1781326327990_75_q30fu",
       "endSegmentId": "seg_1781326327990_89_bgkfn",
       "column": 2,
-      "volume": 0.5,
+      "volume": 0.3,
       "fadeIn": 0,
       "fadeOut": 1383,
       "delay": 0,
@@ -1984,7 +2001,7 @@
       "startSegmentId": "seg_1781326327990_78_toa8o",
       "endSegmentId": "seg_1781326327990_89_bgkfn",
       "column": 4,
-      "volume": 0.5,
+      "volume": 0.4,
       "fadeIn": 4000,
       "fadeOut": 1330,
       "delay": 0,
@@ -1998,7 +2015,7 @@
       "startSegmentId": "seg_1781326327990_78_toa8o",
       "endSegmentId": "seg_1781326327990_79_cqkqg",
       "column": 5,
-      "volume": 0.5,
+      "volume": 0.35,
       "fadeIn": 735,
       "fadeOut": 479,
       "delay": 0,
@@ -2024,7 +2041,7 @@
       "startSegmentId": "seg_1781334846850_a_jb04t",
       "endSegmentId": "seg_1781334846850_a_jb04t",
       "column": 3,
-      "volume": 0.5,
+      "volume": 0.65,
       "fadeIn": 0,
       "fadeOut": 0,
       "delay": 0,
@@ -2047,8 +2064,8 @@
     {
       "id": "st_1781792061476_d01x8w5yn",
       "soundId": "73_s14_sweep_3",
-      "startSegmentId": "seg_1781334941831",
-      "endSegmentId": "seg_1781334941831",
+      "startSegmentId": "seg_1781326327990_88_rgs9z",
+      "endSegmentId": "seg_1781326327990_88_rgs9z",
       "column": 3,
       "volume": 0.5,
       "fadeIn": 0,
