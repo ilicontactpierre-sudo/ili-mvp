@@ -673,7 +673,8 @@ function SoundBlockPanel({
                 setEndSegText(value)
                 if (value === '') return
                 const numValue = parseInt(value)
-                if (!isNaN(numValue) && numValue >= 1 && numValue <= segments.length) {
+                if (isNaN(numValue)) return
+                if (numValue >= 1 && numValue <= segments.length) {
                   const newIndex = numValue - 1
                   handleChange('endSegmentId', segments[newIndex].id ?? `seg_${newIndex}`)
                   if (newIndex < startSegmentIndex) {
@@ -681,6 +682,10 @@ function SoundBlockPanel({
                     handleChange('startSegmentId', segments[newIndex].id ?? `seg_${newIndex}`)
                     setStartSegText(String(newIndex + 1))
                   }
+                } else if (numValue > segments.length) {
+                  // Dépassement : on clampe sur le dernier segment de l'histoire
+                  const lastIndex = segments.length - 1
+                  handleChange('endSegmentId', segments[lastIndex].id ?? `seg_${lastIndex}`)
                 }
               }}
               onBlur={() => {
