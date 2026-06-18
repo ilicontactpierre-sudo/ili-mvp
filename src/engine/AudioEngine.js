@@ -408,12 +408,12 @@ class AudioEngine {
             // Trouver la courbe associée à ce fadeMs
             const AUTOMATION_FADE_STEPS = [
               { ms: 0,    curve: 'cut'      },
-              { ms: 80,   curve: 'linear'   },
-              { ms: 300,  curve: 'ease-out' },
-              { ms: 800,  curve: 'sigmoid'  },
-              { ms: 2000, curve: 'sigmoid'  },
-              { ms: 4000, curve: 'cubic'    },
-              { ms: 8000, curve: 'log'      },
+              { ms: 300,   curve: 'linear'   },
+              { ms: 600,  curve: 'ease-out' },
+              { ms: 1500,  curve: 'sigmoid'  },
+              { ms: 2500, curve: 'sigmoid'  },
+              { ms: 5000, curve: 'cubic'    },
+              { ms: 10000, curve: 'log'      },
             ]
             const step = AUTOMATION_FADE_STEPS.find(s => s.ms === fadeMs)
             const curve = step?.curve ?? 'sigmoid'
