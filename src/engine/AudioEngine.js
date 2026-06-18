@@ -463,6 +463,51 @@ class AudioEngine {
     this._panAnimations.set(key, intervalId)
   }
 
+  // ── Fade avec courbe personnalisée ─────────────────────────────────────────
+  // curve : 'cut' | 'linear' | 'ease-out' | 'sigmoid' | 'cubic' | 'log'
+  _animatedFade(howl, instanceId, fromVol, toVol, durationMs, curve = 'sigmoid') {
+    if (durationMs <= 0 || curve === 'cut') {
+      instanceId != null
+        ? howl.volume(toVol, instanceId)
+        : howl.volume(toVol)
+      return
+    }
+    // Pour les durées très courtes, le linéaire natif de Howler suffit
+    if (curve === 'linear' || durationMs <= 80) {
+      instanceId != null
+        ? howl.fade(fromVol, toVol, durationMs, instanceId)
+        : howl.fade(fromVol, toVol, durationMs)
+      return
+    }
+    // Courbes custom : animation manuelle à 60fps
+    const TICK = 16 // ms
+    const steps = Math.ceil(durationMs / TICK)
+    let step = 0
+    // Fonctions d'easing — t ∈ [0, 1] → valeur ∈ [0, 1]
+    const easings = {
+      'ease-out': (t) => 1 - Math.pow(1 - t, 3),
+      'sigmoid':  (t) => 1 / (1 + Math.exp(-12 * (t - 0.5))),
+      'cubic':    (t) => t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2,
+      'log':      (t) => Math.log(1 + t * (Math.E - 1)),
+    }
+    // Normaliser sigmoid et log pour qu'ils partent de 0 et arrivent à 1
+    const rawEasing = easings[curve] ?? easings['sigmoid']
+    const v0 = rawEasing(0)
+    const v1 = rawEasing(1)
+    const easing = (t) => (rawEasing(t) - v0) / (v1 - v0)
+    const intervalId = setInterval(() => {
+      step++
+      const t = Math.min(1, step / steps)
+      const vol = fromVol + (toVol - fromVol) * easing(t)
+      try {
+        instanceId != null
+          ? howl.volume(vol, instanceId)
+          : howl.volume(vol)
+      } catch (_) {}
+      if (t >= 1) clearInterval(intervalId)
+    }, TICK)
+  }
+
   _stopPanAnimation(key) {
     const id = this._panAnimations.get(key)
     if (id != null) {
