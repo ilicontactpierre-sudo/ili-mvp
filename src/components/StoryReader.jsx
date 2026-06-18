@@ -10,6 +10,15 @@ import { NarrativeMemoryContext } from '../utils/inlineFunctions'
 // ── Flash plein écran ──
 const FLASH_SPEED = { lent: 2000, moyen: 1000, rapide: 400 }
 
+// ── Courbes bézier pour les transitions de segment pause ──
+const TRANSITION_EASINGS = {
+  'ease-in-out': 'cubic-bezier(0.4, 0, 0.2, 1)',
+  'ease-in':     'cubic-bezier(0.4, 0, 1, 1)',
+  'ease-out':    'cubic-bezier(0, 0, 0.2, 1)',
+  's-curve':     'cubic-bezier(0.87, 0, 0.13, 1)',
+  'spring':      'cubic-bezier(0.34, 1.56, 0.64, 1)',
+}
+
 function getFlashColor(color, isDark) {
   // Si la couleur est blanche et qu'on est en mode clair → on remplace par noir
   const isWhite = color && color.toLowerCase().includes('255, 255, 255')
