@@ -1405,7 +1405,25 @@ function UnifiedSegmentsTimeline({
       e.preventDefault()
       handleEditBlur(index)
     }
-  }, [handleEditBlur])
+    if (e.key === 'Enter' && e.shiftKey) {
+      e.preventDefault()
+      // Sauvegarder le segment courant
+      handleEditBlur(index)
+      // Créer un nouveau segment juste après
+      const updatedSegments = [...segments]
+      const newSegment = typeof segments[0] === 'string'
+        ? ''
+        : { text: '', id: `seg_${Date.now()}_${Math.random().toString(36).slice(2, 7)}` }
+      updatedSegments.splice(index + 1, 0, newSegment)
+      onSegmentsChange(updatedSegments)
+      if (onSaveToHistory) onSaveToHistory()
+      // Ouvrir le nouveau segment en édition après le re-render
+      setTimeout(() => {
+        handleStartEdit(index + 1)
+        scrollToSegmentRef.current?.(index + 1)
+      }, 30)
+    }
+  }, [handleEditBlur, segments, onSegmentsChange, onSaveToHistory, handleStartEdit])
 
   const handleMergeSegments = useCallback((index) => {
     if (index >= segments.length - 1) return
