@@ -640,6 +640,14 @@ export function renderInlineFunction(seg, baseKey, isFocused, fallbackRenderer) 
         />
       )
     }
+    case 'apparition': {
+      const [délai, vitesse] = resolveArgs('apparition', seg.args)
+      return (
+        <ApparitionSpan key={baseKey} délai={délai} vitesse={vitesse} isFocused={isFocused}>
+          {inner}
+        </ApparitionSpan>
+      )
+    }
     case 'censure': {
       return <CensureSpan key={baseKey}>{seg.content || ''}</CensureSpan>
     }
