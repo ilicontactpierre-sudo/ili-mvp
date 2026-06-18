@@ -719,6 +719,33 @@ function SoundBlock({
         {sound ? sound.label.substring(0, 15) : soundTrack.soundId}
       </div>
 
+      {/* Tooltip fade en cours de drag */}
+      {fadeTooltip && (
+        <div style={{
+          position: 'absolute',
+          left: '50%',
+          top: fadeTooltip.type === 'fadeIn' ? `${fadeInHeight + 14}px` : undefined,
+          bottom: fadeTooltip.type === 'fadeOut' ? `${fadeOutHeight + 14}px` : undefined,
+          transform: 'translateX(-50%)',
+          backgroundColor: 'rgba(0,0,0,0.82)',
+          color: '#fff',
+          fontSize: '10px',
+          fontWeight: 700,
+          padding: '2px 6px',
+          borderRadius: '4px',
+          whiteSpace: 'nowrap',
+          pointerEvents: 'none',
+          zIndex: 9999,
+          letterSpacing: '0.02em',
+        }}>
+          {fadeTooltip.ms === 0
+            ? 'Instantané'
+            : fadeTooltip.ms < 1000
+              ? `${fadeTooltip.ms}ms`
+              : `${(fadeTooltip.ms / 1000).toFixed(1)}s`}
+        </div>
+      )}
+
       {/* Tooltip titre au survol */}
       {showTitleTooltip && sound && (
         <div style={{
