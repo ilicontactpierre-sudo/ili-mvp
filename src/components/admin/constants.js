@@ -29,6 +29,15 @@ export const COLUMN_COUNT = 6
 export const COLUMN_WIDTH = 42 // Environ 2 fois plus serré (était 80)
 
 // Structure par défaut d'un soundTrack
+// Points d'automation de volume
+export const AUTOMATION_FADE_STEPS = [
+  { ms: 0,    label: 'Instantané' },
+  { ms: 150,  label: 'Très court' },
+  { ms: 300,  label: 'Court'      },
+  { ms: 800,  label: 'Normal'     },
+  { ms: 2000, label: 'Long'       },
+]
+
 export const DEFAULT_SOUNDTRACK = {
   id: '',
   soundId: '',
