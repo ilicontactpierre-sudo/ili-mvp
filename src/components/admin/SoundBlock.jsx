@@ -516,26 +516,6 @@ function SoundBlock({
     window.addEventListener('mousemove', onMove)
     window.addEventListener('mouseup', onUp)
   }, [])
-    let lastVolume = initVolume
-    const onMove = (ev) => {
-      const dx = ev.clientX - startX
-      // 100px = 100% volume
-      const newVol = Math.max(0, Math.min(1, initVolume + dx / 100))
-      lastVolume = Math.round(newVol * 100) / 100
-      setAutomationTooltip({ pointIndex: ptIndex, volume: Math.round(lastVolume * 100) })
-      const newPoints = (p.soundTrack.automationPoints || []).map((pt, i) =>
-        i === ptIndex ? { ...pt, volume: lastVolume } : pt
-      )
-      p.onUpdate(p.soundTrack.id, { automationPoints: newPoints })
-    }
-    const onUp = () => {
-      window.removeEventListener('mousemove', onMove)
-      window.removeEventListener('mouseup', onUp)
-      setAutomationTooltip(null)
-    }
-    window.addEventListener('mousemove', onMove)
-    window.addEventListener('mouseup', onUp)
-  }, [])
 
   // ── Automation : Maj+clic pour cycler le fade ────────────
   const handleAutomationShiftClick = useCallback((e, ptIndex) => {
