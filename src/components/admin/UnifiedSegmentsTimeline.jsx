@@ -2692,6 +2692,7 @@ const handleTextSelection = useCallback(() => {
                   <SegmentSeparator
                     index={index}
                     onMerge={handleMergeSegments}
+                    onInsertPause={handleInsertPause}
                     isHovered={hoveredSeparator}
                     onHover={setHoveredSeparator}
                   />
