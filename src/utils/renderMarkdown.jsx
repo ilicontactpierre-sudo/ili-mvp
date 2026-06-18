@@ -11,7 +11,7 @@ import { renderTextWithInlineFunctions } from './inlineFunctions.jsx'
  */
 export function renderMarkdown(text, segment, isDysMode = false, options = {}) {
   if (!text) return null
-  const { isFocused = false, keyPrefix = '' } = options
+  const { isFocused = false, keyPrefix = '', emojiMode = false } = options
   // ── Substitution des tags {{journal:clé}} ──
   const resolvedText = text.replace(/\{\{journal:([^}]+)\}\}/g, (_, key) => {
     try {
