@@ -36,8 +36,14 @@ function StartScreen({ title, author, segmentCount = 0, segments = [], soundsToP
     return () => window.removeEventListener('beforeinstallprompt', handler)
   }, [])
   // ── Démarrage automatique (aperçu lancé depuis un segment) ────────────────
+  // Ref (pas un simple flag) : survit aux double-invocations de useEffect
+  // en mode développement (React StrictMode), pour ne déclencher qu'une fois.
+  const autoStartFiredRef = useRef(false)
   useEffect(() => {
-    if (autoStart) handleStart(false)
+    if (autoStart && !autoStartFiredRef.current) {
+      autoStartFiredRef.current = true
+      handleStart(false)
+    }
   }, [autoStart])
   const handleInstall = async () => {
     const prompt = deferredPromptRef.current
