@@ -312,21 +312,21 @@ function StoryPage() {
     audioEngineRef.current?.stopAll()
     audioEngineRef.current = null
     preloadedSoundsRef.current = new Map()
-
     // Construire l'objet "story active" à partir de la partie
     const partStory = {
-      id:          part.id,
-      title:       storyRaw?.title ?? '',
-      author:      storyRaw?.author ?? '',
-      mood:        storyRaw?.mood ?? '',
-      genre:       storyRaw?.genre ?? '',
-      description: part.description ?? storyRaw?.description ?? '',
-      bookUrl:     storyRaw?.bookUrl ?? null,
-      formUrl:     storyRaw?.formUrl ?? null,
-      segments:    part.segments    ?? [],
-      sounds:      part.sounds      ?? [],
-      soundTracks: part.soundTracks ?? [],
-      vfxTracks:   part.vfxTracks   ?? [],
+      id:           part.id,
+      title:        storyRaw?.title ?? '',
+      author:       storyRaw?.author ?? '',
+      mood:         storyRaw?.mood ?? '',
+      genre:        storyRaw?.genre ?? '',
+      description:  part.description ?? storyRaw?.description ?? '',
+      bookUrl:      storyRaw?.bookUrl ?? null,
+      formUrl:      storyRaw?.formUrl ?? null,
+      masterVolume: part.masterVolume ?? 1.0,
+      segments:     part.segments    ?? [],
+      sounds:       part.sounds      ?? [],
+      soundTracks:  part.soundTracks ?? [],
+      vfxTracks:    part.vfxTracks   ?? [],
     }
 
     setActiveStory(partStory)
