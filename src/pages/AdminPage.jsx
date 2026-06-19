@@ -1730,6 +1730,43 @@ function AdminPage() {
                 style={{ padding: '0.75rem', fontSize: '1rem', border: '1px solid #ccc', borderRadius: '4px', resize: 'vertical', fontFamily: 'inherit' }}
               />
 
+              {/* ── Master Volume (mode simple) ── */}
+              {!isSerial && (
+                <div style={{
+                  display: 'flex', alignItems: 'center', gap: '0.75rem',
+                  padding: '0.75rem 1rem',
+                  backgroundColor: '#f8f9fa',
+                  border: '1px solid #e0e0e0',
+                  borderRadius: '8px',
+                }}>
+                  <span style={{ fontSize: '0.82rem', color: '#555', whiteSpace: 'nowrap', minWidth: '110px' }}>
+                    🔊 Volume master
+                  </span>
+                  <input
+                    type="range" min="0.3" max="1.5" step="0.05"
+                    value={storyMasterVolume}
+                    onChange={e => setStoryMasterVolume(parseFloat(e.target.value))}
+                    style={{ flex: 1, accentColor: '#17a2b8' }}
+                  />
+                  <span style={{
+                    fontSize: '0.82rem', fontWeight: 600, color: '#17a2b8',
+                    minWidth: '38px', textAlign: 'right',
+                  }}>
+                    {Math.round(storyMasterVolume * 100)}%
+                  </span>
+                  {storyMasterVolume !== 1.0 && (
+                    <button
+                      type="button"
+                      onClick={() => setStoryMasterVolume(1.0)}
+                      title="Réinitialiser à 100%"
+                      style={{
+                        background: 'none', border: 'none', cursor: 'pointer',
+                        fontSize: '0.72rem', color: '#aaa', padding: '0 4px',
+                      }}
+                    >↺</button>
+                  )}
+                </div>
+              )}
               {/* ── Toggle Histoire simple / Série ── */}
               <div style={{
                 display: 'flex', alignItems: 'center', gap: '0.75rem',
