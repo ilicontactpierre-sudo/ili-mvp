@@ -1033,6 +1033,7 @@ function AdminPage() {
       setStoryAuthor(snapshot.author || '')
       setStorySlug(snapshot.slug || '')
       setStoryBookUrl(snapshot.bookUrl || '')
+      setStoryMasterVolume(snapshot.masterVolume ?? 1.0)
       setStoryMood(snapshot.mood || '')
       setStoryGenre(snapshot.genre || '')
       setStoryDescription(snapshot.description || '')
