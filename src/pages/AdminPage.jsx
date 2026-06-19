@@ -1326,6 +1326,7 @@ function AdminPage() {
     setStoryAuthor('')
     setStorySlug('')
     setStoryBookUrl('')
+    setStoryMasterVolume(1.0)
     setStoryMood('')
     setStoryGenre('')
     setStoryDescription('')
