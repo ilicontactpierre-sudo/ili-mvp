@@ -665,6 +665,7 @@ function StoryPage() {
               if (howlMap !== undefined) {
                 preloadedSoundsRef.current = howlMap
                 audioEngineRef.current = new AudioEngine(howlMap)
+                audioEngineRef.current.setMasterVolume(activeStory?.masterVolume ?? 1.0)
               }
               ignoreAdvanceUntilRef.current = Date.now() + 600
               touchStartY.current = null
