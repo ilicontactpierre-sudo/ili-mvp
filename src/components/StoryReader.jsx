@@ -298,6 +298,7 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle',
     }
   }, [finalSegments])
   const [translateY, setTranslateY] = useState(0)
+  const prevIndexRef = useRef(currentIndex))
 
   // ── Static : animation des lettres parasitées ──
   const staticIntervalRef = useRef(null)
