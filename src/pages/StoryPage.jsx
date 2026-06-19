@@ -699,6 +699,7 @@ function StoryPage() {
             // Pas de seuil → démarrer directement
             preloadedSoundsRef.current = preloadedHowlMap
             audioEngineRef.current = new AudioEngine(preloadedHowlMap)
+            audioEngineRef.current.setMasterVolume(activeStory?.masterVolume ?? 1.0)
             ignoreAdvanceUntilRef.current = Date.now() + 600
             touchStartY.current = null
             trackStart(activeStory?.id, segments.length)
