@@ -173,6 +173,7 @@ function PublishPanel({
           description: part.description || '',
           published:   part.published   ?? false,
           ...(part.seuil?.length > 0 ? { seuil: part.seuil } : {}),
+          ...(part.masterVolume != null && part.masterVolume !== 1.0 ? { masterVolume: part.masterVolume } : {}),
           sounds:      partUsedSounds,
           segments:    partSegmentsWithAudio,
           soundTracks: part.soundTracks || [],
