@@ -489,15 +489,14 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle',
       }
 
       const sequenceLength = finisherIndex - leaderIndex
-      let anchorFraction = 0.42
+      let anchorFraction = 0.22
       if (leaderIndex !== -1 && sequenceLength > 0) {
         const t = Math.max(0, Math.min(1, (currentIndex - leaderIndex) / sequenceLength))
-        anchorFraction = 0.42 + 0.26 * Math.pow(2 * t - 1, 3)
+        anchorFraction = 0.22 + 0.26 * Math.pow(2 * t - 1, 3)
       }
-
       const anchorY = availableH * anchorFraction
-      const focusedCenterY = focusedNode.offsetTop + focusedNode.offsetHeight / 2
-      const desiredTranslateY = anchorY - focusedCenterY
+      const focusedFirstLineY = focusedNode.offsetTop
+      const desiredTranslateY = anchorY - focusedFirstLineY
 
       const minTranslateY = PADDING - focusedNode.offsetTop
       const maxTranslateY = availableH - PADDING - focusedNode.offsetTop - focusedNode.offsetHeight
