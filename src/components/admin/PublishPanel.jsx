@@ -9,6 +9,7 @@ function PublishPanel({
   mood,
   genre,
   description,
+  masterVolume = 1.0,
   segments,
   soundTracks,
   vfxTracks,
