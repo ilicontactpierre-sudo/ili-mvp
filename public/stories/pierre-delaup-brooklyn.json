@@ -235,7 +235,7 @@
   ],
   "segments": [
     {
-      "text": "Petit test pour le volume :) Clic quand tu es ready.",
+      "text": "",
       "id": "seg_1781794386339",
       "audioEvents": [
         {
@@ -244,22 +244,51 @@
           "volume": 1,
           "delay": 0,
           "loop": false
-        }
-      ],
-      "breakAt": 29,
-      "isLeader": true
-    },
-    {
-      "id": "seg_pause_1781803095254_mkdky",
-      "text": "",
-      "pause": 1500,
-      "audioEvents": [
+        },
         {
           "action": "fadeOut",
           "soundId": "la_valle_e_du_okuno",
           "duration": 2353
         }
-      ]
+      ],
+      "breakAt": null,
+      "isLeader": false,
+      "gameMode": {
+        "type": "choice_branch",
+        "layout": {
+          "axis": "H",
+          "linesH": 0,
+          "linesV": 0,
+          "proportions": [
+            1
+          ],
+          "tint": "noir",
+          "style": "flat",
+          "equalSizes": false
+        },
+        "prompt": "Petit test pour le volume :)",
+        "choices": [
+          {
+            "id": "c1",
+            "text": "Clic quand tu es ready.",
+            "targetPartId": ""
+          }
+        ]
+      }
+    },
+    {
+      "id": "seg_pause_1781803095254_mkdky",
+      "text": "",
+      "pause": 1500,
+      "audioEvents": [],
+      "transition": {
+        "type": "fade",
+        "color": "#000000",
+        "easing": "ease-in-out",
+        "fadeInDuration": 1000,
+        "holdDuration": 500,
+        "fadeOutDuration": 100
+      }
     },
     {
       "id": "seg_1781326327990_0_yqe1e",
@@ -598,7 +627,7 @@
       "lines": [
         "Machinalement Rim s’empresse de regarder son poignet."
       ],
-      "text": "Machinalement Rim s’empresse de regarder son poignet. Sur sa peau, un léger bronzage laisse deviner une montre longtemps portée. Elle se fige et pose lentement son regard sur Rob : il a lui aussi les yeux braqués sur son poignet, plus précisément sur sa montre connectée qui orne son poignet…",
+      "text": "Machinalement Rim s’empresse de regarder son poignet. Sur sa peau, un léger bronzage laisse deviner une montre longtemps portée. Elle se fige et pose lentement son regard sur Rob : il a lui aussi les yeux braqués sur son poignet, plus précisément sur sa montre connectée qui orne son poignet… ",
       "breakAt": null,
       "isLeader": false,
       "audioEvents": [
@@ -627,13 +656,37 @@
           "loop": false
         }
       ],
-      "delay": 8000
+      "delay": 10000
     },
     {
-      "id": "seg_pause_1781795749614_x31f6",
+      "id": "seg_pause_1781819859713_ggmv9",
       "text": "",
-      "pause": 1500,
-      "audioEvents": []
+      "pause": 1000,
+      "transition": {
+        "type": "fade",
+        "color": "#000000",
+        "easing": "ease-in-out",
+        "fadeInDuration": 400,
+        "holdDuration": 0,
+        "fadeOutDuration": 400
+      },
+      "audioEvents": [
+        {
+          "action": "play",
+          "soundId": "ambdsgn_digital_bubbles_01_b00m_one",
+          "volume": 0.5,
+          "delay": 0,
+          "loop": false
+        },
+        {
+          "action": "fadeIn",
+          "soundId": "whsh_cinematic_low_impact_muffled_hit_01_b00m_one",
+          "volume": 0.5,
+          "duration": 700,
+          "delay": 0,
+          "loop": false
+        }
+      ]
     },
     {
       "id": "seg_1781326327990_41_scotp",
@@ -645,24 +698,9 @@
       "isLeader": true,
       "audioEvents": [
         {
-          "action": "play",
-          "soundId": "ambdsgn_digital_bubbles_01_b00m_one",
-          "volume": 0.5,
-          "delay": 0,
-          "loop": false
-        },
-        {
           "action": "fadeOut",
           "soundId": "ambdsgn_digital_bubbles_01_b00m_one",
           "duration": 1000
-        },
-        {
-          "action": "fadeIn",
-          "soundId": "whsh_cinematic_low_impact_muffled_hit_01_b00m_one",
-          "volume": 0.5,
-          "duration": 700,
-          "delay": 0,
-          "loop": false
         }
       ],
       "italic": false,
@@ -1424,7 +1462,7 @@
       "lines": [
         "À suivre…"
       ],
-      "text": "</apparition:5500;normal|À suivre…/>",
+      "text": "</apparition:5300;normal|À suivre…/>",
       "breakAt": null,
       "isLeader": true,
       "audioEvents": [
@@ -1455,7 +1493,8 @@
           "delay": 0,
           "loop": false
         }
-      ]
+      ],
+      "italic": true
     }
   ],
   "soundTracks": [
@@ -1652,7 +1691,7 @@
     {
       "id": "st_1781707433641_xmpqdu0tv",
       "soundId": "ambdsgn_digital_bubbles_01_b00m_one",
-      "startSegmentId": "seg_1781326327990_41_scotp",
+      "startSegmentId": "seg_pause_1781819859713_ggmv9",
       "endSegmentId": "seg_1781326327990_41_scotp",
       "column": 1,
       "volume": 0.5,
@@ -1665,8 +1704,8 @@
     {
       "id": "st_1781707698475_rbxkcqmqo",
       "soundId": "whsh_cinematic_low_impact_muffled_hit_01_b00m_one",
-      "startSegmentId": "seg_1781326327990_41_scotp",
-      "endSegmentId": "seg_1781326327990_41_scotp",
+      "startSegmentId": "seg_pause_1781819859713_ggmv9",
+      "endSegmentId": "seg_pause_1781819859713_ggmv9",
       "column": 2,
       "volume": 0.5,
       "fadeIn": 700,
@@ -1675,7 +1714,15 @@
       "loop": false,
       "muted": false,
       "trimStart": 549,
-      "trimEnd": 8879.895833333334
+      "trimEnd": 8879.895833333334,
+      "automationPoints": [
+        {
+          "segmentId": "seg_1781326327990_41_scotp",
+          "volume": 0.5,
+          "fadeMs": 0,
+          "_isAnchor": true
+        }
+      ]
     },
     {
       "id": "st_1781712537890_rtxvxchft",
@@ -2155,7 +2202,7 @@
       "id": "st_1781794425494_nvni9kv9t",
       "soundId": "la_valle_e_du_okuno",
       "startSegmentId": "seg_1781794386339",
-      "endSegmentId": "seg_pause_1781803095254_mkdky",
+      "endSegmentId": "seg_1781794386339",
       "column": 0,
       "volume": 1,
       "fadeIn": 0,
@@ -2163,7 +2210,15 @@
       "delay": 0,
       "loop": false,
       "muted": false,
-      "broken": false
+      "broken": false,
+      "automationPoints": [
+        {
+          "segmentId": "seg_1781794386339",
+          "volume": 1,
+          "fadeMs": 0,
+          "_isAnchor": true
+        }
+      ]
     },
     {
       "id": "st_1781797814605_qn3q6knjn",
@@ -2221,7 +2276,15 @@
       "delay": 0,
       "loop": false,
       "muted": false,
-      "pan": -0.58
+      "pan": -0.58,
+      "automationPoints": [
+        {
+          "segmentId": "seg_1781326327990_37_24l4g",
+          "volume": 0.65,
+          "fadeMs": 0,
+          "_isAnchor": true
+        }
+      ]
     },
     {
       "id": "st_1781801526277_9szkdtyfm",
@@ -2252,34 +2315,34 @@
       "endSegmentId": "seg_1781326327990_41_scotp"
     },
     {
-      "id": "vfx_1781802926886_gtrev77mq",
+      "id": "vfx_1781802969020_hxqjj88m3",
+      "type": "fog",
+      "mode": "léger",
+      "loop": false,
+      "color": "rgba(200, 0, 0, 0.12)",
+      "column": 0,
+      "startSegmentId": "seg_1781326327990_78_toa8o",
+      "endSegmentId": "seg_1781326327990_84_n5h5t"
+    },
+    {
+      "id": "vfx_1781818041155_9nscqao04",
+      "type": "fog",
+      "mode": "léger",
+      "loop": false,
+      "color": "rgba(200, 0, 0, 0.12)",
+      "column": 1,
+      "startSegmentId": "seg_1781334846850_a_jb04t",
+      "endSegmentId": "seg_1781334852561_b_hbh2l"
+    },
+    {
+      "id": "vfx_1781818087425_nnycog9pa",
       "type": "fog",
       "mode": "dense",
       "loop": false,
       "color": "rgba(200, 0, 0, 0.12)",
       "column": 0,
-      "startSegmentId": "seg_1781326327990_78_toa8o",
-      "endSegmentId": "seg_1781326327990_84_n5h5t"
-    },
-    {
-      "id": "vfx_1781802969020_hxqjj88m3",
-      "type": "underwater",
-      "mode": "profond",
-      "loop": false,
-      "color": "rgba(200, 0, 0, 0.12)",
-      "column": 1,
-      "startSegmentId": "seg_1781326327990_78_toa8o",
-      "endSegmentId": "seg_1781326327990_84_n5h5t"
-    },
-    {
-      "id": "vfx_1781804861045_hs8tfpugs",
-      "type": "shake",
-      "mode": "normal",
-      "loop": false,
-      "color": "rgba(200, 0, 0, 0.12)",
-      "column": 0,
-      "startSegmentId": "seg_1781334846850_a_jb04t",
-      "endSegmentId": "seg_1781334846850_a_jb04t"
+      "startSegmentId": "seg_1781326327990_87_hi25l",
+      "endSegmentId": "seg_1781326327990_88_rgs9z"
     }
   ]
 }
