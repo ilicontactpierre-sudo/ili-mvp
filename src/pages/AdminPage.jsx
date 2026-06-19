@@ -2329,6 +2329,7 @@ function AdminPage() {
             mood={storyMood}
             genre={storyGenre}
             description={storyDescription}
+            masterVolume={isSerial ? 1.0 : storyMasterVolume}
             segments={isSerial ? [] : segments}
             soundTracks={isSerial ? [] : soundTracks}
             vfxTracks={isSerial ? [] : vfxTracks}
