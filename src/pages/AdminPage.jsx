@@ -1305,11 +1305,12 @@ function AdminPage() {
         loop: s.loop || false,
       }))
     return {
-      title:       storyTitle  || 'Sans titre',
-      author:      storyAuthor || 'Anonyme',
-      mood:        storyMood        || '',
-      genre:       storyGenre       || '',
-      description: storyDescription || '',
+      title:        storyTitle  || 'Sans titre',
+      author:       storyAuthor || 'Anonyme',
+      mood:         storyMood        || '',
+      genre:        storyGenre       || '',
+      description:  storyDescription || '',
+      masterVolume: storyMasterVolume,
       ...(storyExtraMeta.seuil?.length > 0 && { seuil: storyExtraMeta.seuil }),
       segments: segments.map((seg) => ({
         ...seg,
