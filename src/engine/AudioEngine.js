@@ -4,12 +4,26 @@ class AudioEngine {
     this.playingSounds = new Map()
     this._fadeTokens = new Map()
     this._panAnimations = new Map() // intervalId par key pour les modes animés
+    this.masterVolume = 1.0
   }
-  // Convertit un volume linéaire (0-1) en volume perçu (courbe quadratique)
-    // 0.5 linéaire → 0.25 réel → perçu comme "moitié moins fort" à l'oreille
-    _toPerceptualVolume(v) {
-      return Math.max(0, Math.min(1, v * v))
-    }
+  // Applique le master volume puis la courbe quadratique perceptuelle
+  // masterVolume s'applique linéairement AVANT la courbe pour préserver la dynamique
+  _toPerceptualVolume(v) {
+    const scaled = v * this.masterVolume
+    return Math.max(0, Math.min(1, scaled * scaled))
+  }
+  // Setter du master volume — met à jour tous les sons en cours immédiatement
+  setMasterVolume(master) {
+    this.masterVolume = Math.max(0, Math.min(2, master ?? 1.0))
+    this.playingSounds.forEach((state, key) => {
+      const targetPerceptual = this._toPerceptualVolume(state.volume ?? 0.5)
+      try {
+        state.instanceId != null
+          ? state.howl.volume(targetPerceptual, state.instanceId)
+          : state.howl.volume(targetPerceptual)
+      } catch (_) {}
+    })
+  }
 
   async executeEvents(audioEvents = []) {
     for (const event of audioEvents) {
