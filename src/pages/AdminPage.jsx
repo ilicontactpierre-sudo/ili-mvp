@@ -1976,6 +1976,49 @@ function AdminPage() {
                         rows={2}
                         style={{ padding: '0.6rem', fontSize: '0.9rem', border: '1px solid #ddd', borderRadius: '4px', resize: 'vertical', fontFamily: 'inherit' }}
                       />
+                      {/* ── Master Volume (par partie) ── */}
+                      <div style={{
+                        display: 'flex', alignItems: 'center', gap: '0.75rem',
+                        padding: '0.6rem 0.75rem',
+                        backgroundColor: '#fff',
+                        border: '1px solid #ddd',
+                        borderRadius: '6px',
+                      }}>
+                        <span style={{ fontSize: '0.78rem', color: '#555', whiteSpace: 'nowrap', minWidth: '100px' }}>
+                          🔊 Volume master
+                        </span>
+                        <input
+                          type="range" min="0.3" max="1.5" step="0.05"
+                          value={parts[activePartIndex].masterVolume ?? 1.0}
+                          onChange={e => setParts(prev => {
+                            const next = [...prev]
+                            next[activePartIndex] = { ...next[activePartIndex], masterVolume: parseFloat(e.target.value) }
+                            return next
+                          })}
+                          style={{ flex: 1, accentColor: '#8B5CF6' }}
+                        />
+                        <span style={{
+                          fontSize: '0.78rem', fontWeight: 600, color: '#8B5CF6',
+                          minWidth: '38px', textAlign: 'right',
+                        }}>
+                          {Math.round((parts[activePartIndex].masterVolume ?? 1.0) * 100)}%
+                        </span>
+                        {(parts[activePartIndex].masterVolume ?? 1.0) !== 1.0 && (
+                          <button
+                            type="button"
+                            onClick={() => setParts(prev => {
+                              const next = [...prev]
+                              next[activePartIndex] = { ...next[activePartIndex], masterVolume: 1.0 }
+                              return next
+                            })}
+                            title="Réinitialiser à 100%"
+                            style={{
+                              background: 'none', border: 'none', cursor: 'pointer',
+                              fontSize: '0.72rem', color: '#aaa', padding: '0 4px',
+                            }}
+                          >↺</button>
+                        )}
+                      </div>
                       {/* Sélecteur 3 états : Brouillon / Publiée / Choix multiple */}
                       {(() => {
                         const part = parts[activePartIndex]
