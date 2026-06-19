@@ -489,15 +489,81 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle',
         }
       }
 
-      const sequenceLength = finisherIndex - leaderIndex
-      let anchorFraction = 0.22
-      if (leaderIndex !== -1 && sequenceLength > 0) {
-        const t = Math.max(0, Math.min(1, (currentIndex - leaderIndex) / sequenceLength))
-        anchorFraction = 0.22 + 0.26 * Math.pow(2 * t - 1, 3)
+      // ── Ancrage "fil continu" : on se cale sur le segment précédent (ou suivant si on recule) ──
+      const FALLBACK_FRACTION = 0.22  // utilisé si pas de référence valide (début de séquence, après chapitre…)
+      const GAP = 36                  // espace visuel entre la fin du segment précédent et le début de l'actif (px)
+      const CEILING_FRACTION = 0.65   // plafond bas (sens avant)
+      const FLOOR_FRACTION = 0.15     // plancher haut (sens arrière)
+      const isGoingForward = currentIndex >= prevIndexRef.current
+      prevIndexRef.current = currentIndex
+      // Trouve le dernier index visible (non caché, non chapitre) avant ou après currentIndex
+      function findVisibleNeighbor(direction) {
+        let i = currentIndex + direction
+        while (i >= 0 && i < finalSegments.length) {
+          if (!hiddenFromView.has(i) && !finalSegments[i]?.isChapter) return i
+          i += direction
+        }
+        return -1
       }
-      const anchorY = availableH * anchorFraction
-      const focusedFirstLineY = focusedNode.offsetTop
-      const desiredTranslateY = anchorY - focusedFirstLineY
+      let desiredTranslateY
+      if (isGoingForward) {
+        const prevVisibleIndex = findVisibleNeighbor(-1)
+        const prevNode = prevVisibleIndex !== -1 ? segmentRefs.current[prevVisibleIndex] : null
+        if (prevNode) {
+          // Position du bas du précédent, compte tenu de sa propre translation actuelle
+          const prevBottomY = prevNode.offsetTop + prevNode.offsetHeight
+          const rawTargetY = prevBottomY + GAP
+          const fallbackY = availableH * FALLBACK_FRACTION
+          // On combine fallback (si rawTargetY est trop haut, ex: précédent très court) et plafond doux
+          const baseY = Math.max(fallbackY, rawTargetY)
+          const ceilingY = availableH * CEILING_FRACTION
+          // Compression douce à l'approche du plafond (amorti type easing, pas de mur dur)
+          let anchorY
+          if (baseY <= ceilingY) {
+            anchorY = baseY
+          } else {
+            const overshoot = baseY - ceilingY
+            const remaining = availableH - ceilingY
+            const damped = remaining * (1 - Math.exp(-overshoot / remaining))
+            anchorY = ceilingY + damped
+          }
+          const focusedFirstLineY = focusedNode.offsetTop
+          desiredTranslateY = anchorY - focusedFirstLineY
+        } else {
+          // Fallback : pas de précédent visible pertinent
+          const anchorY = availableH * FALLBACK_FRACTION
+          const focusedFirstLineY = focusedNode.offsetTop
+          desiredTranslateY = anchorY - focusedFirstLineY
+        }
+      } else {
+        const nextVisibleIndex = findVisibleNeighbor(1)
+        const nextNode = nextVisibleIndex !== -1 ? segmentRefs.current[nextVisibleIndex] : null
+        if (nextNode) {
+          const nextTopY = nextNode.offsetTop
+          const rawTargetBottomY = nextTopY - GAP
+          const fallbackY = availableH * FALLBACK_FRACTION
+          const focusedHeight = focusedNode.offsetHeight
+          const rawTargetTopY = rawTargetBottomY - focusedHeight
+          const floorY = availableH * FLOOR_FRACTION
+          const baseY = Math.min(fallbackY, rawTargetTopY)
+          // Compression douce à l'approche du plancher
+          let anchorY
+          if (baseY >= floorY) {
+            anchorY = baseY
+          } else {
+            const overshoot = floorY - baseY
+            const remaining = floorY
+            const damped = remaining * (1 - Math.exp(-overshoot / Math.max(remaining, 1)))
+            anchorY = floorY - damped
+          }
+          const focusedFirstLineY = focusedNode.offsetTop
+          desiredTranslateY = anchorY - focusedFirstLineY
+        } else {
+          const anchorY = availableH * FALLBACK_FRACTION
+          const focusedFirstLineY = focusedNode.offsetTop
+          desiredTranslateY = anchorY - focusedFirstLineY
+        }
+      }
 
       const minTranslateY = PADDING - focusedNode.offsetTop
       const maxTranslateY = availableH - PADDING - focusedNode.offsetTop - focusedNode.offsetHeight
