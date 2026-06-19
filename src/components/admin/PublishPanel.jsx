@@ -206,6 +206,7 @@ function PublishPanel({
       published: true,
       ...(bookUrl ? { bookUrl } : {}),
       ...(seuil?.length > 0 ? { seuil } : {}),
+      masterVolume: storyData?.masterVolume ?? 1.0,
       sounds:      usedSounds,
       segments:    segmentsWithAudio,
       soundTracks: soundTracks,
