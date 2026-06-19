@@ -1098,6 +1098,7 @@ function AdminPage() {
     setIsSerial(false)
     setParts([])
     setActivePartIndex(0)
+    setStoryMasterVolume(storyData.masterVolume ?? 1.0)
     // flushSync garantit que le seuil est appliqué avant le reste
     flushSync(() => {
       setStoryExtraMeta({ seuil: storyData.seuil ?? [] })
