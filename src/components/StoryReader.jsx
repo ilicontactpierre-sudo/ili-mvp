@@ -406,10 +406,11 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle',
   useEffect(() => {
     const overlay = flashOverlayRef.current
     if (!overlay) return
-
+    console.log('FLASH EFFECT TRIGGERED', { currentIndex, time: Date.now() })
     // Priorité 1 : transition de segment pause
     const currentSeg = finalSegments[currentIndex]
     if (currentSeg?.pause && currentSeg?.transition) {
+      console.log('FLASH TRANSITION FIRING', { currentIndex, transition: currentSeg.transition })
       const tr = currentSeg.transition
       const color = tr.color ?? '#000000'
       const easing = TRANSITION_EASINGS[tr.easing] ?? TRANSITION_EASINGS['ease-in-out']
