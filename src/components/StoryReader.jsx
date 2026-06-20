@@ -533,34 +533,15 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle',
       } else {
         anchorPointInSegment = 0 // segment isolé : on ancre sa 1ère ligne, comme avant
       }
-      const focusedAnchorOffsetY = focusedNode.offsetTop + focusedHeight * anchorPointInSegment
+      // ── Position LOCALE à la séquence : distance depuis le Leader, pas depuis le début du document ──
+      // Le DOM accumule la hauteur de TOUS les segments précédents (même masqués), ce qui fait dériver
+      // offsetTop de façon non pertinente d'un segment à l'autre. On neutralise ça en soustrayant
+      // la position du Leader, qui devient notre origine locale stable pour toute la séquence.
+      const leaderNode = (leaderIndex !== -1) ? segmentRefs.current[leaderIndex] : focusedNode
+      const sequenceOriginY = leaderNode ? leaderNode.offsetTop : focusedNode.offsetTop
+      const focusedOffsetInSequence = focusedNode.offsetTop - sequenceOriginY
+      const focusedAnchorOffsetY = focusedOffsetInSequence + focusedHeight * anchorPointInSegment
       const desiredTranslateY = anchorY - focusedAnchorOffsetY
-
-      const minTranslateY = PADDING - focusedNode.offsetTop
-      const maxTranslateY = availableH - PADDING - focusedNode.offsetTop - focusedNode.offsetHeight
-      let nextTranslateY
-      if (minTranslateY > maxTranslateY) {
-        nextTranslateY = minTranslateY
-      } else {
-        nextTranslateY = Math.max(minTranslateY, Math.min(maxTranslateY, desiredTranslateY))
-      }
-      console.log('ANCHOR DEBUG', {
-        currentIndex,
-        leaderIndex,
-        finisherIndex,
-        t,
-        eased,
-        anchorFraction,
-        anchorPointInSegment,
-        anchorY: Math.round(anchorY),
-        focusedHeight: Math.round(focusedHeight),
-        focusedOffsetTop: Math.round(focusedNode.offsetTop),
-        desiredTranslateY: Math.round(desiredTranslateY),
-        minTranslateY: Math.round(minTranslateY),
-        maxTranslateY: Math.round(maxTranslateY),
-        nextTranslateY: Math.round(nextTranslateY),
-        wasClamped: Math.round(desiredTranslateY) !== Math.round(nextTranslateY),
-      })
       setTranslateY(nextTranslateY)
     }
 
