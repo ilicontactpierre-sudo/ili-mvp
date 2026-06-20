@@ -510,19 +510,17 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle',
         const prevVisibleIndex = findVisibleNeighbor(-1)
         const prevNode = prevVisibleIndex !== -1 ? segmentRefs.current[prevVisibleIndex] : null
         if (prevNode) {
-          // Position du bas du précédent, compte tenu de sa propre translation actuelle
-          const prevBottomY = prevNode.offsetTop + prevNode.offsetHeight
-          const rawTargetY = prevBottomY + GAP
+          // Hauteur du segment précédent SEUL (pas sa position absolue, qui peut avoir dérivé)
+          const prevHeight = prevNode.offsetHeight
           const fallbackY = availableH * FALLBACK_FRACTION
-          // On combine fallback (si rawTargetY est trop haut, ex: précédent très court) et plafond doux
-          const baseY = Math.max(fallbackY, rawTargetY)
+          const rawTargetY = fallbackY + prevHeight + GAP // où on voudrait être, basé sur la taille du précédent uniquement
           const ceilingY = availableH * CEILING_FRACTION
           // Compression douce à l'approche du plafond (amorti type easing, pas de mur dur)
           let anchorY
-          if (baseY <= ceilingY) {
-            anchorY = baseY
+          if (rawTargetY <= ceilingY) {
+            anchorY = rawTargetY
           } else {
-            const overshoot = baseY - ceilingY
+            const overshoot = rawTargetY - ceilingY
             const remaining = availableH - ceilingY
             const damped = remaining * (1 - Math.exp(-overshoot / remaining))
             anchorY = ceilingY + damped
