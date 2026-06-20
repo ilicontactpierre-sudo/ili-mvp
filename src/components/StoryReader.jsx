@@ -197,7 +197,10 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle',
     return { id: segment?.id ?? index, text: '', audioEvents: segment?.audioEvents || [], ...segment }
   }
 
-  const finalSegments = rawSegments.map(normalizeSegment)
+  const finalSegments = useMemo(
+    () => rawSegments.map(normalizeSegment),
+    [rawSegments]
+  )
 
   // ── Quel chapitre est pertinent pour l'affichage ? ──
   // "focused" : le segment actif est lui-même un chapitre
