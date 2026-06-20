@@ -544,6 +544,23 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle',
       } else {
         nextTranslateY = Math.max(minTranslateY, Math.min(maxTranslateY, desiredTranslateY))
       }
+      console.log('ANCHOR DEBUG', {
+        currentIndex,
+        leaderIndex,
+        finisherIndex,
+        t,
+        eased,
+        anchorFraction,
+        anchorPointInSegment,
+        anchorY: Math.round(anchorY),
+        focusedHeight: Math.round(focusedHeight),
+        focusedOffsetTop: Math.round(focusedNode.offsetTop),
+        desiredTranslateY: Math.round(desiredTranslateY),
+        minTranslateY: Math.round(minTranslateY),
+        maxTranslateY: Math.round(maxTranslateY),
+        nextTranslateY: Math.round(nextTranslateY),
+        wasClamped: Math.round(desiredTranslateY) !== Math.round(nextTranslateY),
+      })
       setTranslateY(nextTranslateY)
     }
 
