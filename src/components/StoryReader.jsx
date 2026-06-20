@@ -490,6 +490,7 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle',
       }
 
       // ── Ancrage par position (%) : Leader en haut, Finisher en bas, courbe en S inversée ──
+      // Le POINT ancré dans le segment varie aussi : 1ère ligne (Leader) → ligne centrale (milieu) → dernière ligne (Finisher)
       // Bornes "pleine amplitude" (séquence longue, ≥ LONG_SEQ_LEN segments)
       const LEADER_FRACTION_FULL   = 0.18
       const FINISHER_FRACTION_FULL = 0.70
@@ -499,6 +500,7 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle',
       const SHORT_SEQ_LEN = 4   // à partir de cette longueur (ou moins) → amplitude resserrée
       const LONG_SEQ_LEN  = 10  // à partir de cette longueur (ou plus) → amplitude pleine
       const FALLBACK_FRACTION = 0.20 // segment isolé, hors séquence Leader/Finisher
+      // sequenceLength = nombre de PAS entre Leader et Finisher (0 si Leader == Finisher, càd séquence d'1 segment)
       const sequenceLength = leaderIndex !== -1 ? (finisherIndex - leaderIndex) : 0
       // Interpolation de l'amplitude selon la longueur de séquence (0 = resserré, 1 = plein)
       const ampT = sequenceLength <= SHORT_SEQ_LEN
@@ -508,19 +510,31 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle',
           : (sequenceLength - SHORT_SEQ_LEN) / (LONG_SEQ_LEN - SHORT_SEQ_LEN)
       const leaderFraction   = LEADER_FRACTION_SHORT   + (LEADER_FRACTION_FULL   - LEADER_FRACTION_SHORT)   * ampT
       const finisherFraction = FINISHER_FRACTION_SHORT + (FINISHER_FRACTION_FULL - FINISHER_FRACTION_SHORT) * ampT
+      // t = position normalisée dans la séquence (0 = Leader, 1 = Finisher)
+      const t = (leaderIndex !== -1 && sequenceLength > 0)
+        ? Math.max(0, Math.min(1, (currentIndex - leaderIndex) / sequenceLength))
+        : 0
+      // Courbe en S inversée : rapide → lente (au centre) → rapide, milieu de trajet = milieu de courbe (symétrique)
+      const eased = (1 - Math.cos(t * Math.PI)) / 2
       let anchorFraction
       if (leaderIndex !== -1 && sequenceLength > 0) {
-        const t = Math.max(0, Math.min(1, (currentIndex - leaderIndex) / sequenceLength))
-        // Courbe en S inversée : rapide → lente (au centre) → rapide, milieu de trajet = milieu de courbe
-        // sin(t·π − π/2) ramené sur [0,1] donne exactement cette forme symétrique
-        const eased = (1 - Math.cos(t * Math.PI)) / 2
         anchorFraction = leaderFraction + (finisherFraction - leaderFraction) * eased
       } else {
         anchorFraction = FALLBACK_FRACTION
       }
       const anchorY = availableH * anchorFraction
-      const focusedFirstLineY = focusedNode.offsetTop
-      const desiredTranslateY = anchorY - focusedFirstLineY
+      const focusedHeight = focusedNode.offsetHeight
+      // ── Point ancré DANS le segment (0 = 1ère ligne, 0.5 = ligne centrale, 1 = dernière ligne) ──
+      // Suit la même progression "eased" que la position à l'écran : Leader → début du texte, Finisher → fin du texte
+      let anchorPointInSegment
+      if (leaderIndex !== -1 && sequenceLength > 0) {
+        // 0 → 0 (1ère ligne) ; 0.5 → 0.5 (centre) ; 1 → 1 (dernière ligne) — interpolation directe sur eased
+        anchorPointInSegment = eased
+      } else {
+        anchorPointInSegment = 0 // segment isolé : on ancre sa 1ère ligne, comme avant
+      }
+      const focusedAnchorOffsetY = focusedNode.offsetTop + focusedHeight * anchorPointInSegment
+      const desiredTranslateY = anchorY - focusedAnchorOffsetY
 
       const minTranslateY = PADDING - focusedNode.offsetTop
       const maxTranslateY = availableH - PADDING - focusedNode.offsetTop - focusedNode.offsetHeight
