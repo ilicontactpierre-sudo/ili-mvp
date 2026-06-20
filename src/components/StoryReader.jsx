@@ -521,7 +521,7 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle',
       // Courbe en S "plateau central" : ~65% du trajet (en t) reste proche du centre (autour de t=0.5),
       // avec accélération seulement sur les ~17.5% de trajet à chaque extrémité.
       // On compresse t dans une fenêtre centrale via une fonction sigmoïde, plus prononcée qu'un simple cosinus.
-      const PLATEAU_SHARPNESS = 5.5 // plus haut = plateau plus plat/long au centre, transitions plus brusques aux bords
+      const PLATEAU_SHARPNESS = 8 // plus haut = plateau plus plat/long au centre, transitions plus brusques aux bords
       const sigmoid = (x) => 1 / (1 + Math.exp(-PLATEAU_SHARPNESS * (x - 0.5) * 2))
       // Normalisation pour que sigmoid(0)=0 et sigmoid(1)=1 exactement
       const s0 = sigmoid(0)
