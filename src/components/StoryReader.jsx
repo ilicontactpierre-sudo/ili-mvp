@@ -492,14 +492,14 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle',
       // ── Ancrage par position (%) : Leader en haut, Finisher en bas, courbe en S inversée ──
       // Le POINT ancré dans le segment varie aussi : proche 1ère ligne (Leader) → ligne centrale (milieu) → proche dernière ligne (Finisher)
       // Bornes "pleine amplitude" (séquence longue, ≥ LONG_SEQ_LEN segments)
-      const LEADER_FRACTION_FULL   = 0.14
-      const FINISHER_FRACTION_FULL = 0.70
+      const LEADER_FRACTION_FULL   = 0.10
+      const FINISHER_FRACTION_FULL = 0.75
       // Bornes "amplitude resserrée" (séquence courte, ≤ SHORT_SEQ_LEN segments)
-      const LEADER_FRACTION_SHORT   = 0.28
-      const FINISHER_FRACTION_SHORT = 0.58
+      const LEADER_FRACTION_SHORT   = 0.24
+      const FINISHER_FRACTION_SHORT = 0.60
       const SHORT_SEQ_LEN = 4   // à partir de cette longueur (ou moins) → amplitude resserrée
       const LONG_SEQ_LEN  = 10  // à partir de cette longueur (ou plus) → amplitude pleine
-      const FALLBACK_FRACTION = 0.20 // segment isolé, hors séquence Leader/Finisher
+      const FALLBACK_FRACTION = 0.18 // segment isolé, hors séquence Leader/Finisher
       // Le point ancré DANS le segment ne va jamais à 0 ou 1 pur : il reste toujours un peu vers le centre,
       // pour qu'un segment long ne "déborde" pas visuellement plus bas que ses voisins courts.
       const ANCHOR_POINT_MIN = 0.22 // au Leader : on ancre entre la 1ère ligne et le centre (jamais la 1ère ligne pure)
@@ -518,8 +518,15 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle',
       const t = (leaderIndex !== -1 && sequenceLength > 0)
         ? Math.max(0, Math.min(1, (currentIndex - leaderIndex) / sequenceLength))
         : 0
-      // Courbe en S inversée : rapide → lente (au centre) → rapide, milieu de trajet = milieu de courbe (symétrique)
-      const eased = (1 - Math.cos(t * Math.PI)) / 2
+      // Courbe en S "plateau central" : ~65% du trajet (en t) reste proche du centre (autour de t=0.5),
+      // avec accélération seulement sur les ~17.5% de trajet à chaque extrémité.
+      // On compresse t dans une fenêtre centrale via une fonction sigmoïde, plus prononcée qu'un simple cosinus.
+      const PLATEAU_SHARPNESS = 5.5 // plus haut = plateau plus plat/long au centre, transitions plus brusques aux bords
+      const sigmoid = (x) => 1 / (1 + Math.exp(-PLATEAU_SHARPNESS * (x - 0.5) * 2))
+      // Normalisation pour que sigmoid(0)=0 et sigmoid(1)=1 exactement
+      const s0 = sigmoid(0)
+      const s1 = sigmoid(1)
+      const eased = (sigmoid(t) - s0) / (s1 - s0)
       let anchorFraction
       if (leaderIndex !== -1 && sequenceLength > 0) {
         anchorFraction = leaderFraction + (finisherFraction - leaderFraction) * eased
