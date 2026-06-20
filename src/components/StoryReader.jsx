@@ -451,12 +451,14 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle',
       })()
       const color = getFlashColor(flashTrack.color, isDark)
       const duration = FLASH_SPEED[flashTrack.mode] ?? 1000
+      overlay.classList.add('vfx-flash-overlay') // active l'animation CSS en boucle, seulement pour ce cas
       overlay.style.setProperty('--flash-color', color)
       overlay.style.setProperty('--flash-duration', `${duration}ms`)
       overlay.style.transition = 'opacity 400ms ease-in'
       overlay.style.opacity = '1'
       overlay.style.display = 'block'
     } else {
+      overlay.classList.remove('vfx-flash-overlay') // désactive l'animation CSS en boucle dès qu'on n'en a plus besoin
       overlay.style.transition = 'opacity 900ms ease-out'
       overlay.style.opacity = '0'
       setTimeout(() => {
