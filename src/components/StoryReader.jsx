@@ -489,79 +489,38 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle',
         }
       }
 
-      // ── Ancrage "fil continu" : on se cale sur le segment précédent (ou suivant si on recule) ──
-      const FALLBACK_FRACTION = 0.22  // utilisé si pas de référence valide (début de séquence, après chapitre…)
-      const GAP = 36                  // espace visuel entre la fin du segment précédent et le début de l'actif (px)
-      const CEILING_FRACTION = 0.65   // plafond bas (sens avant)
-      const FLOOR_FRACTION = 0.15     // plancher haut (sens arrière)
-      const isGoingForward = currentIndex >= prevIndexRef.current
-      prevIndexRef.current = currentIndex
-      // Trouve le dernier index visible (non caché, non chapitre) avant ou après currentIndex
-      function findVisibleNeighbor(direction) {
-        let i = currentIndex + direction
-        while (i >= 0 && i < finalSegments.length) {
-          if (!hiddenFromView.has(i) && !finalSegments[i]?.isChapter) return i
-          i += direction
-        }
-        return -1
-      }
-      let desiredTranslateY
-      if (isGoingForward) {
-        const prevVisibleIndex = findVisibleNeighbor(-1)
-        const prevNode = prevVisibleIndex !== -1 ? segmentRefs.current[prevVisibleIndex] : null
-        if (prevNode) {
-          // Hauteur du segment précédent SEUL (pas sa position absolue, qui peut avoir dérivé)
-          const prevHeight = prevNode.offsetHeight
-          const fallbackY = availableH * FALLBACK_FRACTION
-          const rawTargetY = fallbackY + prevHeight + GAP // où on voudrait être, basé sur la taille du précédent uniquement
-          const ceilingY = availableH * CEILING_FRACTION
-          // Compression douce à l'approche du plafond (amorti type easing, pas de mur dur)
-          let anchorY
-          if (rawTargetY <= ceilingY) {
-            anchorY = rawTargetY
-          } else {
-            const overshoot = rawTargetY - ceilingY
-            const remaining = availableH - ceilingY
-            const damped = remaining * (1 - Math.exp(-overshoot / remaining))
-            anchorY = ceilingY + damped
-          }
-          const focusedFirstLineY = focusedNode.offsetTop
-          desiredTranslateY = anchorY - focusedFirstLineY
-        } else {
-          // Fallback : pas de précédent visible pertinent
-          const anchorY = availableH * FALLBACK_FRACTION
-          const focusedFirstLineY = focusedNode.offsetTop
-          desiredTranslateY = anchorY - focusedFirstLineY
-        }
+      // ── Ancrage par position (%) : Leader en haut, Finisher en bas, courbe en S inversée ──
+      // Bornes "pleine amplitude" (séquence longue, ≥ LONG_SEQ_LEN segments)
+      const LEADER_FRACTION_FULL   = 0.18
+      const FINISHER_FRACTION_FULL = 0.70
+      // Bornes "amplitude resserrée" (séquence courte, ≤ SHORT_SEQ_LEN segments)
+      const LEADER_FRACTION_SHORT   = 0.30
+      const FINISHER_FRACTION_SHORT = 0.58
+      const SHORT_SEQ_LEN = 4   // à partir de cette longueur (ou moins) → amplitude resserrée
+      const LONG_SEQ_LEN  = 10  // à partir de cette longueur (ou plus) → amplitude pleine
+      const FALLBACK_FRACTION = 0.20 // segment isolé, hors séquence Leader/Finisher
+      const sequenceLength = leaderIndex !== -1 ? (finisherIndex - leaderIndex) : 0
+      // Interpolation de l'amplitude selon la longueur de séquence (0 = resserré, 1 = plein)
+      const ampT = sequenceLength <= SHORT_SEQ_LEN
+        ? 0
+        : sequenceLength >= LONG_SEQ_LEN
+          ? 1
+          : (sequenceLength - SHORT_SEQ_LEN) / (LONG_SEQ_LEN - SHORT_SEQ_LEN)
+      const leaderFraction   = LEADER_FRACTION_SHORT   + (LEADER_FRACTION_FULL   - LEADER_FRACTION_SHORT)   * ampT
+      const finisherFraction = FINISHER_FRACTION_SHORT + (FINISHER_FRACTION_FULL - FINISHER_FRACTION_SHORT) * ampT
+      let anchorFraction
+      if (leaderIndex !== -1 && sequenceLength > 0) {
+        const t = Math.max(0, Math.min(1, (currentIndex - leaderIndex) / sequenceLength))
+        // Courbe en S inversée : rapide → lente (au centre) → rapide, milieu de trajet = milieu de courbe
+        // sin(t·π − π/2) ramené sur [0,1] donne exactement cette forme symétrique
+        const eased = (1 - Math.cos(t * Math.PI)) / 2
+        anchorFraction = leaderFraction + (finisherFraction - leaderFraction) * eased
       } else {
-        const nextVisibleIndex = findVisibleNeighbor(1)
-        const nextNode = nextVisibleIndex !== -1 ? segmentRefs.current[nextVisibleIndex] : null
-        if (nextNode) {
-          const nextTopY = nextNode.offsetTop
-          const rawTargetBottomY = nextTopY - GAP
-          const fallbackY = availableH * FALLBACK_FRACTION
-          const focusedHeight = focusedNode.offsetHeight
-          const rawTargetTopY = rawTargetBottomY - focusedHeight
-          const floorY = availableH * FLOOR_FRACTION
-          const baseY = Math.min(fallbackY, rawTargetTopY)
-          // Compression douce à l'approche du plancher
-          let anchorY
-          if (baseY >= floorY) {
-            anchorY = baseY
-          } else {
-            const overshoot = floorY - baseY
-            const remaining = floorY
-            const damped = remaining * (1 - Math.exp(-overshoot / Math.max(remaining, 1)))
-            anchorY = floorY - damped
-          }
-          const focusedFirstLineY = focusedNode.offsetTop
-          desiredTranslateY = anchorY - focusedFirstLineY
-        } else {
-          const anchorY = availableH * FALLBACK_FRACTION
-          const focusedFirstLineY = focusedNode.offsetTop
-          desiredTranslateY = anchorY - focusedFirstLineY
-        }
+        anchorFraction = FALLBACK_FRACTION
       }
+      const anchorY = availableH * anchorFraction
+      const focusedFirstLineY = focusedNode.offsetTop
+      const desiredTranslateY = anchorY - focusedFirstLineY
 
       const minTranslateY = PADDING - focusedNode.offsetTop
       const maxTranslateY = availableH - PADDING - focusedNode.offsetTop - focusedNode.offsetHeight
