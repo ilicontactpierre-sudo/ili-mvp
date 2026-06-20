@@ -656,7 +656,6 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle',
           pointerEvents: 'none',
           backgroundColor: 'transparent',
         }}
-        className="vfx-flash-overlay"
       />
 
     <main
