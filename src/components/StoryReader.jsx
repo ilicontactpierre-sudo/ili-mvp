@@ -490,16 +490,20 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle',
       }
 
       // ── Ancrage par position (%) : Leader en haut, Finisher en bas, courbe en S inversée ──
-      // Le POINT ancré dans le segment varie aussi : 1ère ligne (Leader) → ligne centrale (milieu) → dernière ligne (Finisher)
+      // Le POINT ancré dans le segment varie aussi : proche 1ère ligne (Leader) → ligne centrale (milieu) → proche dernière ligne (Finisher)
       // Bornes "pleine amplitude" (séquence longue, ≥ LONG_SEQ_LEN segments)
-      const LEADER_FRACTION_FULL   = 0.18
+      const LEADER_FRACTION_FULL   = 0.14
       const FINISHER_FRACTION_FULL = 0.70
       // Bornes "amplitude resserrée" (séquence courte, ≤ SHORT_SEQ_LEN segments)
-      const LEADER_FRACTION_SHORT   = 0.30
+      const LEADER_FRACTION_SHORT   = 0.28
       const FINISHER_FRACTION_SHORT = 0.58
       const SHORT_SEQ_LEN = 4   // à partir de cette longueur (ou moins) → amplitude resserrée
       const LONG_SEQ_LEN  = 10  // à partir de cette longueur (ou plus) → amplitude pleine
       const FALLBACK_FRACTION = 0.20 // segment isolé, hors séquence Leader/Finisher
+      // Le point ancré DANS le segment ne va jamais à 0 ou 1 pur : il reste toujours un peu vers le centre,
+      // pour qu'un segment long ne "déborde" pas visuellement plus bas que ses voisins courts.
+      const ANCHOR_POINT_MIN = 0.22 // au Leader : on ancre entre la 1ère ligne et le centre (jamais la 1ère ligne pure)
+      const ANCHOR_POINT_MAX = 0.78 // au Finisher : on ancre entre le centre et la dernière ligne (jamais la dernière ligne pure)
       // sequenceLength = nombre de PAS entre Leader et Finisher (0 si Leader == Finisher, càd séquence d'1 segment)
       const sequenceLength = leaderIndex !== -1 ? (finisherIndex - leaderIndex) : 0
       // Interpolation de l'amplitude selon la longueur de séquence (0 = resserré, 1 = plein)
@@ -525,13 +529,12 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle',
       const anchorY = availableH * anchorFraction
       const focusedHeight = focusedNode.offsetHeight
       // ── Point ancré DANS le segment (0 = 1ère ligne, 0.5 = ligne centrale, 1 = dernière ligne) ──
-      // Suit la même progression "eased" que la position à l'écran : Leader → début du texte, Finisher → fin du texte
+      // Reste toujours dans [ANCHOR_POINT_MIN, ANCHOR_POINT_MAX], jamais aux extrêmes purs
       let anchorPointInSegment
       if (leaderIndex !== -1 && sequenceLength > 0) {
-        // 0 → 0 (1ère ligne) ; 0.5 → 0.5 (centre) ; 1 → 1 (dernière ligne) — interpolation directe sur eased
-        anchorPointInSegment = eased
+        anchorPointInSegment = ANCHOR_POINT_MIN + (ANCHOR_POINT_MAX - ANCHOR_POINT_MIN) * eased
       } else {
-        anchorPointInSegment = 0 // segment isolé : on ancre sa 1ère ligne, comme avant
+        anchorPointInSegment = 0.3 // segment isolé : ancrage proche du début, jamais pur
       }
       // ── Position LOCALE à la séquence : distance depuis le Leader, pas depuis le début du document ──
       // Le DOM accumule la hauteur de TOUS les segments précédents (même masqués), ce qui fait dériver
