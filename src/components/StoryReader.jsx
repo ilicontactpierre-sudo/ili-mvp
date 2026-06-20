@@ -492,10 +492,10 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle',
       // ── Ancrage par position (%) : Leader en haut, Finisher en bas, courbe en S inversée ──
       // Le POINT ancré dans le segment varie aussi : proche 1ère ligne (Leader) → ligne centrale (milieu) → proche dernière ligne (Finisher)
       // Bornes "pleine amplitude" (séquence longue, ≥ LONG_SEQ_LEN segments)
-      const LEADER_FRACTION_FULL   = 0.10
+      const LEADER_FRACTION_FULL   = 0.06
       const FINISHER_FRACTION_FULL = 0.75
       // Bornes "amplitude resserrée" (séquence courte, ≤ SHORT_SEQ_LEN segments)
-      const LEADER_FRACTION_SHORT   = 0.24
+      const LEADER_FRACTION_SHORT   = 0.20
       const FINISHER_FRACTION_SHORT = 0.60
       const SHORT_SEQ_LEN = 4   // à partir de cette longueur (ou moins) → amplitude resserrée
       const LONG_SEQ_LEN  = 10  // à partir de cette longueur (ou plus) → amplitude pleine
