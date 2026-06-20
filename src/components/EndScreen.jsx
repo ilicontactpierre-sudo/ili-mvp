@@ -34,24 +34,35 @@ function EndScreen({ title, author, formUrl, bookUrl, nextPart = null, onNextPar
     setTimeout(() => navigate('/'), 1400)
   }
 
-  const lineColor = 'color-mix(in srgb, var(--color-text-focus) 16%, transparent)'
-  const btnColor = 'color-mix(in srgb, var(--color-text-focus) 55%, transparent)'
-  const btnBorder = 'color-mix(in srgb, var(--color-text-focus) 20%, transparent)'
-  const btnHoverColor = 'var(--color-text-focus)'
-  const btnHoverBorder = 'color-mix(in srgb, var(--color-text-focus) 45%, transparent)'
+  // ── Tokens d'opacité, dérivés de --color-text-focus (s'adapte aux 4 thèmes) ──
+  const mix = (pct) => `color-mix(in srgb, var(--color-text-focus) ${pct}%, transparent)`
+  const lineColor      = mix(14)
+  const labelColor     = mix(40)
+  const bodyColor      = mix(72)
+  const subtleColor    = mix(50)
+  const dimColor       = mix(30)
+  const borderSoft      = mix(14)
+  const borderHover     = mix(32)
+  const surfaceHover    = mix(5)
+  const ctaBg           = mix(96)        // quasi blanc/quasi noir selon thème
+  const ctaBgHover      = mix(100)
+  const ctaText         = 'var(--color-bg)'
+
+  const EASE = 'cubic-bezier(0.16, 1, 0.3, 1)'
 
   return (
     <main
       style={{
         minHeight: '100dvh',
-        display: 'grid',
-        gridTemplateRows: '1fr auto 1fr',
+        display: 'flex',
+        flexDirection: 'column',
         alignItems: 'center',
+        justifyContent: 'center',
         textAlign: 'center',
         background: 'var(--color-bg)',
         color: 'var(--color-text-focus)',
         fontFamily: 'var(--font-primary)',
-        padding: '2rem 1.5rem',
+        padding: '3rem 1.5rem',
         opacity: leaving ? 0 : visible ? 1 : 0,
         transform: leaving
           ? 'translateY(-18px)'
@@ -59,259 +70,341 @@ function EndScreen({ title, author, formUrl, bookUrl, nextPart = null, onNextPar
             ? 'translateY(0)'
             : 'translateY(14px)',
         transition: leaving
-          ? 'opacity 1400ms cubic-bezier(0.87, 0, 0.13, 1), transform 1400ms cubic-bezier(0.87, 0, 0.13, 1)'
-          : 'opacity 1000ms cubic-bezier(0.16, 1, 0.3, 1), transform 1000ms cubic-bezier(0.16, 1, 0.3, 1)',
+          ? `opacity 1400ms ${EASE}, transform 1400ms ${EASE}`
+          : `opacity 1000ms ${EASE}, transform 1000ms ${EASE}`,
       }}
     >
-      <div />
-      <section style={{ width: '100%', maxWidth: '38rem', margin: '0 auto' }}>
-        <div
-          style={{
-            width: '100%',
-            maxWidth: '11rem',
-            height: '1px',
-            margin: '0 auto 1.4rem',
-            background: lineColor,
-          }}
-        />
-        <p style={{ opacity: 0.65, fontSize: '0.95rem', letterSpacing: '0.02em' }}>
-          {title} — {author}
-        </p>
+      <style>{`
+        @keyframes es-rise {
+          from { opacity: 0; transform: translateY(12px); }
+          to   { opacity: 1; transform: translateY(0); }
+        }
+        .es-stagger {
+          opacity: 0;
+          animation: es-rise 700ms ${EASE} forwards;
+        }
+        .es-input::placeholder { color: ${dimColor}; }
+        .es-input:focus { border-color: ${borderHover} !important; }
+        .es-ghost-btn:hover {
+          color: var(--color-text-focus) !important;
+          border-color: ${borderHover} !important;
+          background: ${surfaceHover} !important;
+        }
+        .es-cta-btn:hover { background: ${ctaBgHover} !important; }
+        .es-link-btn:hover {
+          color: var(--color-text-focus) !important;
+          border-bottom-color: ${borderHover} !important;
+        }
+      `}</style>
 
-        {/* ── Soutien au projet ── */}
-        <div style={{ marginTop: '2.2rem', display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
-          {/* Encart inscription newsletter */}
+      <div style={{ width: '100%', maxWidth: '26rem', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+
+        {/* ── Identité : signature ILi + générique de fin ── */}
+        <div
+          className="es-stagger"
+          style={{ animationDelay: '60ms', display: 'flex', flexDirection: 'column', alignItems: 'center' }}
+        >
+          <span style={{
+            fontFamily: 'var(--font-logo)',
+            fontSize: '10px',
+            fontWeight: 600,
+            letterSpacing: '0.4em',
+            textTransform: 'uppercase',
+            color: dimColor,
+          }}>
+            Fin de l'histoire
+          </span>
+
+          <div style={{ width: '2.25rem', height: '1px', background: lineColor, margin: '1.1rem 0' }} />
+
+          <h1 style={{
+            margin: 0,
+            fontFamily: 'var(--font-primary)',
+            fontWeight: 600,
+            fontSize: 'clamp(1.4rem, 5vw, 1.85rem)',
+            lineHeight: 1.25,
+            color: 'var(--color-text-focus)',
+          }}>
+            {title}
+          </h1>
+          <p style={{
+            margin: '0.55rem 0 0',
+            fontFamily: 'var(--font-logo)',
+            fontSize: '11px',
+            fontWeight: 500,
+            letterSpacing: '0.12em',
+            textTransform: 'uppercase',
+            color: subtleColor,
+          }}>
+            {author}
+          </p>
+        </div>
+
+        {/* ── Zone 1 : continuer l'aventure (CTA dominant) ── */}
+        {nextPart && onNextPart && (
+          <button
+            type="button"
+            onClick={onNextPart}
+            className="es-cta-btn es-stagger"
+            style={{
+              animationDelay: '180ms',
+              marginTop: '2.6rem',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '0.6rem',
+              width: '100%',
+              padding: '1.05rem 1.5rem',
+              borderRadius: '999px',
+              background: ctaBg,
+              color: ctaText,
+              border: 'none',
+              fontFamily: 'var(--font-primary)',
+              fontSize: '1.02rem',
+              fontWeight: 600,
+              cursor: 'pointer',
+              letterSpacing: '0.01em',
+              transition: 'background 300ms ease, transform 150ms ease',
+            }}
+            onMouseDown={e => e.currentTarget.style.transform = 'scale(0.98)'}
+            onMouseUp={e => e.currentTarget.style.transform = 'scale(1)'}
+          >
+            <span>{nextPart.title}</span>
+            <span style={{ opacity: 0.55, fontSize: '0.85em' }}>→</span>
+          </button>
+        )}
+
+        {/* ── Séparateur de section ── */}
+        <div
+          className="es-stagger"
+          style={{
+            animationDelay: '260ms',
+            width: '100%',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '0.75rem',
+            margin: nextPart ? '2.4rem 0 0' : '2.8rem 0 0',
+          }}
+        >
+          <div style={{ flex: 1, height: '1px', background: lineColor }} />
+          <span style={{
+            fontFamily: 'var(--font-logo)',
+            fontSize: '9px',
+            fontWeight: 600,
+            letterSpacing: '0.22em',
+            textTransform: 'uppercase',
+            color: dimColor,
+            whiteSpace: 'nowrap',
+          }}>
+            Soutenir ILi
+          </span>
+          <div style={{ flex: 1, height: '1px', background: lineColor }} />
+        </div>
+
+        {/* ── Zone 2 : newsletter + soutien ── */}
+        <div
+          className="es-stagger"
+          style={{
+            animationDelay: '340ms',
+            marginTop: '1.6rem',
+            width: '100%',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '0.7rem',
+          }}
+        >
           {subscribeStatus === 'success' ? (
-            <p style={{ fontSize: '0.9rem', opacity: 0.7, letterSpacing: '0.02em' }}>
+            <p style={{ fontSize: '0.88rem', color: subtleColor, letterSpacing: '0.02em' }}>
               ✓ À bientôt dans votre boîte mail.
             </p>
           ) : (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', width: '100%', maxWidth: '22rem', marginInline: 'auto' }}>
-              <p style={{ margin: 0, fontSize: '0.85rem', opacity: 0.6, letterSpacing: '0.02em' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+              <p style={{ margin: 0, fontSize: '0.82rem', color: labelColor, letterSpacing: '0.02em' }}>
                 Être prévenu de la prochaine histoire
               </p>
-              <div style={{ display: 'flex', gap: '0.rem' }}>
+              <div style={{ display: 'flex', gap: '0.5rem' }}>
                 <input
                   type="email"
                   placeholder="votre@email.com"
                   value={email}
+                  className="es-input"
                   onChange={e => setEmail(e.target.value)}
                   onKeyDown={e => e.key === 'Enter' && handleSubscribe()}
                   style={{
                     flex: 1,
-                    padding: '0.75rem 1rem',
+                    padding: '0.75rem 1.05rem',
                     borderRadius: '999px',
-                    border: '1px solid ' + btnBorder,
+                    border: '1px solid ' + borderSoft,
                     background: 'transparent',
                     color: 'var(--color-text-focus)',
                     fontSize: '0.9rem',
                     fontFamily: 'var(--font-primary)',
                     outline: 'none',
+                    transition: 'border-color 200ms ease',
                   }}
                 />
                 <button
                   onClick={handleSubscribe}
                   disabled={subscribeStatus === 'loading'}
                   style={{
-                    padding: '0.75rem 1.2rem',
+                    padding: '0.75rem 1.15rem',
                     borderRadius: '999px',
                     border: 'none',
-                    background: 'var(--color-text-focus)',
-                    color: 'var(--color-bg)',
+                    background: ctaBg,
+                    color: ctaText,
                     fontSize: '0.9rem',
                     fontFamily: 'var(--font-primary)',
                     fontWeight: 600,
                     cursor: subscribeStatus === 'loading' ? 'wait' : 'pointer',
                     whiteSpace: 'nowrap',
+                    flexShrink: 0,
                   }}
                 >
                   {subscribeStatus === 'loading' ? '…' : '✔'}
                 </button>
               </div>
               {subscribeStatus === 'error' && (
-                <p style={{ margin: 0, fontSize: '0.8rem', color: 'var(--color-text-focus)', opacity: 0.6 }}>
+                <p style={{ margin: 0, fontSize: '0.78rem', color: subtleColor }}>
                   Une erreur est survenue, réessayez.
                 </p>
               )}
             </div>
           )}
 
-          {/* Ko-fi — soutien */}
-          <a
-            href="https://ko-fi.com/iliapp"
-            target="_blank"
-            rel="noreferrer"
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              gap: '0.6rem',
-              marginInline: 'auto',
-              width: 'fit-content',
-              padding: '0.75rem 1.35rem',
-              borderRadius: '999px',
-              border: '1px solid ' + btnBorder,
-              background: 'transparent',
-              color: btnColor,
-              textDecoration: 'none',
-              fontSize: '0.95rem',
-              fontFamily: 'var(--font-primary)',
-              letterSpacing: '0.03em',
-              transition: 'color 400ms ease, border-color 400ms ease, background 400ms ease',
-            }}
-            onMouseEnter={function(e) {
-              e.currentTarget.style.color = btnHoverColor
-              e.currentTarget.style.borderColor = btnHoverBorder
-              e.currentTarget.style.background = 'color-mix(in srgb, var(--color-text-focus) 6%, transparent)'
-            }}
-            onMouseLeave={function(e) {
-              e.currentTarget.style.color = btnColor
-              e.currentTarget.style.borderColor = btnBorder
-              e.currentTarget.style.background = 'transparent'
-            }}
-          >
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M18 8h1a4 4 0 0 1 0 8h-1"/>
-              <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/>
-              <line x1="6" y1="1" x2="6" y2="4"/>
-              <line x1="10" y1="1" x2="10" y2="4"/>
-              <line x1="14" y1="1" x2="14" y2="4"/>
-            </svg>
-            Soutenir le projet
-          </a>
+          {/* Actions secondaires : pillules discrètes côte à côte */}
+          <div style={{ display: 'flex', gap: '0.55rem', marginTop: '0.35rem', flexWrap: 'wrap', justifyContent: 'center' }}>
+            <a
+              href="https://ko-fi.com/iliapp"
+              target="_blank"
+              rel="noreferrer"
+              className="es-ghost-btn"
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.5rem',
+                padding: '0.62rem 1.05rem',
+                borderRadius: '999px',
+                border: '1px solid ' + borderSoft,
+                background: 'transparent',
+                color: subtleColor,
+                textDecoration: 'none',
+                fontSize: '0.85rem',
+                fontFamily: 'var(--font-primary)',
+                letterSpacing: '0.01em',
+                transition: 'color 250ms ease, border-color 250ms ease, background 250ms ease',
+              }}
+            >
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M18 8h1a4 4 0 0 1 0 8h-1"/>
+                <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/>
+                <line x1="6" y1="1" x2="6" y2="4"/>
+                <line x1="10" y1="1" x2="10" y2="4"/>
+                <line x1="14" y1="1" x2="14" y2="4"/>
+              </svg>
+              Soutenir
+            </a>
+
+            {formUrl && (
+              <a
+                href={formUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="es-ghost-btn"
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.5rem',
+                  padding: '0.62rem 1.05rem',
+                  borderRadius: '999px',
+                  border: '1px solid ' + borderSoft,
+                  background: 'transparent',
+                  color: subtleColor,
+                  textDecoration: 'none',
+                  fontSize: '0.85rem',
+                  fontFamily: 'var(--font-primary)',
+                  letterSpacing: '0.01em',
+                  transition: 'color 250ms ease, border-color 250ms ease, background 250ms ease',
+                }}
+              >
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M11 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-5"/>
+                  <polygon points="18 2 22 6 12 16 8 16 8 12 18 2"/>
+                </svg>
+                Avis
+              </a>
+            )}
+
+            {bookUrl && (
+              <a
+                href={bookUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="es-ghost-btn"
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.5rem',
+                  padding: '0.62rem 1.05rem',
+                  borderRadius: '999px',
+                  border: '1px solid ' + borderSoft,
+                  background: 'transparent',
+                  color: subtleColor,
+                  textDecoration: 'none',
+                  fontSize: '0.85rem',
+                  fontFamily: 'var(--font-primary)',
+                  letterSpacing: '0.01em',
+                  transition: 'color 250ms ease, border-color 250ms ease, background 250ms ease',
+                }}
+              >
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+                  <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+                </svg>
+                Le livre
+              </a>
+            )}
+          </div>
         </div>
 
-        {formUrl && (
-          <a
-            href={formUrl}
-            target="_blank"
-            rel="noreferrer"
-            style={{
-              marginTop: '2.2rem',
-              display: 'inline-block',
-              padding: '0.85rem 1.35rem',
-              borderRadius: '999px',
-              background: 'var(--color-text-focus)',
-              color: 'var(--color-bg)',
-              textDecoration: 'none',
-              fontSize: '1rem',
-              fontWeight: 600,
-            }}
-          >
-            Partager mon avis
-          </a>
-        )}
-
-        {bookUrl && (
-          <a
-            href={bookUrl}
-            target="_blank"
-            rel="noreferrer"
-            style={{
-              marginTop: formUrl ? '1rem' : '2.2rem',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              gap: '0.6rem',
-              marginInline: 'auto',
-              width: 'fit-content',
-              padding: '0.75rem 1.35rem',
-              borderRadius: '999px',
-              border: '1px solid ' + btnBorder,
-              background: 'transparent',
-              color: btnColor,
-              textDecoration: 'none',
-              fontSize: '0.95rem',
-              fontFamily: 'var(--font-primary)',
-              letterSpacing: '0.03em',
-              transition: 'color 400ms ease, border-color 400ms ease, background 400ms ease',
-            }}
-            onMouseEnter={function(e) {
-              e.currentTarget.style.color = btnHoverColor
-              e.currentTarget.style.borderColor = btnHoverBorder
-              e.currentTarget.style.background = 'color-mix(in srgb, var(--color-text-focus) 6%, transparent)'
-            }}
-            onMouseLeave={function(e) {
-              e.currentTarget.style.color = btnColor
-              e.currentTarget.style.borderColor = btnBorder
-              e.currentTarget.style.background = 'transparent'
-            }}
-          >
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
-              <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
-            </svg>
-            Trouver le livre en librairie
-          </a>
-        )}
-
-        {/* ── Partie suivante (mode série) ── */}
-        {nextPart && onNextPart && (
-          <button
-            type="button"
-            onClick={onNextPart}
-            style={{
-              marginTop: '2.2rem',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              gap: '0.5rem',
-              marginInline: 'auto',
-              padding: '0.875rem 1.75rem',
-              borderRadius: '999px',
-              background: 'var(--color-text-focus)',
-              color: 'var(--color-bg)',
-              border: 'none',
-              fontFamily: 'var(--font-primary)',
-              fontSize: '1rem',
-              fontWeight: 600,
-              cursor: 'pointer',
-              letterSpacing: '0.02em',
-            }}
-          >
-            <span>{nextPart.title}</span>
-            <span style={{ opacity: 0.6, fontSize: '0.85em' }}>→</span>
-          </button>
-        )}
-
+        {/* ── Retour à l'accueil ── */}
         <button
           type="button"
           onClick={handleReturnHome}
+          className="es-link-btn es-stagger"
           style={{
-            marginTop: (nextPart || formUrl || bookUrl) ? '1.5rem' : '2.5rem',
-            display: 'block',
-            marginInline: 'auto',
+            animationDelay: '420ms',
+            marginTop: '2.4rem',
             border: 'none',
-            borderBottom: '1px solid ' + btnBorder,
+            borderBottom: '1px solid ' + borderSoft,
             borderRadius: 0,
             background: 'transparent',
-            color: btnColor,
-            fontFamily: 'var(--font-primary)',
-            fontSize: '1rem',
-            letterSpacing: '0.04em',
-            padding: '0.6rem 0',
+            color: labelColor,
+            fontFamily: 'var(--font-logo)',
+            fontSize: '11px',
+            fontWeight: 500,
+            letterSpacing: '0.12em',
+            textTransform: 'uppercase',
+            padding: '0.5rem 0',
             cursor: 'pointer',
-            transition: 'color 400ms ease, border-color 400ms ease',
-          }}
-          onMouseEnter={function(e) {
-            e.currentTarget.style.color = btnHoverColor
-            e.currentTarget.style.borderBottomColor = btnHoverBorder
-          }}
-          onMouseLeave={function(e) {
-            e.currentTarget.style.color = btnColor
-            e.currentTarget.style.borderBottomColor = btnBorder
+            transition: 'color 300ms ease, border-color 300ms ease',
           }}
         >
           Choisir une autre histoire
         </button>
-      </section>
-      
-      <div style={{
-        alignSelf: 'end',
-        opacity: 0.3,
-        fontSize: '0.95rem',
-        letterSpacing: '0.06em',
-      }}>
+      </div>
+
+      <div
+        className="es-stagger"
+        style={{
+          animationDelay: '500ms',
+          marginTop: '3.5rem',
+          fontFamily: 'var(--font-logo)',
+          fontWeight: 300,
+          fontSize: '13px',
+          letterSpacing: '0.3em',
+          color: dimColor,
+        }}
+      >
         ILi
       </div>
     </main>
