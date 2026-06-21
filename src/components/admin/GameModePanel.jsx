@@ -5,6 +5,7 @@ const GAME_TYPES = [
   { value: 'filmstrip',    label: '🎞  Pellicule' },
   { value: 'document',     label: '📄  Document / Artefact' },
   { value: 'message',      label: '💬  Message animé' },
+  { value: 'message_smart',label: '📲  Nouveau message (smartphone)' },
   { value: 'code',         label: '🔢  Code / Digicode' },
   { value: 'riddle',       label: '🧩  Énigme texte libre' },
   { value: 'timer',        label: '⏱  Minuteur' },
