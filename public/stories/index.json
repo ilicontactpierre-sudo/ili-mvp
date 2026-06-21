@@ -6,7 +6,10 @@
     "mood": "Excité",
     "genre": "Tutu",
     "description": "Bienvenue chez ILi, une expérience de lecture unique. Bouge pas, on te montre.",
-    "tags": [],
+    "tags": [
+      "Test",
+      "horreur"
+    ],
     "order": 0,
     "hidden": false
   },
@@ -14,7 +17,9 @@
     "id": "test-histoire",
     "title": "La Parure",
     "author": "Guy de Maupassant",
-    "tags": [],
+    "tags": [
+      "horreur"
+    ],
     "order": 1,
     "hidden": false
   },
@@ -30,7 +35,9 @@
     "id": "pierre-delaup-brooklyn",
     "title": "Brooklyn",
     "author": "Pierre Delaup",
-    "tags": [],
+    "tags": [
+      "suspens"
+    ],
     "order": 3,
     "hidden": false
   },
