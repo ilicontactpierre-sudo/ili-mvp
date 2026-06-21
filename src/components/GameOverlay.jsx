@@ -1317,29 +1317,7 @@ function GameOverlay({ gameMode, onResolved, onBack, segmentIndex, onNavigateToP
     }
   }
 
-  const [forceReplay, setForceReplay] = useState(false)
-
-  if (alreadySolved && !forceReplay) {
-    return (
-      <>
-        <style>{GLOBAL_KEYFRAMES}</style>
-        <div style={{ position: 'fixed', inset: 0, zIndex: 200, display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: 'var(--color-bg, #f5f0e8)', opacity: visible && !leaving ? 1 : 0, transform: leaving ? 'scale(1.015)' : visible ? 'scale(1)' : 'scale(0.985)', transition: `opacity 640ms ${EASE.inOut}, transform 640ms ${EASE.inOut}`, padding: '2rem', boxSizing: 'border-box' }}>
-          {onBack && <BackArrow onBack={onBack} />}
-          <ForwardArrow onForward={handleResolved} />
-          <AnimatedWrapper style={{ gap: '1.4rem' }}>
-            <p style={{ fontSize: '0.78rem', color: 'var(--color-text-focus, #222)', opacity: 0.4, textAlign: 'center', letterSpacing: '0.08em', fontStyle: 'italic', margin: 0 }}>
-              {gameMode?.alreadySolvedMessage || 'vous connaissez déjà la réponse'}
-            </p>
-            <button onClick={() => setForceReplay(true)} style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: '0.68rem', color: 'var(--color-text-focus, #222)', opacity: 0.25, letterSpacing: '0.08em', fontStyle: 'italic', fontFamily: 'var(--font-primary, Georgia, serif)', padding: '0.25rem' }} onMouseEnter={e => e.currentTarget.style.opacity = '0.55'} onMouseLeave={e => e.currentTarget.style.opacity = '0.25'}>
-              rejouer
-            </button>
-          </AnimatedWrapper>
-        </div>
-      </>
-    )
-  }
-
-  return (
+return (
     <>
       <style>{GLOBAL_KEYFRAMES}</style>
       <div
