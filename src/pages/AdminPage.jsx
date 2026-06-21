@@ -1617,6 +1617,9 @@ function AdminPage() {
       {adminTab === 'analytics' && (
         <AnalyticsDashboard />
       )}
+      {adminTab === 'menu' && (
+        <MenuManagerPage password={password} />
+      )}
 
       {adminTab === 'stories' && <>
       {/* 1. DraftManager (barre de statut sticky) */}
