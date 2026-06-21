@@ -154,6 +154,10 @@ const GLOBAL_KEYFRAMES = `
     70%  { transform: scale(0.97); }
     100% { transform: scale(1); }
   }
+  @keyframes game-typing-dot {
+    0%, 60%, 100% { transform: translateY(0); opacity: 0.35; }
+    30% { transform: translateY(-4px); opacity: 0.9; }
+  }
 `
 
 // ─── Flèches navigation ───────────────────────────────────────────────────────
