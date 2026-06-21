@@ -35,11 +35,9 @@
     "id": "pierre-delaup-brooklyn",
     "title": "Brooklyn",
     "author": "Pierre Delaup",
-    "tags": [
-      "suspens"
-    ],
-    "order": 3,
-    "hidden": false
+    "mood": "Immersif, addictif.",
+    "genre": "Nouvelle, Thriller.",
+    "description": "Rim le sait : dans ce monde, l'inattendu est le seul mot qui compte. Et pourtant..."
   },
   {
     "id": "test-fonctions-test-fonctions",
