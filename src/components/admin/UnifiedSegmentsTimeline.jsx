@@ -1593,6 +1593,8 @@ function UnifiedSegmentsTimeline({
   onSoundsImported,
   onPreviewFromSegment,
   seuilKeys = [],
+  masterVolume = 1.0,
+  onMasterVolumeChange,
 }) {
   const [selectedSoundIds, setSelectedSoundIds] = useState(new Set())
   const [editingSoundTrack, setEditingSoundTrack] = useState(null)
