@@ -1313,7 +1313,7 @@ return (
           transform: leaving ? 'scale(1.015)' : visible ? 'scale(1)' : 'scale(0.985)',
           transition: `opacity 640ms ${EASE.inOut}, transform 640ms ${EASE.inOut}`,
           padding: '2rem', boxSizing: 'border-box', willChange: 'opacity, transform',
-          cursor: (isTapType || type === 'message') ? 'default' : 'auto',
+          cursor: (isTapType || type === 'message' || (type === 'message_smart' && !gameMode?.withReply)) ? 'default' : 'auto',
         }}
       >
         {onBack && <BackArrow onBack={onBack} />}
@@ -1321,7 +1321,7 @@ return (
         {type === 'filmstrip' && <GameFilmstrip data={gameMode} onResolved={handleResolved} />}
         {type === 'document'  && <GameDocument  data={gameMode} tappable={tappable} />}
         {type === 'message'   && <GameMessage   data={gameMode} onResolved={handleResolved} tappable={tappable} skipAnimation={messageDone} onAnimationDone={() => setMessageDone(true)} />}
-        {type === 'message_smart' && <GameMessageSmart data={gameMode} onResolved={handleResolved} onNavigateToPart={onNavigateToPart} />}
+        {type === 'message_smart' && <GameMessageSmart data={gameMode} onResolved={handleResolved} onNavigateToPart={onNavigateToPart} onReady={() => setSmartReady(true)} />}
         {type === 'code'      && <GameCode      data={gameMode} onResolved={handleResolved} />}
         {type === 'riddle'    && <GameRiddle    data={gameMode} onResolved={handleResolved} />}
         {type === 'timer'     && <GameTimer     data={gameMode} onResolved={handleResolved} />}
