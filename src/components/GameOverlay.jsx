@@ -1279,11 +1279,11 @@ function GameOverlay({ gameMode, onResolved, onBack, segmentIndex, onNavigateToP
 
   const type = gameMode?.type
   const isTapType = type === 'image' || type === 'document'
-
   // Pour GameMessage : gestion du double-tap (skip animation puis résolution)
   const messageTapStateRef = useRef({ done: false })
   const [messageDone, setMessageDone] = useState(false)
-
+  // Pour GameMessageSmart : tap n'importe où une fois le message affiché
+  const [smartReady, setSmartReady] = useState(false)
   const handleOverlayTap = () => {
     if (!tappable) return
     if (isTapType) { handleResolved(); return }
@@ -1294,6 +1294,9 @@ function GameOverlay({ gameMode, onResolved, onBack, segmentIndex, onNavigateToP
       } else {
         handleResolved()
       }
+    }
+    if (type === 'message_smart') {
+      if (smartReady && !gameMode?.withReply) handleResolved()
     }
   }
 
