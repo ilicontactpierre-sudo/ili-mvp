@@ -473,15 +473,16 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle',
   useLayoutEffect(() => {
     function computeTranslate() {
       if (chapterMode === 'focused') { setTranslateY(0); return }
+
       const focusedNode = segmentRefs.current[currentIndex]
       if (!focusedNode) return
+
       const vh = viewportHeight || window.innerHeight
-      // On réserve toujours STICKY_HEIGHT quand un chapitre est visible (focused ou sticky)
-      // Ça évite le saut quand on passe de sticky à gone
       const reservedH = chapterMode !== 'gone' ? STICKY_HEIGHT : 0
       const availableH = vh - reservedH
-      const PADDING = 28
+      const PADDING = 32
 
+      // ── Trouver leader et finisher de la séquence courante ──
       let leaderIndex = -1
       for (let i = currentIndex; i >= 0; i--) {
         if (finalSegments[i]?.isLeader) { leaderIndex = i; break }
@@ -493,101 +494,53 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle',
         }
       }
 
-      // ── Ancrage par position (%) : Leader en haut, Finisher en bas, courbe en S inversée ──
-      // Le POINT ancré dans le segment varie aussi : proche 1ère ligne (Leader) → ligne centrale (milieu) → proche dernière ligne (Finisher)
-      // Bornes "pleine amplitude" (séquence longue, ≥ LONG_SEQ_LEN segments)
-      const LEADER_FRACTION_FULL   = 0.06
-      const FINISHER_FRACTION_FULL = 0.75
-      // Bornes "amplitude resserrée" (séquence courte, ≤ SHORT_SEQ_LEN segments)
-      const LEADER_FRACTION_SHORT   = 0.20
-      const FINISHER_FRACTION_SHORT = 0.60
-      const SHORT_SEQ_LEN = 4   // à partir de cette longueur (ou moins) → amplitude resserrée
-      const LONG_SEQ_LEN  = 10  // à partir de cette longueur (ou plus) → amplitude pleine
-      const FALLBACK_FRACTION = 0.18 // segment isolé, hors séquence Leader/Finisher
-      // Le point ancré DANS le segment ne va jamais à 0 ou 1 pur : il reste toujours un peu vers le centre,
-      // pour qu'un segment long ne "déborde" pas visuellement plus bas que ses voisins courts.
-      const ANCHOR_POINT_MIN = 0.22 // au Leader : on ancre entre la 1ère ligne et le centre (jamais la 1ère ligne pure)
-      const ANCHOR_POINT_MAX = 0.78 // au Finisher : on ancre entre le centre et la dernière ligne (jamais la dernière ligne pure)
-      // sequenceLength = nombre de PAS entre Leader et Finisher (0 si Leader == Finisher, càd séquence d'1 segment)
-      const sequenceLength = leaderIndex !== -1 ? (finisherIndex - leaderIndex) : 0
-      // Interpolation de l'amplitude selon la longueur de séquence (0 = resserré, 1 = plein)
-      const ampT = sequenceLength <= SHORT_SEQ_LEN
-        ? 0
-        : sequenceLength >= LONG_SEQ_LEN
-          ? 1
-          : (sequenceLength - SHORT_SEQ_LEN) / (LONG_SEQ_LEN - SHORT_SEQ_LEN)
-      const leaderFraction   = LEADER_FRACTION_SHORT   + (LEADER_FRACTION_FULL   - LEADER_FRACTION_SHORT)   * ampT
-      const finisherFraction = FINISHER_FRACTION_SHORT + (FINISHER_FRACTION_FULL - FINISHER_FRACTION_SHORT) * ampT
-      // t = position normalisée dans la séquence (0 = Leader, 1 = Finisher)
+      // ── t : progression normalisée dans la séquence (0=leader, 1=finisher) ──
+      const sequenceLength = leaderIndex !== -1 ? finisherIndex - leaderIndex : 0
       const t = (leaderIndex !== -1 && sequenceLength > 0)
         ? Math.max(0, Math.min(1, (currentIndex - leaderIndex) / sequenceLength))
         : 0
-      // Courbe en S "plateau central" : ~65% du trajet (en t) reste proche du centre (autour de t=0.5),
-      // avec accélération seulement sur les ~17.5% de trajet à chaque extrémité.
-      // On compresse t dans une fenêtre centrale via une fonction sigmoïde, plus prononcée qu'un simple cosinus.
-      const PLATEAU_SHARPNESS = 8 // plus haut = plateau plus plat/long au centre, transitions plus brusques aux bords
-      const sigmoid = (x) => 1 / (1 + Math.exp(-PLATEAU_SHARPNESS * (x - 0.5) * 2))
-      // Normalisation pour que sigmoid(0)=0 et sigmoid(1)=1 exactement
-      const s0 = sigmoid(0)
-      const s1 = sigmoid(1)
-      const eased = (sigmoid(t) - s0) / (s1 - s0)
-      let anchorFraction
-      if (leaderIndex !== -1 && sequenceLength > 0) {
-        anchorFraction = leaderFraction + (finisherFraction - leaderFraction) * eased
+
+      // ── Ancre cible dans l'écran : varie linéairement de haut-centre à bas-centre ──
+      // t=0 (leader)   → ancre à 22% de l'écran disponible
+      // t=0.5 (milieu) → ancre à 38% (centre-haut)
+      // t=1 (finisher) → ancre à 62%
+      // Séquence d'1 seul segment : toujours à 30%
+      let targetFraction
+      if (leaderIndex === -1 || sequenceLength === 0) {
+        targetFraction = 0.30
       } else {
-        anchorFraction = FALLBACK_FRACTION
+        // Légère ease-in-out pour adoucir les extrémités sans plateau brutal
+        const eased = t < 0.5
+          ? 2 * t * t
+          : 1 - Math.pow(-2 * t + 2, 2) / 2
+        targetFraction = 0.22 + eased * 0.40
       }
-      const anchorY = availableH * anchorFraction
-      const focusedHeight = focusedNode.offsetHeight
-      // ── Point ancré DANS le segment (0 = 1ère ligne, 0.5 = ligne centrale, 1 = dernière ligne) ──
-      // Reste toujours dans [ANCHOR_POINT_MIN, ANCHOR_POINT_MAX], jamais aux extrêmes purs
-      let anchorPointInSegment
-      if (leaderIndex !== -1 && sequenceLength > 0) {
-        anchorPointInSegment = ANCHOR_POINT_MIN + (ANCHOR_POINT_MAX - ANCHOR_POINT_MIN) * eased
-      } else {
-        anchorPointInSegment = 0.3 // segment isolé : ancrage proche du début, jamais pur
-      }
-      // ── Position LOCALE à la séquence : distance depuis le Leader, pas depuis le début du document ──
-      // Le DOM accumule la hauteur de TOUS les segments précédents (même masqués), ce qui fait dériver
-      // offsetTop de façon non pertinente d'un segment à l'autre. On neutralise ça en soustrayant
-      // la position du Leader, qui devient notre origine locale stable pour toute la séquence.
-      const leaderNode = (leaderIndex !== -1) ? segmentRefs.current[leaderIndex] : focusedNode
-      const sequenceOriginY = leaderNode ? leaderNode.offsetTop : focusedNode.offsetTop
-      const focusedOffsetInSequence = focusedNode.offsetTop - sequenceOriginY
-      const focusedAnchorOffsetY = focusedOffsetInSequence + focusedHeight * anchorPointInSegment
-      const desiredTranslateY = anchorY - focusedAnchorOffsetY
-      const minTranslateY = PADDING - focusedNode.offsetTop
-      const maxTranslateY = availableH - PADDING - focusedNode.offsetTop - focusedNode.offsetHeight
-      let nextTranslateY
-      if (minTranslateY > maxTranslateY) {
-        nextTranslateY = minTranslateY
-      } else {
-        nextTranslateY = Math.max(minTranslateY, Math.min(maxTranslateY, desiredTranslateY))
-      }
-      console.log('ANCHOR DEBUG', {
-        currentIndex,
-        leaderIndex,
-        finisherIndex,
-        sequenceLength,
-        t,
-        eased,
-        anchorFraction: Math.round(anchorFraction * 1000) / 1000,
-        anchorPointInSegment: Math.round(anchorPointInSegment * 1000) / 1000,
-        anchorY: Math.round(anchorY),
-        focusedHeight: Math.round(focusedHeight),
-        focusedOffsetTop: Math.round(focusedNode.offsetTop),
-        sequenceOriginY: Math.round(sequenceOriginY),
-        focusedOffsetInSequence: Math.round(focusedOffsetInSequence),
-        focusedAnchorOffsetY: Math.round(focusedAnchorOffsetY),
-        desiredTranslateY: Math.round(desiredTranslateY),
-        nextTranslateY: Math.round(nextTranslateY),
-      })
+
+      const targetY = reservedH + availableH * targetFraction
+
+      // ── Utiliser getBoundingClientRect pour la position réelle à l'écran ──
+      // Pas d'offsetTop : immunisé contre les segments masqués qui accumulent de la hauteur
+      const currentTranslateY = translateY
+      const rect = focusedNode.getBoundingClientRect()
+
+      // Centre vertical du segment focusé (position actuelle à l'écran)
+      const segmentCenterY = rect.top + rect.height * 0.35
+
+      // Décalage nécessaire pour amener ce centre à targetY
+      const delta = targetY - segmentCenterY
+      let nextTranslateY = currentTranslateY + delta
+
+      // ── Clamp : le segment focusé ne sort pas de l'écran ──
+      const minY = reservedH + PADDING - rect.top + currentTranslateY
+      const maxY = vh - PADDING - rect.bottom + currentTranslateY
+
+      nextTranslateY = Math.max(minY, Math.min(maxY, nextTranslateY))
+
       setTranslateY(nextTranslateY)
     }
 
     const rafId = requestAnimationFrame(computeTranslate)
     window.addEventListener('resize', computeTranslate)
-
     const observer = new MutationObserver(() => {
       requestAnimationFrame(computeTranslate)
     })
@@ -595,13 +548,12 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle',
       attributes: true,
       attributeFilter: ['style'],
     })
-
     return () => {
       cancelAnimationFrame(rafId)
       window.removeEventListener('resize', computeTranslate)
       observer.disconnect()
     }
-    }, [finalSegments, currentIndex, chapterMode])
+  }, [finalSegments, currentIndex, chapterMode, viewportHeight])
 
     return (
     <NarrativeMemoryContext.Provider value={narrativeMemory}>
