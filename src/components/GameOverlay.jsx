@@ -1287,18 +1287,12 @@ function GameOverlay({ gameMode, onResolved, onBack, segmentIndex, onNavigateToP
   const [leaving, setLeaving] = useState(false)
   const [visible, setVisible] = useState(false)
   const [tappable, setTappable] = useState(false)
-
-  const memoryKey = `ili_game_seg${segmentIndex ?? ''}_${JSON.stringify({ t: gameMode?.type, a: gameMode?.answer ?? gameMode?.seconds ?? gameMode?.imageUrl ?? '' })}`
-  const alreadySolved = (() => { try { return sessionStorage.getItem(memoryKey) === '1' } catch { return false } })()
-
   useEffect(() => {
     const t1 = setTimeout(() => setVisible(true), 40)
     const t2 = setTimeout(() => setTappable(true), 1000)
     return () => { clearTimeout(t1); clearTimeout(t2) }
   }, [])
-
   const handleResolved = () => {
-    try { sessionStorage.setItem(memoryKey, '1') } catch {}
     setLeaving(true); setVisible(false)
     setTimeout(onResolved, 680)
   }
