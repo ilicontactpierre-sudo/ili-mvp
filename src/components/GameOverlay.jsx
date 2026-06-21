@@ -181,26 +181,6 @@ function BackArrow({ onBack }) {
   )
 }
 
-function ForwardArrow({ onForward }) {
-  const [hovered, setHovered] = useState(false)
-  return (
-    <button
-      onClick={(e) => { e.stopPropagation(); onForward() }}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      style={{
-        position: 'fixed', top: '1.5rem', left: '3.5rem', zIndex: 9999,
-        background: 'none', border: 'none', cursor: 'pointer', padding: '0.5rem',
-        opacity: hovered ? 0.7 : 0.3, transition: 'opacity 300ms ease', lineHeight: 1,
-      }}
-    >
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-text-focus, #222)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <polyline points="9 18 15 12 9 6" />
-      </svg>
-    </button>
-  )
-}
-
 // ─── Wrapper animé commun ─────────────────────────────────────────────────────
 function AnimatedWrapper({ children, style = {}, onClick }) {
   const [mounted, setMounted] = useState(false)
