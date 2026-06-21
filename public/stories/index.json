@@ -1,32 +1,45 @@
 [
   {
-    "id": "test-histoire",
-    "title": "La Parure",
-    "author": "Guy de Maupassant"
-  },
-  {
-    "id": "test-vfx-2-test-vfx-2",
-    "title": "TEST VFX 2",
-    "author": "TEST VFX 2",
-    "hidden": true
-  },
-  {
     "id": "ili-tutoriel",
     "title": "TUTORIEL",
     "author": "ILi",
     "mood": "Excité",
     "genre": "Tutu",
-    "description": "Bienvenue chez ILi, une expérience de lecture unique. Bouge pas, on te montre."
+    "description": "Bienvenue chez ILi, une expérience de lecture unique. Bouge pas, on te montre.",
+    "tags": [],
+    "order": 0,
+    "hidden": false
+  },
+  {
+    "id": "test-histoire",
+    "title": "La Parure",
+    "author": "Guy de Maupassant",
+    "tags": [],
+    "order": 1,
+    "hidden": false
+  },
+  {
+    "id": "test-vfx-2-test-vfx-2",
+    "title": "TEST VFX 2",
+    "author": "TEST VFX 2",
+    "hidden": true,
+    "tags": [],
+    "order": 2
   },
   {
     "id": "pierre-delaup-brooklyn",
     "title": "Brooklyn",
-    "author": "Pierre Delaup"
+    "author": "Pierre Delaup",
+    "tags": [],
+    "order": 3,
+    "hidden": false
   },
   {
     "id": "test-fonctions-test-fonctions",
     "title": "test fonctions",
     "author": "test fonctions",
-    "hidden": true
+    "hidden": true,
+    "tags": [],
+    "order": 4
   }
 ]
