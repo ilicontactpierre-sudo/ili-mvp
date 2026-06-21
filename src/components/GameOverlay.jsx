@@ -696,7 +696,159 @@ function GameMessage({ data, onResolved, tappable }) {
     </AnimatedWrapper>
   )
 }
-
+// ─── Type : Message intelligent (notification + fil de discussion) ───────────
+function GameMessageSmart({ data, onResolved, onNavigateToPart }) {
+  const sender  = (data.sender || '').trim() || 'Inconnu'
+  const avatar  = (data.avatarEmoji || '').trim() || '💬'
+  const text    = data.text || ''
+  const withReply = !!data.withReply
+  const choices = (Array.isArray(data.choices) ? data.choices : []).filter(c => c?.text?.trim())
+  const { playDing } = useKeySound()
+  const dingPlayedRef = useRef(false)
+  const timersRef = useRef([])
+  const [bannerPhase, setBannerPhase] = useState('in') // 'in' | 'out' | 'gone'
+  const [typingVisible, setTypingVisible] = useState(false)
+  const [bubbleVisible, setBubbleVisible] = useState(false)
+  const [ready, setReady] = useState(false)
+  const [chipsVisible, setChipsVisible] = useState(false)
+  const [selectedIdx, setSelectedIdx] = useState(null)
+  const [sentVisible, setSentVisible] = useState(false)
+  useEffect(() => {
+    if (data.notificationSound !== false && !dingPlayedRef.current) {
+      dingPlayedRef.current = true
+      playDing()
+    }
+    const after = (fn, ms) => { timersRef.current.push(setTimeout(fn, ms)) }
+    after(() => setBannerPhase('out'), 1500)
+    after(() => setBannerPhase('gone'), 1900)
+    after(() => setTypingVisible(true), 2050)
+    after(() => { setTypingVisible(false); setBubbleVisible(true) }, 2950)
+    after(() => {
+      setReady(true)
+      if (withReply && choices.length > 0) setChipsVisible(true)
+    }, 3450)
+    return () => timersRef.current.forEach(clearTimeout)
+  }, [])
+  const handleTapAdvance = () => {
+    if (!ready || withReply) return
+    onResolved()
+  }
+  const handleChoice = (idx) => {
+    if (selectedIdx !== null) return
+    setSelectedIdx(idx)
+    setChipsVisible(false)
+    timersRef.current.push(setTimeout(() => setSentVisible(true), 80))
+    timersRef.current.push(setTimeout(() => {
+      const targetId = choices[idx]?.targetPartId
+      if (targetId && onNavigateToPart) onNavigateToPart(targetId)
+      else onResolved()
+    }, 620))
+  }
+  return (
+    <>
+      {bannerPhase !== 'gone' && (
+        <div style={{
+          position: 'fixed', top: 'calc(env(safe-area-inset-top, 0px) + 14px)',
+          left: '50%', zIndex: 5,
+          width: 'min(92%, 420px)',
+          transform: `translateX(-50%) translateY(${bannerPhase === 'in' ? '0' : '-130%'})`,
+          opacity: bannerPhase === 'in' ? 1 : 0,
+          transition: `transform 480ms ${EASE.spring}, opacity 380ms ${EASE.inOut}`,
+          display: 'flex', alignItems: 'center', gap: '0.7rem',
+          padding: '0.7rem 0.9rem', borderRadius: '16px', boxSizing: 'border-box',
+          backgroundColor: 'color-mix(in srgb, var(--color-text-focus, #222) 8%, var(--color-bg, #fff))',
+          border: '1px solid color-mix(in srgb, var(--color-text-focus, #222) 12%, transparent)',
+          boxShadow: '0 8px 28px rgba(0,0,0,0.18)',
+          backdropFilter: 'blur(14px)', WebkitBackdropFilter: 'blur(14px)',
+          pointerEvents: 'none',
+        }}>
+          <div style={{
+            width: '34px', height: '34px', borderRadius: '9px', flexShrink: 0,
+            display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.1rem',
+            backgroundColor: 'color-mix(in srgb, var(--color-text-focus, #222) 10%, transparent)',
+          }}>{avatar}</div>
+          <div style={{ minWidth: 0, textAlign: 'left' }}>
+            <div style={{ fontSize: '0.82rem', fontWeight: 700, color: 'var(--color-text-focus, #222)', fontFamily: 'var(--font-primary, Georgia, serif)' }}>{sender}</div>
+            <div style={{ fontSize: '0.78rem', color: 'var(--color-text-focus, #222)', opacity: 0.62, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', fontFamily: 'var(--font-primary, Georgia, serif)' }}>{text}</div>
+          </div>
+        </div>
+      )}
+      <div
+        onClick={handleTapAdvance}
+        style={{
+          width: '100%', maxWidth: '420px', display: 'flex', flexDirection: 'column',
+          gap: '0.6rem', fontFamily: 'var(--font-primary, Georgia, serif)',
+          cursor: (ready && !withReply) ? 'pointer' : 'default',
+          opacity: bannerPhase === 'gone' ? 1 : 0,
+          transition: `opacity 500ms ${EASE.inOut}`,
+        }}
+      >
+        {bubbleVisible && (
+          <div style={{ fontSize: '0.66rem', opacity: 0.32, letterSpacing: '0.08em', textAlign: 'center' }}>{sender}</div>
+        )}
+        {typingVisible && (
+          <div style={{
+            alignSelf: 'flex-start', display: 'flex', gap: '4px', alignItems: 'center',
+            padding: '0.75rem 1rem', borderRadius: '18px',
+            backgroundColor: 'color-mix(in srgb, var(--color-text-focus, #222) 7%, transparent)',
+          }}>
+            {[0, 1, 2].map(i => (
+              <span key={i} style={{
+                width: '6px', height: '6px', borderRadius: '50%',
+                backgroundColor: 'var(--color-text-focus, #222)', opacity: 0.45,
+                animation: `game-typing-dot 1.1s ${i * 0.18}s infinite ease-in-out`,
+              }} />
+            ))}
+          </div>
+        )}
+        {bubbleVisible && (
+          <div style={{
+            alignSelf: 'flex-start', maxWidth: '86%',
+            padding: '0.85rem 1.1rem', borderRadius: '18px',
+            backgroundColor: 'color-mix(in srgb, var(--color-text-focus, #222) 7%, transparent)',
+            color: 'var(--color-text-focus, #222)', fontSize: 'clamp(0.92rem, 2.2vw, 1.02rem)', lineHeight: 1.6,
+            animation: `game-success-pop 420ms ${EASE.spring}`,
+          }}>
+            {text}
+          </div>
+        )}
+        {sentVisible && selectedIdx !== null && (
+          <div style={{
+            alignSelf: 'flex-end', maxWidth: '86%',
+            padding: '0.85rem 1.1rem', borderRadius: '18px',
+            backgroundColor: 'var(--color-text-focus, #222)', color: 'var(--color-bg, #fff)',
+            fontSize: 'clamp(0.92rem, 2.2vw, 1.02rem)', lineHeight: 1.6,
+            transition: `opacity 380ms ${EASE.spring}, transform 380ms ${EASE.spring}`,
+          }}>
+            {choices[selectedIdx]?.text}
+          </div>
+        )}
+        {withReply && chipsVisible && (
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', justifyContent: 'flex-end', marginTop: '0.3rem' }}>
+            {choices.map((choice, i) => (
+              <button
+                key={choice.id || i}
+                onClick={(e) => { e.stopPropagation(); handleChoice(i) }}
+                style={{
+                  padding: '0.55rem 1rem', borderRadius: '999px', cursor: 'pointer',
+                  border: '1px solid color-mix(in srgb, var(--color-text-focus, #222) 28%, transparent)',
+                  backgroundColor: 'transparent', color: 'var(--color-text-focus, #222)',
+                  fontSize: '0.85rem', fontFamily: 'var(--font-primary, Georgia, serif)',
+                  opacity: 0, transform: 'translateY(10px)',
+                  animation: `game-fade-up 420ms ${EASE.out} ${i * 90}ms forwards`,
+                  transition: 'background-color 150ms ease, color 150ms ease',
+                }}
+                onMouseEnter={e => { e.currentTarget.style.backgroundColor = 'var(--color-text-focus, #222)'; e.currentTarget.style.color = 'var(--color-bg, #fff)' }}
+                onMouseLeave={e => { e.currentTarget.style.backgroundColor = 'transparent'; e.currentTarget.style.color = 'var(--color-text-focus, #222)' }}
+              >{choice.text}</button>
+            ))}
+          </div>
+        )}
+        {ready && !withReply && <Hint delay={300}>toucher pour continuer</Hint>}
+      </div>
+    </>
+  )
+}
 // ─── Type : Document / Artefact ───────────────────────────────────────────────
 function GameDocument({ data, tappable }) {
   const [visible, setVisible] = useState(false)
