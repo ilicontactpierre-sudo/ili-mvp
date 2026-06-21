@@ -2945,6 +2945,34 @@ const handleTextSelection = useCallback(() => {
             </span>
           )}
         </div>
+        {/* ── Master Volume ── */}
+        {onMasterVolumeChange && (
+          <>
+            <div style={{ width: '1px', height: '20px', backgroundColor: '#ddd', flexShrink: 0 }} />
+            <div style={{ display: 'flex', alignItems: 'center', gap: '5px', flexShrink: 0 }}>
+              <span style={{ fontSize: '0.7rem', color: '#888', whiteSpace: 'nowrap' }}>🔊</span>
+              <input
+                type="range" min="0.3" max="1.5" step="0.05"
+                value={masterVolume}
+                onChange={e => onMasterVolumeChange(parseFloat(e.target.value))}
+                style={{ width: '80px', accentColor: masterVolume < 0.95 ? '#f59e0b' : masterVolume > 1.05 ? '#ef4444' : '#17a2b8' }}
+              />
+              <span style={{
+                fontSize: '0.72rem', fontWeight: 600, minWidth: '32px',
+                color: masterVolume < 0.95 ? '#f59e0b' : masterVolume > 1.05 ? '#ef4444' : '#17a2b8',
+              }}>
+                {Math.round(masterVolume * 100)}%
+              </span>
+              {masterVolume !== 1.0 && (
+                <button
+                  onClick={() => onMasterVolumeChange(1.0)}
+                  title="Réinitialiser à 100%"
+                  style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: '0.68rem', color: '#aaa', padding: '0' }}
+                >↺</button>
+              )}
+            </div>
+          </>
+        )}
       </div>
 
       {/* Header colonnes */}
