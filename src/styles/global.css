@@ -232,6 +232,10 @@ body {
   }
 }
 
+.story-menu-filters::-webkit-scrollbar {
+  display: none;
+}
+
 /* Story List */
 .story-list {
   display: flex;
