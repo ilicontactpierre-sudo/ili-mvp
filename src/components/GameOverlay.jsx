@@ -78,7 +78,24 @@ function useKeySound() {
       osc.start(ctx.currentTime); osc.stop(ctx.currentTime + 0.1)
     } catch {}
   }
-  return { playTock, playSuccess, playError, playDelete }
+  const playDing = () => {
+    try {
+      const ctx = getCtx()
+      const freqs = [740, 1108.73]
+      freqs.forEach((freq, i) => {
+        const osc = ctx.createOscillator()
+        const gain = ctx.createGain()
+        osc.connect(gain); gain.connect(ctx.destination)
+        osc.type = 'sine'
+        osc.frequency.setValueAtTime(freq, ctx.currentTime + i * 0.09)
+        gain.gain.setValueAtTime(0.001, ctx.currentTime + i * 0.09)
+        gain.gain.linearRampToValueAtTime(0.11, ctx.currentTime + i * 0.09 + 0.015)
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + i * 0.09 + 0.5)
+        osc.start(ctx.currentTime + i * 0.09); osc.stop(ctx.currentTime + i * 0.09 + 0.52)
+      })
+    } catch {}
+  }
+  return { playTock, playSuccess, playError, playDelete, playDing }
 }
 
 // ─── Distance de Levenshtein ──────────────────────────────────────────────────
