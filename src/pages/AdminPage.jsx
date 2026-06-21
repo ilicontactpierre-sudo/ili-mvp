@@ -2271,6 +2271,11 @@ function AdminPage() {
                           onSaveToHistory={() => saveToHistory(segments, soundTracks, vfxTracks)}
                           adminPassword={password}
                           onPreviewFromSegment={handlePreviewFromSegment}
+                          masterVolume={isSerial ? (parts[activePartIndex]?.masterVolume ?? 1.0) : storyMasterVolume}
+                          onMasterVolumeChange={isSerial
+                            ? (v) => setParts(prev => { const next = [...prev]; next[activePartIndex] = { ...next[activePartIndex], masterVolume: v }; return next })
+                            : setStoryMasterVolume
+                          }
                           seuilKeys={
                             isSerial
                               ? (parts[activePartIndex]?.seuil ?? []).map(q => q.cle).filter(Boolean)
