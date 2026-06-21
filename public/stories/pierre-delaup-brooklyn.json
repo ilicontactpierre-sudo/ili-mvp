@@ -1340,14 +1340,24 @@
       "text": "",
       "id": "seg_1781334569966",
       "gameMode": {
-        "type": "document",
-        "style": "telegram",
-        "title": "NOUVEAU MESSAGE",
-        "body": "Pas sûr de comprendre devant quelle porte vous êtes. Je vous transmets l'intégralité des codes de votre niveau : 3621 / 1963 / 4857 / 0000\nOn reste en contact.",
-        "date": "13 juin 2026, 09:11.25",
-        "stamp": "",
-        "from": "Base Centrale",
-        "to": "JIM"
+        "type": "message_smart",
+        "sender": "CENTRALE",
+        "avatarEmoji": "💬",
+        "text": "Pas sûr de comprendre devant quelle porte vous êtes. Je vous transmets l'intégralité des codes de votre niveau : 3621 / 1963 / 4857 / 0000\nOn reste en contact.",
+        "notificationSound": true,
+        "withReply": false,
+        "choices": [
+          {
+            "id": "r1",
+            "text": "",
+            "targetPartId": ""
+          },
+          {
+            "id": "r2",
+            "text": "",
+            "targetPartId": ""
+          }
+        ]
       },
       "isLeader": true,
       "audioEvents": [
