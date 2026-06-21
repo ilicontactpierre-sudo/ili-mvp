@@ -1366,6 +1366,7 @@ function GameOverlay({ gameMode, onResolved, onBack, segmentIndex, onNavigateToP
         {type === 'filmstrip' && <GameFilmstrip data={gameMode} onResolved={handleResolved} />}
         {type === 'document'  && <GameDocument  data={gameMode} tappable={tappable} />}
         {type === 'message'   && <GameMessage   data={gameMode} onResolved={handleResolved} tappable={tappable} skipAnimation={messageDone} onAnimationDone={() => setMessageDone(true)} />}
+        {type === 'message_smart' && <GameMessageSmart data={gameMode} onResolved={handleResolved} onNavigateToPart={onNavigateToPart} />}
         {type === 'code'      && <GameCode      data={gameMode} onResolved={handleResolved} />}
         {type === 'riddle'    && <GameRiddle    data={gameMode} onResolved={handleResolved} />}
         {type === 'timer'     && <GameTimer     data={gameMode} onResolved={handleResolved} />}
