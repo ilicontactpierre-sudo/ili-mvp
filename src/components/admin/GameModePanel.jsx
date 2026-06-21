@@ -36,6 +36,14 @@ const DEFAULT_LAYOUT = { axis: 'H', linesH: 1, linesV: 0, proportions: [1, 1], t
 const DEFAULTS = {
   image:   { type: 'image',   imageUrl: '', caption: '' },
   message: { type: 'message', text: '', interface: 'sms', speed: 'normal' },
+  message_smart: {
+    type: 'message_smart', sender: '', avatarEmoji: '💬', text: '',
+    notificationSound: true, withReply: false,
+    choices: [
+      { id: 'r1', text: '', targetPartId: '' },
+      { id: 'r2', text: '', targetPartId: '' },
+    ],
+  },
   code:    { type: 'code',    answer: '', prompt: '', hint: '', errorMessage: '', sounds: false },
   riddle:  { type: 'riddle',  question: '', answer: '', hint: '', placeholder: '', caseSensitive: false, errorMessage: '', sounds: false },
   timer:    { type: 'timer',    seconds: 6, prompt: '', hint: '', expireMessage: '' },
@@ -309,7 +317,93 @@ function FormMessage({ data, onChange }) {
     </>
   )
 }
-
+function FormMessageSmart({ data, onChange, parts }) {
+  const choices = data.choices || []
+  const updateChoice = (i, patch) => {
+    const next = choices.map((c, idx) => idx === i ? { ...c, ...patch } : c)
+    onChange({ ...data, choices: next })
+  }
+  const addChoice = () => {
+    if (choices.length >= 4) return
+    onChange({ ...data, choices: [...choices, { id: `r${Date.now()}`, text: '', targetPartId: '' }] })
+  }
+  const removeChoice = (i) => {
+    if (choices.length <= 2) return
+    onChange({ ...data, choices: choices.filter((_, idx) => idx !== i) })
+  }
+  return (
+    <>
+      <Field label="Nom de l'expéditeur" hint="Affiché dans la notification et au-dessus du message">
+        <input style={inputStyle} type="text" value={data.sender || ''} placeholder="Ex : Maman, Inconnu, +33 6 12…"
+          onChange={e => onChange({ ...data, sender: e.target.value })} />
+      </Field>
+      <Field label="Icône / avatar" hint="Un emoji affiché dans la notification">
+        <input style={{ ...inputStyle, maxWidth: '80px' }} type="text" value={data.avatarEmoji || ''} placeholder="💬"
+          onChange={e => onChange({ ...data, avatarEmoji: e.target.value.slice(0, 2) })} />
+      </Field>
+      <Field label="Texte du message *">
+        <textarea style={textareaStyle} value={data.text || ''} placeholder="Le contenu du message…"
+          onChange={e => onChange({ ...data, text: e.target.value })} />
+      </Field>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+        <input type="checkbox" id="notifSound" checked={data.notificationSound !== false}
+          onChange={e => onChange({ ...data, notificationSound: e.target.checked })}
+          style={{ accentColor: '#a78bfa' }} />
+        <label htmlFor="notifSound" style={{ fontSize: '0.8rem', color: 'rgba(255,255,255,0.6)', cursor: 'pointer' }}>
+          Son de notification
+        </label>
+      </div>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', paddingTop: '0.25rem', borderTop: '1px solid rgba(255,255,255,0.08)' }}>
+        <input type="checkbox" id="withReply" checked={!!data.withReply}
+          onChange={e => onChange({ ...data, withReply: e.target.checked })}
+          style={{ accentColor: '#a78bfa' }} />
+        <label htmlFor="withReply" style={{ fontSize: '0.8rem', color: 'rgba(255,255,255,0.6)', cursor: 'pointer' }}>
+          Avec réponse (choix multiple)
+        </label>
+      </div>
+      {data.withReply && (
+        <Field label="Suggestions de réponse" hint="2 à 4 réponses rapides — chacune peut amener vers une partie différente">
+          {choices.map((choice, i) => (
+            <div key={choice.id || i} style={{ display: 'flex', gap: '0.5rem', marginBottom: '0.4rem', alignItems: 'center' }}>
+              <input style={{ ...inputStyle, flex: 1 }} type="text" value={choice.text || ''}
+                placeholder={`Réponse ${i + 1}…`}
+                onChange={e => updateChoice(i, { text: e.target.value })} />
+              {parts && parts.length > 0 ? (
+                <select style={{ ...inputStyle, maxWidth: '160px' }} value={choice.targetPartId || ''}
+                  onChange={e => updateChoice(i, { targetPartId: e.target.value })}>
+                  <option value="">Suivant</option>
+                  {parts.map((p, pi) => (
+                    <option key={p.id} value={p.id}>{p.title || `Partie ${pi + 1}`}</option>
+                  ))}
+                </select>
+              ) : (
+                <input style={{ ...inputStyle, maxWidth: '160px', fontFamily: 'monospace', fontSize: '0.75rem' }} type="text"
+                  value={choice.targetPartId || ''} placeholder="ID partie (optionnel)"
+                  onChange={e => updateChoice(i, { targetPartId: e.target.value.trim() })} />
+              )}
+              {choices.length > 2 && (
+                <button onClick={() => removeChoice(i)} style={{
+                  background: 'none', border: '1px solid rgba(220,38,38,0.3)',
+                  color: 'rgba(220,38,38,0.7)', borderRadius: '6px',
+                  padding: '0 0.6rem', cursor: 'pointer', fontSize: '0.75rem',
+                }}>✕</button>
+              )}
+            </div>
+          ))}
+          {choices.length < 4 && (
+            <button onClick={addChoice} style={{
+              marginTop: '0.3rem', background: 'none',
+              border: '1px dashed rgba(255,255,255,0.15)', color: 'rgba(255,255,255,0.4)',
+              borderRadius: '6px', padding: '0.4rem 0.75rem', cursor: 'pointer', fontSize: '0.78rem', width: '100%',
+            }}>
+              + Ajouter une réponse
+            </button>
+          )}
+        </Field>
+      )}
+    </>
+  )
+}
 function FormCode({ data, onChange }) {
   return (
     <>
