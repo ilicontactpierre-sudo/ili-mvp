@@ -11,6 +11,7 @@ import OrchestrationPanel from '../components/admin/OrchestrationPanel'
 import GameModePanel from '../components/admin/GameModePanel'
 import NewsletterPage from './NewsletterPage'
 import AnalyticsDashboard from '../components/admin/AnalyticsDashboard'
+import MenuManagerPage from '../components/admin/MenuManagerPage'
 
 // ── Hook mobile ──────────────────────────────────────────────────────────────
 function useIsMobile() {
