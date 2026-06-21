@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 // ── Ligne d'histoire avec accordéon description ───────────────────────────
@@ -6,7 +6,6 @@ function StoryRow({ story, onNavigate }) {
   const [open, setOpen] = useState(false)
   const hasInfo = story.mood || story.genre || story.description
   const descRef = useRef(null)
-
   return (
     <div data-story-row style={{ borderBottom: '1px solid rgba(255,255,255,0.07)' }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '0.75rem 0' }}>
@@ -35,6 +34,26 @@ function StoryRow({ story, onNavigate }) {
               </span>
             )}
           </div>
+          {/* Tags (chips discrets) */}
+          {story.tags && story.tags.length > 0 && (
+            <div style={{ display: 'flex', gap: '0.35rem', marginTop: '0.3rem', flexWrap: 'wrap' }}>
+              {story.tags.map(tag => (
+                <span
+                  key={tag}
+                  style={{
+                    fontSize: '0.6rem',
+                    letterSpacing: '0.04em',
+                    color: 'rgba(255,255,255,0.32)',
+                    border: '1px solid rgba(255,255,255,0.12)',
+                    borderRadius: '999px',
+                    padding: '0.1rem 0.5rem',
+                  }}
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+          )}
         </div>
         {/* Bouton ⓘ — ne déclenche PAS la navigation */}
         {hasInfo && (
@@ -92,9 +111,79 @@ function StoryRow({ story, onNavigate }) {
   )
 }
 
+// ── Rangée de chips de filtres (scroll horizontal, multi-sélection) ──────
+function FilterChips({ allTags, activeTags, onToggle }) {
+  if (allTags.length === 0) return null
+  return (
+    <div
+      style={{
+        display: 'flex',
+        gap: '0.45rem',
+        overflowX: 'auto',
+        paddingBottom: '0.85rem',
+        marginBottom: '0.4rem',
+        scrollbarWidth: 'none',
+        WebkitOverflowScrolling: 'touch',
+      }}
+      className="story-menu-filters"
+    >
+      {allTags.map(tag => {
+        const active = activeTags.includes(tag)
+        return (
+          <button
+            key={tag}
+            onClick={() => onToggle(tag)}
+            style={{
+              flexShrink: 0,
+              padding: '0.38rem 0.85rem',
+              borderRadius: '999px',
+              fontSize: '0.74rem',
+              fontFamily: 'var(--font-logo, sans-serif)',
+              letterSpacing: '0.03em',
+              whiteSpace: 'nowrap',
+              cursor: 'pointer',
+              border: active ? '1px solid rgba(255,255,255,0.55)' : '1px solid rgba(255,255,255,0.15)',
+              backgroundColor: active ? 'rgba(255,255,255,0.14)' : 'transparent',
+              color: active ? '#fff' : 'rgba(255,255,255,0.55)',
+              transition: 'background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease',
+            }}
+          >
+            {tag}
+          </button>
+        )
+      })}
+    </div>
+  )
+}
+
 function StoryMenu({ isOpen, stories, isLoading, onClose, onDeleteStory }) {
   const navigate = useNavigate();
   const [exiting, setExiting] = useState(false);
+  const [activeTags, setActiveTags] = useState([]);
+
+  // Tags disponibles : déduits des histoires visibles, triés par fréquence puis alpha
+  const allTags = useMemo(() => {
+    const freq = {}
+    stories.forEach(s => (s.tags || []).forEach(t => { freq[t] = (freq[t] || 0) + 1 }))
+    return Object.keys(freq).sort((a, b) => freq[b] - freq[a] || a.localeCompare(b, 'fr'))
+  }, [stories])
+
+  // Liste triée par pertinence : score = nombre de tags actifs possédés.
+  // Aucun filtre actif → ordre d'origine (déjà trié par `order` côté chargement).
+  const sortedStories = useMemo(() => {
+    if (activeTags.length === 0) return stories
+    return [...stories]
+      .map(s => ({
+        story: s,
+        score: activeTags.filter(t => (s.tags || []).includes(t)).length,
+      }))
+      .sort((a, b) => b.score - a.score)
+      .map(x => x.story)
+  }, [stories, activeTags]);
+
+  const toggleTag = (tag) => {
+    setActiveTags(prev => prev.includes(tag) ? prev.filter(t => t !== tag) : [...prev, tag])
+  }
 
   if (!isOpen) return null;
 
@@ -124,6 +213,10 @@ function StoryMenu({ isOpen, stories, isLoading, onClose, onDeleteStory }) {
       }}
     >
       <div className="story-menu-container">
+        {!isLoading && allTags.length > 0 && (
+          <FilterChips allTags={allTags} activeTags={activeTags} onToggle={toggleTag} />
+        )}
+
         {isLoading ? (
           <div className="story-list">
             {[1, 2, 3].map((i) => (
@@ -133,13 +226,13 @@ function StoryMenu({ isOpen, stories, isLoading, onClose, onDeleteStory }) {
               </div>
             ))}
           </div>
-        ) : stories.length === 0 ? (
+        ) : sortedStories.length === 0 ? (
           <div className="empty-state">
-            Aucune histoire disponible pour le moment.
+            Aucune histoire ne correspond à ces filtres.
           </div>
         ) : (
           <div className="story-list">
-            {stories.map((story, index) => (
+            {sortedStories.map((story, index) => (
               <div
                 key={story.id}
                 className="story-card"
