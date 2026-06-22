@@ -513,8 +513,9 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle',
         const eased = t < 0.5
           ? 2 * t * t
           : 1 - Math.pow(-2 * t + 2, 2) / 2
-        // Leader à 14%, centre à ~30%, finisher à 48%
-        targetFraction = 0.14 + eased * 0.34
+        // Leader à 18%, centre à ~30%, finisher à 42%
+        // Plage resserrée : 60% du temps dans la zone centre-haut
+        targetFraction = 0.18 + eased * 0.24
       }
 
       const targetY = reservedH + availableH * targetFraction
