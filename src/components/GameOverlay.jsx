@@ -155,8 +155,8 @@ const GLOBAL_KEYFRAMES = `
     100% { transform: scale(1); }
   }
   @keyframes game-typing-dot {
-    0%, 60%, 100% { transform: translateY(0); opacity: 0.35; }
-    30% { transform: translateY(-4px); opacity: 0.9; }
+    0%, 50%, 100% { transform: translateY(0px) scale(1);   opacity: 0.32; }
+    25%           { transform: translateY(-6px) scale(1.1); opacity: 1; }
   }
 `
 
