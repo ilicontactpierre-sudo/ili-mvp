@@ -518,23 +518,27 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle',
 
       const targetY = reservedH + availableH * targetFraction
 
-      // ── Utiliser getBoundingClientRect pour la position réelle à l'écran ──
-      // Pas d'offsetTop : immunisé contre les segments masqués qui accumulent de la hauteur
-      const currentTranslateY = translateY
-      const rect = focusedNode.getBoundingClientRect()
+      // ── Calcul du translateY en coordonnées DOM (pas d'écran) ──
+      // On travaille avec offsetTop depuis le haut du track, ce qui est stable
+      // indépendamment de l'état de la transition CSS en cours.
+      // L'offsetTop du leaderNode sert d'origine locale pour neutraliser
+      // les segments masqués qui précèdent la séquence.
+      const leaderNode = (leaderIndex !== -1) ? segmentRefs.current[leaderIndex] : null
+      const sequenceOriginY = leaderNode ? leaderNode.offsetTop : 0
 
-      // Centre vertical du segment focusé (position actuelle à l'écran)
-      const segmentCenterY = rect.top + rect.height * 0.35
+      const focusedOffsetInSequence = focusedNode.offsetTop - sequenceOriginY
+      const anchorOffsetInSegment = focusedNode.offsetHeight * 0.35
+      const focusedAnchorInSequence = focusedOffsetInSequence + anchorOffsetInSegment
 
-      // Décalage nécessaire pour amener ce centre à targetY
-      const delta = targetY - segmentCenterY
-      let nextTranslateY = currentTranslateY + delta
+      // translateY = où on veut que le point d'ancrage arrive - où il est dans le DOM
+      let nextTranslateY = targetY - focusedAnchorInSequence
 
-      // ── Clamp : le segment focusé ne sort pas de l'écran ──
-      const minY = reservedH + PADDING - rect.top + currentTranslateY
-      const maxY = vh - PADDING - rect.bottom + currentTranslateY
-
-      nextTranslateY = Math.max(minY, Math.min(maxY, nextTranslateY))
+      // ── Clamp : padding haut et bas ──
+      const minTranslateY = reservedH + PADDING - focusedNode.offsetTop
+      const maxTranslateY = vh - PADDING - focusedNode.offsetTop - focusedNode.offsetHeight
+      if (minTranslateY <= maxTranslateY) {
+        nextTranslateY = Math.max(minTranslateY, Math.min(maxTranslateY, nextTranslateY))
+      }
 
       setTranslateY(nextTranslateY)
     }
