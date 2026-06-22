@@ -523,17 +523,21 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle',
       // indépendamment de l'état de la transition CSS en cours.
       // L'offsetTop du leaderNode sert d'origine locale pour neutraliser
       // les segments masqués qui précèdent la séquence.
-      const leaderNode = (leaderIndex !== -1) ? segmentRefs.current[leaderIndex] : null
-      const sequenceOriginY = leaderNode ? leaderNode.offsetTop : 0
-
-      const focusedOffsetInSequence = focusedNode.offsetTop - sequenceOriginY
+      // ── translateY = position cible - position naturelle du point d'ancrage ──
+      // Position naturelle = offsetTop du segment dans le track (DOM pur, sans transform)
+      // + fraction de sa hauteur pour le point d'ancrage dans le segment
       const anchorOffsetInSegment = focusedNode.offsetHeight * 0.35
-      const focusedAnchorInSequence = focusedOffsetInSequence + anchorOffsetInSegment
+      const focusedNaturalY = focusedNode.offsetTop + anchorOffsetInSegment
 
-      // translateY = où on veut que le point d'ancrage arrive - où il est dans le DOM
-      let nextTranslateY = targetY - focusedAnchorInSequence
+      // targetY est exprimé en coordonnées écran (depuis le haut du viewport).
+      // focusedNaturalY est en coordonnées DOM (depuis le haut du track, sans transform).
+      // Le track commence à y=reservedH dans le viewport quand translateY=0.
+      // Donc : screenY_du_point = reservedH + focusedNaturalY + translateY
+      // On veut : reservedH + focusedNaturalY + translateY = targetY
+      // Donc : translateY = targetY - reservedH - focusedNaturalY
+      let nextTranslateY = targetY - reservedH - focusedNaturalY
 
-      // ── Clamp : padding haut et bas ──
+      // ── Clamp : le segment focusé reste dans la zone lisible ──
       const minTranslateY = reservedH + PADDING - focusedNode.offsetTop
       const maxTranslateY = vh - PADDING - focusedNode.offsetTop - focusedNode.offsetHeight
       if (minTranslateY <= maxTranslateY) {
