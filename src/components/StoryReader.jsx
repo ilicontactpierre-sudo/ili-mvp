@@ -514,7 +514,7 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle',
           ? 2 * t * t
           : 1 - Math.pow(-2 * t + 2, 2) / 2
         // Leader à 14%, centre à ~30%, finisher à 48%
-        targetFraction = 0.14 + eased * 0.34
+        targetFraction = 0.10 + eased * 0.34
       }
 
       const targetY = reservedH + availableH * targetFraction
