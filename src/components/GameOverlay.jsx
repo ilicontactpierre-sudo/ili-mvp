@@ -678,120 +678,204 @@ function GameMessage({ data, onResolved, tappable }) {
 }
 // ─── Type : Message intelligent (notification + fil de discussion) ───────────
 function GameMessageSmart({ data, onResolved, onNavigateToPart, onReady }) {
-  const sender  = (data.sender || '').trim() || 'Inconnu'
-  const avatar  = (data.avatarEmoji || '').trim() || '💬'
-  const text    = data.text || ''
+  const sender    = (data.sender || '').trim() || 'Inconnu'
+  const avatar    = (data.avatarEmoji || '').trim() || '💬'
+  const text      = data.text || ''
   const withReply = !!data.withReply
-  const choices = (Array.isArray(data.choices) ? data.choices : []).filter(c => c?.text?.trim())
+  const choices   = (Array.isArray(data.choices) ? data.choices : []).filter(c => c?.text?.trim())
   const { playDing } = useKeySound()
   const dingPlayedRef = useRef(false)
-  const timersRef = useRef([])
+  const timersRef     = useRef([])
+
   const [senderVisible, setSenderVisible] = useState(false)
   const [bubbleVisible, setBubbleVisible] = useState(false)
   const [typingVisible, setTypingVisible] = useState(false)
-  const [textVisible, setTextVisible] = useState(false)
-  const [chipsVisible, setChipsVisible] = useState(false)
-  const [selectedIdx, setSelectedIdx] = useState(null)
-  const [sentVisible, setSentVisible] = useState(false)
+  const [textVisible,   setTextVisible]   = useState(false)
+  const [chipsVisible,  setChipsVisible]  = useState(false)
+  const [selectedIdx,   setSelectedIdx]   = useState(null)
+  const [sentVisible,   setSentVisible]   = useState(false)
+
+  // Courbes Apple-style
+  const SPRING_POP  = 'cubic-bezier(0.34, 1.56, 0.64, 1)' // overshoot léger — apparitions
+  const SPRING_SOFT = 'cubic-bezier(0.22, 1, 0.36, 1)'    // doux, long — expansion bulle
+  const EASE_OUT    = 'cubic-bezier(0.16, 1, 0.3, 1)'      // fondu sortie
+
   useEffect(() => {
     if (data.notificationSound !== false && !dingPlayedRef.current) {
       dingPlayedRef.current = true
       playDing()
     }
     const after = (fn, ms) => { timersRef.current.push(setTimeout(fn, ms)) }
-    after(() => setSenderVisible(true), 120)
-    after(() => { setBubbleVisible(true); setTypingVisible(true) }, 320)
-    after(() => { setTypingVisible(false); setTextVisible(true) }, 1500)
+    // Séquence :
+    //  80ms  → nom expéditeur glisse
+    // 280ms  → bulle apparaît (petite) + points
+    // 1600ms → points disparaissent
+    // 1720ms → texte révélé (bulle s'étire)
+    // 2400ms → prêt + chips si besoin
+    after(() => setSenderVisible(true), 80)
+    after(() => { setBubbleVisible(true); setTypingVisible(true) }, 280)
+    after(() => setTypingVisible(false), 1580)
+    after(() => setTextVisible(true), 1700)
     after(() => {
       onReady?.()
       if (withReply && choices.length > 0) setChipsVisible(true)
-    }, 2100)
+    }, 2400)
     return () => timersRef.current.forEach(clearTimeout)
   }, [])
+
   const handleChoice = (idx) => {
     if (selectedIdx !== null) return
     setSelectedIdx(idx)
     setChipsVisible(false)
-    timersRef.current.push(setTimeout(() => setSentVisible(true), 80))
+    timersRef.current.push(setTimeout(() => setSentVisible(true), 60))
     timersRef.current.push(setTimeout(() => {
       const targetId = choices[idx]?.targetPartId
       if (targetId && onNavigateToPart) onNavigateToPart(targetId)
       else onResolved()
-    }, 620))
+    }, 680))
   }
+
   return (
     <div style={{
-      width: '100%', maxWidth: '420px', display: 'flex', flexDirection: 'column',
-      alignItems: 'flex-start', gap: '0.5rem', fontFamily: 'var(--font-primary, Georgia, serif)',
+      width: '100%', maxWidth: '380px',
+      display: 'flex', flexDirection: 'column',
+      alignItems: 'flex-start', gap: '0.45rem',
+      fontFamily: 'var(--font-primary, Georgia, serif)',
+      // Remonter au-dessus du centre géométrique
+      marginBottom: '20vh',
     }}>
+
+      {/* ── Expéditeur ── */}
       <div style={{
+        display: 'flex', alignItems: 'center', gap: '0.35rem',
+        paddingLeft: '0.3rem',
+        opacity: senderVisible ? 0.42 : 0,
+        transform: senderVisible ? 'translateY(0)' : 'translateY(7px)',
+        transition: `opacity 550ms ${EASE_OUT}, transform 550ms ${EASE_OUT}`,
         fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.04em',
         color: 'var(--color-text-focus, #222)',
-        opacity: senderVisible ? 0.45 : 0,
-        display: 'flex', alignItems: 'center', gap: '0.35rem',
-        transform: senderVisible ? 'translateY(0)' : 'translateY(6px)',
-        transition: `opacity 480ms ${EASE.inOut}, transform 480ms ${EASE.inOut}`,
-        paddingLeft: '0.2rem',
       }}>
-        <span>{avatar}</span><span>{sender}</span>
+        <span style={{ fontSize: '1rem', lineHeight: 1 }}>{avatar}</span>
+        <span>{sender}</span>
       </div>
+
+      {/* ── Bulle principale ── */}
       <div style={{
-        position: 'relative', maxWidth: '88%',
-        padding: '0.85rem 1.1rem', borderRadius: '18px',
-        backgroundColor: 'color-mix(in srgb, var(--color-text-focus, #222) 7%, transparent)',
+        maxWidth: '88%',
+        padding: '0.78rem 1.05rem',
+        borderRadius: '20px',
+        borderBottomLeftRadius: '5px',
+        backgroundColor: 'color-mix(in srgb, var(--color-text-focus, #222) 8%, transparent)',
+        // Apparition : scale depuis coin haut-gauche avec spring
         opacity: bubbleVisible ? 1 : 0,
-        transform: bubbleVisible ? 'scale(1)' : 'scale(0.4)',
+        transform: bubbleVisible
+          ? 'scale(1) translateY(0)'
+          : 'scale(0.42) translateY(6px)',
         transformOrigin: 'top left',
-        transition: `opacity 600ms ${EASE.inOut}, transform 600ms ${EASE.inOut}`,
+        transition: [
+          `opacity  420ms ${EASE_OUT}`,
+          `transform 620ms ${SPRING_POP}`,
+        ].join(', '),
       }}>
-        <span style={{
-          fontSize: 'clamp(0.92rem, 2.2vw, 1.02rem)', lineHeight: 1.6,
-          color: 'var(--color-text-focus, #222)',
-          opacity: textVisible ? 1 : 0,
-          transition: `opacity 400ms ${EASE.inOut}`,
-        }}>{text}</span>
+
+        {/* Points "en train d'écrire" — grid collapse/expand pour taille réelle */}
         <div style={{
-          position: 'absolute', left: '1.1rem', top: '50%', transform: 'translateY(-50%)',
-          display: 'flex', gap: '4px', alignItems: 'center', pointerEvents: 'none',
-          opacity: typingVisible ? 1 : 0,
-          transition: `opacity 250ms ${EASE.inOut}`,
+          display: 'grid',
+          gridTemplateRows: typingVisible ? '1fr' : '0fr',
+          transition: `grid-template-rows 380ms ${SPRING_SOFT}`,
+          overflow: 'hidden',
         }}>
-          {[0, 1, 2].map(i => (
-            <span key={i} style={{
-              width: '6px', height: '6px', borderRadius: '50%',
-              backgroundColor: 'var(--color-text-focus, #222)', opacity: 0.45,
-              animation: `game-typing-dot 1.1s ${i * 0.18}s infinite ease-in-out`,
-            }} />
-          ))}
+          <div style={{ overflow: 'hidden', minHeight: 0 }}>
+            <div style={{
+              display: 'flex', gap: '5px', alignItems: 'center',
+              paddingBottom: '1px',
+            }}>
+              {[0, 1, 2].map(i => (
+                <span key={i} style={{
+                  width: '7px', height: '7px', borderRadius: '50%',
+                  backgroundColor: 'var(--color-text-focus, #222)',
+                  display: 'block',
+                  animation: typingVisible
+                    ? `game-typing-dot 1.2s ${i * 0.2}s infinite ease-in-out`
+                    : 'none',
+                }} />
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Texte — grid expand avec courbe douce (bulle s'étire naturellement) */}
+        <div style={{
+          display: 'grid',
+          gridTemplateRows: textVisible ? '1fr' : '0fr',
+          transition: `grid-template-rows 580ms ${SPRING_SOFT}`,
+          overflow: 'hidden',
+        }}>
+          <div style={{ overflow: 'hidden', minHeight: 0 }}>
+            <span style={{
+              display: 'block',
+              fontSize: 'clamp(0.92rem, 2.2vw, 1.02rem)', lineHeight: 1.65,
+              color: 'var(--color-text-focus, #222)',
+              // Légère entrée en opacité décalée après l'expansion
+              opacity: textVisible ? 1 : 0,
+              transition: `opacity 380ms ${EASE_OUT} 180ms`,
+            }}>{text}</span>
+          </div>
         </div>
       </div>
+
+      {/* ── Réponse envoyée ── */}
       {sentVisible && selectedIdx !== null && (
         <div style={{
           alignSelf: 'flex-end', maxWidth: '86%',
-          padding: '0.85rem 1.1rem', borderRadius: '18px',
-          backgroundColor: 'var(--color-text-focus, #222)', color: 'var(--color-bg, #fff)',
+          padding: '0.82rem 1.1rem', borderRadius: '20px',
+          borderBottomRightRadius: '5px',
+          backgroundColor: 'var(--color-text-focus, #222)',
+          color: 'var(--color-bg, #fff)',
           fontSize: 'clamp(0.92rem, 2.2vw, 1.02rem)', lineHeight: 1.6,
+          opacity: 0, transform: 'scale(0.5) translateY(4px)',
+          transformOrigin: 'bottom right',
+          animation: `none`,
+          // On force une animation inline via style
+          animationName: 'game-success-pop',
+          animationDuration: '520ms',
+          animationTimingFunction: SPRING_POP,
+          animationFillMode: 'forwards',
         }}>
           {choices[selectedIdx]?.text}
         </div>
       )}
+
+      {/* ── Chips de réponse ── */}
       {withReply && chipsVisible && (
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', justifyContent: 'flex-end', width: '100%', marginTop: '0.3rem' }}>
+        <div style={{
+          display: 'flex', flexWrap: 'wrap', gap: '0.45rem',
+          justifyContent: 'flex-end', width: '100%',
+          marginTop: '0.55rem',
+        }}>
           {choices.map((choice, i) => (
             <button
               key={choice.id || i}
               onClick={(e) => { e.stopPropagation(); handleChoice(i) }}
               style={{
-                padding: '0.55rem 1rem', borderRadius: '999px', cursor: 'pointer',
-                border: '1px solid color-mix(in srgb, var(--color-text-focus, #222) 28%, transparent)',
+                padding: '0.52rem 1.05rem', borderRadius: '999px', cursor: 'pointer',
+                border: '1.5px solid color-mix(in srgb, var(--color-text-focus, #222) 24%, transparent)',
                 backgroundColor: 'transparent', color: 'var(--color-text-focus, #222)',
                 fontSize: '0.85rem', fontFamily: 'var(--font-primary, Georgia, serif)',
-                opacity: 0, transform: 'translateY(10px)',
-                animation: `game-fade-up 420ms ${EASE.out} ${i * 90}ms forwards`,
-                transition: 'background-color 150ms ease, color 150ms ease',
+                opacity: 0, transform: 'translateY(14px) scale(0.9)',
+                animation: `game-fade-up 500ms ${SPRING_POP} ${80 + i * 110}ms forwards`,
+                transition: 'background-color 180ms ease, color 180ms ease, border-color 180ms ease',
               }}
-              onMouseEnter={e => { e.currentTarget.style.backgroundColor = 'var(--color-text-focus, #222)'; e.currentTarget.style.color = 'var(--color-bg, #fff)' }}
-              onMouseLeave={e => { e.currentTarget.style.backgroundColor = 'transparent'; e.currentTarget.style.color = 'var(--color-text-focus, #222)' }}
+              onMouseEnter={e => {
+                e.currentTarget.style.backgroundColor = 'var(--color-text-focus, #222)'
+                e.currentTarget.style.color = 'var(--color-bg, #fff)'
+                e.currentTarget.style.borderColor = 'var(--color-text-focus, #222)'
+              }}
+              onMouseLeave={e => {
+                e.currentTarget.style.backgroundColor = 'transparent'
+                e.currentTarget.style.color = 'var(--color-text-focus, #222)'
+                e.currentTarget.style.borderColor = ''
+              }}
             >{choice.text}</button>
           ))}
         </div>
@@ -799,7 +883,7 @@ function GameMessageSmart({ data, onResolved, onNavigateToPart, onReady }) {
     </div>
   )
 }
-// ─── Type : Document / Artefact ───────────────────────────────────────────────
+// ─── Type : Document / Artefact ───────────────────────────────────────────────// ─── Type : Document / Artefact ───────────────────────────────────────────────
 function GameDocument({ data, tappable }) {
   const [visible, setVisible] = useState(false)
   useEffect(() => { const t = setTimeout(() => setVisible(true), 200); return () => clearTimeout(t) }, [])
