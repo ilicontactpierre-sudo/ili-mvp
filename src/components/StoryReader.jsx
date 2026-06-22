@@ -507,13 +507,15 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle',
       // Séquence d'1 seul segment : toujours à 30%
       let targetFraction
       if (leaderIndex === -1 || sequenceLength === 0) {
-        targetFraction = 0.30
+        targetFraction = 0.25
       } else {
-        // Légère ease-in-out pour adoucir les extrémités sans plateau brutal
+        // Ease-in-out douce
         const eased = t < 0.5
           ? 2 * t * t
           : 1 - Math.pow(-2 * t + 2, 2) / 2
-        targetFraction = 0.22 + eased * 0.40
+        // Leader à 18%, centre à ~30%, finisher à 42%
+        // Plage resserrée : 60% du temps dans la zone centre-haut
+        targetFraction = 0.18 + eased * 0.24
       }
 
       const targetY = reservedH + availableH * targetFraction
