@@ -315,6 +315,7 @@ export default function ReaderSettings({
     root.style.setProperty('--font-size-focus', size.focus)
     root.style.setProperty('--font-size-blur', size.blur)
     try { localStorage.setItem('ili_font_size', String(fontSizeIndex)) } catch {}
+    emitSettingsChange({ type: 'fontSize', fontSizeIndex })
   }, [fontSizeIndex])
 
   useEffect(() => {
