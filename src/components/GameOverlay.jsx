@@ -965,64 +965,179 @@ function GameCode({ data, onResolved }) {
   const correctAnswer = String(data.answer || '')
   const isNumeric = /^\d+$/.test(correctAnswer)
   const [input, setInput] = useState('')
-  const [success, setSuccess] = useState(false)
+  const [successPhase, setSuccessPhase] = useState(null) // null | 'pop' | 'bloom' | 'exit'
   const [error, setError] = useState(false)
   const { playTock, playSuccess, playError, playDelete } = useKeySound()
+
   const validate = (val) => {
     const attempt = String(val || input)
-    if (attempt === correctAnswer) { playSuccess(); setSuccess(true); setTimeout(onResolved, 900) }
-    else { playError(); setError(true); setTimeout(() => { setError(false); setInput('') }, 700) }
+    if (attempt === correctAnswer) {
+      playSuccess()
+      // Séquence : pop → bloom → exit → résolution
+      setSuccessPhase('pop')
+      setTimeout(() => setSuccessPhase('bloom'), 320)
+      setTimeout(() => setSuccessPhase('exit'),  960)
+      setTimeout(onResolved, 1680)
+    } else {
+      playError()
+      setError(true)
+      setTimeout(() => { setError(false); setInput('') }, 700)
+    }
   }
+
   const handleKey = (digit) => {
-    if (success || error) return
+    if (successPhase || error) return
     playTock()
     const next = input + digit
     setInput(next)
     if (next.length === correctAnswer.length) setTimeout(() => validate(next), 80)
   }
-  const handleDelete = () => { if (success) return; playDelete(); setInput(i => i.slice(0, -1)); setError(false) }
-  const handleTextChange = (e) => { if (success) return; setInput(e.target.value); setError(false) }
+  const handleDelete = () => {
+    if (successPhase) return
+    playDelete()
+    setInput(i => i.slice(0, -1))
+    setError(false)
+  }
+  const handleTextChange = (e) => {
+    if (successPhase) return
+    setInput(e.target.value)
+    setError(false)
+  }
   const handleTextSubmit = () => validate(input)
-  const dotColor = success ? 'rgba(39,174,96,0.9)' : error ? 'rgba(192,57,43,0.9)' : 'var(--color-text-focus, #222)'
+
+  const isSuccess = !!successPhase
+  const SUCCESS_COLOR = 'rgba(39,174,96,0.9)'
+  const dotColor = error
+    ? 'rgba(192,57,43,0.9)'
+    : isSuccess
+      ? SUCCESS_COLOR
+      : 'var(--color-text-focus, #222)'
+
   return (
-    <AnimatedWrapper style={{ gap: '1.8rem' }}>
-      {data.prompt && <p style={{ fontSize: 'clamp(0.88rem, 2vw, 1rem)', color: 'var(--color-text-focus, #222)', textAlign: 'center', lineHeight: 1.6, opacity: 0.75, margin: 0 }}>{data.prompt}</p>}
-      <div style={{ display: 'flex', gap: '0.7rem', alignItems: 'center', justifyContent: 'center', animation: error ? `game-shake 0.4s ${EASE.inOut}` : 'none' }}>
-        {isNumeric ? (
-          Array.from({ length: correctAnswer.length }).map((_, i) => (
-            <div key={i} style={{ width: '0.65rem', height: '0.65rem', borderRadius: '50%', backgroundColor: i < input.length ? dotColor : 'transparent', border: `1.5px solid ${i < input.length ? dotColor : 'rgba(0,0,0,0.2)'}`, transition: `background-color 150ms ease, border-color 150ms ease`, transform: success && i < input.length ? 'scale(1.15)' : 'scale(1)' }} />
-          ))
-        ) : (
-          <div style={{ fontSize: 'clamp(1.2rem, 3vw, 1.6rem)', fontFamily: 'monospace', letterSpacing: '0.25em', color: dotColor, minWidth: '6rem', textAlign: 'center', borderBottom: `1px solid ${dotColor}`, paddingBottom: '0.25rem', transition: 'color 200ms ease' }}>
-            {input || '\u00a0'}
-          </div>
+    <AnimatedWrapper
+      style={{
+        gap: '1.8rem',
+        opacity: successPhase === 'exit' ? 0 : 1,
+        transform: successPhase === 'exit' ? 'translateY(-32px)' : 'translateY(0)',
+        transition: successPhase === 'exit'
+          ? `opacity 680ms ${EASE.inOut}, transform 680ms ${EASE.inOut}`
+          : 'none',
+      }}
+    >
+      {data.prompt && (
+        <p style={{
+          fontSize: 'clamp(0.88rem, 2vw, 1rem)',
+          color: 'var(--color-text-focus, #222)',
+          textAlign: 'center', lineHeight: 1.6,
+          opacity: isSuccess ? 0 : 0.75,
+          margin: 0,
+          transition: `opacity 400ms ${EASE.inOut}`,
+        }}>
+          {data.prompt}
+        </p>
+      )}
+
+      {/* ── Rangée de points + halo de bloom ── */}
+      <div style={{ position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+
+        {/* Halo radial — visible uniquement en phase bloom */}
+        {successPhase === 'bloom' && (
+          <div style={{
+            position: 'absolute',
+            width: '80px', height: '80px',
+            borderRadius: '50%',
+            backgroundColor: SUCCESS_COLOR,
+            filter: 'blur(18px)',
+            animation: `game-code-bloom 900ms ${EASE.out} forwards`,
+            pointerEvents: 'none',
+          }} />
         )}
+
+        <div style={{
+          display: 'flex', gap: '0.7rem', alignItems: 'center', justifyContent: 'center',
+          animation: error ? `game-shake 0.4s ${EASE.inOut}` : 'none',
+          position: 'relative', zIndex: 1,
+        }}>
+          {isNumeric ? (
+            Array.from({ length: correctAnswer.length }).map((_, i) => (
+              <div key={i} style={{
+                width: '0.65rem', height: '0.65rem', borderRadius: '50%',
+                backgroundColor: i < input.length ? dotColor : 'transparent',
+                border: `1.5px solid ${i < input.length ? dotColor : 'rgba(0,0,0,0.2)'}`,
+                transition: `background-color 200ms ${EASE.spring}, border-color 200ms ${EASE.spring}`,
+                animation: (successPhase === 'pop' && i < input.length)
+                  ? `game-code-dot-confirm 600ms ${EASE.spring} ${i * 55}ms both`
+                  : 'none',
+              }} />
+            ))
+          ) : (
+            <div style={{
+              fontSize: 'clamp(1.2rem, 3vw, 1.6rem)', fontFamily: 'monospace',
+              letterSpacing: '0.25em', color: dotColor,
+              minWidth: '6rem', textAlign: 'center',
+              borderBottom: `1px solid ${dotColor}`,
+              paddingBottom: '0.25rem',
+              transition: `color 200ms ${EASE.inOut}`,
+            }}>
+              {input || '\u00a0'}
+            </div>
+          )}
+        </div>
       </div>
-      {data.hint && !success && <Hint delay={1200}>{data.hint}</Hint>}
-      {isNumeric && !success && (
+
+      {data.hint && !isSuccess && <Hint delay={1200}>{data.hint}</Hint>}
+
+      {isNumeric && !isSuccess && (
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '0.6rem', width: '100%', maxWidth: '260px' }}>
           {['1','2','3','4','5','6','7','8','9','','0','⌫'].map((k, i) => (
-            <button key={i} onClick={() => k === '⌫' ? handleDelete() : k ? handleKey(k) : null} disabled={!k}
-              style={{ padding: '1rem 0', border: '1px solid rgba(0,0,0,0.12)', borderRadius: '4px', backgroundColor: k === '⌫' ? 'rgba(0,0,0,0.04)' : !k ? 'transparent' : 'rgba(0,0,0,0.02)', color: 'var(--color-text-focus, #222)', fontFamily: 'var(--font-primary, Georgia, serif)', fontSize: k === '⌫' ? '1rem' : '1.2rem', cursor: k ? 'pointer' : 'default', borderColor: !k ? 'transparent' : undefined, opacity: !k ? 0 : 1, transition: 'background-color 100ms ease' }}
+            <button key={i}
+              onClick={() => k === '⌫' ? handleDelete() : k ? handleKey(k) : null}
+              disabled={!k}
+              style={{
+                padding: '1rem 0', border: '1px solid rgba(0,0,0,0.12)', borderRadius: '4px',
+                backgroundColor: k === '⌫' ? 'rgba(0,0,0,0.04)' : !k ? 'transparent' : 'rgba(0,0,0,0.02)',
+                color: 'var(--color-text-focus, #222)', fontFamily: 'var(--font-primary, Georgia, serif)',
+                fontSize: k === '⌫' ? '1rem' : '1.2rem',
+                cursor: k ? 'pointer' : 'default',
+                borderColor: !k ? 'transparent' : undefined,
+                opacity: !k ? 0 : 1,
+                transition: 'background-color 100ms ease',
+              }}
               onMouseEnter={e => { if (k) e.currentTarget.style.backgroundColor = 'rgba(0,0,0,0.07)' }}
               onMouseLeave={e => { if (k) e.currentTarget.style.backgroundColor = k === '⌫' ? 'rgba(0,0,0,0.04)' : 'rgba(0,0,0,0.02)' }}
             >{k}</button>
           ))}
         </div>
       )}
-      {!isNumeric && !success && (
+
+      {!isNumeric && !isSuccess && (
         <>
-          <input autoFocus type="text" value={input} onChange={handleTextChange} onKeyDown={e => { if (e.key === 'Enter') handleTextSubmit() }}
-            style={{ width: '100%', maxWidth: '300px', padding: '0.8rem 1rem', border: `1px solid ${error ? 'rgba(192,57,43,0.6)' : 'var(--color-text-focus, #222)'}`, borderRadius: '2px', background: 'none', fontFamily: 'var(--font-primary, Georgia, serif)', fontSize: '1rem', color: 'var(--color-text-focus, #222)', textAlign: 'center', outline: 'none', boxSizing: 'border-box', transition: `border-color 300ms ${EASE.inOut}` }} />
+          <input autoFocus type="text" value={input}
+            onChange={handleTextChange}
+            onKeyDown={e => { if (e.key === 'Enter') handleTextSubmit() }}
+            style={{
+              width: '100%', maxWidth: '300px', padding: '0.8rem 1rem',
+              border: `1px solid ${error ? 'rgba(192,57,43,0.6)' : 'var(--color-text-focus, #222)'}`,
+              borderRadius: '2px', background: 'none',
+              fontFamily: 'var(--font-primary, Georgia, serif)',
+              fontSize: '1rem', color: 'var(--color-text-focus, #222)',
+              textAlign: 'center', outline: 'none', boxSizing: 'border-box',
+              transition: `border-color 300ms ${EASE.inOut}`,
+            }}
+          />
           <ContinueBtn onClick={handleTextSubmit} label="valider" delay={300} />
         </>
       )}
-      {data.errorMessage && error && <p style={{ fontSize: '0.78rem', color: '#c0392b', opacity: 0.85, textAlign: 'center', margin: 0, fontStyle: 'italic' }}>{data.errorMessage}</p>}
+
+      {data.errorMessage && error && (
+        <p style={{ fontSize: '0.78rem', color: '#c0392b', opacity: 0.85, textAlign: 'center', margin: 0, fontStyle: 'italic' }}>
+          {data.errorMessage}
+        </p>
+      )}
     </AnimatedWrapper>
   )
 }
-
-// ─── Type : Énigme texte libre ────────────────────────────────────────────────
+// ─── Type : Énigme texte libre ────────────────────────────────────────────────// ─── Type : Énigme texte libre ────────────────────────────────────────────────
 function GameRiddle({ data, onResolved }) {
   const [input, setInput] = useState('')
   const [status, setStatus] = useState('idle')
