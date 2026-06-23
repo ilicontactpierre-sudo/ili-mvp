@@ -293,8 +293,8 @@ function SoundBlockPanel({
       {/* Info du son */}
       {sound && (
         <div style={{ 
-          marginBottom: '1rem', 
-          padding: '0.5rem 0.75rem', 
+          marginBottom: '0.5rem', 
+          padding: '0.4rem 0.65rem',
           backgroundColor: 'rgba(255,255,255,0.05)', 
           borderRadius: '6px',
           fontSize: '0.75rem',
