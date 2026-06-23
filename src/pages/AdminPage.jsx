@@ -1280,14 +1280,26 @@ function AdminPage() {
   // Construire les données pour l'aperçu en temps réel
   const getCurrentStoryData = () => {
     if (isSerial) {
+      const activePart = parts[activePartIndex] ?? {}
+      const usedSoundIds = new Set((activePart.soundTracks || []).map(t => t.soundId))
+      const sounds = soundLibrary
+        .filter(s => usedSoundIds.has(s.id))
+        .map(s => ({
+          id: s.id,
+          url: s.url || (s.filename ? `/sounds/${s.filename}` : `/sounds/${s.id}.mp3`),
+          loop: s.loop || false,
+        }))
       return {
         title:       storyTitle  || 'Sans titre',
         author:      storyAuthor || 'Anonyme',
         mood:        storyMood        || '',
         genre:       storyGenre       || '',
         description: storyDescription || '',
-        type:        'serial',
-        parts,
+        masterVolume: activePart.masterVolume ?? 1.0,
+        segments:    activePart.segments    || [],
+        soundTracks: activePart.soundTracks || [],
+        vfxTracks:   activePart.vfxTracks   || [],
+        sounds,
       }
     }
     const usedSoundIds = new Set(
