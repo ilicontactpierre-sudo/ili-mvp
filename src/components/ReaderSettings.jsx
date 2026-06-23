@@ -305,6 +305,7 @@ export default function ReaderSettings({
       root.style.setProperty('--color-primary',        '#5254cc')
     }
     saveTheme({ isDark, isToutdoux, isSynthwave })
+    emitSettingsChange({ type: 'theme', isDark, isToutdoux, isSynthwave })
   }, [isDark, isToutdoux, isSynthwave])
 
   // ── Appliquer la taille de police (+ sauvegarde) ────────────────────────────
