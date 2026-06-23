@@ -721,6 +721,7 @@ useEffect(() => {
       >
         {finalSegments.map((segment, index) => {
           const isFocused = index === currentIndex
+          const isHidden = hiddenFromView.has(index)
           // Lookup centralisé — évite la répétition du find pour chaque type VFX
           const getActiveTrack = (type) => {
             if (!isFocused || !storyData?.vfxTracks) return null
