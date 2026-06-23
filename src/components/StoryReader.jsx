@@ -722,21 +722,21 @@ useEffect(() => {
         {finalSegments.map((segment, index) => {
           const isFocused = index === currentIndex
           // Lookup centralisé — évite la répétition du find pour chaque type VFX
-const getActiveTrack = (type) => {
-  if (!isFocused || !storyData?.vfxTracks) return null
-  return storyData.vfxTracks.find(t => {
-    if (t.type !== type) return false
-    const segs = storyData.segments || []
-    const si = segs.findIndex(s => s.id === t.startSegmentId || s._id === t.startSegmentId)
-    const ei = segs.findIndex(s => s.id === t.endSegmentId   || s._id === t.endSegmentId)
-    const te = ei !== -1 ? ei : si
-    return si <= index && index <= te
-  }) ?? null
-}
-const twTrack     = getActiveTrack('typewriter')
-const staticTrack = getActiveTrack('static')
-const erasedTrack = getActiveTrack('erased')
-const flashTrack  = getActiveTrack('flash')
+          const getActiveTrack = (type) => {
+            if (!isFocused || !storyData?.vfxTracks) return null
+            return storyData.vfxTracks.find(t => {
+              if (t.type !== type) return false
+              const segs = storyData.segments || []
+              const si = segs.findIndex(s => s.id === t.startSegmentId || s._id === t.startSegmentId)
+              const ei = segs.findIndex(s => s.id === t.endSegmentId   || s._id === t.endSegmentId)
+              const te = ei !== -1 ? ei : si
+              return si <= index && index <= te
+            }) ?? null
+          }
+          const twTrack     = getActiveTrack('typewriter')
+          const staticTrack = getActiveTrack('static')
+          const erasedTrack = getActiveTrack('erased')
+          const flashTrack  = getActiveTrack('flash')
 
           return (
             <p
