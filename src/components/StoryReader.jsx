@@ -774,17 +774,7 @@ useEffect(() => {
                 ...(segment.isChapter ? { textAlign: 'center' } : {}),
                 ...(isHidden ? { pointerEvents: 'none' } : {}),
                 ...(isFocused ? { touchAction: 'pan-y' } : {}),
-                ...((() => {
-                  if (!isFocused || !storyData?.vfxTracks) return {}
-                  const flashTrack = storyData.vfxTracks.find(t => {
-                    if (t.type !== 'flash') return false
-                    const si = (storyData.segments || []).findIndex(s => s.id === t.startSegmentId || s._id === t.startSegmentId)
-                    const ei = (storyData.segments || []).findIndex(s => s.id === t.endSegmentId   || s._id === t.endSegmentId)
-                    const te = ei !== -1 ? ei : si
-                    return si <= index && index <= te
-                  })
-                  return flashTrack ? { '--vfx-flash-color': flashTrack.color } : {}
-                })()),
+                ...(flashTrack ? { '--vfx-flash-color': flashTrack.color } : {}),
               }}
               data-vfx-text={segment.text}
             >
