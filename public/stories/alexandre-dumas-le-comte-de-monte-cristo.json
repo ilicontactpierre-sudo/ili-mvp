@@ -2612,7 +2612,15 @@
           "muted": false,
           "color": "#7EC8C8",
           "_orchestrationNote": "Ville de Marseille en fond, pendant les échanges sur le père, Mercédès, la promotion. La vie repend ses droits.",
-          "_orchestrationKeyword": "13_s03_ville"
+          "_orchestrationKeyword": "13_s03_ville",
+          "automationPoints": [
+            {
+              "segmentId": "seg_1782206900845_134_lvmrh",
+              "volume": 0.17,
+              "fadeMs": 0,
+              "_isAnchor": true
+            }
+          ]
         },
         {
           "id": "st_1782208655273_t0d7cgfms_9",
@@ -2630,7 +2638,15 @@
           "muted": false,
           "color": "#F0A87E",
           "_orchestrationNote": "Toast métaphorique au moment où Morrel annonce presque la capitainerie à Dantès — proverbe italien, célébration imminente.",
-          "_orchestrationKeyword": "65_s02a_toast"
+          "_orchestrationKeyword": "65_s02a_toast",
+          "automationPoints": [
+            {
+              "segmentId": "seg_1782206900845_170_0o1qu",
+              "volume": 0.6,
+              "fadeMs": 0,
+              "_isAnchor": true
+            }
+          ]
         },
         {
           "id": "st_1782208655274_qnmz63fkh_10",
@@ -3307,20 +3323,3323 @@
       "subtitle": "",
       "description": "",
       "published": false,
-      "sounds": [],
+      "sounds": [
+        {
+          "id": "ambpark_riverside_peaceful_park_02_b00m_one",
+          "url": "/sounds/AMBPark_Riverside Peaceful Park 02_B00M_ONE.mp3",
+          "loop": false
+        },
+        {
+          "id": "ambrurl_sheep_herd_distant_calm_04_b00m_one",
+          "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/ambrurl_sheep_herd_distant_calm_04_b00m_one.mp3",
+          "loop": false
+        },
+        {
+          "id": "boatrow_rowboat_paddle_in_water_sequence_01_b00m_one",
+          "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/boatrow_rowboat_paddle_in_water_sequence_01_b00m_one.mp3",
+          "loop": false
+        },
+        {
+          "id": "boatship_engine_run_close_loop_01_b00m_one",
+          "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/boatship_engine_run_close_loop_01_b00m_one.mp3",
+          "loop": false
+        },
+        {
+          "id": "chainimpt_metal_chain_on_wood_impact_01_b00m_one",
+          "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/chainimpt_metal_chain_on_wood_impact_01_b00m_one.mp3",
+          "loop": false
+        },
+        {
+          "id": "clothmvmt_jeans_trousers_walk_sequence_soft_02_b00m_one",
+          "url": "/sounds/CLOTHMvmt_Jeans Trousers Walk Sequence Soft 02_B00M_ONE.mp3",
+          "loop": false
+        },
+        {
+          "id": "crwdconv_crowd_medium_talking_small_room_02_b00m_one",
+          "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/crwdconv_crowd_medium_talking_small_room_02_b00m_one.mp3",
+          "loop": false
+        },
+        {
+          "id": "crwdsprt_football_match_ambience_crowd_chant_walla_01_b00m_one",
+          "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/crwdsprt_football_match_ambience_crowd_chant_walla_01_b00m_one.mp3",
+          "loop": false
+        },
+        {
+          "id": "dsgndron_dark_ship_horror_01_b00m_one",
+          "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/dsgndron_dark_ship_horror_01_b00m_one.mp3",
+          "loop": false
+        },
+        {
+          "id": "dsgndron_huge_didgeridoo_01_b00m_one",
+          "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/dsgndron_huge_didgeridoo_01_b00m_one.mp3",
+          "loop": false
+        },
+        {
+          "id": "dsgnerie_musical_pad_dark_space_horror_02_b00m_one",
+          "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/dsgnerie_musical_pad_dark_space_horror_02_b00m_one.mp3",
+          "loop": false
+        },
+        {
+          "id": "pp-suspense-mute",
+          "url": "/sounds/PP-suspense-mute.mp3",
+          "loop": false
+        },
+        {
+          "id": "equiprec_climbing_rope_bag_handling_01_b00m_one",
+          "url": "/sounds/EQUIPRec_Climbing Rope Bag Handling 01_B00M_ONE.mp3",
+          "loop": false
+        },
+        {
+          "id": "mechrtch_tension_belt_tense_ratchet_single_click_01_b00m_one",
+          "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/mechrtch_tension_belt_tense_ratchet_single_click_01_b00m_one.mp3",
+          "loop": false
+        },
+        {
+          "id": "musctoy_music_box_melody_play_slow_b00m_one",
+          "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/musctoy_music_box_melody_play_slow_b00m_one.mp3",
+          "loop": false
+        },
+        {
+          "id": "whsh_cinematic_low_impact_muffled_hit_01_b00m_one",
+          "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/whsh_cinematic_low_impact_muffled_hit_01_b00m_one.mp3",
+          "loop": false
+        },
+        {
+          "id": "uimisc_console_controller_joystick_move_sequence_short_01_b00m_one",
+          "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/uimisc_console_controller_joystick_move_sequence_short_01_b00m_one.mp3",
+          "loop": false
+        },
+        {
+          "id": "voxreac_male_sigh_03_b00m_one",
+          "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/voxreac_male_sigh_03_b00m_one.mp3",
+          "loop": false
+        },
+        {
+          "id": "watrpour_water_fill_glass_ring_01_b00m_one",
+          "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/watrpour_water_fill_glass_ring_01_b00m_one.mp3",
+          "loop": false
+        },
+        {
+          "id": "watrsplsh_splash_04_b00m_one",
+          "url": "/sounds/WATRSplsh_Splash 04_B00M_ONE.mp3",
+          "loop": false
+        },
+        {
+          "id": "watrwave_sea_waves_01_b00m_one",
+          "url": "/sounds/WATRWave_Sea Waves 01_B00M_ONE.mp3",
+          "loop": false
+        },
+        {
+          "id": "winddsgn_low_howling_wind_02_b00m_one",
+          "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/winddsgn_low_howling_wind_02_b00m_one.mp3",
+          "loop": false
+        },
+        {
+          "id": "08_s02_brooklyn_birds",
+          "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/08_s02_brooklyn_birds.mp3",
+          "loop": false
+        },
+        {
+          "id": "13_s03_ville",
+          "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/13_s03_ville.mp3",
+          "loop": false
+        },
+        {
+          "id": "17_s05_drap",
+          "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/17_s05_drap.mp3",
+          "loop": false
+        },
+        {
+          "id": "53_s11_drone_ambience",
+          "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/53_s11_drone_ambience.mp3",
+          "loop": false
+        },
+        {
+          "id": "53_s11_drone_respiration",
+          "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/53_s11_drone_respiration.mp3",
+          "loop": false
+        },
+        {
+          "id": "61_s11_1_base_central_sourde",
+          "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/61_s11_1_base_central_sourde.mp3",
+          "loop": false
+        },
+        {
+          "id": "65_s02a_toast",
+          "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/65_s02a_toast.mp3",
+          "loop": false
+        },
+        {
+          "id": "73_s14_sweep_3",
+          "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/73_s14_sweep_3.mp3",
+          "loop": false
+        },
+        {
+          "id": "ambiance_ville_1900_old_city",
+          "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/ambiance_ville_1900_old_city.mp3",
+          "loop": false
+        }
+      ],
       "segments": [
         {
           "id": "seg_1782207355190_0_zq2zf",
           "lines": [
             "^d"
           ],
-          "text": "^d",
+          "text": "SAV",
           "breakAt": null,
           "isLeader": false,
           "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_0_6wv5n",
+          "lines": [
+            "I MARSEILLE. — L’ARRIVÉE."
+          ],
+          "text": "I MARSEILLE — L’ARRIVÉE.",
+          "breakAt": null,
+          "isLeader": true,
+          "isChapter": true,
+          "audioEvents": [
+            {
+              "action": "fadeIn",
+              "soundId": "ambiance_ville_1900_old_city",
+              "volume": 0.4,
+              "duration": 4000,
+              "delay": 0,
+              "loop": true
+            }
+          ]
+        },
+        {
+          "id": "seg_1782224964073_paste_1_2qgzn",
+          "lines": [
+            "Le 24 février 1815, la vigie de Notre-Dame de la Garde signala le trois-mâts le Pharaon, venant de Smyrne, Trieste et Naples."
+          ],
+          "text": "Le 24 février 1815, la vigie de Notre-Dame de la Garde signala le trois-mâts le Pharaon, venant de Smyrne, Trieste et Naples.",
+          "breakAt": null,
+          "isLeader": true,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_2_2baeq",
+          "lines": [
+            "Comme d’habitude, un pilote côtier partit aussitôt du port, rasa le château d’If,"
+          ],
+          "text": "Comme d’habitude, un pilote côtier partit aussitôt du port, rasa le château d’If,",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": [
+            {
+              "action": "fadeIn",
+              "soundId": "08_s02_brooklyn_birds",
+              "volume": 0.12,
+              "duration": 3000,
+              "delay": 0,
+              "loop": true
+            }
+          ]
+        },
+        {
+          "id": "seg_1782224964073_paste_3_ghtab",
+          "lines": [
+            "et alla aborder le navire entre le cap de Morgion et l’île de Rion."
+          ],
+          "text": "et alla aborder le navire entre le cap de Morgion et l’île de Rion.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_4_zvdsb",
+          "lines": [
+            "Aussitôt, comme d’habitude encore, la plate-forme du fort Saint-Jean s’était couverte de curieux ;"
+          ],
+          "text": "Aussitôt, comme d’habitude encore, la plate-forme du fort Saint-Jean s’était couverte de curieux ;",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": [
+            {
+              "action": "fadeIn",
+              "soundId": "crwdsprt_football_match_ambience_crowd_chant_walla_01_b00m_one",
+              "volume": 0.8,
+              "duration": 2000,
+              "delay": 0,
+              "loop": true
+            }
+          ]
+        },
+        {
+          "id": "seg_1782224964073_paste_5_efq1j",
+          "lines": [
+            "car c’est toujours une grande affaire à Marseille que l’arrivée d’un bâtiment, surtout quand ce bâtiment,"
+          ],
+          "text": "car c’est toujours une grande affaire à Marseille que l’arrivée d’un bâtiment, surtout quand ce bâtiment,",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_6_yfe9j",
+          "lines": [
+            "comme le Pharaon, a été construit, gréé, arrimé sur les chantiers de la vieille Phocée, et appartient à un armateur de la ville."
+          ],
+          "text": "comme le Pharaon, a été construit, gréé, arrimé sur les chantiers de la vieille Phocée, et appartient à un armateur de la ville.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": [
+            {
+              "action": "fadeOut",
+              "soundId": "crwdsprt_football_match_ambience_crowd_chant_walla_01_b00m_one",
+              "duration": 2000
+            }
+          ]
+        },
+        {
+          "id": "seg_1782224964073_paste_7_youpr",
+          "lines": [
+            "Cependant ce bâtiment s’avançait ; il avait heureusement franchi le détroit que quelque secousse volcanique a creusé entre l’île de Calasareigne et l’île de Jaros ;"
+          ],
+          "text": "Cependant ce bâtiment s’avançait ; il avait heureusement franchi le détroit que quelque secousse volcanique a creusé entre l’île de Calasareigne et l’île de Jaros ;",
+          "breakAt": null,
+          "isLeader": true,
+          "audioEvents": [
+            {
+              "action": "fadeOut",
+              "soundId": "ambiance_ville_1900_old_city",
+              "duration": 3000
+            }
+          ]
+        },
+        {
+          "id": "seg_1782224964073_paste_8_5342z",
+          "lines": [
+            "il avait doublé Pomègue, et il s’avançait sous ses trois huniers, son grand foc et sa brigantine, mais si lentement et d’une allure si triste,"
+          ],
+          "text": "il avait doublé Pomègue, et il s’avançait sous ses trois huniers, son grand foc et sa brigantine, mais si lentement et d’une allure si triste,",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": [
+            {
+              "action": "fadeIn",
+              "soundId": "mechrtch_tension_belt_tense_ratchet_single_click_01_b00m_one",
+              "volume": 0.13,
+              "duration": 4000,
+              "delay": 0,
+              "loop": true
+            }
+          ]
+        },
+        {
+          "id": "seg_1782224964073_paste_9_aavtc",
+          "lines": [
+            "que les curieux, avec cet instinct qui pressent un malheur, se demandaient quel accident pouvait être arrivé à bord."
+          ],
+          "text": "que les curieux, avec cet instinct qui pressent un malheur, se demandaient quel accident pouvait être arrivé à bord.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": [
+            {
+              "action": "fadeOut",
+              "soundId": "08_s02_brooklyn_birds",
+              "duration": 3000
+            }
+          ]
+        },
+        {
+          "id": "seg_1782224964073_paste_10_hcbw6",
+          "lines": [
+            "Néanmoins les experts en navigation reconnaissaient que si un accident était arrivé, ce ne pouvait être au bâtiment lui-même ;"
+          ],
+          "text": "Néanmoins les experts en navigation reconnaissaient que si un accident était arrivé, ce ne pouvait être au bâtiment lui-même ;",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_11_fiboh",
+          "lines": [
+            "car il s’avançait dans toutes les conditions d’un navire parfaitement gouverné :"
+          ],
+          "text": "car il s’avançait dans toutes les conditions d’un navire parfaitement gouverné :",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_12_bmtra",
+          "lines": [
+            "son ancre était en mouillage, ses haubans de beaupré décrochés ;"
+          ],
+          "text": "son ancre était en mouillage, ses haubans de beaupré décrochés ;",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_13_75z1j",
+          "lines": [
+            "et près du pilote, qui s’apprêtait à diriger le Pharaon par l’étroite entrée du port de Marseille,"
+          ],
+          "text": "et près du pilote, qui s’apprêtait à diriger le Pharaon par l’étroite entrée du port de Marseille,",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_14_qfrcs",
+          "lines": [
+            "était un jeune homme au geste rapide et à l’œil actif, qui surveillait chaque mouvement du navire et répétait chaque ordre du pilote."
+          ],
+          "text": "était un jeune homme au geste rapide et à l’œil actif, qui surveillait chaque mouvement du navire et répétait chaque ordre du pilote.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_15_npftd",
+          "lines": [
+            "La vague inquiétude qui planait sur la foule avait particulièrement atteint un des spectateurs de l’esplanade de Saint-Jean,"
+          ],
+          "text": "La vague inquiétude qui planait sur la foule avait particulièrement atteint un des spectateurs de l’esplanade de Saint-Jean,",
+          "breakAt": null,
+          "isLeader": true,
+          "audioEvents": [
+            {
+              "action": "fadeOut",
+              "soundId": "mechrtch_tension_belt_tense_ratchet_single_click_01_b00m_one",
+              "duration": 3000
+            }
+          ]
+        },
+        {
+          "id": "seg_1782224964073_paste_16_8odwh",
+          "lines": [
+            "de sorte qu’il ne put attendre l’entrée du bâtiment dans le port ;"
+          ],
+          "text": "de sorte qu’il ne put attendre l’entrée du bâtiment dans le port ;",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_17_cro5o",
+          "lines": [
+            "il sauta dans une petite barque et ordonna de ramer au-devant du Pharaon, qu’il atteignit en face de l’anse de la Réserve."
+          ],
+          "text": "il sauta dans une petite barque et ordonna de ramer au-devant du Pharaon, qu’il atteignit en face de l’anse de la Réserve.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_18_8j0xg",
+          "lines": [
+            "En voyant venir cet homme, le jeune marin quitta son poste à côté du pilote, et vint,"
+          ],
+          "text": "En voyant venir cet homme, le jeune marin quitta son poste à côté du pilote, et vint,",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_19_gp0rg",
+          "lines": [
+            "le chapeau à la main, s’appuyer à la muraille du bâtiment."
+          ],
+          "text": "le chapeau à la main, s’appuyer à la muraille du bâtiment.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_20_21ttk",
+          "lines": [
+            "C’était un jeune homme de dix-huit à vingt ans, grand, svelte, avec de beaux yeux noirs et des cheveux d’ébène ; il y avait dans toute sa personne cet air calme et de résolution particulier aux hommes habitués depuis leur enfance à lutter avec le danger."
+          ],
+          "text": "C’était un jeune homme de dix-huit à vingt ans, grand, svelte, avec de beaux yeux noirs et des cheveux d’ébène ; il y avait dans toute sa personne cet air calme et de résolution particulier aux hommes habitués depuis leur enfance",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_21_t0ryr",
+          "lines": [
+            "C’était un jeune homme de dix-huit à vingt ans, grand, svelte, avec de beaux yeux noirs et des cheveux d’ébène ; il y avait dans toute sa personne cet air calme et de résolution particulier aux hommes habitués depuis leur enfance à lutter avec le danger."
+          ],
+          "text": "à lutter avec le danger.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_22_fuviu",
+          "lines": [
+            "— Ah ! c’est vous, Dantès ! cria l’homme à la barque ; qu’est-il donc arrivé,"
+          ],
+          "text": "— Ah ! c’est vous, Dantès ! cria l’homme à la barque ; qu’est-il donc arrivé,",
+          "breakAt": null,
+          "isLeader": true,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_23_8qk24",
+          "lines": [
+            "et pourquoi cet air de tristesse répandu sur tout votre bord ?"
+          ],
+          "text": "et pourquoi cet air de tristesse répandu sur tout votre bord ?",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_24_0v83i",
+          "lines": [
+            "— Un grand malheur, monsieur Morrel ! répondit le jeune homme, un grand malheur, pour moi surtout :"
+          ],
+          "text": "— Un grand malheur, monsieur Morrel ! répondit le jeune homme, un grand malheur, pour moi surtout :",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_25_c95b4",
+          "lines": [
+            "à la hauteur de Civita-Vecchia, nous avons perdu ce brave capitaine Leclère."
+          ],
+          "text": "à la hauteur de Civita-Vecchia, nous avons perdu ce brave capitaine Leclère.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_26_p9y3b",
+          "lines": [
+            "— Et le chargement ? demanda vivement l’armateur."
+          ],
+          "text": "— Et le chargement ? demanda vivement l’armateur.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_27_rwf3n",
+          "lines": [
+            "— Il est arrivé à bon port, monsieur Morrel, et je crois que vous serez content sous ce rapport ;"
+          ],
+          "text": "— Il est arrivé à bon port, monsieur Morrel, et je crois que vous serez content sous ce rapport ;",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_28_qaalo",
+          "lines": [
+            "mais ce pauvre capitaine Leclère…"
+          ],
+          "text": "mais ce pauvre capitaine Leclère…",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_29_qq38n",
+          "lines": [
+            "— Que lui est-il donc arrivé ? demanda l’armateur d’un air visiblement soulagé ; que lui est-il donc arrivé, à ce brave capitaine ?"
+          ],
+          "text": "— Que lui est-il donc arrivé ? demanda l’armateur d’un air visiblement soulagé ; que lui est-il donc arrivé, à ce brave capitaine ?",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_30_q103s",
+          "lines": [
+            "— Il est mort."
+          ],
+          "text": "— Il est mort.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": [
+            {
+              "action": "play",
+              "soundId": "whsh_cinematic_low_impact_muffled_hit_01_b00m_one",
+              "volume": 0.55,
+              "delay": 900,
+              "loop": false
+            }
+          ]
+        },
+        {
+          "id": "seg_1782224964073_paste_31_wutew",
+          "lines": [
+            "— Tombé à la mer ?"
+          ],
+          "text": "— Tombé à la mer ?",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_32_q4xsw",
+          "lines": [
+            "— Non, monsieur ; mort d’une fièvre cérébrale,"
+          ],
+          "text": "— Non, monsieur ; mort d’une fièvre cérébrale,",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_33_8lszj",
+          "lines": [
+            "au milieu d’horribles souffrances. Puis, se retournant vers ses hommes :"
+          ],
+          "text": "au milieu d’horribles souffrances. Puis, se retournant vers ses hommes :",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_34_39j3h",
+          "lines": [
+            "— Holà hé ! dit-il, chacun à son poste pour le mouillage !"
+          ],
+          "text": "— Holà hé ! dit-il, chacun à son poste pour le mouillage !",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_35_54j1e",
+          "lines": [
+            "L’équipage obéit."
+          ],
+          "text": "L’équipage obéit.",
+          "breakAt": null,
+          "isLeader": true,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_36_tpplm",
+          "lines": [
+            "Au même instant, les huit ou dix matelots qui le composaient s’élancèrent les uns sur les écoutes, les autres sur les bras,"
+          ],
+          "text": "Au même instant, les huit ou dix matelots qui le composaient s’élancèrent les uns sur les écoutes, les autres sur les bras,",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_37_vbthp",
+          "lines": [
+            "les autres aux drisses, les autres aux hallebas des focs, enfin les autres aux cargues des voiles."
+          ],
+          "text": "les autres aux drisses, les autres aux hallebas des focs, enfin les autres aux cargues des voiles.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_38_1c9nc",
+          "lines": [
+            "Le jeune marin jeta un coup d’œil nonchalant sur ce commencement de manœuvre, et,"
+          ],
+          "text": "Le jeune marin jeta un coup d’œil nonchalant sur ce commencement de manœuvre, et,",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_39_m87ye",
+          "lines": [
+            "voyant que ses ordres allaient s’exécuter, il revint à son interlocuteur."
+          ],
+          "text": "voyant que ses ordres allaient s’exécuter, il revint à son interlocuteur.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_40_1iwj5",
+          "lines": [
+            "— Et comment ce malheur est-il donc arrivé ? continua l’armateur,"
+          ],
+          "text": "— Et comment ce malheur est-il donc arrivé ? continua l’armateur,",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_41_vzfks",
+          "lines": [
+            "reprenant la conversation où le jeune marin l’avait quittée."
+          ],
+          "text": "reprenant la conversation où le jeune marin l’avait quittée.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_42_rylpn",
+          "lines": [
+            "— Mon Dieu, monsieur, de la façon la plus imprévue : après une longue conversation avec le commandant du port,"
+          ],
+          "text": "— Mon Dieu, monsieur, de la façon la plus imprévue : après une longue conversation avec le commandant du port,",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_43_294l8",
+          "lines": [
+            "le capitaine Leclère quitta Naples fort agité ; au bout de vingt-quatre heures, la fièvre le prit ; trois jours après il était mort…"
+          ],
+          "text": "le capitaine Leclère quitta Naples fort agité ; au bout de vingt-quatre heures, la fièvre le prit ; trois jours après il était mort…",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_44_pcfkm",
+          "lines": [
+            "Nous lui avons fait les funérailles ordinaires,"
+          ],
+          "text": "Nous lui avons fait les funérailles ordinaires,",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_45_tht7n",
+          "lines": [
+            "et il repose, décemment enveloppé dans un hamac, avec un boulet de trente-six aux pieds et un à la tête, à la hauteur de l’île d’el Giglio."
+          ],
+          "text": "et il repose, décemment enveloppé dans un hamac, avec un boulet de trente-six aux pieds et un à la tête, à la hauteur de l’île d’el Giglio.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": [
+            {
+              "action": "play",
+              "soundId": "17_s05_drap",
+              "volume": 0.58,
+              "delay": 2100,
+              "loop": false
+            }
+          ]
+        },
+        {
+          "id": "seg_1782224964073_paste_46_hd80k",
+          "lines": [
+            "Nous rapportons à sa veuve sa croix d’honneur et son épée."
+          ],
+          "text": "Nous rapportons à sa veuve sa croix d’honneur et son épée.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_47_lpfd7",
+          "lines": [
+            "C’était bien la peine, continua le jeune homme avec un sourire mélancolique,"
+          ],
+          "text": "C’était bien la peine, continua le jeune homme avec un sourire mélancolique,",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_48_bbiaw",
+          "lines": [
+            "de faire dix ans la guerre aux Anglais pour en arriver à mourir, comme tout le monde, dans son lit."
+          ],
+          "text": "de faire dix ans la guerre aux Anglais pour en arriver à mourir, comme tout le monde, dans son lit.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_49_57cgq",
+          "lines": [
+            "— Dame ! que voulez-vous, monsieur Edmond, reprit l’armateur qui paraissait se consoler de plus en plus,"
+          ],
+          "text": "— Dame ! que voulez-vous, monsieur Edmond, reprit l’armateur qui paraissait se consoler de plus en plus,",
+          "breakAt": null,
+          "isLeader": true,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_50_dj1m8",
+          "lines": [
+            "nous sommes tous mortels, et il faut bien que les anciens fassent place aux nouveaux, sans cela il n’y aurait pas d’avancement ; et du moment que vous m’assurez que la cargaison…"
+          ],
+          "text": "nous sommes tous mortels, et il faut bien que les anciens fassent place aux nouveaux, sans cela il n’y aurait pas d’avancement ; et du moment que vous m’assurez que la cargaison…",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_51_02zt6",
+          "lines": [
+            "— Est en bon état, monsieur Morrel, je vous en réponds. Voici un voyage que je vous donne le conseil de ne point escompter pour 25,"
+          ],
+          "text": "— Est en bon état, monsieur Morrel, je vous en réponds. Voici un voyage que je vous donne le conseil de ne point escompter pour 25,",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_52_t9kg6",
+          "lines": [
+            "000 fr. de bénéfice. Puis, comme on venait de dépasser la tour ronde :"
+          ],
+          "text": "000 fr. de bénéfice. Puis, comme on venait de dépasser la tour ronde :",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_53_wmr66",
+          "lines": [
+            "— Range à carguer les voiles de hune, le foc et la brigantine ! cria le jeune marin ; faites penaud !"
+          ],
+          "text": "— Range à carguer les voiles de hune, le foc et la brigantine ! cria le jeune marin ; faites penaud !",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_54_pk6uh",
+          "lines": [
+            "L’ordre s’exécuta avec presque autant de promptitude que sur un bâtiment de guerre."
+          ],
+          "text": "L’ordre s’exécuta avec presque autant de promptitude que sur un bâtiment de guerre.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_55_kqdqc",
+          "lines": [
+            "— Amène et cargue partout !"
+          ],
+          "text": "— Amène et cargue partout !",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_56_xttl4",
+          "lines": [
+            "Au dernier commandement, toutes les voiles s’abaissèrent, et le navire s’avança d’un façon presque insensible, ne marchant plus que par l’impulsion donnée."
+          ],
+          "text": "Au dernier commandement, toutes les voiles s’abaissèrent, et le navire s’avança d’un façon presque insensible, ne marchant plus que par l’impulsion donnée.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_57_5wsyf",
+          "lines": [
+            "— Et maintenant, si vous voulez monter, monsieur Morrel,"
+          ],
+          "text": "— Et maintenant, si vous voulez monter, monsieur Morrel,",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_58_nrnsb",
+          "lines": [
+            "dit Dantès voyant l’impatience de l’armateur, voici votre comptable, M. Danglars, qui sort de sa cabine, et qui vous donnera tous les renseignements que vous pouvez désirer. Quant à moi, il faut que je veille au mouillage et que je mette le navire en deuil."
+          ],
+          "text": "dit Dantès voyant l’impatience de l’armateur, voici votre comptable, M. Danglars, qui sort de sa cabine, et qui vous donnera tous les renseignements que vous pouvez désirer. Quant à moi, il faut que je veille au mouillage et que je mette le navire en deuil.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_59_i3iax",
+          "lines": [
+            "L’armateur ne se le fit pas dire deux fois."
+          ],
+          "text": "L’armateur ne se le fit pas dire deux fois.",
+          "breakAt": null,
+          "isLeader": true,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_60_ctsta",
+          "lines": [
+            "Il saisit un câble que lui jeta Dantès, et,"
+          ],
+          "text": "Il saisit un câble que lui jeta Dantès, et,",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_61_q5kxt",
+          "lines": [
+            "avec une dextérité qui eût fait honneur à un homme de mer, il gravit les échelons cloués sur le flanc rebondi du bâtiment, tandis que celui-ci, retournant à son poste de second, cédait la conversation à celui qu’il avait annoncé sous le nom de Danglars, et qui, sortant de sa cabine, s’avançait effectivement au-devant de l’armateur."
+          ],
+          "text": "avec une dextérité qui eût fait honneur à un homme de mer, il gravit les échelons cloués sur le flanc rebondi du bâtiment, tandis que celui-ci, retournant à son poste de second, cédait la conversation à celui qu’il avait annoncé sous le nom de Danglars, et qui, sortant de sa cabine, s’avançait effectivement au-devant de l’armateur.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_62_s9c36",
+          "lines": [
+            "Le nouveau venu était un homme de vingt-cinq à vingt-six ans,"
+          ],
+          "text": "Le nouveau venu était un homme de vingt-cinq à vingt-six ans,",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": [
+            {
+              "action": "fadeIn",
+              "soundId": "dsgndron_dark_ship_horror_01_b00m_one",
+              "volume": 0.13,
+              "duration": 5000,
+              "delay": 0,
+              "loop": true
+            }
+          ]
+        },
+        {
+          "id": "seg_1782224964073_paste_63_y0vxf",
+          "lines": [
+            "d’une figure assez sombre, obséquieux envers ses supérieurs, insolent envers ses subordonnés ;"
+          ],
+          "text": "d’une figure assez sombre, obséquieux envers ses supérieurs, insolent envers ses subordonnés ;",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_64_ak55f",
+          "lines": [
+            "aussi, outre son titre d’agent comptable, qui est toujours un motif de répulsion pour les matelots, était-il généralement aussi mal vu de l’équipage qu’Edmond Dantès au contraire en était aimé."
+          ],
+          "text": "aussi, outre son titre d’agent comptable, qui est toujours un motif de répulsion pour les matelots, était-il généralement aussi mal vu de l’équipage qu’Edmond Dantès au contraire en était aimé.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_65_g86a2",
+          "lines": [
+            "— Eh bien ! monsieur Morrel, dit Danglars, vous savez le malheur, n’est-ce pas ?"
+          ],
+          "text": "— Eh bien ! monsieur Morrel, dit Danglars, vous savez le malheur, n’est-ce pas ?",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_66_lejrt",
+          "lines": [
+            "— Oui, oui. Pauvre capitaine Leclère ! c’était un brave et honnête homme !"
+          ],
+          "text": "— Oui, oui. Pauvre capitaine Leclère ! c’était un brave et honnête homme !",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_67_bayjg",
+          "lines": [
+            "— Et un excellent marin surtout, vieilli entre le ciel et l’eau,"
+          ],
+          "text": "— Et un excellent marin surtout, vieilli entre le ciel et l’eau,",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_68_be8xx",
+          "lines": [
+            "comme il convient à un homme chargé des intérêts d’une maison aussi importante que la maison Morrel et fils, répondit Danglars."
+          ],
+          "text": "comme il convient à un homme chargé des intérêts d’une maison aussi importante que la maison Morrel et fils, répondit Danglars.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_69_8ctql",
+          "lines": [
+            "— Mais, dit l’armateur, suivant des yeux Dantès qui cherchait son mouillage, mais il me semble qu’il n’y a pas besoin d’être si vieux marin que vous le dites, Danglars, pour connaître son métier,"
+          ],
+          "text": "— Mais, dit l’armateur, suivant des yeux Dantès qui cherchait son mouillage, mais il me semble qu’il n’y a pas besoin d’être si vieux marin que vous le dites, Danglars, pour connaître son métier,",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_70_n9j6l",
+          "lines": [
+            "et voici notre ami Edmond qui fait le sien, ce me semble, en homme qui n’a besoin de demander des conseils à personne."
+          ],
+          "text": "et voici notre ami Edmond qui fait le sien, ce me semble, en homme qui n’a besoin de demander des conseils à personne.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_71_djt98",
+          "lines": [
+            "— Oui, dit Danglars en jetant sur Dantès un regard oblique où brilla un éclair de haine,"
+          ],
+          "text": "— Oui, dit Danglars en jetant sur Dantès un regard oblique où brilla un éclair de haine,",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": [
+            {
+              "action": "fadeIn",
+              "soundId": "53_s11_drone_ambience",
+              "volume": 0.12,
+              "duration": 6000,
+              "delay": 0,
+              "loop": true
+            }
+          ]
+        },
+        {
+          "id": "seg_1782224964073_paste_72_yayxw",
+          "lines": [
+            "oui, c’est jeune, et cela ne doute de rien. À peine le capitaine a-t-il été mort qu’il a pris le commandement sans consulter personne, et qu’il nous a fait perdre un jour et demi à l’île d’Elbe au lieu de revenir directement à Marseille."
+          ],
+          "text": "oui, c’est jeune, et cela ne doute de rien. À peine le capitaine a-t-il été mort qu’il a pris le commandement sans consulter personne, et qu’il nous a fait perdre un jour et demi à l’île d’Elbe au lieu de revenir directement à Marseille.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_73_ab6z0",
+          "lines": [
+            "— Quant à prendre le commandement du navire, dit l’armateur, c’était son devoir comme second ; quant à perdre un jour et demi à l’île d’Elbe, il a eu tort ; à moins que le navire n’ait eu quelque avarie à réparer."
+          ],
+          "text": "— Quant à prendre le commandement du navire, dit l’armateur, c’était son devoir comme second ; quant à perdre un jour et demi à l’île d’Elbe, il a eu tort ; à moins que le navire n’ait eu quelque avarie à réparer.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_74_0qmmo",
+          "lines": [
+            "— Le navire se portait comme je me porte, et comme je désire que vous vous portiez,"
+          ],
+          "text": "— Le navire se portait comme je me porte, et comme je désire que vous vous portiez,",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_75_p20tx",
+          "lines": [
+            "monsieur Morrel ; et cette journée et demie a été perdue par pur caprice, pour le plaisir d’aller à terre, voilà tout."
+          ],
+          "text": "monsieur Morrel ; et cette journée et demie a été perdue par pur caprice, pour le plaisir d’aller à terre, voilà tout.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": [
+            {
+              "action": "fadeOut",
+              "soundId": "dsgndron_dark_ship_horror_01_b00m_one",
+              "duration": 4000
+            }
+          ]
+        },
+        {
+          "id": "seg_1782224964073_paste_76_gct18",
+          "lines": [
+            "— Dantès, dit l’armateur se retournant vers le jeune homme, venez donc ici."
+          ],
+          "text": "— Dantès, dit l’armateur se retournant vers le jeune homme, venez donc ici.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_77_4xfq1",
+          "lines": [
+            "— Pardon, Monsieur, dit Dantès, je suis à vous dans un instant. Puis s’adressant à l’équipage :"
+          ],
+          "text": "— Pardon, Monsieur, dit Dantès, je suis à vous dans un instant. Puis s’adressant à l’équipage :",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_78_zhgax",
+          "lines": [
+            "— Mouille ! dit-il."
+          ],
+          "text": "— Mouille ! dit-il.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_79_1q5ot",
+          "lines": [
+            "Aussitôt l’ancre tomba, et la chaîne fila avec bruit."
+          ],
+          "text": "Aussitôt l’ancre tomba, et la chaîne fila avec bruit.",
+          "breakAt": null,
+          "isLeader": true,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_80_sf844",
+          "lines": [
+            "Dantès resta à son poste, malgré la présence du pilote, jusqu’à ce que cette dernière manœuvre fût terminée ; puis alors : Abaissez la flamme à mi-mât,"
+          ],
+          "text": "Dantès resta à son poste, malgré la présence du pilote, jusqu’à ce que cette dernière manœuvre fût terminée ; puis alors : Abaissez la flamme à mi-mât,",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_81_y5mys",
+          "lines": [
+            "mettez le pavillon en berne, croisez les vergues !"
+          ],
+          "text": "mettez le pavillon en berne, croisez les vergues !",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_82_1c4xj",
+          "lines": [
+            "— Vous voyez, dit Danglars, il se croit déjà capitaine, sur ma parole."
+          ],
+          "text": "— Vous voyez, dit Danglars, il se croit déjà capitaine, sur ma parole.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_83_ssiuc",
+          "lines": [
+            "— Et il l’est de fait, dit l’armateur."
+          ],
+          "text": "— Et il l’est de fait, dit l’armateur.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_84_5xjzq",
+          "lines": [
+            "— Oui, sauf votre signature et celle de votre associé, monsieur Morrel."
+          ],
+          "text": "— Oui, sauf votre signature et celle de votre associé, monsieur Morrel.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_85_9jxfy",
+          "lines": [
+            "— Dame ! pourquoi ne le laisserions-nous pas à ce poste ? dit l’armateur. Il est jeune, je le sais bien, mais il me paraît tout à la chose,"
+          ],
+          "text": "— Dame ! pourquoi ne le laisserions-nous pas à ce poste ? dit l’armateur. Il est jeune, je le sais bien, mais il me paraît tout à la chose,",
+          "breakAt": 57,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_86_98kdl",
+          "lines": [
+            "et fort expérimenté dans son état. Un nuage passa sur le front de Danglars."
+          ],
+          "text": "et fort expérimenté dans son état. Un nuage passa sur le front de Danglars.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_87_co7ca",
+          "lines": [
+            "— Pardon, monsieur Morrel, dit Dantès en s’approchant ; maintenant que le navire est mouillé, me voilà tout à vous :"
+          ],
+          "text": "— Pardon, monsieur Morrel, dit Dantès en s’approchant ; maintenant que le navire est mouillé, me voilà tout à vous :",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": [
+            {
+              "action": "fadeOut",
+              "soundId": "53_s11_drone_ambience",
+              "duration": 5000
+            }
+          ]
+        },
+        {
+          "id": "seg_1782224964073_paste_88_plgqn",
+          "lines": [
+            "vous m’avez appelé, je crois ? Danglars fit un pas en arrière."
+          ],
+          "text": "vous m’avez appelé, je crois ? Danglars fit un pas en arrière.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_89_9rdc7",
+          "lines": [
+            "— Je voulais vous demander pourquoi vous vous étiez arrêté à l’île d’Elbe ?"
+          ],
+          "text": "— Je voulais vous demander pourquoi vous vous étiez arrêté à l’île d’Elbe ?",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_90_z705l",
+          "lines": [
+            "— Je l’ignore, Monsieur ; c’était pour accomplir un dernier ordre du capitaine Leclère, qui,"
+          ],
+          "text": "— Je l’ignore, Monsieur ; c’était pour accomplir un dernier ordre du capitaine Leclère, qui,",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_91_3zpkz",
+          "lines": [
+            "en mourant, m’avait remis un paquet pour le grand maréchal Bertrand."
+          ],
+          "text": "en mourant, m’avait remis un paquet pour le grand maréchal Bertrand.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_92_kevii",
+          "lines": [
+            "— L’avez-vous donc vu, Edmond ?"
+          ],
+          "text": "— L’avez-vous donc vu, Edmond ? — Qui ?",
+          "breakAt": 32,
+          "isLeader": false,
+          "audioEvents": [],
+          "delay": 1200
+        },
+        {
+          "id": "seg_1782224964073_paste_93_hhyk8",
+          "lines": [
+            "— Le grand maréchal ?",
+            "— Oui."
+          ],
+          "text": "— Le grand maréchal ? — Oui.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_94_7q83m",
+          "lines": [
+            "Morrel regarda autour de lui, et tira Dantès à part."
+          ],
+          "text": "Morrel regarda autour de lui, et tira Dantès à part.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": [
+            {
+              "action": "fadeIn",
+              "soundId": "61_s11_1_base_central_sourde",
+              "volume": 0.14,
+              "duration": 4000,
+              "delay": 0,
+              "loop": true
+            }
+          ]
+        },
+        {
+          "id": "seg_1782224964073_paste_95_0shho",
+          "lines": [
+            "— Et comment va l’empereur ? demanda-t-il vivement."
+          ],
+          "text": "— Et comment va l’empereur ? demanda-t-il vivement.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_96_4lyju",
+          "lines": [
+            "— Bien, autant que j’ai pu en juger par mes yeux.",
+            "— Vous avez donc vu l’empereur aussi ?"
+          ],
+          "text": "— Bien, autant que j’ai pu en juger par mes yeux. — Vous avez donc vu l’empereur aussi ?",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_97_pojti",
+          "lines": [
+            "— Il est entré chez le maréchal pendant que j’y étais."
+          ],
+          "text": "— Il est entré chez le maréchal pendant que j’y étais.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_98_0dk54",
+          "lines": [
+            "— Et vous lui avez parlé ?"
+          ],
+          "text": "— Et vous lui avez parlé ?",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_99_ozykm",
+          "lines": [
+            "— C’est-à-dire que c’est lui qui m’a parlé,",
+            "Monsieur, dit Dantès en souriant."
+          ],
+          "text": "— C’est-à-dire que c’est lui qui m’a parlé, Monsieur, dit Dantès en souriant.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_100_tni0z",
+          "lines": [
+            "— Et que vous a-t-il dit ?"
+          ],
+          "text": "— Et que vous a-t-il dit ?",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_101_f7rzy",
+          "lines": [
+            "— Il m’a fait des questions sur le bâtiment, sur l’époque de son départ pour Marseille, sur la route qu’il avait suivie et sur la cargaison qu’il portait. Je crois que s’il eût été vide, et que j’en eusse été le maître,"
+          ],
+          "text": "— Il m’a fait des questions sur le bâtiment, sur l’époque de son départ pour Marseille, sur la route qu’il avait suivie et sur la cargaison qu’il portait. Je crois que s’il eût été vide, et que j’en eusse été le maître,",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_102_hv1s6",
+          "lines": [
+            "son intention eût été de l’acheter ; mais je lui ai dit que je n’étais que simple second, et que le bâtiment appartenait à la maison Morrel et fils. — Ah ! ah ! a-t-il dit, je la connais. Les Morrel sont armateurs de père en fils, et il y avait un Morrel qui servait dans le même régiment que moi lorsque j’étais en garnison à Valence."
+          ],
+          "text": "son intention eût été de l’acheter ; mais je lui ai dit que je n’étais que simple second, et que le bâtiment appartenait à la maison Morrel et fils. — Ah ! ah ! a-t-il dit, je la connais. Les Morrel sont armateurs de père en fils, et il y avait un Morrel qui servait dans le même régiment que moi lorsque j’étais en garnison à Valence.",
+          "breakAt": 148,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_103_fy2yv",
+          "lines": [
+            "— C’est pardieu vrai ! s’écria l’armateur tout joyeux ;"
+          ],
+          "text": "— C’est pardieu vrai ! s’écria l’armateur tout joyeux ;",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_104_96p9c",
+          "lines": [
+            "c’était Policar Morrel, mon oncle, qui est devenu capitaine. Dantès, vous direz à mon oncle que l’empereur s’est souvenu de lui, et vous le verrez pleurer, le vieux grognard. Allons, allons, continua l’armateur en frappant amicalement sur l’épaule du jeune homme, vous avez bien fait, Dantès, de suivre les instructions du capitaine Leclère et de vous arrêter à l’île d’Elbe, quoique,"
+          ],
+          "text": "c’était Policar Morrel, mon oncle, qui est devenu capitaine. Dantès, vous direz à mon oncle que l’empereur s’est souvenu de lui, et vous le verrez pleurer, le vieux grognard. Allons, allons, continua l’armateur en frappant amicalement sur l’épaule du jeune homme, vous avez bien fait, Dantès, de suivre les instructions du capitaine Leclère et de vous arrêter à l’île d’Elbe, quoique,",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_105_n37r1",
+          "lines": [
+            "si l’on savait que vous avez remis un paquet au maréchal et causé avec l’empereur, cela pourrait vous compromettre."
+          ],
+          "text": "si l’on savait que vous avez remis un paquet au maréchal et causé avec l’empereur, cela pourrait vous compromettre.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_106_frhgp",
+          "lines": [
+            "— En quoi voulez-vous, Monsieur, que cela me compromette ? dit Dantès : je ne sais pas même ce que je portais, et l’empereur ne m’a fait que les questions qu’il eût faites au premier venu. Mais, pardon, reprit Dantès, voici la santé et la douane qui nous arrivent ;"
+          ],
+          "text": "— En quoi voulez-vous, Monsieur, que cela me compromette ? dit Dantès : je ne sais pas même ce que je portais, et l’empereur ne m’a fait que les questions qu’il eût faites au premier venu.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": [
+            {
+              "action": "fadeOut",
+              "soundId": "61_s11_1_base_central_sourde",
+              "duration": 4000
+            }
+          ]
+        },
+        {
+          "id": "seg_1782224964073_paste_107_tr0c5",
+          "lines": [
+            "— En quoi voulez-vous, Monsieur, que cela me compromette ? dit Dantès : je ne sais pas même ce que je portais, et l’empereur ne m’a fait que les questions qu’il eût faites au premier venu. Mais, pardon, reprit Dantès, voici la santé et la douane qui nous arrivent ;"
+          ],
+          "text": "Mais, pardon, reprit Dantès, voici la santé et la douane qui nous arrivent ; vous permettez, n’est-ce pas ?",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": [],
+          "delay": 2800
+        },
+        {
+          "id": "seg_1782224964073_paste_108_mod3c",
+          "lines": [
+            "— Faites, faites, mon cher Dantès."
+          ],
+          "text": "— Faites, faites, mon cher Dantès.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_109_k0fyc",
+          "lines": [
+            "Le jeune homme s’éloigna, et, comme il s’éloignait, Danglars se rapprocha."
+          ],
+          "text": "Le jeune homme s’éloigna, et, comme il s’éloignait, Danglars se rapprocha.",
+          "breakAt": null,
+          "isLeader": true,
+          "audioEvents": [
+            {
+              "action": "play",
+              "soundId": "73_s14_sweep_3",
+              "volume": 0.5,
+              "delay": 3000,
+              "loop": false
+            }
+          ]
+        },
+        {
+          "id": "seg_1782224964073_paste_110_h5zen",
+          "lines": [
+            "— Eh bien ! demanda-t-il, il paraît qu’il vous a donné de bonnes raisons de son mouillage à Porto-Ferrajo ?"
+          ],
+          "text": "— Eh bien ! demanda-t-il, il paraît qu’il vous a donné de bonnes raisons de son mouillage à Porto-Ferrajo ?",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_111_uf884",
+          "lines": [
+            "— D’excellentes, mon cher monsieur Danglars."
+          ],
+          "text": "— D’excellentes, mon cher monsieur Danglars.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_112_1m6ap",
+          "lines": [
+            "— Ah ! tant mieux, répondit celui-ci, car c’est toujours pénible de voir un camarade qui ne fait pas son devoir."
+          ],
+          "text": "— Ah ! tant mieux, répondit celui-ci, car c’est toujours pénible de voir un camarade qui ne fait pas son devoir.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_113_5aqwe",
+          "lines": [
+            "— Dantès a fait le sien, répondit l’armateur, et il n’y a rien à dire. C’était le capitaine Leclère qui lui avait ordonné cette relâche."
+          ],
+          "text": "— Dantès a fait le sien, répondit l’armateur, et il n’y a rien à dire. C’était le capitaine Leclère qui lui avait ordonné cette relâche.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_114_3wxpe",
+          "lines": [
+            "— À propos du capitaine Leclère, ne vous a-t-il pas remis une lettre de lui ?"
+          ],
+          "text": "— À propos du capitaine Leclère, ne vous a-t-il pas remis une lettre de lui ?",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_115_rx806",
+          "lines": [
+            "— Qui ?"
+          ],
+          "text": "— Qui ?",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_116_l4dkh",
+          "lines": [
+            "— Dantès."
+          ],
+          "text": "— Dantès.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_117_29gvc",
+          "lines": [
+            "— À moi, non ! En avait-il donc une ?"
+          ],
+          "text": "— À moi, non ! En avait-il donc une ?",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_118_mzr1e",
+          "lines": [
+            "— Je croyais qu’outre le paquet, le capitaine Leclère lui avait confié une lettre."
+          ],
+          "text": "— Je croyais qu’outre le paquet, le capitaine Leclère lui avait confié une lettre.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": [
+            {
+              "action": "fadeIn",
+              "soundId": "53_s11_drone_respiration",
+              "volume": 0.13,
+              "duration": 5000,
+              "delay": 0,
+              "loop": true
+            }
+          ]
+        },
+        {
+          "id": "seg_1782224964073_paste_119_hd1oa",
+          "lines": [
+            "— De quel paquet voulez-vous parler, Danglars ?"
+          ],
+          "text": "— De quel paquet voulez-vous parler, Danglars ?",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_120_9lpgu",
+          "lines": [
+            "— Mais de celui que Dantès a déposé en passant à Porto-Ferrajo ?"
+          ],
+          "text": "— Mais de celui que Dantès a déposé en passant à Porto-Ferrajo ?",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_121_mf210",
+          "lines": [
+            "— Comment savez-vous qu’il avait un paquet à déposer à Porto-Ferrajo ?"
+          ],
+          "text": "— Comment savez-vous qu’il avait un paquet à déposer à Porto-Ferrajo ?",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_122_d61gi",
+          "lines": [
+            "Danglars rougit."
+          ],
+          "text": "Danglars rougit.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_123_zbdhg",
+          "lines": [
+            "— Je passais devant la porte du capitaine qui était entr’ouverte, et je lui ai vu remettre ce paquet et cette lettre à Dantès."
+          ],
+          "text": "— Je passais devant la porte du capitaine qui était entr’ouverte, et je lui ai vu remettre ce paquet et cette lettre à Dantès.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_124_u0335",
+          "lines": [
+            "— Il ne m’en a point parlé, dit l’armateur ;"
+          ],
+          "text": "— Il ne m’en a point parlé, dit l’armateur ;",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_125_irir3",
+          "lines": [
+            "mais s’il a cette lettre, il me la remettra. Danglars réfléchit un instant."
+          ],
+          "text": "mais s’il a cette lettre, il me la remettra. Danglars réfléchit un instant.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_126_uuyo5",
+          "lines": [
+            "— Alors, monsieur Morrel, je vous prie, dit-il, ne parlez point de cela à Dantès ; je me serai trompé. En ce moment,"
+          ],
+          "text": "— Alors, monsieur Morrel, je vous prie, dit-il, ne parlez point de cela à Dantès ; je me serai trompé. En ce moment,",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_127_ml26d",
+          "lines": [
+            "le jeune homme revenait ; Danglars s’éloigna."
+          ],
+          "text": "le jeune homme revenait ; Danglars s’éloigna.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": [
+            {
+              "action": "fadeOut",
+              "soundId": "53_s11_drone_respiration",
+              "duration": 3000
+            }
+          ]
+        },
+        {
+          "id": "seg_1782224964073_paste_128_aj78u",
+          "lines": [
+            "— Eh bien, mon cher Dantès, êtes-vous libre ? demanda l’armateur."
+          ],
+          "text": "— Eh bien, mon cher Dantès, êtes-vous libre ? demanda l’armateur.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_129_8uov5",
+          "lines": [
+            "— Oui, Monsieur."
+          ],
+          "text": "— Oui, Monsieur.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_130_mcpj8",
+          "lines": [
+            "— La chose n’a pas été longue."
+          ],
+          "text": "— La chose n’a pas été longue.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_131_cbx7a",
+          "lines": [
+            "— Non, j’ai donné aux douaniers la liste de nos marchandises ; et quant à la consigne, elle avait envoyé avec le pilote côtier un homme à qui j’ai remis nos papiers."
+          ],
+          "text": "— Non, j’ai donné aux douaniers la liste de nos marchandises ; et quant à la consigne, elle avait envoyé avec le pilote côtier un homme à qui j’ai remis nos papiers.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_132_qq31e",
+          "lines": [
+            "— Alors, vous n’avez plus rien à faire ici ?"
+          ],
+          "text": "— Alors, vous n’avez plus rien à faire ici ?",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_133_0erg4",
+          "lines": [
+            "Dantès jeta un regard rapide autour de lui."
+          ],
+          "text": "Dantès jeta un regard rapide autour de lui.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_134_pimm2",
+          "lines": [
+            "— Non, tout est en ordre, dit-il."
+          ],
+          "text": "— Non, tout est en ordre, dit-il.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_135_d8bwq",
+          "lines": [
+            "— Vous pouvez donc alors venir dîner avec nous ?"
+          ],
+          "text": "— Vous pouvez donc alors venir dîner avec nous ?",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": [
+            {
+              "action": "fadeIn",
+              "soundId": "13_s03_ville",
+              "volume": 0.17,
+              "duration": 3000,
+              "delay": 0,
+              "loop": true
+            }
+          ]
+        },
+        {
+          "id": "seg_1782224964073_paste_136_da579",
+          "lines": [
+            "— Excusez-moi, monsieur Morrel, excusez-moi, je vous prie, mais je dois ma première visite à mon père. Je n’en suis pas moins reconnaissant de l’honneur que vous me faites."
+          ],
+          "text": "— Excusez-moi, monsieur Morrel, excusez-moi, je vous prie, mais je dois ma première visite à mon père. Je n’en suis pas moins reconnaissant de l’honneur que vous me faites.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_137_zbzc3",
+          "lines": [
+            "— C’est juste, Dantès, c’est juste. Je sais que vous êtes bon fils."
+          ],
+          "text": "— C’est juste, Dantès, c’est juste. Je sais que vous êtes bon fils.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_138_j7agv",
+          "lines": [
+            "— Et… demanda Dantès avec une certaine hésitation, et il se porte bien, que vous sachiez, mon père ?"
+          ],
+          "text": "— Et… demanda Dantès avec une certaine hésitation, et il se porte bien, que vous sachiez, mon père ?",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_139_pxgxe",
+          "lines": [
+            "— Mais je crois que oui, mon cher Edmond, quoique je ne l’aie pas aperçu."
+          ],
+          "text": "— Mais je crois que oui, mon cher Edmond, quoique je ne l’aie pas aperçu.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_140_i8ndo",
+          "lines": [
+            "— Oui, il se tient enfermé dans sa petite chambre."
+          ],
+          "text": "— Oui, il se tient enfermé dans sa petite chambre.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_141_no0b1",
+          "lines": [
+            "— Cela prouve au moins qu’il n’a manqué de rien pendant votre absence."
+          ],
+          "text": "— Cela prouve au moins qu’il n’a manqué de rien pendant votre absence.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_142_or4fl",
+          "lines": [
+            "Dantès sourit."
+          ],
+          "text": "Dantès sourit.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_143_rbq9m",
+          "lines": [
+            "— Mon père est fier, monsieur, et, eût-il manqué de tout,"
+          ],
+          "text": "— Mon père est fier, monsieur, et, eût-il manqué de tout,",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_144_ut1b1",
+          "lines": [
+            "je doute qu’il eût demandé quelque chose à qui que ce soit au monde, excepté à Dieu."
+          ],
+          "text": "je doute qu’il eût demandé quelque chose à qui que ce soit au monde, excepté à Dieu.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_145_p4yfk",
+          "lines": [
+            "— Eh bien, après cette première visite, nous comptons sur vous."
+          ],
+          "text": "— Eh bien, après cette première visite, nous comptons sur vous.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_146_b0g2z",
+          "lines": [
+            "— Excusez-moi encore, monsieur Morrel ; mais, après cette première visite, j’en ai une seconde qui ne me tient pas moins au cœur."
+          ],
+          "text": "— Excusez-moi encore, monsieur Morrel ; mais, après cette première visite, j’en ai une seconde qui ne me tient pas moins au cœur.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_147_kfbcv",
+          "lines": [
+            "— Ah ! c’est vrai, Dantès ; j’oubliais qu’il y a aux Catalans quelqu’un qui doit vous attendre avec non moins d’impatience que votre père :"
+          ],
+          "text": "— Ah ! c’est vrai, Dantès ; j’oubliais qu’il y a aux Catalans quelqu’un qui doit vous attendre avec non moins d’impatience que votre père :",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_148_apkg7",
+          "lines": [
+            "c’est la belle Mercédès. Dantès sourit."
+          ],
+          "text": "c’est la belle Mercédès. Dantès sourit.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_149_ss5ck",
+          "lines": [
+            "— Ah ! ah ! dit l’armateur, cela ne m’étonne plus, qu’elle soit venue trois fois me demander des nouvelles du Pharaon. Peste ! Edmond, vous n’êtes point à plaindre, et vous avez là une jolie maîtresse !"
+          ],
+          "text": "— Ah ! ah ! dit l’armateur, cela ne m’étonne plus, qu’elle soit venue trois fois me demander des nouvelles du Pharaon. Peste ! Edmond, vous n’êtes point à plaindre, et vous avez là une jolie maîtresse !",
+          "breakAt": 118,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_150_89fii",
+          "lines": [
+            "— Ce n’est point ma maîtresse, monsieur, dit gravement le jeune marin : c’est ma fiancée."
+          ],
+          "text": "— Ce n’est point ma maîtresse, monsieur, dit gravement le jeune marin : c’est ma fiancée.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_151_0f0j8",
+          "lines": [
+            "— C’est quelquefois tout un, dit l’armateur en riant."
+          ],
+          "text": "— C’est quelquefois tout un, dit l’armateur en riant.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_152_rfuid",
+          "lines": [
+            "— Pas pour nous, Monsieur, répondit Dantès."
+          ],
+          "text": "— Pas pour nous, Monsieur, répondit Dantès.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_153_n3lu5",
+          "lines": [
+            "— Allons, allons, mon cher Edmond, continua l’armateur, que je ne vous retienne pas ;"
+          ],
+          "text": "— Allons, allons, mon cher Edmond, continua l’armateur, que je ne vous retienne pas ;",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": [
+            {
+              "action": "fadeOut",
+              "soundId": "13_s03_ville",
+              "duration": 3000
+            }
+          ]
+        },
+        {
+          "id": "seg_1782224964073_paste_154_aals0",
+          "lines": [
+            "vous avez assez bien fait mes affaires pour que je vous donne tout loisir de faire les vôtres. Avez-vous besoin d’argent ?"
+          ],
+          "text": "vous avez assez bien fait mes affaires pour que je vous donne tout loisir de faire les vôtres. Avez-vous besoin d’argent ?",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_155_0lgeq",
+          "lines": [
+            "— Non, Monsieur ; j’ai tous mes appointements du voyage, c’est-à-dire près de trois mois de solde."
+          ],
+          "text": "— Non, Monsieur ; j’ai tous mes appointements du voyage, c’est-à-dire près de trois mois de solde.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_156_wc6lo",
+          "lines": [
+            "— Vous êtes un garçon rangé, Edmond."
+          ],
+          "text": "— Vous êtes un garçon rangé, Edmond.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_157_55grc",
+          "lines": [
+            "— Ajoutez que j’ai un père pauvre, Monsieur Morrel."
+          ],
+          "text": "— Ajoutez que j’ai un père pauvre, Monsieur Morrel.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_158_dq6dz",
+          "lines": [
+            "— Oui, oui, je sais que vous êtes un bon fils. Allez donc voir votre père : j’ai un fils aussi,"
+          ],
+          "text": "— Oui, oui, je sais que vous êtes un bon fils. Allez donc voir votre père : j’ai un fils aussi,",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_159_81f82",
+          "lines": [
+            "et j’en voudrais fort à celui qui, après un voyage de trois mois, le retiendrait loin de moi."
+          ],
+          "text": "et j’en voudrais fort à celui qui, après un voyage de trois mois, le retiendrait loin de moi.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_160_859ga",
+          "lines": [
+            "— Alors, vous permettez ? dit le jeune homme en saluant."
+          ],
+          "text": "— Alors, vous permettez ? dit le jeune homme en saluant.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_161_aoi2v",
+          "lines": [
+            "— Oui, si vous n’avez rien de plus à me dire."
+          ],
+          "text": "— Oui, si vous n’avez rien de plus à me dire.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_162_yd7kg",
+          "lines": [
+            "— Non."
+          ],
+          "text": "— Non.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_163_8uzhy",
+          "lines": [
+            "— Le capitaine Leclère ne vous a pas, en mourant, donné une lettre pour moi ?"
+          ],
+          "text": "— Le capitaine Leclère ne vous a pas, en mourant, donné une lettre pour moi ?",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_164_xq3pd",
+          "lines": [
+            "— Il lui eût été impossible d’écrire, Monsieur ; mais cela me rappelle que j’aurai un congé de quinze jours à vous demander."
+          ],
+          "text": "— Il lui eût été impossible d’écrire, Monsieur ; mais cela me rappelle que j’aurai un congé de quinze jours à vous demander.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_165_d5xl2",
+          "lines": [
+            "— Pour vous marier ?"
+          ],
+          "text": "— Pour vous marier ?",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_166_vnzcu",
+          "lines": [
+            "— D’abord ; puis pour aller à Paris."
+          ],
+          "text": "— D’abord ; puis pour aller à Paris.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_167_u4qfq",
+          "lines": [
+            "— Bon, bon ! vous prendrez le temps que vous voudrez,"
+          ],
+          "text": "— Bon, bon ! vous prendrez le temps que vous voudrez,",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_168_omb75",
+          "lines": [
+            "Dantès ; le temps de décharger le bâtiment nous prendra bien six semaines, et nous ne nous remettrons guère en mer avant trois mois… Seulement, dans trois mois, il faudra que vous soyez là. Le Pharaon, continua l’armateur en frappant sur l’épaule du jeune marin, ne pourrait pas repartir sans son capitaine."
+          ],
+          "text": "Dantès ; le temps de décharger le bâtiment nous prendra bien six semaines, et nous ne nous remettrons guère en mer avant trois mois… Seulement, dans trois mois, il faudra que vous soyez là. Le Pharaon, continua l’armateur en frappant sur l’épaule du jeune marin, ne pourrait pas repartir sans son capitaine.",
+          "breakAt": 132,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_169_3s3kl",
+          "lines": [
+            "— Sans son capitaine ! s’écria Dantès les yeux brillants de joie ; faites bien attention à ce que vous dites là, Monsieur, car vous venez de répondre aux plus secrètes espérances de mon cœur. Votre intention serait-elle de me nommer capitaine du Pharaon ?"
+          ],
+          "text": "— Sans son capitaine ! s’écria Dantès les yeux brillants de joie ; faites bien attention à ce que vous dites là, Monsieur, car vous venez de répondre aux plus secrètes espérances de mon cœur. Votre intention serait-elle de me nommer capitaine du Pharaon ?",
+          "breakAt": 191,
+          "isLeader": false,
+          "audioEvents": [
+            {
+              "action": "fadeIn",
+              "soundId": "whsh_cinematic_low_impact_muffled_hit_01_b00m_one",
+              "volume": 0.25,
+              "duration": 4000,
+              "delay": 0,
+              "loop": true
+            }
+          ]
+        },
+        {
+          "id": "seg_1782224964073_paste_170_oiaa7",
+          "lines": [
+            "— Si j’étais seul, je vous tendrais la main, mon cher Dantès,"
+          ],
+          "text": "— Si j’étais seul, je vous tendrais la main, mon cher Dantès,",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_171_n4a1j",
+          "lines": [
+            "et je vous dirais : C’est fait ; mais j’ai un associé, et vous savez le proverbe italien : « Che a compagne a padrone. » Mais la moitié de la besogne est faite au moins, puisque sur deux voix vous en avez déjà une. Rapportez-vous-en à moi pour avoir l’autre, et je ferai de mon mieux."
+          ],
+          "text": "et je vous dirais : C’est fait ; mais j’ai un associé, et vous savez le proverbe italien : « Che a compagne a padrone.» Mais la moitié de la besogne est faite au moins, puisque sur deux voix vous en avez déjà une. Rapportez-vous-en à moi pour avoir l’autre, et je ferai de mon mieux.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": [
+            {
+              "action": "play",
+              "soundId": "65_s02a_toast",
+              "volume": 0.6,
+              "delay": 11400,
+              "loop": false
+            }
+          ]
+        },
+        {
+          "id": "seg_1782224964073_paste_172_l5ai4",
+          "lines": [
+            "— Oh ! monsieur Morrel, s’écria le jeune marin, saisissant,"
+          ],
+          "text": "— Oh ! monsieur Morrel, s’écria le jeune marin, saisissant, les larmes aux yeux, les mains de l’armateur ;",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": [
+            {
+              "action": "play",
+              "soundId": "watrpour_water_fill_glass_ring_01_b00m_one",
+              "volume": 0.58,
+              "delay": 3300,
+              "loop": false
+            }
+          ],
+          "delay": 2000
+        },
+        {
+          "id": "seg_1782224964073_paste_173_x0dup",
+          "lines": [
+            "les larmes aux yeux, les mains de l’armateur ; monsieur Morrel, je vous remercie, au nom de mon père et de Mercédès."
+          ],
+          "text": "monsieur Morrel, je vous remercie, au nom de mon père et de Mercédès.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_174_msqqv",
+          "lines": [
+            "— C’est bien, c’est bien, Edmond, il y a un Dieu au ciel pour les braves gens, que diable ! Allez voir votre père,"
+          ],
+          "text": "— C’est bien, c’est bien, Edmond, il y a un Dieu au ciel pour les braves gens, que diable ! Allez voir votre père,",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_175_6lsch",
+          "lines": [
+            "allez voir Mercédès, et revenez me trouver après."
+          ],
+          "text": "allez voir Mercédès, et revenez me trouver après.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_176_8try8",
+          "lines": [
+            "— Mais vous ne voulez pas que je vous ramène à terre ?"
+          ],
+          "text": "— Mais vous ne voulez pas que je vous ramène à terre ?",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_177_868cc",
+          "lines": [
+            "— Non, merci ; je reste à régler mes comptes avec Danglars. Avez-vous été content de lui pendant le voyage ?"
+          ],
+          "text": "— Non, merci ; je reste à régler mes comptes avec Danglars. Avez-vous été content de lui pendant le voyage ?",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_178_xkx5i",
+          "lines": [
+            "— C’est selon le sens que vous attachez à cette question,"
+          ],
+          "text": "— C’est selon le sens que vous attachez à cette question, monsieur. Si c’est comme bon camarade, non, car je crois qu’il ne m’aime pas depuis le jour où j’ai eu la bêtise,",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": [],
+          "delay": 2200
+        },
+        {
+          "id": "seg_1782224964073_paste_179_i5pqf",
+          "lines": [
+            "monsieur. Si c’est comme bon camarade, non, car je crois qu’il ne m’aime pas depuis le jour où j’ai eu la bêtise, à la suite d’une petite querelle que nous avions eue ensemble, de lui proposer de nous arrêter dix minutes à l’île de Monte-Cristo pour vider cette querelle ; proposition que j’avais eu tort de lui faire, et qu’il avait eu, lui, raison de refuser."
+          ],
+          "text": "à la suite d’une petite querelle que nous avions eue ensemble, de lui proposer de nous arrêter dix minutes à l’île de Monte-Cristo pour vider cette querelle ; proposition que j’avais eu tort de lui faire, et qu’il avait eu, lui, raison de refuser.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": [
+            {
+              "action": "fadeOut",
+              "soundId": "whsh_cinematic_low_impact_muffled_hit_01_b00m_one",
+              "duration": 4000
+            }
+          ]
+        },
+        {
+          "id": "seg_1782224964073_paste_180_i5j93",
+          "lines": [
+            "Si c’est comme comptable que vous me faites cette question, je crois qu’il n’y a rien à dire et que vous serez content de la façon dont sa besogne est faite."
+          ],
+          "text": "Si c’est comme comptable que vous me faites cette question,",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_181_ns0dq",
+          "lines": [
+            "Si c’est comme comptable que vous me faites cette question, je crois qu’il n’y a rien à dire et que vous serez content de la façon dont sa besogne est faite."
+          ],
+          "text": "je crois qu’il n’y a rien à dire et que vous serez content de la façon dont sa besogne est faite.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_182_8vnv2",
+          "lines": [
+            "— Mais, demanda l’armateur, voyons, Dantès, si vous étiez capitaine du Pharaon, garderiez-vous Danglars avec plaisir ?"
+          ],
+          "text": "— Mais, demanda l’armateur, voyons, Dantès, si vous étiez capitaine du Pharaon, garderiez-vous Danglars avec plaisir ?",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_183_k954m",
+          "lines": [
+            "— Capitaine ou second, monsieur Morrel, répondit Dantès, j’aurai toujours les plus grands égards pour ceux qui posséderont la confiance de mes armateurs."
+          ],
+          "text": "— Capitaine ou second, monsieur Morrel, répondit Dantès, j’aurai toujours les plus grands égards pour ceux qui posséderont la confiance de mes armateurs.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_184_tm5ei",
+          "lines": [
+            "— Allons, allons, Dantès, je vois qu’en tout point vous êtes un brave garçon. Que je ne vous retienne plus : allez, car je vois que vous êtes sur des charbons."
+          ],
+          "text": "— Allons, allons, Dantès, je vois qu’en tout point vous êtes un brave garçon. Que je ne vous retienne plus : allez, car je vois que vous êtes sur des charbons.",
+          "breakAt": 77,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_185_5ov1l",
+          "lines": [
+            "— J’ai donc mon congé ? demanda Dantès."
+          ],
+          "text": "— J’ai donc mon congé ? demanda Dantès.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_186_c3q2b",
+          "lines": [
+            "— Allez, vous dis-je."
+          ],
+          "text": "— Allez, vous dis-je.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_187_rk7g9",
+          "lines": [
+            "— Vous permettez que je prenne votre canot ?",
+            "— Prenez."
+          ],
+          "text": "— Vous permettez que je prenne votre canot ? — Prenez.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_188_1znyh",
+          "lines": [
+            "— Au revoir, monsieur Morrel, et mille fois merci."
+          ],
+          "text": "— Au revoir, monsieur Morrel, et mille fois merci.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_189_acu8z",
+          "lines": [
+            "— Au revoir, mon cher Edmond, bonne chance !"
+          ],
+          "text": "— Au revoir, mon cher Edmond, bonne chance !",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_190_e25ib",
+          "lines": [
+            "Le jeune marin sauta dans le canot, alla s’asseoir à la poupe, et donna l’ordre d’aborder à la Canebière."
+          ],
+          "text": "Le jeune marin sauta dans le canot, alla s’asseoir à la poupe, et donna l’ordre d’aborder à la Canebière.",
+          "breakAt": null,
+          "isLeader": true,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_191_nnij8",
+          "lines": [
+            "Deux matelots se penchèrent aussitôt sur leurs rames, et l’embarcation glissa aussi rapidement qu’il est possible de le faire,"
+          ],
+          "text": "Deux matelots se penchèrent aussitôt sur leurs rames, et l’embarcation glissa aussi rapidement qu’il est possible de le faire,",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_192_32huv",
+          "lines": [
+            "au milieu des mille barques qui obstruent l’espèce de rue étroite qui conduit, entre deux rangées de navires, de l’entrée du port au quai d’Orléans."
+          ],
+          "text": "au milieu des mille barques qui obstruent l’espèce de rue étroite qui conduit, entre deux rangées de navires, de l’entrée du port au quai d’Orléans.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": [
+            {
+              "action": "fadeIn",
+              "soundId": "crwdconv_crowd_medium_talking_small_room_02_b00m_one",
+              "volume": 0.22,
+              "duration": 3000,
+              "delay": 0,
+              "loop": true
+            }
+          ]
+        },
+        {
+          "id": "seg_1782224964073_paste_193_b8eu4",
+          "lines": [
+            "L’armateur le suivit des yeux en souriant, jusqu’au bord, le vit sauter sur les dalles du quai, et se perdre aussitôt au milieu de la foule bariolée qui, de cinq heures du matin à neuf heures du soir, encombre cette fameuse rue de la Canebière, dont les Phocéens modernes sont si fiers,"
+          ],
+          "text": "L’armateur le suivit des yeux en souriant, jusqu’au bord, le vit sauter sur les dalles du quai, et se perdre aussitôt au milieu de la foule bariolée qui, de cinq heures du matin à neuf heures du soir, encombre cette fameuse rue de la Canebière, dont les Phocéens modernes sont si fiers,",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": [
+            {
+              "action": "fadeIn",
+              "soundId": "13_s03_ville",
+              "volume": 0.25,
+              "duration": 3000,
+              "delay": 0,
+              "loop": true
+            }
+          ]
+        },
+        {
+          "id": "seg_1782224964073_paste_194_w1j5h",
+          "lines": [
+            "qu’ils disent avec le plus grand sérieux du monde et avec cet accent qui donne tant de caractère à ce qu’ils disent :"
+          ],
+          "text": "qu’ils disent avec le plus grand sérieux du monde et avec cet accent qui donne tant de caractère à ce qu’ils disent :",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_195_h1rjm",
+          "lines": [
+            "Si Paris avait la Canebière, Paris serait un petit Marseille."
+          ],
+          "text": "Si Paris avait la Canebière, Paris serait un petit Marseille.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": [
+            {
+              "action": "fadeOut",
+              "soundId": "crwdconv_crowd_medium_talking_small_room_02_b00m_one",
+              "duration": 3000
+            }
+          ]
+        },
+        {
+          "id": "seg_1782224964073_paste_196_l9kax",
+          "lines": [
+            "En se retournant, l’armateur vit derrière lui Danglars,"
+          ],
+          "text": "En se retournant, l’armateur vit derrière lui Danglars,",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": [
+            {
+              "action": "fadeIn",
+              "soundId": "dsgnerie_musical_pad_dark_space_horror_02_b00m_one",
+              "volume": 0.18,
+              "duration": 3000,
+              "delay": 0,
+              "loop": true
+            }
+          ]
+        },
+        {
+          "id": "seg_1782224964073_paste_197_falu1",
+          "lines": [
+            "qui, en apparence, semblait attendre ses ordres, mais qui, en réalité, suivait comme lui le jeune marin du regard."
+          ],
+          "text": "qui, en apparence, semblait attendre ses ordres, mais qui, en réalité, suivait comme lui le jeune marin du regard.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782224964073_paste_198_fzfdl",
+          "lines": [
+            "Seulement, il y avait une grande différence dans l’expression de ce double regard qui suivait le même homme."
+          ],
+          "text": "Seulement, il y avait une grande différence dans l’expression de ce double regard qui suivait le même homme.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": [
+            {
+              "action": "fadeOut",
+              "soundId": "13_s03_ville",
+              "duration": 5000
+            },
+            {
+              "action": "fadeOut",
+              "soundId": "dsgnerie_musical_pad_dark_space_horror_02_b00m_one",
+              "duration": 5000
+            }
+          ]
         }
       ],
-      "soundTracks": [],
+      "soundTracks": [
+        {
+          "id": "st_1782224964073_paste_xlf0gzr",
+          "soundId": "ambiance_ville_1900_old_city",
+          "startSegmentId": "seg_1782224964073_paste_0_6wv5n",
+          "endSegmentId": "seg_1782224964073_paste_7_youpr",
+          "column": 0,
+          "volume": 0.4,
+          "loop": true,
+          "fadeIn": 4000,
+          "fadeOut": 3000,
+          "delay": 0,
+          "pan": 0,
+          "panMode": "static",
+          "muted": false,
+          "color": "#7EC8C8",
+          "_orchestrationNote": "Ambiance urbaine portuaire de Marseille, introduite dès le titre. Ville vivante, solaire, méditerranéenne.",
+          "_orchestrationKeyword": "13_s03_ville",
+          "automationPoints": [
+            {
+              "segmentId": "seg_1782206900845_0_n6jre",
+              "volume": 0.4,
+              "fadeMs": 0,
+              "_isAnchor": true
+            }
+          ]
+        },
+        {
+          "id": "st_1782224964073_paste_qrkyuhd",
+          "soundId": "08_s02_brooklyn_birds",
+          "startSegmentId": "seg_1782224964073_paste_2_2baeq",
+          "endSegmentId": "seg_1782224964073_paste_9_aavtc",
+          "column": 1,
+          "volume": 0.12,
+          "loop": true,
+          "fadeIn": 3000,
+          "fadeOut": 3000,
+          "delay": 0,
+          "pan": 0,
+          "panMode": "static",
+          "muted": false,
+          "color": "#7EC8C8",
+          "_orchestrationNote": "Mouettes et oiseaux marins au-dessus du port, couleur locale méditerranéenne.",
+          "_orchestrationKeyword": "08_s02_brooklyn_birds",
+          "automationPoints": [
+            {
+              "segmentId": "seg_1782206900845_2_tgm99",
+              "volume": 0.05,
+              "fadeMs": 0,
+              "_isAnchor": true
+            }
+          ]
+        },
+        {
+          "id": "st_1782224964073_paste_a3q9yx0",
+          "soundId": "whsh_cinematic_low_impact_muffled_hit_01_b00m_one",
+          "startSegmentId": "seg_1782224964073_paste_30_q103s",
+          "endSegmentId": "seg_1782224964073_paste_30_q103s",
+          "column": 0,
+          "volume": 0.55,
+          "loop": false,
+          "fadeIn": 0,
+          "fadeOut": 0,
+          "delay": 900,
+          "pan": 0,
+          "panMode": "static",
+          "muted": false,
+          "color": "#F0A87E",
+          "_orchestrationNote": "Impact sourd sur le mot 'Il est mort.' — choc émotionnel brutal, ponctuation dramatique.",
+          "_orchestrationKeyword": "whsh_cinematic_low_impact_muffled_hit_01_b00m_one"
+        },
+        {
+          "id": "st_1782224964073_paste_vblphd1",
+          "soundId": "17_s05_drap",
+          "startSegmentId": "seg_1782224964073_paste_45_tht7n",
+          "endSegmentId": "seg_1782224964073_paste_45_tht7n",
+          "column": 0,
+          "volume": 0.58,
+          "loop": false,
+          "fadeIn": 0,
+          "fadeOut": 0,
+          "delay": 2100,
+          "pan": 0,
+          "panMode": "static",
+          "muted": false,
+          "color": "#F0A87E",
+          "_orchestrationNote": "Tissu du hamac mortuaire évoqué dans la description de la mise en bière en mer.",
+          "_orchestrationKeyword": "17_s05_drap"
+        },
+        {
+          "id": "st_1782224964073_paste_vlwwyos",
+          "soundId": "53_s11_drone_ambience",
+          "startSegmentId": "seg_1782224964073_paste_71_djt98",
+          "endSegmentId": "seg_1782224964073_paste_87_co7ca",
+          "column": 0,
+          "volume": 0.12,
+          "loop": true,
+          "fadeIn": 6000,
+          "fadeOut": 5000,
+          "delay": 0,
+          "pan": 0,
+          "panMode": "static",
+          "muted": false,
+          "color": "#C8C8A8",
+          "automationPoints": [
+            {
+              "segmentId": "seg_1782206900845_70_ffm4p",
+              "volume": 0.04,
+              "fadeMs": 800
+            },
+            {
+              "segmentId": "seg_1782206900845_78_5cxkh",
+              "volume": 0.12,
+              "fadeMs": 800
+            },
+            {
+              "segmentId": "seg_1782206900845_86_xniht",
+              "volume": 0.04,
+              "fadeMs": 800
+            }
+          ],
+          "_orchestrationNote": "Drone de tension sous-jacent dès le regard haineux de Danglars (seg.72). Pic au moment des révélations sur l'île d'Elbe.",
+          "_orchestrationKeyword": "53_s11_drone_ambience"
+        },
+        {
+          "id": "st_1782224964073_paste_7rh6z3t",
+          "soundId": "61_s11_1_base_central_sourde",
+          "startSegmentId": "seg_1782224964073_paste_94_7q83m",
+          "endSegmentId": "seg_1782224964073_paste_106_frhgp",
+          "column": 0,
+          "volume": 0.14,
+          "loop": true,
+          "fadeIn": 4000,
+          "fadeOut": 4000,
+          "delay": 0,
+          "pan": 0,
+          "panMode": "static",
+          "muted": false,
+          "color": "#C8C8A8",
+          "_orchestrationNote": "Basse sourde et continue couvrant la conversation secrète sur l'Empereur Napoléon — danger politique latent.",
+          "_orchestrationKeyword": "61_s11_1_base_central_sourde"
+        },
+        {
+          "id": "st_1782224964073_paste_qu1gx5k",
+          "soundId": "73_s14_sweep_3",
+          "startSegmentId": "seg_1782224964073_paste_109_k0fyc",
+          "endSegmentId": "seg_1782224964073_paste_109_k0fyc",
+          "column": 0,
+          "volume": 0.5,
+          "loop": false,
+          "fadeIn": 0,
+          "fadeOut": 0,
+          "delay": 3000,
+          "pan": 0,
+          "panMode": "static",
+          "muted": false,
+          "color": "#A8D4A8",
+          "_orchestrationNote": "Sweep de transition marquant le glissement narratif : Dantès s'éloigne, Danglars se rapproche de Morrel — pivot dramatique.",
+          "_orchestrationKeyword": "73_s14_sweep_3"
+        },
+        {
+          "id": "st_1782224964073_paste_qh124pf",
+          "soundId": "53_s11_drone_respiration",
+          "startSegmentId": "seg_1782224964073_paste_118_mzr1e",
+          "endSegmentId": "seg_1782224964073_paste_127_ml26d",
+          "column": 0,
+          "volume": 0.13,
+          "loop": true,
+          "fadeIn": 5000,
+          "fadeOut": 3000,
+          "delay": 0,
+          "pan": 0,
+          "panMode": "static",
+          "muted": false,
+          "color": "#C8C8A8",
+          "automationPoints": [
+            {
+              "segmentId": "seg_1782206900845_117_znph8",
+              "volume": 0.13,
+              "fadeMs": 800
+            },
+            {
+              "segmentId": "seg_1782206900845_126_gqggn",
+              "volume": 0.04,
+              "fadeMs": 800
+            }
+          ],
+          "_orchestrationNote": "Respiration sourde sous la manipulation de Danglars autour du paquet secret — puis disparaît quand le danger retombe.",
+          "_orchestrationKeyword": "53_s11_drone_respiration"
+        },
+        {
+          "id": "st_1782224964073_paste_am11rep",
+          "soundId": "13_s03_ville",
+          "startSegmentId": "seg_1782224964073_paste_135_d8bwq",
+          "endSegmentId": "seg_1782224964073_paste_153_n3lu5",
+          "column": 0,
+          "volume": 0.17,
+          "loop": true,
+          "fadeIn": 3000,
+          "fadeOut": 3000,
+          "delay": 0,
+          "pan": 0,
+          "panMode": "static",
+          "muted": false,
+          "color": "#7EC8C8",
+          "_orchestrationNote": "Ville de Marseille en fond, pendant les échanges sur le père, Mercédès, la promotion. La vie repend ses droits.",
+          "_orchestrationKeyword": "13_s03_ville",
+          "automationPoints": [
+            {
+              "segmentId": "seg_1782206900845_134_lvmrh",
+              "volume": 0.17,
+              "fadeMs": 0,
+              "_isAnchor": true
+            }
+          ]
+        },
+        {
+          "id": "st_1782224964073_paste_95shpxg",
+          "soundId": "65_s02a_toast",
+          "startSegmentId": "seg_1782224964073_paste_171_n4a1j",
+          "endSegmentId": "seg_1782224964073_paste_171_n4a1j",
+          "column": 0,
+          "volume": 0.6,
+          "loop": false,
+          "fadeIn": 0,
+          "fadeOut": 0,
+          "delay": 11400,
+          "pan": 0,
+          "panMode": "static",
+          "muted": false,
+          "color": "#F0A87E",
+          "_orchestrationNote": "Toast métaphorique au moment où Morrel annonce presque la capitainerie à Dantès — proverbe italien, célébration imminente.",
+          "_orchestrationKeyword": "65_s02a_toast",
+          "automationPoints": [
+            {
+              "segmentId": "seg_1782206900845_170_0o1qu",
+              "volume": 0.6,
+              "fadeMs": 0,
+              "_isAnchor": true
+            }
+          ]
+        },
+        {
+          "id": "st_1782224964073_paste_vuwen5k",
+          "soundId": "whsh_cinematic_low_impact_muffled_hit_01_b00m_one",
+          "startSegmentId": "seg_1782224964073_paste_169_3s3kl",
+          "endSegmentId": "seg_1782224964073_paste_179_i5pqf",
+          "column": 1,
+          "volume": 0.25,
+          "loop": true,
+          "fadeIn": 4000,
+          "fadeOut": 4000,
+          "delay": 0,
+          "pan": 0,
+          "panMode": "static",
+          "muted": false,
+          "color": "#C8C8A8",
+          "automationPoints": [
+            {
+              "segmentId": "seg_1782206900845_168_jf4ml",
+              "volume": 0.08,
+              "fadeMs": 800
+            },
+            {
+              "segmentId": "seg_1782206900845_173_11rge",
+              "volume": 0.25,
+              "fadeMs": 800
+            },
+            {
+              "segmentId": "seg_1782208356570_b_pm5tq",
+              "volume": 0.08,
+              "fadeMs": 800
+            }
+          ],
+          "_orchestrationNote": "Pic émotionnel : Dantès apprend qu'il pourrait devenir capitaine. Montée puis légère redescente vers la nuance (Danglars en arrière-plan).",
+          "_orchestrationKeyword": "cinematic"
+        },
+        {
+          "id": "st_1782224964073_paste_3xh8wj0",
+          "soundId": "watrpour_water_fill_glass_ring_01_b00m_one",
+          "startSegmentId": "seg_1782224964073_paste_172_l5ai4",
+          "endSegmentId": "seg_1782224964073_paste_172_l5ai4",
+          "column": 0,
+          "volume": 0.58,
+          "loop": false,
+          "fadeIn": 0,
+          "fadeOut": 0,
+          "delay": 3300,
+          "pan": 0,
+          "panMode": "static",
+          "muted": false,
+          "color": "#F0A87E",
+          "_orchestrationNote": "Larmes aux yeux de Dantès — verre d'eau ou clochette cristalline, soulignant l'émotion pure du jeune homme.",
+          "_orchestrationKeyword": "watrpour_water_fill_glass_ring_01_b00m_one",
+          "automationPoints": [
+            {
+              "segmentId": "seg_1782206900845_171_podaf",
+              "volume": 0.58,
+              "fadeMs": 0,
+              "_isAnchor": true
+            }
+          ]
+        },
+        {
+          "id": "st_1782224964073_paste_7ipb3a7",
+          "soundId": "13_s03_ville",
+          "startSegmentId": "seg_1782224964073_paste_193_b8eu4",
+          "endSegmentId": "seg_1782224964073_paste_198_fzfdl",
+          "column": 0,
+          "volume": 0.25,
+          "loop": true,
+          "fadeIn": 3000,
+          "fadeOut": 5000,
+          "delay": 0,
+          "pan": 0,
+          "panMode": "static",
+          "muted": false,
+          "color": "#7EC8C8",
+          "automationPoints": [
+            {
+              "segmentId": "seg_1782206900845_190_ujjta",
+              "volume": 0.25,
+              "fadeMs": 800
+            },
+            {
+              "segmentId": "seg_1782206900845_194_plt6n",
+              "volume": 0.08,
+              "fadeMs": 800
+            }
+          ],
+          "_orchestrationNote": "Marseille reprend ses droits en clôture. Decrescendo final accompagnant le regard double de Morrel et Danglars — même homme, deux regards, lumière et ombre.",
+          "_orchestrationKeyword": "13_s03_ville"
+        },
+        {
+          "id": "st_1782224964073_paste_duys3uj",
+          "soundId": "watrwave_sea_waves_01_b00m_one",
+          "startSegmentId": "seg_1782224964073_paste_1_2qgzn",
+          "endSegmentId": "seg_1782224964073_paste_19_gp0rg",
+          "column": 2,
+          "volume": 0.18,
+          "loop": true,
+          "fadeIn": 5000,
+          "fadeOut": 4000,
+          "delay": 0,
+          "pan": 0,
+          "panMode": "static",
+          "muted": true,
+          "broken": true,
+          "color": "#7EC8C8",
+          "_orchestrationNote": "Mer, port, vague de fond méditerranéenne. Couvre toute la séquence d'approche du Pharaon.",
+          "_orchestrationKeyword": "waves",
+          "automationPoints": [
+            {
+              "segmentId": "seg_1782206900845_1_5ll25",
+              "volume": 0.18,
+              "fadeMs": 0,
+              "_isAnchor": true
+            }
+          ]
+        },
+        {
+          "id": "st_1782224964073_paste_i62daux",
+          "soundId": "mechrtch_tension_belt_tense_ratchet_single_click_01_b00m_one",
+          "startSegmentId": "seg_1782224964073_paste_8_5342z",
+          "endSegmentId": "seg_1782224964073_paste_15_npftd",
+          "column": 0,
+          "volume": 0.13,
+          "loop": true,
+          "fadeIn": 4000,
+          "fadeOut": 3000,
+          "delay": 0,
+          "pan": 0,
+          "panMode": "static",
+          "muted": false,
+          "color": "#C8C8A8",
+          "automationPoints": [
+            {
+              "segmentId": "seg_1782206900845_8_ut9t6",
+              "volume": 0.04,
+              "fadeMs": 800
+            },
+            {
+              "segmentId": "seg_1782206900845_15_yf6ya",
+              "volume": 0.13,
+              "fadeMs": 800
+            }
+          ],
+          "_orchestrationNote": "L'allure triste du navire installe un malaise diffus. Montée progressive vers le pressentiment de malheur.",
+          "_orchestrationKeyword": "tension"
+        },
+        {
+          "id": "st_1782224964073_paste_klvpjku",
+          "soundId": "crwdsprt_football_match_ambience_crowd_chant_walla_01_b00m_one",
+          "startSegmentId": "seg_1782224964073_paste_4_zvdsb",
+          "endSegmentId": "seg_1782224964073_paste_6_yfe9j",
+          "column": 3,
+          "volume": 0.8,
+          "loop": true,
+          "fadeIn": 2000,
+          "fadeOut": 2000,
+          "delay": 0,
+          "pan": 0,
+          "panMode": "static",
+          "muted": false,
+          "broken": true,
+          "color": "#7EC8C8",
+          "_orchestrationNote": "Foule curieuse sur l'esplanade de Saint-Jean, murmures et attente.",
+          "_orchestrationKeyword": "crowd",
+          "automationPoints": [
+            {
+              "segmentId": "seg_1782206900845_4_zqj6f",
+              "volume": 0.8,
+              "fadeMs": 0,
+              "_isAnchor": true
+            }
+          ]
+        },
+        {
+          "id": "st_1782224964073_paste_39dnkpp",
+          "soundId": "winddsgn_low_howling_wind_02_b00m_one",
+          "startSegmentId": "seg_1782224964073_paste_7_youpr",
+          "endSegmentId": "seg_1782224964073_paste_13_75z1j",
+          "column": 3,
+          "volume": 0.14,
+          "loop": true,
+          "fadeIn": 3000,
+          "fadeOut": 3000,
+          "delay": 0,
+          "pan": 0,
+          "panMode": "static",
+          "muted": true,
+          "broken": true,
+          "color": "#7EC8C8",
+          "_orchestrationNote": "Vent marin léger sur le pont, voiles et haubans.",
+          "_orchestrationKeyword": "wind",
+          "automationPoints": [
+            {
+              "segmentId": "seg_1782206900845_7_0qivd",
+              "volume": 0.14,
+              "fadeMs": 0,
+              "_isAnchor": true
+            }
+          ]
+        },
+        {
+          "id": "st_1782224964073_paste_3x466f7",
+          "soundId": "boatrow_rowboat_paddle_in_water_sequence_01_b00m_one",
+          "startSegmentId": "seg_1782224964073_paste_17_cro5o",
+          "endSegmentId": "seg_1782224964073_paste_17_cro5o",
+          "column": 0,
+          "volume": 0.65,
+          "loop": false,
+          "fadeIn": 0,
+          "fadeOut": 0,
+          "delay": 1500,
+          "pan": -0.4,
+          "panMode": "static",
+          "muted": true,
+          "broken": true,
+          "color": "#F0A87E",
+          "automationPoints": [
+            {
+              "segmentId": "seg_1782206900845_17_h18zu",
+              "volume": 0.65,
+              "fadeMs": 0,
+              "_isAnchor": true
+            }
+          ],
+          "_orchestrationNote": "Barque qui part du port vers le Pharaon, son de rame sur l'eau. Pan légèrement à gauche, départ depuis le quai.",
+          "_orchestrationKeyword": "splash"
+        },
+        {
+          "id": "st_1782224964073_paste_5kghzlo",
+          "soundId": "voxreac_male_sigh_03_b00m_one",
+          "startSegmentId": "seg_1782224964073_paste_20_21ttk",
+          "endSegmentId": "seg_1782224964073_paste_31_wutew",
+          "column": 1,
+          "volume": 0.16,
+          "loop": true,
+          "fadeIn": 4000,
+          "fadeOut": 3000,
+          "delay": 0,
+          "pan": 0,
+          "panMode": "static",
+          "muted": true,
+          "broken": true,
+          "color": "#C8C8A8",
+          "_orchestrationNote": "Portrait de Dantès, calme et résolution. Atmosphère douce teintée de mélancolie naissante après l'annonce du capitaine mort.",
+          "_orchestrationKeyword": "melancholic",
+          "automationPoints": [
+            {
+              "segmentId": "seg_1782207755830_a_g12cw",
+              "volume": 0.16,
+              "fadeMs": 0,
+              "_isAnchor": true
+            }
+          ]
+        },
+        {
+          "id": "st_1782224964073_paste_5ciflck",
+          "soundId": "clothmvmt_jeans_trousers_walk_sequence_soft_02_b00m_one",
+          "startSegmentId": "seg_1782224964073_paste_34_39j3h",
+          "endSegmentId": "seg_1782224964073_paste_37_vbthp",
+          "column": 0,
+          "volume": 0.6,
+          "loop": false,
+          "fadeIn": 0,
+          "fadeOut": 0,
+          "delay": 2400,
+          "pan": 0,
+          "panMode": "static",
+          "muted": true,
+          "broken": true,
+          "color": "#F0A87E",
+          "automationPoints": [
+            {
+              "segmentId": "seg_1782206900845_33_jenuc",
+              "volume": 0.6,
+              "fadeMs": 0,
+              "_isAnchor": true
+            }
+          ],
+          "_orchestrationNote": "Matelots qui s'élancent aux postes, bruit de pieds sur le pont en bois.",
+          "_orchestrationKeyword": "walk"
+        },
+        {
+          "id": "st_1782224964073_paste_onruzyv",
+          "soundId": "equiprec_climbing_rope_bag_handling_01_b00m_one",
+          "startSegmentId": "seg_1782224964073_paste_36_tpplm",
+          "endSegmentId": "seg_1782224964073_paste_37_vbthp",
+          "column": 1,
+          "volume": 0.62,
+          "loop": false,
+          "fadeIn": 0,
+          "fadeOut": 0,
+          "delay": 4800,
+          "pan": 0,
+          "panMode": "static",
+          "muted": true,
+          "broken": true,
+          "color": "#F0A87E",
+          "_orchestrationNote": "Cordes, écoutes et haubans manœuvrés par l'équipage.",
+          "_orchestrationKeyword": "rope",
+          "automationPoints": [
+            {
+              "segmentId": "seg_1782206900845_35_u9y6i",
+              "volume": 0.62,
+              "fadeMs": 0,
+              "_isAnchor": true
+            }
+          ]
+        },
+        {
+          "id": "st_1782224964073_paste_x7iypiw",
+          "soundId": "ambrurl_sheep_herd_distant_calm_04_b00m_one",
+          "startSegmentId": "seg_1782224964073_paste_38_1c9nc",
+          "endSegmentId": "seg_1782224964073_paste_49_57cgq",
+          "column": 1,
+          "volume": 0.14,
+          "loop": true,
+          "fadeIn": 3000,
+          "fadeOut": 3000,
+          "delay": 0,
+          "pan": 0,
+          "panMode": "static",
+          "muted": true,
+          "broken": true,
+          "color": "#C8C8A8",
+          "_orchestrationNote": "Conversation entre Dantès et Morrel, nonchalance et recueillement du jeune marin après l'annonce du deuil.",
+          "_orchestrationKeyword": "calm",
+          "automationPoints": [
+            {
+              "segmentId": "seg_1782206900845_37_n6jrw",
+              "volume": 0.14,
+              "fadeMs": 0,
+              "_isAnchor": true
+            }
+          ]
+        },
+        {
+          "id": "st_1782224964073_paste_p4rjt5s",
+          "soundId": "watrsplsh_splash_04_b00m_one",
+          "startSegmentId": "seg_1782224964073_paste_45_tht7n",
+          "endSegmentId": "seg_1782224964073_paste_45_tht7n",
+          "column": 2,
+          "volume": 0.6,
+          "loop": false,
+          "fadeIn": 0,
+          "fadeOut": 0,
+          "delay": 4200,
+          "pan": 0,
+          "panMode": "static",
+          "muted": true,
+          "broken": true,
+          "color": "#F0A87E",
+          "_orchestrationNote": "Évocation sonore du corps glissant dans la mer — discret, lointain, mémoriel.",
+          "_orchestrationKeyword": "splash",
+          "automationPoints": [
+            {
+              "segmentId": "seg_1782206900845_44_t5dio",
+              "volume": 0.6,
+              "fadeMs": 0,
+              "_isAnchor": true
+            }
+          ]
+        },
+        {
+          "id": "st_1782224964073_paste_1xflnuh",
+          "soundId": "musctoy_music_box_melody_play_slow_b00m_one",
+          "startSegmentId": "seg_1782224964073_paste_46_hd80k",
+          "endSegmentId": "seg_1782224964073_paste_54_pk6uh",
+          "column": 0,
+          "volume": 0.22,
+          "loop": true,
+          "fadeIn": 4000,
+          "fadeOut": 3000,
+          "delay": 0,
+          "pan": 0,
+          "panMode": "static",
+          "muted": true,
+          "broken": true,
+          "color": "#C8C8A8",
+          "_orchestrationNote": "Sourire mélancolique de Dantès évoquant les dix ans de guerre. Teinte douce-amère sur la conversation avec Morrel.",
+          "_orchestrationKeyword": "nostalgic",
+          "automationPoints": [
+            {
+              "segmentId": "seg_1782206900845_45_qoc97",
+              "volume": 0.22,
+              "fadeMs": 0,
+              "_isAnchor": true
+            }
+          ]
+        },
+        {
+          "id": "st_1782224964073_paste_3t1xsa2",
+          "soundId": "chainimpt_metal_chain_on_wood_impact_01_b00m_one",
+          "startSegmentId": "seg_1782224964073_paste_79_1q5ot",
+          "endSegmentId": "seg_1782224964073_paste_79_1q5ot",
+          "column": 1,
+          "volume": 0.72,
+          "loop": false,
+          "fadeIn": 0,
+          "fadeOut": 0,
+          "delay": 2400,
+          "pan": 0,
+          "panMode": "static",
+          "muted": true,
+          "broken": true,
+          "color": "#F0A87E",
+          "_orchestrationNote": "La chaîne d'ancre qui file avec bruit — son explicitement décrit dans le texte, ponctuation sonore forte.",
+          "_orchestrationKeyword": "chain",
+          "automationPoints": [
+            {
+              "segmentId": "seg_1782206900845_78_5cxkh",
+              "volume": 0.72,
+              "fadeMs": 0,
+              "_isAnchor": true
+            }
+          ]
+        },
+        {
+          "id": "st_1782224964073_paste_pfhyxfm",
+          "soundId": "watrsplsh_splash_04_b00m_one",
+          "startSegmentId": "seg_1782224964073_paste_79_1q5ot",
+          "endSegmentId": "seg_1782224964073_paste_79_1q5ot",
+          "column": 2,
+          "volume": 0.68,
+          "loop": false,
+          "fadeIn": 0,
+          "fadeOut": 0,
+          "delay": 600,
+          "pan": 0,
+          "panMode": "static",
+          "muted": true,
+          "broken": true,
+          "color": "#F0A87E",
+          "_orchestrationNote": "L'ancre qui tombe — impact sourd dans l'eau du port.",
+          "_orchestrationKeyword": "splash",
+          "automationPoints": [
+            {
+              "segmentId": "seg_1782206900845_78_5cxkh",
+              "volume": 0.68,
+              "fadeMs": 0,
+              "_isAnchor": true
+            }
+          ]
+        },
+        {
+          "id": "st_1782224964073_paste_zjnsg7f",
+          "soundId": "dsgndron_dark_ship_horror_01_b00m_one",
+          "startSegmentId": "seg_1782224964073_paste_62_s9c36",
+          "endSegmentId": "seg_1782224964073_paste_75_p20tx",
+          "column": 1,
+          "volume": 0.13,
+          "loop": true,
+          "fadeIn": 5000,
+          "fadeOut": 4000,
+          "delay": 0,
+          "pan": 0,
+          "panMode": "static",
+          "muted": false,
+          "color": "#C8C8A8",
+          "automationPoints": [
+            {
+              "segmentId": "seg_1782206900845_61_ww0rt",
+              "volume": 0.04,
+              "fadeMs": 800
+            },
+            {
+              "segmentId": "seg_1782206900845_74_9555i",
+              "volume": 0.13,
+              "fadeMs": 800
+            }
+          ],
+          "_orchestrationNote": "Introduction de Danglars, figure sombre. Montée progressive d'une inquiétude sourde à mesure que la jalousie se révèle.",
+          "_orchestrationKeyword": "ominous"
+        },
+        {
+          "id": "st_1782224964073_paste_uiw6d6v",
+          "soundId": "pp-suspense-mute",
+          "startSegmentId": "seg_1782224964073_paste_94_7q83m",
+          "endSegmentId": "seg_1782224964073_paste_109_k0fyc",
+          "column": 1,
+          "volume": 0.15,
+          "loop": true,
+          "fadeIn": 3000,
+          "fadeOut": 4000,
+          "delay": 0,
+          "pan": 0,
+          "panMode": "static",
+          "muted": true,
+          "broken": true,
+          "color": "#C8C8A8",
+          "_orchestrationNote": "Tension dramatique autour des questions sur l'Empereur. Morrel tire Dantès à part — conversation à voix basse, risque politique.",
+          "_orchestrationKeyword": "suspense",
+          "automationPoints": [
+            {
+              "segmentId": "seg_1782206900845_94_5ivuy",
+              "volume": 0.15,
+              "fadeMs": 0,
+              "_isAnchor": true
+            }
+          ]
+        },
+        {
+          "id": "st_1782224964073_paste_opkg72e",
+          "soundId": "dsgndron_huge_didgeridoo_01_b00m_one",
+          "startSegmentId": "seg_1782224964073_paste_110_h5zen",
+          "endSegmentId": "seg_1782224964073_paste_127_ml26d",
+          "column": 1,
+          "volume": 0.16,
+          "loop": true,
+          "fadeIn": 4000,
+          "fadeOut": 4000,
+          "delay": 0,
+          "pan": 0,
+          "panMode": "static",
+          "muted": true,
+          "broken": true,
+          "color": "#C8C8A8",
+          "_orchestrationNote": "Danglars tisse sa toile de mensonges et de sous-entendus. Atmosphère de machination discrète mais menaçante.",
+          "_orchestrationKeyword": "threatening",
+          "automationPoints": [
+            {
+              "segmentId": "seg_1782206900845_109_n51mw",
+              "volume": 0.16,
+              "fadeMs": 0,
+              "_isAnchor": true
+            }
+          ]
+        },
+        {
+          "id": "st_1782224964073_paste_pcg5z8g",
+          "soundId": "ambpark_riverside_peaceful_park_02_b00m_one",
+          "startSegmentId": "seg_1782224964073_paste_128_aj78u",
+          "endSegmentId": "seg_1782224964073_paste_144_ut1b1",
+          "column": 1,
+          "volume": 0.14,
+          "loop": true,
+          "fadeIn": 4000,
+          "fadeOut": 3000,
+          "delay": 0,
+          "pan": 0,
+          "panMode": "static",
+          "muted": true,
+          "broken": true,
+          "color": "#C8C8A8",
+          "_orchestrationNote": "Retour de Dantès, libéré de ses obligations — conversation sur le père, douce et intime, retour à une atmosphère de légèreté.",
+          "_orchestrationKeyword": "peaceful",
+          "automationPoints": [
+            {
+              "segmentId": "seg_1782206900845_127_n1rzi",
+              "volume": 0.14,
+              "fadeMs": 0,
+              "_isAnchor": true
+            }
+          ]
+        },
+        {
+          "id": "st_1782224964073_paste_gsyt6ci",
+          "soundId": "uimisc_console_controller_joystick_move_sequence_short_01_b00m_one",
+          "startSegmentId": "seg_1782224964073_paste_147_kfbcv",
+          "endSegmentId": "seg_1782224964073_paste_159_81f82",
+          "column": 1,
+          "volume": 0.2,
+          "loop": true,
+          "fadeIn": 3000,
+          "fadeOut": 3000,
+          "delay": 0,
+          "pan": 0,
+          "panMode": "static",
+          "muted": true,
+          "broken": true,
+          "color": "#C8C8A8",
+          "_orchestrationNote": "Mercédès évoquée, fiancée aimée — atmosphère lumineuse, légère, empreinte de bonheur simple et sincère.",
+          "_orchestrationKeyword": "joy",
+          "automationPoints": [
+            {
+              "segmentId": "seg_1782206900845_146_xem38",
+              "volume": 0.2,
+              "fadeMs": 0,
+              "_isAnchor": true
+            }
+          ]
+        },
+        {
+          "id": "st_1782224964073_paste_11pb23h",
+          "soundId": "boatship_engine_run_close_loop_01_b00m_one",
+          "startSegmentId": "seg_1782224964073_paste_190_e25ib",
+          "endSegmentId": "seg_1782224964073_paste_193_b8eu4",
+          "column": 1,
+          "volume": 0.6,
+          "loop": false,
+          "fadeIn": 0,
+          "fadeOut": 0,
+          "delay": 1800,
+          "pan": 0.3,
+          "panMode": "sweep-lr",
+          "muted": true,
+          "broken": true,
+          "color": "#F0A87E",
+          "_orchestrationNote": "Dantès saute dans le canot et rame vers la Canebière — mouvement de droite à gauche dans l'espace stéréo, du bord vers le quai. panMode sweep-lr justifié par le déplacement physique explicite du canot traversant le port.",
+          "_orchestrationKeyword": "boat",
+          "automationPoints": [
+            {
+              "segmentId": "seg_1782206900845_187_gsx1e",
+              "volume": 0.6,
+              "fadeMs": 0,
+              "_isAnchor": true
+            }
+          ]
+        },
+        {
+          "id": "st_1782224964073_paste_6gsgcpf",
+          "soundId": "crwdconv_crowd_medium_talking_small_room_02_b00m_one",
+          "startSegmentId": "seg_1782224964073_paste_192_32huv",
+          "endSegmentId": "seg_1782224964073_paste_195_h1rjm",
+          "column": 2,
+          "volume": 0.22,
+          "loop": true,
+          "fadeIn": 3000,
+          "fadeOut": 3000,
+          "delay": 0,
+          "pan": 0,
+          "panMode": "static",
+          "muted": false,
+          "color": "#7EC8C8",
+          "automationPoints": [
+            {
+              "segmentId": "seg_1782206900845_189_bs1t0",
+              "volume": 0.22,
+              "fadeMs": 0,
+              "_isAnchor": true
+            }
+          ],
+          "_orchestrationNote": "Fourmillement de la Canebière, mille barques, foule bariolée — Marseille vivante et fière.",
+          "_orchestrationKeyword": "crowd"
+        },
+        {
+          "id": "st_1782224964073_paste_egtwkdc",
+          "soundId": "dsgnerie_musical_pad_dark_space_horror_02_b00m_one",
+          "startSegmentId": "seg_1782224964073_paste_196_l9kax",
+          "endSegmentId": "seg_1782224964073_paste_198_fzfdl",
+          "column": 1,
+          "volume": 0.18,
+          "loop": true,
+          "fadeIn": 3000,
+          "fadeOut": 5000,
+          "delay": 0,
+          "pan": 0,
+          "panMode": "static",
+          "muted": false,
+          "color": "#C8C8A8",
+          "automationPoints": [
+            {
+              "segmentId": "seg_1782224964073_paste_196_l9kax",
+              "volume": 0.18,
+              "fadeMs": 0,
+              "_isAnchor": true
+            },
+            {
+              "segmentId": "seg_1782206900845_192_v4t0a",
+              "volume": 0.05,
+              "fadeMs": 800
+            },
+            {
+              "segmentId": "seg_1782206900845_194_plt6n",
+              "volume": 0.18,
+              "fadeMs": 800
+            }
+          ],
+          "_orchestrationNote": "Danglars, les yeux dans le dos de Dantès — regard de haine final. Montée sourde et inquiète sur les derniers mots, laissant le lecteur dans le malaise.",
+          "_orchestrationKeyword": "ominous"
+        }
+      ],
       "vfxTracks": []
     }
   ]
