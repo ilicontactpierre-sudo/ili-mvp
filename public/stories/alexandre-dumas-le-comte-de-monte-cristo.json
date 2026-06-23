@@ -161,6 +161,11 @@
           "loop": false
         },
         {
+          "id": "alarme---son-libre-de-droit---bruit-gratuit",
+          "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/alarme---son-libre-de-droit---bruit-gratuit.mp3",
+          "loop": false
+        },
+        {
           "id": "ambiance_ville_1900_old_city",
           "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/ambiance_ville_1900_old_city.mp3",
           "loop": false
@@ -205,9 +210,10 @@
               "loop": true
             },
             {
-              "action": "play",
+              "action": "fadeIn",
               "soundId": "alarme---son-libre-de-droit---bruit-gratuit",
-              "volume": 0.25,
+              "volume": 0.45,
+              "duration": 2500,
               "delay": 0,
               "loop": false
             }
@@ -245,8 +251,8 @@
             {
               "action": "fadeIn",
               "soundId": "crwdangr_male_crowd_grumpy_01_b00m_one",
-              "volume": 0.5,
-              "duration": 634,
+              "volume": 0.3,
+              "duration": 2567,
               "delay": 0,
               "loop": false
             }
@@ -290,7 +296,7 @@
             {
               "action": "fadeOut",
               "soundId": "ambiance_ville_1900_old_city",
-              "duration": 3000
+              "duration": 3173
             },
             {
               "action": "fadeIn",
@@ -2440,7 +2446,7 @@
           "volume": 0.75,
           "loop": true,
           "fadeIn": 4000,
-          "fadeOut": 3000,
+          "fadeOut": 3173,
           "delay": 0,
           "pan": 0,
           "panMode": "static",
@@ -3299,8 +3305,8 @@
           "startSegmentId": "seg_1782206900845_1_5ll25",
           "endSegmentId": "seg_1782206900845_1_5ll25",
           "column": 1,
-          "volume": 0.25,
-          "fadeIn": 0,
+          "volume": 0.45,
+          "fadeIn": 2500,
           "fadeOut": 0,
           "delay": 0,
           "loop": false,
@@ -3308,12 +3314,14 @@
           "automationPoints": [
             {
               "segmentId": "seg_1782206900845_1_5ll25",
-              "volume": 0.25,
+              "volume": 0.45,
               "fadeMs": 0,
               "_isAnchor": true
             }
           ],
-          "pan": 0.84
+          "pan": 0.77,
+          "trimStart": 11584,
+          "trimEnd": 21384
         },
         {
           "id": "st_1782225496086_03tccv3aa",
@@ -3321,8 +3329,8 @@
           "startSegmentId": "seg_1782206900845_4_zqj6f",
           "endSegmentId": "seg_1782206900845_6_m0obo",
           "column": 1,
-          "volume": 0.5,
-          "fadeIn": 634,
+          "volume": 0.3,
+          "fadeIn": 2567,
           "fadeOut": 4000,
           "delay": 0,
           "loop": false,
@@ -3330,11 +3338,12 @@
           "automationPoints": [
             {
               "segmentId": "seg_1782206900845_4_zqj6f",
-              "volume": 0.5,
+              "volume": 0.3,
               "fadeMs": 0,
               "_isAnchor": true
             }
-          ]
+          ],
+          "pan": -0.54
         }
       ],
       "vfxTracks": []
