@@ -143,7 +143,7 @@ function applyBionicReading(text) {
 }
 
 function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle', viewportHeight }) {
-  const segments = storyData ? storyData.segments : []
+  const segments = storyData ? (storyData.segments || []) : []
   const [loadedStory, setLoadedStory] = useState(null)
 
   // ── Mémoire narrative (sessionStorage isolé par histoire) ──────────────────
