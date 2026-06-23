@@ -46,13 +46,13 @@
           "loop": false
         },
         {
-          "id": "crwdconv_crowd_medium_talking_small_room_02_b00m_one",
-          "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/crwdconv_crowd_medium_talking_small_room_02_b00m_one.mp3",
+          "id": "crwdangr_male_crowd_grumpy_01_b00m_one",
+          "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/crwdangr_male_crowd_grumpy_01_b00m_one.mp3",
           "loop": false
         },
         {
-          "id": "crwdsprt_football_match_ambience_crowd_chant_walla_01_b00m_one",
-          "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/crwdsprt_football_match_ambience_crowd_chant_walla_01_b00m_one.mp3",
+          "id": "crwdconv_crowd_medium_talking_small_room_02_b00m_one",
+          "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/crwdconv_crowd_medium_talking_small_room_02_b00m_one.mp3",
           "loop": false
         },
         {
@@ -126,11 +126,6 @@
           "loop": false
         },
         {
-          "id": "08_s02_brooklyn_birds",
-          "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/08_s02_brooklyn_birds.mp3",
-          "loop": false
-        },
-        {
           "id": "13_s03_ville",
           "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/13_s03_ville.mp3",
           "loop": false
@@ -185,7 +180,7 @@
             {
               "action": "fadeIn",
               "soundId": "ambiance_ville_1900_old_city",
-              "volume": 0.4,
+              "volume": 0.75,
               "duration": 4000,
               "delay": 0,
               "loop": true
@@ -200,7 +195,23 @@
           "text": "Le 24 février 1815, la vigie de Notre-Dame de la Garde signala le trois-mâts le Pharaon, venant de Smyrne, Trieste et Naples.",
           "breakAt": null,
           "isLeader": true,
-          "audioEvents": []
+          "audioEvents": [
+            {
+              "action": "fadeIn",
+              "soundId": "watrwave_sea_waves_01_b00m_one",
+              "volume": 0.18,
+              "duration": 5000,
+              "delay": 0,
+              "loop": true
+            },
+            {
+              "action": "play",
+              "soundId": "alarme---son-libre-de-droit---bruit-gratuit",
+              "volume": 0.25,
+              "delay": 0,
+              "loop": false
+            }
+          ]
         },
         {
           "id": "seg_1782206900845_2_tgm99",
@@ -210,16 +221,7 @@
           "text": "Comme d’habitude, un pilote côtier partit aussitôt du port, rasa le château d’If,",
           "breakAt": null,
           "isLeader": false,
-          "audioEvents": [
-            {
-              "action": "fadeIn",
-              "soundId": "08_s02_brooklyn_birds",
-              "volume": 0.12,
-              "duration": 3000,
-              "delay": 0,
-              "loop": true
-            }
-          ]
+          "audioEvents": []
         },
         {
           "id": "seg_1782206900845_3_ki7dk",
@@ -242,11 +244,11 @@
           "audioEvents": [
             {
               "action": "fadeIn",
-              "soundId": "crwdsprt_football_match_ambience_crowd_chant_walla_01_b00m_one",
-              "volume": 0.8,
-              "duration": 2000,
+              "soundId": "crwdangr_male_crowd_grumpy_01_b00m_one",
+              "volume": 0.5,
+              "duration": 634,
               "delay": 0,
-              "loop": true
+              "loop": false
             }
           ]
         },
@@ -271,8 +273,8 @@
           "audioEvents": [
             {
               "action": "fadeOut",
-              "soundId": "crwdsprt_football_match_ambience_crowd_chant_walla_01_b00m_one",
-              "duration": 2000
+              "soundId": "crwdangr_male_crowd_grumpy_01_b00m_one",
+              "duration": 4000
             }
           ]
         },
@@ -289,6 +291,14 @@
               "action": "fadeOut",
               "soundId": "ambiance_ville_1900_old_city",
               "duration": 3000
+            },
+            {
+              "action": "fadeIn",
+              "soundId": "winddsgn_low_howling_wind_02_b00m_one",
+              "volume": 0.14,
+              "duration": 3000,
+              "delay": 0,
+              "loop": true
             }
           ]
         },
@@ -319,13 +329,7 @@
           "text": "que les curieux, avec cet instinct qui pressent un malheur, se demandaient quel accident pouvait être arrivé à bord.",
           "breakAt": null,
           "isLeader": false,
-          "audioEvents": [
-            {
-              "action": "fadeOut",
-              "soundId": "08_s02_brooklyn_birds",
-              "duration": 3000
-            }
-          ]
+          "audioEvents": []
         },
         {
           "id": "seg_1782206900845_10_d9ln3",
@@ -365,7 +369,13 @@
           "text": "et près du pilote, qui s’apprêtait à diriger le Pharaon par l’étroite entrée du port de Marseille,",
           "breakAt": null,
           "isLeader": false,
-          "audioEvents": []
+          "audioEvents": [
+            {
+              "action": "fadeOut",
+              "soundId": "winddsgn_low_howling_wind_02_b00m_one",
+              "duration": 3000
+            }
+          ]
         },
         {
           "id": "seg_1782206900845_14_yup7l",
@@ -411,7 +421,15 @@
           "text": "il sauta dans une petite barque et ordonna de ramer au-devant du Pharaon, qu’il atteignit en face de l’anse de la Réserve.",
           "breakAt": null,
           "isLeader": false,
-          "audioEvents": []
+          "audioEvents": [
+            {
+              "action": "play",
+              "soundId": "boatrow_rowboat_paddle_in_water_sequence_01_b00m_one",
+              "volume": 0.65,
+              "delay": 1500,
+              "loop": false
+            }
+          ]
         },
         {
           "id": "seg_1782206900845_18_x3aq8",
@@ -431,7 +449,13 @@
           "text": "le chapeau à la main, s’appuyer à la muraille du bâtiment.",
           "breakAt": null,
           "isLeader": false,
-          "audioEvents": []
+          "audioEvents": [
+            {
+              "action": "fadeOut",
+              "soundId": "watrwave_sea_waves_01_b00m_one",
+              "duration": 4000
+            }
+          ]
         },
         {
           "id": "seg_1782207755830_a_g12cw",
@@ -2413,7 +2437,7 @@
           "startSegmentId": "seg_1782206900845_0_n6jre",
           "endSegmentId": "seg_1782206900845_7_0qivd",
           "column": 0,
-          "volume": 0.4,
+          "volume": 0.75,
           "loop": true,
           "fadeIn": 4000,
           "fadeOut": 3000,
@@ -2427,33 +2451,7 @@
           "automationPoints": [
             {
               "segmentId": "seg_1782206900845_0_n6jre",
-              "volume": 0.4,
-              "fadeMs": 0,
-              "_isAnchor": true
-            }
-          ]
-        },
-        {
-          "id": "st_1782208655273_5ieuf8pmm_1",
-          "soundId": "08_s02_brooklyn_birds",
-          "startSegmentId": "seg_1782206900845_2_tgm99",
-          "endSegmentId": "seg_1782206900845_9_xdu4l",
-          "column": 1,
-          "volume": 0.12,
-          "loop": true,
-          "fadeIn": 3000,
-          "fadeOut": 3000,
-          "delay": 0,
-          "pan": 0,
-          "panMode": "static",
-          "muted": false,
-          "color": "#7EC8C8",
-          "_orchestrationNote": "Mouettes et oiseaux marins au-dessus du port, couleur locale méditerranéenne.",
-          "_orchestrationKeyword": "08_s02_brooklyn_birds",
-          "automationPoints": [
-            {
-              "segmentId": "seg_1782206900845_2_tgm99",
-              "volume": 0.05,
+              "volume": 0.75,
               "fadeMs": 0,
               "_isAnchor": true
             }
@@ -2564,7 +2562,15 @@
           "muted": false,
           "color": "#A8D4A8",
           "_orchestrationNote": "Sweep de transition marquant le glissement narratif : Dantès s'éloigne, Danglars se rapproche de Morrel — pivot dramatique.",
-          "_orchestrationKeyword": "73_s14_sweep_3"
+          "_orchestrationKeyword": "73_s14_sweep_3",
+          "automationPoints": [
+            {
+              "segmentId": "seg_1782206900845_108_68t4h",
+              "volume": 0.5,
+              "fadeMs": 0,
+              "_isAnchor": true
+            }
+          ]
         },
         {
           "id": "st_1782208655273_4klgmaugb_7",
@@ -2752,7 +2758,7 @@
           "delay": 0,
           "pan": 0,
           "panMode": "static",
-          "muted": true,
+          "muted": false,
           "broken": true,
           "color": "#7EC8C8",
           "_orchestrationNote": "Mer, port, vague de fond méditerranéenne. Couvre toute la séquence d'approche du Pharaon.",
@@ -2797,33 +2803,6 @@
           "_orchestrationKeyword": "tension"
         },
         {
-          "id": "st_1782208655274_184ladpei_15",
-          "soundId": "crwdsprt_football_match_ambience_crowd_chant_walla_01_b00m_one",
-          "startSegmentId": "seg_1782206900845_4_zqj6f",
-          "endSegmentId": "seg_1782206900845_6_m0obo",
-          "column": 3,
-          "volume": 0.8,
-          "loop": true,
-          "fadeIn": 2000,
-          "fadeOut": 2000,
-          "delay": 0,
-          "pan": 0,
-          "panMode": "static",
-          "muted": false,
-          "broken": true,
-          "color": "#7EC8C8",
-          "_orchestrationNote": "Foule curieuse sur l'esplanade de Saint-Jean, murmures et attente.",
-          "_orchestrationKeyword": "crowd",
-          "automationPoints": [
-            {
-              "segmentId": "seg_1782206900845_4_zqj6f",
-              "volume": 0.8,
-              "fadeMs": 0,
-              "_isAnchor": true
-            }
-          ]
-        },
-        {
           "id": "st_1782208655274_j1prvc16j_16",
           "soundId": "winddsgn_low_howling_wind_02_b00m_one",
           "startSegmentId": "seg_1782206900845_7_0qivd",
@@ -2836,7 +2815,7 @@
           "delay": 0,
           "pan": 0,
           "panMode": "static",
-          "muted": true,
+          "muted": false,
           "broken": true,
           "color": "#7EC8C8",
           "_orchestrationNote": "Vent marin léger sur le pont, voiles et haubans.",
@@ -2863,7 +2842,7 @@
           "delay": 1500,
           "pan": -0.4,
           "panMode": "static",
-          "muted": true,
+          "muted": false,
           "broken": true,
           "color": "#F0A87E",
           "automationPoints": [
@@ -3313,6 +3292,49 @@
           ],
           "_orchestrationNote": "Danglars, les yeux dans le dos de Dantès — regard de haine final. Montée sourde et inquiète sur les derniers mots, laissant le lecteur dans le malaise.",
           "_orchestrationKeyword": "ominous"
+        },
+        {
+          "id": "st_1782225316739_f3b4fcvni",
+          "soundId": "alarme---son-libre-de-droit---bruit-gratuit",
+          "startSegmentId": "seg_1782206900845_1_5ll25",
+          "endSegmentId": "seg_1782206900845_1_5ll25",
+          "column": 1,
+          "volume": 0.25,
+          "fadeIn": 0,
+          "fadeOut": 0,
+          "delay": 0,
+          "loop": false,
+          "muted": false,
+          "automationPoints": [
+            {
+              "segmentId": "seg_1782206900845_1_5ll25",
+              "volume": 0.25,
+              "fadeMs": 0,
+              "_isAnchor": true
+            }
+          ],
+          "pan": 0.84
+        },
+        {
+          "id": "st_1782225496086_03tccv3aa",
+          "soundId": "crwdangr_male_crowd_grumpy_01_b00m_one",
+          "startSegmentId": "seg_1782206900845_4_zqj6f",
+          "endSegmentId": "seg_1782206900845_6_m0obo",
+          "column": 1,
+          "volume": 0.5,
+          "fadeIn": 634,
+          "fadeOut": 4000,
+          "delay": 0,
+          "loop": false,
+          "muted": false,
+          "automationPoints": [
+            {
+              "segmentId": "seg_1782206900845_4_zqj6f",
+              "volume": 0.5,
+              "fadeMs": 0,
+              "_isAnchor": true
+            }
+          ]
         }
       ],
       "vfxTracks": []
