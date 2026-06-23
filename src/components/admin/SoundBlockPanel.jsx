@@ -381,7 +381,7 @@ function SoundBlockPanel({
         </div>
 
         {/* Boutons Loop / Mute / Delay */}
-        <div style={{ display: 'flex', justifyContent: 'space-around', alignItems: 'center', padding: '0.5rem 0' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-around', alignItems: 'center', padding: '0.25rem 0' }}>
           
           {/* LOOP */}
           <button
