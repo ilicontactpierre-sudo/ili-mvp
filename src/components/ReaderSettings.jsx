@@ -2,6 +2,11 @@ import { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { playClicSettings } from '../App.jsx'
 
+// ── Émet un CustomEvent pour propager les settings en temps réel vers StoryReader et VfxOverlay ──
+function emitSettingsChange(detail) {
+  window.dispatchEvent(new CustomEvent('ili:settings', { detail }))
+}
+
 // ── localStorage helpers ──────────────────────────────────────────────────────
 const PROGRESS_KEY = (storyId) => `ili_progress_${storyId}`
 export function saveProgress(storyId, segmentIndex, finished = false) {
