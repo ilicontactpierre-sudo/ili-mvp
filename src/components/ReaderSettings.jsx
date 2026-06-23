@@ -333,6 +333,7 @@ export default function ReaderSettings({
     try { localStorage.setItem('ili_dys2', String(dys2)) } catch {}
     try { localStorage.setItem('ili_emoji', String(emojiMode)) } catch {}
     try { localStorage.setItem('ili_show_progress', String(showProgress)) } catch {}
+    emitSettingsChange({ type: 'reading', dys1, dys2, emojiMode, showProgress })
   }, [dys1, dys2, emojiMode, showProgress])
 
   // ── Fermer si clic en dehors ────────────────────────────────────────────────
