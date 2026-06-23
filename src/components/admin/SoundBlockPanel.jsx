@@ -251,8 +251,8 @@ function SoundBlockPanel({
         display: 'flex', 
         justifyContent: 'space-between', 
         alignItems: 'center', 
-        marginBottom: '1rem',
-        paddingBottom: '0.75rem',
+        marginBottom: '0.65rem',
+        paddingBottom: '0.5rem',
         borderBottom: `1px solid ${color}30`
       }}>
         <h3
