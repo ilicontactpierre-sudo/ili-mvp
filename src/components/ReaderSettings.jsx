@@ -305,6 +305,16 @@ export default function ReaderSettings({
       root.style.setProperty('--color-primary',        '#5254cc')
     }
     saveTheme({ isDark, isToutdoux, isSynthwave })
+    // ── meta theme-color : la barre navigateur/statut suit le fond ──
+    try {
+      let metaTheme = document.querySelector('meta[name="theme-color"]')
+      if (!metaTheme) {
+        metaTheme = document.createElement('meta')
+        metaTheme.name = 'theme-color'
+        document.head.appendChild(metaTheme)
+      }
+      metaTheme.content = isToutdoux ? '#e8dcc8' : isSynthwave ? '#000000' : isDark ? '#080809' : '#f5f0e8'
+    } catch {}
     emitSettingsChange({ type: 'theme', isDark, isToutdoux, isSynthwave })
   }, [isDark, isToutdoux, isSynthwave])
 
