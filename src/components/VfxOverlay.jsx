@@ -44,9 +44,16 @@ function VfxOverlay({ activeType, activeMode }) {
   const [isDark, setIsDark] = useState(getIsDark)
 
   useEffect(() => {
-    const interval = setInterval(() => setIsDark(getIsDark()), 300)
-    return () => clearInterval(interval)
-  }, [])
+  const handler = (e) => {
+    const { type, isDark: dark, isToutdoux, isSynthwave } = e.detail ?? {}
+    if (type === 'theme') {
+      const nextDark = isSynthwave ? true : isToutdoux ? false : (dark ?? getIsDark())
+      setIsDark(nextDark)
+    }
+  }
+  window.addEventListener('ili:settings', handler)
+  return () => window.removeEventListener('ili:settings', handler)
+}, [])
 
   // ══════════════════════════════════════════
   // ── FOG ──
