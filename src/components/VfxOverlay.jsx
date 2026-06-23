@@ -168,6 +168,7 @@ useEffect(() => {
 
     let t = 0
     const tick = () => {
+      if (pausedRef.current) { rainRafRef.current = requestAnimationFrame(tick); return }
       ctx.clearRect(0, 0, W, H)
       t++
       for (const d of drops) {
@@ -278,6 +279,7 @@ useEffect(() => {
 
     let t = 0
     const tick = () => {
+      if (pausedRef.current) { snowRafRef.current = requestAnimationFrame(tick); return }
       ctx.clearRect(0, 0, W, H)
       t++
       for (const f of flakes) {
