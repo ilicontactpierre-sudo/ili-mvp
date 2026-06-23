@@ -46,5 +46,14 @@
     "hidden": true,
     "tags": [],
     "order": 4
+  },
+  {
+    "id": "alexandre-dumas-le-comte-de-monte-cristo",
+    "title": "Le Comte de Monte-Cristo",
+    "author": "Alexandre Dumas",
+    "mood": "Vengeance, Injustice, Espoir",
+    "genre": "Roman d'aventure",
+    "description": "Et si ta vie basculait en une seule journée ? Entre injustice, espoir et désir de revanche, laisse-toi emporter par l'une des aventures les plus captivantes jamais écrites.",
+    "type": "serial"
   }
 ]
