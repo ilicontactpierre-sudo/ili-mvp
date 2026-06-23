@@ -9,11 +9,11 @@
   "published": true,
   "parts": [
     {
-      "id": "part_1782206794536_0",
+      "id": "part_1782207256594_0",
       "title": "Partie 1",
-      "subtitle": "Marseille...",
+      "subtitle": "",
       "description": "",
-      "published": true,
+      "published": false,
       "sounds": [],
       "segments": [
         {
@@ -218,11 +218,21 @@
           "audioEvents": []
         },
         {
-          "id": "seg_1782206900845_20_xs5t1",
+          "id": "seg_1782207755830_a_g12cw",
           "lines": [
             "C’était un jeune homme de dix-huit à vingt ans, grand, svelte, avec de beaux yeux noirs et des cheveux d’ébène ; il y avait dans toute sa personne cet air calme et de résolution particulier aux hommes habitués depuis leur enfance à lutter avec le danger."
           ],
-          "text": "C’était un jeune homme de dix-huit à vingt ans, grand, svelte, avec de beaux yeux noirs et des cheveux d’ébène ; il y avait dans toute sa personne cet air calme et de résolution particulier aux hommes habitués depuis leur enfance à lutter avec le danger.",
+          "text": "C’était un jeune homme de dix-huit à vingt ans, grand, svelte, avec de beaux yeux noirs et des cheveux d’ébène ; il y avait dans toute sa personne cet air calme et de résolution particulier aux hommes habitués depuis leur enfance",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782207755830_b_b6qk2",
+          "lines": [
+            "C’était un jeune homme de dix-huit à vingt ans, grand, svelte, avec de beaux yeux noirs et des cheveux d’ébène ; il y avait dans toute sa personne cet air calme et de résolution particulier aux hommes habitués depuis leur enfance à lutter avec le danger."
+          ],
+          "text": "à lutter avec le danger.",
           "breakAt": null,
           "isLeader": false,
           "audioEvents": []
@@ -932,20 +942,11 @@
           "lines": [
             "— L’avez-vous donc vu, Edmond ?"
           ],
-          "text": "— L’avez-vous donc vu, Edmond ?",
-          "breakAt": null,
+          "text": "— L’avez-vous donc vu, Edmond ? — Qui ?",
+          "breakAt": 32,
           "isLeader": false,
-          "audioEvents": []
-        },
-        {
-          "id": "seg_1782206900845_92_fe4rm",
-          "lines": [
-            "— Qui ?"
-          ],
-          "text": "— Qui ?",
-          "breakAt": null,
-          "isLeader": false,
-          "audioEvents": []
+          "audioEvents": [],
+          "delay": 1200
         },
         {
           "id": "seg_1782206900845_93_vnw52",
@@ -1081,24 +1082,25 @@
           "audioEvents": []
         },
         {
-          "id": "seg_1782206900845_105_jhtna",
+          "id": "seg_1782208247790_a_alebj",
           "lines": [
             "— En quoi voulez-vous, Monsieur, que cela me compromette ? dit Dantès : je ne sais pas même ce que je portais, et l’empereur ne m’a fait que les questions qu’il eût faites au premier venu. Mais, pardon, reprit Dantès, voici la santé et la douane qui nous arrivent ;"
           ],
-          "text": "— En quoi voulez-vous, Monsieur, que cela me compromette ? dit Dantès : je ne sais pas même ce que je portais, et l’empereur ne m’a fait que les questions qu’il eût faites au premier venu. Mais, pardon, reprit Dantès, voici la santé et la douane qui nous arrivent ;",
-          "breakAt": 188,
+          "text": "— En quoi voulez-vous, Monsieur, que cela me compromette ? dit Dantès : je ne sais pas même ce que je portais, et l’empereur ne m’a fait que les questions qu’il eût faites au premier venu.",
+          "breakAt": null,
           "isLeader": false,
           "audioEvents": []
         },
         {
-          "id": "seg_1782206900845_106_z2vaz",
+          "id": "seg_1782208247790_b_mhdmt",
           "lines": [
-            "vous permettez, n’est-ce pas ?"
+            "— En quoi voulez-vous, Monsieur, que cela me compromette ? dit Dantès : je ne sais pas même ce que je portais, et l’empereur ne m’a fait que les questions qu’il eût faites au premier venu. Mais, pardon, reprit Dantès, voici la santé et la douane qui nous arrivent ;"
           ],
-          "text": "vous permettez, n’est-ce pas ?",
+          "text": "Mais, pardon, reprit Dantès, voici la santé et la douane qui nous arrivent ; vous permettez, n’est-ce pas ?",
           "breakAt": null,
           "isLeader": false,
-          "audioEvents": []
+          "audioEvents": [],
+          "delay": 2800
         },
         {
           "id": "seg_1782206900845_107_oifc7",
@@ -1735,8 +1737,8 @@
           "lines": [
             "et je vous dirais : C’est fait ; mais j’ai un associé, et vous savez le proverbe italien : « Che a compagne a padrone. » Mais la moitié de la besogne est faite au moins, puisque sur deux voix vous en avez déjà une. Rapportez-vous-en à moi pour avoir l’autre, et je ferai de mon mieux."
           ],
-          "text": "et je vous dirais : C’est fait ; mais j’ai un associé, et vous savez le proverbe italien : « Che a compagne a padrone. » Mais la moitié de la besogne est faite au moins, puisque sur deux voix vous en avez déjà une. Rapportez-vous-en à moi pour avoir l’autre, et je ferai de mon mieux.",
-          "breakAt": 118,
+          "text": "et je vous dirais : C’est fait ; mais j’ai un associé, et vous savez le proverbe italien : « Che a compagne a padrone.» Mais la moitié de la besogne est faite au moins, puisque sur deux voix vous en avez déjà une. Rapportez-vous-en à moi pour avoir l’autre, et je ferai de mon mieux.",
+          "breakAt": null,
           "isLeader": false,
           "audioEvents": []
         },
@@ -1745,17 +1747,18 @@
           "lines": [
             "— Oh ! monsieur Morrel, s’écria le jeune marin, saisissant,"
           ],
-          "text": "— Oh ! monsieur Morrel, s’écria le jeune marin, saisissant,",
+          "text": "— Oh ! monsieur Morrel, s’écria le jeune marin, saisissant, les larmes aux yeux, les mains de l’armateur ;",
           "breakAt": null,
           "isLeader": false,
-          "audioEvents": []
+          "audioEvents": [],
+          "delay": 2000
         },
         {
-          "id": "seg_1782206900845_172_s2ra9",
+          "id": "seg_1782208314887_b_17d5w",
           "lines": [
             "les larmes aux yeux, les mains de l’armateur ; monsieur Morrel, je vous remercie, au nom de mon père et de Mercédès."
           ],
-          "text": "les larmes aux yeux, les mains de l’armateur ; monsieur Morrel, je vous remercie, au nom de mon père et de Mercédès.",
+          "text": "monsieur Morrel, je vous remercie, au nom de mon père et de Mercédès.",
           "breakAt": null,
           "isLeader": false,
           "audioEvents": []
@@ -1805,27 +1808,38 @@
           "lines": [
             "— C’est selon le sens que vous attachez à cette question,"
           ],
-          "text": "— C’est selon le sens que vous attachez à cette question,",
+          "text": "— C’est selon le sens que vous attachez à cette question, monsieur. Si c’est comme bon camarade, non, car je crois qu’il ne m’aime pas depuis le jour où j’ai eu la bêtise,",
           "breakAt": null,
           "isLeader": false,
-          "audioEvents": []
+          "audioEvents": [],
+          "delay": 2200
         },
         {
-          "id": "seg_1782206900845_178_g8f73",
+          "id": "seg_1782208356570_b_pm5tq",
           "lines": [
             "monsieur. Si c’est comme bon camarade, non, car je crois qu’il ne m’aime pas depuis le jour où j’ai eu la bêtise, à la suite d’une petite querelle que nous avions eue ensemble, de lui proposer de nous arrêter dix minutes à l’île de Monte-Cristo pour vider cette querelle ; proposition que j’avais eu tort de lui faire, et qu’il avait eu, lui, raison de refuser."
           ],
-          "text": "monsieur. Si c’est comme bon camarade, non, car je crois qu’il ne m’aime pas depuis le jour où j’ai eu la bêtise, à la suite d’une petite querelle que nous avions eue ensemble, de lui proposer de nous arrêter dix minutes à l’île de Monte-Cristo pour vider cette querelle ; proposition que j’avais eu tort de lui faire, et qu’il avait eu, lui, raison de refuser.",
+          "text": "à la suite d’une petite querelle que nous avions eue ensemble, de lui proposer de nous arrêter dix minutes à l’île de Monte-Cristo pour vider cette querelle ; proposition que j’avais eu tort de lui faire, et qu’il avait eu, lui, raison de refuser.",
           "breakAt": null,
           "isLeader": false,
           "audioEvents": []
         },
         {
-          "id": "seg_1782206900845_178_g8f73_overflow_180",
+          "id": "seg_1782208367221_a_mp5oj",
           "lines": [
             "Si c’est comme comptable que vous me faites cette question, je crois qu’il n’y a rien à dire et que vous serez content de la façon dont sa besogne est faite."
           ],
-          "text": "Si c’est comme comptable que vous me faites cette question, je crois qu’il n’y a rien à dire et que vous serez content de la façon dont sa besogne est faite.",
+          "text": "Si c’est comme comptable que vous me faites cette question,",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782208367221_b_cmgo5",
+          "lines": [
+            "Si c’est comme comptable que vous me faites cette question, je crois qu’il n’y a rien à dire et que vous serez content de la façon dont sa besogne est faite."
+          ],
+          "text": "je crois qu’il n’y a rien à dire et que vous serez content de la façon dont sa besogne est faite.",
           "breakAt": null,
           "isLeader": false,
           "audioEvents": []
@@ -1997,6 +2011,28 @@
             "Seulement, il y avait une grande différence dans l’expression de ce double regard qui suivait le même homme."
           ],
           "text": "Seulement, il y avait une grande différence dans l’expression de ce double regard qui suivait le même homme.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        }
+      ],
+      "soundTracks": [],
+      "vfxTracks": []
+    },
+    {
+      "id": "part_1782207262655_1",
+      "title": "Partie 2",
+      "subtitle": "",
+      "description": "",
+      "published": false,
+      "sounds": [],
+      "segments": [
+        {
+          "id": "seg_1782207355190_0_zq2zf",
+          "lines": [
+            "^d"
+          ],
+          "text": "^d",
           "breakAt": null,
           "isLeader": false,
           "audioEvents": []
