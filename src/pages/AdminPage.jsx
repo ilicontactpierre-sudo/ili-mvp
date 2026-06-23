@@ -2579,7 +2579,7 @@ function AdminPage() {
 
       {/* StoryPreviewModal */}
       <StoryPreviewModal
-        isOpen={isPreviewOpen && (previewStartIndex !== null || !!previewStoryData)}
+        isOpen={isPreviewOpen}
         storyData={previewStoryData || getCurrentStoryData()}
         startSegmentIndex={previewStartIndex}
         onClose={() => { setIsPreviewOpen(false); setPreviewStartIndex(null); setPreviewStoryData(null) }}
