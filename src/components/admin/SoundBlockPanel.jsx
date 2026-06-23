@@ -881,8 +881,8 @@ function SoundBlockPanel({
       <div style={{ 
         display: 'flex', 
         gap: '0.5rem', 
-        marginTop: '1.25rem',
-        paddingTop: '0.75rem',
+        marginTop: '0.75rem',
+        paddingTop: '0.5rem',
         borderTop: `1px solid ${color}30`
       }}>
         {showDeleteConfirm ? (
