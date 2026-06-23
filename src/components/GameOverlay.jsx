@@ -154,6 +154,22 @@ const GLOBAL_KEYFRAMES = `
     70%  { transform: scale(0.97); }
     100% { transform: scale(1); }
   }
+  @keyframes game-code-bloom {
+    0%   { transform: scale(0.3); opacity: 0; }
+    25%  { opacity: 0.22; }
+    100% { transform: scale(3.2); opacity: 0; }
+  }
+  @keyframes game-code-exit {
+    0%   { opacity: 1;  transform: translateY(0px); }
+    100% { opacity: 0;  transform: translateY(-32px); }
+  }
+  @keyframes game-code-dot-confirm {
+    0%   { transform: scale(1); }
+    35%  { transform: scale(1.45); }
+    60%  { transform: scale(0.92); }
+    80%  { transform: scale(1.12); }
+    100% { transform: scale(1); }
+  }
   @keyframes game-typing-dot {
     0%, 50%, 100% { transform: translateY(0px) scale(1);   opacity: 0.32; }
     25%           { transform: translateY(-6px) scale(1.1); opacity: 1; }
