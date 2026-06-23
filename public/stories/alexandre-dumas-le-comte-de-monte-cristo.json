@@ -164,6 +164,11 @@
           "id": "73_s14_sweep_3",
           "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/73_s14_sweep_3.mp3",
           "loop": false
+        },
+        {
+          "id": "ambiance_ville_1900_old_city",
+          "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/ambiance_ville_1900_old_city.mp3",
+          "loop": false
         }
       ],
       "segments": [
@@ -179,8 +184,8 @@
           "audioEvents": [
             {
               "action": "fadeIn",
-              "soundId": "13_s03_ville",
-              "volume": 0.2,
+              "soundId": "ambiance_ville_1900_old_city",
+              "volume": 0.4,
               "duration": 4000,
               "delay": 0,
               "loop": true
@@ -234,7 +239,16 @@
           "text": "Aussitôt, comme d’habitude encore, la plate-forme du fort Saint-Jean s’était couverte de curieux ;",
           "breakAt": null,
           "isLeader": false,
-          "audioEvents": []
+          "audioEvents": [
+            {
+              "action": "fadeIn",
+              "soundId": "crwdsprt_football_match_ambience_crowd_chant_walla_01_b00m_one",
+              "volume": 0.8,
+              "duration": 2000,
+              "delay": 0,
+              "loop": true
+            }
+          ]
         },
         {
           "id": "seg_1782206900845_5_nn4yx",
@@ -254,7 +268,13 @@
           "text": "comme le Pharaon, a été construit, gréé, arrimé sur les chantiers de la vieille Phocée, et appartient à un armateur de la ville.",
           "breakAt": null,
           "isLeader": false,
-          "audioEvents": []
+          "audioEvents": [
+            {
+              "action": "fadeOut",
+              "soundId": "crwdsprt_football_match_ambience_crowd_chant_walla_01_b00m_one",
+              "duration": 2000
+            }
+          ]
         },
         {
           "id": "seg_1782206900845_7_0qivd",
@@ -267,7 +287,7 @@
           "audioEvents": [
             {
               "action": "fadeOut",
-              "soundId": "13_s03_ville",
+              "soundId": "ambiance_ville_1900_old_city",
               "duration": 3000
             }
           ]
@@ -2389,11 +2409,11 @@
       "soundTracks": [
         {
           "id": "st_1782208655273_xz7vyo7vn_0",
-          "soundId": "13_s03_ville",
+          "soundId": "ambiance_ville_1900_old_city",
           "startSegmentId": "seg_1782206900845_0_n6jre",
           "endSegmentId": "seg_1782206900845_7_0qivd",
           "column": 0,
-          "volume": 0.2,
+          "volume": 0.4,
           "loop": true,
           "fadeIn": 4000,
           "fadeOut": 3000,
@@ -2407,7 +2427,7 @@
           "automationPoints": [
             {
               "segmentId": "seg_1782206900845_0_n6jre",
-              "volume": 0.2,
+              "volume": 0.4,
               "fadeMs": 0,
               "_isAnchor": true
             }
@@ -2429,7 +2449,15 @@
           "muted": false,
           "color": "#7EC8C8",
           "_orchestrationNote": "Mouettes et oiseaux marins au-dessus du port, couleur locale méditerranéenne.",
-          "_orchestrationKeyword": "08_s02_brooklyn_birds"
+          "_orchestrationKeyword": "08_s02_brooklyn_birds",
+          "automationPoints": [
+            {
+              "segmentId": "seg_1782206900845_2_tgm99",
+              "volume": 0.05,
+              "fadeMs": 0,
+              "_isAnchor": true
+            }
+          ]
         },
         {
           "id": "st_1782208655273_352lnnh53_2",
@@ -2758,14 +2786,14 @@
           "startSegmentId": "seg_1782206900845_4_zqj6f",
           "endSegmentId": "seg_1782206900845_6_m0obo",
           "column": 3,
-          "volume": 0.15,
+          "volume": 0.8,
           "loop": true,
           "fadeIn": 2000,
           "fadeOut": 2000,
           "delay": 0,
           "pan": 0,
           "panMode": "static",
-          "muted": true,
+          "muted": false,
           "broken": true,
           "color": "#7EC8C8",
           "_orchestrationNote": "Foule curieuse sur l'esplanade de Saint-Jean, murmures et attente.",
@@ -2773,7 +2801,7 @@
           "automationPoints": [
             {
               "segmentId": "seg_1782206900845_4_zqj6f",
-              "volume": 0.15,
+              "volume": 0.8,
               "fadeMs": 0,
               "_isAnchor": true
             }
