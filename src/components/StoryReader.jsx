@@ -635,7 +635,7 @@ useEffect(() => {
           display: 'none',
           position: 'fixed',
           inset: 0,
-          zIndex: 9000,
+          zIndex: 9600,
           pointerEvents: 'none',
           backgroundColor: 'transparent',
         }}
