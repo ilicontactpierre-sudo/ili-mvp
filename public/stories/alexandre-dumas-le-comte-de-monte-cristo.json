@@ -2403,7 +2403,15 @@
           "muted": false,
           "color": "#7EC8C8",
           "_orchestrationNote": "Ambiance urbaine portuaire de Marseille, introduite dès le titre. Ville vivante, solaire, méditerranéenne.",
-          "_orchestrationKeyword": "13_s03_ville"
+          "_orchestrationKeyword": "13_s03_ville",
+          "automationPoints": [
+            {
+              "segmentId": "seg_1782206900845_0_n6jre",
+              "volume": 0.2,
+              "fadeMs": 0,
+              "_isAnchor": true
+            }
+          ]
         },
         {
           "id": "st_1782208655273_5ieuf8pmm_1",
@@ -2647,7 +2655,15 @@
           "muted": false,
           "color": "#F0A87E",
           "_orchestrationNote": "Larmes aux yeux de Dantès — verre d'eau ou clochette cristalline, soulignant l'émotion pure du jeune homme.",
-          "_orchestrationKeyword": "watrpour_water_fill_glass_ring_01_b00m_one"
+          "_orchestrationKeyword": "watrpour_water_fill_glass_ring_01_b00m_one",
+          "automationPoints": [
+            {
+              "segmentId": "seg_1782206900845_171_podaf",
+              "volume": 0.58,
+              "fadeMs": 0,
+              "_isAnchor": true
+            }
+          ]
         },
         {
           "id": "st_1782208655274_7soljyfc5_12",
