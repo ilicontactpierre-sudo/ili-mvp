@@ -789,50 +789,9 @@ useEffect(() => {
               data-vfx-text={segment.text}
             >
               {(() => {
-                // ── Typewriter actif sur ce segment ? ──
-                const twTrack = isFocused && storyData?.vfxTracks
-                  ? storyData.vfxTracks.find(t => {
-                      if (t.type !== 'typewriter') return false
-                      const si = (storyData.segments || []).findIndex(s => s.id === t.startSegmentId || s._id === t.startSegmentId)
-                      const ei = (storyData.segments || []).findIndex(s => s.id === t.endSegmentId   || s._id === t.endSegmentId)
-                      const te = ei !== -1 ? ei : si
-                      return si <= index && index <= te
-                    })
-                  : null
-
-                if (twTrack) {
-                  return renderTypewriter(segment.text, twTrack.mode)
-                }
-
-                // ── Static actif sur ce segment ? ──
-                const staticTrack = isFocused && storyData?.vfxTracks
-                  ? storyData.vfxTracks.find(t => {
-                      if (t.type !== 'static') return false
-                      const si = (storyData.segments || []).findIndex(s => s.id === t.startSegmentId || s._id === t.startSegmentId)
-                      const ei = (storyData.segments || []).findIndex(s => s.id === t.endSegmentId   || s._id === t.endSegmentId)
-                      const te = ei !== -1 ? ei : si
-                      return si <= index && index <= te
-                    })
-                  : null
-
-                if (staticTrack) {
-                  return renderStatic(segment.text, `seg_${index}`)
-                }
-
-                // ── Erased actif sur ce segment ? ──
-                const erasedTrack = isFocused && storyData?.vfxTracks
-                  ? storyData.vfxTracks.find(t => {
-                      if (t.type !== 'erased') return false
-                      const si = (storyData.segments || []).findIndex(s => s.id === t.startSegmentId || s._id === t.startSegmentId)
-                      const ei = (storyData.segments || []).findIndex(s => s.id === t.endSegmentId   || s._id === t.endSegmentId)
-                      const te = ei !== -1 ? ei : si
-                      return si <= index && index <= te
-                    })
-                  : null
-
-                if (erasedTrack) {
-                  return renderErased(segment.text, erasedTrack.mode)
-                }
+                if (twTrack) return renderTypewriter(segment.text, twTrack.mode)
+                if (staticTrack) return renderStatic(segment.text, `seg_${index}`)
+                if (erasedTrack) return renderErased(segment.text, erasedTrack.mode)
 
                 // ── Rendu normal ──
                 if (segment.breakAt != null && segment.breakAt > 0 && segment.breakAt < segment.text?.length) {
