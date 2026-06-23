@@ -359,7 +359,7 @@ function SoundBlockPanel({
       )}
 
       {/* Contrôles */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.65rem' }}>
         
         {/* VOLUME - Fader horizontal */}
         <div>
