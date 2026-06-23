@@ -1174,7 +1174,11 @@ function serializeSegments(composedSegments) {
   return composedSegments
     .map((group, segIndex) => {
       const lines = group.map(u => u.text)
-      const text = lines.join(' ').trim()
+      // Les dialogues consécutifs dans un même groupe sont séparés par \n
+      // pour préserver la lisibilité (évite "— A. — B." sur une seule ligne)
+      const text = group.length > 1 && group.some(u => u.type === UNIT_TYPE.DIALOGUE_LINE)
+        ? lines.join('\n').trim()
+        : lines.join(' ').trim()
       if (!text || !/[a-zA-ZÀ-ÿ\u0100-\u024F]/.test(text)) return null
       // Marquer comme Leader si n'importe quelle unité du groupe ouvre un nouveau paragraphe
       const isLeader = segIndex > 0 && group.some(u => u.isFirstOfParagraph === true)
