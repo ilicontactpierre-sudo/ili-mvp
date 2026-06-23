@@ -1177,19 +1177,14 @@ function AdminPage() {
 
   // Ouvrir l'aperçu depuis StoryLoader
   const handlePreviewStory = (storyData) => {
-  // Construire les sons utilisés
   const usedSoundIds = new Set(
     (storyData.soundTracks || []).map(t => t.soundId)
   )
   const sounds = soundLibrary.filter(s => usedSoundIds.has(s.id))
-  
+
+  setPreviewStoryData({ ...storyData, sounds })
   setPreviewStartIndex(null)
   setIsPreviewOpen(true)
-  // Stocker les données d'aperçu dans un ref ou state temporaire
-  setPreviewStoryData({
-    ...storyData,
-    sounds
-  })
 }
   // Ouvrir l'aperçu directement depuis un segment de l'éditeur en cours
   const handlePreviewFromSegment = (index) => {
