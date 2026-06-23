@@ -1,0 +1,19 @@
+1 Go ici : 
+https://www.ambient-mixer.com/
+
+
+2 Puis trouver un son et le lancer.
+
+
+3 Puis faire F12 -> Network -> filtre : "xml"
+
+
+4 rouver celui qui commence par "audio-template"
+
+
+5 Puis dans mon terminal : 
+./mix_ambient.sh "URL_DU_XML_ICI" nom_de_mon_fichier.mp3
+
+
+
+Voilà.
