@@ -22,7 +22,7 @@
         },
         {
           "id": "ambrurl_sheep_herd_distant_calm_04_b00m_one",
-          "url": "/sounds/AMBRurl_Sheep Herd Distant Calm 04_B00M_ONE.mp3",
+          "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/ambrurl_sheep_herd_distant_calm_04_b00m_one.mp3",
           "loop": false
         },
         {
@@ -32,12 +32,12 @@
         },
         {
           "id": "boatship_engine_run_close_loop_01_b00m_one",
-          "url": "/sounds/BOATShip_Engine Run Close Loop 01_B00M_ONE.mp3",
+          "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/boatship_engine_run_close_loop_01_b00m_one.mp3",
           "loop": false
         },
         {
           "id": "chainimpt_metal_chain_on_wood_impact_01_b00m_one",
-          "url": "/sounds/CHAINImpt_Metal Chain On Wood Impact 01_B00M_ONE.mp3",
+          "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/chainimpt_metal_chain_on_wood_impact_01_b00m_one.mp3",
           "loop": false
         },
         {
@@ -47,27 +47,27 @@
         },
         {
           "id": "crwdconv_crowd_medium_talking_small_room_02_b00m_one",
-          "url": "/sounds/CRWDConv_Crowd Medium Talking Small Room 02_B00M_ONE.mp3",
+          "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/crwdconv_crowd_medium_talking_small_room_02_b00m_one.mp3",
           "loop": false
         },
         {
           "id": "crwdsprt_football_match_ambience_crowd_chant_walla_01_b00m_one",
-          "url": "/sounds/CRWDSprt_Football Match Ambience Crowd Chant Walla 01_B00M_ONE.mp3",
+          "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/crwdsprt_football_match_ambience_crowd_chant_walla_01_b00m_one.mp3",
           "loop": false
         },
         {
           "id": "dsgndron_dark_ship_horror_01_b00m_one",
-          "url": "/sounds/DSGNDron_Dark Ship Horror 01_B00M_ONE.mp3",
+          "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/dsgndron_dark_ship_horror_01_b00m_one.mp3",
           "loop": false
         },
         {
           "id": "dsgndron_huge_didgeridoo_01_b00m_one",
-          "url": "/sounds/DSGNDron_Huge Didgeridoo 01_B00M_ONE.mp3",
+          "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/dsgndron_huge_didgeridoo_01_b00m_one.mp3",
           "loop": false
         },
         {
           "id": "dsgnerie_musical_pad_dark_space_horror_02_b00m_one",
-          "url": "/sounds/DSGNErie_Musical Pad Dark Space Horror 02_B00M_ONE.mp3",
+          "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/dsgnerie_musical_pad_dark_space_horror_02_b00m_one.mp3",
           "loop": false
         },
         {
@@ -82,12 +82,12 @@
         },
         {
           "id": "mechrtch_tension_belt_tense_ratchet_single_click_01_b00m_one",
-          "url": "/sounds/MECHRtch_Tension Belt Tense Ratchet Single Click 01_B00M_ONE.mp3",
+          "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/mechrtch_tension_belt_tense_ratchet_single_click_01_b00m_one.mp3",
           "loop": false
         },
         {
           "id": "musctoy_music_box_melody_play_slow_b00m_one",
-          "url": "/sounds/MUSCToy_Music Box Melody Play Slow_B00M_ONE.mp3",
+          "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/musctoy_music_box_melody_play_slow_b00m_one.mp3",
           "loop": false
         },
         {
@@ -96,13 +96,13 @@
           "loop": false
         },
         {
-          "id": "uimisc_console_controller_joystick_move_sequence_short_01_b00m_one_1",
-          "url": "/sounds/UIMisc_Console Controller Joystick Move Sequence Short 01_B00M_ONE_1.mp3",
+          "id": "uimisc_console_controller_joystick_move_sequence_short_01_b00m_one",
+          "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/uimisc_console_controller_joystick_move_sequence_short_01_b00m_one.mp3",
           "loop": false
         },
         {
           "id": "voxreac_male_sigh_03_b00m_one",
-          "url": "/sounds/VOXReac_Male Sigh 03_B00M_ONE.mp3",
+          "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/voxreac_male_sigh_03_b00m_one.mp3",
           "loop": false
         },
         {
@@ -122,7 +122,7 @@
         },
         {
           "id": "winddsgn_low_howling_wind_02_b00m_one",
-          "url": "/sounds/WINDDsgn_Low Howling Wind 02_B00M_ONE.mp3",
+          "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/winddsgn_low_howling_wind_02_b00m_one.mp3",
           "loop": false
         },
         {
@@ -280,7 +280,16 @@
           "text": "il avait doublé Pomègue, et il s’avançait sous ses trois huniers, son grand foc et sa brigantine, mais si lentement et d’une allure si triste,",
           "breakAt": null,
           "isLeader": false,
-          "audioEvents": []
+          "audioEvents": [
+            {
+              "action": "fadeIn",
+              "soundId": "mechrtch_tension_belt_tense_ratchet_single_click_01_b00m_one",
+              "volume": 0.13,
+              "duration": 4000,
+              "delay": 0,
+              "loop": true
+            }
+          ]
         },
         {
           "id": "seg_1782206900845_9_xdu4l",
@@ -356,7 +365,13 @@
           "text": "La vague inquiétude qui planait sur la foule avait particulièrement atteint un des spectateurs de l’esplanade de Saint-Jean,",
           "breakAt": null,
           "isLeader": true,
-          "audioEvents": []
+          "audioEvents": [
+            {
+              "action": "fadeOut",
+              "soundId": "mechrtch_tension_belt_tense_ratchet_single_click_01_b00m_one",
+              "duration": 3000
+            }
+          ]
         },
         {
           "id": "seg_1782206900845_16_892j6",
@@ -842,7 +857,16 @@
           "text": "Le nouveau venu était un homme de vingt-cinq à vingt-six ans,",
           "breakAt": null,
           "isLeader": false,
-          "audioEvents": []
+          "audioEvents": [
+            {
+              "action": "fadeIn",
+              "soundId": "dsgndron_dark_ship_horror_01_b00m_one",
+              "volume": 0.13,
+              "duration": 5000,
+              "delay": 0,
+              "loop": true
+            }
+          ]
         },
         {
           "id": "seg_1782206900845_62_k6nsl",
@@ -981,7 +1005,13 @@
           "text": "monsieur Morrel ; et cette journée et demie a été perdue par pur caprice, pour le plaisir d’aller à terre, voilà tout.",
           "breakAt": null,
           "isLeader": false,
-          "audioEvents": []
+          "audioEvents": [
+            {
+              "action": "fadeOut",
+              "soundId": "dsgndron_dark_ship_horror_01_b00m_one",
+              "duration": 4000
+            }
+          ]
         },
         {
           "id": "seg_1782206900845_75_bg3fv",
@@ -2249,7 +2279,16 @@
           "text": "au milieu des mille barques qui obstruent l’espèce de rue étroite qui conduit, entre deux rangées de navires, de l’entrée du port au quai d’Orléans.",
           "breakAt": null,
           "isLeader": false,
-          "audioEvents": []
+          "audioEvents": [
+            {
+              "action": "fadeIn",
+              "soundId": "crwdconv_crowd_medium_talking_small_room_02_b00m_one",
+              "volume": 0.22,
+              "duration": 3000,
+              "delay": 0,
+              "loop": true
+            }
+          ]
         },
         {
           "id": "seg_1782206900845_190_ujjta",
@@ -2288,7 +2327,13 @@
           "text": "Si Paris avait la Canebière, Paris serait un petit Marseille.",
           "breakAt": null,
           "isLeader": false,
-          "audioEvents": []
+          "audioEvents": [
+            {
+              "action": "fadeOut",
+              "soundId": "crwdconv_crowd_medium_talking_small_room_02_b00m_one",
+              "duration": 3000
+            }
+          ]
         },
         {
           "id": "seg_1782206900845_192_v4t0a",
@@ -2298,7 +2343,16 @@
           "text": "En se retournant, l’armateur vit derrière lui Danglars,",
           "breakAt": null,
           "isLeader": false,
-          "audioEvents": []
+          "audioEvents": [
+            {
+              "action": "fadeIn",
+              "soundId": "dsgnerie_musical_pad_dark_space_horror_02_b00m_one",
+              "volume": 0.18,
+              "duration": 3000,
+              "delay": 0,
+              "loop": true
+            }
+          ]
         },
         {
           "id": "seg_1782206900845_193_p9zg7",
@@ -2322,6 +2376,11 @@
             {
               "action": "fadeOut",
               "soundId": "13_s03_ville",
+              "duration": 5000
+            },
+            {
+              "action": "fadeOut",
+              "soundId": "dsgnerie_musical_pad_dark_space_horror_02_b00m_one",
               "duration": 5000
             }
           ]
@@ -2637,7 +2696,15 @@
           "broken": true,
           "color": "#7EC8C8",
           "_orchestrationNote": "Mer, port, vague de fond méditerranéenne. Couvre toute la séquence d'approche du Pharaon.",
-          "_orchestrationKeyword": "waves"
+          "_orchestrationKeyword": "waves",
+          "automationPoints": [
+            {
+              "segmentId": "seg_1782206900845_1_5ll25",
+              "volume": 0.18,
+              "fadeMs": 0,
+              "_isAnchor": true
+            }
+          ]
         },
         {
           "id": "st_1782208655274_qqdx3wo6l_14",
@@ -2652,8 +2719,7 @@
           "delay": 0,
           "pan": 0,
           "panMode": "static",
-          "muted": true,
-          "broken": true,
+          "muted": false,
           "color": "#C8C8A8",
           "automationPoints": [
             {
@@ -2687,7 +2753,15 @@
           "broken": true,
           "color": "#7EC8C8",
           "_orchestrationNote": "Foule curieuse sur l'esplanade de Saint-Jean, murmures et attente.",
-          "_orchestrationKeyword": "crowd"
+          "_orchestrationKeyword": "crowd",
+          "automationPoints": [
+            {
+              "segmentId": "seg_1782206900845_4_zqj6f",
+              "volume": 0.15,
+              "fadeMs": 0,
+              "_isAnchor": true
+            }
+          ]
         },
         {
           "id": "st_1782208655274_j1prvc16j_16",
@@ -2706,7 +2780,15 @@
           "broken": true,
           "color": "#7EC8C8",
           "_orchestrationNote": "Vent marin léger sur le pont, voiles et haubans.",
-          "_orchestrationKeyword": "wind"
+          "_orchestrationKeyword": "wind",
+          "automationPoints": [
+            {
+              "segmentId": "seg_1782206900845_7_0qivd",
+              "volume": 0.14,
+              "fadeMs": 0,
+              "_isAnchor": true
+            }
+          ]
         },
         {
           "id": "st_1782208655274_ppg2w8g6v_17",
@@ -2752,7 +2834,15 @@
           "broken": true,
           "color": "#C8C8A8",
           "_orchestrationNote": "Portrait de Dantès, calme et résolution. Atmosphère douce teintée de mélancolie naissante après l'annonce du capitaine mort.",
-          "_orchestrationKeyword": "melancholic"
+          "_orchestrationKeyword": "melancholic",
+          "automationPoints": [
+            {
+              "segmentId": "seg_1782207755830_a_g12cw",
+              "volume": 0.16,
+              "fadeMs": 0,
+              "_isAnchor": true
+            }
+          ]
         },
         {
           "id": "st_1782208655274_kfm11xgxd_19",
@@ -2798,7 +2888,15 @@
           "broken": true,
           "color": "#F0A87E",
           "_orchestrationNote": "Cordes, écoutes et haubans manœuvrés par l'équipage.",
-          "_orchestrationKeyword": "rope"
+          "_orchestrationKeyword": "rope",
+          "automationPoints": [
+            {
+              "segmentId": "seg_1782206900845_35_u9y6i",
+              "volume": 0.62,
+              "fadeMs": 0,
+              "_isAnchor": true
+            }
+          ]
         },
         {
           "id": "st_1782208655274_a0w8uwc00_21",
@@ -2817,7 +2915,15 @@
           "broken": true,
           "color": "#C8C8A8",
           "_orchestrationNote": "Conversation entre Dantès et Morrel, nonchalance et recueillement du jeune marin après l'annonce du deuil.",
-          "_orchestrationKeyword": "calm"
+          "_orchestrationKeyword": "calm",
+          "automationPoints": [
+            {
+              "segmentId": "seg_1782206900845_37_n6jrw",
+              "volume": 0.14,
+              "fadeMs": 0,
+              "_isAnchor": true
+            }
+          ]
         },
         {
           "id": "st_1782208655274_xrfs9o1ty_22",
@@ -2836,7 +2942,15 @@
           "broken": true,
           "color": "#F0A87E",
           "_orchestrationNote": "Évocation sonore du corps glissant dans la mer — discret, lointain, mémoriel.",
-          "_orchestrationKeyword": "splash"
+          "_orchestrationKeyword": "splash",
+          "automationPoints": [
+            {
+              "segmentId": "seg_1782206900845_44_t5dio",
+              "volume": 0.6,
+              "fadeMs": 0,
+              "_isAnchor": true
+            }
+          ]
         },
         {
           "id": "st_1782208655274_1ztjpc5y6_23",
@@ -2855,7 +2969,15 @@
           "broken": true,
           "color": "#C8C8A8",
           "_orchestrationNote": "Sourire mélancolique de Dantès évoquant les dix ans de guerre. Teinte douce-amère sur la conversation avec Morrel.",
-          "_orchestrationKeyword": "nostalgic"
+          "_orchestrationKeyword": "nostalgic",
+          "automationPoints": [
+            {
+              "segmentId": "seg_1782206900845_45_qoc97",
+              "volume": 0.22,
+              "fadeMs": 0,
+              "_isAnchor": true
+            }
+          ]
         },
         {
           "id": "st_1782208655275_6k0st945n_24",
@@ -2874,7 +2996,15 @@
           "broken": true,
           "color": "#F0A87E",
           "_orchestrationNote": "La chaîne d'ancre qui file avec bruit — son explicitement décrit dans le texte, ponctuation sonore forte.",
-          "_orchestrationKeyword": "chain"
+          "_orchestrationKeyword": "chain",
+          "automationPoints": [
+            {
+              "segmentId": "seg_1782206900845_78_5cxkh",
+              "volume": 0.72,
+              "fadeMs": 0,
+              "_isAnchor": true
+            }
+          ]
         },
         {
           "id": "st_1782208655275_mkqhp5pnu_25",
@@ -2893,7 +3023,15 @@
           "broken": true,
           "color": "#F0A87E",
           "_orchestrationNote": "L'ancre qui tombe — impact sourd dans l'eau du port.",
-          "_orchestrationKeyword": "splash"
+          "_orchestrationKeyword": "splash",
+          "automationPoints": [
+            {
+              "segmentId": "seg_1782206900845_78_5cxkh",
+              "volume": 0.68,
+              "fadeMs": 0,
+              "_isAnchor": true
+            }
+          ]
         },
         {
           "id": "st_1782208655275_tqwd8knij_26",
@@ -2908,8 +3046,7 @@
           "delay": 0,
           "pan": 0,
           "panMode": "static",
-          "muted": true,
-          "broken": true,
+          "muted": false,
           "color": "#C8C8A8",
           "automationPoints": [
             {
@@ -2943,7 +3080,15 @@
           "broken": true,
           "color": "#C8C8A8",
           "_orchestrationNote": "Tension dramatique autour des questions sur l'Empereur. Morrel tire Dantès à part — conversation à voix basse, risque politique.",
-          "_orchestrationKeyword": "suspense"
+          "_orchestrationKeyword": "suspense",
+          "automationPoints": [
+            {
+              "segmentId": "seg_1782206900845_94_5ivuy",
+              "volume": 0.15,
+              "fadeMs": 0,
+              "_isAnchor": true
+            }
+          ]
         },
         {
           "id": "st_1782208655275_7fqvc0a1s_28",
@@ -2962,7 +3107,15 @@
           "broken": true,
           "color": "#C8C8A8",
           "_orchestrationNote": "Danglars tisse sa toile de mensonges et de sous-entendus. Atmosphère de machination discrète mais menaçante.",
-          "_orchestrationKeyword": "threatening"
+          "_orchestrationKeyword": "threatening",
+          "automationPoints": [
+            {
+              "segmentId": "seg_1782206900845_109_n51mw",
+              "volume": 0.16,
+              "fadeMs": 0,
+              "_isAnchor": true
+            }
+          ]
         },
         {
           "id": "st_1782208655275_gaexp145c_29",
@@ -2981,11 +3134,19 @@
           "broken": true,
           "color": "#C8C8A8",
           "_orchestrationNote": "Retour de Dantès, libéré de ses obligations — conversation sur le père, douce et intime, retour à une atmosphère de légèreté.",
-          "_orchestrationKeyword": "peaceful"
+          "_orchestrationKeyword": "peaceful",
+          "automationPoints": [
+            {
+              "segmentId": "seg_1782206900845_127_n1rzi",
+              "volume": 0.14,
+              "fadeMs": 0,
+              "_isAnchor": true
+            }
+          ]
         },
         {
           "id": "st_1782208655275_36btxhcta_30",
-          "soundId": "uimisc_console_controller_joystick_move_sequence_short_01_b00m_one_1",
+          "soundId": "uimisc_console_controller_joystick_move_sequence_short_01_b00m_one",
           "startSegmentId": "seg_1782206900845_146_xem38",
           "endSegmentId": "seg_1782206900845_158_93nfm",
           "column": 1,
@@ -3000,7 +3161,15 @@
           "broken": true,
           "color": "#C8C8A8",
           "_orchestrationNote": "Mercédès évoquée, fiancée aimée — atmosphère lumineuse, légère, empreinte de bonheur simple et sincère.",
-          "_orchestrationKeyword": "joy"
+          "_orchestrationKeyword": "joy",
+          "automationPoints": [
+            {
+              "segmentId": "seg_1782206900845_146_xem38",
+              "volume": 0.2,
+              "fadeMs": 0,
+              "_isAnchor": true
+            }
+          ]
         },
         {
           "id": "st_1782208655275_hbhz5jui9_31",
@@ -3019,7 +3188,15 @@
           "broken": true,
           "color": "#F0A87E",
           "_orchestrationNote": "Dantès saute dans le canot et rame vers la Canebière — mouvement de droite à gauche dans l'espace stéréo, du bord vers le quai. panMode sweep-lr justifié par le déplacement physique explicite du canot traversant le port.",
-          "_orchestrationKeyword": "boat"
+          "_orchestrationKeyword": "boat",
+          "automationPoints": [
+            {
+              "segmentId": "seg_1782206900845_187_gsx1e",
+              "volume": 0.6,
+              "fadeMs": 0,
+              "_isAnchor": true
+            }
+          ]
         },
         {
           "id": "st_1782208655275_t3klkn5q2_32",
@@ -3034,8 +3211,7 @@
           "delay": 0,
           "pan": 0,
           "panMode": "static",
-          "muted": true,
-          "broken": true,
+          "muted": false,
           "color": "#7EC8C8",
           "automationPoints": [
             {
@@ -3061,8 +3237,7 @@
           "delay": 0,
           "pan": 0,
           "panMode": "static",
-          "muted": true,
-          "broken": true,
+          "muted": false,
           "color": "#C8C8A8",
           "automationPoints": [
             {
