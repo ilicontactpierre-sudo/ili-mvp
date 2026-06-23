@@ -41,6 +41,13 @@ function VfxOverlay({ activeType, activeMode }) {
   const rainRafRef    = useRef(null)
   const snowRafRef    = useRef(null)
   const sunRafRef     = useRef(null)
+  // ── Pause RAF quand l'onglet est invisible — économie batterie ──
+const pausedRef = useRef(false)
+useEffect(() => {
+  const handleVisibility = () => { pausedRef.current = document.hidden }
+  document.addEventListener('visibilitychange', handleVisibility)
+  return () => document.removeEventListener('visibilitychange', handleVisibility)
+}, [])
   const [isDark, setIsDark] = useState(getIsDark)
 
   useEffect(() => {
