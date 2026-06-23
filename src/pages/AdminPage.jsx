@@ -2579,10 +2579,10 @@ function AdminPage() {
 
       {/* StoryPreviewModal */}
       <StoryPreviewModal
-        isOpen={isPreviewOpen}
+        isOpen={isPreviewOpen && (previewStartIndex !== null || !!previewStoryData)}
         storyData={previewStoryData || getCurrentStoryData()}
         startSegmentIndex={previewStartIndex}
-        onClose={() => { setIsPreviewOpen(false); setPreviewStartIndex(null) }}
+        onClose={() => { setIsPreviewOpen(false); setPreviewStartIndex(null); setPreviewStoryData(null) }}
       />
 
       </> /* fin onglet stories */}
