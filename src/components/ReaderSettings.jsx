@@ -755,8 +755,7 @@ window.__iliEmoji = emojiMode
                 className={`rs-dys-btn${dys1 ? ' active' : ''}`}
                 onClick={() => { playClicSettings(); setDys1(v => !v) }}
                 title="Lecture assistée : met en gras les premières lettres de chaque mot"
-<<<<<<< Updated upstream
-              >
+>
                 DYS 1
               </button>
               <button
@@ -815,17 +814,6 @@ window.__iliEmoji = emojiMode
                   background: isDark ? '#fff' : '#1a1a18',
                   transition: 'left 0.2s ease',
                 }} />
-=======
-              >
-                DYS 1
-              </button>
-              <button
-                className={`rs-dys-btn${dys2 ? ' active' : ''}`}
-                onClick={() => { playClicSettings(); setDys2(v => !v) }}
-                title="Police Lexend, conçue pour la dyslexie"
-              >
-                DYS 2
->>>>>>> Stashed changes
               </button>
             </div>
           </div>
