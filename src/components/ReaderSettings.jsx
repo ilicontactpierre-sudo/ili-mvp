@@ -417,14 +417,19 @@ export default function ReaderSettings({
   return (
     <>
       <style>{`
-        window.__iliEmoji = emojiMode
-            window.__iliShowProgress = showProgress
-            try { localStorage.setItem('ili_dys1', String(dys1)) } catch {}
-            try { localStorage.setItem('ili_dys2', String(dys2)) } catch {}
-            try { localStorage.setItem('ili_emoji', String(emojiMode)) } catch {}
-            try { localStorage.setItem('ili_show_progress', String(showProgress)) } catch {}
-            emitSettingsChange({ type: 'reading', dys1, dys2, emojiMode, showProgress })
-          }, [dys1, dys2, emojiMode, showProgress])
+        @keyframes synthwave-flicker {
+          0%   { opacity: 1; }
+          5%   { opacity: 0.4; }
+          6%   { opacity: 1; }
+          40%  { opacity: 1; }
+          41%  { opacity: 0.2; }
+          42%  { opacity: 0.9; }
+          43%  { opacity: 0.5; }
+          44%  { opacity: 1; }
+          80%  { opacity: 1; }
+          81%  { opacity: 0.3; }
+          82%  { opacity: 1; }
+        }
         @keyframes settings-out {
           from { opacity: 1; transform: scale(1)    translateY(0); }
           to   { opacity: 0; transform: scale(0.92) translateY(-6px); }
