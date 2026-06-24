@@ -246,16 +246,7 @@ export default function ReaderSettings({
   const [showProgress, setShowProgress] = useState(() => {
     try { return localStorage.getItem('ili_show_progress') !== 'false' } catch { return true }
   })
-<<<<<<< Updated upstream
-=======
-  const [dys1, setDys1] = useState(() => {
-    try { return localStorage.getItem('ili_dys1') === 'true' } catch { return false }
-  })
-  const [dys2, setDys2] = useState(() => {
-    try { return localStorage.getItem('ili_dys2') === 'true' } catch { return false }
-  })
 
->>>>>>> Stashed changes
   const menuRef     = useRef(null)
   const gearRef     = useRef(null)
   const chaptersRef = useRef(null)
@@ -347,7 +338,14 @@ export default function ReaderSettings({
     }
     window.__iliDys1 = dys1
     window.__iliDys2 = dys2
-
+    window.__iliEmoji = emojiMode
+    window.__iliShowProgress = showProgress
+    try { localStorage.setItem('ili_dys1', String(dys1)) } catch {}
+    try { localStorage.setItem('ili_dys2', String(dys2)) } catch {}
+    try { localStorage.setItem('ili_emoji', String(emojiMode)) } catch {}
+    try { localStorage.setItem('ili_show_progress', String(showProgress)) } catch {}
+    emitSettingsChange({ type: 'reading', dys1, dys2, emojiMode, showProgress })
+  }, [dys1, dys2, emojiMode, showProgress])
   // ── Fermer si clic en dehors ────────────────────────────────────────────────
   useEffect(() => {
     if (!isOpen) return
@@ -419,14 +417,14 @@ export default function ReaderSettings({
   return (
     <>
       <style>{`
-window.__iliEmoji = emojiMode
-    window.__iliShowProgress = showProgress
-    try { localStorage.setItem('ili_dys1', String(dys1)) } catch {}
-    try { localStorage.setItem('ili_dys2', String(dys2)) } catch {}
-    try { localStorage.setItem('ili_emoji', String(emojiMode)) } catch {}
-    try { localStorage.setItem('ili_show_progress', String(showProgress)) } catch {}
-    emitSettingsChange({ type: 'reading', dys1, dys2, emojiMode, showProgress })
-  }, [dys1, dys2, emojiMode, showProgress])
+        window.__iliEmoji = emojiMode
+            window.__iliShowProgress = showProgress
+            try { localStorage.setItem('ili_dys1', String(dys1)) } catch {}
+            try { localStorage.setItem('ili_dys2', String(dys2)) } catch {}
+            try { localStorage.setItem('ili_emoji', String(emojiMode)) } catch {}
+            try { localStorage.setItem('ili_show_progress', String(showProgress)) } catch {}
+            emitSettingsChange({ type: 'reading', dys1, dys2, emojiMode, showProgress })
+          }, [dys1, dys2, emojiMode, showProgress])
         @keyframes settings-out {
           from { opacity: 1; transform: scale(1)    translateY(0); }
           to   { opacity: 0; transform: scale(0.92) translateY(-6px); }
