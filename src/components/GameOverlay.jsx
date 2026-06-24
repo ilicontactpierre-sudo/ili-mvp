@@ -973,11 +973,11 @@ function GameCode({ data, onResolved }) {
     const attempt = String(val || input)
     if (attempt === correctAnswer) {
       playSuccess()
-      // Séquence : pop → bloom → exit → résolution
+      // Séquence ralentie : pop → bloom → exit → résolution
       setSuccessPhase('pop')
-      setTimeout(() => setSuccessPhase('bloom'), 320)
-      setTimeout(() => setSuccessPhase('exit'),  960)
-      setTimeout(onResolved, 1680)
+      setTimeout(() => setSuccessPhase('bloom'), 600)
+      setTimeout(() => setSuccessPhase('exit'),  1600)
+      setTimeout(onResolved, 2600)
     } else {
       playError()
       setError(true)
@@ -1018,10 +1018,12 @@ function GameCode({ data, onResolved }) {
       style={{
         gap: '1.8rem',
         opacity: successPhase === 'exit' ? 0 : 1,
-        transform: successPhase === 'exit' ? 'translateY(-32px)' : 'translateY(0)',
+        transform: successPhase === 'exit' ? 'scale(0.94)' : 'scale(1)',
         transition: successPhase === 'exit'
-          ? `opacity 680ms ${EASE.inOut}, transform 680ms ${EASE.inOut}`
-          : 'none',
+          ? `opacity 900ms cubic-bezier(0.4, 0, 0.2, 1), transform 900ms cubic-bezier(0.4, 0, 0.2, 1)`
+          : successPhase === 'bloom'
+            ? `opacity 600ms ${EASE.inOut}`
+            : 'none',
       }}
     >
       {data.prompt && (
@@ -1047,8 +1049,8 @@ function GameCode({ data, onResolved }) {
             width: '80px', height: '80px',
             borderRadius: '50%',
             backgroundColor: SUCCESS_COLOR,
-            filter: 'blur(18px)',
-            animation: `game-code-bloom 900ms ${EASE.out} forwards`,
+            filter: 'blur(22px)',
+            animation: `game-code-bloom 1400ms cubic-bezier(0.16, 1, 0.3, 1) forwards`,
             pointerEvents: 'none',
           }} />
         )}
@@ -1066,7 +1068,7 @@ function GameCode({ data, onResolved }) {
                 border: `1.5px solid ${i < input.length ? dotColor : 'rgba(0,0,0,0.2)'}`,
                 transition: `background-color 200ms ${EASE.spring}, border-color 200ms ${EASE.spring}`,
                 animation: (successPhase === 'pop' && i < input.length)
-                  ? `game-code-dot-confirm 600ms ${EASE.spring} ${i * 55}ms both`
+                  ? `game-code-dot-confirm 900ms ${EASE.spring} ${i * 90}ms both`
                   : 'none',
               }} />
             ))
@@ -1459,7 +1461,7 @@ function GameOverlay({ gameMode, onResolved, onBack, segmentIndex, onNavigateToP
   }, [])
   const handleResolved = () => {
     setLeaving(true); setVisible(false)
-    setTimeout(onResolved, 680)
+    setTimeout(onResolved, 1100)
   }
 
   const type = gameMode?.type
@@ -1495,8 +1497,10 @@ return (
           display: 'flex', alignItems: 'center', justifyContent: 'center',
           backgroundColor: 'var(--color-bg, #f5f0e8)',
           opacity: visible && !leaving ? 1 : 0,
-          transform: leaving ? 'scale(1.015)' : visible ? 'scale(1)' : 'scale(0.985)',
-          transition: `opacity 640ms ${EASE.inOut}, transform 640ms ${EASE.inOut}`,
+          transform: leaving ? 'scale(0.97)' : visible ? 'scale(1)' : 'scale(0.985)',
+          transition: leaving
+            ? `opacity 1000ms cubic-bezier(0.4, 0, 0.2, 1), transform 1000ms cubic-bezier(0.4, 0, 0.2, 1)`
+            : `opacity 640ms ${EASE.inOut}, transform 640ms ${EASE.inOut}`,
           padding: '2rem', boxSizing: 'border-box', willChange: 'opacity, transform',
           cursor: (isTapType || type === 'message' || (type === 'message_smart' && !gameMode?.withReply)) ? 'default' : 'auto',
         }}
