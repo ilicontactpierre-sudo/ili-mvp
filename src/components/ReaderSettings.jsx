@@ -452,7 +452,7 @@ window.__iliEmoji = emojiMode
           z-index: 8000;
           width: 48px;
           height: 48px;
-          border-radius: 50%;
+          border-radius: 5;
           border: none;
           background: transparent;
           color: ${isDark ? 'rgba(255,255,255,0.45)' : 'rgba(26,26,24,0.45)'};
