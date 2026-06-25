@@ -839,6 +839,9 @@ function OrchestrationPanel({
         column: col,
         volume: block.volume ?? 0.5,
         loop: block.loop ?? false,
+        loopCrossfade: block.loop
+          ? (block.loopCrossfade ?? 'medium')
+          : undefined,
         fadeIn: Math.round((block.fadeIn ?? 0) * 1000),
         fadeOut: Math.round((block.fadeOut ?? 0) * 1000),
         delay: delayMs,
@@ -850,6 +853,8 @@ function OrchestrationPanel({
         automationPoints: automationPoints.length > 0 ? automationPoints : undefined,
         _orchestrationNote: block.note || '',
         _orchestrationKeyword: block.soundId || block.keyword || '',
+        _orchestrationLayer: block.layer || block.type || '',
+        _orchestrationLeitmotiv: block.leitmotiv || '',
       }
     }
 
