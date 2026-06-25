@@ -547,7 +547,7 @@ function buildExportPrompt(segments, soundLibrary) {
   lines.push('**Produis maintenant le JSON. Rien d\'autre.**')
 
   return lines.join('\n')
-}
+
 
 // ─────────────────────────────────────────────────────────────────────────────
 // RECHERCHE AMÉLIORÉE pour le diagnostic import
