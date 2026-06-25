@@ -823,7 +823,7 @@ function OrchestrationPanel({
       })()
 
       const delayMs = computeDelayFromTarget(block, segmentText)
-      const automationPoints = buildAutomationPoints(block, start, end)
+      const automationPoints = buildAutomationPoints(block, start)
       const color = TYPE_COLORS[block.type] || TYPE_COLORS.ambiance
 
       // Pan : uniquement pour les sons diégétiques
