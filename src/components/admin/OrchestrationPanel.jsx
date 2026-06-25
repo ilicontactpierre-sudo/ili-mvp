@@ -764,13 +764,27 @@ function OrchestrationPanel({
       return Math.round(targetIdx * 300)
     }
 
-    // Convertit une volumeEnvelope en automationPoints
-    const buildAutomationPoints = (block, startSeg, endSeg) => {
+    // Convertit les automationPoints Claude (segment absolu) ou une volumeEnvelope en automationPoints AudioEngine
+    const buildAutomationPoints = (block, startSeg) => {
+      // Priorité 1 : points bruts fournis par Claude (nouveau format)
+      if (block.automationPoints && block.automationPoints.length > 0) {
+        return block.automationPoints.map(pt => {
+          const segOffset = pt.segment - block.startSegment
+          const segIdx = startSeg.idx + segOffset
+          const seg = segments[segIdx]
+          if (!seg) return null
+          return {
+            segmentId: seg.id || seg._id || `seg_${segIdx}`,
+            volume: Math.round(pt.volume * 100) / 100,
+            fadeMs: pt.fadeMs ?? 800,
+          }
+        }).filter(Boolean)
+      }
+      // Fallback rétrocompat : volumeEnvelope (ancien format, inchangé)
       const envelope = block.volumeEnvelope || 'flat'
       if (envelope === 'flat') return []
       const vol = block.volume ?? 0.5
       const segs = segments
-
       const makePoint = (segIdx, volume) => {
         const seg = segs[segIdx]
         if (!seg) return null
@@ -780,29 +794,18 @@ function OrchestrationPanel({
           fadeMs: 800,
         }
       }
-
       const startIdx = startSeg.idx
-      const endIdx = endSeg.idx
+      const endSeg = resolveSegmentId(block.endSegment)
+      const endIdx = endSeg ? endSeg.idx : startIdx
       const midIdx = Math.round((startIdx + endIdx) / 2)
-
       if (envelope === 'crescendo') {
-        return [
-          makePoint(startIdx, vol * 0.3),
-          makePoint(endIdx, vol),
-        ].filter(Boolean)
+        return [makePoint(startIdx, vol * 0.3), makePoint(endIdx, vol)].filter(Boolean)
       }
       if (envelope === 'decrescendo') {
-        return [
-          makePoint(startIdx, vol),
-          makePoint(endIdx, vol * 0.3),
-        ].filter(Boolean)
+        return [makePoint(startIdx, vol), makePoint(endIdx, vol * 0.3)].filter(Boolean)
       }
       if (envelope === 'swell') {
-        return [
-          makePoint(startIdx, vol * 0.3),
-          makePoint(midIdx, vol),
-          makePoint(endIdx, vol * 0.3),
-        ].filter(Boolean)
+        return [makePoint(startIdx, vol * 0.3), makePoint(midIdx, vol), makePoint(endIdx, vol * 0.3)].filter(Boolean)
       }
       return []
     }
