@@ -220,6 +220,29 @@ function HomePage() {
           )}
 
           <p className="logo-invite">Choisis ton histoire</p>
+          {/* ── Accès tutoriel ── */}
+          {/* Visible uniquement à l'état idle, discret, sous la tagline */}
+          {phase === 'idle' && (
+            <p
+              onClick={(e) => { e.stopPropagation(); navigate('/tutoriel') }}
+              style={{
+                fontFamily: 'var(--font-logo)',
+                fontSize: '10px',
+                fontWeight: 500,
+                letterSpacing: '0.28em',
+                textTransform: 'uppercase',
+                color: 'color-mix(in srgb, var(--color-text-focus) 30%, transparent)',
+                marginTop: '2.2rem',
+                cursor: 'pointer',
+                userSelect: 'none',
+                transition: 'color 250ms ease',
+              }}
+              onMouseEnter={(e) => { e.currentTarget.style.color = 'color-mix(in srgb, var(--color-text-focus) 55%, transparent)' }}
+              onMouseLeave={(e) => { e.currentTarget.style.color = 'color-mix(in srgb, var(--color-text-focus) 30%, transparent)' }}
+            >
+              Comment ça marche ?
+            </p>
+          )}
         </div>
 
         {isOpen && (
