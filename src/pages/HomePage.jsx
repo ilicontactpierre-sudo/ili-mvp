@@ -9,20 +9,34 @@ function StoryRow({ story, onNavigate }) {
   const hasInfo = story.mood || story.genre || story.description
 
   return (
-    <div style={{ borderBottom: '1px solid rgba(255,255,255,0.07)' }}>
+    <div style={{
+      // Theme-aware : utilise la variable CSS au lieu d'une couleur hardcodée
+      borderBottom: '1px solid color-mix(in srgb, var(--color-text-focus) 8%, transparent)',
+    }}>
       {/* Ligne principale */}
       <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '0.75rem 0' }}>
-        {/* Zone cliquable titre + méta */}
+        {/* Zone cliquable */}
         <div
           onClick={() => onNavigate(story)}
           style={{ flex: 1, cursor: 'pointer', minWidth: 0 }}
         >
           <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.6rem', flexWrap: 'wrap' }}>
-            <span style={{ color: '#fff', fontSize: '1rem', fontWeight: 500 }}>{story.title}</span>
-            <span style={{ color: 'rgba(255,255,255,0.45)', fontSize: '0.78rem' }}>{story.author}</span>
+            <span style={{
+              color: 'var(--color-text-focus)',
+              fontSize: '1rem',
+              fontWeight: 500,
+            }}>
+              {story.title}
+            </span>
+            <span style={{
+              color: 'color-mix(in srgb, var(--color-text-focus) 45%, transparent)',
+              fontSize: '0.78rem',
+            }}>
+              {story.author}
+            </span>
             {(story.mood || story.genre) && (
               <span style={{
-                color: 'rgba(255,255,255,0.28)',
+                color: 'color-mix(in srgb, var(--color-text-focus) 28%, transparent)',
                 fontSize: '0.62rem',
                 letterSpacing: '0.12em',
                 textTransform: 'uppercase',
@@ -33,6 +47,7 @@ function StoryRow({ story, onNavigate }) {
             )}
           </div>
         </div>
+
         {/* Bouton ⓘ */}
         {hasInfo && (
           <button
@@ -42,7 +57,9 @@ function StoryRow({ story, onNavigate }) {
               background: 'none',
               border: 'none',
               cursor: 'pointer',
-              color: open ? 'rgba(255,255,255,0.7)' : 'rgba(255,255,255,0.25)',
+              color: open
+                ? 'color-mix(in srgb, var(--color-text-focus) 70%, transparent)'
+                : 'color-mix(in srgb, var(--color-text-focus) 25%, transparent)',
               fontSize: '1rem',
               padding: '0 0.25rem',
               lineHeight: 1,
@@ -52,19 +69,20 @@ function StoryRow({ story, onNavigate }) {
           >ⓘ</button>
         )}
       </div>
+
       {/* Zone dépliable */}
       <div style={{
         overflow: 'hidden',
         maxHeight: open ? '120px' : '0',
         opacity: open ? 1 : 0,
-        transition: 'max-height 0.2s ease, opacity 0.2s ease',
+        transition: 'max-height 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease',
       }}>
         {story.description && (
           <p style={{
             margin: '0 0 0.75rem 0',
             paddingLeft: '0.75rem',
-            borderLeft: '2px solid rgba(255,255,255,0.12)',
-            color: 'rgba(255,255,255,0.55)',
+            borderLeft: '2px solid color-mix(in srgb, var(--color-text-focus) 12%, transparent)',
+            color: 'color-mix(in srgb, var(--color-text-focus) 55%, transparent)',
             fontSize: '0.8rem',
             lineHeight: '1.55',
             fontStyle: 'italic',
@@ -81,7 +99,13 @@ function HomePage() {
   const [phase, setPhase] = useState('idle'); // idle | bumping | transitioning | open
   const [stories, setStories] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const isLocalDev = typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
+  // Onboarding : afficher "Appuie pour commencer" une seule fois
+  const [showOnboarding, setShowOnboarding] = useState(() => {
+    try { return !localStorage.getItem('ili_onboarding_done') } catch { return true }
+  })
+
+  const isLocalDev = typeof window !== 'undefined' &&
+    (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
 
   useEffect(() => {
     const fetchStories = async () => {
@@ -104,29 +128,22 @@ function HomePage() {
   const handleLogoClick = () => {
     if (phase !== 'idle') return;
 
-    // Phase 0 : bump + son simultanés
+    // Marquer l'onboarding comme vu
+    if (showOnboarding) {
+      setShowOnboarding(false)
+      try { localStorage.setItem('ili_onboarding_done', '1') } catch {}
+    }
+
     playClicILi()
     setPhase('bumping');
-
-    // Phase 1 : silence, puis glissement
-    setTimeout(() => {
-      setPhase('transitioning');
-    }, 120);
-
-    // Phase 2 : menu émerge pendant que le logo finit de se poser
-    setTimeout(() => {
-      setPhase('open');
-    }, 900);
+    setTimeout(() => setPhase('transitioning'), 120);
+    setTimeout(() => setPhase('open'), 900);
   };
 
-  const handleClose = () => {
-    setPhase('idle');
-  };
+  const handleClose = () => setPhase('idle');
 
   const handleDeleteStory = async (storyId, password) => {
-    if (isLocalDev) {
-      throw new Error('Suppression non disponible en local.');
-    }
+    if (isLocalDev) throw new Error('Suppression non disponible en local.');
     try {
       const response = await fetch('/api/delete', {
         method: 'DELETE',
@@ -150,36 +167,72 @@ function HomePage() {
     }
   };
 
-  const isOpen = phase === 'open';
-  const isMoving = phase === 'transitioning' || phase === 'open';
+  const isOpen    = phase === 'open';
+  const isMoving  = phase === 'transitioning' || phase === 'open';
   const isBumping = phase === 'bumping';
 
   return (
-    <div className="home-page">
-      <div className={`logo-container ${isMoving ? 'logo-open' : ''}`}>
-        <h1
-          className={`logo ${isBumping ? 'logo-bump' : ''}`}
-          onClick={handleLogoClick}
-        >
-          ILi
-        </h1>
-        <p className="logo-tagline">lecture immersive</p>
-        <p className="logo-invite">Choisis ton histoire</p>
-      </div>
+    <>
+      <style>{`
+        @keyframes hp-onboarding-pulse {
+          0%, 100% { opacity: 0.38; transform: translateY(0); }
+          50%       { opacity: 0.55; transform: translateY(-2px); }
+        }
+        @keyframes hp-onboarding-in {
+          from { opacity: 0; transform: translateY(6px); }
+          to   { opacity: 1; transform: translateY(0); }
+        }
+      `}</style>
 
-      {isOpen && (
-        <StoryMenu
-          isOpen={true}
-          stories={stories}
-          isLoading={isLoading}
-          onClose={handleClose}
-          onDeleteStory={handleDeleteStory}
-        />
-      )}
-      {isOpen && (
-        <ReaderSettings />
-      )}
-    </div>
+      <div className="home-page">
+        <div className={`logo-container ${isMoving ? 'logo-open' : ''}`}>
+          <h1
+            className={`logo ${isBumping ? 'logo-bump' : ''}`}
+            onClick={handleLogoClick}
+          >
+            ILi
+          </h1>
+          <p className="logo-tagline">lecture immersive</p>
+
+          {/* ── Onboarding première visite ── */}
+          {/* Visible uniquement si l'utilisateur n'a jamais interagi avec le logo.
+              Disparaît dès le premier tap. Pulse doux pour attirer l'attention
+              sans agressivité. Délai de 1.2s pour apparaître après le logo. */}
+          {showOnboarding && phase === 'idle' && (
+            <p style={{
+              fontFamily: 'var(--font-logo)',
+              fontSize: '10px',
+              fontWeight: 500,
+              letterSpacing: '0.32em',
+              textTransform: 'uppercase',
+              color: 'color-mix(in srgb, var(--color-text-focus) 38%, transparent)',
+              marginTop: '1.4rem',
+              userSelect: 'none',
+              pointerEvents: 'none',
+              animation:
+                'hp-onboarding-in 800ms cubic-bezier(0.16, 1, 0.3, 1) 1200ms both, ' +
+                'hp-onboarding-pulse 2.8s ease-in-out 2000ms infinite',
+            }}>
+              Appuie pour commencer
+            </p>
+          )}
+
+          <p className="logo-invite">Choisis ton histoire</p>
+        </div>
+
+        {isOpen && (
+          <StoryMenu
+            isOpen={true}
+            stories={stories}
+            isLoading={isLoading}
+            onClose={handleClose}
+            onDeleteStory={handleDeleteStory}
+          />
+        )}
+
+        {isOpen && <ReaderSettings />}
+      </div>
+    </>
   );
 }
 
