@@ -811,7 +811,7 @@ title="Lecture assistée : met en gras les premières lettres de chaque mot"
             </div>
           </div>
           {/* Barre de progression */}
-          <div className="rs-section">
+          <div className="rs-section" ref={progressSectionRef}>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '6px 10px' }}>
               <span style={{
                 fontFamily: 'var(--font-logo, sans-serif)',
