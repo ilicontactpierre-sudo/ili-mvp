@@ -240,10 +240,46 @@ function ScreenHeadphones({ onUnlock }) {
     }
   }, [])
 
+  // Expose un fade-out pour que TutorialPage puisse couper le son proprement
+  useEffect(() => {
+    if (!onUnlock) return
+    // on attache la fonction de fade sur l'élément audio pour y accéder depuis l'extérieur
+  }, [])
+
+  const fadeOutAndStop = useCallback(() => {
+    const audio = audioRef.current
+    if (!audio) return
+    const duration = 800 // ms, courbe S
+    const steps = 30
+    const interval = duration / steps
+    let step = 0
+    const startVol = audio.volume
+    const timer = setInterval(() => {
+      step++
+      const t = step / steps
+      // courbe S (ease-in-out cubique)
+      const eased = t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2
+      audio.volume = Math.max(0, startVol * (1 - eased))
+      if (step >= steps) {
+        clearInterval(timer)
+        audio.pause()
+        setPlaying(false)
+      }
+    }, interval)
+  }, [])
+
+  // Expose fadeOutAndStop via ref sur l'instance
+  useEffect(() => {
+    if (onUnlock) {
+      audioRef._fadeOut = fadeOutAndStop
+    }
+  }, [fadeOutAndStop, onUnlock])
+
   const replay = (e) => {
     e.stopPropagation()
     const audio = audioRef.current
     if (!audio) return
+    audio.volume = 0.85
     audio.currentTime = 0
     audio.play().then(() => setPlaying(true)).catch(() => {})
   }
