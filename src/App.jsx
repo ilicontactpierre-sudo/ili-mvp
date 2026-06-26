@@ -27,6 +27,7 @@ function App() {
     <Routes>
       <Route path="/" element={<HomePage />} />
       <Route path="/lire/:storyId" element={<StoryPage />} />
+      <Route path="/tutoriel" element={<TutorialPage />} />
       <Route path="/admin" element={<AdminPage />} />
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
