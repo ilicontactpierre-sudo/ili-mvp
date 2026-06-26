@@ -380,7 +380,7 @@ export default function ReaderSettings({
   }, [dys1, dys2, emojiMode, showProgress])
   // ── Fermer si clic en dehors ────────────────────────────────────────────────
   useEffect(() => {
-    if (!isOpen) return
+    if (!isOpen || forceOpen) return
     const handleDown = (e) => {
       if (
         menuRef.current && !menuRef.current.contains(e.target) &&
