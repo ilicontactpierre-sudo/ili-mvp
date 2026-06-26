@@ -748,6 +748,10 @@ function TutorialPage() {
 
   const goNext = useCallback(() => {
     if (!canAdvance || transitioning) return
+    // Fade out le son de la page casque si encore en cours
+    if (screen === 'headphones' && headphonesFadeRef.current) {
+      headphonesFadeRef.current()
+    }
     if (screenIndex >= SCREENS.length - 1) {
       navigate('/')
       return
@@ -755,9 +759,10 @@ function TutorialPage() {
     setTransitioning(true)
     setTimeout(() => {
       setScreenIndex(i => i + 1)
+      setCanAdvance(false)
       setTransitioning(false)
     }, 350)
-  }, [canAdvance, transitioning, screenIndex, navigate])
+  }, [canAdvance, transitioning, screenIndex, screen, navigate])
 
   const headphonesFadeRef = useRef(null)
   const handleExit = () => navigate('/')
