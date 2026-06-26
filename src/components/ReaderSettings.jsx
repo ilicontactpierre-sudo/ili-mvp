@@ -762,7 +762,7 @@ export default function ReaderSettings({
           </div>
 
           {/* Taille de police + options DYS */}
-          <div className="rs-section">
+          <div className="rs-section" ref={fontSectionRef}>
             <span className="rs-label">Police</span>
             <div className="rs-row">
               <button
