@@ -433,14 +433,21 @@ function ScreenSettings({ onUnlock }) {
 // ══════════════════════════════════════════════════════════════════════════
 function ScreenProgress() {
   const [fill, setFill] = useState(8)
-
+  const [arrowVisible, setArrowVisible] = useState(false)
   useEffect(() => {
-    const t = setTimeout(() => setFill(82), 400)
-    return () => clearTimeout(t)
+    const t1 = setTimeout(() => setFill(82), 400)
+    const t2 = setTimeout(() => setArrowVisible(true), 1200)
+    return () => { clearTimeout(t1); clearTimeout(t2) }
   }, [])
-
   return (
     <div style={{ position: 'fixed', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '2rem' }}>
+      <style>{`
+        @keyframes arrow-breathe {
+          0%, 100% { transform: translateX(0px); opacity: 0.55; }
+          50%       { transform: translateX(5px); opacity: 0.9; }
+        }
+      `}</style>
+      {/* ── Barre de progression ── */}
       <div
         style={{
           position: 'fixed',
@@ -456,6 +463,36 @@ function ScreenProgress() {
           backgroundColor: 'rgba(255,255,255,0.5)',
           transition: `height 2200ms ${EASE.inOut}`,
         }} />
+      </div>
+      {/* ── Flèche pointant vers la barre ── */}
+      <div style={{
+        position: 'fixed',
+        left: '18px',
+        top: '50%',
+        transform: 'translateY(-50%)',
+        display: 'flex',
+        alignItems: 'center',
+        gap: '6px',
+        opacity: arrowVisible ? 1 : 0,
+        transition: `opacity 600ms ${EASE.out}`,
+        pointerEvents: 'none',
+      }}>
+        <svg
+          width="20" height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="var(--color-text-focus)"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          style={{
+            animation: arrowVisible ? `arrow-breathe 2000ms cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite` : 'none',
+            willChange: 'transform',
+          }}
+        >
+          <line x1="5" y1="12" x2="19" y2="12" />
+          <polyline points="12 5 5 12 12 19" />
+        </svg>
       </div>
       <p style={{
         fontFamily: 'var(--font-primary)',
