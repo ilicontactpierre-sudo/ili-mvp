@@ -218,7 +218,7 @@ function ScreenNavigation({ onUnlock }) {
 // ══════════════════════════════════════════════════════════════════════════
 // ÉCRAN 2 — Casque obligatoire (test stéréo)
 // ══════════════════════════════════════════════════════════════════════════
-function ScreenHeadphones() {
+function ScreenHeadphones({ onUnlock }) {
   const audioRef = useRef(null)
   const [playing, setPlaying] = useState(false)
 
@@ -231,6 +231,7 @@ function ScreenHeadphones() {
     }, 500)
     audio.addEventListener('ended', () => {
       setPlaying(false)
+      onUnlock?.()   // ← débloque "continuer" uniquement quand le son est fini
     })
     return () => {
       clearTimeout(t)
