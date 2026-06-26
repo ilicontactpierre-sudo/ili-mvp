@@ -501,6 +501,17 @@ function TutorialPage() {
     return () => clearTimeout(t)
   }, [screen])
 
+  // ── Auto-avance depuis l'écran navigation dès que les deux zones sont tapées ──
+  useEffect(() => {
+    if (screen === 'navigation' && canAdvance && !transitioning) {
+      setTransitioning(true)
+      setTimeout(() => {
+        setScreenIndex(i => i + 1)
+        setTransitioning(false)
+      }, 350)
+    }
+  }, [canAdvance, screen, transitioning])
+
   const goNext = useCallback(() => {
     if (!canAdvance || transitioning) return
     if (screenIndex >= SCREENS.length - 1) {
