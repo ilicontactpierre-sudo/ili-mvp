@@ -5,6 +5,8 @@ function EndScreen({ title, author, formUrl, bookUrl, nextPart = null, onNextPar
   const navigate = useNavigate()
   const [visible, setVisible] = useState(false)
   const [leaving, setLeaving] = useState(false)
+  // Le bloc "soutenir" n'apparaît qu'après un délai — laisser l'émotion respirer
+  const [supportVisible, setSupportVisible] = useState(false)
   const [email, setEmail] = useState('')
   const [subscribeStatus, setSubscribeStatus] = useState(null) // null | 'loading' | 'success' | 'error'
 
@@ -25,28 +27,29 @@ function EndScreen({ title, author, formUrl, bookUrl, nextPart = null, onNextPar
   }
 
   useEffect(() => {
-    const t = setTimeout(() => setVisible(true), 200)
-    return () => clearTimeout(t)
+    // Apparition principale après un court silence — l'histoire vient de finir
+    const t1 = setTimeout(() => setVisible(true), 180)
+    // Bloc soutien : apparaît 2.8s après, une fois que l'émotion a eu le temps d'exister
+    const t2 = setTimeout(() => setSupportVisible(true), 2800)
+    return () => { clearTimeout(t1); clearTimeout(t2) }
   }, [])
 
   const handleReturnHome = () => {
     setLeaving(true)
-    setTimeout(() => navigate('/'), 1400)
+    setTimeout(() => navigate('/'), 900)
   }
 
-  // ── Tokens d'opacité, dérivés de --color-text-focus (s'adapte aux 4 thèmes) ──
   const mix = (pct) => `color-mix(in srgb, var(--color-text-focus) ${pct}%, transparent)`
-  const lineColor      = mix(14)
-  const labelColor     = mix(40)
-  const bodyColor      = mix(72)
-  const subtleColor    = mix(50)
-  const dimColor       = mix(30)
-  const borderSoft      = mix(14)
-  const borderHover     = mix(32)
-  const surfaceHover    = mix(5)
-  const ctaBg           = mix(96)        // quasi blanc/quasi noir selon thème
-  const ctaBgHover      = mix(100)
-  const ctaText         = 'var(--color-bg)'
+
+  const lineColor   = mix(12)
+  const subtleColor = mix(45)
+  const dimColor    = mix(28)
+  const borderSoft  = mix(12)
+  const borderHover = mix(30)
+  const surfaceHover = mix(5)
+  const ctaBg       = mix(96)
+  const ctaBgHover  = mix(100)
+  const ctaText     = 'var(--color-bg)'
 
   const EASE = 'cubic-bezier(0.16, 1, 0.3, 1)'
 
@@ -65,32 +68,44 @@ function EndScreen({ title, author, formUrl, bookUrl, nextPart = null, onNextPar
         padding: '3rem 1.5rem',
         opacity: leaving ? 0 : visible ? 1 : 0,
         transform: leaving
-          ? 'translateY(-18px)'
+          ? 'translateY(-12px)'
           : visible
             ? 'translateY(0)'
-            : 'translateY(14px)',
+            : 'translateY(16px)',
         transition: leaving
-          ? `opacity 1400ms ${EASE}, transform 1400ms ${EASE}`
-          : `opacity 1000ms ${EASE}, transform 1000ms ${EASE}`,
+          ? `opacity 900ms ${EASE}, transform 900ms ${EASE}`
+          : `opacity 1100ms ${EASE}, transform 1100ms ${EASE}`,
       }}
     >
       <style>{`
         @keyframes es-rise {
-          from { opacity: 0; transform: translateY(12px); }
+          from { opacity: 0; transform: translateY(10px); }
           to   { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes es-fade {
+          from { opacity: 0; }
+          to   { opacity: 1; }
         }
         .es-stagger {
           opacity: 0;
-          animation: es-rise 700ms ${EASE} forwards;
+          animation: es-rise 800ms ${EASE} forwards;
+        }
+        .es-support-block {
+          opacity: 0;
+          animation: es-fade 900ms ${EASE} forwards;
         }
         .es-input::placeholder { color: ${dimColor}; }
-        .es-input:focus { border-color: ${borderHover} !important; }
+        .es-input:focus { border-color: ${borderHover} !important; outline: none; }
         .es-ghost-btn:hover {
           color: var(--color-text-focus) !important;
           border-color: ${borderHover} !important;
           background: ${surfaceHover} !important;
         }
+        .es-cta-btn {
+          transition: background 300ms ${EASE}, transform 150ms ease, opacity 300ms ease;
+        }
         .es-cta-btn:hover { background: ${ctaBgHover} !important; }
+        .es-cta-btn:active { transform: scale(0.97) !important; }
         .es-link-btn:hover {
           color: var(--color-text-focus) !important;
           border-bottom-color: ${borderHover} !important;
@@ -99,60 +114,82 @@ function EndScreen({ title, author, formUrl, bookUrl, nextPart = null, onNextPar
 
       <div style={{ width: '100%', maxWidth: '26rem', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
 
-        {/* ── Identité : signature ILi + générique de fin ── */}
+        {/* ── Acte 1 : identité émotionnelle ── */}
+        {/* "Fin de l'histoire" — discret, comme un générique */}
         <div
           className="es-stagger"
-          style={{ animationDelay: '60ms', display: 'flex', flexDirection: 'column', alignItems: 'center' }}
+          style={{ animationDelay: '80ms' }}
         >
           <span style={{
             fontFamily: 'var(--font-logo)',
-            fontSize: '10px',
+            fontSize: '9px',
             fontWeight: 600,
-            letterSpacing: '0.4em',
+            letterSpacing: '0.42em',
             textTransform: 'uppercase',
             color: dimColor,
           }}>
             Fin de l'histoire
           </span>
+        </div>
 
-          <div style={{ width: '2.25rem', height: '1px', background: lineColor, margin: '1.1rem 0' }} />
+        {/* Trait de séparation */}
+        <div
+          className="es-stagger"
+          style={{
+            animationDelay: '160ms',
+            width: '1.8rem',
+            height: '1px',
+            background: lineColor,
+            margin: '1.2rem 0',
+          }}
+        />
 
-          <h1 style={{
+        {/* Titre — le moment de gloire du texte */}
+        <h1
+          className="es-stagger"
+          style={{
+            animationDelay: '240ms',
             margin: 0,
             fontFamily: 'var(--font-primary)',
             fontWeight: 600,
-            fontSize: 'clamp(1.4rem, 5vw, 1.85rem)',
-            lineHeight: 1.25,
-            color: 'var(--color-text-focus)',
-          }}>
-            {title}
-          </h1>
-          <p style={{
-            margin: '0.55rem 0 0',
+            fontSize: 'clamp(1.5rem, 5.5vw, 2rem)',
+            lineHeight: 1.2,
+            letterSpacing: '-0.01em',
+          }}
+        >
+          {title}
+        </h1>
+
+        {/* Auteur */}
+        <p
+          className="es-stagger"
+          style={{
+            animationDelay: '320ms',
+            margin: '0.6rem 0 0',
             fontFamily: 'var(--font-logo)',
             fontSize: '11px',
             fontWeight: 500,
-            letterSpacing: '0.12em',
+            letterSpacing: '0.14em',
             textTransform: 'uppercase',
             color: subtleColor,
-          }}>
-            {author}
-          </p>
-        </div>
+          }}
+        >
+          {author}
+        </p>
 
-        {/* ── Zone 1 : continuer l'aventure (CTA dominant) ── */}
+        {/* ── Acte 2 : continuer l'aventure (si partie suivante) ── */}
         {nextPart && onNextPart && (
           <button
             type="button"
             onClick={onNextPart}
             className="es-cta-btn es-stagger"
             style={{
-              animationDelay: '180ms',
-              marginTop: '2.6rem',
+              animationDelay: '440ms',
+              marginTop: '2.8rem',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              gap: '0.6rem',
+              gap: '0.55rem',
               width: '100%',
               padding: '1.05rem 1.5rem',
               borderRadius: '999px',
@@ -160,248 +197,227 @@ function EndScreen({ title, author, formUrl, bookUrl, nextPart = null, onNextPar
               color: ctaText,
               border: 'none',
               fontFamily: 'var(--font-primary)',
-              fontSize: '1.02rem',
+              fontSize: '1rem',
               fontWeight: 600,
               cursor: 'pointer',
               letterSpacing: '0.01em',
-              transition: 'background 300ms ease, transform 150ms ease',
             }}
-            onMouseDown={e => e.currentTarget.style.transform = 'scale(0.98)'}
-            onMouseUp={e => e.currentTarget.style.transform = 'scale(1)'}
           >
             <span>{nextPart.title}</span>
-            <span style={{ opacity: 0.55, fontSize: '0.85em' }}>→</span>
+            <span style={{ opacity: 0.5, fontSize: '0.82em' }}>→</span>
           </button>
         )}
 
-        {/* ── Séparateur de section ── */}
-        <div
-          className="es-stagger"
-          style={{
-            animationDelay: '260ms',
-            width: '100%',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '0.75rem',
-            margin: nextPart ? '2.4rem 0 0' : '2.8rem 0 0',
-          }}
-        >
-          <div style={{ flex: 1, height: '1px', background: lineColor }} />
-          <span style={{
-            fontFamily: 'var(--font-logo)',
-            fontSize: '9px',
-            fontWeight: 600,
-            letterSpacing: '0.22em',
-            textTransform: 'uppercase',
-            color: dimColor,
-            whiteSpace: 'nowrap',
-          }}>
-            Soutenir ILi
-          </span>
-          <div style={{ flex: 1, height: '1px', background: lineColor }} />
-        </div>
+        {/* ── Acte 3 : soutien — retardé pour laisser l'émotion respirer ── */}
+        {supportVisible && (
+          <div
+            className="es-support-block"
+            style={{
+              marginTop: nextPart ? '2.8rem' : '3.2rem',
+              width: '100%',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              gap: '0',
+            }}
+          >
+            {/* Séparateur discret */}
+            <div style={{
+              width: '100%',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.75rem',
+              marginBottom: '1.6rem',
+            }}>
+              <div style={{ flex: 1, height: '1px', background: lineColor }} />
+              <span style={{
+                fontFamily: 'var(--font-logo)',
+                fontSize: '9px',
+                fontWeight: 600,
+                letterSpacing: '0.22em',
+                textTransform: 'uppercase',
+                color: dimColor,
+                whiteSpace: 'nowrap',
+              }}>
+                Soutenir ILi
+              </span>
+              <div style={{ flex: 1, height: '1px', background: lineColor }} />
+            </div>
 
-        {/* ── Zone 2 : newsletter + soutien ── */}
-        <div
-          className="es-stagger"
-          style={{
-            animationDelay: '340ms',
-            marginTop: '1.6rem',
-            width: '100%',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '0.7rem',
-          }}
-        >
-          {subscribeStatus === 'success' ? (
-            <p style={{ fontSize: '0.88rem', color: subtleColor, letterSpacing: '0.02em' }}>
-              ✓ À bientôt dans votre boîte mail.
-            </p>
-          ) : (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-              <p style={{ margin: 0, fontSize: '0.82rem', color: labelColor, letterSpacing: '0.02em' }}>
-                Être prévenu de la prochaine histoire
+            {/* Newsletter */}
+            {subscribeStatus === 'success' ? (
+              <p style={{
+                fontSize: '0.85rem',
+                color: subtleColor,
+                letterSpacing: '0.02em',
+                marginBottom: '1rem',
+              }}>
+                À bientôt dans votre boîte mail.
               </p>
-              <div style={{ display: 'flex', gap: '0.5rem' }}>
-                <input
-                  type="email"
-                  placeholder="votre@email.com"
-                  value={email}
-                  className="es-input"
-                  onChange={e => setEmail(e.target.value)}
-                  onKeyDown={e => e.key === 'Enter' && handleSubscribe()}
-                  style={{
-                    flex: 1,
-                    padding: '0.75rem 1.05rem',
-                    borderRadius: '999px',
-                    border: '1px solid ' + borderSoft,
-                    background: 'transparent',
-                    color: 'var(--color-text-focus)',
-                    fontSize: '0.9rem',
-                    fontFamily: 'var(--font-primary)',
-                    outline: 'none',
-                    transition: 'border-color 200ms ease',
-                  }}
-                />
-                <button
-                  onClick={handleSubscribe}
-                  disabled={subscribeStatus === 'loading'}
-                  style={{
-                    padding: '0.75rem 1.15rem',
-                    borderRadius: '999px',
-                    border: 'none',
-                    background: ctaBg,
-                    color: ctaText,
-                    fontSize: '0.9rem',
-                    fontFamily: 'var(--font-primary)',
-                    fontWeight: 600,
-                    cursor: subscribeStatus === 'loading' ? 'wait' : 'pointer',
-                    whiteSpace: 'nowrap',
-                    flexShrink: 0,
-                  }}
-                >
-                  {subscribeStatus === 'loading' ? '…' : '✔'}
-                </button>
-              </div>
-              {subscribeStatus === 'error' && (
-                <p style={{ margin: 0, fontSize: '0.78rem', color: subtleColor }}>
-                  Une erreur est survenue, réessayez.
+            ) : (
+              <div style={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '0.5rem',
+                width: '100%',
+                marginBottom: '1rem',
+              }}>
+                <p style={{
+                  margin: 0,
+                  fontSize: '0.8rem',
+                  color: subtleColor,
+                  letterSpacing: '0.02em',
+                }}>
+                  Être prévenu de la prochaine histoire
                 </p>
+                <div style={{ display: 'flex', gap: '0.5rem' }}>
+                  <input
+                    type="email"
+                    placeholder="votre@email.com"
+                    value={email}
+                    className="es-input"
+                    onChange={e => setEmail(e.target.value)}
+                    onKeyDown={e => e.key === 'Enter' && handleSubscribe()}
+                    style={{
+                      flex: 1,
+                      padding: '0.72rem 1rem',
+                      borderRadius: '999px',
+                      border: '1px solid ' + borderSoft,
+                      background: 'transparent',
+                      color: 'var(--color-text-focus)',
+                      fontSize: '0.88rem',
+                      fontFamily: 'var(--font-primary)',
+                      transition: 'border-color 200ms ease',
+                    }}
+                  />
+                  <button
+                    onClick={handleSubscribe}
+                    disabled={subscribeStatus === 'loading'}
+                    style={{
+                      padding: '0.72rem 1.1rem',
+                      borderRadius: '999px',
+                      border: 'none',
+                      background: ctaBg,
+                      color: ctaText,
+                      fontSize: '0.88rem',
+                      fontFamily: 'var(--font-primary)',
+                      fontWeight: 600,
+                      cursor: subscribeStatus === 'loading' ? 'wait' : 'pointer',
+                      whiteSpace: 'nowrap',
+                      flexShrink: 0,
+                      transition: `background 250ms ease`,
+                    }}
+                  >
+                    {subscribeStatus === 'loading' ? '…' : '✔'}
+                  </button>
+                </div>
+                {subscribeStatus === 'error' && (
+                  <p style={{ margin: 0, fontSize: '0.75rem', color: subtleColor }}>
+                    Une erreur est survenue, réessayez.
+                  </p>
+                )}
+              </div>
+            )}
+
+            {/* Actions secondaires */}
+            <div style={{
+              display: 'flex',
+              gap: '0.5rem',
+              marginTop: '0.5rem',
+              flexWrap: 'wrap',
+              justifyContent: 'center',
+            }}>
+              <a
+                href="https://ko-fi.com/iliapp"
+                target="_blank"
+                rel="noreferrer"
+                className="es-ghost-btn"
+                style={ghostBtnStyle(borderSoft, subtleColor)}
+              >
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M18 8h1a4 4 0 0 1 0 8h-1"/>
+                  <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/>
+                  <line x1="6" y1="1" x2="6" y2="4"/>
+                  <line x1="10" y1="1" x2="10" y2="4"/>
+                  <line x1="14" y1="1" x2="14" y2="4"/>
+                </svg>
+                Soutenir
+              </a>
+
+              {formUrl && (
+                <a
+                  href={formUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="es-ghost-btn"
+                  style={ghostBtnStyle(borderSoft, subtleColor)}
+                >
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M11 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-5"/>
+                    <polygon points="18 2 22 6 12 16 8 16 8 12 18 2"/>
+                  </svg>
+                  Avis
+                </a>
+              )}
+
+              {bookUrl && (
+                <a
+                  href={bookUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="es-ghost-btn"
+                  style={ghostBtnStyle(borderSoft, subtleColor)}
+                >
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+                    <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+                  </svg>
+                  Le livre
+                </a>
               )}
             </div>
-          )}
 
-          {/* Actions secondaires : pillules discrètes côte à côte */}
-          <div style={{ display: 'flex', gap: '0.55rem', marginTop: '0.35rem', flexWrap: 'wrap', justifyContent: 'center' }}>
-            <a
-              href="https://ko-fi.com/iliapp"
-              target="_blank"
-              rel="noreferrer"
-              className="es-ghost-btn"
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '0.5rem',
-                padding: '0.62rem 1.05rem',
-                borderRadius: '999px',
-                border: '1px solid ' + borderSoft,
-                background: 'transparent',
-                color: subtleColor,
-                textDecoration: 'none',
-                fontSize: '0.85rem',
-                fontFamily: 'var(--font-primary)',
-                letterSpacing: '0.01em',
-                transition: 'color 250ms ease, border-color 250ms ease, background 250ms ease',
-              }}
-            >
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M18 8h1a4 4 0 0 1 0 8h-1"/>
-                <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/>
-                <line x1="6" y1="1" x2="6" y2="4"/>
-                <line x1="10" y1="1" x2="10" y2="4"/>
-                <line x1="14" y1="1" x2="14" y2="4"/>
-              </svg>
-              Soutenir
-            </a>
-
-            {formUrl && (
-              <a
-                href={formUrl}
-                target="_blank"
-                rel="noreferrer"
-                className="es-ghost-btn"
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '0.5rem',
-                  padding: '0.62rem 1.05rem',
-                  borderRadius: '999px',
-                  border: '1px solid ' + borderSoft,
-                  background: 'transparent',
-                  color: subtleColor,
-                  textDecoration: 'none',
-                  fontSize: '0.85rem',
-                  fontFamily: 'var(--font-primary)',
-                  letterSpacing: '0.01em',
-                  transition: 'color 250ms ease, border-color 250ms ease, background 250ms ease',
-                }}
-              >
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M11 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-5"/>
-                  <polygon points="18 2 22 6 12 16 8 16 8 12 18 2"/>
-                </svg>
-                Avis
-              </a>
-            )}
-
-            {bookUrl && (
-              <a
-                href={bookUrl}
-                target="_blank"
-                rel="noreferrer"
-                className="es-ghost-btn"
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '0.5rem',
-                  padding: '0.62rem 1.05rem',
-                  borderRadius: '999px',
-                  border: '1px solid ' + borderSoft,
-                  background: 'transparent',
-                  color: subtleColor,
-                  textDecoration: 'none',
-                  fontSize: '0.85rem',
-                  fontFamily: 'var(--font-primary)',
-                  letterSpacing: '0.01em',
-                  transition: 'color 250ms ease, border-color 250ms ease, background 250ms ease',
-                }}
-              >
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
-                  <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
-                </svg>
-                Le livre
-              </a>
-            )}
           </div>
-        </div>
+        )}
 
-        {/* ── Retour à l'accueil ── */}
+        {/* ── Retour accueil ── */}
         <button
           type="button"
           onClick={handleReturnHome}
           className="es-link-btn es-stagger"
           style={{
-            animationDelay: '420ms',
-            marginTop: '2.4rem',
+            animationDelay: '520ms',
+            marginTop: '2.8rem',
             border: 'none',
-            borderBottom: '1px solid ' + borderSoft,
+            borderBottom: `1px solid ${lineColor}`,
             borderRadius: 0,
             background: 'transparent',
-            color: labelColor,
+            color: dimColor,
             fontFamily: 'var(--font-logo)',
-            fontSize: '11px',
+            fontSize: '10px',
             fontWeight: 500,
-            letterSpacing: '0.12em',
+            letterSpacing: '0.14em',
             textTransform: 'uppercase',
             padding: '0.5rem 0',
             cursor: 'pointer',
-            transition: 'color 300ms ease, border-color 300ms ease',
+            transition: `color 300ms ${EASE}, border-color 300ms ${EASE}`,
           }}
         >
           Choisir une autre histoire
         </button>
+
       </div>
 
+      {/* Signature ILi */}
       <div
         className="es-stagger"
         style={{
-          animationDelay: '500ms',
-          marginTop: '3.5rem',
+          animationDelay: '600ms',
+          marginTop: '3rem',
           fontFamily: 'var(--font-logo)',
           fontWeight: 300,
           fontSize: '13px',
-          letterSpacing: '0.3em',
+          letterSpacing: '0.32em',
           color: dimColor,
         }}
       >
@@ -409,6 +425,24 @@ function EndScreen({ title, author, formUrl, bookUrl, nextPart = null, onNextPar
       </div>
     </main>
   )
+}
+
+function ghostBtnStyle(borderSoft, subtleColor) {
+  return {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '0.45rem',
+    padding: '0.58rem 1rem',
+    borderRadius: '999px',
+    border: '1px solid ' + borderSoft,
+    background: 'transparent',
+    color: subtleColor,
+    textDecoration: 'none',
+    fontSize: '0.82rem',
+    fontFamily: 'var(--font-primary)',
+    letterSpacing: '0.01em',
+    transition: 'color 250ms ease, border-color 250ms ease, background 250ms ease',
+  }
 }
 
 export default EndScreen
