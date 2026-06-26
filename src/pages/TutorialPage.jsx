@@ -218,7 +218,7 @@ function ScreenNavigation({ onUnlock }) {
 // ══════════════════════════════════════════════════════════════════════════
 // ÉCRAN 2 — Casque obligatoire (test stéréo)
 // ══════════════════════════════════════════════════════════════════════════
-function ScreenHeadphones({ onUnlock }) {
+function ScreenHeadphones() {
   const audioRef = useRef(null)
   const [playing, setPlaying] = useState(false)
 
