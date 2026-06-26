@@ -759,6 +759,7 @@ function TutorialPage() {
     }, 350)
   }, [canAdvance, transitioning, screenIndex, navigate])
 
+  const headphonesFadeRef = useRef(null)
   const handleExit = () => navigate('/')
   const handleUnlockNavigation = useCallback(() => setCanAdvance(true), [])
 
