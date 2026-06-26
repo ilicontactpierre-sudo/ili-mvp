@@ -364,7 +364,7 @@ function ScreenSettings({ onUnlock }) {
   return (
     <div
       style={{ position: 'fixed', inset: 0 }}
-      onClick={handleScreenClick}
+      onClick={stepsDone ? undefined : handleScreenClick}
     >
       <ReaderSettings forceOpen onSectionRects={handleSectionRects} />
       {/* ── Voile sombre avec trou spotlight ── */}
