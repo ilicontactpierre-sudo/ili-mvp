@@ -104,6 +104,7 @@ Pour tester la correction :
 
 → L'histoire devrait se charger correctement sans écran noir.
 
+
 ## Note sur le script de conversion
 
 Le fichier `scripts/convert-stories.js` existait déjà pour convertir les anciens fichiers au format moderne. Notre correction dans `StoryLoader` utilise une logique similaire pour reconstruire le texte à partir des clés numériques, assurant la compatibilité avec les histoires publiées avant cette correction.
