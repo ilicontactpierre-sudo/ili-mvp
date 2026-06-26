@@ -97,6 +97,7 @@ function StoryRow({ story, onNavigate }) {
 }
 
 function HomePage() {
+  const navigate = useNavigate();
   const [phase, setPhase] = useState('idle'); // idle | bumping | transitioning | open
   const [stories, setStories] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
