@@ -3,6 +3,7 @@ import { Navigate, Route, Routes } from 'react-router-dom'
 import HomePage from './pages/HomePage.jsx'
 import StoryPage from './pages/StoryPage.jsx'
 import AdminPage from './pages/AdminPage.jsx'
+import TutorialPage from './pages/TutorialPage.jsx'
 
 // Instance audio globale, créée une seule fois
 const clicAudio = new Audio('/sounds/Clic ILi.mp3')
