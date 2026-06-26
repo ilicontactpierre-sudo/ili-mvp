@@ -719,7 +719,7 @@ export default function ReaderSettings({
         <div ref={menuRef} className="rs-menu">
 
           {/* Thème */}
-          <div className="rs-section">
+          <div className="rs-section" ref={themeSectionRef}>
             <span className="rs-label">Thème</span>
             <div className="rs-row">
               <button
