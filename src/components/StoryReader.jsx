@@ -203,24 +203,6 @@ useEffect(() => {
 }, [])
 
   // Écouter les changements de DYS + progression en temps réel (via polling léger)
-  // ── Écouter les changements de settings en temps réel ─────────────────────
-  // ReaderSettings émet 'ili:settings' à chaque changement — propagation immédiate.
-  useEffect(() => {
-    const handler = (e) => {
-      const { type, dys1: d1, dys2: d2, emojiMode: em, showProgress: sp } = e.detail ?? {}
-      if (type === 'reading') {
-        if (d1 !== undefined) setDys1(d1)
-        if (d2 !== undefined) setDys2(d2)
-        if (em !== undefined) setEmojiMode(em)
-        if (sp !== undefined) setShowProgress(sp)
-      }
-      if (type === 'theme') {
-        setThemeKey(k => k + 1)
-      }
-    }
-    window.addEventListener('ili:settings', handler)
-    return () => window.removeEventListener('ili:settings', handler)
-  }, [])
   const rawSegments = storyData ? segments : loadedStory ? loadedStory.segments || [] : segments
 
   const normalizeSegment = (segment, index) => {
@@ -802,21 +784,12 @@ useEffect(() => {
                 if (staticTrack) return renderStatic(segment.text, `seg_${index}`)
                 if (erasedTrack) return renderErased(segment.text, erasedTrack.mode)
 
-                // ── Rendu normal ──
                 if (segment.breakAt != null && segment.breakAt > 0 && segment.breakAt < segment.text?.length) {
                   return (
                     <>
-                      {emojiMode
-                        ? applyEmojiMode(segment.text.slice(0, segment.breakAt).trim())
-                        : dys1
-                          ? applyBionicReading(segment.text.slice(0, segment.breakAt).trim())
-                          : renderMarkdown(segment.text.slice(0, segment.breakAt).trim(), segment, false, { isFocused, keyPrefix: `s${index}a_` })}
+                      {renderMarkdown(segment.text.slice(0, segment.breakAt).trim(), segment, dys1, { isFocused, keyPrefix: `s${index}a_`, emojiMode })}
                       <br /><br />
-                      {emojiMode
-                        ? applyEmojiMode(segment.text.slice(segment.breakAt).trim())
-                        : dys1
-                          ? applyBionicReading(segment.text.slice(segment.breakAt).trim())
-                          : renderMarkdown(segment.text.slice(segment.breakAt).trim(), segment, false, { isFocused, keyPrefix: `s${index}b_` })}
+                      {renderMarkdown(segment.text.slice(segment.breakAt).trim(), segment, dys1, { isFocused, keyPrefix: `s${index}b_`, emojiMode })}
                     </>
                   )
                 }
