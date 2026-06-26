@@ -231,7 +231,6 @@ function ScreenHeadphones({ onUnlock }) {
     }, 500)
     audio.addEventListener('ended', () => {
       setPlaying(false)
-      onUnlock?.()
     })
     return () => {
       clearTimeout(t)
@@ -572,8 +571,7 @@ function TutorialPage() {
 
   // ── Auto-avance depuis l'écran navigation dès que les deux zones sont tapées ──
   useEffect(() => {
-    const autoScreens = ['navigation', 'headphones', 'settings']
-    if (autoScreens.includes(screen) && canAdvance && !transitioning) {
+    if (screen === 'navigation' && canAdvance && !transitioning) {
       setTransitioning(true)
       setTimeout(() => {
         setScreenIndex(i => i + 1)
