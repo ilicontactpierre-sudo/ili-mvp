@@ -183,6 +183,8 @@ export default function ReaderSettings({
   segments = [],
   currentIndex,
   onJumpTo,
+  forceOpen = false,
+  onSectionRects,
 }) {
   const navigate = useNavigate()
 
