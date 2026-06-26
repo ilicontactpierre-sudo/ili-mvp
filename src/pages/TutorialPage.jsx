@@ -794,7 +794,7 @@ function TutorialPage() {
         <ProgressDots count={SCREENS.length} current={screenIndex} />
 
         {screen === 'navigation' && <ScreenNavigation onUnlock={handleUnlockNavigation} />}
-        {screen === 'headphones' && <ScreenHeadphones onUnlock={handleUnlockNavigation} />}
+        {screen === 'headphones' && <ScreenHeadphones onUnlock={handleUnlockNavigation} fadeOutRef={headphonesFadeRef} />}
         {screen === 'settings'   && <ScreenSettings onUnlock={handleUnlockNavigation} />}
         {screen === 'progress'   && <ScreenProgress />}
         {screen === 'outro'      && <ScreenOutro />}
