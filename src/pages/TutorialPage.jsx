@@ -218,7 +218,7 @@ function ScreenNavigation({ onUnlock }) {
 // ══════════════════════════════════════════════════════════════════════════
 // ÉCRAN 2 — Casque obligatoire (test stéréo)
 // ══════════════════════════════════════════════════════════════════════════
-function ScreenHeadphones() {
+function ScreenHeadphones({ onUnlock }) {
   const audioRef = useRef(null)
   const [playing, setPlaying] = useState(false)
 
@@ -229,7 +229,10 @@ function ScreenHeadphones() {
     const t = setTimeout(() => {
       audio.play().then(() => setPlaying(true)).catch(() => {})
     }, 500)
-    audio.addEventListener('ended', () => setPlaying(false))
+    audio.addEventListener('ended', () => {
+      setPlaying(false)
+      onUnlock?.()
+    })
     return () => {
       clearTimeout(t)
       audio.pause()
@@ -237,7 +240,8 @@ function ScreenHeadphones() {
     }
   }, [])
 
-  const replay = () => {
+  const replay = (e) => {
+    e.stopPropagation()
     const audio = audioRef.current
     if (!audio) return
     audio.currentTime = 0
@@ -252,11 +256,34 @@ function ScreenHeadphones() {
       textAlign: 'center', padding: '2rem',
       animation: `tut-rise 700ms ${EASE.out} both`,
     }}>
-      <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="var(--color-text-focus)" strokeWidth="1.3" style={{ opacity: 0.8, marginBottom: '1.8rem' }}>
+      {/* ── Casque animé ── */}
+      <style>{`
+        @keyframes headphones-float {
+          0%   { transform: translateY(0px)   scale(1)      rotate(0deg); }
+          25%  { transform: translateY(-4px)  scale(1.012)  rotate(0.8deg); }
+          50%  { transform: translateY(-6px)  scale(1.018)  rotate(0deg); }
+          75%  { transform: translateY(-3px)  scale(1.010)  rotate(-0.6deg); }
+          100% { transform: translateY(0px)   scale(1)      rotate(0deg); }
+        }
+      `}</style>
+      <svg
+        width="52" height="52"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="var(--color-text-focus)"
+        strokeWidth="1.3"
+        style={{
+          opacity: 0.85,
+          marginBottom: '2rem',
+          animation: `headphones-float 4200ms cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite`,
+          willChange: 'transform',
+        }}
+      >
         <path d="M3 14v-2a9 9 0 0 1 18 0v2" />
         <rect x="1" y="14" width="6" height="7" rx="2" />
         <rect x="17" y="14" width="6" height="7" rx="2" />
       </svg>
+
       <p style={{
         fontFamily: 'var(--font-primary)',
         fontSize: 'clamp(1.05rem, 4vw, 1.3rem)',
@@ -295,6 +322,7 @@ function ScreenHeadphones() {
           cursor: 'pointer',
           opacity: playing ? 0.4 : 0.75,
           transition: `opacity 300ms ${EASE.out}`,
+          pointerEvents: playing ? 'none' : 'auto',
         }}
       >
         {playing ? 'écoute…' : 'réécouter'}
