@@ -509,7 +509,7 @@ function ScreenSettings({ onUnlock }) {
     if (stepsDone) return  // déjà tout vu, le tap global de TutorialPage gère la suite
     if (isLastStep) {
       setStepsDone(true)
-      onUnlock?.()         // affiche "continuer" dans TutorialPage
+      onUnlock?.(400)      // délai 400ms pour absorber le clic courant avant d'activer goNext
     } else {
       setStepIndex(i => i + 1)
     }
@@ -766,7 +766,13 @@ function TutorialPage() {
 
   const headphonesFadeRef = useRef(null)
   const handleExit = () => navigate('/')
-  const handleUnlockNavigation = useCallback(() => setCanAdvance(true), [])
+  const handleUnlockNavigation = useCallback((delay = 0) => {
+    if (delay > 0) {
+      setTimeout(() => setCanAdvance(true), delay)
+    } else {
+      setCanAdvance(true)
+    }
+  }, [])
 
   return (
     <>
