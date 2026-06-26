@@ -889,7 +889,7 @@ title="Lecture assistée : met en gras les premières lettres de chaque mot"
           
           {/* Plein écran — Android uniquement (iOS gère ça via PWA standalone) */}
           {!isIOSDevice && document.fullscreenEnabled && (
-            <div className="rs-section">
+            <div className="rs-section" ref={fullscreenSectionRef}>
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '6px 10px' }}>
                 <span style={{
                   fontFamily: 'var(--font-logo, sans-serif)',
