@@ -823,7 +823,7 @@ useEffect(() => {
       ══════════════════════════════════════ */}
       <div ref={sunRef} style={{
         display: 'none', position: 'fixed', inset: 0,
-        zIndex: 9600, pointerEvents: 'none', opacity: 0, overflow: 'hidden',
+        zIndex: 9000, pointerEvents: 'none', opacity: 0, overflow: 'hidden',
       }}>
         <svg
           style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', overflow: 'visible' }}
