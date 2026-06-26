@@ -218,9 +218,36 @@ function ScreenNavigation({ onUnlock }) {
 // ══════════════════════════════════════════════════════════════════════════
 // ÉCRAN 2 — Casque obligatoire (test stéréo)
 // ══════════════════════════════════════════════════════════════════════════
-function ScreenHeadphones({ onUnlock }) {
+function ScreenHeadphones({ onUnlock, fadeOutRef }) {
   const audioRef = useRef(null)
   const [playing, setPlaying] = useState(false)
+
+  const fadeOutAndStop = useCallback(() => {
+    const audio = audioRef.current
+    if (!audio || audio.paused) return
+    const duration = 900
+    const steps = 36
+    const interval = duration / steps
+    let step = 0
+    const startVol = audio.volume
+    const timer = setInterval(() => {
+      step++
+      const t = step / steps
+      const eased = t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2
+      audio.volume = Math.max(0, startVol * (1 - eased))
+      if (step >= steps) {
+        clearInterval(timer)
+        audio.pause()
+        setPlaying(false)
+      }
+    }, interval)
+  }, [])
+
+  // Expose le fade-out au parent via fadeOutRef
+  useEffect(() => {
+    if (fadeOutRef) fadeOutRef.current = fadeOutAndStop
+    return () => { if (fadeOutRef) fadeOutRef.current = null }
+  }, [fadeOutRef, fadeOutAndStop])
 
   useEffect(() => {
     const audio = new Audio('/sounds/tutoriel-casque.mp3')
@@ -231,8 +258,104 @@ function ScreenHeadphones({ onUnlock }) {
     }, 500)
     audio.addEventListener('ended', () => {
       setPlaying(false)
-      onUnlock?.()   // ← débloque "continuer" uniquement quand le son est fini
+      onUnlock?.()
     })
+    return () => {
+      clearTimeout(t)
+      audio.pause()
+      audioRef.current = null
+    }
+  }, [])
+
+  const replay = (e) => {
+    e.stopPropagation()
+    const audio = audioRef.current
+    if (!audio) return
+    audio.volume = 0.85
+    audio.currentTime = 0
+    audio.play().then(() => setPlaying(true)).catch(() => {})
+  }
+
+  return (
+    <div style={{
+      position: 'fixed', inset: 0,
+      display: 'flex', flexDirection: 'column',
+      alignItems: 'center', justifyContent: 'center',
+      textAlign: 'center', padding: '2rem',
+      animation: `tut-rise 700ms ${EASE.out} both`,
+    }}>
+      <style>{`
+        @keyframes headphones-float {
+          0%   { transform: translateY(0px)   scale(1)      rotate(0deg); }
+          25%  { transform: translateY(-4px)  scale(1.012)  rotate(0.8deg); }
+          50%  { transform: translateY(-6px)  scale(1.018)  rotate(0deg); }
+          75%  { transform: translateY(-3px)  scale(1.010)  rotate(-0.6deg); }
+          100% { transform: translateY(0px)   scale(1)      rotate(0deg); }
+        }
+      `}</style>
+      <svg
+        width="52" height="52"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="var(--color-text-focus)"
+        strokeWidth="1.3"
+        style={{
+          opacity: 0.85,
+          marginBottom: '2rem',
+          animation: `headphones-float 4200ms cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite`,
+          willChange: 'transform',
+        }}
+      >
+        <path d="M3 14v-2a9 9 0 0 1 18 0v2" />
+        <rect x="1" y="14" width="6" height="7" rx="2" />
+        <rect x="17" y="14" width="6" height="7" rx="2" />
+      </svg>
+      <p style={{
+        fontFamily: 'var(--font-primary)',
+        fontSize: 'clamp(1.05rem, 4vw, 1.3rem)',
+        color: 'var(--color-text-focus)',
+        opacity: 0.92,
+        lineHeight: 1.65,
+        maxWidth: '24rem',
+        margin: 0,
+      }}>
+        Mets un casque ou des écouteurs.
+      </p>
+      <p style={{
+        fontFamily: 'var(--font-primary)',
+        fontSize: 'clamp(0.85rem, 3vw, 0.98rem)',
+        color: 'var(--color-text-focus)',
+        opacity: 0.5,
+        lineHeight: 1.6,
+        maxWidth: '22rem',
+        marginTop: '0.9rem',
+        fontStyle: 'italic',
+      }}>
+        Le son fait partie de l'histoire — et il sera parfois très présent.
+      </p>
+      <button
+        onClick={replay}
+        style={{
+          marginTop: '2.5rem',
+          background: 'none',
+          border: '1px solid color-mix(in srgb, var(--color-text-focus) 35%, transparent)',
+          color: 'var(--color-text-focus)',
+          fontFamily: 'var(--font-primary)',
+          fontSize: '0.82rem',
+          letterSpacing: '0.06em',
+          padding: '0.6rem 1.6rem',
+          borderRadius: '2px',
+          cursor: 'pointer',
+          opacity: playing ? 0.4 : 0.75,
+          transition: `opacity 300ms ${EASE.out}`,
+          pointerEvents: playing ? 'none' : 'auto',
+        }}
+      >
+        {playing ? 'écoute…' : 'réécouter'}
+      </button>
+    </div>
+  )
+}
     return () => {
       clearTimeout(t)
       audio.pause()
