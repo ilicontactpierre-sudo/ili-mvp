@@ -252,6 +252,36 @@ export default function ReaderSettings({
   const menuRef     = useRef(null)
   const gearRef     = useRef(null)
   const chaptersRef = useRef(null)
+  // ── Refs sections (uniquement utilisées par le spotlight du tutoriel) ──────
+  const themeSectionRef    = useRef(null)
+  const fontSectionRef     = useRef(null)
+  const progressSectionRef = useRef(null)
+  const fullscreenSectionRef = useRef(null)
+  // ── forceOpen : ouverture pilotée depuis l'extérieur (tutoriel) ────────────
+  useEffect(() => {
+    if (forceOpen) {
+      setIsOpen(true)
+      setIsClosing(false)
+    }
+  }, [forceOpen])
+  // ── Remonte les positions des sections au parent (spotlight tutoriel) ──────
+  useEffect(() => {
+    if (!forceOpen || !onSectionRects || !isOpen) return
+    const measure = () => {
+      onSectionRects({
+        theme: themeSectionRef.current?.getBoundingClientRect() ?? null,
+        font: fontSectionRef.current?.getBoundingClientRect() ?? null,
+        progress: progressSectionRef.current?.getBoundingClientRect() ?? null,
+        fullscreen: fullscreenSectionRef.current?.getBoundingClientRect() ?? null,
+      })
+    }
+    const raf = requestAnimationFrame(measure)
+    window.addEventListener('resize', measure)
+    return () => {
+      cancelAnimationFrame(raf)
+      window.removeEventListener('resize', measure)
+    }
+  }, [forceOpen, onSectionRects, isOpen])
 
   // ── Appliquer le thème (+ sauvegarde) ──────────────────────────────────────
   useEffect(() => {
