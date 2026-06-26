@@ -535,10 +535,12 @@ function TutorialPage() {
 
   // ── Auto-avance depuis l'écran navigation dès que les deux zones sont tapées ──
   useEffect(() => {
-    if (screen === 'navigation' && canAdvance && !transitioning) {
+    const autoScreens = ['navigation', 'headphones', 'settings']
+    if (autoScreens.includes(screen) && canAdvance && !transitioning) {
       setTransitioning(true)
       setTimeout(() => {
         setScreenIndex(i => i + 1)
+        setCanAdvance(false)
         setTransitioning(false)
       }, 350)
     }
