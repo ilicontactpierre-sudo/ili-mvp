@@ -340,17 +340,18 @@ const SETTINGS_STEPS = [
   { key: 'progress',   text: 'Affiche ou masque la barre de progression sur le côté.' },
   { key: 'fullscreen', text: 'Passe en plein écran pour une immersion totale.' },
 ]
-
-function ScreenSettings() {
+function ScreenSettings({ onUnlock }) {
   const [rects, setRects] = useState(null)
   const [stepIndex, setStepIndex] = useState(0)
+  const isLastStep = stepIndex >= SETTINGS_STEPS.length - 1
 
-  useEffect(() => {
-    if (!rects) return
-    if (stepIndex >= SETTINGS_STEPS.length - 1) return
-    const t = setTimeout(() => setStepIndex(i => i + 1), 2200)
-    return () => clearTimeout(t)
-  }, [rects, stepIndex])
+  const handleScreenClick = useCallback(() => {
+    if (isLastStep) {
+      onUnlock?.()
+    } else {
+      setStepIndex(i => i + 1)
+    }
+  }, [isLastStep, onUnlock])
 
   const handleSectionRects = useCallback((r) => setRects(r), [])
 
@@ -358,7 +359,10 @@ function ScreenSettings() {
   const targetRect = rects?.[currentKey] ?? null
 
   return (
-    <div style={{ position: 'fixed', inset: 0 }}>
+    <div
+      style={{ position: 'fixed', inset: 0 }}
+      onClick={handleScreenClick}
+    >
       <ReaderSettings forceOpen onSectionRects={handleSectionRects} />
       {/* ── Voile sombre avec trou spotlight ── */}
       {targetRect && (
