@@ -343,15 +343,18 @@ const SETTINGS_STEPS = [
 function ScreenSettings({ onUnlock }) {
   const [rects, setRects] = useState(null)
   const [stepIndex, setStepIndex] = useState(0)
+  const [stepsDone, setStepsDone] = useState(false)
   const isLastStep = stepIndex >= SETTINGS_STEPS.length - 1
 
   const handleScreenClick = useCallback(() => {
+    if (stepsDone) return  // déjà tout vu, le tap global de TutorialPage gère la suite
     if (isLastStep) {
-      onUnlock?.()
+      setStepsDone(true)
+      onUnlock?.()         // affiche "continuer" dans TutorialPage
     } else {
       setStepIndex(i => i + 1)
     }
-  }, [isLastStep, onUnlock])
+  }, [isLastStep, stepsDone, onUnlock])
 
   const handleSectionRects = useCallback((r) => setRects(r), [])
 
