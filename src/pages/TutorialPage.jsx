@@ -165,7 +165,16 @@ function ScreenNavigation({ onUnlock }) {
           Previous
         </span>
       </div>
-      <div style={{ width: '1px', background: 'color-mix(in srgb, var(--color-text-focus) 15%, transparent)' }} />
+      <div style={{
+        width: '1px',
+        display: 'flex',
+        flexDirection: 'column',
+        background: 'transparent',
+      }}>
+        <div style={{ flex: 1, background: 'color-mix(in srgb, var(--color-text-focus) 15%, transparent)' }} />
+        <div style={{ height: '6rem' }} /> {/* espace vide au niveau du texte */}
+        <div style={{ flex: 1, background: 'color-mix(in srgb, var(--color-text-focus) 15%, transparent)' }} />
+      </div>
       <div
         onClick={() => handleTap('right')}
         style={{
