@@ -2182,7 +2182,7 @@ const handleTextSelection = useCallback(() => {
     const rect = row.getBoundingClientRect()
     setFormatToolbar({
       mode: 'selection',
-      position: { top: rect.top, left: rect.left - 6 },
+      position: { top: rect.top, left: rect.left - 4 },
       segmentIndex,
       selectedText: selected,
     })
