@@ -668,19 +668,28 @@ function TutorialPage() {
 
   const goNext = useCallback(() => {
     if (!canAdvance || transitioning) return
-    if (screen === 'headphones' && headphonesFadeRef.current) {
-      headphonesFadeRef.current()
-    }
     if (screenIndex >= SCREENS.length - 1) {
       navigate('/')
       return
     }
-    setTransitioning(true)
-    setTimeout(() => {
-      setScreenIndex(i => i + 1)
-      setCanAdvance(false)
-      setTransitioning(false)
-    }, 350)
+    if (screen === 'headphones' && headphonesFadeRef.current) {
+      // Lance le fade audio, puis attend 1s avant de changer de page
+      // (le composant reste monté pendant le fade)
+      headphonesFadeRef.current()
+      setTransitioning(true)
+      setTimeout(() => {
+        setScreenIndex(i => i + 1)
+        setCanAdvance(false)
+        setTransitioning(false)
+      }, 1000)
+    } else {
+      setTransitioning(true)
+      setTimeout(() => {
+        setScreenIndex(i => i + 1)
+        setCanAdvance(false)
+        setTransitioning(false)
+      }, 350)
+    }
   }, [canAdvance, transitioning, screenIndex, screen, navigate])
 
   const goPrev = useCallback(() => {
