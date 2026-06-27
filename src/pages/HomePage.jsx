@@ -246,10 +246,10 @@ function HomePage() {
               style={{
                 marginTop: '2.4rem',
                 cursor: 'pointer',
-                opacity: 0.28,
+                opacity: 0.32,
                 transition: 'opacity 300ms ease',
-                width: '56px',
-                height: '56px',
+                width: '72px',
+                height: '72px',
               }}
               onMouseEnter={(e) => { e.currentTarget.style.opacity = '0.55' }}
               onMouseLeave={(e) => { e.currentTarget.style.opacity = '0.28' }}
