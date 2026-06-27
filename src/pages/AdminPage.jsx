@@ -931,6 +931,9 @@ function AdminPage() {
   // État pour l'aperçu
   const [isPreviewOpen, setIsPreviewOpen] = useState(false)
   const [previewStartIndex, setPreviewStartIndex] = useState(null)
+  // État pour le split view (aperçu latéral)
+  const [isSplitView, setIsSplitView] = useState(false)
+  const splitPaneRef = useRef(null)
 
   // Charger la bibliothèque sonore : JSON local + enrichissement Supabase
   useEffect(() => {
