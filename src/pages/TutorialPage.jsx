@@ -704,8 +704,11 @@ function TutorialPage() {
       return
     }
     if (screen === 'settings') {
-      // Le retour arrière fonctionne aussi sur settings (zone gauche hors menu)
-      if (isLeft) goPrev()
+      if (isLeft) {
+        goPrev()
+      } else {
+        goNext() // fonctionne uniquement si canAdvance est true (après dernier step)
+      }
       return
     }
     if (isLeft) {
