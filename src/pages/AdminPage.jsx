@@ -98,11 +98,8 @@ const SplitPreviewPane = forwardRef(function SplitPreviewPane({ storyData, onClo
 
   // Démarrer
   const handleStart = (preloadedHowlMap) => {
-    const AudioEngine = window.__ILiAudioEngine
-    if (AudioEngine) {
-      audioEngineRef.current = new AudioEngine(preloadedHowlMap)
-      audioEngineRef.current.setMasterVolume(storyData?.masterVolume ?? 1.0)
-    }
+    audioEngineRef.current = new AudioEngine(preloadedHowlMap)
+    audioEngineRef.current.setMasterVolume(storyData?.masterVolume ?? 1.0)
     ignoreUntilRef.current = Date.now() + 600
     setCurrentIndex(0)
     setIsStarted(true)
