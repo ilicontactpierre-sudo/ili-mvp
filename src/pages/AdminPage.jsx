@@ -13,6 +13,261 @@ import NewsletterPage from './NewsletterPage'
 import AnalyticsDashboard from '../components/admin/AnalyticsDashboard'
 import MenuManagerPage from '../components/admin/MenuManagerPage'
 
+// ── Composant SplitPreviewPane ────────────────────────────────────────────────
+function SplitPreviewPane({ storyData, onClose }) {
+  const [currentIndex, setCurrentIndex] = useState(0)
+  const [isStarted, setIsStarted] = useState(false)
+  const [isFinished, setIsFinished] = useState(false)
+  const audioEngineRef = useRef(null)
+  const ignoreUntilRef = useRef(0)
+
+  const segments = storyData?.segments || []
+  const lastIndex = Math.max(segments.length - 1, 0)
+
+  // Réinitialiser quand les données changent (resync)
+  const handleResync = () => {
+    audioEngineRef.current?.stopAll()
+    audioEngineRef.current = null
+    setCurrentIndex(0)
+    setIsStarted(false)
+    setIsFinished(false)
+  }
+
+  useEffect(() => {
+    return () => { audioEngineRef.current?.stopAll() }
+  }, [])
+
+  // Navigation
+  const goNext = useCallback(() => {
+    if (!isStarted || isFinished) return
+    if (Date.now() < ignoreUntilRef.current) return
+    setCurrentIndex(prev => {
+      if (prev >= lastIndex) { setIsFinished(true); return prev }
+      return prev + 1
+    })
+  }, [isStarted, isFinished, lastIndex])
+
+  const goPrev = useCallback(() => {
+    if (!isStarted) return
+    if (Date.now() < ignoreUntilRef.current) return
+    if (isFinished) { setIsFinished(false); return }
+    setCurrentIndex(prev => Math.max(0, prev - 1))
+  }, [isStarted, isFinished])
+
+  // Sauter directement à un segment
+  const goToSegment = useCallback((index) => {
+    if (!isStarted) return
+    audioEngineRef.current?.stopAll()
+    audioEngineRef.current = null
+    const clampedIdx = Math.max(0, Math.min(index, lastIndex))
+    setCurrentIndex(clampedIdx)
+    setIsFinished(false)
+    ignoreUntilRef.current = Date.now() + 400
+  }, [isStarted, lastIndex])
+
+  // Exposer goToSegment via ref pour que AdminPage puisse l'appeler
+  const goToSegmentRef = useRef(goToSegment)
+  goToSegmentRef.current = goToSegment
+
+  // Audio sur changement de segment
+  useEffect(() => {
+    if (!isStarted || !audioEngineRef.current) return
+    audioEngineRef.current.onSegmentChange(currentIndex, storyData?.soundTracks || [], segments)
+  }, [currentIndex, isStarted])
+
+  useEffect(() => {
+    if (isFinished) audioEngineRef.current?.stopAll(1500)
+  }, [isFinished])
+
+  // Démarrer
+  const handleStart = (preloadedHowlMap) => {
+    const AudioEngine = window.__ILiAudioEngine
+    if (AudioEngine) {
+      audioEngineRef.current = new AudioEngine(preloadedHowlMap)
+      audioEngineRef.current.setMasterVolume(storyData?.masterVolume ?? 1.0)
+    }
+    ignoreUntilRef.current = Date.now() + 600
+    setCurrentIndex(0)
+    setIsStarted(true)
+  }
+
+  const activeGameMode = segments[currentIndex]?.gameMode ?? null
+
+  const handleScreenClick = (e) => {
+    if (activeGameMode) return
+    if (Date.now() < ignoreUntilRef.current) return
+    if (e.target.closest('a, button, input, textarea, select, [role="button"]')) return
+    goNext()
+  }
+
+  const paneRef = useRef(null)
+
+  return (
+    <div
+      ref={paneRef}
+      style={{
+        width: '380px',
+        flexShrink: 0,
+        borderLeft: '1px solid #e0e0e0',
+        display: 'flex',
+        flexDirection: 'column',
+        backgroundColor: 'var(--color-bg, #fff)',
+        position: 'sticky',
+        top: 0,
+        height: '100vh',
+        overflow: 'hidden',
+        zIndex: 10,
+        boxShadow: '-4px 0 16px rgba(0,0,0,0.06)',
+      }}
+    >
+      {/* Header du panneau */}
+      <div style={{
+        display: 'flex',
+        alignItems: 'center',
+        gap: '6px',
+        padding: '8px 10px',
+        backgroundColor: '#1a1a2e',
+        color: '#fff',
+        flexShrink: 0,
+        borderBottom: '1px solid rgba(255,255,255,0.08)',
+      }}>
+        {/* Titre */}
+        <span style={{
+          fontSize: '0.72rem',
+          fontWeight: 600,
+          color: 'rgba(255,255,255,0.6)',
+          flex: 1,
+          overflow: 'hidden',
+          textOverflow: 'ellipsis',
+          whiteSpace: 'nowrap',
+        }}>
+          {storyData?.title || 'Aperçu'}
+        </span>
+        {/* Compteur segment */}
+        {isStarted && (
+          <span style={{
+            fontSize: '0.7rem',
+            color: 'rgba(255,255,255,0.45)',
+            flexShrink: 0,
+          }}>
+            {isFinished ? '✓ Fin' : `${currentIndex + 1} / ${segments.length}`}
+          </span>
+        )}
+        {/* Navigation ← → */}
+        <button
+          onClick={goPrev}
+          disabled={!isStarted}
+          title="Segment précédent (←)"
+          style={{
+            background: 'none', border: '1px solid rgba(255,255,255,0.15)',
+            borderRadius: '4px', cursor: isStarted ? 'pointer' : 'not-allowed',
+            color: isStarted ? '#fff' : 'rgba(255,255,255,0.25)',
+            fontSize: '0.75rem', padding: '2px 7px', lineHeight: 1,
+            transition: 'background 0.1s',
+          }}
+          onMouseEnter={e => { if (isStarted) e.currentTarget.style.background = 'rgba(255,255,255,0.1)' }}
+          onMouseLeave={e => e.currentTarget.style.background = 'none'}
+        >←</button>
+        <button
+          onClick={goNext}
+          disabled={!isStarted || isFinished}
+          title="Segment suivant (→)"
+          style={{
+            background: 'none', border: '1px solid rgba(255,255,255,0.15)',
+            borderRadius: '4px', cursor: (isStarted && !isFinished) ? 'pointer' : 'not-allowed',
+            color: (isStarted && !isFinished) ? '#fff' : 'rgba(255,255,255,0.25)',
+            fontSize: '0.75rem', padding: '2px 7px', lineHeight: 1,
+            transition: 'background 0.1s',
+          }}
+          onMouseEnter={e => { if (isStarted && !isFinished) e.currentTarget.style.background = 'rgba(255,255,255,0.1)' }}
+          onMouseLeave={e => e.currentTarget.style.background = 'none'}
+        >→</button>
+        {/* Resync */}
+        <button
+          onClick={handleResync}
+          title="Resynchroniser depuis le début"
+          style={{
+            background: 'none', border: '1px solid rgba(255,255,255,0.15)',
+            borderRadius: '4px', cursor: 'pointer',
+            color: 'rgba(255,255,255,0.6)',
+            fontSize: '0.72rem', padding: '2px 7px', lineHeight: 1,
+            transition: 'background 0.1s',
+          }}
+          onMouseEnter={e => e.currentTarget.style.background = 'rgba(255,255,255,0.1)'}
+          onMouseLeave={e => e.currentTarget.style.background = 'none'}
+        >⟳</button>
+        {/* Fermer le split */}
+        <button
+          onClick={onClose}
+          title="Fermer le panneau aperçu"
+          style={{
+            background: 'none', border: 'none',
+            cursor: 'pointer', color: 'rgba(255,255,255,0.45)',
+            fontSize: '0.9rem', padding: '2px 4px', lineHeight: 1,
+            transition: 'color 0.1s',
+          }}
+          onMouseEnter={e => e.currentTarget.style.color = '#fff'}
+          onMouseLeave={e => e.currentTarget.style.color = 'rgba(255,255,255,0.45)'}
+        >✕</button>
+      </div>
+      {/* Contenu du lecteur */}
+      <div
+        style={{
+          flex: 1,
+          overflow: 'hidden',
+          position: 'relative',
+          backgroundColor: 'var(--color-bg, #fff)',
+        }}
+        onClick={handleScreenClick}
+      >
+        {!isStarted && (
+          <StartScreen
+            title={storyData?.title || ''}
+            author={storyData?.author || ''}
+            soundsToPreload={storyData?.sounds || []}
+            onStart={handleStart}
+          />
+        )}
+        {isStarted && !isFinished && (
+          <StoryReader
+            key={`split-reader-${storyData?.id || 'draft'}`}
+            storyData={storyData}
+            currentIndex={currentIndex}
+            viewportHeight={window.innerHeight}
+            _debugLabel="split"
+          />
+        )}
+        {isFinished && (
+          <div style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            height: '100%',
+            gap: '16px',
+            color: '#666',
+          }}>
+            <span style={{ fontSize: '2rem' }}>✓</span>
+            <span style={{ fontSize: '0.9rem', fontWeight: 600 }}>Fin de l'histoire</span>
+            <button
+              onClick={handleResync}
+              style={{
+                padding: '8px 20px',
+                backgroundColor: '#1a1a2e',
+                color: '#fff',
+                border: 'none',
+                borderRadius: '6px',
+                cursor: 'pointer',
+                fontSize: '0.85rem',
+              }}
+            >↩ Recommencer</button>
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
+
 // ── Hook mobile ──────────────────────────────────────────────────────────────
 function useIsMobile() {
   const [isMobile, setIsMobile] = useState(false)
