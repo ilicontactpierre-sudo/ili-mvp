@@ -171,6 +171,7 @@ function SoundBlockPanel({
       trackId: 'preview',
       soundId: editedTrack.soundId,
       volume: editedTrack.volume ?? 0.5,
+      gainDb: editedTrack.gainDb ?? 0,
       loop: false,
       trimStart: editedTrack.trimStart,
       trimEnd: editedTrack.trimEnd,
