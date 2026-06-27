@@ -1932,13 +1932,11 @@ function AdminPage() {
       {/* Contenu principal */}
       <div style={{
         display: 'flex',
-        flexDirection: isSplitView ? 'row' : 'column',
-        alignItems: isSplitView ? 'flex-start' : 'center',
+        flexDirection: 'column',
+        alignItems: 'center',
         padding: isMobile ? '0.75rem' : '2rem',
         paddingBottom: isMobile ? '3rem' : '4rem',
         flex: 1,
-        gap: 0,
-        position: 'relative',
       }}>
         <div style={{ 
           width: '100%', 
