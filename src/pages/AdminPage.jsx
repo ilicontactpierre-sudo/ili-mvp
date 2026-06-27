@@ -250,11 +250,14 @@ const SplitPreviewPane = forwardRef(function SplitPreviewPane({ storyData, sound
             title={storyData?.title || ''}
             author={storyData?.author || ''}
             soundsToPreload={(() => {
-              // Reconstruire les sons avec les URLs depuis soundLibrary (toujours à jour)
               const usedIds = new Set((storyData?.soundTracks || []).map(t => t.soundId))
-              return soundLibrary
+              const sounds = soundLibrary
                 .filter(s => usedIds.has(s.id) && s.url)
                 .map(s => ({ id: s.id, url: s.url, loop: s.loop || false }))
+              console.log('[SplitPane] soundsToPreload:', sounds)
+              console.log('[SplitPane] soundLibrary total:', soundLibrary.length)
+              console.log('[SplitPane] usedIds:', [...usedIds])
+              return sounds
             })()}
             onStart={handleStart}
           />
