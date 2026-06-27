@@ -71,7 +71,7 @@ export default function FormatToolbar({ position, onFormat, onFontChange, curren
         style={{
           position: 'fixed',
           top,
-          left: position.left != null ? `${Math.max(4, position.left - 158)}px` : '4px',
+          left: position.left != null ? `${Math.max(4, position.left - 128)}px` : '4px',
           transform: 'none',
           display: 'flex',
           flexDirection: 'column',
