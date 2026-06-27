@@ -2158,7 +2158,7 @@ const handleTextSelection = useCallback(() => {
         const containerRect = containerRef.current?.getBoundingClientRect()
         setFormatToolbar({
           mode: 'selection',
-          position: { top: rect.top, left: containerRect?.left ?? rect.left },
+          position: { top: rect.top, left: timelineLeft ?? containerRect?.left ?? rect.left },
           segmentIndex,
           selectedText,
         })
