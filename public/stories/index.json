@@ -1,19 +1,5 @@
 [
   {
-    "id": "ili-tutoriel",
-    "title": "TUTORIEL",
-    "author": "ILi",
-    "mood": "Excité",
-    "genre": "Tutu",
-    "description": "Bienvenue chez ILi, une expérience de lecture unique. Bouge pas, on te montre.",
-    "tags": [
-      "Test",
-      "horreur"
-    ],
-    "order": 0,
-    "hidden": false
-  },
-  {
     "id": "test-histoire",
     "title": "La Parure",
     "author": "Guy de Maupassant",
