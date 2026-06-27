@@ -243,17 +243,17 @@ function StoryMenu({ isOpen, stories, isLoading, onClose, onDeleteStory }) {
           }}
         />
       </button>
-      style={{
-        opacity: exiting ? 0 : 1,
-        transform: exiting ? 'translateY(-8px)' : 'translateY(0)',
-        transition: exiting
-          ? 'opacity 600ms cubic-bezier(0.4, 0, 1, 1), transform 600ms cubic-bezier(0.4, 0, 1, 1)'
-          : 'none',
-        pointerEvents: exiting ? 'none' : 'auto',
-      }}
-    
-    
-      <div className="story-menu-container">
+      <div
+        className="story-menu-container"
+        style={{
+          opacity: exiting ? 0 : 1,
+          transform: exiting ? 'translateY(-8px)' : 'translateY(0)',
+          transition: exiting
+            ? 'opacity 600ms cubic-bezier(0.4, 0, 1, 1), transform 600ms cubic-bezier(0.4, 0, 1, 1)'
+            : 'none',
+          pointerEvents: exiting ? 'none' : 'auto',
+        }}
+      >
         {!isLoading && allTags.length > 0 && (
           <FilterChips allTags={allTags} activeTags={activeTags} onToggle={toggleTag} />
         )}
