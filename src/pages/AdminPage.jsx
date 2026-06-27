@@ -2703,6 +2703,7 @@ function AdminPage() {
           soundLibrary={soundLibrary}
           onClose={() => setIsSplitView(false)}
           topOffset={stickyHeight}
+          leftOffset={timelineRect.right > 0 ? timelineRect.right + 10 : null}
         />
       )}
       {/* Modal SoundPicker */}
