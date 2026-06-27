@@ -75,7 +75,7 @@ export default function FormatToolbar({ position, onFormat, onFontChange, curren
           top,
           left: position.left != null
             ? `${Math.max(4, position.left - 54)}px`
-            : 'min(calc(50% - 300px - 12px), calc(100vw - 60px))',
+            : 'min(calc(50% - 400px - 12px), calc(100vw - 60px))',
           transform: 'none',
           display: 'flex',
           flexDirection: 'column',
