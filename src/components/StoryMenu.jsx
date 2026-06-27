@@ -204,11 +204,14 @@ function StoryMenu({ isOpen, stories, isLoading, onClose, onDeleteStory }) {
   };
 
   return (
-    <div
-      className="story-menu-backdrop"
-      onClick={handleBackdropClick}
-    >
-      {/* ── Bouton tutoriel haut gauche, même hauteur que la roue crantée ── */}
+    <>
+      <style>{`
+        @keyframes tut-btn-appear {
+          from { opacity: 0; transform: translateY(4px); }
+          to   { opacity: 0.35; transform: translateY(0); }
+        }
+      `}</style>
+      {/* ── Bouton tutoriel : HORS du backdrop pour ne pas être bloqué ── */}
       <button
         onClick={handleTutorial}
         title="Comment ça marche ?"
@@ -232,12 +235,6 @@ function StoryMenu({ isOpen, stories, isLoading, onClose, onDeleteStory }) {
         onMouseEnter={(e) => { e.currentTarget.style.opacity = '0.65' }}
         onMouseLeave={(e) => { e.currentTarget.style.animation = 'none'; e.currentTarget.style.opacity = '0.35' }}
       >
-        <style>{`
-          @keyframes tut-btn-appear {
-            from { opacity: 0; transform: translateY(4px); }
-            to   { opacity: 0.35; transform: translateY(0); }
-          }
-        `}</style>
         <img
           src="/tutoriel-icon.png"
           alt="Tutoriel"
@@ -249,6 +246,10 @@ function StoryMenu({ isOpen, stories, isLoading, onClose, onDeleteStory }) {
           }}
         />
       </button>
+      <div
+        className="story-menu-backdrop"
+        onClick={handleBackdropClick}
+      >
       <div
         className="story-menu-container"
         style={{
