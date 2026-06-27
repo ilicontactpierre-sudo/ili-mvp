@@ -110,6 +110,7 @@ function PublishPanel({
           action: 'fadeIn',
           soundId: track.soundId,
           volume: track.volume ?? 0.5,
+          gainDb: track.gainDb || 0,
           duration: track.fadeIn,
           delay: track.delay || 0,
           loop: track.loop || false
@@ -119,6 +120,7 @@ function PublishPanel({
           action: 'play',
           soundId: track.soundId,
           volume: track.volume ?? 0.5,
+          gainDb: track.gainDb || 0,
           delay: track.delay || 0,
           loop: track.loop || false
         })
