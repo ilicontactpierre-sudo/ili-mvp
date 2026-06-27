@@ -669,7 +669,7 @@ function TutorialPage() {
   const goNext = useCallback(() => {
     if (!canAdvance || transitioning) return
     if (screenIndex >= SCREENS.length - 1) {
-      navigate('/')
+      navigate('/', { state: { fromTutorial: true } })
       return
     }
     if (screen === 'headphones' && headphonesFadeRef.current) {
