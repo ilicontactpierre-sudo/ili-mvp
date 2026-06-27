@@ -275,7 +275,7 @@ const SplitPreviewPane = forwardRef(function SplitPreviewPane({ storyData, onClo
       </div>
     </div>
   )
-}
+})
 
 // ── Hook mobile ──────────────────────────────────────────────────────────────
 function useIsMobile() {
