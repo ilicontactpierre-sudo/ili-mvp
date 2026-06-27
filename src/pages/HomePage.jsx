@@ -223,25 +223,26 @@ function HomePage() {
           {/* ── Accès tutoriel ── */}
           {/* Visible uniquement à l'état idle, discret, sous la tagline */}
           {phase === 'idle' && (
-            <p
+            <div
               onClick={(e) => { e.stopPropagation(); navigate('/tutoriel') }}
               style={{
-                fontFamily: 'var(--font-logo)',
-                fontSize: '10px',
-                fontWeight: 500,
-                letterSpacing: '0.28em',
-                textTransform: 'uppercase',
-                color: 'color-mix(in srgb, var(--color-text-focus) 30%, transparent)',
-                marginTop: '2.2rem',
+                marginTop: '2.4rem',
                 cursor: 'pointer',
-                userSelect: 'none',
-                transition: 'color 250ms ease',
+                opacity: 0.28,
+                transition: 'opacity 300ms ease',
+                width: '56px',
+                height: '56px',
               }}
-              onMouseEnter={(e) => { e.currentTarget.style.color = 'color-mix(in srgb, var(--color-text-focus) 55%, transparent)' }}
-              onMouseLeave={(e) => { e.currentTarget.style.color = 'color-mix(in srgb, var(--color-text-focus) 30%, transparent)' }}
+              onMouseEnter={(e) => { e.currentTarget.style.opacity = '0.55' }}
+              onMouseLeave={(e) => { e.currentTarget.style.opacity = '0.28' }}
+              title="Comment ça marche ?"
             >
-              Comment ça marche ?
-            </p>
+              <img
+                src="/tutoriel-icon.png"
+                alt="Tutoriel"
+                style={{ width: '100%', height: '100%', objectFit: 'contain', filter: 'var(--icon-filter, invert(1))' }}
+              />
+            </div>
           )}
         </div>
 
