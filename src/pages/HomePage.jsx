@@ -246,7 +246,7 @@ function HomePage() {
               style={{
                 marginTop: '2.4rem',
                 cursor: 'pointer',
-                opacity: 0.72,
+                opacity: 0.52,
                 transition: 'opacity 300ms ease',
                 width: '152px',
                 height: '152px',
