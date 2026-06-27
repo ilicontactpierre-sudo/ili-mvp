@@ -640,7 +640,6 @@ function TutorialPage() {
 
   const goNext = useCallback(() => {
     if (!canAdvance || transitioning) return
-    // Fade out le son de la page casque si encore en cours
     if (screen === 'headphones' && headphonesFadeRef.current) {
       headphonesFadeRef.current()
     }
@@ -655,6 +654,31 @@ function TutorialPage() {
       setTransitioning(false)
     }, 350)
   }, [canAdvance, transitioning, screenIndex, screen, navigate])
+
+  const goPrev = useCallback(() => {
+    if (transitioning) return
+    if (screenIndex === 0) return // première page : on ignore
+    setTransitioning(true)
+    setTimeout(() => {
+      setScreenIndex(i => i - 1)
+      setCanAdvance(false)
+      setTransitioning(false)
+    }, 350)
+  }, [transitioning, screenIndex])
+
+  const handleTap = useCallback((e) => {
+    // Ignorer les clics sur les boutons et la sidebar settings
+    if (e.target.closest('button')) return
+    if (e.target.closest('.rs-menu')) return
+    if (screen === 'navigation') return // ScreenNavigation gère ses propres zones
+    if (screen === 'settings') return   // ScreenSettings gère ses propres clics
+    const isLeft = e.clientX < window.innerWidth * 0.35
+    if (isLeft) {
+      goPrev()
+    } else {
+      goNext()
+    }
+  }, [screen, goNext, goPrev])
 
   const headphonesFadeRef = useRef(null)
   const handleExit = () => navigate('/')
