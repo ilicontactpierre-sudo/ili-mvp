@@ -12,7 +12,7 @@ const EASE = {
 
 const SCREENS = ['navigation', 'headphones', 'settings', 'progress', 'outro']
 // Délai minimum (ms) avant de pouvoir taper "suivant" sur chaque écran
-const MIN_DELAY = { navigation: 0, headphones: 3000, settings: 99999, progress: 2200, outro: 1800 }
+const MIN_DELAY = { navigation: 0, headphones: 4500, settings: 99999, progress: 2200, outro: 1800 }
 
 // ── Bouton "suivant" discret, façon ContinueBtn de GameOverlay ──────────────
 function NextHint({ visible, label = 'continuer' }) {
