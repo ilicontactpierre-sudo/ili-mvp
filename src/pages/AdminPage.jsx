@@ -85,6 +85,8 @@ const SplitPreviewPane = forwardRef(function SplitPreviewPane({ storyData, sound
   // Audio sur changement de segment
   useEffect(() => {
     if (!isStarted || !audioEngineRef.current) return
+    console.log('[SplitPane] onSegmentChange index:', currentIndex)
+    console.log('[SplitPane] soundTracks:', storyData?.soundTracks)
     audioEngineRef.current.onSegmentChange(currentIndex, storyData?.soundTracks || [], segments)
   }, [currentIndex, isStarted])
 
