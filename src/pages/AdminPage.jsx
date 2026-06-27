@@ -1925,15 +1925,19 @@ function AdminPage() {
       {/* Contenu principal */}
       <div style={{
         display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
+        flexDirection: isSplitView ? 'row' : 'column',
+        alignItems: isSplitView ? 'flex-start' : 'center',
         padding: isMobile ? '0.75rem' : '2rem',
         paddingBottom: isMobile ? '3rem' : '4rem',
-        flex: 1
+        flex: 1,
+        gap: 0,
+        position: 'relative',
       }}>
         <div style={{ 
           width: '100%', 
-          maxWidth: '800px'
+          maxWidth: isSplitView ? 'calc(100% - 400px)' : '800px',
+          transition: 'max-width 0.25s ease',
+          flexShrink: 0,
         }}>
 {/* Nouvelle histoire */}
           <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '1rem' }}>
