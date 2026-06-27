@@ -2500,6 +2500,12 @@
           "color": "#7EC8C8",
           "automationPoints": [
             {
+              "segmentId": "seg_1782404044215_0_0rrlc",
+              "volume": 0.14,
+              "fadeMs": 0,
+              "_isAnchor": true
+            },
+            {
               "segmentId": "seg_1782404044215_4_y745h",
               "volume": 0.18,
               "fadeMs": 3000
@@ -2543,6 +2549,12 @@
           "color": "#7EC8C8",
           "automationPoints": [
             {
+              "segmentId": "seg_1782404044215_5_9flbi",
+              "volume": 0.2,
+              "fadeMs": 0,
+              "_isAnchor": true
+            },
+            {
               "segmentId": "seg_1782404044215_8_vwoor",
               "volume": 0.16,
               "fadeMs": 3000
@@ -2581,6 +2593,12 @@
           "color": "#F0A87E",
           "automationPoints": [
             {
+              "segmentId": "seg_1782404044215_4_y745h",
+              "volume": 0.4,
+              "fadeMs": 0,
+              "_isAnchor": true
+            },
+            {
               "segmentId": "seg_1782404044215_5_9flbi",
               "volume": 0.24,
               "fadeMs": 2000
@@ -2614,7 +2632,15 @@
           "_orchestrationNote": "La petite barque de Morrel qui s'élance vers le Pharaon. Sons de rames, craquement de bois sur l'eau.",
           "_orchestrationKeyword": "boat",
           "_orchestrationLayer": "diegetic",
-          "_orchestrationLeitmotiv": ""
+          "_orchestrationLeitmotiv": "",
+          "automationPoints": [
+            {
+              "segmentId": "seg_1782404044216_16_f28e0",
+              "volume": 0.6,
+              "fadeMs": 0,
+              "_isAnchor": true
+            }
+          ]
         },
         {
           "id": "st_1782405291657_jdwtzf52s_5",
