@@ -256,9 +256,9 @@ function HomePage() {
               title="Comment ça marche ?"
             >
               <img
-                src="/tutoriel-icon.png"
+               src="/tutoriel-icon.png"
                 alt="Tutoriel"
-                style={{ width: '100%', height: '100%', objectFit: 'contain', filter: 'var(--icon-filter, invert(1))' }}
+                style={{ width: '100%', height: '100%', objectFit: 'contain', filter: 'brightness(0) invert(1)' }}
               />
             </div>
           )}
