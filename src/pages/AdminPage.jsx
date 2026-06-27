@@ -23,7 +23,6 @@ const SplitPreviewPane = forwardRef(function SplitPreviewPane({ storyData, sound
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isStarted, setIsStarted] = useState(false)
   const [isFinished, setIsFinished] = useState(false)
-  const [isMuted, setIsMuted] = useState(false)
   const audioEngineRef = useRef(null)
   const ignoreUntilRef = useRef(0)
 
@@ -66,13 +65,18 @@ const SplitPreviewPane = forwardRef(function SplitPreviewPane({ storyData, sound
   const goToSegment = useCallback((index) => {
     const clampedIdx = Math.max(0, Math.min(index, lastIndex))
     if (!isStarted) {
+      // Mémoriser l'index cible — handleStart sautera dessus après le preload
       pendingSegmentRef.current = clampedIdx
+      // Ne pas toucher à isStarted : laisser StartScreen faire son preload normalement
       return
     }
-    // Déjà démarré : sauter directement avec relance audio
-    const howlMap = audioEngineRef.current?._howlMap
-    startAt(clampedIdx, howlMap)
-  }, [isStarted, lastIndex, startAt])
+    // Déjà démarré : sauter directement
+    audioEngineRef.current?.stopAll()
+    audioEngineRef.current = null
+    setCurrentIndex(clampedIdx)
+    setIsFinished(false)
+    ignoreUntilRef.current = Date.now() + 400
+  }, [isStarted, lastIndex])
 
   // Exposer goToSegment via ref pour que AdminPage puisse l'appeler
   const goToSegmentRef = useRef(goToSegment)
@@ -91,30 +95,22 @@ const SplitPreviewPane = forwardRef(function SplitPreviewPane({ storyData, sound
   }, [isFinished])
 
   // Démarrer
-  const startAt = useCallback((idx, howlMap) => {
-    const map = howlMap ?? audioEngineRef.current?._howlMap
-    if (!map) return
-    audioEngineRef.current?.stopAll()
-    audioEngineRef.current = new AudioEngine(map)
-    audioEngineRef.current.setMasterVolume(isMuted ? 0 : (storyData?.masterVolume ?? 1.0))
+  const handleStart = (preloadedHowlMap) => {
+    audioEngineRef.current = new AudioEngine(preloadedHowlMap)
+    audioEngineRef.current.setMasterVolume(storyData?.masterVolume ?? 1.0)
     ignoreUntilRef.current = Date.now() + 600
-    setCurrentIndex(idx)
-    setIsStarted(true)
-    setIsFinished(false)
-    setTimeout(() => {
-      audioEngineRef.current?.onSegmentChange(idx, storyData?.soundTracks || [], segments)
-    }, 50)
-  }, [storyData, segments, isMuted])
-
-  const handleStart = useCallback((preloadedHowlMap) => {
-    // Stocker la map pour pouvoir la réutiliser lors des sauts de segments
-    if (preloadedHowlMap) {
-      audioEngineRef.current = new AudioEngine(preloadedHowlMap)
-      audioEngineRef.current._howlMap = preloadedHowlMap
-    }
-    startAt(pendingSegmentRef.current ?? 0, preloadedHowlMap)
+    const startIdx = pendingSegmentRef.current ?? 0
     pendingSegmentRef.current = null
-  }, [startAt])
+    setCurrentIndex(startIdx)
+    setIsStarted(true)
+    // Déclencher manuellement le premier onSegmentChange car currentIndex
+    // ne changera pas si startIdx === 0 (déjà à 0 avant setIsStarted)
+    setTimeout(() => {
+      if (audioEngineRef.current) {
+        audioEngineRef.current.onSegmentChange(startIdx, storyData?.soundTracks || [], segments)
+      }
+    }, 50)
+  }
 
   const activeGameMode = segments[currentIndex]?.gameMode ?? null
 
@@ -122,13 +118,6 @@ const SplitPreviewPane = forwardRef(function SplitPreviewPane({ storyData, sound
     if (activeGameMode) return
     if (Date.now() < ignoreUntilRef.current) return
     if (e.target.closest('a, button, input, textarea, select, [role="button"]')) return
-    // Réactiver le son si muté
-    if (isMuted) {
-      setIsMuted(false)
-      if (audioEngineRef.current) {
-        audioEngineRef.current.setMasterVolume(storyData?.masterVolume ?? 1.0)
-      }
-    }
     goNext()
   }
 
@@ -221,27 +210,6 @@ const SplitPreviewPane = forwardRef(function SplitPreviewPane({ storyData, sound
           onMouseEnter={e => { if (isStarted && !isFinished) e.currentTarget.style.background = 'rgba(255,255,255,0.1)' }}
           onMouseLeave={e => e.currentTarget.style.background = 'none'}
         >→</button>
-        {/* Mute */}
-        <button
-          onClick={() => {
-            const next = !isMuted
-            setIsMuted(next)
-            if (audioEngineRef.current) {
-              audioEngineRef.current.setMasterVolume(next ? 0 : (storyData?.masterVolume ?? 1.0))
-            }
-          }}
-          title={isMuted ? 'Réactiver le son' : 'Couper le son'}
-          style={{
-            background: isMuted ? 'rgba(255,100,100,0.2)' : 'none',
-            border: '1px solid rgba(255,255,255,0.15)',
-            borderRadius: '4px', cursor: 'pointer',
-            color: isMuted ? '#ff6b6b' : 'rgba(255,255,255,0.6)',
-            fontSize: '0.72rem', padding: '2px 7px', lineHeight: 1,
-            transition: 'all 0.1s',
-          }}
-          onMouseEnter={e => e.currentTarget.style.background = isMuted ? 'rgba(255,100,100,0.3)' : 'rgba(255,255,255,0.1)'}
-          onMouseLeave={e => e.currentTarget.style.background = isMuted ? 'rgba(255,100,100,0.2)' : 'none'}
-        >{isMuted ? '🔇' : '🔊'}</button>
         {/* Resync */}
         <button
           onClick={handleResync}
