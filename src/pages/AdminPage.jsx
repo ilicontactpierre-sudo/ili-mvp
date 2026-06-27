@@ -2893,14 +2893,6 @@ function AdminPage() {
         onClose={() => { setIsPreviewOpen(false); setPreviewStartIndex(null); setPreviewStoryData(null) }}
       />
 
-      {/* SplitPreviewPane — panneau aperçu latéral */}
-      {isSplitView && activeSegments.length > 0 && adminTab === 'stories' && (
-        <SplitPreviewPane
-          ref={splitPaneRef}
-          storyData={getCurrentStoryData()}
-          onClose={() => setIsSplitView(false)}
-        />
-      )}
       </> /* fin onglet stories */}
       {/* ── Panneau latéral flottant (ancres + undo/redo) ── */}
       {adminTab === 'stories' && activeSegments.length > 0 && (
