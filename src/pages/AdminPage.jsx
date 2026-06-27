@@ -66,18 +66,13 @@ const SplitPreviewPane = forwardRef(function SplitPreviewPane({ storyData, sound
   const goToSegment = useCallback((index) => {
     const clampedIdx = Math.max(0, Math.min(index, lastIndex))
     if (!isStarted) {
-      // Mémoriser l'index cible — handleStart sautera dessus après le preload
       pendingSegmentRef.current = clampedIdx
-      // Ne pas toucher à isStarted : laisser StartScreen faire son preload normalement
       return
     }
-    // Déjà démarré : sauter directement
-    audioEngineRef.current?.stopAll()
-    audioEngineRef.current = null
-    setCurrentIndex(clampedIdx)
-    setIsFinished(false)
-    ignoreUntilRef.current = Date.now() + 400
-  }, [isStarted, lastIndex])
+    // Déjà démarré : sauter directement avec relance audio
+    const howlMap = audioEngineRef.current?._howlMap
+    startAt(clampedIdx, howlMap)
+  }, [isStarted, lastIndex, startAt])
 
   // Exposer goToSegment via ref pour que AdminPage puisse l'appeler
   const goToSegmentRef = useRef(goToSegment)
