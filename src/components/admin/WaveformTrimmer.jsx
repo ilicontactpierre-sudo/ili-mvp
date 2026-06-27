@@ -107,30 +107,35 @@ const [realDurationMs, setRealDurationMs] = useState((sound.duration || 0) * 100
     const H = canvas.height
     const ctx = canvas.getContext('2d')
     ctx.clearRect(0, 0, W, H)
-
     const startX = (trimStart / durationMs) * W
     const endX   = (trimEnd   / durationMs) * W
     const playX  = playhead !== null ? (playhead / durationMs) * W : null
-
+    const gainFactor = dbToLinear(gainDb)
     for (let i = 0; i < peaks.length; i++) {
       const x = (i / peaks.length) * W
-      const h = peaks[i] * H * 0.9
+      // Amplitude après gain — peut dépasser 1 (= saturation)
+      const amplified = peaks[i] * gainFactor
+      const clipped = amplified > 1
+      // On clamp la hauteur dessinée à 1.0 (la barre ne sort jamais du canvas)
+      const h = Math.min(amplified, 1) * H * 0.9
       const inSel = x >= startX && x <= endX
-      ctx.fillStyle = inSel ? COLOR_WAVE_SEL : COLOR_WAVE_BG
+      if (clipped) {
+        ctx.fillStyle = COLOR_WAVE_CLIP
+      } else {
+        ctx.fillStyle = inSel ? COLOR_WAVE_SEL : COLOR_WAVE_BG
+      }
       ctx.fillRect(x, (H - h) / 2, Math.max(1.5, W / peaks.length - 0.5), h)
     }
-
-    // Overlay hors sélection (assombrir)
+    // Overlay hors sélection (assombrir) — sauf sur les barres en clipping, pour
+    // qu'elles restent visibles même hors de la zone de trim sélectionnée
     ctx.fillStyle = 'rgba(255,255,255,0.55)'
     if (startX > 0)  ctx.fillRect(0, 0, startX, H)
     if (endX < W)    ctx.fillRect(endX, 0, W - endX, H)
-
     // Lignes de trim
     ctx.strokeStyle = COLOR_START; ctx.lineWidth = 2
     ctx.beginPath(); ctx.moveTo(startX, 0); ctx.lineTo(startX, H); ctx.stroke()
     ctx.strokeStyle = COLOR_END
     ctx.beginPath(); ctx.moveTo(endX, 0); ctx.lineTo(endX, H); ctx.stroke()
-
     // Playhead
     if (playX !== null) {
       ctx.strokeStyle = '#fff'; ctx.lineWidth = 1.5
@@ -138,7 +143,7 @@ const [realDurationMs, setRealDurationMs] = useState((sound.duration || 0) * 100
       ctx.beginPath(); ctx.moveTo(playX, 0); ctx.lineTo(playX, H); ctx.stroke()
       ctx.setLineDash([])
     }
-  }, [peaks, trimStart, trimEnd, durationMs, playhead])
+  }, [peaks, trimStart, trimEnd, durationMs, playhead, gainDb])
 
   useEffect(() => { draw() }, [draw])
 
