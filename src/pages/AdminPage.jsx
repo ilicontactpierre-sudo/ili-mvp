@@ -2922,7 +2922,7 @@ function AdminPage() {
       {adminTab === 'stories' && activeSegments.length > 0 && (
         <div style={{
           position: 'fixed',
-          right: isSplitView ? '416px' : '1rem',
+          right: isSplitView ? '392px' : '8px',
           top: '50%',
           transform: 'translateY(-50%)',
           zIndex: 500,
