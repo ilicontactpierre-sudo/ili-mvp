@@ -49,7 +49,7 @@ class AudioEngine {
     if (event.action === 'volume')  return this.setSoundVolume(event)
   }
 
-  playSound({ trackId, soundId, volume = 1, loop, loopCrossfade, trimStart, trimEnd, pan = 0, panMode = 'static' }) {
+  playSound({ trackId, soundId, volume = 1, gainDb = 0, loop, loopCrossfade, trimStart, trimEnd, pan = 0, panMode = 'static' }) {
     if (!soundId) return
     const key = trackId || soundId
     if (this.playingSounds.has(key)) return
@@ -59,14 +59,14 @@ class AudioEngine {
     if (loop && crossfadeMs > 0) {
       const instanceId = this._playInstance(howl, soundId, trimStart, trimEnd, key)
       howl.loop(false, instanceId)
-      howl.volume(this._toPerceptualVolume(volume), instanceId)
-      this.playingSounds.set(key, { howl, soundId, volume, instanceId, loop, loopCrossfade, trimStart, trimEnd, pan, panMode })
-      this._scheduleLoopCrossfade(key, howl, soundId, volume, crossfadeMs, trimStart, trimEnd, loopCrossfade)
+      howl.volume(this._toPerceptualVolume(volume, gainDb), instanceId)
+      this.playingSounds.set(key, { howl, soundId, volume, gainDb, instanceId, loop, loopCrossfade, trimStart, trimEnd, pan, panMode })
+      this._scheduleLoopCrossfade(key, howl, soundId, volume, crossfadeMs, trimStart, trimEnd, loopCrossfade, gainDb)
     } else {
       const instanceId = this._playInstance(howl, soundId, trimStart, trimEnd, key)
       howl.loop(Boolean(loop), instanceId)
-      howl.volume(this._toPerceptualVolume(volume), instanceId)
-      this.playingSounds.set(key, { howl, soundId, volume, instanceId, loop, loopCrossfade, trimStart, trimEnd, pan, panMode })
+      howl.volume(this._toPerceptualVolume(volume, gainDb), instanceId)
+      this.playingSounds.set(key, { howl, soundId, volume, gainDb, instanceId, loop, loopCrossfade, trimStart, trimEnd, pan, panMode })
     }
     this._applyPan(key, pan, panMode, howl)
   }
