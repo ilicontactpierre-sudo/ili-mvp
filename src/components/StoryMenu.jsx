@@ -216,6 +216,50 @@ function StoryMenu({ isOpen, stories, isLoading, onClose, onDeleteStory }) {
         pointerEvents: exiting ? 'none' : 'auto',
       }}
     >
+      {/* ── Bouton tutoriel haut gauche, même hauteur que la roue crantée ── */}
+      <button
+        onClick={handleTutorial}
+        title="Comment ça marche ?"
+        style={{
+          position: 'fixed',
+          top: '8px',
+          left: '8px',
+          zIndex: 8001,
+          width: '48px',
+          height: '48px',
+          background: 'none',
+          border: 'none',
+          cursor: 'pointer',
+          padding: '10px',
+          opacity: 0.3,
+          transition: 'opacity 250ms ease',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+        onMouseEnter={(e) => { e.currentTarget.style.opacity = '0.65' }}
+        onMouseLeave={(e) => { e.currentTarget.style.opacity = '0.3' }}
+      >
+        <img
+          src="/tutoriel-icon.png"
+          alt="Tutoriel"
+          style={{
+            width: '100%',
+            height: '100%',
+            objectFit: 'contain',
+            filter: 'invert(1)',
+          }}
+        />
+      </button>
+      style={{
+        opacity: exiting ? 0 : 1,
+        transform: exiting ? 'translateY(-8px)' : 'translateY(0)',
+        transition: exiting
+          ? 'opacity 600ms cubic-bezier(0.4, 0, 1, 1), transform 600ms cubic-bezier(0.4, 0, 1, 1)'
+          : 'none',
+        pointerEvents: exiting ? 'none' : 'auto',
+      }}
+    >
       <div className="story-menu-container">
         {!isLoading && allTags.length > 0 && (
           <FilterChips allTags={allTags} activeTags={activeTags} onToggle={toggleTag} />
