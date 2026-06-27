@@ -284,6 +284,7 @@ function StoryMenu({ isOpen, stories, isLoading, onClose, onDeleteStory }) {
             ))}
           </div>
         )}
+
       </div>
     </div>
   );
