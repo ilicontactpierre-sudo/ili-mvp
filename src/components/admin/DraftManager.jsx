@@ -331,10 +331,32 @@ function DraftManager({
             {saveFeedback || (lastSavedAt ? `Sauvegardé ${formatTimeAgo(lastSavedAt)}` : 'Non sauvegardé')}
           </div>
 
-          {/* Bouton Aperçu */}
+          {/* Boutons Aperçu */}
+          {onToggleSplit && (
+            <button
+              onClick={onToggleSplit}
+              title={isSplitView ? 'Fermer l\'aperçu latéral' : 'Ouvrir l\'aperçu latéral'}
+              style={{
+                padding: '0.25rem 0.75rem',
+                backgroundColor: isSplitView ? '#1a1a2e' : 'var(--color-bg-accent)',
+                color: isSplitView ? '#fff' : 'var(--color-text)',
+                border: isSplitView ? '1px solid #1a1a2e' : '1px solid var(--color-border)',
+                borderRadius: '4px',
+                cursor: 'pointer',
+                fontSize: '0.875rem',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.25rem',
+                transition: 'all 0.15s ease',
+              }}
+            >
+              {isSplitView ? '▣ Split actif' : '▣ Split'}
+            </button>
+          )}
           {onOpenPreview && (
             <button
               onClick={onOpenPreview}
+              title="Aperçu plein écran"
               style={{
                 padding: '0.25rem 0.75rem',
                 backgroundColor: 'var(--color-bg-accent)',
