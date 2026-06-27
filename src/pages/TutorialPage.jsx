@@ -699,7 +699,7 @@ function TutorialPage() {
         }
       `}</style>
       <div
-        onClick={screen === 'navigation' ? undefined : goNext}
+        onClick={handleTap}
         style={{
           position: 'fixed',
           inset: 0,
