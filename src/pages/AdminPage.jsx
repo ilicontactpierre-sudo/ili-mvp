@@ -1530,7 +1530,6 @@ function AdminPage() {
   }, [activeSegments.length, isSplitView])
 
   // États partagés mobile/desktop pour chapitres + gameMode
-  // États partagés mobile/desktop pour chapitres + gameMode
   const [collapsedChapters, setCollapsedChapters] = useState(new Set())
   const [gameModePanel, setGameModePanel] = useState(null)
 
