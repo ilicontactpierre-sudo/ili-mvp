@@ -17,7 +17,9 @@ import AnalyticsDashboard from '../components/admin/AnalyticsDashboard'
 import MenuManagerPage from '../components/admin/MenuManagerPage'
 
 // ── Composant SplitPreviewPane ────────────────────────────────────────────────
-function SplitPreviewPane({ storyData, onClose }) {
+import { forwardRef, useImperativeHandle } from 'react'
+
+const SplitPreviewPane = forwardRef(function SplitPreviewPane({ storyData, onClose }, ref) {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isStarted, setIsStarted] = useState(false)
   const [isFinished, setIsFinished] = useState(false)
