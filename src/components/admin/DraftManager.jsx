@@ -15,7 +15,9 @@ function DraftManager({
   isSerial = false,
   parts = [],
   onRestore,
-  onOpenPreview
+  onOpenPreview,
+  isSplitView = false,
+  onToggleSplit,
 }) {
   const [lastSavedAt, setLastSavedAt] = useState(null)
   const [saveLabel, setSaveLabel] = useState('')
