@@ -2133,7 +2133,7 @@ function UnifiedSegmentsTimeline({
     const containerRect = containerRef.current?.getBoundingClientRect()
     setFormatToolbar({
       mode: 'segment',
-      position: { top: rect.top, left: containerRect?.left ?? rect.left },
+      position: { top: rect.top, left: timelineLeft ?? containerRect?.left ?? rect.left },
       segmentIndex: index,
       selectedText: null,
     })
