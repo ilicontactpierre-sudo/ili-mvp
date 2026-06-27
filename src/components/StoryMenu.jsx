@@ -160,6 +160,10 @@ function StoryMenu({ isOpen, stories, isLoading, onClose, onDeleteStory }) {
   const navigate = useNavigate();
   const [exiting, setExiting] = useState(false);
   const [activeTags, setActiveTags] = useState([]);
+  const handleTutorial = (e) => {
+    e.stopPropagation()
+    navigate('/tutoriel')
+  }
 
   // Tags disponibles : déduits des histoires visibles, triés par fréquence puis alpha
   const allTags = useMemo(() => {
