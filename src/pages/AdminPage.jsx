@@ -1513,6 +1513,23 @@ function AdminPage() {
     observer.observe(document.body, { childList: true, subtree: true, attributes: true })
     return () => { window.removeEventListener('resize', updateStickyHeight); observer.disconnect() }
   }, [])
+  useEffect(() => {
+    const updateTimelineRect = () => {
+      if (timelineContainerRef.current) {
+        const rect = timelineContainerRef.current.getBoundingClientRect()
+        setTimelineRect({ left: rect.left, right: rect.right })
+      }
+    }
+    updateTimelineRect()
+    window.addEventListener('resize', updateTimelineRect)
+    window.addEventListener('scroll', updateTimelineRect, true)
+    return () => {
+      window.removeEventListener('resize', updateTimelineRect)
+      window.removeEventListener('scroll', updateTimelineRect, true)
+    }
+  }, [activeSegments.length, isSplitView])
+
+  // États partagés mobile/desktop pour chapitres + gameMode
   // États partagés mobile/desktop pour chapitres + gameMode
   const [collapsedChapters, setCollapsedChapters] = useState(new Set())
   const [gameModePanel, setGameModePanel] = useState(null)
