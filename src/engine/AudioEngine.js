@@ -442,7 +442,7 @@ class AudioEngine {
           const state = this.playingSounds.get(key)
           if (!state) continue
           const currentVol = state.howl.volume(undefined, state.instanceId) ?? targetVolume
-          const targetPerceptual = this._toPerceptualVolume(targetVolume)
+          const targetPerceptual = this._toPerceptualVolume(targetVolume, state.gainDb ?? track.gainDb ?? 0)
           if (Math.abs(currentVol - targetPerceptual) > 0.01) {
             // Trouver la courbe associée à ce fadeMs
             const AUTOMATION_FADE_STEPS = [
