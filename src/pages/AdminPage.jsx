@@ -2674,6 +2674,7 @@ function AdminPage() {
           ref={splitPaneRef}
           storyData={getCurrentStoryData()}
           onClose={() => setIsSplitView(false)}
+          topOffset={stickyHeight}
         />
       )}
       {/* Modal SoundPicker */}
