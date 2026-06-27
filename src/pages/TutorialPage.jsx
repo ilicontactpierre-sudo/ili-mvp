@@ -551,7 +551,7 @@ function ScreenProgress() {
         fontStyle: 'italic',
         animation: `tut-rise 700ms ${EASE.out} both`,
       }}>
-        Ce trait, sur le côté, te montre où tu en es dans l'histoire.
+        Ce trait, sur le côté,<br />te montre où tu en es dans l'histoire.
       </p>
     </div>
   )
