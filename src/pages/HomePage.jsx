@@ -247,7 +247,7 @@ function HomePage() {
               cursor: phase === 'idle' ? 'pointer' : 'default',
               width: '132px',
               height: '132px',
-              opacity: phase === 'idle' ? 0.32 : 0,
+              opacity: phase === 'idle' ? 0.62 : 0,
               pointerEvents: phase === 'idle' ? 'auto' : 'none',
               transition: 'opacity 400ms cubic-bezier(0.76, 0, 0.24, 1)',
             }}
