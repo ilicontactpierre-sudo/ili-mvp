@@ -2909,7 +2909,7 @@ function AdminPage() {
 
       </> /* fin onglet stories */}
       {/* ── Panneau latéral flottant (ancres + undo/redo) ── */}
-      {adminTab === 'stories' && activeSegments.length > 0 && (
+      {adminTab === 'stories' && activeSegments.length > 0 && !isSplitView && (
         <div style={{
           position: 'fixed',
           right: '1rem',
