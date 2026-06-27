@@ -951,11 +951,7 @@ function AdminPage() {
   const [isSplitView, setIsSplitView] = useState(false)
   const splitPaneRef = useRef(null)
 
-  // Exposer AudioEngine globalement pour SplitPreviewPane
-  useEffect(() => {
-    window.__ILiAudioEngine = AudioEngine
-    return () => { delete window.__ILiAudioEngine }
-  }, [])
+  // (AudioEngine est importé directement dans SplitPreviewPane)
 
   // Charger la bibliothèque sonore : JSON local + enrichissement Supabase
   useEffect(() => {
