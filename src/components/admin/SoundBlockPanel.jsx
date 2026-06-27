@@ -818,11 +818,23 @@ function SoundBlockPanel({
                     <div>
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.4rem' }}>
                         <label style={{ fontSize: '0.75rem', color: '#888' }}>Points de trim</label>
-                        {(editedTrack.trimStart > 0 || (editedTrack.trimEnd && editedTrack.trimEnd < sound.duration * 1000)) && (
-                          <span style={{ fontSize: '0.7rem', color: color }}>
-                            {((editedTrack.trimStart || 0) / 1000).toFixed(2)}s → {((editedTrack.trimEnd || sound.duration * 1000) / 1000).toFixed(2)}s
-                          </span>
-                        )}
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                          {(editedTrack.trimStart > 0 || (editedTrack.trimEnd && editedTrack.trimEnd < sound.duration * 1000)) && (
+                            <span style={{ fontSize: '0.7rem', color: color }}>
+                              {((editedTrack.trimStart || 0) / 1000).toFixed(2)}s → {((editedTrack.trimEnd || sound.duration * 1000) / 1000).toFixed(2)}s
+                            </span>
+                          )}
+                          {!!editedTrack.gainDb && (
+                            <span style={{
+                              fontSize: '0.68rem', fontWeight: 600,
+                              color: editedTrack.gainDb > 0 ? '#f59e0b' : '#5a7af0',
+                              padding: '0.1rem 0.4rem', borderRadius: '4px',
+                              backgroundColor: editedTrack.gainDb > 0 ? 'rgba(245,158,11,0.12)' : 'rgba(90,122,240,0.12)',
+                            }}>
+                              {editedTrack.gainDb > 0 ? '+' : ''}{editedTrack.gainDb.toFixed(1)}dB
+                            </span>
+                          )}
+                        </div>
                       </div>
                       <button
                         onClick={() => setShowTrimmer(true)}
