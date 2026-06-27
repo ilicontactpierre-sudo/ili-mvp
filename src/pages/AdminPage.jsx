@@ -2537,7 +2537,12 @@ function AdminPage() {
                         </div>
                       </div>
                     ) : (
-                      <div style={{ height: '850px', marginBottom: '2rem' }}>
+                      <div style={{
+                        height: '850px',
+                        marginBottom: '2rem',
+                        // En split view, la timeline se réduit légèrement (le panneau droit est sticky)
+                        transition: 'opacity 0.2s ease',
+                      }}>
                         <UnifiedSegmentsTimeline
                           segments={activeSegments}
                           soundTracks={activeSoundTracks}
