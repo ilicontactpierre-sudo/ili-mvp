@@ -122,6 +122,13 @@ const SplitPreviewPane = forwardRef(function SplitPreviewPane({ storyData, sound
     if (activeGameMode) return
     if (Date.now() < ignoreUntilRef.current) return
     if (e.target.closest('a, button, input, textarea, select, [role="button"]')) return
+    // Réactiver le son si muté
+    if (isMuted) {
+      setIsMuted(false)
+      if (audioEngineRef.current) {
+        audioEngineRef.current.setMasterVolume(storyData?.masterVolume ?? 1.0)
+      }
+    }
     goNext()
   }
 
