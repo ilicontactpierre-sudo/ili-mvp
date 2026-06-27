@@ -388,11 +388,12 @@ function ScreenSettings({ onUnlock }) {
   const [stepsDone, setStepsDone] = useState(false)
   const isLastStep = stepIndex >= SETTINGS_STEPS.length - 1
 
-  const handleScreenClick = useCallback(() => {
-    if (stepsDone) return  // déjà tout vu, le tap global de TutorialPage gère la suite
+  const handleScreenClick = useCallback((e) => {
+    if (stepsDone) return
+    e.stopPropagation() // empêche le clic de remonter vers goNext dans TutorialPage
     if (isLastStep) {
       setStepsDone(true)
-      onUnlock?.(400)      // délai 400ms pour absorber le clic courant avant d'activer goNext
+      onUnlock?.(400)
     } else {
       setStepIndex(i => i + 1)
     }
