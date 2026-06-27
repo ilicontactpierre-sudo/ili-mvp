@@ -1596,6 +1596,7 @@ function UnifiedSegmentsTimeline({
   masterVolume = 1.0,
   onMasterVolumeChange,
   splitViewOffset = 0,
+  timelineLeft = null,
 }) {
   const [selectedSoundIds, setSelectedSoundIds] = useState(new Set())
   const [editingSoundTrack, setEditingSoundTrack] = useState(null)
