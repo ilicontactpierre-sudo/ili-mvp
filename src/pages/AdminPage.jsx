@@ -1917,6 +1917,8 @@ function AdminPage() {
         isSerial={isSerial}
         parts={isSerial ? parts : []}
         onRestore={handleRestoreSnapshot}
+        isSplitView={isSplitView}
+        onToggleSplit={() => setIsSplitView(v => !v)}
         onOpenPreview={() => { setPreviewStartIndex(null); setIsPreviewOpen(true) }}
       />
 
