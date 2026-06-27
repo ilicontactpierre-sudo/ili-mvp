@@ -225,20 +225,21 @@ const [realDurationMs, setRealDurationMs] = useState((sound.duration || 0) * 100
     const src = sound.url
       || (sound.localPath ? `/api/preview-sound?path=${encodeURIComponent(sound.localPath)}` : null)
     if (!src) return
-
     const spriteDuration = trimEnd - trimStart
+    // Le volume de base (0.8) est multiplié par le gain — clampé à 1.0 max
+    // pour que Howler ne tronque pas silencieusement une valeur invalide.
+    const previewVolume = Math.max(0, Math.min(1, 0.8 * dbToLinear(gainDb)))
     const howl = new Howl({
       src: [src],
       html5: false,
       sprite: { sel: [trimStart, spriteDuration] },
-      volume: 0.8,
+      volume: previewVolume,
       onend: () => { stopPreview() },
       onloaderror: () => { stopPreview() },
     })
     const id = howl.play('sel')
     howlRef.current = howl
     setIsPreviewing(true)
-
     const startTime = performance.now()
     const tick = () => {
       const elapsed = performance.now() - startTime
@@ -249,7 +250,7 @@ const [realDurationMs, setRealDurationMs] = useState((sound.duration || 0) * 100
       }
     }
     animRef.current = requestAnimationFrame(tick)
-  }, [sound, trimStart, trimEnd, stopPreview])
+  }, [sound, trimStart, trimEnd, gainDb, stopPreview])
 
   useEffect(() => () => stopPreview(), [stopPreview])
 
