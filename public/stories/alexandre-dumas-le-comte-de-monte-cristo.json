@@ -61,6 +61,11 @@
           "loop": false
         },
         {
+          "id": "ueck_sweetener_sub_distanst_hit",
+          "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/ueck_sweetener_sub_distanst_hit.mp3",
+          "loop": false
+        },
+        {
           "id": "hmnbrth_female_fast_panic_struck_breath_sequence_02_b00m_one",
           "url": "/sounds/HMNBrth_Female Fast Panic Struck Breath Sequence 02_B00M_ONE.mp3",
           "loop": false
@@ -78,11 +83,6 @@
         {
           "id": "muscstr_oriental_strings_chord_dissonant_01_b00m_one",
           "url": "/sounds/MUSCStr_Oriental Strings Chord Dissonant 01_B00M_ONE.mp3",
-          "loop": false
-        },
-        {
-          "id": "muscstr_piano_play_on_strings_sustain_pedal_low_01_b00m_one",
-          "url": "/sounds/MUSCStr_Piano Play On Strings Sustain Pedal Low 01_B00M_ONE.mp3",
           "loop": false
         },
         {
@@ -138,6 +138,11 @@
         {
           "id": "73_s14_sweep_3",
           "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/73_s14_sweep_3.mp3",
+          "loop": false
+        },
+        {
+          "id": "dantes_theme_3",
+          "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/dantes_theme_3.mp3",
           "loop": false
         }
       ],
@@ -538,14 +543,14 @@
           "audioEvents": [
             {
               "action": "play",
-              "soundId": "whsh_cinematic_low_impact_muffled_hit_01_b00m_one",
-              "volume": 0.55,
+              "soundId": "ueck_sweetener_sub_distanst_hit",
+              "volume": 0.35,
               "delay": 900,
               "loop": false
             },
             {
               "action": "fadeOut",
-              "soundId": "whsh_cinematic_low_impact_muffled_hit_01_b00m_one",
+              "soundId": "ueck_sweetener_sub_distanst_hit",
               "duration": 1000
             }
           ]
@@ -2724,11 +2729,11 @@
         },
         {
           "id": "st_1782405291657_qpf9y3nr4_6",
-          "soundId": "whsh_cinematic_low_impact_muffled_hit_01_b00m_one",
+          "soundId": "ueck_sweetener_sub_distanst_hit",
           "startSegmentId": "seg_1782404044216_29_xku7e",
           "endSegmentId": "seg_1782404044216_29_xku7e",
           "column": 3,
-          "volume": 0.55,
+          "volume": 0.35,
           "loop": false,
           "fadeIn": 0,
           "fadeOut": 1000,
@@ -2740,7 +2745,17 @@
           "_orchestrationNote": "Impact sourd sur 'Il est mort' — choc émotionnel, arrêt du temps. Un seul segment, bref, grave.",
           "_orchestrationKeyword": "whsh_cinematic_low_impact_muffled_hit_01_b00m_one",
           "_orchestrationLayer": "diegetic",
-          "_orchestrationLeitmotiv": ""
+          "_orchestrationLeitmotiv": "",
+          "automationPoints": [
+            {
+              "segmentId": "seg_1782404044216_29_xku7e",
+              "volume": 0.35,
+              "fadeMs": 0,
+              "_isAnchor": true
+            }
+          ],
+          "trimStart": 0,
+          "trimEnd": 7981
         },
         {
           "id": "st_1782405291657_nkh1xf5j0_7",
@@ -3113,7 +3128,7 @@
         },
         {
           "id": "st_1782405291659_tfwjevd6y_21",
-          "soundId": "muscstr_piano_play_on_strings_sustain_pedal_low_01_b00m_one",
+          "soundId": "dantes_theme_3",
           "startSegmentId": "seg_1782404093633_a_pjs7t",
           "endSegmentId": "seg_1782404093633_b_yc576",
           "column": 2,
@@ -3159,7 +3174,15 @@
           "_orchestrationNote": "L'équipage s'élance aux postes — pas sur le pont, courir sur bois mouillé, activité maritime soudaine.",
           "_orchestrationKeyword": "walk",
           "_orchestrationLayer": "diegetic",
-          "_orchestrationLeitmotiv": ""
+          "_orchestrationLeitmotiv": "",
+          "automationPoints": [
+            {
+              "segmentId": "seg_1782404044216_33_lj6c4",
+              "volume": 0.62,
+              "fadeMs": 0,
+              "_isAnchor": true
+            }
+          ]
         },
         {
           "id": "st_1782405291659_3aql7o1ck_23",
@@ -3180,7 +3203,15 @@
           "_orchestrationNote": "Manœuvre des écoutes, bras et drisses — tension des cordages, craquements de bois et de chanvre.",
           "_orchestrationKeyword": "rope",
           "_orchestrationLayer": "diegetic",
-          "_orchestrationLeitmotiv": ""
+          "_orchestrationLeitmotiv": "",
+          "automationPoints": [
+            {
+              "segmentId": "seg_1782404044216_35_hlxg6",
+              "volume": 0.65,
+              "fadeMs": 0,
+              "_isAnchor": true
+            }
+          ]
         },
         {
           "id": "st_1782405291659_rizvdzg6c_24",
