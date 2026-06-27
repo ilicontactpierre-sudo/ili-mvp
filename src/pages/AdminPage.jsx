@@ -2921,10 +2921,11 @@ function AdminPage() {
       {adminTab === 'stories' && activeSegments.length > 0 && (
         <div style={{
           position: 'fixed',
-          right: '1rem',
+          right: isSplitView ? '416px' : '1rem',
           top: '50%',
           transform: 'translateY(-50%)',
           zIndex: 500,
+          transition: 'right 0.25s ease',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'stretch',
