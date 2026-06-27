@@ -17,10 +17,16 @@ const TRACK_HEIGHT = 80      // hauteur de la waveform en px
 const HANDLE_WIDTH = 14      // largeur des poignées en px
 const COLOR_WAVE_BG  = '#d0d7f0'   // zone hors sélection
 const COLOR_WAVE_SEL = '#5a7af0'   // zone sélectionnée
+const COLOR_WAVE_CLIP = '#ef4444'  // zone qui sature avec le gain appliqué
 const COLOR_START    = '#22c55e'   // poignée verte
 const COLOR_END      = '#ef4444'   // poignée rouge
-
-export default function WaveformTrimmer({ sound, initialStart = 0, initialEnd, onConfirm, onClose }) {
+const COLOR_GAIN     = '#f59e0b'   // accent slider de gain (orange)
+// Convertit un gain en dB vers un multiplicateur linéaire (0dB = 1.0, neutre)
+function dbToLinear(db) {
+  if (!db) return 1
+  return Math.pow(10, db / 20)
+}
+export default function WaveformTrimmer({ sound, initialStart = 0, initialEnd, initialGainDb = 0, onConfirm, onClose }) {
   const canvasRef   = useRef(null)
   const containerRef = useRef(null)
   const howlRef     = useRef(null)
