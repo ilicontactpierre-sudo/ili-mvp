@@ -89,7 +89,7 @@ class AudioEngine {
     if (howl) howl.stop()
   }
 
-  fadeInSound({ trackId, soundId, volume = 1, duration = 400, loop, loopCrossfade, trimStart, trimEnd, pan = 0, panMode = 'static' }) {
+  fadeInSound({ trackId, soundId, volume = 1, gainDb = 0, duration = 400, loop, loopCrossfade, trimStart, trimEnd, pan = 0, panMode = 'static' }) {
     if (!soundId) return
     const key = trackId || soundId
     const howl = this.howlMap.get(soundId)
@@ -101,26 +101,26 @@ class AudioEngine {
       // Son déjà en cours : fade vers le nouveau volume
       const state = this.playingSounds.get(key)
       const current = howl.volume(undefined, state.instanceId)
-      howl.fade(current, volume, duration, state.instanceId)
-      this.playingSounds.set(key, { ...state, volume })
+      howl.fade(current, this._toPerceptualVolume(volume, gainDb), duration, state.instanceId)
+      this.playingSounds.set(key, { ...state, volume, gainDb })
     } else {
       const instanceId = this._playInstance(howl, soundId, trimStart, trimEnd, key)
       // Mettre à 0 immédiatement (avant que le son démarre)
       howl.volume(0, instanceId)
       howl.loop(false, instanceId)
-      this.playingSounds.set(key, { howl, soundId, volume, instanceId, loop, loopCrossfade, trimStart, trimEnd, pan, panMode })
+      this.playingSounds.set(key, { howl, soundId, volume, gainDb, instanceId, loop, loopCrossfade, trimStart, trimEnd, pan, panMode })
       // Howler émet 'play' globalement — on filtre manuellement par instanceId
       const onPlay = (firedId) => {
         if (firedId !== instanceId) return
         howl.off('play', onPlay)
         if (!this.playingSounds.has(key)) return
         if (duration > 0) {
-          this._animatedFade(howl, instanceId, 0, this._toPerceptualVolume(volume), duration, 'sigmoid')
+          this._animatedFade(howl, instanceId, 0, this._toPerceptualVolume(volume, gainDb), duration, 'sigmoid')
         } else {
-          howl.volume(this._toPerceptualVolume(volume), instanceId)
+          howl.volume(this._toPerceptualVolume(volume, gainDb), instanceId)
         }
         if (loop && crossfadeMs > 0) {
-          this._scheduleLoopCrossfade(key, howl, soundId, volume, crossfadeMs, trimStart, trimEnd, loopCrossfade)
+          this._scheduleLoopCrossfade(key, howl, soundId, volume, crossfadeMs, trimStart, trimEnd, loopCrossfade, gainDb)
         } else if (loop) {
           howl.loop(true, instanceId)
         }
