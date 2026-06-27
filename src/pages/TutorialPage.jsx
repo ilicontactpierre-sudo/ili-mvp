@@ -685,12 +685,19 @@ function TutorialPage() {
   }, [transitioning, screenIndex])
 
   const handleTap = useCallback((e) => {
-    // Ignorer les clics sur les boutons et la sidebar settings
     if (e.target.closest('button')) return
     if (e.target.closest('.rs-menu')) return
-    if (screen === 'navigation') return // ScreenNavigation gère ses propres zones
-    if (screen === 'settings') return   // ScreenSettings gère ses propres clics
     const isLeft = e.clientX < window.innerWidth * 0.35
+    if (screen === 'navigation') {
+      // Sur la page navigation, seul le retour arrière est géré ici
+      if (isLeft) goPrev()
+      return
+    }
+    if (screen === 'settings') {
+      // Le retour arrière fonctionne aussi sur settings (zone gauche hors menu)
+      if (isLeft) goPrev()
+      return
+    }
     if (isLeft) {
       goPrev()
     } else {
