@@ -2667,6 +2667,7 @@ function AdminPage() {
         <SplitPreviewPane
           ref={splitPaneRef}
           storyData={getCurrentStoryData()}
+          soundLibrary={soundLibrary}
           onClose={() => setIsSplitView(false)}
           topOffset={stickyHeight}
         />
