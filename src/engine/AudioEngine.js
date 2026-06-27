@@ -12,10 +12,11 @@ class AudioEngine {
     this._panAnimations = new Map() // intervalId par key pour les modes animés
     this.masterVolume = 1.0
   }
-  // Applique le master volume puis la courbe quadratique perceptuelle
-  // masterVolume s'applique linéairement AVANT la courbe pour préserver la dynamique
-  _toPerceptualVolume(v) {
-    const scaled = v * this.masterVolume
+  // Applique le gain (dB), puis le master volume, puis la courbe quadratique perceptuelle
+  // gainDb s'applique en premier (c'est un gain "matériel" sur le son lui-même),
+  // masterVolume s'applique ensuite linéairement AVANT la courbe pour préserver la dynamique
+  _toPerceptualVolume(v, gainDb = 0) {
+    const scaled = v * dbToLinear(gainDb) * this.masterVolume
     return Math.max(0, Math.min(1, scaled * scaled))
   }
   // Setter du master volume — met à jour tous les sons en cours immédiatement
