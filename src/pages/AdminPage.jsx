@@ -1942,9 +1942,9 @@ function AdminPage() {
       }}>
         <div style={{ 
           width: '100%', 
-          maxWidth: isSplitView ? 'calc(100% - 400px)' : '800px',
-          transition: 'max-width 0.25s ease',
-          flexShrink: 0,
+          maxWidth: '800px',
+          marginRight: isSplitView ? '400px' : '0',
+          transition: 'margin-right 0.25s ease',
         }}>
 {/* Nouvelle histoire */}
           <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '1rem' }}>
