@@ -1497,6 +1497,8 @@ function AdminPage() {
   const refTimeline = useRef(null)
   const refOrchestration = useRef(null)
   const [stickyHeight, setStickyHeight] = useState(89)
+  const timelineContainerRef = useRef(null)
+  const [timelineRect, setTimelineRect] = useState({ left: 0, right: 0 })
   useEffect(() => {
     const updateStickyHeight = () => {
       const tabBar = document.querySelector('[data-sticky="tabbar"]')
