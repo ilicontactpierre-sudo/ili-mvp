@@ -96,22 +96,30 @@ const SplitPreviewPane = forwardRef(function SplitPreviewPane({ storyData, sound
   }, [isFinished])
 
   // Démarrer
-  const handleStart = (preloadedHowlMap) => {
-    audioEngineRef.current = new AudioEngine(preloadedHowlMap)
-    audioEngineRef.current.setMasterVolume(storyData?.masterVolume ?? 1.0)
+  const startAt = useCallback((idx, howlMap) => {
+    const map = howlMap ?? audioEngineRef.current?._howlMap
+    if (!map) return
+    audioEngineRef.current?.stopAll()
+    audioEngineRef.current = new AudioEngine(map)
+    audioEngineRef.current.setMasterVolume(isMuted ? 0 : (storyData?.masterVolume ?? 1.0))
     ignoreUntilRef.current = Date.now() + 600
-    const startIdx = pendingSegmentRef.current ?? 0
-    pendingSegmentRef.current = null
-    setCurrentIndex(startIdx)
+    setCurrentIndex(idx)
     setIsStarted(true)
-    // Déclencher manuellement le premier onSegmentChange car currentIndex
-    // ne changera pas si startIdx === 0 (déjà à 0 avant setIsStarted)
+    setIsFinished(false)
     setTimeout(() => {
-      if (audioEngineRef.current) {
-        audioEngineRef.current.onSegmentChange(startIdx, storyData?.soundTracks || [], segments)
-      }
+      audioEngineRef.current?.onSegmentChange(idx, storyData?.soundTracks || [], segments)
     }, 50)
-  }
+  }, [storyData, segments, isMuted])
+
+  const handleStart = useCallback((preloadedHowlMap) => {
+    // Stocker la map pour pouvoir la réutiliser lors des sauts de segments
+    if (preloadedHowlMap) {
+      audioEngineRef.current = new AudioEngine(preloadedHowlMap)
+      audioEngineRef.current._howlMap = preloadedHowlMap
+    }
+    startAt(pendingSegmentRef.current ?? 0, preloadedHowlMap)
+    pendingSegmentRef.current = null
+  }, [startAt])
 
   const activeGameMode = segments[currentIndex]?.gameMode ?? null
 
