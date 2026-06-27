@@ -23,7 +23,7 @@ class AudioEngine {
   setMasterVolume(master) {
     this.masterVolume = Math.max(0, Math.min(2, master ?? 1.0))
     this.playingSounds.forEach((state, key) => {
-      const targetPerceptual = this._toPerceptualVolume(state.volume ?? 0.5)
+      const targetPerceptual = this._toPerceptualVolume(state.volume ?? 0.5, state.gainDb ?? 0)
       try {
         state.instanceId != null
           ? state.howl.volume(targetPerceptual, state.instanceId)
