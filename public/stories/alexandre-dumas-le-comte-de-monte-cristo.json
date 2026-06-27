@@ -2681,6 +2681,12 @@
           "color": "#7EC8C8",
           "automationPoints": [
             {
+              "segmentId": "seg_1782404044216_21_i8lsw",
+              "volume": 0.16,
+              "fadeMs": 0,
+              "_isAnchor": true
+            },
+            {
               "segmentId": "seg_1782404044216_24_0cojo",
               "volume": 0.2,
               "fadeMs": 2500
