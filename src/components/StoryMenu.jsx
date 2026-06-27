@@ -207,14 +207,6 @@ function StoryMenu({ isOpen, stories, isLoading, onClose, onDeleteStory }) {
     <div
       className="story-menu-backdrop"
       onClick={handleBackdropClick}
-      style={{
-        opacity: exiting ? 0 : 1,
-        transform: exiting ? 'translateY(-8px)' : 'translateY(0)',
-        transition: exiting
-          ? 'opacity 600ms cubic-bezier(0.4, 0, 1, 1), transform 600ms cubic-bezier(0.4, 0, 1, 1)'
-          : 'none',
-        pointerEvents: exiting ? 'none' : 'auto',
-      }}
     >
       {/* ── Bouton tutoriel haut gauche, même hauteur que la roue crantée ── */}
       <button
