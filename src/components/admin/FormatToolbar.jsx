@@ -33,8 +33,7 @@ export default function FormatToolbar({ position, onFormat, onFontChange, curren
   }, [onClose])
 
   if (!position) return null
-  const top = Math.max(8, position.top)
-
+  const top = Math.max(8, Math.min(position.top, window.innerHeight - 280))
   const boldActive   = !!currentSegment?.bold
   const italicActive = !!currentSegment?.italic
   const underActive  = !!currentSegment?.underline
