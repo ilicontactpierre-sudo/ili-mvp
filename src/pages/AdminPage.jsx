@@ -2656,7 +2656,14 @@ function AdminPage() {
           />
         </div>
       </div>
-
+      {/* SplitPreviewPane — panneau aperçu latéral */}
+      {isSplitView && activeSegments.length > 0 && adminTab === 'stories' && (
+        <SplitPreviewPane
+          ref={splitPaneRef}
+          storyData={getCurrentStoryData()}
+          onClose={() => setIsSplitView(false)}
+        />
+      )}
       {/* Modal SoundPicker */}
       {showSoundPicker !== null && (
         <div style={{
