@@ -2597,6 +2597,7 @@ function AdminPage() {
                         <UnifiedSegmentsTimeline
                           segments={activeSegments}
                           soundTracks={activeSoundTracks}
+                          timelineLeft={timelineRect.left}
                           parts={isSerial ? parts : []}
                           soundLibrary={soundLibrary}
                           vfxTracks={activeVfxTracks}
