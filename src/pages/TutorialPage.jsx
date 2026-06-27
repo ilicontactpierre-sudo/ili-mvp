@@ -173,20 +173,20 @@ function ScreenNavigation({ onUnlock }) {
         right: 0,
         pointerEvents: 'none',
       }}>
-        {/* Segment haut : du haut jusqu'à 2rem avant le texte */}
+        {/* Segment haut : s'arrête 1.4rem au-dessus du texte */}
         <div style={{
           position: 'absolute',
           top: 0,
           left: '50%',
           transform: 'translateX(-50%)',
           width: '1px',
-          height: 'calc(38% - 2.2rem)',
+          height: 'calc(38% - 1.4rem)',
           background: 'color-mix(in srgb, var(--color-text-focus) 15%, transparent)',
         }} />
-        {/* Segment bas : de 2rem après le texte jusqu'en bas */}
+        {/* Segment bas : reprend 1.4rem sous la fin du texte (texte ~3rem de haut) */}
         <div style={{
           position: 'absolute',
-          top: 'calc(38% + 2.2rem)',
+          top: 'calc(38% + 3rem + 1.4rem)',
           left: '50%',
           transform: 'translateX(-50%)',
           width: '1px',
