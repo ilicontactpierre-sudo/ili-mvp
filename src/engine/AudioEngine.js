@@ -1,3 +1,9 @@
+// Convertit un gain exprimé en dB vers un multiplicateur linéaire.
+// 0 dB → 1.0 (neutre) | -10 dB → ~0.316 | +10 dB → ~3.162
+function dbToLinear(db) {
+  if (!db) return 1
+  return Math.pow(10, db / 20)
+}
 class AudioEngine {
   constructor(howlMap) {
     this.howlMap = howlMap
