@@ -229,7 +229,7 @@ function StoryMenu({ isOpen, stories, isLoading, onClose, onDeleteStory }) {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          opacity: 0.65,
+          opacity: 0,
           animation: 'tut-btn-appear 700ms cubic-bezier(0.16, 1, 0.3, 1) 1300ms forwards',
         }}
         onMouseEnter={(e) => { e.currentTarget.style.opacity = '0.95' }}
