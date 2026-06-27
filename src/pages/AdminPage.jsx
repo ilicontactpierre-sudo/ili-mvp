@@ -96,19 +96,20 @@ const SplitPreviewPane = forwardRef(function SplitPreviewPane({ storyData, sound
 
   // Démarrer
   const handleStart = (preloadedHowlMap) => {
-    console.log('[SplitPane] handleStart appelé')
-    console.log('[SplitPane] preloadedHowlMap:', preloadedHowlMap)
-    console.log('[SplitPane] nb sons preloadés:', Object.keys(preloadedHowlMap || {}).length)
-    console.log('[SplitPane] storyData.sounds:', storyData?.sounds)
-    console.log('[SplitPane] storyData.soundTracks:', storyData?.soundTracks)
     audioEngineRef.current = new AudioEngine(preloadedHowlMap)
     audioEngineRef.current.setMasterVolume(storyData?.masterVolume ?? 1.0)
     ignoreUntilRef.current = Date.now() + 600
     const startIdx = pendingSegmentRef.current ?? 0
     pendingSegmentRef.current = null
-    console.log('[SplitPane] démarrage au segment:', startIdx)
     setCurrentIndex(startIdx)
     setIsStarted(true)
+    // Déclencher manuellement le premier onSegmentChange car currentIndex
+    // ne changera pas si startIdx === 0 (déjà à 0 avant setIsStarted)
+    setTimeout(() => {
+      if (audioEngineRef.current) {
+        audioEngineRef.current.onSegmentChange(startIdx, storyData?.soundTracks || [], segments)
+      }
+    }, 50)
   }
 
   const activeGameMode = segments[currentIndex]?.gameMode ?? null
