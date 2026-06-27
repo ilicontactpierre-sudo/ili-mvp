@@ -249,7 +249,7 @@ function DraftManager({
     <>
       {/* Bannière de brouillon existant */}
       {showDraftBanner && draftInfo && (
-        <div style={{
+        <div data-sticky="draftbanner" style={{
           position: 'sticky',
           top: 0,
           zIndex: 100,
