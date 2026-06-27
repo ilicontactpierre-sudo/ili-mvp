@@ -107,6 +107,10 @@ const SplitPreviewPane = forwardRef(function SplitPreviewPane({ storyData, onClo
 
   const paneRef = useRef(null)
 
+  useImperativeHandle(ref, () => ({
+    goToSegment: (index) => goToSegmentRef.current(index),
+  }))
+
   return (
     <div
       ref={paneRef}
