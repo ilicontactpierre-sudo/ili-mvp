@@ -23,6 +23,7 @@ const SplitPreviewPane = forwardRef(function SplitPreviewPane({ storyData, sound
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isStarted, setIsStarted] = useState(false)
   const [isFinished, setIsFinished] = useState(false)
+  const [isMuted, setIsMuted] = useState(false)
   const audioEngineRef = useRef(null)
   const ignoreUntilRef = useRef(0)
 
