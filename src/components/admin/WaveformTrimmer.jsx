@@ -346,6 +346,40 @@ const [realDurationMs, setRealDurationMs] = useState((sound.duration || 0) * 100
           <div style={{ color: COLOR_END, fontWeight: 600 }}>{fmt(trimEnd)} ■</div>
         </div>
 
+        {/* Slider de gain (dB) */}
+        <div style={{ marginTop: '1rem' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.3rem' }}>
+            <label style={{ fontSize: '0.72rem', color: '#888' }}>
+              Gain {gainDb > 0 && '🔥'}
+            </label>
+            <span style={{
+              fontSize: '0.75rem',
+              fontWeight: 600,
+              color: gainDb === 0 ? '#666' : (gainDb > 0 ? COLOR_GAIN : '#5a7af0'),
+            }}>
+              {gainDb > 0 ? '+' : ''}{gainDb.toFixed(1)} dB
+            </span>
+          </div>
+          <input
+            type="range" min={-10} max={10} step={0.5}
+            value={gainDb}
+            onChange={e => setGainDb(parseFloat(e.target.value))}
+            style={{ width: '100%', accentColor: COLOR_GAIN }}
+          />
+          <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '0.2rem' }}>
+            <span style={{ fontSize: '0.65rem', color: '#555' }}>-10 dB</span>
+            <button
+              onClick={() => setGainDb(0)}
+              title="Réinitialiser à 0 dB"
+              style={{
+                background: 'none', border: 'none', cursor: gainDb !== 0 ? 'pointer' : 'default',
+                fontSize: '0.65rem', color: gainDb !== 0 ? '#888' : '#444',
+                textDecoration: gainDb !== 0 ? 'underline' : 'none',
+              }}
+            >0 dB</button>
+            <span style={{ fontSize: '0.65rem', color: '#555' }}>+10 dB</span>
+          </div>
+        </div>
         {/* Sliders de précision */}
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', marginTop: '1rem' }}>
           <div>
