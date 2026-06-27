@@ -121,12 +121,13 @@ const SplitPreviewPane = forwardRef(function SplitPreviewPane({ storyData, onClo
         display: 'flex',
         flexDirection: 'column',
         backgroundColor: 'var(--color-bg, #fff)',
-        position: 'sticky',
+        position: 'fixed',
         top: 0,
+        right: 0,
         height: '100vh',
         overflow: 'hidden',
-        zIndex: 10,
-        boxShadow: '-4px 0 16px rgba(0,0,0,0.06)',
+        zIndex: 200,
+        boxShadow: '-4px 0 20px rgba(0,0,0,0.12)',
       }}
     >
       {/* Header du panneau */}
