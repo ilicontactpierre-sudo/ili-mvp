@@ -515,7 +515,7 @@ function ScreenProgress() {
           width: '100%',
           height: `${fill}%`,
           backgroundColor: 'rgba(255,255,255,0.5)',
-          transition: `height 2200ms ${EASE.inOut}`,
+          transition: `height 700ms ${EASE.inOut}`,
         }} />
       </div>
       {/* ── Flèche pointant vers la barre ── */}
