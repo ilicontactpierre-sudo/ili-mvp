@@ -37,6 +37,7 @@ const [realDurationMs, setRealDurationMs] = useState((sound.duration || 0) * 100
   const durationMs = realDurationMs
   const [trimStart, setTrimStart] = useState(initialStart)
   const [trimEnd,   setTrimEnd]   = useState(initialEnd ?? realDurationMs)
+  const [gainDb,    setGainDb]    = useState(initialGainDb)
   const [peaks,     setPeaks]     = useState(null)
   const [loading,   setLoading]   = useState(true)
   const [error,     setError]     = useState(null)
