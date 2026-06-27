@@ -1953,7 +1953,7 @@ function AdminPage() {
           width: '100%', 
           maxWidth: '800px',
           marginRight: isSplitView ? '400px' : '0',
-          transition: 'margin-right 0.25s ease',marginRight: isSplitView ? '530px' : '0',
+          transition: 'margin-right 0.25s ease',marginRight: isSplitView ? '400px' : '0',
           transition: 'margin-right 0.25s ease',
         }}>
 {/* Nouvelle histoire */}
