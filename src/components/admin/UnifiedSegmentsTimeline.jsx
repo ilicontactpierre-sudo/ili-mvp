@@ -2154,9 +2154,10 @@ const handleTextSelection = useCallback(() => {
       const row = rowRefs.current[segmentIndex]
       if (row) {
         const rect = row.getBoundingClientRect()
+        const containerRect = containerRef.current?.getBoundingClientRect()
         setFormatToolbar({
           mode: 'selection',
-          position: { top: rect.top, left: 0 },
+          position: { top: rect.top, left: containerRect?.left ?? rect.left },
           segmentIndex,
           selectedText,
         })
