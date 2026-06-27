@@ -1001,9 +1001,11 @@ function SoundBlockPanel({
                 sound={sound}
                 initialStart={editedTrack.trimStart || 0}
                 initialEnd={editedTrack.trimEnd || sound.duration * 1000}
-                onConfirm={({ trimStart, trimEnd }) => {
+                initialGainDb={editedTrack.gainDb || 0}
+                onConfirm={({ trimStart, trimEnd, gainDb }) => {
                   handleChange('trimStart', trimStart)
                   handleChange('trimEnd', trimEnd)
+                  handleChange('gainDb', gainDb)
                   setShowTrimmer(false)
                 }}
                 onClose={() => setShowTrimmer(false)}
