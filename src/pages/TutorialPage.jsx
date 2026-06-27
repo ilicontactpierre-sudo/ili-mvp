@@ -478,12 +478,20 @@ function ScreenSettings({ onUnlock }) {
 // ÉCRAN 4 — Ligne de progression latérale
 // ══════════════════════════════════════════════════════════════════════════
 function ScreenProgress() {
-  const [fill, setFill] = useState(8)
+  const [fill, setFill] = useState(0)
   const [arrowVisible, setArrowVisible] = useState(false)
   useEffect(() => {
-    const t1 = setTimeout(() => setFill(82), 400)
-    const t2 = setTimeout(() => setArrowVisible(true), 1200)
-    return () => { clearTimeout(t1); clearTimeout(t2) }
+    const steps = [
+      { val: 20,  delay: 300  },
+      { val: 45,  delay: 900  },
+      { val: 65,  delay: 1600 },
+      { val: 82,  delay: 2400 },
+    ]
+    const timers = steps.map(({ val, delay }) =>
+      setTimeout(() => setFill(val), delay)
+    )
+    const t2 = setTimeout(() => setArrowVisible(true), 700)
+    return () => { timers.forEach(clearTimeout); clearTimeout(t2) }
   }, [])
   return (
     <div style={{ position: 'fixed', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '2rem' }}>
