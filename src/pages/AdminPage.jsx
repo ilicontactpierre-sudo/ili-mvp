@@ -132,7 +132,7 @@ const SplitPreviewPane = forwardRef(function SplitPreviewPane({ storyData, sound
         backgroundColor: 'var(--color-bg, #fff)',
         position: 'fixed',
         top: `${topOffset}px`,
-        right: '130px',
+        right: '0',
         height: `calc(100vh - ${topOffset}px)`,
         overflow: 'hidden',
         zIndex: 150,
