@@ -132,10 +132,10 @@ const SplitPreviewPane = forwardRef(function SplitPreviewPane({ storyData, onClo
         backgroundColor: 'var(--color-bg, #fff)',
         position: 'fixed',
         top: `${topOffset}px`,
-        right: 0,
+        right: '130px',
         height: `calc(100vh - ${topOffset}px)`,
         overflow: 'hidden',
-        zIndex: 200,
+        zIndex: 150,
         boxShadow: '-4px 0 20px rgba(0,0,0,0.12)',
       }}
     >
