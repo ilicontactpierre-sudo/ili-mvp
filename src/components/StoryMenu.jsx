@@ -232,7 +232,7 @@ function StoryMenu({ isOpen, stories, isLoading, onClose, onDeleteStory }) {
           opacity: 0,
           animation: 'tut-btn-appear 700ms cubic-bezier(0.16, 1, 0.3, 1) 1300ms forwards',
         }}
-        onMouseEnter={(e) => { e.currentTarget.style.opacity = '0.95' }}
+        onMouseEnter={(e) => { e.currentTarget.style.opacity = '0.65' }}
         onMouseLeave={(e) => { e.currentTarget.style.animation = 'none'; e.currentTarget.style.opacity = '0.35' }}
       >
         <img
