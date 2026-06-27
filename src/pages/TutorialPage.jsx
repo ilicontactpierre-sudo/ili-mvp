@@ -689,8 +689,8 @@ function TutorialPage() {
         {screen === 'progress'   && <ScreenProgress />}
         {screen === 'outro'      && <ScreenOutro />}
 
-        {screen !== 'navigation' && screen !== 'settings' && (
-          <NextHint visible={canAdvance} label={screenIndex === SCREENS.length - 1 ? 'commencer' : 'continuer'} />
+        {screen !== 'navigation' && screen !== 'settings' && screen !== 'outro' && (
+          <NextHint visible={canAdvance} label='continuer' />
         )}
       </div>
     </>
