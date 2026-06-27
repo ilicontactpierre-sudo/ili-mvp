@@ -97,7 +97,10 @@ const SplitPreviewPane = forwardRef(function SplitPreviewPane({ storyData, sound
     audioEngineRef.current = new AudioEngine(preloadedHowlMap)
     audioEngineRef.current.setMasterVolume(storyData?.masterVolume ?? 1.0)
     ignoreUntilRef.current = Date.now() + 600
-    setCurrentIndex(0)
+    // Si un segment cible a été mémorisé (via bouton ▶), sauter dessus
+    const startIdx = pendingSegmentRef.current ?? 0
+    pendingSegmentRef.current = null
+    setCurrentIndex(startIdx)
     setIsStarted(true)
   }
 
