@@ -3370,7 +3370,10 @@ const handleTextSelection = useCallback(() => {
       {/* Toolbar de formatage flottant */}
       {formatToolbar && (
         <FormatToolbar
-          position={formatToolbar.position}
+          position={{
+            ...formatToolbar.position,
+            left: Math.min(formatToolbar.position.left, window.innerWidth - splitViewOffset - 80),
+          }}
           onFormat={handleFormat}
           onFontChange={handleFontChange}
           currentFont={
