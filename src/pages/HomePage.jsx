@@ -107,6 +107,23 @@ function HomePage() {
     try { return !localStorage.getItem('ili_onboarding_done') } catch { return true }
   })
 
+  // ── Retour depuis le tutoriel : déclenche l'animation d'entrée automatiquement ──
+  useEffect(() => {
+    if (location.state?.fromTutorial) {
+      // Marquer l'onboarding comme vu
+      try { localStorage.setItem('ili_onboarding_done', '1') } catch {}
+      setShowOnboarding(false)
+      // Délai court pour laisser la page se monter proprement
+      const t1 = setTimeout(() => {
+        playClicILi()
+        setPhase('bumping')
+      }, 400)
+      const t2 = setTimeout(() => setPhase('transitioning'), 520)
+      const t3 = setTimeout(() => setPhase('open'), 1320)
+      return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3) }
+    }
+  }, [])
+
   const isLocalDev = typeof window !== 'undefined' &&
     (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
 
