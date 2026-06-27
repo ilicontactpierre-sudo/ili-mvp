@@ -71,9 +71,7 @@ export default function FormatToolbar({ position, onFormat, onFontChange, curren
         style={{
           position: 'fixed',
           top,
-          left: position.left != null
-            ? `${Math.max(4, position.left - 46)}px`
-            : '8px',
+          left: '4px',
           transform: 'none',
           display: 'flex',
           flexDirection: 'column',
@@ -84,7 +82,7 @@ export default function FormatToolbar({ position, onFormat, onFontChange, curren
           borderRadius: '10px',
           boxShadow: '0 6px 24px rgba(0,0,0,0.4)',
           zIndex: 9999,
-          animation: position.left != null ? 'none' : 'iliToolbarIn 0.15s ease',
+          animation: 'none',
           userSelect: 'none',
         }}
       >
