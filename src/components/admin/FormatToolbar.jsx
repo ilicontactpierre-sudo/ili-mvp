@@ -86,7 +86,7 @@ export default function FormatToolbar({ position, onFormat, onFontChange, curren
           borderRadius: '10px',
           boxShadow: '0 6px 24px rgba(0,0,0,0.4)',
           zIndex: 9999,
-          animation: 'iliToolbarIn 0.15s ease',
+          animation: position.left != null ? 'none' : 'iliToolbarIn 0.15s ease',
           userSelect: 'none',
         }}
       >
