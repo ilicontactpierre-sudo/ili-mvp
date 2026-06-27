@@ -21,8 +21,18 @@
           "loop": false
         },
         {
+          "id": "boatrow_rowboat_squeaky_mounting_fast_sequence_01_b00m_one",
+          "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/boatrow_rowboat_squeaky_mounting_fast_sequence_01_b00m_one.mp3",
+          "loop": false
+        },
+        {
           "id": "chainimpt_metal_chain_on_wood_impact_01_b00m_one",
           "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/chainimpt_metal_chain_on_wood_impact_01_b00m_one.mp3",
+          "loop": false
+        },
+        {
+          "id": "crwdangr_male_crowd_grumpy_01_b00m_one",
+          "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/crwdangr_male_crowd_grumpy_01_b00m_one.mp3",
           "loop": false
         },
         {
@@ -53,11 +63,6 @@
         {
           "id": "hmnbrth_female_fast_panic_struck_breath_sequence_02_b00m_one",
           "url": "/sounds/HMNBrth_Female Fast Panic Struck Breath Sequence 02_B00M_ONE.mp3",
-          "loop": false
-        },
-        {
-          "id": "mechrtch_tension_belt_tense_ratchet_single_click_01_b00m_one",
-          "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/mechrtch_tension_belt_tense_ratchet_single_click_01_b00m_one.mp3",
           "loop": false
         },
         {
@@ -225,7 +230,7 @@
           "audioEvents": [
             {
               "action": "fadeIn",
-              "soundId": "mechrtch_tension_belt_tense_ratchet_single_click_01_b00m_one",
+              "soundId": "crwdangr_male_crowd_grumpy_01_b00m_one",
               "volume": 0.1,
               "duration": 5000,
               "delay": 0,
@@ -355,6 +360,14 @@
               "duration": 1000,
               "delay": 0,
               "loop": false
+            },
+            {
+              "action": "fadeIn",
+              "soundId": "boatrow_rowboat_squeaky_mounting_fast_sequence_01_b00m_one",
+              "volume": 0.4,
+              "duration": 1033,
+              "delay": 0,
+              "loop": false
             }
           ]
         },
@@ -369,7 +382,7 @@
           "audioEvents": [
             {
               "action": "fadeOut",
-              "soundId": "mechrtch_tension_belt_tense_ratchet_single_click_01_b00m_one",
+              "soundId": "crwdangr_male_crowd_grumpy_01_b00m_one",
               "duration": 4000
             }
           ]
@@ -397,6 +410,11 @@
               "action": "fadeOut",
               "soundId": "boatrow_rowboat_paddle_in_water_sequence_01_b00m_one",
               "duration": 2000
+            },
+            {
+              "action": "fadeOut",
+              "soundId": "boatrow_rowboat_squeaky_mounting_fast_sequence_01_b00m_one",
+              "duration": 2033
             }
           ]
         },
@@ -2536,7 +2554,7 @@
         },
         {
           "id": "st_1782405291657_50nsoxjdb_2",
-          "soundId": "mechrtch_tension_belt_tense_ratchet_single_click_01_b00m_one",
+          "soundId": "crwdangr_male_crowd_grumpy_01_b00m_one",
           "startSegmentId": "seg_1782404044215_5_9flbi",
           "endSegmentId": "seg_1782404044216_17_hk9ta",
           "column": 2,
@@ -2553,7 +2571,7 @@
           "automationPoints": [
             {
               "segmentId": "seg_1782404044215_5_9flbi",
-              "volume": 0.2,
+              "volume": 0.1,
               "fadeMs": 0,
               "_isAnchor": true
             },
@@ -3106,7 +3124,15 @@
           "_orchestrationNote": "Portrait de Dantès — citation brève du leitmotiv. Deux segments seulement, au premier plan, puis silence. Idéalement : cordes légères montantes, violon solo, tonalité lumineuse — à rechercher dans votre bibliothèque.",
           "_orchestrationKeyword": "strings",
           "_orchestrationLayer": "music",
-          "_orchestrationLeitmotiv": "thème de Dantès"
+          "_orchestrationLeitmotiv": "thème de Dantès",
+          "automationPoints": [
+            {
+              "segmentId": "seg_1782404093633_a_pjs7t",
+              "volume": 0.38,
+              "fadeMs": 0,
+              "_isAnchor": true
+            }
+          ]
         },
         {
           "id": "st_1782405291659_6dn2wqjws_22",
@@ -3395,6 +3421,29 @@
           "_orchestrationKeyword": "orchestra",
           "_orchestrationLayer": "music",
           "_orchestrationLeitmotiv": "thème de Dantès"
+        },
+        {
+          "id": "st_1782570574735_8y2cgpk86",
+          "soundId": "boatrow_rowboat_squeaky_mounting_fast_sequence_01_b00m_one",
+          "startSegmentId": "seg_1782404044216_16_f28e0",
+          "endSegmentId": "seg_1782404044216_19_djfwz",
+          "column": 4,
+          "volume": 0.4,
+          "fadeIn": 1033,
+          "fadeOut": 2033,
+          "delay": 0,
+          "loop": false,
+          "muted": false,
+          "automationPoints": [
+            {
+              "segmentId": "seg_1782404044216_16_f28e0",
+              "volume": 0.4,
+              "fadeMs": 0,
+              "_isAnchor": true
+            }
+          ],
+          "trimStart": 0,
+          "trimEnd": 23184
         }
       ],
       "vfxTracks": []
