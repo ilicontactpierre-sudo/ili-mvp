@@ -2129,9 +2129,10 @@ function UnifiedSegmentsTimeline({
     const row = rowRefs.current[index]
     if (!row) return
     const rect = row.getBoundingClientRect()
+    const containerRect = containerRef.current?.getBoundingClientRect()
     setFormatToolbar({
       mode: 'segment',
-      position: { top: rect.top, left: 0 },
+      position: { top: rect.top, left: containerRect?.left ?? rect.left },
       segmentIndex: index,
       selectedText: null,
     })
