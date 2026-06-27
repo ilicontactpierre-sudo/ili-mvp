@@ -259,7 +259,8 @@ function StoryMenu({ isOpen, stories, isLoading, onClose, onDeleteStory }) {
           : 'none',
         pointerEvents: exiting ? 'none' : 'auto',
       }}
-    >
+    
+    
       <div className="story-menu-container">
         {!isLoading && allTags.length > 0 && (
           <FilterChips allTags={allTags} activeTags={activeTags} onToggle={toggleTag} />
