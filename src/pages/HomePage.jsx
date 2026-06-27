@@ -248,8 +248,8 @@ function HomePage() {
                 cursor: 'pointer',
                 opacity: 0.62,
                 transition: 'opacity 300ms ease',
-                width: '152px',
-                height: '152px',
+                width: '122px',
+                height: '122px',
               }}
               onMouseEnter={(e) => { e.currentTarget.style.opacity = '0.55' }}
               onMouseLeave={(e) => { e.currentTarget.style.opacity = '0.28' }}
