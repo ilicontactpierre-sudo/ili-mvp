@@ -313,20 +313,20 @@ function ScreenHeadphones({ onUnlock, fadeOutRef }) {
     }}>
       <style>{`
         @keyframes hp-drift {
-          0%   { transform: translateY(0px)    scale(1.000) rotate( 0.0deg); opacity: 0.85; }
-          8%   { transform: translateY(-2.5px) scale(1.008) rotate( 0.5deg); opacity: 0.90; }
-          17%  { transform: translateY(-5px)   scale(1.014) rotate( 1.1deg); opacity: 0.88; }
-          23%  { transform: translateY(-3px)   scale(1.010) rotate( 0.3deg); opacity: 0.92; }
-          31%  { transform: translateY(-6.5px) scale(1.018) rotate(-0.7deg); opacity: 0.86; }
-          40%  { transform: translateY(-2px)   scale(1.006) rotate( 0.9deg); opacity: 0.91; }
-          48%  { transform: translateY(-7px)   scale(1.020) rotate(-1.2deg); opacity: 0.87; }
-          55%  { transform: translateY(-4px)   scale(1.012) rotate( 0.4deg); opacity: 0.93; }
-          63%  { transform: translateY(-1.5px) scale(1.004) rotate(-0.3deg); opacity: 0.89; }
-          70%  { transform: translateY(-5.5px) scale(1.016) rotate( 0.8deg); opacity: 0.85; }
-          78%  { transform: translateY(-3.5px) scale(1.009) rotate(-0.6deg); opacity: 0.92; }
-          85%  { transform: translateY(-6px)   scale(1.017) rotate( 1.0deg); opacity: 0.88; }
-          92%  { transform: translateY(-2px)   scale(1.005) rotate( 0.2deg); opacity: 0.91; }
-          100% { transform: translateY(0px)    scale(1.000) rotate( 0.0deg); opacity: 0.85; }
+          0%   { transform: translateY(0px)    scale(1.000) rotate( 0.0deg); opacity: 0.85; filter: drop-shadow(0 0 0px rgba(255,255,255,0)); }
+          8%   { transform: translateY(-2.5px) scale(1.008) rotate( 0.5deg); opacity: 0.90; filter: drop-shadow(0 0 4px rgba(255,255,255,0.18)); }
+          17%  { transform: translateY(-5px)   scale(1.014) rotate( 1.1deg); opacity: 0.88; filter: drop-shadow(0 0 2px rgba(255,255,255,0.08)); }
+          23%  { transform: translateY(-3px)   scale(1.010) rotate( 0.3deg); opacity: 0.92; filter: drop-shadow(0 0 7px rgba(255,255,255,0.25)); }
+          31%  { transform: translateY(-6.5px) scale(1.018) rotate(-0.7deg); opacity: 0.86; filter: drop-shadow(0 0 3px rgba(255,255,255,0.10)); }
+          40%  { transform: translateY(-2px)   scale(1.006) rotate( 0.9deg); opacity: 0.91; filter: drop-shadow(0 0 6px rgba(255,255,255,0.22)); }
+          48%  { transform: translateY(-7px)   scale(1.020) rotate(-1.2deg); opacity: 0.87; filter: drop-shadow(0 0 2px rgba(255,255,255,0.07)); }
+          55%  { transform: translateY(-4px)   scale(1.012) rotate( 0.4deg); opacity: 0.93; filter: drop-shadow(0 0 8px rgba(255,255,255,0.28)); }
+          63%  { transform: translateY(-1.5px) scale(1.004) rotate(-0.3deg); opacity: 0.89; filter: drop-shadow(0 0 3px rgba(255,255,255,0.12)); }
+          70%  { transform: translateY(-5.5px) scale(1.016) rotate( 0.8deg); opacity: 0.85; filter: drop-shadow(0 0 5px rgba(255,255,255,0.18)); }
+          78%  { transform: translateY(-3.5px) scale(1.009) rotate(-0.6deg); opacity: 0.92; filter: drop-shadow(0 0 2px rgba(255,255,255,0.09)); }
+          85%  { transform: translateY(-6px)   scale(1.017) rotate( 1.0deg); opacity: 0.88; filter: drop-shadow(0 0 6px rgba(255,255,255,0.20)); }
+          92%  { transform: translateY(-2px)   scale(1.005) rotate( 0.2deg); opacity: 0.91; filter: drop-shadow(0 0 4px rgba(255,255,255,0.15)); }
+          100% { transform: translateY(0px)    scale(1.000) rotate( 0.0deg); opacity: 0.85; filter: drop-shadow(0 0 0px rgba(255,255,255,0)); }
         }
       `}</style>
       <svg
@@ -338,7 +338,7 @@ function ScreenHeadphones({ onUnlock, fadeOutRef }) {
         style={{
           marginBottom: '2rem',
           animation: `hp-drift 5800ms cubic-bezier(0.37, 0, 0.63, 1) infinite`,
-          willChange: 'transform, opacity',
+          willChange: 'transform, opacity, filter',
         }}
       >
         <path d="M3 14v-2a9 9 0 0 1 18 0v2" />
