@@ -463,32 +463,42 @@ function ScreenSettings({ onUnlock }) {
           }}
         />
       )}
-      {/* ── Texte d'explication, bas d'écran ── */}
-      <div style={{
-        position: 'fixed',
-        bottom: '14%',
-        left: '1.8rem',
-        right: '1.8rem',
-        textAlign: 'center',
-        zIndex: 8002,
-        pointerEvents: 'none',
-      }}>
-        <p
-          key={stepIndex}
-          style={{
-            fontFamily: 'var(--font-primary)',
-            fontSize: 'clamp(0.88rem, 3vw, 1rem)',
-            color: '#fff',
-            opacity: 0.9,
-            lineHeight: 1.6,
-            margin: 0,
-            fontStyle: 'italic',
-            animation: `tut-rise 500ms ${EASE.out} both`,
-          }}
-        >
-          {SETTINGS_STEPS[stepIndex]?.text}
-        </p>
-      </div>
+      {/* ── Texte d'explication : centré verticalement à gauche du menu ── */}
+      {(() => {
+        const menuWidth = 212 // 200px menu + 12px margin droite
+        const rectMid = targetRect
+          ? targetRect.top + targetRect.height / 2
+          : window.innerHeight * 0.5
+        return (
+          <div style={{
+            position: 'fixed',
+            top: rectMid,
+            left: '1.8rem',
+            right: `${menuWidth + 16}px`,
+            transform: 'translateY(-50%)',
+            textAlign: 'center',
+            zIndex: 8002,
+            pointerEvents: 'none',
+            transition: `top 600ms ${EASE.inOut}`,
+          }}>
+            <p
+              key={stepIndex}
+              style={{
+                fontFamily: 'var(--font-primary)',
+                fontSize: 'clamp(0.88rem, 3vw, 1rem)',
+                color: '#fff',
+                opacity: 0.9,
+                lineHeight: 1.6,
+                margin: 0,
+                fontStyle: 'italic',
+                animation: `tut-rise 500ms ${EASE.out} both`,
+              }}
+            >
+              {SETTINGS_STEPS[stepIndex]?.text}
+            </p>
+          </div>
+        )
+      })()}
     </div>
   )
 }
