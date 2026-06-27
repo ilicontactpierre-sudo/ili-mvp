@@ -19,7 +19,7 @@ import MenuManagerPage from '../components/admin/MenuManagerPage'
 // ── Composant SplitPreviewPane ────────────────────────────────────────────────
 import { forwardRef, useImperativeHandle } from 'react'
 
-const SplitPreviewPane = forwardRef(function SplitPreviewPane({ storyData, soundLibrary = [], onClose, topOffset = 89 }, ref) {
+const SplitPreviewPane = forwardRef(function SplitPreviewPane({ storyData, soundLibrary = [], onClose, topOffset = 89, leftOffset = null }, ref) {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isStarted, setIsStarted] = useState(false)
   const [isFinished, setIsFinished] = useState(false)
