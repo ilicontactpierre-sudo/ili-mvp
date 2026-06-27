@@ -2943,6 +2943,7 @@ function AdminPage() {
           position: 'fixed',
           left: timelineRect.right > 0 ? `${timelineRect.right + 10}px` : 'auto',
           right: timelineRect.right > 0 ? 'auto' : '8px',
+          display: isSplitView ? 'none' : 'flex',
           top: '50%',
           transform: 'translateY(-50%)',
           zIndex: 500,
