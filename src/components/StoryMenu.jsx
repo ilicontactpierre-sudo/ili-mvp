@@ -208,7 +208,7 @@ function StoryMenu({ isOpen, stories, isLoading, onClose, onDeleteStory }) {
       <style>{`
         @keyframes tut-btn-appear {
           from { opacity: 0; transform: translateY(4px); }
-          to   { opacity: 0.85; transform: translateY(0); }
+          to   { opacity: 0.95; transform: translateY(0); }
         }
       `}</style>
       {/* ── Bouton tutoriel : HORS du backdrop pour ne pas être bloqué ── */}
