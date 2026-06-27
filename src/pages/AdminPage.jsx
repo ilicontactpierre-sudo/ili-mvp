@@ -59,12 +59,24 @@ const SplitPreviewPane = forwardRef(function SplitPreviewPane({ storyData, onClo
     setCurrentIndex(prev => Math.max(0, prev - 1))
   }, [isStarted, isFinished])
 
-  // Sauter directement à un segment
+  // Sauter directement à un segment (démarre automatiquement si pas encore démarré)
+  const pendingSegmentRef = useRef(null)
+
   const goToSegment = useCallback((index) => {
-    if (!isStarted) return
+    const clampedIdx = Math.max(0, Math.min(index, lastIndex))
+    if (!isStarted) {
+      // Mémoriser le segment cible — le StartScreen va démarrer et on sautera ensuite
+      pendingSegmentRef.current = clampedIdx
+      // Simuler un démarrage rapide sans audio (pas de preload nécessaire)
+      audioEngineRef.current = null
+      ignoreUntilRef.current = Date.now() + 400
+      setCurrentIndex(clampedIdx)
+      setIsStarted(true)
+      setIsFinished(false)
+      return
+    }
     audioEngineRef.current?.stopAll()
     audioEngineRef.current = null
-    const clampedIdx = Math.max(0, Math.min(index, lastIndex))
     setCurrentIndex(clampedIdx)
     setIsFinished(false)
     ignoreUntilRef.current = Date.now() + 400
