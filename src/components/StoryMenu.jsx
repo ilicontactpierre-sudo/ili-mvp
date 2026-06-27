@@ -223,15 +223,21 @@ function StoryMenu({ isOpen, stories, isLoading, onClose, onDeleteStory }) {
           border: 'none',
           cursor: 'pointer',
           padding: '6px',
-          opacity: 0.35,
-          transition: 'opacity 250ms ease',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
+          opacity: 0,
+          animation: 'tut-btn-appear 700ms cubic-bezier(0.16, 1, 0.3, 1) 1300ms forwards',
         }}
         onMouseEnter={(e) => { e.currentTarget.style.opacity = '0.65' }}
-        onMouseLeave={(e) => { e.currentTarget.style.opacity = '0.3' }}
+        onMouseLeave={(e) => { e.currentTarget.style.animation = 'none'; e.currentTarget.style.opacity = '0.35' }}
       >
+        <style>{`
+          @keyframes tut-btn-appear {
+            from { opacity: 0; transform: translateY(4px); }
+            to   { opacity: 0.35; transform: translateY(0); }
+          }
+        `}</style>
         <img
           src="/tutoriel-icon.png"
           alt="Tutoriel"
