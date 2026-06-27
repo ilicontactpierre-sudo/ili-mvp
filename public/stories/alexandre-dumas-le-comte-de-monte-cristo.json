@@ -96,11 +96,6 @@
           "loop": false
         },
         {
-          "id": "voxreac_male_sigh_03_b00m_one",
-          "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/voxreac_male_sigh_03_b00m_one.mp3",
-          "loop": false
-        },
-        {
           "id": "watrsplsh_big_splash_and_spray_01_b00m_one",
           "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/watrsplsh_big_splash_and_spray_01_b00m_one.mp3",
           "loop": false
@@ -111,11 +106,6 @@
           "loop": false
         },
         {
-          "id": "weaparmr_plate_armor_steel_walk_sequence_03_b00m_one",
-          "url": "/sounds/WEAPArmr_Plate Armor Steel Walk Sequence 03_B00M_ONE.mp3",
-          "loop": false
-        },
-        {
           "id": "13_s03_ville",
           "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/13_s03_ville.mp3",
           "loop": false
@@ -123,6 +113,11 @@
         {
           "id": "3ds01_0054_urban_rec_marina_large_20_2",
           "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/3ds01_0054_urban_rec_marina_large_20_2.mp3",
+          "loop": false
+        },
+        {
+          "id": "507_s12_gens_qui_courent",
+          "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/507_s12_gens_qui_courent.mp3",
           "loop": false
         },
         {
@@ -143,6 +138,11 @@
         {
           "id": "dantes_theme_3",
           "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/dantes_theme_3.mp3",
+          "loop": false
+        },
+        {
+          "id": "lecie_re_thee_me_1",
+          "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/lecie_re_thee_me_1.mp3",
           "loop": false
         }
       ],
@@ -431,7 +431,16 @@
           "text": "C’était un jeune homme de dix-huit à vingt ans, grand, svelte, avec de beaux yeux noirs et des cheveux d’ébène ; il y avait dans toute sa personne cet air calme et de résolution particulier aux hommes habitués depuis leur enfance",
           "breakAt": null,
           "isLeader": false,
-          "audioEvents": []
+          "audioEvents": [
+            {
+              "action": "fadeIn",
+              "soundId": "dantes_theme_3",
+              "volume": 0.38,
+              "duration": 2000,
+              "delay": 0,
+              "loop": false
+            }
+          ]
         },
         {
           "id": "seg_1782404093633_b_yc576",
@@ -441,7 +450,13 @@
           "text": "à lutter avec le danger.",
           "breakAt": null,
           "isLeader": false,
-          "audioEvents": []
+          "audioEvents": [
+            {
+              "action": "fadeOut",
+              "soundId": "dantes_theme_3",
+              "duration": 3000
+            }
+          ]
         },
         {
           "id": "seg_1782404044216_21_i8lsw",
@@ -454,7 +469,7 @@
           "audioEvents": [
             {
               "action": "fadeIn",
-              "soundId": "voxreac_male_sigh_03_b00m_one",
+              "soundId": "lecie_re_thee_me_1",
               "volume": 0.16,
               "duration": 4000,
               "delay": 0,
@@ -593,7 +608,15 @@
           "text": "— Holà hé ! dit-il, chacun à son poste pour le mouillage !",
           "breakAt": null,
           "isLeader": false,
-          "audioEvents": []
+          "audioEvents": [
+            {
+              "action": "play",
+              "soundId": "507_s12_gens_qui_courent",
+              "volume": 0.62,
+              "delay": 300,
+              "loop": false
+            }
+          ]
         },
         {
           "id": "seg_1782404044216_34_rdfgf",
@@ -613,7 +636,15 @@
           "text": "Au même instant, les huit ou dix matelots qui le composaient s’élancèrent les uns sur les écoutes, les autres sur les bras,",
           "breakAt": null,
           "isLeader": false,
-          "audioEvents": []
+          "audioEvents": [
+            {
+              "action": "play",
+              "soundId": "equiprec_climbing_rope_bag_throwing_on_ground_01_b00m_one",
+              "volume": 0.65,
+              "delay": 4800,
+              "loop": false
+            }
+          ]
         },
         {
           "id": "seg_1782404044216_36_3gibx",
@@ -623,7 +654,18 @@
           "text": "les autres aux drisses, les autres aux hallebas des focs, enfin les autres aux cargues des voiles.",
           "breakAt": null,
           "isLeader": false,
-          "audioEvents": []
+          "audioEvents": [
+            {
+              "action": "fadeOut",
+              "soundId": "507_s12_gens_qui_courent",
+              "duration": 1000
+            },
+            {
+              "action": "fadeOut",
+              "soundId": "equiprec_climbing_rope_bag_throwing_on_ground_01_b00m_one",
+              "duration": 1000
+            }
+          ]
         },
         {
           "id": "seg_1782404044216_37_oyis7",
@@ -749,7 +791,7 @@
           "audioEvents": [
             {
               "action": "fadeOut",
-              "soundId": "voxreac_male_sigh_03_b00m_one",
+              "soundId": "lecie_re_thee_me_1",
               "duration": 6000
             }
           ]
@@ -2670,7 +2712,7 @@
         },
         {
           "id": "st_1782405291657_jdwtzf52s_5",
-          "soundId": "voxreac_male_sigh_03_b00m_one",
+          "soundId": "lecie_re_thee_me_1",
           "startSegmentId": "seg_1782404044216_21_i8lsw",
           "endSegmentId": "seg_1782404044216_47_m2w5c",
           "column": 2,
@@ -3139,7 +3181,7 @@
           "delay": 0,
           "pan": 0,
           "panMode": "static",
-          "muted": true,
+          "muted": false,
           "broken": true,
           "color": "#B59FD8",
           "_orchestrationNote": "Portrait de Dantès — citation brève du leitmotiv. Deux segments seulement, au premier plan, puis silence. Idéalement : cordes légères montantes, violon solo, tonalité lumineuse — à rechercher dans votre bibliothèque.",
@@ -3153,11 +3195,13 @@
               "fadeMs": 0,
               "_isAnchor": true
             }
-          ]
+          ],
+          "trimStart": 8534,
+          "trimEnd": 72168
         },
         {
           "id": "st_1782405291659_6dn2wqjws_22",
-          "soundId": "weaparmr_plate_armor_steel_walk_sequence_03_b00m_one",
+          "soundId": "507_s12_gens_qui_courent",
           "startSegmentId": "seg_1782404044216_33_lj6c4",
           "endSegmentId": "seg_1782404044216_36_3gibx",
           "column": 3,
@@ -3168,7 +3212,7 @@
           "delay": 300,
           "pan": 0,
           "panMode": "static",
-          "muted": true,
+          "muted": false,
           "broken": true,
           "color": "#F0A87E",
           "_orchestrationNote": "L'équipage s'élance aux postes — pas sur le pont, courir sur bois mouillé, activité maritime soudaine.",
@@ -3197,7 +3241,7 @@
           "delay": 4800,
           "pan": 0,
           "panMode": "static",
-          "muted": true,
+          "muted": false,
           "broken": true,
           "color": "#F0A87E",
           "_orchestrationNote": "Manœuvre des écoutes, bras et drisses — tension des cordages, craquements de bois et de chanvre.",
