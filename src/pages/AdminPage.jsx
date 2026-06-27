@@ -1501,7 +1501,8 @@ function AdminPage() {
     const updateStickyHeight = () => {
       const tabBar = document.querySelector('[data-sticky="tabbar"]')
       const draftBar = document.querySelector('[data-sticky="draftbar"]')
-      const h = (tabBar?.offsetHeight || 45) + (draftBar?.offsetHeight || 44)
+      const draftBanner = document.querySelector('[data-sticky="draftbanner"]')
+      const h = (tabBar?.offsetHeight || 45) + (draftBar?.offsetHeight || 44) + (draftBanner?.offsetHeight || 0)
       setStickyHeight(h)
     }
     updateStickyHeight()
