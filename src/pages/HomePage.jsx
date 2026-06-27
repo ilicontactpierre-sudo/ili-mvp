@@ -240,28 +240,27 @@ function HomePage() {
           <p className="logo-invite">Choisis ton histoire</p>
           {/* ── Accès tutoriel ── */}
           {/* Visible uniquement à l'état idle, discret, sous la tagline */}
-          {phase === 'idle' && (
-            <div
-              onClick={(e) => { e.stopPropagation(); navigate('/tutoriel') }}
-              style={{
-                marginTop: '2.4rem',
-                cursor: 'pointer',
-                opacity: 0.62,
-                transition: 'opacity 300ms ease',
-                width: '122px',
-                height: '122px',
-              }}
-              onMouseEnter={(e) => { e.currentTarget.style.opacity = '0.55' }}
-              onMouseLeave={(e) => { e.currentTarget.style.opacity = '0.28' }}
-              title="Comment ça marche ?"
-            >
-              <img
-               src="/tutoriel-icon.png"
-                alt="Tutoriel"
-                style={{ width: '100%', height: '100%', objectFit: 'contain', filter: 'brightness(0) invert(1)' }}
-              />
-            </div>
-          )}
+          <div
+            onClick={(e) => { if (phase !== 'idle') return; e.stopPropagation(); navigate('/tutoriel') }}
+            style={{
+              marginTop: '2.4rem',
+              cursor: phase === 'idle' ? 'pointer' : 'default',
+              width: '72px',
+              height: '72px',
+              opacity: phase === 'idle' ? 0.32 : 0,
+              pointerEvents: phase === 'idle' ? 'auto' : 'none',
+              transition: 'opacity 400ms cubic-bezier(0.76, 0, 0.24, 1)',
+            }}
+            onMouseEnter={(e) => { if (phase === 'idle') e.currentTarget.style.opacity = '0.55' }}
+            onMouseLeave={(e) => { if (phase === 'idle') e.currentTarget.style.opacity = '0.32' }}
+            title="Comment ça marche ?"
+          >
+            <img
+              src="/tutoriel-icon.png"
+              alt="Tutoriel"
+              style={{ width: '100%', height: '100%', objectFit: 'contain', filter: 'brightness(0) invert(1)' }}
+            />
+          </div>
         </div>
 
         {isOpen && (
