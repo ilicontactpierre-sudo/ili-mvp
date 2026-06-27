@@ -43,7 +43,7 @@ function StoryRow({ story, onNavigate }) {
                   style={{
                     fontSize: '0.6rem',
                     letterSpacing: '0.04em',
-                    color: 'rgba(255,255,255,0.62)',
+                    color: 'rgba(255,255,255,0.32)',
                     border: '1px solid rgba(255,255,255,0.12)',
                     borderRadius: '999px',
                     padding: '0.1rem 0.5rem',
