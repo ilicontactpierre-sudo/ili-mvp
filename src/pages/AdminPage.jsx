@@ -243,7 +243,13 @@ const SplitPreviewPane = forwardRef(function SplitPreviewPane({ storyData, sound
           <StartScreen
             title={storyData?.title || ''}
             author={storyData?.author || ''}
-            soundsToPreload={storyData?.sounds || []}
+            soundsToPreload={(() => {
+              // Reconstruire les sons avec les URLs depuis soundLibrary (toujours à jour)
+              const usedIds = new Set((storyData?.soundTracks || []).map(t => t.soundId))
+              return soundLibrary
+                .filter(s => usedIds.has(s.id) && s.url)
+                .map(s => ({ id: s.id, url: s.url, loop: s.loop || false }))
+            })()}
             onStart={handleStart}
           />
         )}
