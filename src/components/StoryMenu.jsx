@@ -239,7 +239,7 @@ function StoryMenu({ isOpen, stories, isLoading, onClose, onDeleteStory }) {
             width: '100%',
             height: '100%',
             objectFit: 'contain',
-            filter: 'invert(1)',
+            filter: 'brightness(0) invert(1)',
           }}
         />
       </button>
