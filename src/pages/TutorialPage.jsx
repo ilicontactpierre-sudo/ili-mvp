@@ -234,8 +234,8 @@ function ScreenHeadphones({ onUnlock, fadeOutRef }) {
   const fadeOutAndStop = useCallback(() => {
     const audio = audioRef.current
     if (!audio || audio.paused) return
-    const duration = 900
-    const steps = 36
+    const duration = 1800
+    const steps = 60
     const interval = duration / steps
     let step = 0
     const startVol = audio.volume
