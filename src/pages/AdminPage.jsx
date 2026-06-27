@@ -1517,7 +1517,6 @@ function AdminPage() {
     const updateTimelineRect = () => {
       if (timelineContainerRef.current) {
         const rect = timelineContainerRef.current.getBoundingClientRect()
-        console.log('[timelineRect] left:', rect.left, 'right:', rect.right, 'width:', rect.width)
         setTimelineRect({ left: rect.left, right: rect.right })
       }
     }
