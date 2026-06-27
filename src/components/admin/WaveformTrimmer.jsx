@@ -436,7 +436,7 @@ const [realDurationMs, setRealDurationMs] = useState((sound.duration || 0) * 100
 
           {/* Valider */}
           <button
-            onClick={() => { stopPreview(); onConfirm({ trimStart, trimEnd }) }}
+            onClick={() => { stopPreview(); onConfirm({ trimStart, trimEnd, gainDb }) }}
             style={{
               background: '#5a7af0',
               border: 'none',
