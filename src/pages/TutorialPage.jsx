@@ -637,10 +637,9 @@ function TutorialPage() {
   // ── Délai minimum avant de pouvoir avancer (sauf écran 1, débloqué par l'interaction elle-même) ──
   useEffect(() => {
     setCanAdvance(false)
-    // navigation et headphones : débloqués manuellement via handleUnlockNavigation
-    if (screen === 'navigation') return
-    if (screen === 'headphones') return
+    if (screen === 'navigation') return // débloqué par les deux taps
     const delay = MIN_DELAY[screen] ?? 0
+    if (delay >= 99999) return // désactivé (settings : débloqué par clic)
     const t = setTimeout(() => setCanAdvance(true), delay)
     return () => clearTimeout(t)
   }, [screen])
