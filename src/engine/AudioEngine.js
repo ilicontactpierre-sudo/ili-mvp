@@ -194,17 +194,18 @@ class AudioEngine {
     doFade()
   }
 
-  setSoundVolume({ trackId, soundId, volume = 1, duration }) {
+  setSoundVolume({ trackId, soundId, volume = 1, gainDb, duration }) {
     const key = trackId || soundId
     if (!soundId || !this.playingSounds.has(key)) return
     const soundState = this.playingSounds.get(key)
+    const effectiveGainDb = gainDb ?? soundState.gainDb ?? 0
     const currentVolume = soundState.howl.volume()
     if (duration && duration > 0) {
-      soundState.howl.fade(currentVolume, this._toPerceptualVolume(volume), duration)
+      soundState.howl.fade(currentVolume, this._toPerceptualVolume(volume, effectiveGainDb), duration)
     } else {
-      soundState.howl.volume(this._toPerceptualVolume(volume))
+      soundState.howl.volume(this._toPerceptualVolume(volume, effectiveGainDb))
     }
-    this.playingSounds.set(soundId, { howl: soundState.howl, volume })
+    this.playingSounds.set(key, { ...soundState, volume, gainDb: effectiveGainDb })
   }
 
   stopAll(duration = 0) {
