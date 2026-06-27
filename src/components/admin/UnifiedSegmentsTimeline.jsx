@@ -2129,9 +2129,11 @@ function UnifiedSegmentsTimeline({
     const row = rowRefs.current[index]
     if (!row) return
     const rect = row.getBoundingClientRect()
+    // Centrer la toolbar sur la partie texte (dividerPosition% de la largeur de la row)
+    const textColumnWidth = rect.width * (dividerPosition / 100)
     setFormatToolbar({
       mode: 'segment',
-      position: { top: rect.top, left: rect.left + rect.width / 2 },
+      position: { top: rect.top, left: rect.left + textColumnWidth / 2 },
       segmentIndex: index,
       selectedText: null,
     })
