@@ -1455,9 +1455,14 @@ function AdminPage() {
 }
   // Ouvrir l'aperçu directement depuis un segment de l'éditeur en cours
   const handlePreviewFromSegment = (index) => {
-    setPreviewStoryData(null)
-    setPreviewStartIndex(index)
-    setIsPreviewOpen(true)
+    if (isSplitView) {
+      // En split view : synchroniser directement vers le bon segment
+      splitPaneRef.current?.goToSegment(index)
+    } else {
+      setPreviewStoryData(null)
+      setPreviewStartIndex(index)
+      setIsPreviewOpen(true)
+    }
   }
   // Données pour l'aperçu
   const [previewStoryData, setPreviewStoryData] = useState(null)
