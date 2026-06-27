@@ -1980,9 +1980,6 @@ function AdminPage() {
         <div style={{ 
           width: '100%', 
           maxWidth: '800px',
-          marginRight: isSplitView ? '400px' : '0',
-          transition: 'margin-right 0.25s ease',marginRight: isSplitView ? '400px' : '0',
-          transition: 'margin-right 0.25s ease',
         }}>
 {/* Nouvelle histoire */}
           <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '1rem' }}>
