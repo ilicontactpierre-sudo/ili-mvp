@@ -761,11 +761,7 @@ export default function ReaderSettings({
           </div>
 
           {/* Taille de police + options DYS */}
-<<<<<<< Updated upstream
           <div className="rs-section" ref={fontSectionRef}>
-=======
-          <div className="rs-section">
->>>>>>> Stashed changes
             <span className="rs-label">Police</span>
             <div className="rs-row">
               <button
@@ -793,8 +789,6 @@ export default function ReaderSettings({
                 className={`rs-dys-btn${dys1 ? ' active' : ''}`}
                 onClick={() => { playClicSettings(); setDys1(v => !v) }}
                 title="Lecture assistée : met en gras les premières lettres de chaque mot"
-<<<<<<< Updated upstream
-title="Lecture assistée : met en gras les premières lettres de chaque mot"
               >
                 DYS 1
               </button>
@@ -854,17 +848,6 @@ title="Lecture assistée : met en gras les premières lettres de chaque mot"
                   background: isDark ? '#fff' : '#1a1a18',
                   transition: 'left 0.2s ease',
                 }} />
-=======
-              >
-                DYS 1
-              </button>
-              <button
-                className={`rs-dys-btn${dys2 ? ' active' : ''}`}
-                onClick={() => { playClicSettings(); setDys2(v => !v) }}
-                title="Police Lexend, conçue pour la dyslexie"
-              >
-                DYS 2
->>>>>>> Stashed changes
               </button>
             </div>
           </div>
