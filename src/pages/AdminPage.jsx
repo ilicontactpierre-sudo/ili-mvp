@@ -211,6 +211,26 @@ const SplitPreviewPane = forwardRef(function SplitPreviewPane({ storyData, sound
           onMouseEnter={e => { if (isStarted && !isFinished) e.currentTarget.style.background = 'rgba(255,255,255,0.1)' }}
           onMouseLeave={e => e.currentTarget.style.background = 'none'}
         >→</button>
+        {/* Mute */}
+        <button
+          onClick={() => {
+            const next = !isMuted
+            setIsMuted(next)
+            isMutedRef.current = next
+            if (audioEngineRef.current) {
+              audioEngineRef.current.setMasterVolume(next ? 0 : (storyData?.masterVolume ?? 1.0))
+            }
+          }}
+          title={isMuted ? 'Réactiver le son' : 'Couper le son'}
+          style={{
+            background: isMuted ? 'rgba(255,100,100,0.2)' : 'none',
+            border: '1px solid rgba(255,255,255,0.15)',
+            borderRadius: '4px', cursor: 'pointer',
+            color: isMuted ? '#ff6b6b' : 'rgba(255,255,255,0.6)',
+            fontSize: '0.72rem', padding: '2px 7px', lineHeight: 1,
+            transition: 'all 0.1s',
+          }}
+        >{isMuted ? '🔇' : '🔊'}</button>
         {/* Resync */}
         <button
           onClick={handleResync}
