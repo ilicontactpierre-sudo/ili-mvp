@@ -162,7 +162,10 @@ useEffect(() => {
   })
 }, [familySounds, debouncedSearch, activeTags, onlyUploaded])
 
-const filteredSounds = workerResults ?? familySounds
+const familySounds = useMemo(() => {
+  if (!selectedFamily) return soundLibrary
+  ...
+}, [soundLibrary, selectedFamily])
 
   const selectFamily = (familyId) => {
     if (selectedFamily === familyId) {
