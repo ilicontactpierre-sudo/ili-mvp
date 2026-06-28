@@ -248,6 +248,7 @@ export default function ReaderSettings({
   const [showProgress, setShowProgress] = useState(() => {
     try { return localStorage.getItem('ili_show_progress') !== 'false' } catch { return true }
   })
+  const menuRef     = useRef(null)
 
   const menuRef     = useRef(null)
   const gearRef     = useRef(null)
@@ -370,6 +371,7 @@ export default function ReaderSettings({
     }
     window.__iliDys1 = dys1
     window.__iliDys2 = dys2
+<<<<<<< Updated upstream
     window.__iliEmoji = emojiMode
     window.__iliShowProgress = showProgress
     try { localStorage.setItem('ili_dys1', String(dys1)) } catch {}
@@ -378,6 +380,12 @@ export default function ReaderSettings({
     try { localStorage.setItem('ili_show_progress', String(showProgress)) } catch {}
     emitSettingsChange({ type: 'reading', dys1, dys2, emojiMode, showProgress })
   }, [dys1, dys2, emojiMode, showProgress])
+=======
+    try { localStorage.setItem('ili_dys1', String(dys1)) } catch {}
+    try { localStorage.setItem('ili_dys2', String(dys2)) } catch {}
+  }, [dys1, dys2])
+
+>>>>>>> Stashed changes
   // ── Fermer si clic en dehors ────────────────────────────────────────────────
   useEffect(() => {
     if (!isOpen || forceOpen) return
@@ -449,6 +457,7 @@ export default function ReaderSettings({
   return (
     <>
       <style>{`
+<<<<<<< Updated upstream
 @keyframes synthwave-flicker {
           0%   { opacity: 1; }
           5%   { opacity: 0.4; }
@@ -462,6 +471,8 @@ export default function ReaderSettings({
           81%  { opacity: 0.3; }
           82%  { opacity: 1; }
         }
+=======
+>>>>>>> Stashed changes
         @keyframes settings-out {
           from { opacity: 1; transform: scale(1)    translateY(0); }
           to   { opacity: 0; transform: scale(0.92) translateY(-6px); }
@@ -762,7 +773,11 @@ export default function ReaderSettings({
           </div>
 
           {/* Taille de police + options DYS */}
+<<<<<<< Updated upstream
           <div className="rs-section" ref={fontSectionRef}>
+=======
+          <div className="rs-section">
+>>>>>>> Stashed changes
             <span className="rs-label">Police</span>
             <div className="rs-row">
               <button
@@ -790,6 +805,7 @@ export default function ReaderSettings({
                 className={`rs-dys-btn${dys1 ? ' active' : ''}`}
                 onClick={() => { playClicSettings(); setDys1(v => !v) }}
                 title="Lecture assistée : met en gras les premières lettres de chaque mot"
+<<<<<<< Updated upstream
 title="Lecture assistée : met en gras les premières lettres de chaque mot"
               >
                 DYS 1
@@ -850,6 +866,17 @@ title="Lecture assistée : met en gras les premières lettres de chaque mot"
                   background: isDark ? '#fff' : '#1a1a18',
                   transition: 'left 0.2s ease',
                 }} />
+=======
+              >
+                DYS 1
+              </button>
+              <button
+                className={`rs-dys-btn${dys2 ? ' active' : ''}`}
+                onClick={() => { playClicSettings(); setDys2(v => !v) }}
+                title="Police Lexend, conçue pour la dyslexie"
+              >
+                DYS 2
+>>>>>>> Stashed changes
               </button>
             </div>
           </div>
