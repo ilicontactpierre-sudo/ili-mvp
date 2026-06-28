@@ -2648,6 +2648,7 @@ function AdminPage() {
                               : (storyExtraMeta.seuil ?? []).map(q => q.cle).filter(Boolean)
                           }
                           onSoundsImported={(updatedSounds) => {
+                            console.log('[AdminPage] onSoundsImported appelé avec:', updatedSounds)
                             if (Array.isArray(updatedSounds) && updatedSounds.length > 0) {
                               const urlMap = {}
                               const deletedIds = new Set()
