@@ -369,7 +369,6 @@ export default function ReaderSettings({
     }
     window.__iliDys1 = dys1
     window.__iliDys2 = dys2
-<<<<<<< Updated upstream
     window.__iliEmoji = emojiMode
     window.__iliShowProgress = showProgress
     try { localStorage.setItem('ili_dys1', String(dys1)) } catch {}
@@ -378,12 +377,6 @@ export default function ReaderSettings({
     try { localStorage.setItem('ili_show_progress', String(showProgress)) } catch {}
     emitSettingsChange({ type: 'reading', dys1, dys2, emojiMode, showProgress })
   }, [dys1, dys2, emojiMode, showProgress])
-=======
-    try { localStorage.setItem('ili_dys1', String(dys1)) } catch {}
-    try { localStorage.setItem('ili_dys2', String(dys2)) } catch {}
-  }, [dys1, dys2])
-
->>>>>>> Stashed changes
   // ── Fermer si clic en dehors ────────────────────────────────────────────────
   useEffect(() => {
     if (!isOpen || forceOpen) return
