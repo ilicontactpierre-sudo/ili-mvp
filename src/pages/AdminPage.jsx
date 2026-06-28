@@ -2648,7 +2648,6 @@ function AdminPage() {
                               : (storyExtraMeta.seuil ?? []).map(q => q.cle).filter(Boolean)
                           }
                           onSoundsImported={(updatedSounds) => {
-                            console.log('[AdminPage] onSoundsImported appelé avec:', updatedSounds)
                             if (Array.isArray(updatedSounds) && updatedSounds.length > 0) {
                               const urlMap = {}
                               const deletedIds = new Set()
@@ -2656,11 +2655,19 @@ function AdminPage() {
                                 if (s.id && s.url) urlMap[s.id] = s.url
                                 if (s.id && s.url === null) deletedIds.add(s.id)
                               })
-                              setSoundLibrary(prev => prev.map(sound => {
-                                if (urlMap[sound.id]) return { ...sound, url: urlMap[sound.id] }
-                                if (deletedIds.has(sound.id)) return { ...sound, url: null }
-                                return sound
-                              }))
+                              setSoundLibrary(prev => {
+                                const knownIds = new Set(prev.map(s => s.id))
+                                // Mettre à jour les sons déjà connus (URL ajoutée/supprimée)
+                                const updated = prev.map(sound => {
+                                  if (urlMap[sound.id]) return { ...sound, url: urlMap[sound.id] }
+                                  if (deletedIds.has(sound.id)) return { ...sound, url: null }
+                                  return sound
+                                })
+                                // Ajouter les sons tout nouveaux (importés via SoundImporter,
+                                // absents du JSON local ET de la soundLibrary en mémoire)
+                                const newSounds = updatedSounds.filter(s => s.id && !knownIds.has(s.id))
+                                return [...updated, ...newSounds]
+                              })
                               setSoundTracks(prev => {
                                 const patched = prev.map(track => {
                                   if (!urlMap[track.soundId]) return track
