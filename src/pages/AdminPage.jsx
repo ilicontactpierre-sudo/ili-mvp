@@ -65,17 +65,10 @@ const SplitPreviewPane = forwardRef(function SplitPreviewPane({ storyData, sound
   const goToSegment = useCallback((index) => {
     const clampedIdx = Math.max(0, Math.min(index, lastIndex))
     if (!isStarted) {
-      // Mémoriser l'index cible — handleStart sautera dessus après le preload
       pendingSegmentRef.current = clampedIdx
-      // Ne pas toucher à isStarted : laisser StartScreen faire son preload normalement
       return
     }
-    // Déjà démarré : sauter directement
-    audioEngineRef.current?.stopAll()
-    audioEngineRef.current = null
-    setCurrentIndex(clampedIdx)
-    setIsFinished(false)
-    ignoreUntilRef.current = Date.now() + 400
+    jumpToSegment(clampedIdx)
   }, [isStarted, lastIndex])
 
   // Exposer goToSegment via ref pour que AdminPage puisse l'appeler
@@ -94,22 +87,30 @@ const SplitPreviewPane = forwardRef(function SplitPreviewPane({ storyData, sound
     if (isFinished) audioEngineRef.current?.stopAll(1500)
   }, [isFinished])
 
+  const [isMuted, setIsMuted] = useState(false)
+  const isMutedRef = useRef(false)
+  const howlMapRef = useRef(null)
+
+  const jumpToSegment = (idx) => {
+    if (!howlMapRef.current) return
+    audioEngineRef.current?.stopAll()
+    audioEngineRef.current = new AudioEngine(howlMapRef.current)
+    audioEngineRef.current.setMasterVolume(isMutedRef.current ? 0 : (storyData?.masterVolume ?? 1.0))
+    ignoreUntilRef.current = Date.now() + 600
+    setCurrentIndex(idx)
+    setIsStarted(true)
+    setIsFinished(false)
+    setTimeout(() => {
+      audioEngineRef.current?.onSegmentChange(idx, storyData?.soundTracks || [], segments)
+    }, 50)
+  }
+
   // Démarrer
   const handleStart = (preloadedHowlMap) => {
-    audioEngineRef.current = new AudioEngine(preloadedHowlMap)
-    audioEngineRef.current.setMasterVolume(storyData?.masterVolume ?? 1.0)
-    ignoreUntilRef.current = Date.now() + 600
+    howlMapRef.current = preloadedHowlMap
     const startIdx = pendingSegmentRef.current ?? 0
     pendingSegmentRef.current = null
-    setCurrentIndex(startIdx)
-    setIsStarted(true)
-    // Déclencher manuellement le premier onSegmentChange car currentIndex
-    // ne changera pas si startIdx === 0 (déjà à 0 avant setIsStarted)
-    setTimeout(() => {
-      if (audioEngineRef.current) {
-        audioEngineRef.current.onSegmentChange(startIdx, storyData?.soundTracks || [], segments)
-      }
-    }, 50)
+    jumpToSegment(startIdx)
   }
 
   const activeGameMode = segments[currentIndex]?.gameMode ?? null
