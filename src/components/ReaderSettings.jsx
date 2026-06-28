@@ -249,8 +249,6 @@ export default function ReaderSettings({
     try { return localStorage.getItem('ili_show_progress') !== 'false' } catch { return true }
   })
   const menuRef     = useRef(null)
-
-  const menuRef     = useRef(null)
   const gearRef     = useRef(null)
   const chaptersRef = useRef(null)
   // ── Refs sections (uniquement utilisées par le spotlight du tutoriel) ──────
