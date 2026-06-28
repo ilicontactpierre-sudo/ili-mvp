@@ -153,19 +153,20 @@ const familyTags = useMemo(() => {
 useEffect(() => {
   if (!workerRef.current) return
   const id = ++requestIdRef.current
+  // Enrichir les sons avec les overrides locaux AVANT de les envoyer au worker,
+  // sinon un son importé pendant que le picker est ouvert reste invisible
+  // (url: null) jusqu'à ce que ce useEffect se redéclenche pour une autre raison.
+  const enrichedSounds = familySounds.map(enrichSound)
   workerRef.current.postMessage({
-    sounds: familySounds,
+    sounds: enrichedSounds,
     searchQuery: debouncedSearch,
     activeTags,
     onlyUploaded,
     requestId: id,
   })
-}, [familySounds, debouncedSearch, activeTags, onlyUploaded])
+}, [familySounds, debouncedSearch, activeTags, onlyUploaded, localSoundOverrides])
 
-const familySounds = useMemo(() => {
-  if (!selectedFamily) return soundLibrary
-  ...
-}, [soundLibrary, selectedFamily])
+const filteredSounds = workerResults ?? familySounds
 
   const selectFamily = (familyId) => {
     if (selectedFamily === familyId) {
