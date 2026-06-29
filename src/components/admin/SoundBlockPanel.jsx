@@ -1040,13 +1040,15 @@ function SoundBlockPanel({
             // Remonter vers AdminPage pour mettre à jour soundLibrary
             if (onSoundsImported) onSoundsImported(updatedSounds)
             const s = updatedSounds[0]
-            if (s.id === editedTrack.soundId && s.url) {
-              const updated = { ...editedTrack, muted: false, broken: undefined }
-              delete updated.broken
-              setEditedTrack(updated)
-              if (onRealTimeUpdate) onRealTimeUpdate(updated)
-              if (onSoundReplace) onSoundReplace(updated)
-            }
+            if (!s?.id || !s.url) return
+            // Le premier son importé remplace TOUJOURS le son du bloc en cours d'édition,
+            // qu'il porte le même id (re-upload d'un son cassé) ou un id différent
+            // (remplacement volontaire par un nouveau fichier).
+            const updated = { ...editedTrack, soundId: s.id, muted: false, broken: undefined }
+            delete updated.broken
+            setEditedTrack(updated)
+            if (onRealTimeUpdate) onRealTimeUpdate(updated)
+            if (onSoundReplace) onSoundReplace(updated)
           }}
           onClose={() => setShowSoundPicker(false)}
         />,
