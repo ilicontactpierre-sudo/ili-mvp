@@ -844,9 +844,9 @@ const handleFileSelected = async (e) => {
                     </div>
                   )
                 })}
-                {filteredSounds.length > 50 && (
+                {sortedSounds.length > 50 && (
                   <p style={{ textAlign: 'center', fontSize: '0.8rem', color: '#aaa', padding: '0.75rem' }}>
-                    {filteredSounds.length - 50} son{filteredSounds.length - 50 > 1 ? 's' : ''} supplémentaire{filteredSounds.length - 50 > 1 ? 's' : ''} — affinez la recherche
+                    {sortedSounds.length - 50} son{sortedSounds.length - 50 > 1 ? 's' : ''} supplémentaire{sortedSounds.length - 50 > 1 ? 's' : ''} — affinez la recherche
                   </p>
                 )}
               </div>
