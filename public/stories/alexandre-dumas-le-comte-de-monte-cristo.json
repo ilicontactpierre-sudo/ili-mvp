@@ -161,6 +161,7 @@
               "action": "fadeIn",
               "soundId": "watrwave_black_sea_waves_01_b00m_one",
               "volume": 0.18,
+              "gainDb": 0,
               "duration": 6000,
               "delay": 0,
               "loop": true
@@ -169,6 +170,7 @@
               "action": "fadeIn",
               "soundId": "3ds01_0054_urban_rec_marina_large_20_2",
               "volume": 0.14,
+              "gainDb": 0,
               "duration": 8000,
               "delay": 0,
               "loop": true
@@ -218,6 +220,7 @@
               "action": "fadeIn",
               "soundId": "crwdsprt_football_match_ambience_crowd_chant_walla_01_b00m_one",
               "volume": 0.2,
+              "gainDb": 0,
               "duration": 3000,
               "delay": 0,
               "loop": true
@@ -237,6 +240,7 @@
               "action": "fadeIn",
               "soundId": "crwdangr_male_crowd_grumpy_01_b00m_one",
               "volume": 0.1,
+              "gainDb": 0,
               "duration": 5000,
               "delay": 0,
               "loop": true
@@ -362,6 +366,7 @@
               "action": "fadeIn",
               "soundId": "boatrow_rowboat_paddle_in_water_sequence_01_b00m_one",
               "volume": 0.6,
+              "gainDb": 0,
               "duration": 1000,
               "delay": 0,
               "loop": false
@@ -370,6 +375,7 @@
               "action": "fadeIn",
               "soundId": "boatrow_rowboat_squeaky_mounting_fast_sequence_01_b00m_one",
               "volume": 0.4,
+              "gainDb": 0,
               "duration": 1033,
               "delay": 0,
               "loop": false
@@ -436,6 +442,7 @@
               "action": "fadeIn",
               "soundId": "dantes_theme_3",
               "volume": 0.38,
+              "gainDb": 0,
               "duration": 2000,
               "delay": 0,
               "loop": false
@@ -471,6 +478,7 @@
               "action": "fadeIn",
               "soundId": "lecie_re_thee_me_1",
               "volume": 0.16,
+              "gainDb": 0,
               "duration": 4000,
               "delay": 0,
               "loop": true
@@ -560,6 +568,7 @@
               "action": "play",
               "soundId": "ueck_sweetener_sub_distanst_hit",
               "volume": 0.35,
+              "gainDb": 0,
               "delay": 900,
               "loop": false
             },
@@ -613,6 +622,7 @@
               "action": "play",
               "soundId": "507_s12_gens_qui_courent",
               "volume": 0.62,
+              "gainDb": 0,
               "delay": 300,
               "loop": false
             }
@@ -641,6 +651,7 @@
               "action": "play",
               "soundId": "equiprec_climbing_rope_bag_throwing_on_ground_01_b00m_one",
               "volume": 0.65,
+              "gainDb": 0,
               "delay": 4800,
               "loop": false
             }
@@ -750,6 +761,7 @@
               "action": "play",
               "soundId": "watrsplsh_big_splash_and_spray_01_b00m_one",
               "volume": 0.58,
+              "gainDb": 0,
               "delay": 2100,
               "loop": false
             },
@@ -1040,6 +1052,7 @@
               "action": "fadeIn",
               "soundId": "musctoy_music_box_melody_play_slow_b00m_one",
               "volume": 0.22,
+              "gainDb": 0,
               "duration": 1000,
               "delay": 3000,
               "loop": false
@@ -1135,6 +1148,7 @@
               "action": "play",
               "soundId": "chainimpt_metal_chain_on_wood_impact_01_b00m_one",
               "volume": 0.78,
+              "gainDb": 0,
               "delay": 600,
               "loop": false
             }
@@ -1153,6 +1167,7 @@
               "action": "fadeIn",
               "soundId": "whsh_cinematic_low_impact_muffled_hit_01_b00m_one",
               "volume": 0.5,
+              "gainDb": 0,
               "duration": 1000,
               "delay": 0,
               "loop": false
@@ -1258,6 +1273,7 @@
               "action": "fadeIn",
               "soundId": "53_s11_drone_ambience",
               "volume": 0.08,
+              "gainDb": 0,
               "duration": 6000,
               "delay": 0,
               "loop": true
@@ -1328,6 +1344,7 @@
               "action": "play",
               "soundId": "pp-suspense-mute-002",
               "volume": 0.45,
+              "gainDb": 0,
               "delay": 600,
               "loop": false
             },
@@ -1550,6 +1567,7 @@
               "action": "fadeIn",
               "soundId": "61_s12_comando_drone",
               "volume": 0.1,
+              "gainDb": 0,
               "duration": 3000,
               "delay": 0,
               "loop": true
@@ -1639,6 +1657,7 @@
               "action": "play",
               "soundId": "musctoy_music_box_melody_play_slow_b00m_one",
               "volume": 0.28,
+              "gainDb": 0,
               "delay": 300,
               "loop": false
             }
@@ -1709,6 +1728,7 @@
               "action": "play",
               "soundId": "73_s14_sweep_3",
               "volume": 0.52,
+              "gainDb": 0,
               "delay": 0,
               "loop": false
             }
@@ -1732,6 +1752,7 @@
               "action": "fadeIn",
               "soundId": "13_s03_ville",
               "volume": 0.12,
+              "gainDb": 0,
               "duration": 8000,
               "delay": 0,
               "loop": true
@@ -1931,6 +1952,7 @@
               "action": "fadeIn",
               "soundId": "musctoy_music_box_melody_play_slow_b00m_one",
               "volume": 0.3,
+              "gainDb": 0,
               "duration": 2000,
               "delay": 0,
               "loop": false
@@ -2369,6 +2391,7 @@
               "action": "fadeIn",
               "soundId": "boatrow_rowboat_paddle_in_water_sequence_01_b00m_one",
               "volume": 0.65,
+              "gainDb": 0,
               "duration": 1000,
               "delay": 1800,
               "loop": false
@@ -2403,6 +2426,7 @@
               "action": "fadeIn",
               "soundId": "crwdconv_crowd_medium_talking_small_room_02_b00m_one",
               "volume": 0.55,
+              "gainDb": 0,
               "duration": 2000,
               "delay": 0,
               "loop": false
@@ -2468,6 +2492,7 @@
               "action": "fadeIn",
               "soundId": "musctoy_music_box_melody_play_slow_b00m_one",
               "volume": 0.18,
+              "gainDb": 0,
               "duration": 1000,
               "delay": 5400,
               "loop": false
