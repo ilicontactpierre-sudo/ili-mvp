@@ -418,6 +418,13 @@ const handleFileSelected = async (e) => {
   }
 
   // Sons uploadés sans aucune histoire → candidats au nettoyage
+  const sortedSounds = useMemo(() => {
+    if (!onlyUploaded || sortOrder === 'date') return filteredSounds
+    return [...filteredSounds].sort((a, b) =>
+      (a.label || '').localeCompare(b.label || '', 'fr', { sensitivity: 'base' })
+    )
+  }, [filteredSounds, onlyUploaded, sortOrder])
+
   const orphanSounds = useMemo(() => {
     return filteredSounds.filter(s => {
       const sound = enrichSound(s)
