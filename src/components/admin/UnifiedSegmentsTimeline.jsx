@@ -3286,26 +3286,26 @@ const handleTextSelection = useCallback(() => {
             }
             // 1. Mettre à jour la soundLibrary côté AdminPage
             if (onSoundsImported) onSoundsImported(newSounds)
-            // 2. Patch ou création des tracks
+            // 2. Patch des tracks cassés (URL retrouvée) + attacher le PREMIER son
+            //    importé au segment/colonne ciblé par le picker (création d'un nouveau bloc)
             const { segmentIndex, column } = showSoundPicker || {}
             const seg = segmentIndex !== undefined ? segments[segmentIndex] : null
             const segId = seg?.id || seg?._id || (segmentIndex !== undefined ? `seg_${segmentIndex}` : null)
-            // Utiliser la forme fonctionnelle pour lire les soundTracks à jour
+            const firstImported = newSounds[0]
             onSoundTracksChange(prev => {
               const patched = prev.map(track => {
                 if (!urlMap[track.soundId]) return track
                 const { broken, ...rest } = track
                 return { ...rest, muted: false }
               })
-              for (const s of newSounds) {
-                if (!segId) continue
+              if (segId && firstImported) {
                 const alreadyExists = patched.some(
-                  t => t.soundId === s.id && t.startSegmentId === segId && !t.broken
+                  t => t.soundId === firstImported.id && t.startSegmentId === segId && !t.broken
                 )
                 if (!alreadyExists) {
                   patched.push({
                     id: `st_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
-                    soundId: s.id,
+                    soundId: firstImported.id,
                     startSegmentId: segId,
                     endSegmentId: segId,
                     column: column ?? 0,
@@ -3313,7 +3313,7 @@ const handleTextSelection = useCallback(() => {
                     fadeIn: 0,
                     fadeOut: 0,
                     delay: 0,
-                    loop: s.loop || false,
+                    loop: firstImported.loop || false,
                     muted: false,
                   })
                 }
