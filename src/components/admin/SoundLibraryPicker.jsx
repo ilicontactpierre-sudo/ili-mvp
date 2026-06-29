@@ -681,7 +681,7 @@ const handleFileSelected = async (e) => {
               </div>
             ) : (
               <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-                {filteredSounds.slice(0, 50).map(rawSound => {
+                {sortedSounds.slice(0, 50).map(rawSound => {
                   const sound = enrichSound(rawSound)
                   const isPlaying = playingId === sound.id
                   const dur = formatDuration(sound.duration)
