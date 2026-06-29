@@ -584,6 +584,35 @@ const handleFileSelected = async (e) => {
               >
                 ☁️
               </button>
+              {onlyUploaded && (
+                <div style={{ display: 'flex', gap: '3px', flexShrink: 0 }}>
+                  {[
+                    { value: 'date',  label: '⏱' },
+                    { value: 'alpha', label: 'Az' },
+                  ].map(opt => (
+                    <button
+                      key={opt.value}
+                      onClick={() => setSortOrder(opt.value)}
+                      title={opt.value === 'date' ? 'Trier par date d\'ajout' : 'Trier par ordre alphabétique'}
+                      style={{
+                        width: '28px', height: '28px',
+                        borderRadius: '6px',
+                        border: `1px solid ${sortOrder === opt.value ? '#5a7af0' : '#e0e0e0'}`,
+                        background: sortOrder === opt.value ? '#5a7af0' : 'transparent',
+                        color: sortOrder === opt.value ? '#fff' : '#888',
+                        cursor: 'pointer',
+                        fontSize: '0.7rem',
+                        fontWeight: 600,
+                        display: 'flex', alignItems: 'center', justifyContent: 'center',
+                        transition: 'all 0.12s',
+                      }}
+                    >
+                      {opt.label}
+                    </button>
+                  ))}
+                </div>
+              )}
+              
               {onlyUploaded && orphanSounds.length > 0 && (
                 <button
                   onClick={handleCleanupOrphans}
