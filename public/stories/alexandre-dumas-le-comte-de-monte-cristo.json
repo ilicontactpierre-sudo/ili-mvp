@@ -56,16 +56,6 @@
           "loop": false
         },
         {
-          "id": "equiprec_climbing_rope_bag_throwing_on_ground_01_b00m_one",
-          "url": "/sounds/EQUIPRec_Climbing Rope Bag Throwing On Ground 01_B00M_ONE.mp3",
-          "loop": false
-        },
-        {
-          "id": "ueck_sweetener_sub_distanst_hit",
-          "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/ueck_sweetener_sub_distanst_hit.mp3",
-          "loop": false
-        },
-        {
           "id": "hmnbrth_female_fast_panic_struck_breath_sequence_02_b00m_one",
           "url": "/sounds/HMNBrth_Female Fast Panic Struck Breath Sequence 02_B00M_ONE.mp3",
           "loop": false
@@ -93,11 +83,6 @@
         {
           "id": "whsh_cinematic_low_impact_muffled_hit_01_b00m_one",
           "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/whsh_cinematic_low_impact_muffled_hit_01_b00m_one.mp3",
-          "loop": false
-        },
-        {
-          "id": "watrsplsh_big_splash_and_spray_01_b00m_one",
-          "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/watrsplsh_big_splash_and_spray_01_b00m_one.mp3",
           "loop": false
         },
         {
@@ -143,6 +128,21 @@
         {
           "id": "lecie_re_thee_me_1",
           "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/lecie_re_thee_me_1.mp3",
+          "loop": false
+        },
+        {
+          "id": "esm_lfe_heart_beat_loop_-_medium_-_fast_bass_medical_horror_scary_suspense",
+          "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/esm_lfe_heart_beat_loop_-_medium_-_fast_bass_medical_horror_scary_suspense.mp3",
+          "loop": false
+        },
+        {
+          "id": "undiscovered_designed_rope_bridge_swinging_precarious_wooden_structure_slight_wi",
+          "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/undiscovered_designed_rope_bridge_swinging_precarious_wooden_structure_slight_wi.mp3",
+          "loop": false
+        },
+        {
+          "id": "underwater_designed_impact_cinematic_soft_low",
+          "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/underwater_designed_impact_cinematic_soft_low.mp3",
           "loop": false
         }
       ],
@@ -441,9 +441,9 @@
             {
               "action": "fadeIn",
               "soundId": "dantes_theme_3",
-              "volume": 0.38,
+              "volume": 0.35,
               "gainDb": 0,
-              "duration": 2000,
+              "duration": 169,
               "delay": 0,
               "loop": false
             }
@@ -461,7 +461,7 @@
             {
               "action": "fadeOut",
               "soundId": "dantes_theme_3",
-              "duration": 3000
+              "duration": 4000
             }
           ]
         },
@@ -566,16 +566,11 @@
           "audioEvents": [
             {
               "action": "play",
-              "soundId": "ueck_sweetener_sub_distanst_hit",
-              "volume": 0.35,
+              "soundId": "esm_lfe_heart_beat_loop_-_medium_-_fast_bass_medical_horror_scary_suspense",
+              "volume": 0.85,
               "gainDb": 0,
               "delay": 900,
               "loop": false
-            },
-            {
-              "action": "fadeOut",
-              "soundId": "ueck_sweetener_sub_distanst_hit",
-              "duration": 1000
             }
           ]
         },
@@ -617,6 +612,16 @@
           "text": "— Holà hé ! dit-il, chacun à son poste pour le mouillage !",
           "breakAt": null,
           "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1782404044216_34_rdfgf",
+          "lines": [
+            "L’équipage obéit."
+          ],
+          "text": "L’équipage obéit.",
+          "breakAt": null,
+          "isLeader": true,
           "audioEvents": [
             {
               "action": "play",
@@ -629,16 +634,6 @@
           ]
         },
         {
-          "id": "seg_1782404044216_34_rdfgf",
-          "lines": [
-            "L’équipage obéit."
-          ],
-          "text": "L’équipage obéit.",
-          "breakAt": null,
-          "isLeader": true,
-          "audioEvents": []
-        },
-        {
           "id": "seg_1782404044216_35_hlxg6",
           "lines": [
             "Au même instant, les huit ou dix matelots qui le composaient s’élancèrent les uns sur les écoutes, les autres sur les bras,"
@@ -648,10 +643,11 @@
           "isLeader": false,
           "audioEvents": [
             {
-              "action": "play",
-              "soundId": "equiprec_climbing_rope_bag_throwing_on_ground_01_b00m_one",
+              "action": "fadeIn",
+              "soundId": "undiscovered_designed_rope_bridge_swinging_precarious_wooden_structure_slight_wi",
               "volume": 0.65,
               "gainDb": 0,
+              "duration": 2485,
               "delay": 4800,
               "loop": false
             }
@@ -669,12 +665,12 @@
             {
               "action": "fadeOut",
               "soundId": "507_s12_gens_qui_courent",
-              "duration": 1000
+              "duration": 3600
             },
             {
               "action": "fadeOut",
-              "soundId": "equiprec_climbing_rope_bag_throwing_on_ground_01_b00m_one",
-              "duration": 1000
+              "soundId": "undiscovered_designed_rope_bridge_swinging_precarious_wooden_structure_slight_wi",
+              "duration": 4000
             }
           ]
         },
@@ -759,16 +755,11 @@
           "audioEvents": [
             {
               "action": "play",
-              "soundId": "watrsplsh_big_splash_and_spray_01_b00m_one",
+              "soundId": "underwater_designed_impact_cinematic_soft_low",
               "volume": 0.58,
               "gainDb": 0,
               "delay": 2100,
               "loop": false
-            },
-            {
-              "action": "fadeOut",
-              "soundId": "watrsplsh_big_splash_and_spray_01_b00m_one",
-              "duration": 1000
             }
           ]
         },
@@ -2792,18 +2783,21 @@
           "_orchestrationNote": "Nappe mélancolique portant le récit de la mort du capitaine Leclère. Quasiment absente au moment du 'Il est mort' (seg 31-32) — le silence fait l'impact. Revient pour le récit des funérailles (seg 45-46). Idéalement : drone doux, légèrement triste, mi-grave — à rechercher dans votre bibliothèque.",
           "_orchestrationKeyword": "melancholic",
           "_orchestrationLayer": "atmosphere",
-          "_orchestrationLeitmotiv": "motif du deuil"
+          "_orchestrationLeitmotiv": "motif du deuil",
+          "trimStart": 7592,
+          "trimEnd": 73128,
+          "gainDb": 0
         },
         {
           "id": "st_1782405291657_qpf9y3nr4_6",
-          "soundId": "ueck_sweetener_sub_distanst_hit",
+          "soundId": "esm_lfe_heart_beat_loop_-_medium_-_fast_bass_medical_horror_scary_suspense",
           "startSegmentId": "seg_1782404044216_29_xku7e",
           "endSegmentId": "seg_1782404044216_29_xku7e",
           "column": 3,
-          "volume": 0.35,
+          "volume": 0.85,
           "loop": false,
           "fadeIn": 0,
-          "fadeOut": 1000,
+          "fadeOut": 0,
           "delay": 900,
           "pan": 0,
           "panMode": "static",
@@ -2816,24 +2810,25 @@
           "automationPoints": [
             {
               "segmentId": "seg_1782404044216_29_xku7e",
-              "volume": 0.35,
+              "volume": 0.85,
               "fadeMs": 0,
               "_isAnchor": true
             }
           ],
           "trimStart": 0,
-          "trimEnd": 7981
+          "trimEnd": 1152,
+          "gainDb": 0
         },
         {
           "id": "st_1782405291657_nkh1xf5j0_7",
-          "soundId": "watrsplsh_big_splash_and_spray_01_b00m_one",
+          "soundId": "underwater_designed_impact_cinematic_soft_low",
           "startSegmentId": "seg_1782404044216_44_hk8ya",
           "endSegmentId": "seg_1782404044216_44_hk8ya",
           "column": 3,
           "volume": 0.58,
           "loop": false,
           "fadeIn": 0,
-          "fadeOut": 1000,
+          "fadeOut": 0,
           "delay": 2100,
           "pan": 0,
           "panMode": "static",
@@ -2842,7 +2837,15 @@
           "_orchestrationNote": "Évocation subliminale de la mise en mer du capitaine — très doux, comme un souvenir. Idéalement : water soft, lointain, pas de grande gerbe — à rechercher dans votre bibliothèque.",
           "_orchestrationKeyword": "splash",
           "_orchestrationLayer": "diegetic",
-          "_orchestrationLeitmotiv": ""
+          "_orchestrationLeitmotiv": "",
+          "automationPoints": [
+            {
+              "segmentId": "seg_1782404044216_44_hk8ya",
+              "volume": 0.58,
+              "fadeMs": 0,
+              "_isAnchor": true
+            }
+          ]
         },
         {
           "id": "st_1782405291658_259acljt1_8",
@@ -3194,46 +3197,15 @@
           "_orchestrationLeitmotiv": "motif de Danglars"
         },
         {
-          "id": "st_1782405291659_tfwjevd6y_21",
-          "soundId": "dantes_theme_3",
-          "startSegmentId": "seg_1782404093633_a_pjs7t",
-          "endSegmentId": "seg_1782404093633_b_yc576",
-          "column": 2,
-          "volume": 0.38,
-          "loop": false,
-          "fadeIn": 2000,
-          "fadeOut": 3000,
-          "delay": 0,
-          "pan": 0,
-          "panMode": "static",
-          "muted": false,
-          "broken": true,
-          "color": "#B59FD8",
-          "_orchestrationNote": "Portrait de Dantès — citation brève du leitmotiv. Deux segments seulement, au premier plan, puis silence. Idéalement : cordes légères montantes, violon solo, tonalité lumineuse — à rechercher dans votre bibliothèque.",
-          "_orchestrationKeyword": "strings",
-          "_orchestrationLayer": "music",
-          "_orchestrationLeitmotiv": "thème de Dantès",
-          "automationPoints": [
-            {
-              "segmentId": "seg_1782404093633_a_pjs7t",
-              "volume": 0.38,
-              "fadeMs": 0,
-              "_isAnchor": true
-            }
-          ],
-          "trimStart": 8534,
-          "trimEnd": 72168
-        },
-        {
           "id": "st_1782405291659_6dn2wqjws_22",
           "soundId": "507_s12_gens_qui_courent",
-          "startSegmentId": "seg_1782404044216_33_lj6c4",
+          "startSegmentId": "seg_1782404044216_34_rdfgf",
           "endSegmentId": "seg_1782404044216_36_3gibx",
           "column": 3,
           "volume": 0.62,
           "loop": false,
           "fadeIn": 0,
-          "fadeOut": 1000,
+          "fadeOut": 3600,
           "delay": 300,
           "pan": 0,
           "panMode": "static",
@@ -3255,14 +3227,14 @@
         },
         {
           "id": "st_1782405291659_3aql7o1ck_23",
-          "soundId": "equiprec_climbing_rope_bag_throwing_on_ground_01_b00m_one",
+          "soundId": "undiscovered_designed_rope_bridge_swinging_precarious_wooden_structure_slight_wi",
           "startSegmentId": "seg_1782404044216_35_hlxg6",
           "endSegmentId": "seg_1782404044216_36_3gibx",
           "column": 4,
           "volume": 0.65,
           "loop": false,
-          "fadeIn": 0,
-          "fadeOut": 1000,
+          "fadeIn": 2485,
+          "fadeOut": 4000,
           "delay": 4800,
           "pan": 0,
           "panMode": "static",
@@ -3550,6 +3522,31 @@
           ],
           "trimStart": 0,
           "trimEnd": 23184
+        },
+        {
+          "id": "st_1782725291015_f2jdc9acb",
+          "soundId": "dantes_theme_3",
+          "startSegmentId": "seg_1782404093633_a_pjs7t",
+          "endSegmentId": "seg_1782404093633_b_yc576",
+          "column": 2,
+          "volume": 0.35,
+          "fadeIn": 169,
+          "fadeOut": 4000,
+          "delay": 0,
+          "loop": false,
+          "muted": false,
+          "broken": false,
+          "automationPoints": [
+            {
+              "segmentId": "seg_1782404093633_a_pjs7t",
+              "volume": 0.35,
+              "fadeMs": 0,
+              "_isAnchor": true
+            }
+          ],
+          "trimStart": 9272,
+          "trimEnd": 72168,
+          "gainDb": 0
         }
       ],
       "vfxTracks": []
