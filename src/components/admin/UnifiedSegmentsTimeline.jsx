@@ -1338,10 +1338,11 @@ const SegmentTimelineRow = memo(function SegmentTimelineRow({
               onDragTargetChange={onDragTargetChange}
               currentSegmentIndex={index}
               isCmdPressed={isCmdPressed}
+              onShowTooltip={handleShowSoundTooltip}
+              onHideTooltip={handleHideSoundTooltip}
             />
         ))}
       </div>
-
       {/* Zone VFX (2 colonnes, à droite de la timeline audio) */}
       <div
         style={{
