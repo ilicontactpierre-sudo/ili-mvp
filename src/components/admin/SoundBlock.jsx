@@ -41,8 +41,6 @@ function SoundBlock({
   const [dragOffset, setDragOffset]               = useState({ x: 0, y: 0 })
   const [isHovered, setIsHovered]                 = useState(false)
   const [automationTooltip, setAutomationTooltip] = useState(null) // { pointIndex, volume }
-  const [showTitleTooltip, setShowTitleTooltip]   = useState(false)
-  const [tooltipPos, setTooltipPos] = useState({ x: 0, y: 0 })
   const hoverTimerRef = useRef(null)
 
   // ── Refs — jamais de closure périmée ────────────────────
