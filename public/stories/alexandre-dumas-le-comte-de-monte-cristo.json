@@ -51,23 +51,8 @@
           "loop": false
         },
         {
-          "id": "pp-suspense-mute-002",
-          "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/pp-suspense-mute-002.mp3",
-          "loop": false
-        },
-        {
           "id": "hmnbrth_female_fast_panic_struck_breath_sequence_02_b00m_one",
           "url": "/sounds/HMNBrth_Female Fast Panic Struck Breath Sequence 02_B00M_ONE.mp3",
-          "loop": false
-        },
-        {
-          "id": "metlfric_scratching_massive_metal_piece_with_fluted_metal_piece_short_scratches_",
-          "url": "/sounds/METLFric_Scratching Massive Metal Piece With Fluted Metal Piece Short Scratches 01_B00M_ONE.mp3",
-          "loop": false
-        },
-        {
-          "id": "muscsong_medieval_game_jingle_orchestral_positive_01_b00m_one",
-          "url": "/sounds/MUSCSong_Medieval Game Jingle Orchestral Positive 01_B00M_ONE.mp3",
           "loop": false
         },
         {
@@ -136,6 +121,11 @@
           "loop": false
         },
         {
+          "id": "magic_black_impact_projectile_burst_dark_04",
+          "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/magic_black_impact_projectile_burst_dark_04.mp3",
+          "loop": false
+        },
+        {
           "id": "ship_anchor_chain_chains_metallic_rattle_rattling_4",
           "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/ship_anchor_chain_chains_metallic_rattle_rattling_4.mp3",
           "loop": false
@@ -148,6 +138,16 @@
         {
           "id": "undiscovered_designed_rope_bridge_swinging_precarious_wooden_structure_slight_wi",
           "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/undiscovered_designed_rope_bridge_swinging_precarious_wooden_structure_slight_wi.mp3",
+          "loop": false
+        },
+        {
+          "id": "monte_cristo_long_1",
+          "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/monte_cristo_long_1.mp3",
+          "loop": false
+        },
+        {
+          "id": "danglar_ending_court_4",
+          "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/danglar_ending_court_4.mp3",
           "loop": false
         }
       ],
@@ -1353,16 +1353,11 @@
           "audioEvents": [
             {
               "action": "play",
-              "soundId": "pp-suspense-mute-002",
+              "soundId": "magic_black_impact_projectile_burst_dark_04",
               "volume": 0.45,
               "gainDb": 0,
               "delay": 600,
               "loop": false
-            },
-            {
-              "action": "fadeOut",
-              "soundId": "pp-suspense-mute-002",
-              "duration": 2000
             }
           ]
         },
@@ -1686,7 +1681,7 @@
             {
               "action": "fadeOut",
               "soundId": "musctoy_music_box_melody_play_slow_b00m_one",
-              "duration": 2000
+              "duration": 5300
             }
           ]
         },
@@ -1755,16 +1750,19 @@
           "isLeader": false,
           "audioEvents": [
             {
-              "action": "fadeOut",
-              "soundId": "73_s14_sweep_3",
-              "duration": 2000
-            },
-            {
               "action": "fadeIn",
               "soundId": "13_s03_ville",
               "volume": 0.12,
               "gainDb": 0,
               "duration": 8000,
+              "delay": 0,
+              "loop": true
+            },
+            {
+              "action": "play",
+              "soundId": "monte_cristo_long_1",
+              "volume": 0.2,
+              "gainDb": 0,
               "delay": 0,
               "loop": true
             }
@@ -2254,7 +2252,13 @@
           "text": "allez voir Mercédès, et revenez me trouver après.",
           "breakAt": null,
           "isLeader": false,
-          "audioEvents": []
+          "audioEvents": [
+            {
+              "action": "fadeOut",
+              "soundId": "monte_cristo_long_1",
+              "duration": 8000
+            }
+          ]
         },
         {
           "id": "seg_1782404044216_175_rucfv",
@@ -2500,11 +2504,10 @@
           "isLeader": false,
           "audioEvents": [
             {
-              "action": "fadeIn",
-              "soundId": "musctoy_music_box_melody_play_slow_b00m_one",
+              "action": "play",
+              "soundId": "danglar_ending_court_4",
               "volume": 0.18,
               "gainDb": 0,
-              "duration": 1000,
               "delay": 5400,
               "loop": false
             }
@@ -2526,7 +2529,7 @@
             },
             {
               "action": "fadeOut",
-              "soundId": "musctoy_music_box_melody_play_slow_b00m_one",
+              "soundId": "danglar_ending_court_4",
               "duration": 4000
             }
           ]
@@ -2992,14 +2995,14 @@
         },
         {
           "id": "st_1782405291658_rrnb193lz_12",
-          "soundId": "pp-suspense-mute-002",
+          "soundId": "magic_black_impact_projectile_burst_dark_04",
           "startSegmentId": "seg_1782404044216_94_wwpnl",
           "endSegmentId": "seg_1782404044216_94_wwpnl",
           "column": 1,
           "volume": 0.45,
           "loop": false,
           "fadeIn": 0,
-          "fadeOut": 2000,
+          "fadeOut": 0,
           "delay": 600,
           "pan": 0,
           "panMode": "static",
@@ -3036,6 +3039,12 @@
           "color": "#7EC8C8",
           "automationPoints": [
             {
+              "segmentId": "seg_1782404044216_113_q1y1a",
+              "volume": 0.2,
+              "fadeMs": 0,
+              "_isAnchor": true
+            },
+            {
               "segmentId": "seg_1782404044216_117_qv0pn",
               "volume": 0.16,
               "fadeMs": 2000
@@ -3070,7 +3079,7 @@
           "volume": 0.28,
           "loop": false,
           "fadeIn": 0,
-          "fadeOut": 2000,
+          "fadeOut": 5300,
           "delay": 300,
           "pan": 0,
           "panMode": "static",
@@ -3079,7 +3088,15 @@
           "_orchestrationNote": "Citation du leitmotiv de Danglars — moment de la révélation involontaire. Music box froide, légèrement plus forte que d'habitude : la mécanique du mal se dévoile une seconde.",
           "_orchestrationKeyword": "musctoy_music_box_melody_play_slow_b00m_one",
           "_orchestrationLayer": "music",
-          "_orchestrationLeitmotiv": "motif de Danglars"
+          "_orchestrationLeitmotiv": "motif de Danglars",
+          "automationPoints": [
+            {
+              "segmentId": "seg_1782404044216_121_s6id6",
+              "volume": 0.28,
+              "fadeMs": 0,
+              "_isAnchor": true
+            }
+          ]
         },
         {
           "id": "st_1782405291658_do3sh6cok_15",
@@ -3090,7 +3107,7 @@
           "volume": 0.52,
           "loop": false,
           "fadeIn": 0,
-          "fadeOut": 2000,
+          "fadeOut": 0,
           "delay": 0,
           "pan": 0,
           "panMode": "static",
@@ -3099,7 +3116,15 @@
           "_orchestrationNote": "Danglars s'éloigne, Dantès revient — transition entre la scène d'ombre et la scène de lumière. Sweep cinématique pour marquer le changement de registre émotionnel.",
           "_orchestrationKeyword": "73_s14_sweep_3",
           "_orchestrationLayer": "transition",
-          "_orchestrationLeitmotiv": ""
+          "_orchestrationLeitmotiv": "",
+          "automationPoints": [
+            {
+              "segmentId": "seg_1782404422218_b_behm5",
+              "volume": 0.52,
+              "fadeMs": 0,
+              "_isAnchor": true
+            }
+          ]
         },
         {
           "id": "st_1782405291658_4acblgxo5_16",
@@ -3118,6 +3143,12 @@
           "muted": false,
           "color": "#7EC8C8",
           "automationPoints": [
+            {
+              "segmentId": "seg_1782404044216_127_suucp",
+              "volume": 0.12,
+              "fadeMs": 0,
+              "_isAnchor": true
+            },
             {
               "segmentId": "seg_1782404044216_135_2koqx",
               "volume": 0.16,
@@ -3187,7 +3218,15 @@
           "_orchestrationNote": "Dantès dans le canot — les deux matelots sur les rames, glissement rapide entre les barques. Sons de pagaies, eau, craquement de bois.",
           "_orchestrationKeyword": "boatrow_rowboat_paddle_in_water_sequence_01_b00m_one",
           "_orchestrationLayer": "diegetic",
-          "_orchestrationLeitmotiv": ""
+          "_orchestrationLeitmotiv": "",
+          "automationPoints": [
+            {
+              "segmentId": "seg_1782404044216_187_5i7t8",
+              "volume": 0.65,
+              "fadeMs": 0,
+              "_isAnchor": true
+            }
+          ]
         },
         {
           "id": "st_1782405291659_nv7q6csxj_19",
@@ -3207,17 +3246,25 @@
           "_orchestrationNote": "La foule bigarrée de la Canebière — vive, colorée, méditerranéenne. Dantès s'y perd et disparaît. Sons de marché, voix multiples, vie urbaine du XIXe.",
           "_orchestrationKeyword": "crowd",
           "_orchestrationLayer": "diegetic",
-          "_orchestrationLeitmotiv": ""
+          "_orchestrationLeitmotiv": "",
+          "automationPoints": [
+            {
+              "segmentId": "seg_1782404044216_189_uq2fs",
+              "volume": 0.55,
+              "fadeMs": 0,
+              "_isAnchor": true
+            }
+          ]
         },
         {
           "id": "st_1782405291659_ubjdti7ar_20",
-          "soundId": "musctoy_music_box_melody_play_slow_b00m_one",
+          "soundId": "danglar_ending_court_4",
           "startSegmentId": "seg_1782404044216_193_6ii6r",
           "endSegmentId": "seg_1782404044216_194_6aqeb",
           "column": 1,
           "volume": 0.18,
           "loop": false,
-          "fadeIn": 1000,
+          "fadeIn": 0,
           "fadeOut": 4000,
           "delay": 5400,
           "pan": 0,
@@ -3227,7 +3274,18 @@
           "_orchestrationNote": "Dernier mot du chapitre appartient à Danglars. Music box froide, pianissimo, comme une mécanique qui se remonte en silence. La haine est là, patiente. Fondu très long — le son doit mourir avant que le lecteur ne tourne la page.",
           "_orchestrationKeyword": "musctoy_music_box_melody_play_slow_b00m_one",
           "_orchestrationLayer": "music",
-          "_orchestrationLeitmotiv": "motif de Danglars"
+          "_orchestrationLeitmotiv": "motif de Danglars",
+          "automationPoints": [
+            {
+              "segmentId": "seg_1782404044216_193_6ii6r",
+              "volume": 0.18,
+              "fadeMs": 0,
+              "_isAnchor": true
+            }
+          ],
+          "trimStart": 2259,
+          "trimEnd": 65044.89583333333,
+          "gainDb": 0
         },
         {
           "id": "st_1782405291659_6dn2wqjws_22",
@@ -3418,22 +3476,28 @@
         },
         {
           "id": "st_1782405291660_zdapvlhtm_26",
-          "soundId": "metlfric_scratching_massive_metal_piece_with_fluted_metal_piece_short_scratches_",
+          "soundId": "monte_cristo_long_1",
           "startSegmentId": "seg_1782404044216_127_suucp",
           "endSegmentId": "seg_1782404044216_174_bgg95",
           "column": 2,
           "volume": 0.2,
           "loop": true,
           "loopCrossfade": "medium",
-          "fadeIn": 5000,
+          "fadeIn": 0,
           "fadeOut": 8000,
           "delay": 0,
           "pan": 0,
           "panMode": "static",
-          "muted": true,
+          "muted": false,
           "broken": true,
           "color": "#B59FD8",
           "automationPoints": [
+            {
+              "segmentId": "seg_1782404044216_127_suucp",
+              "volume": 0.2,
+              "fadeMs": 0,
+              "_isAnchor": true
+            },
             {
               "segmentId": "seg_1782404044216_135_2koqx",
               "volume": 0.28,
@@ -3505,44 +3569,6 @@
           "_orchestrationKeyword": "breath",
           "_orchestrationLayer": "diegetic",
           "_orchestrationLeitmotiv": ""
-        },
-        {
-          "id": "st_1782405291660_2gghvxkkr_28",
-          "soundId": "muscsong_medieval_game_jingle_orchestral_positive_01_b00m_one",
-          "startSegmentId": "seg_1782404044216_168_kvx6q",
-          "endSegmentId": "seg_1782404044216_174_bgg95",
-          "column": 1,
-          "volume": 0.4,
-          "loop": false,
-          "fadeIn": 2000,
-          "fadeOut": 6000,
-          "delay": 900,
-          "pan": 0,
-          "panMode": "static",
-          "muted": true,
-          "broken": true,
-          "color": "#B59FD8",
-          "automationPoints": [
-            {
-              "segmentId": "seg_1782404044216_169_9x91w",
-              "volume": 0.32,
-              "fadeMs": 2000
-            },
-            {
-              "segmentId": "seg_1782404044216_172_h4mk9",
-              "volume": 0.38,
-              "fadeMs": 2500
-            },
-            {
-              "segmentId": "seg_1782404044216_174_bgg95",
-              "volume": 0.14,
-              "fadeMs": 3000
-            }
-          ],
-          "_orchestrationNote": "Swell de la nomination — 'Sans son capitaine !' — apex émotionnel de tout le chapitre. Thème de Dantès en plein essor orchestral. Descend sur les larmes de gratitude (seg 175), s'efface doucement sur le départ (seg 177). Idéalement : cordes + flûte, tonalité majeure éclatante, bref mais intense — à rechercher dans votre bibliothèque.",
-          "_orchestrationKeyword": "orchestra",
-          "_orchestrationLayer": "music",
-          "_orchestrationLeitmotiv": "thème de Dantès"
         },
         {
           "id": "st_1782570574735_8y2cgpk86",
