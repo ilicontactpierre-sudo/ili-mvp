@@ -31,11 +31,6 @@
           "loop": false
         },
         {
-          "id": "chainimpt_metal_chain_on_wood_impact_01_b00m_one",
-          "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/chainimpt_metal_chain_on_wood_impact_01_b00m_one.mp3",
-          "loop": false
-        },
-        {
           "id": "crwdangr_male_crowd_grumpy_01_b00m_one",
           "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/crwdangr_male_crowd_grumpy_01_b00m_one.mp3",
           "loop": false
@@ -121,6 +116,11 @@
           "loop": false
         },
         {
+          "id": "danglars_theme_2_orchestral_aventure_epic_cinematic_violin",
+          "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/danglars_theme_2_orchestral_aventure_epic_cinematic_violin.mp3",
+          "loop": false
+        },
+        {
           "id": "dantes_theme_3",
           "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/dantes_theme_3.mp3",
           "loop": false
@@ -136,6 +136,11 @@
           "loop": false
         },
         {
+          "id": "ship_anchor_chain_chains_metallic_rattle_rattling_4",
+          "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/ship_anchor_chain_chains_metallic_rattle_rattling_4.mp3",
+          "loop": false
+        },
+        {
           "id": "underwater_designed_impact_cinematic_soft_low",
           "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/underwater_designed_impact_cinematic_soft_low.mp3",
           "loop": false
@@ -143,11 +148,6 @@
         {
           "id": "undiscovered_designed_rope_bridge_swinging_precarious_wooden_structure_slight_wi",
           "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/undiscovered_designed_rope_bridge_swinging_precarious_wooden_structure_slight_wi.mp3",
-          "loop": false
-        },
-        {
-          "id": "danglars_theme_2_orchestral_aventure_epic_cinematic_violin",
-          "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/danglars_theme_2_orchestral_aventure_epic_cinematic_violin.mp3",
           "loop": false
         }
       ],
@@ -1153,7 +1153,7 @@
           "audioEvents": [
             {
               "action": "play",
-              "soundId": "chainimpt_metal_chain_on_wood_impact_01_b00m_one",
+              "soundId": "ship_anchor_chain_chains_metallic_rattle_rattling_4",
               "volume": 0.78,
               "gainDb": 0,
               "delay": 600,
@@ -1171,11 +1171,10 @@
           "isLeader": false,
           "audioEvents": [
             {
-              "action": "fadeIn",
+              "action": "play",
               "soundId": "whsh_cinematic_low_impact_muffled_hit_01_b00m_one",
-              "volume": 0.5,
+              "volume": 0.6,
               "gainDb": 0,
-              "duration": 1000,
               "delay": 0,
               "loop": false
             }
@@ -1189,13 +1188,7 @@
           "text": "mettez le pavillon en berne, croisez les vergues !",
           "breakAt": null,
           "isLeader": false,
-          "audioEvents": [
-            {
-              "action": "fadeOut",
-              "soundId": "whsh_cinematic_low_impact_muffled_hit_01_b00m_one",
-              "duration": 3000
-            }
-          ]
+          "audioEvents": []
         },
         {
           "id": "seg_1782404044216_81_p9c1c",
@@ -2876,7 +2869,7 @@
         },
         {
           "id": "st_1782405291658_259acljt1_8",
-          "soundId": "chainimpt_metal_chain_on_wood_impact_01_b00m_one",
+          "soundId": "ship_anchor_chain_chains_metallic_rattle_rattling_4",
           "startSegmentId": "seg_1782404044216_78_cm75f",
           "endSegmentId": "seg_1782404044216_78_cm75f",
           "column": 0,
@@ -2900,7 +2893,10 @@
               "fadeMs": 0,
               "_isAnchor": true
             }
-          ]
+          ],
+          "trimStart": 2741,
+          "trimEnd": 13609.791666666666,
+          "gainDb": 0
         },
         {
           "id": "st_1782405291658_vndmyselw_9",
@@ -2908,10 +2904,10 @@
           "startSegmentId": "seg_1782404044216_79_aykjy",
           "endSegmentId": "seg_1782404044216_80_u5m11",
           "column": 0,
-          "volume": 0.5,
+          "volume": 0.6,
           "loop": false,
-          "fadeIn": 1000,
-          "fadeOut": 3000,
+          "fadeIn": 0,
+          "fadeOut": 0,
           "delay": 0,
           "pan": 0,
           "panMode": "static",
@@ -2920,7 +2916,15 @@
           "_orchestrationNote": "Mise en berne du pavillon — geste solennel de deuil. Son de transition grave, comme un voile qui tombe. Idéalement : stinger orchestral grave, cuivres bas — à rechercher dans votre bibliothèque.",
           "_orchestrationKeyword": "cinematic",
           "_orchestrationLayer": "transition",
-          "_orchestrationLeitmotiv": "motif du deuil"
+          "_orchestrationLeitmotiv": "motif du deuil",
+          "automationPoints": [
+            {
+              "segmentId": "seg_1782404044216_79_aykjy",
+              "volume": 0.6,
+              "fadeMs": 0,
+              "_isAnchor": true
+            }
+          ]
         },
         {
           "id": "st_1782405291658_rz1w2ym5n_11",
@@ -2939,6 +2943,12 @@
           "muted": false,
           "color": "#7EC8C8",
           "automationPoints": [
+            {
+              "segmentId": "seg_1782404044216_88_eg7tk",
+              "volume": 0.4,
+              "fadeMs": 0,
+              "_isAnchor": true
+            },
             {
               "segmentId": "seg_1782404044216_90_de83d",
               "volume": 0.14,
@@ -2998,7 +3008,15 @@
           "_orchestrationNote": "Morrel 'regarda autour de lui' et tire Dantès à part — geste de secret, rupture dans la conversation. Silence musical bref, puis le drone reprend.",
           "_orchestrationKeyword": "suspense",
           "_orchestrationLayer": "transition",
-          "_orchestrationLeitmotiv": "motif du secret (île d'Elbe)"
+          "_orchestrationLeitmotiv": "motif du secret (île d'Elbe)",
+          "automationPoints": [
+            {
+              "segmentId": "seg_1782404044216_94_wwpnl",
+              "volume": 0.45,
+              "fadeMs": 0,
+              "_isAnchor": true
+            }
+          ]
         },
         {
           "id": "st_1782405291658_nwce1pytv_13",
