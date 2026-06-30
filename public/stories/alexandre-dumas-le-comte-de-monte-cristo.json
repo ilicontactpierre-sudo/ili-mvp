@@ -51,8 +51,8 @@
           "loop": false
         },
         {
-          "id": "dsgndron_bubbling_01_b00m_one",
-          "url": "/sounds/DSGNDron_Bubbling 01_B00M_ONE.mp3",
+          "id": "dsgndron_discarded_metal_underwater_01_b00m_one",
+          "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/dsgndron_discarded_metal_underwater_01_b00m_one.mp3",
           "loop": false
         },
         {
@@ -73,11 +73,6 @@
         {
           "id": "muscsong_medieval_game_jingle_orchestral_positive_01_b00m_one",
           "url": "/sounds/MUSCSong_Medieval Game Jingle Orchestral Positive 01_B00M_ONE.mp3",
-          "loop": false
-        },
-        {
-          "id": "muscstr_oriental_strings_chord_dissonant_01_b00m_one",
-          "url": "/sounds/MUSCStr_Oriental Strings Chord Dissonant 01_B00M_ONE.mp3",
           "loop": false
         },
         {
@@ -148,6 +143,11 @@
         {
           "id": "undiscovered_designed_rope_bridge_swinging_precarious_wooden_structure_slight_wi",
           "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/undiscovered_designed_rope_bridge_swinging_precarious_wooden_structure_slight_wi.mp3",
+          "loop": false
+        },
+        {
+          "id": "danglars_theme_2_orchestral_aventure_epic_cinematic_violin",
+          "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/danglars_theme_2_orchestral_aventure_epic_cinematic_violin.mp3",
           "loop": false
         }
       ],
@@ -964,10 +964,19 @@
           "audioEvents": [
             {
               "action": "fadeIn",
-              "soundId": "dsgndron_bubbling_01_b00m_one",
+              "soundId": "dsgndron_discarded_metal_underwater_01_b00m_one",
               "volume": 0.1,
               "gainDb": 0,
               "duration": 5000,
+              "delay": 0,
+              "loop": true
+            },
+            {
+              "action": "fadeIn",
+              "soundId": "danglars_theme_2_orchestral_aventure_epic_cinematic_violin",
+              "volume": 0.14,
+              "gainDb": 0,
+              "duration": 6000,
               "delay": 0,
               "loop": true
             }
@@ -1061,17 +1070,7 @@
           "text": "— Oui, dit Danglars en jetant sur Dantès un regard oblique où brilla un éclair de haine,",
           "breakAt": null,
           "isLeader": false,
-          "audioEvents": [
-            {
-              "action": "fadeIn",
-              "soundId": "musctoy_music_box_melody_play_slow_b00m_one",
-              "volume": 0.22,
-              "gainDb": 0,
-              "duration": 1000,
-              "delay": 3000,
-              "loop": false
-            }
-          ]
+          "audioEvents": []
         },
         {
           "id": "seg_1782404044216_71_8rrrm",
@@ -1081,13 +1080,7 @@
           "text": "oui, c’est jeune, et cela ne doute de rien. À peine le capitaine a-t-il été mort qu’il a pris le commandement sans consulter personne, et qu’il nous a fait perdre un jour et demi à l’île d’Elbe au lieu de revenir directement à Marseille.",
           "breakAt": null,
           "isLeader": false,
-          "audioEvents": [
-            {
-              "action": "fadeOut",
-              "soundId": "musctoy_music_box_melody_play_slow_b00m_one",
-              "duration": 2000
-            }
-          ]
+          "audioEvents": []
         },
         {
           "id": "seg_1782404044216_72_ts8rt",
@@ -1275,7 +1268,12 @@
           "audioEvents": [
             {
               "action": "fadeOut",
-              "soundId": "dsgndron_bubbling_01_b00m_one",
+              "soundId": "dsgndron_discarded_metal_underwater_01_b00m_one",
+              "duration": 5000
+            },
+            {
+              "action": "fadeOut",
+              "soundId": "danglars_theme_2_orchestral_aventure_epic_cinematic_violin",
               "duration": 5000
             }
           ]
@@ -2894,7 +2892,15 @@
           "_orchestrationNote": "L'ancre qui tombe — impact métallique sur bois, puis la chaîne qui file. Beat dramatique fort : Dantès donne son premier vrai ordre de commandant.",
           "_orchestrationKeyword": "chainimpt_metal_chain_on_wood_impact_01_b00m_one",
           "_orchestrationLayer": "diegetic",
-          "_orchestrationLeitmotiv": ""
+          "_orchestrationLeitmotiv": "",
+          "automationPoints": [
+            {
+              "segmentId": "seg_1782404044216_78_cm75f",
+              "volume": 0.78,
+              "fadeMs": 0,
+              "_isAnchor": true
+            }
+          ]
         },
         {
           "id": "st_1782405291658_vndmyselw_9",
@@ -2915,26 +2921,6 @@
           "_orchestrationKeyword": "cinematic",
           "_orchestrationLayer": "transition",
           "_orchestrationLeitmotiv": "motif du deuil"
-        },
-        {
-          "id": "st_1782405291658_d4vv4abnr_10",
-          "soundId": "musctoy_music_box_melody_play_slow_b00m_one",
-          "startSegmentId": "seg_1782404044216_70_zhkma",
-          "endSegmentId": "seg_1782404044216_71_8rrrm",
-          "column": 0,
-          "volume": 0.22,
-          "loop": false,
-          "fadeIn": 1000,
-          "fadeOut": 2000,
-          "delay": 3000,
-          "pan": 0,
-          "panMode": "static",
-          "muted": false,
-          "color": "#B59FD8",
-          "_orchestrationNote": "Citation du leitmotiv de Danglars sur son regard 'oblique' — music box légèrement distordue, comme une mécanique froide. Traitement : citation brève, premier plan ponctuel.",
-          "_orchestrationKeyword": "musctoy_music_box_melody_play_slow_b00m_one",
-          "_orchestrationLayer": "music",
-          "_orchestrationLeitmotiv": "motif de Danglars"
         },
         {
           "id": "st_1782405291658_rz1w2ym5n_11",
@@ -3285,7 +3271,7 @@
         },
         {
           "id": "st_1782405291659_rizvdzg6c_24",
-          "soundId": "dsgndron_bubbling_01_b00m_one",
+          "soundId": "dsgndron_discarded_metal_underwater_01_b00m_one",
           "startSegmentId": "seg_1782404044216_61_fvgj0",
           "endSegmentId": "seg_1782404044216_87_fqzlz",
           "column": 1,
@@ -3345,7 +3331,7 @@
         },
         {
           "id": "st_1782405291659_xp1rlom79_25",
-          "soundId": "muscstr_oriental_strings_chord_dissonant_01_b00m_one",
+          "soundId": "danglars_theme_2_orchestral_aventure_epic_cinematic_violin",
           "startSegmentId": "seg_1782404044216_61_fvgj0",
           "endSegmentId": "seg_1782404044216_87_fqzlz",
           "column": 2,
@@ -3357,8 +3343,7 @@
           "delay": 0,
           "pan": 0,
           "panMode": "static",
-          "muted": true,
-          "broken": true,
+          "muted": false,
           "color": "#B59FD8",
           "automationPoints": [
             {
