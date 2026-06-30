@@ -665,19 +665,21 @@ function SoundBlock({
       onDoubleClick={() => onDoubleClick && onDoubleClick(soundTrack)}
       onMouseEnter={(e) => {
         setIsHovered(true)
-        setTooltipPos({ x: e.clientX, y: e.clientY })
         clearTimeout(hoverTimerRef.current)
-        hoverTimerRef.current = setTimeout(() => setShowTitleTooltip(true), 500)
+        const x = e.clientX, y = e.clientY
+        hoverTimerRef.current = setTimeout(() => {
+          if (onShowTooltip && sound) onShowTooltip(sound.label, x, y)
+        }, 500)
       }}
       onMouseMove={(e) => {
-        if (showTitleTooltip) setTooltipPos({ x: e.clientX, y: e.clientY })
+        if (onShowTooltip && sound) onShowTooltip(sound.label, e.clientX, e.clientY, true)
       }}
       onMouseLeave={(e) => {
         // Ne déclencher que si la souris quitte vraiment le bloc (pas un enfant)
         if (blockRef.current && blockRef.current.contains(e.relatedTarget)) return
         setIsHovered(false)
         clearTimeout(hoverTimerRef.current)
-        setShowTitleTooltip(false)
+        if (onHideTooltip) onHideTooltip()
       }}
     >
       {/* Poignée resize haut */}
