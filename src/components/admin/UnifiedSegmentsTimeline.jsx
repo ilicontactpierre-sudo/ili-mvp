@@ -763,8 +763,8 @@ const SegmentTimelineRow = memo(function SegmentTimelineRow({
               onDragTargetChange={onDragTargetChange}
               currentSegmentIndex={index}
               isCmdPressed={isCmdPressed}
-              onShowTooltip={handleShowSoundTooltip}
-              onHideTooltip={handleHideSoundTooltip}
+              onShowTooltip={onShowSoundTooltip}
+              onHideTooltip={onHideSoundTooltip}
             />
           ))}
         </div>
@@ -792,7 +792,6 @@ const SegmentTimelineRow = memo(function SegmentTimelineRow({
             />
           ))}
         </div>
-
         {/* Panneau config transition (inline, sous la ligne) */}
         {showTransitionConfig && (
           <TransitionConfigPanel
