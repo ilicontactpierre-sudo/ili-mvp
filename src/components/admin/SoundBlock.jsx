@@ -751,16 +751,12 @@ function SoundBlock({
         </div>
       )}
 
-      {/* Tooltip titre au survol */}
+      {/* Tooltip titre au survol — suit le curseur */}
       {showTitleTooltip && sound && (
         <div style={{
           position: 'fixed',
-          left: blockRef.current
-            ? blockRef.current.getBoundingClientRect().left + blockRef.current.getBoundingClientRect().width / 2
-            : 0,
-          top: blockRef.current
-            ? blockRef.current.getBoundingClientRect().top - 8
-            : 0,
+          left: tooltipPos.x,
+          top: tooltipPos.y - 12,
           transform: 'translate(-50%, -100%)',
           backgroundColor: 'rgba(0,0,0,0.8)',
           color: '#fff',
