@@ -1339,8 +1339,8 @@ const SegmentTimelineRow = memo(function SegmentTimelineRow({
               onDragTargetChange={onDragTargetChange}
               currentSegmentIndex={index}
               isCmdPressed={isCmdPressed}
-              onShowTooltip={handleShowSoundTooltip}
-              onHideTooltip={handleHideSoundTooltip}
+              onShowTooltip={onShowSoundTooltip}
+              onHideTooltip={onHideSoundTooltip}
             />
         ))}
       </div>
