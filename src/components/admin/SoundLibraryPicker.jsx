@@ -891,6 +891,13 @@ const handleFileSelected = async (e) => {
           onSoundsImported={(newSounds) => {
             setShowImporter(false)
             if (onSoundsImported) onSoundsImported(newSounds)
+            // Ajouter automatiquement le premier son importé au bloc cible
+            const first = newSounds?.[0]
+            if (first?.id && first?.url) {
+              setLocalSoundOverrides(prev => ({ ...prev, [first.id]: first.url }))
+              handleAddSound(first)
+              onClose()
+            }
           }}
           onClose={() => setShowImporter(false)}
         />,
