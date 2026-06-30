@@ -3160,6 +3160,8 @@ const handleTextSelection = useCallback(() => {
                     onSoundResize: handleResizeSound,
                     onSoundMove: handleMoveSound,
                     onSoundUpdate: handleUpdateSoundTrack,
+                    onShowSoundTooltip: handleShowSoundTooltip,
+                    onHideSoundTooltip: handleHideSoundTooltip,
                     onAddSoundToCell: handleDoubleClickEmptyCell,
                     dividerPosition,
                     isDraggingDivider,
