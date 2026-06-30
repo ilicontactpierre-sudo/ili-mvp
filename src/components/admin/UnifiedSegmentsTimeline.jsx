@@ -2231,6 +2231,12 @@ const handleTextSelection = useCallback(() => {
   }, [formatToolbar, segments, onSegmentsChange, onSaveToHistory])
 
   // Actions sur les sons
+  const handleShowSoundTooltip = useCallback((label, x, y) => {
+    setSoundTooltip({ label, x, y })
+  }, [])
+  const handleHideSoundTooltip = useCallback(() => {
+    setSoundTooltip(null)
+  }, [])
   const handleSelectSound = useCallback((id, isShift) => {
     setSelectedSoundIds(prev => {
       const next = isShift ? new Set(prev) : new Set()
