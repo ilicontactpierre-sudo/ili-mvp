@@ -1619,6 +1619,7 @@ function UnifiedSegmentsTimeline({
   const [isAnyBlockDragging, setIsAnyBlockDragging] = useState(false)
   const [dragTargetCell, setDragTargetCell] = useState({ segmentIndex: -1, column: -1 })
   // ── États VFX ──────────────────────────────────────────────
+  const [soundTooltip, setSoundTooltip] = useState(null) // { label, x, y }
   const [selectedVfxIds, setSelectedVfxIds]     = useState(new Set())
   const [editingVfxTrack, setEditingVfxTrack]   = useState(null)
   const [isAnyVfxDragging, setIsAnyVfxDragging] = useState(false)
