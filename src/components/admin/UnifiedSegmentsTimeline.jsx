@@ -262,6 +262,8 @@ const SegmentTimelineRow = memo(function SegmentTimelineRow({
   onSoundResize,
   onSoundMove,
   onSoundUpdate,
+  onShowSoundTooltip,
+  onHideSoundTooltip,
   onAddSoundToCell,
   rowHeight,
   rowHeights,
