@@ -3383,6 +3383,27 @@ const handleTextSelection = useCallback(() => {
           />
         </>
       )}
+      {/* Tooltip son global — un seul affiché à la fois, toujours au-dessus */}
+      {soundTooltip && createPortal(
+        <div style={{
+          position: 'fixed',
+          left: soundTooltip.x,
+          top: soundTooltip.y - 12,
+          transform: 'translate(-50%, -100%)',
+          backgroundColor: '#000',
+          color: '#fff',
+          fontSize: '11px',
+          fontWeight: '500',
+          padding: '4px 8px',
+          borderRadius: '4px',
+          whiteSpace: 'nowrap',
+          pointerEvents: 'none',
+          zIndex: 2147483647,
+        }}>
+          {soundTooltip.label}
+        </div>,
+        document.body
+      )}
       {/* Toolbar de formatage flottant */}
       {formatToolbar && (
         <FormatToolbar
