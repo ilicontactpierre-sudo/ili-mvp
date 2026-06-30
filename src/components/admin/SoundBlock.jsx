@@ -752,14 +752,14 @@ function SoundBlock({
         </div>
       )}
 
-      {/* Tooltip titre au survol — suit le curseur */}
-      {showTitleTooltip && sound && (
+      {/* Tooltip titre au survol — suit le curseur, rendu via portail au-dessus de tout */}
+      {showTitleTooltip && sound && createPortal(
         <div style={{
           position: 'fixed',
           left: tooltipPos.x,
           top: tooltipPos.y - 12,
           transform: 'translate(-50%, -100%)',
-          backgroundColor: 'rgba(0,0,0,0.8)',
+          backgroundColor: '#000',
           color: '#fff',
           fontSize: '11px',
           fontWeight: '500',
@@ -767,10 +767,12 @@ function SoundBlock({
           borderRadius: '4px',
           whiteSpace: 'nowrap',
           pointerEvents: 'none',
-          zIndex: 9999,
+          zIndex: 2147483647,
+          isolation: 'isolate',
         }}>
           {sound.label}
-        </div>
+        </div>,
+        document.body
       )}
       
 
