@@ -16,6 +16,11 @@
       "published": true,
       "sounds": [
         {
+          "id": "belllrg_church_single_ring_01_b00m_one",
+          "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/belllrg_church_single_ring_01_b00m_one.mp3",
+          "loop": false
+        },
+        {
           "id": "boatrow_rowboat_paddle_in_water_sequence_01_b00m_one",
           "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/boatrow_rowboat_paddle_in_water_sequence_01_b00m_one.mp3",
           "loop": false
@@ -126,23 +131,23 @@
           "loop": false
         },
         {
-          "id": "lecie_re_thee_me_1",
-          "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/lecie_re_thee_me_1.mp3",
-          "loop": false
-        },
-        {
           "id": "esm_lfe_heart_beat_loop_-_medium_-_fast_bass_medical_horror_scary_suspense",
           "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/esm_lfe_heart_beat_loop_-_medium_-_fast_bass_medical_horror_scary_suspense.mp3",
           "loop": false
         },
         {
-          "id": "undiscovered_designed_rope_bridge_swinging_precarious_wooden_structure_slight_wi",
-          "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/undiscovered_designed_rope_bridge_swinging_precarious_wooden_structure_slight_wi.mp3",
+          "id": "lecie_re_thee_me_1",
+          "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/lecie_re_thee_me_1.mp3",
           "loop": false
         },
         {
           "id": "underwater_designed_impact_cinematic_soft_low",
           "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/underwater_designed_impact_cinematic_soft_low.mp3",
+          "loop": false
+        },
+        {
+          "id": "undiscovered_designed_rope_bridge_swinging_precarious_wooden_structure_slight_wi",
+          "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/undiscovered_designed_rope_bridge_swinging_precarious_wooden_structure_slight_wi.mp3",
           "loop": false
         }
       ],
@@ -569,7 +574,15 @@
               "soundId": "esm_lfe_heart_beat_loop_-_medium_-_fast_bass_medical_horror_scary_suspense",
               "volume": 0.85,
               "gainDb": 0,
-              "delay": 900,
+              "delay": 0,
+              "loop": false
+            },
+            {
+              "action": "play",
+              "soundId": "belllrg_church_single_ring_01_b00m_one",
+              "volume": 0.5,
+              "gainDb": 0,
+              "delay": 400,
               "loop": false
             }
           ]
@@ -948,7 +961,17 @@
           "text": "Le nouveau venu était un homme de vingt-cinq à vingt-six ans,",
           "breakAt": null,
           "isLeader": false,
-          "audioEvents": []
+          "audioEvents": [
+            {
+              "action": "fadeIn",
+              "soundId": "dsgndron_bubbling_01_b00m_one",
+              "volume": 0.1,
+              "gainDb": 0,
+              "duration": 5000,
+              "delay": 0,
+              "loop": true
+            }
+          ]
         },
         {
           "id": "seg_1782404044216_62_9cjch",
@@ -1249,7 +1272,13 @@
           "text": "vous m’avez appelé, je crois ? Danglars fit un pas en arrière.",
           "breakAt": null,
           "isLeader": false,
-          "audioEvents": []
+          "audioEvents": [
+            {
+              "action": "fadeOut",
+              "soundId": "dsgndron_bubbling_01_b00m_one",
+              "duration": 5000
+            }
+          ]
         },
         {
           "id": "seg_1782404044216_88_eg7tk",
@@ -2798,7 +2827,7 @@
           "loop": false,
           "fadeIn": 0,
           "fadeOut": 0,
-          "delay": 900,
+          "delay": 0,
           "pan": 0,
           "panMode": "static",
           "muted": false,
@@ -3268,10 +3297,16 @@
           "delay": 0,
           "pan": 0,
           "panMode": "static",
-          "muted": true,
+          "muted": false,
           "broken": true,
           "color": "#7EC8C8",
           "automationPoints": [
+            {
+              "segmentId": "seg_1782404044216_61_fvgj0",
+              "volume": 0.1,
+              "fadeMs": 0,
+              "_isAnchor": true
+            },
             {
               "segmentId": "seg_1782404044216_64_6qy8o",
               "volume": 0.1,
@@ -3326,6 +3361,12 @@
           "broken": true,
           "color": "#B59FD8",
           "automationPoints": [
+            {
+              "segmentId": "seg_1782404044216_61_fvgj0",
+              "volume": 0.14,
+              "fadeMs": 0,
+              "_isAnchor": true
+            },
             {
               "segmentId": "seg_1782404044216_63_8v20a",
               "volume": 0.2,
@@ -3547,6 +3588,28 @@
           "trimStart": 9272,
           "trimEnd": 72168,
           "gainDb": 0
+        },
+        {
+          "id": "st_1782727300795_istog2fer",
+          "soundId": "belllrg_church_single_ring_01_b00m_one",
+          "startSegmentId": "seg_1782404044216_29_xku7e",
+          "endSegmentId": "seg_1782404044216_29_xku7e",
+          "column": 4,
+          "volume": 0.5,
+          "fadeIn": 0,
+          "fadeOut": 0,
+          "delay": 400,
+          "loop": false,
+          "muted": false,
+          "automationPoints": [
+            {
+              "segmentId": "seg_1782404044216_29_xku7e",
+              "volume": 0.5,
+              "fadeMs": 0,
+              "_isAnchor": true
+            }
+          ],
+          "panMode": "static"
         }
       ],
       "vfxTracks": []
