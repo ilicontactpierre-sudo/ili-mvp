@@ -6,16 +6,6 @@ import WaveformTrimmer from './WaveformTrimmer'
 import SoundLibraryPicker from './SoundLibraryPicker'
 import AudioEngine from '../../engine/AudioEngine'
 
-// Fonction pour obtenir une couleur de son
-function getSoundColor(sound) {
-  if (!sound) return '#ccc'
-  const categories = sound.categories || []
-  for (const cat of categories) {
-    if (CATEGORY_COLORS[cat]) return CATEGORY_COLORS[cat]
-  }
-  return CATEGORY_COLORS['Autre']
-}
-
 function SoundBlockPanel({ 
   soundTrack, 
   sound, 
