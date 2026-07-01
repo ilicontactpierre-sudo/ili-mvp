@@ -578,15 +578,6 @@ function OrchestrationPanel({
   const handleApply = useCallback(() => {
     if (!diagnosis) return
 
-    // Couleurs par type — basées sur CATEGORY_COLORS existants
-    const TYPE_COLORS = {
-      ambiance:    '#7EC8C8',
-      atmosphere:  '#C8C8A8',
-      diegetique:  '#F0A87E',
-      musique:     '#B59FD8',
-      transition:  '#A8D4A8',
-    }
-
     const newTracks = []
 
     const resolveSegmentId = (segNum) => {
