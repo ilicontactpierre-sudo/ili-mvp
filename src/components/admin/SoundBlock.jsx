@@ -425,16 +425,15 @@ function SoundBlock({
     if (e.button !== 0) return
     e.stopPropagation()
     e.preventDefault()
-
     const p         = propsRef.current
     const startY    = e.clientY
     const initFadeIn  = p.soundTrack.fadeIn  || 0
     const initFadeOut = p.soundTrack.fadeOut || 0
     const bh        = blockHeight
-
     setIsAdjustingFade(type)
-
+    setCursorPos({ x: e.clientX, y: e.clientY })
     const onMove = (ev) => {
+      setCursorPos({ x: ev.clientX, y: ev.clientY })
       const deltaY       = ev.clientY - startY
       const maxFH        = bh * 0.4
       const msPerPixel   = 4000 / (maxFH > 0 ? maxFH : 1)
