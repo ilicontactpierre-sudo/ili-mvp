@@ -724,23 +724,22 @@ function SoundBlock({
         {sound ? sound.label.substring(0, 15) : soundTrack.soundId}
       </div>
 
-      {/* Tooltip fade en cours de drag */}
-      {fadeTooltip && (
+      {/* Tooltip fade — portail, sous le curseur, au-dessus de tout */}
+      {fadeTooltip && createPortal(
         <div style={{
-          position: 'absolute',
-          left: '50%',
-          top: fadeTooltip.type === 'fadeIn' ? `${fadeInHeight + 14}px` : undefined,
-          bottom: fadeTooltip.type === 'fadeOut' ? `${fadeOutHeight + 14}px` : undefined,
+          position: 'fixed',
+          left: cursorPos.x,
+          top: cursorPos.y + 16,
           transform: 'translateX(-50%)',
-          backgroundColor: 'rgba(0,0,0,0.82)',
+          backgroundColor: 'rgba(0,0,0,0.88)',
           color: '#fff',
-          fontSize: '10px',
+          fontSize: '11px',
           fontWeight: 700,
-          padding: '2px 6px',
+          padding: '3px 8px',
           borderRadius: '4px',
           whiteSpace: 'nowrap',
           pointerEvents: 'none',
-          zIndex: 9999,
+          zIndex: 2147483647,
           letterSpacing: '0.02em',
         }}>
           {fadeTooltip.ms === 0
@@ -748,7 +747,8 @@ function SoundBlock({
             : fadeTooltip.ms < 1000
               ? `${fadeTooltip.ms}ms`
               : `${(fadeTooltip.ms / 1000).toFixed(1)}s`}
-        </div>
+        </div>,
+        document.body
       )}
 
       {/* Tooltip géré globalement par le parent — voir onShowTooltip/onHideTooltip */}
