@@ -624,7 +624,35 @@ function SoundBlock({
   }, [])
 
   // ── Rendu ────────────────────────────────────────────────
-  const backgroundStyle = soundTrack.loop ? { background: loopPattern } : {}
+  const backgroundStyle = (() => {
+    // Blocs loop : rayures, pas de dégradé
+    if (soundTrack.loop) return { background: loopPattern }
+    const points = soundTrack.automationPoints
+    // Pas de points d'automation : couleur plate (cas standard)
+    if (!points || points.length === 0) return {}
+    // Calcul du dégradé vertical par segment
+    const rh = rowHeights || []
+    const stops = []
+    let accumulated = 0
+    for (let i = startSegmentIndex; i <= actualEndIndex; i++) {
+      const h = rh[i] || SEGMENT_HEIGHT
+      const topPct    = blockHeight > 0 ? (accumulated / blockHeight) * 100 : 0
+      const bottomPct = blockHeight > 0 ? ((accumulated + h) / blockHeight) * 100 : 100
+      // Volume effectif à ce segment : dernier PA positionné avant ou à ce segment
+      let vol = soundTrack.volume ?? 0.5
+      for (const pt of points) {
+        const ptIdx = segments.findIndex(s => s.id === pt.segmentId || s._id === pt.segmentId)
+        if (ptIdx !== -1 && ptIdx <= i) vol = pt.volume
+      }
+      const color = soundTrack.muted ? '#888888' : getVolumeColor(vol)
+      // Hard-stop : même couleur au début et à la fin de chaque segment
+      stops.push(`${color}99 ${topPct.toFixed(1)}%`)
+      stops.push(`${color}99 ${bottomPct.toFixed(1)}%`)
+      accumulated += h + 8 // 8px = séparateur entre segments
+    }
+    if (stops.length === 0) return {}
+    return { background: `linear-gradient(to bottom, ${stops.join(', ')})` }
+  })()
   const mutedOverlay = soundTrack.muted ? (
     <div style={{
       position: 'absolute', top: '50%', left: '10%', right: '10%',
