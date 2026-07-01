@@ -571,7 +571,9 @@ function SoundBlock({
     const startX = e.clientX
     const initVolume = (soundTrackRef.current.automationPoints || [])[ptIndex]?.volume ?? 0.5
     let lastVolume = initVolume
+    setCursorPos({ x: e.clientX, y: e.clientY })
     const onMove = (ev) => {
+      setCursorPos({ x: ev.clientX, y: ev.clientY })
       const dx = ev.clientX - startX
       const newVol = Math.max(0, Math.min(1, initVolume + dx / 100))
       lastVolume = Math.round(newVol * 100) / 100
