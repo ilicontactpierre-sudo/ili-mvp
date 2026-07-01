@@ -901,9 +901,9 @@ function SoundBlock({
                     strokeWidth={1}
                     strokeDasharray="2,2"
                   />
-                  {/* Forme selon fade */}
-                  {renderAutomationShape(stepIdx, x, centerY, SHAPE_SIZE, baseColor, isTooltipVisible)}
-                  {/* Tooltip volume — rendu via portail, voir plus bas */}
+                  {/* Forme selon fade — couleur selon le volume du point */}
+                  {renderAutomationShape(stepIdx, x, centerY, SHAPE_SIZE, getVolumeColor(pt.volume), isTooltipVisible)}
+                  {/* Tooltip volume */}
                 </g>
               )
             })}
