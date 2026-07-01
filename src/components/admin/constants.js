@@ -17,6 +17,39 @@ export const SOUND_BLOCK_COLORS = [
   '#B8A8D4', // lavande
   '#D4A8C8', // rose poudré
 ]
+// Échelle de couleur automatique par volume (paliers de 5%)
+export const VOLUME_COLOR_STEPS = [
+  { pct: 0,   color: '#E5ECF3' },
+  { pct: 5,   color: '#DFE8F4' },
+  { pct: 10,  color: '#D8E5F6' },
+  { pct: 15,  color: '#D1E2F8' },
+  { pct: 20,  color: '#C9DDF9' },
+  { pct: 25,  color: '#C0D8FA' },
+  { pct: 30,  color: '#B6D7F7' },
+  { pct: 35,  color: '#A9D9F0' },
+  { pct: 40,  color: '#9FDBE7' },
+  { pct: 45,  color: '#97DDDC' },
+  { pct: 50,  color: '#95DEC9' },
+  { pct: 55,  color: '#A4E0B4' },
+  { pct: 60,  color: '#B8E0A0' },
+  { pct: 65,  color: '#D0DE90' },
+  { pct: 70,  color: '#E7DB87' },
+  { pct: 75,  color: '#F2D381' },
+  { pct: 80,  color: '#F7C87E' },
+  { pct: 85,  color: '#F8BA82' },
+  { pct: 90,  color: '#F7A58A' },
+  { pct: 95,  color: '#F29191' },
+  { pct: 100, color: '#F29191' },
+]
+// Retourne la couleur correspondant au volume (0 à 1), par palier de 5%
+export function getVolumeColor(volume) {
+  const pct = Math.round((volume ?? 0.5) * 100)
+  const clamped = Math.max(0, Math.min(100, pct))
+  const stepPct = Math.round(clamped / 5) * 5
+  const step = VOLUME_COLOR_STEPS.find(s => s.pct === stepPct)
+  return step ? step.color : VOLUME_COLOR_STEPS[VOLUME_COLOR_STEPS.length - 1].color
+}
+// Options de filtres
 
 // Options de filtres
 export const FILTER_CATEGORIES = ['Ambiance', 'Musique', 'SFX', 'Dialogue', 'Autre']
