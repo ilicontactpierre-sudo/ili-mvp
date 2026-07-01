@@ -101,6 +101,11 @@
           "loop": false
         },
         {
+          "id": "danglar_ending_court_4",
+          "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/danglar_ending_court_4.mp3",
+          "loop": false
+        },
+        {
           "id": "danglars_theme_2_orchestral_aventure_epic_cinematic_violin",
           "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/danglars_theme_2_orchestral_aventure_epic_cinematic_violin.mp3",
           "loop": false
@@ -126,6 +131,11 @@
           "loop": false
         },
         {
+          "id": "monte_cristo_long_1",
+          "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/monte_cristo_long_1.mp3",
+          "loop": false
+        },
+        {
           "id": "ship_anchor_chain_chains_metallic_rattle_rattling_4",
           "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/ship_anchor_chain_chains_metallic_rattle_rattling_4.mp3",
           "loop": false
@@ -138,16 +148,6 @@
         {
           "id": "undiscovered_designed_rope_bridge_swinging_precarious_wooden_structure_slight_wi",
           "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/undiscovered_designed_rope_bridge_swinging_precarious_wooden_structure_slight_wi.mp3",
-          "loop": false
-        },
-        {
-          "id": "monte_cristo_long_1",
-          "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/monte_cristo_long_1.mp3",
-          "loop": false
-        },
-        {
-          "id": "danglar_ending_court_4",
-          "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/danglar_ending_court_4.mp3",
           "loop": false
         }
       ],
@@ -165,7 +165,7 @@
             {
               "action": "fadeIn",
               "soundId": "watrwave_black_sea_waves_01_b00m_one",
-              "volume": 0.18,
+              "volume": 0.5,
               "gainDb": 0,
               "duration": 6000,
               "delay": 0,
@@ -174,7 +174,7 @@
             {
               "action": "fadeIn",
               "soundId": "3ds01_0054_urban_rec_marina_large_20_2",
-              "volume": 0.14,
+              "volume": 0.55,
               "gainDb": 0,
               "duration": 8000,
               "delay": 0,
@@ -224,7 +224,7 @@
             {
               "action": "fadeIn",
               "soundId": "crwdsprt_football_match_ambience_crowd_chant_walla_01_b00m_one",
-              "volume": 0.2,
+              "volume": 0.5,
               "gainDb": 0,
               "duration": 3000,
               "delay": 0,
@@ -244,7 +244,7 @@
             {
               "action": "fadeIn",
               "soundId": "crwdangr_male_crowd_grumpy_01_b00m_one",
-              "volume": 0.1,
+              "volume": 0.3,
               "gainDb": 0,
               "duration": 5000,
               "delay": 0,
@@ -368,22 +368,9 @@
           "isLeader": false,
           "audioEvents": [
             {
-              "action": "fadeIn",
-              "soundId": "boatrow_rowboat_paddle_in_water_sequence_01_b00m_one",
-              "volume": 0.6,
-              "gainDb": 0,
-              "duration": 1000,
-              "delay": 0,
-              "loop": false
-            },
-            {
-              "action": "fadeIn",
-              "soundId": "boatrow_rowboat_squeaky_mounting_fast_sequence_01_b00m_one",
-              "volume": 0.4,
-              "gainDb": 0,
-              "duration": 1033,
-              "delay": 0,
-              "loop": false
+              "action": "fadeOut",
+              "soundId": "crwdangr_male_crowd_grumpy_01_b00m_one",
+              "duration": 4000
             }
           ]
         },
@@ -397,9 +384,22 @@
           "isLeader": false,
           "audioEvents": [
             {
-              "action": "fadeOut",
-              "soundId": "crwdangr_male_crowd_grumpy_01_b00m_one",
-              "duration": 4000
+              "action": "fadeIn",
+              "soundId": "boatrow_rowboat_paddle_in_water_sequence_01_b00m_one",
+              "volume": 0.6,
+              "gainDb": 0,
+              "duration": 1000,
+              "delay": 0,
+              "loop": true
+            },
+            {
+              "action": "fadeIn",
+              "soundId": "boatrow_rowboat_squeaky_mounting_fast_sequence_01_b00m_one",
+              "volume": 0.4,
+              "gainDb": 0,
+              "duration": 1033,
+              "delay": 0,
+              "loop": true
             }
           ]
         },
@@ -425,12 +425,12 @@
             {
               "action": "fadeOut",
               "soundId": "boatrow_rowboat_paddle_in_water_sequence_01_b00m_one",
-              "duration": 2000
+              "duration": 4000
             },
             {
               "action": "fadeOut",
               "soundId": "boatrow_rowboat_squeaky_mounting_fast_sequence_01_b00m_one",
-              "duration": 2033
+              "duration": 4000
             }
           ]
         },
@@ -466,7 +466,7 @@
             {
               "action": "fadeOut",
               "soundId": "dantes_theme_3",
-              "duration": 4000
+              "duration": 5900
             }
           ]
         },
@@ -580,9 +580,9 @@
             {
               "action": "play",
               "soundId": "belllrg_church_single_ring_01_b00m_one",
-              "volume": 0.5,
+              "volume": 0.15,
               "gainDb": 0,
-              "delay": 400,
+              "delay": 100,
               "loop": false
             }
           ]
@@ -2542,7 +2542,7 @@
           "startSegmentId": "seg_1782404044215_0_0rrlc",
           "endSegmentId": "seg_1782404044216_60_f3kf2",
           "column": 0,
-          "volume": 0.18,
+          "volume": 0.5,
           "loop": true,
           "loopCrossfade": "long",
           "fadeIn": 6000,
@@ -2554,33 +2554,39 @@
           "color": "#7EC8C8",
           "automationPoints": [
             {
+              "segmentId": "seg_1782404044215_0_0rrlc",
+              "volume": 0.5,
+              "fadeMs": 0,
+              "_isAnchor": true
+            },
+            {
               "segmentId": "seg_1782404044215_9_pajx8",
               "volume": 0.22,
               "fadeMs": 5000
             },
             {
               "segmentId": "seg_1782404044216_21_i8lsw",
-              "volume": 0.15,
+              "volume": 0.32,
               "fadeMs": 2500
             },
             {
               "segmentId": "seg_1782404044216_29_xku7e",
-              "volume": 0.08,
+              "volume": 0.22,
               "fadeMs": 1500
             },
             {
               "segmentId": "seg_1782404044216_31_y2jiw",
-              "volume": 0.15,
+              "volume": 0.33,
               "fadeMs": 2500
             },
             {
               "segmentId": "seg_1782404044216_48_gg7in",
-              "volume": 0.18,
+              "volume": 0.38,
               "fadeMs": 3000
             },
             {
               "segmentId": "seg_1782404044216_55_ne2gz",
-              "volume": 0.12,
+              "volume": 0.34,
               "fadeMs": 2500
             }
           ],
@@ -2595,7 +2601,7 @@
           "startSegmentId": "seg_1782404044215_0_0rrlc",
           "endSegmentId": "seg_1782404044216_60_f3kf2",
           "column": 1,
-          "volume": 0.14,
+          "volume": 0.55,
           "loop": true,
           "loopCrossfade": "medium",
           "fadeIn": 8000,
@@ -2608,28 +2614,23 @@
           "automationPoints": [
             {
               "segmentId": "seg_1782404044215_0_0rrlc",
-              "volume": 0.14,
+              "volume": 0.55,
               "fadeMs": 0,
               "_isAnchor": true
             },
             {
-              "segmentId": "seg_1782404044215_4_y745h",
-              "volume": 0.18,
-              "fadeMs": 3000
-            },
-            {
               "segmentId": "seg_1782404044216_21_i8lsw",
-              "volume": 0.1,
+              "volume": 0.29,
               "fadeMs": 2500
             },
             {
               "segmentId": "seg_1782404044216_48_gg7in",
-              "volume": 0.16,
+              "volume": 0.39,
               "fadeMs": 3000
             },
             {
               "segmentId": "seg_1782404044216_55_ne2gz",
-              "volume": 0.1,
+              "volume": 0.3,
               "fadeMs": 2500
             }
           ],
@@ -2642,9 +2643,9 @@
           "id": "st_1782405291657_50nsoxjdb_2",
           "soundId": "crwdangr_male_crowd_grumpy_01_b00m_one",
           "startSegmentId": "seg_1782404044215_5_9flbi",
-          "endSegmentId": "seg_1782404044216_17_hk9ta",
+          "endSegmentId": "seg_1782404044216_16_f28e0",
           "column": 2,
-          "volume": 0.1,
+          "volume": 0.3,
           "loop": true,
           "loopCrossfade": "long",
           "fadeIn": 5000,
@@ -2657,30 +2658,33 @@
           "automationPoints": [
             {
               "segmentId": "seg_1782404044215_5_9flbi",
-              "volume": 0.1,
+              "volume": 0.3,
               "fadeMs": 0,
               "_isAnchor": true
             },
             {
               "segmentId": "seg_1782404044215_8_vwoor",
-              "volume": 0.16,
+              "volume": 0.2,
               "fadeMs": 3000
             },
             {
               "segmentId": "seg_1782404044215_10_qu94k",
-              "volume": 0.1,
+              "volume": 0.23,
               "fadeMs": 2500
             },
             {
               "segmentId": "seg_1782404044215_14_1k90u",
-              "volume": 0.13,
+              "volume": 0.17,
               "fadeMs": 2500
             }
           ],
           "_orchestrationNote": "Tension diffuse — l'allure triste du navire pressentie par la foule. Monte à l'approche du navire (seg 9), se stabilise quand les experts rassurent (seg 11). Idéalement : nappe grave et lente, drone léger — à rechercher dans votre bibliothèque.",
           "_orchestrationKeyword": "tension",
           "_orchestrationLayer": "atmosphere",
-          "_orchestrationLeitmotiv": ""
+          "_orchestrationLeitmotiv": "",
+          "trimStart": 0,
+          "trimEnd": 49771.208333333336,
+          "gainDb": 0
         },
         {
           "id": "st_1782405291657_fpbgxw1ki_3",
@@ -2688,7 +2692,7 @@
           "startSegmentId": "seg_1782404044215_4_y745h",
           "endSegmentId": "seg_1782404044215_9_pajx8",
           "column": 3,
-          "volume": 0.2,
+          "volume": 0.5,
           "loop": true,
           "loopCrossfade": "medium",
           "fadeIn": 3000,
@@ -2701,38 +2705,41 @@
           "automationPoints": [
             {
               "segmentId": "seg_1782404044215_4_y745h",
-              "volume": 0.4,
+              "volume": 0.5,
               "fadeMs": 0,
               "_isAnchor": true
             },
             {
               "segmentId": "seg_1782404044215_5_9flbi",
-              "volume": 0.24,
+              "volume": 0.43,
               "fadeMs": 2000
             },
             {
               "segmentId": "seg_1782404044215_8_vwoor",
-              "volume": 0.14,
+              "volume": 0.35,
               "fadeMs": 3000
             }
           ],
           "_orchestrationNote": "Foule des curieux sur l'esplanade Saint-Jean. Murmures d'inquiétude, présence humaine collective. Décroît à mesure que l'attention se focalise sur le jeune marin.",
           "_orchestrationKeyword": "crowd",
           "_orchestrationLayer": "diegetic",
-          "_orchestrationLeitmotiv": ""
+          "_orchestrationLeitmotiv": "",
+          "trimStart": 0,
+          "trimEnd": 90199.60416666666,
+          "gainDb": 0
         },
         {
           "id": "st_1782405291657_treg0kvbo_4",
           "soundId": "boatrow_rowboat_paddle_in_water_sequence_01_b00m_one",
-          "startSegmentId": "seg_1782404044216_16_f28e0",
+          "startSegmentId": "seg_1782404044216_17_hk9ta",
           "endSegmentId": "seg_1782404044216_19_djfwz",
           "column": 3,
           "volume": 0.6,
-          "loop": false,
+          "loop": true,
           "fadeIn": 1000,
-          "fadeOut": 2000,
+          "fadeOut": 4000,
           "delay": 0,
-          "pan": 0,
+          "pan": 0.33,
           "panMode": "static",
           "muted": false,
           "color": "#F0A87E",
@@ -2742,12 +2749,19 @@
           "_orchestrationLeitmotiv": "",
           "automationPoints": [
             {
+              "segmentId": "seg_1782404044216_17_hk9ta",
+              "volume": 0.6,
+              "fadeMs": 0,
+              "_isAnchor": true
+            },
+            {
               "segmentId": "seg_1782404044216_16_f28e0",
               "volume": 0.6,
               "fadeMs": 0,
               "_isAnchor": true
             }
-          ]
+          ],
+          "loopCrossfade": "medium"
         },
         {
           "id": "st_1782405291657_jdwtzf52s_5",
@@ -2779,27 +2793,27 @@
             },
             {
               "segmentId": "seg_1782404044216_28_6nj6v",
-              "volume": 0.08,
+              "volume": 0.14,
               "fadeMs": 1500
             },
             {
               "segmentId": "seg_1782404044216_30_ryhlf",
-              "volume": 0.04,
+              "volume": 0.13,
               "fadeMs": 600
             },
             {
               "segmentId": "seg_1782404044216_32_vzqgd",
-              "volume": 0.14,
+              "volume": 0.2,
               "fadeMs": 2500
             },
             {
               "segmentId": "seg_1782404044216_43_cgcp3",
-              "volume": 0.18,
+              "volume": 0.22,
               "fadeMs": 3000
             },
             {
               "segmentId": "seg_1782404044216_47_m2w5c",
-              "volume": 0.1,
+              "volume": 0.2,
               "fadeMs": 2500
             }
           ],
@@ -2807,8 +2821,8 @@
           "_orchestrationKeyword": "melancholic",
           "_orchestrationLayer": "atmosphere",
           "_orchestrationLeitmotiv": "motif du deuil",
-          "trimStart": 7592,
-          "trimEnd": 73128,
+          "trimStart": 7110,
+          "trimEnd": 43674,
           "gainDb": 0
         },
         {
@@ -2822,7 +2836,7 @@
           "fadeIn": 0,
           "fadeOut": 0,
           "delay": 0,
-          "pan": 0,
+          "pan": -0.31,
           "panMode": "static",
           "muted": false,
           "color": "#F0A87E",
@@ -3309,6 +3323,12 @@
           "_orchestrationLeitmotiv": "",
           "automationPoints": [
             {
+              "segmentId": "seg_1782404044216_34_rdfgf",
+              "volume": 0.62,
+              "fadeMs": 0,
+              "_isAnchor": true
+            },
+            {
               "segmentId": "seg_1782404044216_33_lj6c4",
               "volume": 0.62,
               "fadeMs": 0,
@@ -3573,16 +3593,22 @@
         {
           "id": "st_1782570574735_8y2cgpk86",
           "soundId": "boatrow_rowboat_squeaky_mounting_fast_sequence_01_b00m_one",
-          "startSegmentId": "seg_1782404044216_16_f28e0",
+          "startSegmentId": "seg_1782404044216_17_hk9ta",
           "endSegmentId": "seg_1782404044216_19_djfwz",
           "column": 4,
           "volume": 0.4,
           "fadeIn": 1033,
-          "fadeOut": 2033,
+          "fadeOut": 4000,
           "delay": 0,
-          "loop": false,
+          "loop": true,
           "muted": false,
           "automationPoints": [
+            {
+              "segmentId": "seg_1782404044216_17_hk9ta",
+              "volume": 0.4,
+              "fadeMs": 0,
+              "_isAnchor": true
+            },
             {
               "segmentId": "seg_1782404044216_16_f28e0",
               "volume": 0.4,
@@ -3591,7 +3617,9 @@
             }
           ],
           "trimStart": 0,
-          "trimEnd": 23184
+          "trimEnd": 23184,
+          "loopCrossfade": "medium",
+          "pan": 0.42
         },
         {
           "id": "st_1782725291015_f2jdc9acb",
@@ -3601,7 +3629,7 @@
           "column": 2,
           "volume": 0.35,
           "fadeIn": 169,
-          "fadeOut": 4000,
+          "fadeOut": 5900,
           "delay": 0,
           "loop": false,
           "muted": false,
@@ -3624,21 +3652,22 @@
           "startSegmentId": "seg_1782404044216_29_xku7e",
           "endSegmentId": "seg_1782404044216_29_xku7e",
           "column": 4,
-          "volume": 0.5,
+          "volume": 0.15,
           "fadeIn": 0,
           "fadeOut": 0,
-          "delay": 400,
+          "delay": 100,
           "loop": false,
           "muted": false,
           "automationPoints": [
             {
               "segmentId": "seg_1782404044216_29_xku7e",
-              "volume": 0.5,
+              "volume": 0.15,
               "fadeMs": 0,
               "_isAnchor": true
             }
           ],
-          "panMode": "static"
+          "panMode": "static",
+          "pan": -0.61
         }
       ],
       "vfxTracks": []
