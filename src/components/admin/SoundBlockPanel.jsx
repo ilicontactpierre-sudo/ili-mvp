@@ -778,10 +778,40 @@ function SoundBlockPanel({
         <div>
           <label style={{ fontSize: '0.75rem', color: '#888', display: 'block', marginBottom: '0.5rem' }}>Couleur</label>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
+            {/* Auto (par volume) */}
+            <div
+              onClick={() => setEditedTrack(prev => ({ ...prev, colorOverride: false }))}
+              title="Automatique (selon le volume)"
+              style={{
+                width: '24px',
+                height: '24px',
+                borderRadius: '50%',
+                background: 'conic-gradient(from 180deg, #95DEC9, #F7C87E, #F29191, #95DEC9)',
+                cursor: 'pointer',
+                flexShrink: 0,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: '0.55rem',
+                color: '#1a1a1a',
+                fontWeight: 700,
+                border: !editedTrack.colorOverride
+                  ? '2px solid #fff'
+                  : '2px solid transparent',
+                boxShadow: !editedTrack.colorOverride
+                  ? '0 0 0 1px #fff'
+                  : 'none',
+                transition: 'transform 0.1s ease, box-shadow 0.1s ease',
+              }}
+              onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.2)'}
+              onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
+            >
+              A
+            </div>
             {SOUND_BLOCK_COLORS.map((c) => (
               <div
                 key={c}
-                onClick={() => handleChange('color', c)}
+                onClick={() => setEditedTrack(prev => ({ ...prev, color: c, colorOverride: true }))}
                 title={c}
                 style={{
                   width: '24px',
@@ -790,10 +820,10 @@ function SoundBlockPanel({
                   backgroundColor: c,
                   cursor: 'pointer',
                   flexShrink: 0,
-                  border: editedTrack.color === c
+                  border: (editedTrack.colorOverride && editedTrack.color === c)
                     ? '2px solid #fff'
                     : '2px solid transparent',
-                  boxShadow: editedTrack.color === c
+                  boxShadow: (editedTrack.colorOverride && editedTrack.color === c)
                     ? `0 0 0 1px ${c}`
                     : 'none',
                   transition: 'transform 0.1s ease, box-shadow 0.1s ease',
