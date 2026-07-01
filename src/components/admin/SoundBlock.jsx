@@ -898,8 +898,28 @@ function SoundBlock({
         }} />
       )}
       {mutedOverlay}
+      {/* Tooltip automation volume — portail, sous le curseur */}
+      {automationTooltip && createPortal(
+        <div style={{
+          position: 'fixed',
+          left: cursorPos.x,
+          top: cursorPos.y + 16,
+          transform: 'translateX(-50%)',
+          backgroundColor: 'rgba(0,0,0,0.88)',
+          color: '#fff',
+          fontSize: '11px',
+          fontWeight: 700,
+          padding: '3px 8px',
+          borderRadius: '4px',
+          whiteSpace: 'nowrap',
+          pointerEvents: 'none',
+          zIndex: 2147483647,
+        }}>
+          {automationTooltip.volume}%
+        </div>,
+        document.body
+      )}
     </div>
   )
 }
-
 export default SoundBlock
