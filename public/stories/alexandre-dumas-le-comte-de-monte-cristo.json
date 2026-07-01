@@ -639,9 +639,9 @@
             {
               "action": "play",
               "soundId": "507_s12_gens_qui_courent",
-              "volume": 0.62,
+              "volume": 0.5,
               "gainDb": 0,
-              "delay": 300,
+              "delay": 0,
               "loop": false
             }
           ]
@@ -675,11 +675,6 @@
           "breakAt": null,
           "isLeader": false,
           "audioEvents": [
-            {
-              "action": "fadeOut",
-              "soundId": "507_s12_gens_qui_courent",
-              "duration": 3600
-            },
             {
               "action": "fadeOut",
               "soundId": "undiscovered_designed_rope_bridge_swinging_precarious_wooden_structure_slight_wi",
@@ -2788,7 +2783,7 @@
             },
             {
               "segmentId": "seg_1782404044216_24_0cojo",
-              "volume": 0.2,
+              "volume": 0.16,
               "fadeMs": 2500
             },
             {
@@ -3302,41 +3297,6 @@
           "gainDb": 0
         },
         {
-          "id": "st_1782405291659_6dn2wqjws_22",
-          "soundId": "507_s12_gens_qui_courent",
-          "startSegmentId": "seg_1782404044216_34_rdfgf",
-          "endSegmentId": "seg_1782404044216_36_3gibx",
-          "column": 3,
-          "volume": 0.62,
-          "loop": false,
-          "fadeIn": 0,
-          "fadeOut": 3600,
-          "delay": 300,
-          "pan": 0,
-          "panMode": "static",
-          "muted": false,
-          "broken": true,
-          "color": "#F0A87E",
-          "_orchestrationNote": "L'équipage s'élance aux postes — pas sur le pont, courir sur bois mouillé, activité maritime soudaine.",
-          "_orchestrationKeyword": "walk",
-          "_orchestrationLayer": "diegetic",
-          "_orchestrationLeitmotiv": "",
-          "automationPoints": [
-            {
-              "segmentId": "seg_1782404044216_34_rdfgf",
-              "volume": 0.62,
-              "fadeMs": 0,
-              "_isAnchor": true
-            },
-            {
-              "segmentId": "seg_1782404044216_33_lj6c4",
-              "volume": 0.62,
-              "fadeMs": 0,
-              "_isAnchor": true
-            }
-          ]
-        },
-        {
           "id": "st_1782405291659_3aql7o1ck_23",
           "soundId": "undiscovered_designed_rope_bridge_swinging_precarious_wooden_structure_slight_wi",
           "startSegmentId": "seg_1782404044216_35_hlxg6",
@@ -3637,7 +3597,7 @@
           "automationPoints": [
             {
               "segmentId": "seg_1782404093633_a_pjs7t",
-              "volume": 0.35,
+              "volume": 0.36,
               "fadeMs": 0,
               "_isAnchor": true
             }
@@ -3668,6 +3628,28 @@
           ],
           "panMode": "static",
           "pan": -0.61
+        },
+        {
+          "id": "st_1782910665128_a4b1oyw77",
+          "soundId": "507_s12_gens_qui_courent",
+          "startSegmentId": "seg_1782404044216_34_rdfgf",
+          "endSegmentId": "seg_1782404044216_34_rdfgf",
+          "column": 3,
+          "volume": 0.5,
+          "fadeIn": 0,
+          "fadeOut": 0,
+          "delay": 0,
+          "loop": false,
+          "muted": false,
+          "broken": false,
+          "automationPoints": [
+            {
+              "segmentId": "seg_1782404044216_34_rdfgf",
+              "volume": 0.5,
+              "fadeMs": 0,
+              "_isAnchor": true
+            }
+          ]
         }
       ],
       "vfxTracks": []
