@@ -671,7 +671,6 @@ function OrchestrationPanel({
 
       const delayMs = computeDelayFromTarget(block, segmentText)
       const automationPoints = buildAutomationPoints(block, start)
-      const color = TYPE_COLORS[block.type] || TYPE_COLORS.ambiance
 
       // Pan : uniquement pour les sons diégétiques
       const isDiegetique = block.type === 'diegetique'
@@ -696,7 +695,6 @@ function OrchestrationPanel({
         panMode,
         muted,
         broken: broken || undefined,
-        color,
         automationPoints: automationPoints.length > 0 ? automationPoints : undefined,
         _orchestrationNote: block.note || '',
         _orchestrationKeyword: block.soundId || block.keyword || '',
