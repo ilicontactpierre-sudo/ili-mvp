@@ -37,7 +37,9 @@ function SoundBlockPanel({
   const previewHowlRef = useRef(null)
   const previewEngineRef = useRef(null)
   const previewTimeoutRef = useRef(null)
-  const color = getSoundColor(sound)
+  const color = (editedTrack.colorOverride && editedTrack.color)
+    ? editedTrack.color
+    : getVolumeColor(editedTrack.volume)
   const stopPreview = useCallback(() => {
     if (previewTimeoutRef.current) {
       clearTimeout(previewTimeoutRef.current)
