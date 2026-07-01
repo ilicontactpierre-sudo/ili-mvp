@@ -870,25 +870,7 @@ function SoundBlock({
                   />
                   {/* Forme selon fade */}
                   {renderAutomationShape(stepIdx, x, centerY, SHAPE_SIZE, baseColor, isTooltipVisible)}
-                  {/* Tooltip volume */}
-                  {isTooltipVisible && (
-                    <g>
-                      <rect
-                        x={x - 14} y={centerY - 22}
-                        width={28} height={14}
-                        rx={3} fill="rgba(0,0,0,0.75)"
-                      />
-                      <text
-                        x={x} y={centerY - 12}
-                        textAnchor="middle"
-                        fill="#fff"
-                        fontSize={9}
-                        fontFamily="system-ui"
-                      >
-                        {Math.round(pt.volume * 100)}%
-                      </text>
-                    </g>
-                  )}
+                  {/* Tooltip volume — rendu via portail, voir plus bas */}
                 </g>
               )
             })}
