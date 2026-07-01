@@ -578,10 +578,15 @@ function SoundBlock({
       const newVol = Math.max(0, Math.min(1, initVolume + dx / 100))
       lastVolume = Math.round(newVol * 100) / 100
       setAutomationTooltip({ pointIndex: ptIndex, volume: Math.round(lastVolume * 100) })
-      const newPoints = (soundTrackRef.current.automationPoints || []).map((pt, i) =>
+      const track = soundTrackRef.current
+      const newPoints = (track.automationPoints || []).map((pt, i) =>
         i === ptIndex ? { ...pt, volume: lastVolume } : pt
       )
-      p.onUpdate(soundTrackRef.current.id, { automationPoints: newPoints })
+      // Si le point dragué est l'ancre (_isAnchor), on synchronise aussi soundTrack.volume
+      const isDraggingAnchor = track.automationPoints?.[ptIndex]?._isAnchor === true
+      const updates = { automationPoints: newPoints }
+      if (isDraggingAnchor) updates.volume = lastVolume
+      p.onUpdate(track.id, updates)
     }
     const onUp = () => {
       window.removeEventListener('mousemove', onMove)
