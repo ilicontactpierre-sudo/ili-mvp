@@ -1544,7 +1544,25 @@ function FormTimer({ data, onChange }) {
     </>
   )
 }
-
+function FormSoundCheck({ data, onChange }) {
+  return (
+    <>
+      <Field label="Texte affiché" hint="Invite le lecteur à ajuster son volume">
+        <textarea style={textareaStyle} value={data.prompt || ''}
+          placeholder="Un instant. Ajuste le volume de tes écouteurs."
+          onChange={e => onChange({ ...data, prompt: e.target.value })} />
+      </Field>
+      <Field label="Texte du bouton">
+        <input style={inputStyle} type="text" value={data.buttonLabel || ''}
+          placeholder="Je suis prêt"
+          onChange={e => onChange({ ...data, buttonLabel: e.target.value })} />
+      </Field>
+      <p style={{ fontSize: '0.72rem', color: 'rgba(255,255,255,0.35)', fontStyle: 'italic', margin: 0 }}>
+        Le son joué pendant ce segment est celui que vous ajoutez normalement dans la timeline audio — pas ici.
+      </p>
+    </>
+  )
+}
 // ─── Panel principal ─────────────────────────────────────────────────────────
 
 function GameModePanel({ segment, segmentIndex, onSave, onDelete, onClose, parts }) {
