@@ -90,7 +90,30 @@ const SplitPreviewPane = forwardRef(function SplitPreviewPane({ storyData, sound
   const [isMuted, setIsMuted] = useState(false)
   const isMutedRef = useRef(false)
   const howlMapRef = useRef(null)
-
+  // Recharge/complète la carte de sons Howl avec l'état actuel de l'histoire
+  // (nouveaux sons ajoutés, sons remplacés) avant un saut vers un segment.
+  const syncHowlMap = useCallback(async () => {
+    if (!howlMapRef.current) return
+    const map = howlMapRef.current
+    const usedIds = new Set((storyData?.soundTracks || []).map(t => t.soundId))
+    const tasks = []
+    usedIds.forEach(id => {
+      const soundDef = soundLibrary.find(s => s.id === id)
+      if (!soundDef?.url) return
+      const existing = map.get(id)
+      const existingSrc = existing ? (Array.isArray(existing._src) ? existing._src[0] : existing._src) : null
+      if (existing && existingSrc === soundDef.url) return
+      if (existing) { existing.stop(); existing.unload() }
+      const howl = new Howl({ src: [soundDef.url], preload: true, loop: Boolean(soundDef.loop) })
+      map.set(id, howl)
+      tasks.push(new Promise(resolve => {
+        howl.once('load', resolve)
+        howl.once('loaderror', resolve)
+        howl.load()
+      }))
+    })
+    if (tasks.length > 0) await Promise.all(tasks)
+  }, [storyData, soundLibrary])
   const jumpToSegment = (idx) => {
     if (!howlMapRef.current) return
     audioEngineRef.current?.stopAll()
