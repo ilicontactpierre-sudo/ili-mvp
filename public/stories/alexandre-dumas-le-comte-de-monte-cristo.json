@@ -654,17 +654,7 @@
           "text": "Au même instant, les huit ou dix matelots qui le composaient s’élancèrent les uns sur les écoutes, les autres sur les bras,",
           "breakAt": null,
           "isLeader": false,
-          "audioEvents": [
-            {
-              "action": "fadeIn",
-              "soundId": "undiscovered_designed_rope_bridge_swinging_precarious_wooden_structure_slight_wi",
-              "volume": 0.65,
-              "gainDb": 0,
-              "duration": 2485,
-              "delay": 800,
-              "loop": false
-            }
-          ]
+          "audioEvents": []
         },
         {
           "id": "seg_1782404044216_36_3gibx",
@@ -676,9 +666,13 @@
           "isLeader": false,
           "audioEvents": [
             {
-              "action": "fadeOut",
+              "action": "fadeIn",
               "soundId": "undiscovered_designed_rope_bridge_swinging_precarious_wooden_structure_slight_wi",
-              "duration": 4000
+              "volume": 1,
+              "gainDb": 0,
+              "duration": 2485,
+              "delay": 0,
+              "loop": false
             },
             {
               "action": "fadeOut",
@@ -695,7 +689,13 @@
           "text": "Le jeune marin jeta un coup d’œil nonchalant sur ce commencement de manœuvre, et,",
           "breakAt": null,
           "isLeader": false,
-          "audioEvents": []
+          "audioEvents": [
+            {
+              "action": "fadeOut",
+              "soundId": "undiscovered_designed_rope_bridge_swinging_precarious_wooden_structure_slight_wi",
+              "duration": 4000
+            }
+          ]
         },
         {
           "id": "seg_1782404044216_38_yla56",
@@ -965,7 +965,7 @@
             {
               "action": "fadeIn",
               "soundId": "dsgndron_discarded_metal_underwater_01_b00m_one",
-              "volume": 0.1,
+              "volume": 0.5,
               "gainDb": 0,
               "duration": 5000,
               "delay": 0,
@@ -974,7 +974,7 @@
             {
               "action": "fadeIn",
               "soundId": "danglars_theme_2_orchestral_aventure_epic_cinematic_violin",
-              "volume": 0.14,
+              "volume": 0.35,
               "gainDb": 0,
               "duration": 6000,
               "delay": 0,
@@ -3212,7 +3212,15 @@
           "_orchestrationNote": "Citation du thème de Mercédès sur la première mention de son nom — music box douce, chaleur et tendresse. Même instrument que le leitmotiv de Danglars mais ici lumineux, non distordu : les deux faces d'un même objet sonore.",
           "_orchestrationKeyword": "musctoy_music_box_melody_play_slow_b00m_one",
           "_orchestrationLayer": "music",
-          "_orchestrationLeitmotiv": "thème de Mercédès"
+          "_orchestrationLeitmotiv": "thème de Mercédès",
+          "automationPoints": [
+            {
+              "segmentId": "seg_1782404044216_146_4ce74",
+              "volume": 0.3,
+              "fadeMs": 0,
+              "_isAnchor": true
+            }
+          ]
         },
         {
           "id": "st_1782405291658_9hbb02vi0_18",
@@ -3304,18 +3312,17 @@
         {
           "id": "st_1782405291659_3aql7o1ck_23",
           "soundId": "undiscovered_designed_rope_bridge_swinging_precarious_wooden_structure_slight_wi",
-          "startSegmentId": "seg_1782404044216_35_hlxg6",
-          "endSegmentId": "seg_1782404044216_36_3gibx",
-          "column": 4,
-          "volume": 0.65,
+          "startSegmentId": "seg_1782404044216_36_3gibx",
+          "endSegmentId": "seg_1782404044216_37_oyis7",
+          "column": 3,
+          "volume": 1,
           "loop": false,
           "fadeIn": 2485,
           "fadeOut": 4000,
-          "delay": 800,
+          "delay": 0,
           "pan": 0,
           "panMode": "static",
           "muted": false,
-          "broken": true,
           "color": "#F0A87E",
           "_orchestrationNote": "Manœuvre des écoutes, bras et drisses — tension des cordages, craquements de bois et de chanvre.",
           "_orchestrationKeyword": "rope",
@@ -3323,8 +3330,14 @@
           "_orchestrationLeitmotiv": "",
           "automationPoints": [
             {
+              "segmentId": "seg_1782404044216_36_3gibx",
+              "volume": 0.5,
+              "fadeMs": 0,
+              "_isAnchor": true
+            },
+            {
               "segmentId": "seg_1782404044216_35_hlxg6",
-              "volume": 0.65,
+              "volume": 1,
               "fadeMs": 0,
               "_isAnchor": true
             }
@@ -3336,7 +3349,7 @@
           "startSegmentId": "seg_1782404044216_61_fvgj0",
           "endSegmentId": "seg_1782404044216_87_fqzlz",
           "column": 1,
-          "volume": 0.1,
+          "volume": 0.5,
           "loop": true,
           "loopCrossfade": "long",
           "fadeIn": 5000,
@@ -3350,38 +3363,38 @@
           "automationPoints": [
             {
               "segmentId": "seg_1782404044216_61_fvgj0",
-              "volume": 0.1,
+              "volume": 0.5,
               "fadeMs": 0,
               "_isAnchor": true
             },
             {
               "segmentId": "seg_1782404044216_64_6qy8o",
-              "volume": 0.1,
+              "volume": 0.64,
               "fadeMs": 2500
             },
             {
               "segmentId": "seg_1782404044216_70_zhkma",
-              "volume": 0.18,
+              "volume": 0.47,
               "fadeMs": 1500
             },
             {
               "segmentId": "seg_1782404044216_72_ts8rt",
-              "volume": 0.1,
+              "volume": 0.29,
               "fadeMs": 2500
             },
             {
               "segmentId": "seg_1782404044216_81_p9c1c",
-              "volume": 0.14,
+              "volume": 0.35,
               "fadeMs": 2000
             },
             {
               "segmentId": "seg_1782404044216_85_9xjqe",
-              "volume": 0.18,
+              "volume": 0.47,
               "fadeMs": 1500
             },
             {
               "segmentId": "seg_1782404044216_87_fqzlz",
-              "volume": 0.06,
+              "volume": 0.39,
               "fadeMs": 3000
             }
           ],
@@ -3396,7 +3409,7 @@
           "startSegmentId": "seg_1782404044216_61_fvgj0",
           "endSegmentId": "seg_1782404044216_87_fqzlz",
           "column": 2,
-          "volume": 0.14,
+          "volume": 0.35,
           "loop": true,
           "loopCrossfade": "medium",
           "fadeIn": 6000,
@@ -3409,48 +3422,48 @@
           "automationPoints": [
             {
               "segmentId": "seg_1782404044216_61_fvgj0",
-              "volume": 0.14,
+              "volume": 0.35,
               "fadeMs": 0,
               "_isAnchor": true
             },
             {
               "segmentId": "seg_1782404044216_63_8v20a",
-              "volume": 0.2,
+              "volume": 0.35,
               "fadeMs": 3000
             },
             {
               "segmentId": "seg_1782404044216_68_c3pps",
-              "volume": 0.24,
+              "volume": 0.38,
               "fadeMs": 2500
             },
             {
               "segmentId": "seg_1782404044216_70_zhkma",
-              "volume": 0.08,
+              "volume": 0.15,
               "fadeMs": 1000
             },
             {
               "segmentId": "seg_1782404044216_72_ts8rt",
-              "volume": 0.2,
+              "volume": 0.37,
               "fadeMs": 2500
             },
             {
               "segmentId": "seg_1782404044216_75_3o0b8",
-              "volume": 0.22,
+              "volume": 0.35,
               "fadeMs": 2000
             },
             {
               "segmentId": "seg_1782404044216_81_p9c1c",
-              "volume": 0.08,
+              "volume": 0.13,
               "fadeMs": 1000
             },
             {
               "segmentId": "seg_1782404044216_83_nbn8v",
-              "volume": 0.18,
+              "volume": 0.28,
               "fadeMs": 2500
             },
             {
               "segmentId": "seg_1782404044216_87_fqzlz",
-              "volume": 0.08,
+              "volume": 0.15,
               "fadeMs": 3000
             }
           ],
@@ -3553,7 +3566,15 @@
           "_orchestrationNote": "La légère hésitation de Dantès en demandant des nouvelles de son père — une pause, un souffle retenu. Très subtil.",
           "_orchestrationKeyword": "breath",
           "_orchestrationLayer": "diegetic",
-          "_orchestrationLeitmotiv": ""
+          "_orchestrationLeitmotiv": "",
+          "automationPoints": [
+            {
+              "segmentId": "seg_1782404044216_137_htkxv",
+              "volume": 0.6,
+              "fadeMs": 0,
+              "_isAnchor": true
+            }
+          ]
         },
         {
           "id": "st_1782570574735_8y2cgpk86",
@@ -3639,7 +3660,7 @@
           "soundId": "507_s12_gens_qui_courent",
           "startSegmentId": "seg_1782404044216_34_rdfgf",
           "endSegmentId": "seg_1782404044216_36_3gibx",
-          "column": 3,
+          "column": 5,
           "volume": 0.35,
           "fadeIn": 0,
           "fadeOut": 4000,
