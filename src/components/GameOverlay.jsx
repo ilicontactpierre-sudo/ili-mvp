@@ -633,7 +633,61 @@ function GameTimer({ data, onResolved }) {
     </>
   )
 }
-
+// ─── Type : Test de son (calibration volume) ─────────────────────────────────
+function GameSoundCheck({ data, onResolved }) {
+  const [skipVisible, setSkipVisible] = useState(false)
+  useEffect(() => {
+    const t = setTimeout(() => setSkipVisible(true), 3200)
+    return () => clearTimeout(t)
+  }, [])
+  return (
+    <AnimatedWrapper style={{ gap: '2.4rem' }}>
+      <div style={{ position: 'relative', width: '96px', height: '96px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        {[0, 1, 2].map(i => (
+          <span key={i} style={{
+            position: 'absolute',
+            width: '96px', height: '96px',
+            borderRadius: '50%',
+            border: '1px solid var(--color-text-focus, #222)',
+            opacity: 0,
+            animation: `game-soundcheck-ring 2.6s ease-out ${i * 0.8}s infinite`,
+          }} />
+        ))}
+        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="var(--color-text-focus, #222)" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" style={{ opacity: 0.6 }}>
+          <path d="M11 5 6 9H2v6h4l5 4V5z" />
+          <path d="M15.5 8.5a5 5 0 0 1 0 7" />
+          <path d="M18.5 5.5a9 9 0 0 1 0 13" />
+        </svg>
+      </div>
+      {data.prompt && (
+        <p style={{
+          fontSize: 'clamp(0.88rem, 2.1vw, 1rem)',
+          color: 'var(--color-text-focus, #222)',
+          textAlign: 'center', lineHeight: 1.65, opacity: 0.72,
+          margin: 0, maxWidth: '26rem',
+        }}>
+          {data.prompt}
+        </p>
+      )}
+      <ContinueBtn onClick={onResolved} label={data.buttonLabel || 'je suis prêt'} delay={1200} />
+      {skipVisible && (
+        <button
+          onClick={onResolved}
+          style={{
+            background: 'none', border: 'none', cursor: 'pointer',
+            fontSize: '0.68rem', color: 'var(--color-text-focus, #222)',
+            opacity: 0.28, letterSpacing: '0.06em', marginTop: '-1.2rem',
+            transition: `opacity 500ms ${EASE.inOut}`,
+          }}
+          onMouseEnter={e => e.currentTarget.style.opacity = '0.55'}
+          onMouseLeave={e => e.currentTarget.style.opacity = '0.28'}
+        >
+          passer
+        </button>
+      )}
+    </AnimatedWrapper>
+  )
+}
 // ─── Type : Message animé ─────────────────────────────────────────────────────
 function GameMessage({ data, onResolved, tappable }) {
   const text = data.text || ''
