@@ -376,8 +376,10 @@ const handleFileSelected = async (e) => {
     ? (seg.id || seg._id || `seg_${segmentIndex}`)
     : null
   if (!effectiveSegmentId) { console.error('Segment cible introuvable'); return }
-  // sound.url est prioritaire (cas upload immédiat), sinon vérifier dans soundLibrary
-  const librarySound = soundLibrary.find(s => s.id === sound.id) || sound
+  // sound.url est prioritaire (cas upload / import immédiat) : si l'objet reçu a déjà
+  // une URL, on lui fait confiance plutôt qu'à une éventuelle entrée locale périmée
+  // (même id, mais url: null) qui pourrait exister dans soundLibrary.
+  const librarySound = sound.url ? sound : (soundLibrary.find(s => s.id === sound.id) || sound)
   const freshSound = enrichSound(librarySound)
   const hasMissingUrl = !freshSound.url
 
