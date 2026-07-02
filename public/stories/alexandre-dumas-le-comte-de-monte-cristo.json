@@ -249,8 +249,8 @@
             {
               "action": "fadeIn",
               "soundId": "crwdsprt_football_match_ambience_crowd_chant_walla_01_b00m_one",
-              "volume": 0.5,
-              "gainDb": 0,
+              "volume": 0.55,
+              "gainDb": 3,
               "duration": 3000,
               "delay": 0,
               "loop": true
@@ -1597,7 +1597,7 @@
             {
               "action": "fadeIn",
               "soundId": "61_s12_comando_drone",
-              "volume": 0.4,
+              "volume": 0.36,
               "gainDb": 0,
               "duration": 3215,
               "delay": 0,
@@ -2731,7 +2731,7 @@
           "startSegmentId": "seg_1782404044215_4_y745h",
           "endSegmentId": "seg_1782404044215_9_pajx8",
           "column": 3,
-          "volume": 0.5,
+          "volume": 0.55,
           "loop": true,
           "loopCrossfade": "medium",
           "fadeIn": 3000,
@@ -2744,18 +2744,18 @@
           "automationPoints": [
             {
               "segmentId": "seg_1782404044215_4_y745h",
-              "volume": 0.5,
+              "volume": 0.55,
               "fadeMs": 0,
               "_isAnchor": true
             },
             {
               "segmentId": "seg_1782404044215_5_9flbi",
-              "volume": 0.43,
+              "volume": 0.48,
               "fadeMs": 2000
             },
             {
               "segmentId": "seg_1782404044215_8_vwoor",
-              "volume": 0.35,
+              "volume": 0.37,
               "fadeMs": 3000
             }
           ],
@@ -2763,9 +2763,9 @@
           "_orchestrationKeyword": "crowd",
           "_orchestrationLayer": "diegetic",
           "_orchestrationLeitmotiv": "",
-          "trimStart": 0,
-          "trimEnd": 90199.60416666666,
-          "gainDb": 0
+          "trimStart": 1096,
+          "trimEnd": 44943,
+          "gainDb": 3
         },
         {
           "id": "st_1782405291657_treg0kvbo_4",
@@ -3080,7 +3080,7 @@
           "startSegmentId": "seg_1782404044216_113_q1y1a",
           "endSegmentId": "seg_1782404422218_b_behm5",
           "column": 0,
-          "volume": 0.4,
+          "volume": 0.36,
           "loop": true,
           "loopCrossfade": "long",
           "fadeIn": 3215,
@@ -3093,29 +3093,29 @@
           "automationPoints": [
             {
               "segmentId": "seg_1782404044216_113_q1y1a",
-              "volume": 0.4,
+              "volume": 0.36,
               "fadeMs": 0,
               "_isAnchor": true
             },
             {
               "segmentId": "seg_1782404044216_117_qv0pn",
-              "volume": 0.16,
-              "fadeMs": 2000
+              "volume": 0.23,
+              "fadeMs": 2500
             },
             {
               "segmentId": "seg_1782404044216_121_s6id6",
-              "volume": 0.22,
-              "fadeMs": 1000
+              "volume": 0.26,
+              "fadeMs": 0
             },
             {
               "segmentId": "seg_1782404044216_123_xo6tt",
-              "volume": 0.14,
-              "fadeMs": 2000
+              "volume": 0.21,
+              "fadeMs": 0
             },
             {
               "segmentId": "seg_1782404044216_125_847eh",
-              "volume": 0.08,
-              "fadeMs": 3000
+              "volume": 0.18,
+              "fadeMs": 0
             }
           ],
           "_orchestrationNote": "Le complot se noue — Danglars interroge sur la lettre. Drone de tension croissante. Pic sur 'Danglars rougit' (seg 124) — moment où le masque glisse. Redescend quand Danglars se rétracte (seg 128).",
