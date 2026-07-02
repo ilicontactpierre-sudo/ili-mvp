@@ -70,12 +70,6 @@ const SplitPreviewPane = forwardRef(function SplitPreviewPane({ storyData, sound
     await syncHowlMap()
     jumpToSegment(clampedIdx)
   }, [isStarted, lastIndex, syncHowlMap])
-    if (!isStarted) {
-      pendingSegmentRef.current = clampedIdx
-      return
-    }
-    jumpToSegment(clampedIdx)
-  }, [isStarted, lastIndex])
 
   // Exposer goToSegment via ref pour que AdminPage puisse l'appeler
   const goToSegmentRef = useRef(goToSegment)
