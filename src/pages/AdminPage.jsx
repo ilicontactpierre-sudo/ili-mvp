@@ -61,9 +61,15 @@ const SplitPreviewPane = forwardRef(function SplitPreviewPane({ storyData, sound
 
   // Sauter directement à un segment (démarre automatiquement si pas encore démarré)
   const pendingSegmentRef = useRef(null)
-
-  const goToSegment = useCallback((index) => {
+  const goToSegment = useCallback(async (index) => {
     const clampedIdx = Math.max(0, Math.min(index, lastIndex))
+    if (!isStarted) {
+      pendingSegmentRef.current = clampedIdx
+      return
+    }
+    await syncHowlMap()
+    jumpToSegment(clampedIdx)
+  }, [isStarted, lastIndex, syncHowlMap])
     if (!isStarted) {
       pendingSegmentRef.current = clampedIdx
       return
