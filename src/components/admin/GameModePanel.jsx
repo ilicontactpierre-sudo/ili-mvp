@@ -1663,6 +1663,7 @@ function GameModePanel({ segment, segmentIndex, onSave, onDelete, onClose, parts
         {type === 'crypte'        && <FormCrypte        data={data} onChange={setData} />}
         {type === 'choice_quiz'   && <ChoiceConfigurator isQuiz={true}  data={data} onChange={setData} parts={parts || []} />}
         {type === 'choice_branch' && <ChoiceConfigurator isQuiz={false} data={data} onChange={setData} parts={parts || []} />}
+        {type === 'sound_check'   && <FormSoundCheck data={data} onChange={setData} />}
 
         {/* Sons de feedback — uniquement pour les types interactifs */}
         {['code', 'riddle', 'echo', 'crypte', 'sequence'].includes(type) && (
