@@ -56,6 +56,7 @@ const DEFAULTS = {
   crypte:       { type: 'crypte',       cipher: 'caesar', shift: 3, encoded: '', answer: '', hint: '', errorMessage: '', sounds: false },
   choice_quiz:  { type: 'choice_quiz',  layout: { ...DEFAULT_LAYOUT }, prompt: '', choices: [{ id: 'c1', text: '', correct: true }, { id: 'c2', text: '', correct: false }], errorMessage: '' },
   choice_branch:{ type: 'choice_branch',layout: { ...DEFAULT_LAYOUT }, prompt: '', choices: [{ id: 'c1', text: '', targetPartId: '' }, { id: 'c2', text: '', targetPartId: '' }] },
+  sound_check:  { type: 'sound_check', prompt: 'Un instant. Ajuste le volume de tes écouteurs.', buttonLabel: 'Je suis prêt' },
 }
 
 function Field({ label, hint, children }) {
