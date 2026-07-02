@@ -36,11 +36,6 @@
           "loop": false
         },
         {
-          "id": "crwdconv_crowd_medium_talking_small_room_02_b00m_one",
-          "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/crwdconv_crowd_medium_talking_small_room_02_b00m_one.mp3",
-          "loop": false
-        },
-        {
           "id": "crwdsprt_football_match_ambience_crowd_chant_walla_01_b00m_one",
           "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/crwdsprt_football_match_ambience_crowd_chant_walla_01_b00m_one.mp3",
           "loop": false
@@ -56,11 +51,6 @@
           "loop": false
         },
         {
-          "id": "musctoy_music_box_melody_play_slow_b00m_one",
-          "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/musctoy_music_box_melody_play_slow_b00m_one.mp3",
-          "loop": false
-        },
-        {
           "id": "whsh_cinematic_low_impact_muffled_hit_01_b00m_one",
           "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/whsh_cinematic_low_impact_muffled_hit_01_b00m_one.mp3",
           "loop": false
@@ -68,11 +58,6 @@
         {
           "id": "watrwave_black_sea_waves_01_b00m_one",
           "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/watrwave_black_sea_waves_01_b00m_one.mp3",
-          "loop": false
-        },
-        {
-          "id": "13_s03_ville",
-          "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/13_s03_ville.mp3",
           "loop": false
         },
         {
@@ -96,8 +81,8 @@
           "loop": false
         },
         {
-          "id": "73_s14_sweep_3",
-          "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/73_s14_sweep_3.mp3",
+          "id": "bell_blacksmith_city_crowd_d_d_dnd_horse_medieval_workshop",
+          "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/bell_blacksmith_city_crowd_d_d_dnd_horse_medieval_workshop.mp3",
           "loop": false
         },
         {
@@ -126,8 +111,8 @@
           "loop": false
         },
         {
-          "id": "magic_black_impact_projectile_burst_dark_04",
-          "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/magic_black_impact_projectile_burst_dark_04.mp3",
+          "id": "medieval_market_ambience_no_music_fantasy_town_marketplace_sounds",
+          "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/medieval_market_ambience_no_music_fantasy_town_marketplace_sounds.mp3",
           "loop": false
         },
         {
@@ -148,6 +133,36 @@
         {
           "id": "undiscovered_designed_rope_bridge_swinging_precarious_wooden_structure_slight_wi",
           "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/undiscovered_designed_rope_bridge_swinging_precarious_wooden_structure_slight_wi.mp3",
+          "loop": false
+        },
+        {
+          "id": "13_fast_whoosh_a",
+          "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/13_fast_whoosh_a.mp3",
+          "loop": false
+        },
+        {
+          "id": "danglar_ending_court_1",
+          "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/danglar_ending_court_1.mp3",
+          "loop": false
+        },
+        {
+          "id": "magic_air_large_whoosh_swirl_wind_gust_foliage_07",
+          "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/magic_air_large_whoosh_swirl_wind_gust_foliage_07.mp3",
+          "loop": false
+        },
+        {
+          "id": "mercedes_theme_court_1",
+          "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/mercedes_theme_court_1.mp3",
+          "loop": false
+        },
+        {
+          "id": "boat_oar_paddle_strokes_with_water_lapping_and_splashing_row_kanoe",
+          "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/boat_oar_paddle_strokes_with_water_lapping_and_splashing_row_kanoe.mp3",
+          "loop": false
+        },
+        {
+          "id": "boat_oar_paddle_strokes_with_water_lapping_and_splashing_row_kanoe_2",
+          "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/boat_oar_paddle_strokes_with_water_lapping_and_splashing_row_kanoe_2.mp3",
           "loop": false
         }
       ],
@@ -1353,8 +1368,8 @@
           "audioEvents": [
             {
               "action": "play",
-              "soundId": "magic_black_impact_projectile_burst_dark_04",
-              "volume": 0.45,
+              "soundId": "13_fast_whoosh_a",
+              "volume": 0.6,
               "gainDb": 0,
               "delay": 600,
               "loop": false
@@ -1572,9 +1587,9 @@
             {
               "action": "fadeIn",
               "soundId": "61_s12_comando_drone",
-              "volume": 0.1,
+              "volume": 0.4,
               "gainDb": 0,
-              "duration": 3000,
+              "duration": 3215,
               "delay": 0,
               "loop": true
             }
@@ -1661,7 +1676,7 @@
           "audioEvents": [
             {
               "action": "play",
-              "soundId": "musctoy_music_box_melody_play_slow_b00m_one",
+              "soundId": "danglar_ending_court_1",
               "volume": 0.28,
               "gainDb": 0,
               "delay": 300,
@@ -1680,8 +1695,8 @@
           "audioEvents": [
             {
               "action": "fadeOut",
-              "soundId": "musctoy_music_box_melody_play_slow_b00m_one",
-              "duration": 5300
+              "soundId": "danglar_ending_court_1",
+              "duration": 5500
             }
           ]
         },
@@ -1732,7 +1747,7 @@
             },
             {
               "action": "play",
-              "soundId": "73_s14_sweep_3",
+              "soundId": "magic_air_large_whoosh_swirl_wind_gust_foliage_07",
               "volume": 0.52,
               "gainDb": 0,
               "delay": 0,
@@ -1751,8 +1766,8 @@
           "audioEvents": [
             {
               "action": "fadeIn",
-              "soundId": "13_s03_ville",
-              "volume": 0.12,
+              "soundId": "bell_blacksmith_city_crowd_d_d_dnd_horse_medieval_workshop",
+              "volume": 0.46,
               "gainDb": 0,
               "duration": 8000,
               "delay": 0,
@@ -1761,7 +1776,7 @@
             {
               "action": "play",
               "soundId": "monte_cristo_long_1",
-              "volume": 0.2,
+              "volume": 0.4,
               "gainDb": 0,
               "delay": 0,
               "loop": true
@@ -1958,11 +1973,10 @@
           "isLeader": false,
           "audioEvents": [
             {
-              "action": "fadeIn",
-              "soundId": "musctoy_music_box_melody_play_slow_b00m_one",
+              "action": "play",
+              "soundId": "mercedes_theme_court_1",
               "volume": 0.3,
               "gainDb": 0,
-              "duration": 2000,
               "delay": 0,
               "loop": false
             }
@@ -1989,8 +2003,8 @@
           "audioEvents": [
             {
               "action": "fadeOut",
-              "soundId": "musctoy_music_box_melody_play_slow_b00m_one",
-              "duration": 3000
+              "soundId": "mercedes_theme_court_1",
+              "duration": 4200
             }
           ]
         },
@@ -2404,12 +2418,21 @@
           "audioEvents": [
             {
               "action": "fadeIn",
-              "soundId": "boatrow_rowboat_paddle_in_water_sequence_01_b00m_one",
-              "volume": 0.65,
+              "soundId": "boat_oar_paddle_strokes_with_water_lapping_and_splashing_row_kanoe",
+              "volume": 0.35,
               "gainDb": 0,
               "duration": 1000,
               "delay": 1800,
-              "loop": false
+              "loop": true
+            },
+            {
+              "action": "fadeIn",
+              "soundId": "boat_oar_paddle_strokes_with_water_lapping_and_splashing_row_kanoe_2",
+              "volume": 0.45,
+              "gainDb": 0,
+              "duration": 1500,
+              "delay": 0,
+              "loop": true
             }
           ]
         },
@@ -2434,17 +2457,13 @@
           "audioEvents": [
             {
               "action": "fadeOut",
-              "soundId": "boatrow_rowboat_paddle_in_water_sequence_01_b00m_one",
-              "duration": 2000
+              "soundId": "boat_oar_paddle_strokes_with_water_lapping_and_splashing_row_kanoe",
+              "duration": 4000
             },
             {
-              "action": "fadeIn",
-              "soundId": "crwdconv_crowd_medium_talking_small_room_02_b00m_one",
-              "volume": 0.55,
-              "gainDb": 0,
-              "duration": 2000,
-              "delay": 0,
-              "loop": false
+              "action": "fadeOut",
+              "soundId": "boat_oar_paddle_strokes_with_water_lapping_and_splashing_row_kanoe_2",
+              "duration": 4000
             }
           ]
         },
@@ -2456,7 +2475,17 @@
           "text": "L’armateur le suivit des yeux en souriant, jusqu’au bord, le vit sauter sur les dalles du quai, et se perdre aussitôt au milieu de la foule bariolée qui, de cinq heures du matin à neuf heures du soir, encombre cette fameuse rue de la Canebière, dont les Phocéens modernes sont si fiers,",
           "breakAt": null,
           "isLeader": false,
-          "audioEvents": []
+          "audioEvents": [
+            {
+              "action": "fadeIn",
+              "soundId": "medieval_market_ambience_no_music_fantasy_town_marketplace_sounds",
+              "volume": 0.55,
+              "gainDb": 0,
+              "duration": 2000,
+              "delay": 0,
+              "loop": false
+            }
+          ]
         },
         {
           "id": "seg_1782404044216_190_gakys_overflow_193",
@@ -2479,7 +2508,7 @@
           "audioEvents": [
             {
               "action": "fadeOut",
-              "soundId": "crwdconv_crowd_medium_talking_small_room_02_b00m_one",
+              "soundId": "medieval_market_ambience_no_music_fantasy_town_marketplace_sounds",
               "duration": 3000
             }
           ]
@@ -2506,7 +2535,7 @@
             {
               "action": "play",
               "soundId": "danglar_ending_court_4",
-              "volume": 0.18,
+              "volume": 0.35,
               "gainDb": 0,
               "delay": 5400,
               "loop": false
@@ -2524,7 +2553,7 @@
           "audioEvents": [
             {
               "action": "fadeOut",
-              "soundId": "13_s03_ville",
+              "soundId": "bell_blacksmith_city_crowd_d_d_dnd_horse_medieval_workshop",
               "duration": 6000
             },
             {
@@ -3009,11 +3038,11 @@
         },
         {
           "id": "st_1782405291658_rrnb193lz_12",
-          "soundId": "magic_black_impact_projectile_burst_dark_04",
+          "soundId": "13_fast_whoosh_a",
           "startSegmentId": "seg_1782404044216_94_wwpnl",
           "endSegmentId": "seg_1782404044216_94_wwpnl",
           "column": 1,
-          "volume": 0.45,
+          "volume": 0.6,
           "loop": false,
           "fadeIn": 0,
           "fadeOut": 0,
@@ -3029,7 +3058,7 @@
           "automationPoints": [
             {
               "segmentId": "seg_1782404044216_94_wwpnl",
-              "volume": 0.45,
+              "volume": 0.6,
               "fadeMs": 0,
               "_isAnchor": true
             }
@@ -3041,10 +3070,10 @@
           "startSegmentId": "seg_1782404044216_113_q1y1a",
           "endSegmentId": "seg_1782404422218_b_behm5",
           "column": 0,
-          "volume": 0.1,
+          "volume": 0.4,
           "loop": true,
           "loopCrossfade": "long",
-          "fadeIn": 3000,
+          "fadeIn": 3215,
           "fadeOut": 5000,
           "delay": 0,
           "pan": 0,
@@ -3054,7 +3083,7 @@
           "automationPoints": [
             {
               "segmentId": "seg_1782404044216_113_q1y1a",
-              "volume": 0.2,
+              "volume": 0.4,
               "fadeMs": 0,
               "_isAnchor": true
             },
@@ -3086,14 +3115,14 @@
         },
         {
           "id": "st_1782405291658_axuar9hlq_14",
-          "soundId": "musctoy_music_box_melody_play_slow_b00m_one",
+          "soundId": "danglar_ending_court_1",
           "startSegmentId": "seg_1782404044216_121_s6id6",
           "endSegmentId": "seg_1782404044216_122_ea8qf",
           "column": 1,
           "volume": 0.28,
           "loop": false,
           "fadeIn": 0,
-          "fadeOut": 5300,
+          "fadeOut": 5500,
           "delay": 300,
           "pan": 0,
           "panMode": "static",
@@ -3114,7 +3143,7 @@
         },
         {
           "id": "st_1782405291658_do3sh6cok_15",
-          "soundId": "73_s14_sweep_3",
+          "soundId": "magic_air_large_whoosh_swirl_wind_gust_foliage_07",
           "startSegmentId": "seg_1782404422218_b_behm5",
           "endSegmentId": "seg_1782404044216_127_suucp",
           "column": 1,
@@ -3142,11 +3171,11 @@
         },
         {
           "id": "st_1782405291658_4acblgxo5_16",
-          "soundId": "13_s03_ville",
+          "soundId": "bell_blacksmith_city_crowd_d_d_dnd_horse_medieval_workshop",
           "startSegmentId": "seg_1782404044216_127_suucp",
           "endSegmentId": "seg_1782404044216_194_6aqeb",
           "column": 0,
-          "volume": 0.12,
+          "volume": 0.46,
           "loop": true,
           "loopCrossfade": "medium",
           "fadeIn": 8000,
@@ -3159,33 +3188,33 @@
           "automationPoints": [
             {
               "segmentId": "seg_1782404044216_127_suucp",
-              "volume": 0.12,
+              "volume": 0.46,
               "fadeMs": 0,
               "_isAnchor": true
             },
             {
               "segmentId": "seg_1782404044216_135_2koqx",
-              "volume": 0.16,
+              "volume": 0.31,
               "fadeMs": 3000
             },
             {
               "segmentId": "seg_1782404044216_149_1k7o4",
-              "volume": 0.1,
+              "volume": 0.27,
               "fadeMs": 2500
             },
             {
               "segmentId": "seg_1782404044216_167_3deji",
-              "volume": 0.14,
+              "volume": 0.35,
               "fadeMs": 2500
             },
             {
               "segmentId": "seg_1782404044216_187_5i7t8",
-              "volume": 0.2,
+              "volume": 0.3,
               "fadeMs": 3000
             },
             {
               "segmentId": "seg_1782404044216_192_jpbin",
-              "volume": 0.12,
+              "volume": 0.44,
               "fadeMs": 2500
             }
           ],
@@ -3196,14 +3225,14 @@
         },
         {
           "id": "st_1782405291658_wwkaj43my_17",
-          "soundId": "musctoy_music_box_melody_play_slow_b00m_one",
+          "soundId": "mercedes_theme_court_1",
           "startSegmentId": "seg_1782404044216_146_4ce74",
           "endSegmentId": "seg_1782404044216_148_tbnqn",
           "column": 1,
           "volume": 0.3,
           "loop": false,
-          "fadeIn": 2000,
-          "fadeOut": 3000,
+          "fadeIn": 0,
+          "fadeOut": 4200,
           "delay": 0,
           "pan": 0,
           "panMode": "static",
@@ -3220,20 +3249,23 @@
               "fadeMs": 0,
               "_isAnchor": true
             }
-          ]
+          ],
+          "trimStart": 2618,
+          "trimEnd": 62824.47916666667,
+          "gainDb": 0
         },
         {
           "id": "st_1782405291658_9hbb02vi0_18",
-          "soundId": "boatrow_rowboat_paddle_in_water_sequence_01_b00m_one",
+          "soundId": "boat_oar_paddle_strokes_with_water_lapping_and_splashing_row_kanoe",
           "startSegmentId": "seg_1782404044216_187_5i7t8",
           "endSegmentId": "seg_1782404044216_189_uq2fs",
           "column": 1,
-          "volume": 0.65,
-          "loop": false,
+          "volume": 0.35,
+          "loop": true,
           "fadeIn": 1000,
-          "fadeOut": 2000,
+          "fadeOut": 4000,
           "delay": 1800,
-          "pan": 0,
+          "pan": -0.73,
           "panMode": "static",
           "muted": false,
           "color": "#F0A87E",
@@ -3244,16 +3276,20 @@
           "automationPoints": [
             {
               "segmentId": "seg_1782404044216_187_5i7t8",
-              "volume": 0.65,
+              "volume": 0.35,
               "fadeMs": 0,
               "_isAnchor": true
             }
-          ]
+          ],
+          "trimStart": 1460,
+          "trimEnd": 23535,
+          "gainDb": 0,
+          "loopCrossfade": "medium"
         },
         {
           "id": "st_1782405291659_nv7q6csxj_19",
-          "soundId": "crwdconv_crowd_medium_talking_small_room_02_b00m_one",
-          "startSegmentId": "seg_1782404044216_189_uq2fs",
+          "soundId": "medieval_market_ambience_no_music_fantasy_town_marketplace_sounds",
+          "startSegmentId": "seg_1782404044216_190_gakys",
           "endSegmentId": "seg_1782404044216_191_d0b5i",
           "column": 2,
           "volume": 0.55,
@@ -3271,6 +3307,12 @@
           "_orchestrationLeitmotiv": "",
           "automationPoints": [
             {
+              "segmentId": "seg_1782404044216_190_gakys",
+              "volume": 0.35,
+              "fadeMs": 0,
+              "_isAnchor": true
+            },
+            {
               "segmentId": "seg_1782404044216_189_uq2fs",
               "volume": 0.55,
               "fadeMs": 0,
@@ -3284,7 +3326,7 @@
           "startSegmentId": "seg_1782404044216_193_6ii6r",
           "endSegmentId": "seg_1782404044216_194_6aqeb",
           "column": 1,
-          "volume": 0.18,
+          "volume": 0.35,
           "loop": false,
           "fadeIn": 0,
           "fadeOut": 4000,
@@ -3300,9 +3342,14 @@
           "automationPoints": [
             {
               "segmentId": "seg_1782404044216_193_6ii6r",
-              "volume": 0.18,
+              "volume": 0.35,
               "fadeMs": 0,
               "_isAnchor": true
+            },
+            {
+              "segmentId": "seg_1782404044216_194_6aqeb",
+              "volume": 0.63,
+              "fadeMs": 5000
             }
           ],
           "trimStart": 2259,
@@ -3478,7 +3525,7 @@
           "startSegmentId": "seg_1782404044216_127_suucp",
           "endSegmentId": "seg_1782404044216_174_bgg95",
           "column": 2,
-          "volume": 0.2,
+          "volume": 0.4,
           "loop": true,
           "loopCrossfade": "medium",
           "fadeIn": 0,
@@ -3492,7 +3539,7 @@
           "automationPoints": [
             {
               "segmentId": "seg_1782404044216_127_suucp",
-              "volume": 0.2,
+              "volume": 0.4,
               "fadeMs": 0,
               "_isAnchor": true
             },
@@ -3503,27 +3550,27 @@
             },
             {
               "segmentId": "seg_1782404044216_140_5ewy8",
-              "volume": 0.18,
+              "volume": 0.27,
               "fadeMs": 2500
             },
             {
               "segmentId": "seg_1782404044216_146_4ce74",
-              "volume": 0.35,
+              "volume": 0,
               "fadeMs": 2500
             },
             {
               "segmentId": "seg_1782404044216_149_1k7o4",
-              "volume": 0.22,
+              "volume": 0.39,
               "fadeMs": 1500
             },
             {
               "segmentId": "seg_1782404044216_155_vp2t7",
-              "volume": 0.18,
+              "volume": 0.23,
               "fadeMs": 2500
             },
             {
               "segmentId": "seg_1782404044216_160_iukeq",
-              "volume": 0.14,
+              "volume": 0.25,
               "fadeMs": 2000
             },
             {
@@ -3545,7 +3592,10 @@
           "_orchestrationNote": "Thème de Dantès — plein développement dans les scènes de congé et d'amour. Monte sur l'évocation du père (seg 138), swell sur Mercédès (seg 149), pic absolu sur la nomination (seg 171). Idéalement : flûte ou cordes légères, mélodie ascendante et simple — à rechercher dans votre bibliothèque.",
           "_orchestrationKeyword": "flute",
           "_orchestrationLayer": "music",
-          "_orchestrationLeitmotiv": "thème de Dantès"
+          "_orchestrationLeitmotiv": "thème de Dantès",
+          "trimStart": 2177,
+          "trimEnd": 313417.125,
+          "gainDb": 0
         },
         {
           "id": "st_1782405291660_zqk2ep4y8_27",
@@ -3679,6 +3729,33 @@
           "trimStart": 0,
           "trimEnd": 23832,
           "gainDb": 0
+        },
+        {
+          "id": "st_1783004557514_xuv73eopl",
+          "soundId": "boat_oar_paddle_strokes_with_water_lapping_and_splashing_row_kanoe_2",
+          "startSegmentId": "seg_1782404044216_187_5i7t8",
+          "endSegmentId": "seg_1782404044216_189_uq2fs",
+          "column": 3,
+          "volume": 0.45,
+          "fadeIn": 1500,
+          "fadeOut": 4000,
+          "delay": 0,
+          "loop": true,
+          "muted": false,
+          "broken": false,
+          "automationPoints": [
+            {
+              "segmentId": "seg_1782404044216_187_5i7t8",
+              "volume": 0.45,
+              "fadeMs": 0,
+              "_isAnchor": true
+            }
+          ],
+          "pan": 0.65,
+          "trimStart": 1912,
+          "trimEnd": 17277,
+          "gainDb": 0,
+          "loopCrossfade": "medium"
         }
       ],
       "vfxTracks": []
