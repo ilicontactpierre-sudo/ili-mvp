@@ -61,6 +61,11 @@
           "loop": false
         },
         {
+          "id": "13_fast_whoosh_a",
+          "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/13_fast_whoosh_a.mp3",
+          "loop": false
+        },
+        {
           "id": "3ds01_0054_urban_rec_marina_large_20_2",
           "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/3ds01_0054_urban_rec_marina_large_20_2.mp3",
           "loop": false
@@ -83,6 +88,21 @@
         {
           "id": "bell_blacksmith_city_crowd_d_d_dnd_horse_medieval_workshop",
           "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/bell_blacksmith_city_crowd_d_d_dnd_horse_medieval_workshop.mp3",
+          "loop": false
+        },
+        {
+          "id": "boat_oar_paddle_strokes_with_water_lapping_and_splashing_row_kanoe",
+          "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/boat_oar_paddle_strokes_with_water_lapping_and_splashing_row_kanoe.mp3",
+          "loop": false
+        },
+        {
+          "id": "boat_oar_paddle_strokes_with_water_lapping_and_splashing_row_kanoe_2",
+          "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/boat_oar_paddle_strokes_with_water_lapping_and_splashing_row_kanoe_2.mp3",
+          "loop": false
+        },
+        {
+          "id": "danglar_ending_court_1",
+          "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/danglar_ending_court_1.mp3",
           "loop": false
         },
         {
@@ -111,8 +131,18 @@
           "loop": false
         },
         {
+          "id": "magic_air_large_whoosh_swirl_wind_gust_foliage_07",
+          "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/magic_air_large_whoosh_swirl_wind_gust_foliage_07.mp3",
+          "loop": false
+        },
+        {
           "id": "medieval_market_ambience_no_music_fantasy_town_marketplace_sounds",
           "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/medieval_market_ambience_no_music_fantasy_town_marketplace_sounds.mp3",
+          "loop": false
+        },
+        {
+          "id": "mercedes_theme_court_1",
+          "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/mercedes_theme_court_1.mp3",
           "loop": false
         },
         {
@@ -134,43 +164,18 @@
           "id": "undiscovered_designed_rope_bridge_swinging_precarious_wooden_structure_slight_wi",
           "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/undiscovered_designed_rope_bridge_swinging_precarious_wooden_structure_slight_wi.mp3",
           "loop": false
-        },
-        {
-          "id": "13_fast_whoosh_a",
-          "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/13_fast_whoosh_a.mp3",
-          "loop": false
-        },
-        {
-          "id": "danglar_ending_court_1",
-          "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/danglar_ending_court_1.mp3",
-          "loop": false
-        },
-        {
-          "id": "magic_air_large_whoosh_swirl_wind_gust_foliage_07",
-          "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/magic_air_large_whoosh_swirl_wind_gust_foliage_07.mp3",
-          "loop": false
-        },
-        {
-          "id": "mercedes_theme_court_1",
-          "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/mercedes_theme_court_1.mp3",
-          "loop": false
-        },
-        {
-          "id": "boat_oar_paddle_strokes_with_water_lapping_and_splashing_row_kanoe",
-          "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/boat_oar_paddle_strokes_with_water_lapping_and_splashing_row_kanoe.mp3",
-          "loop": false
-        },
-        {
-          "id": "boat_oar_paddle_strokes_with_water_lapping_and_splashing_row_kanoe_2",
-          "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/boat_oar_paddle_strokes_with_water_lapping_and_splashing_row_kanoe_2.mp3",
-          "loop": false
         }
       ],
       "segments": [
         {
           "text": "",
           "id": "seg_1783005926067",
-          "audioEvents": []
+          "audioEvents": [],
+          "gameMode": {
+            "type": "sound_check",
+            "prompt": "Un instant. Ajuste le volume de tes écouteurs.",
+            "buttonLabel": "Je suis prêt"
+          }
         },
         {
           "id": "seg_1782404044215_0_0rrlc",
