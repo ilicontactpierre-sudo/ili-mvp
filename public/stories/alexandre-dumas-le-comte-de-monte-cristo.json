@@ -639,9 +639,9 @@
             {
               "action": "play",
               "soundId": "507_s12_gens_qui_courent",
-              "volume": 0.5,
+              "volume": 0.35,
               "gainDb": 0,
-              "delay": 0,
+              "delay": 300,
               "loop": false
             }
           ]
@@ -661,7 +661,7 @@
               "volume": 0.65,
               "gainDb": 0,
               "duration": 2485,
-              "delay": 4800,
+              "delay": 800,
               "loop": false
             }
           ]
@@ -678,6 +678,11 @@
             {
               "action": "fadeOut",
               "soundId": "undiscovered_designed_rope_bridge_swinging_precarious_wooden_structure_slight_wi",
+              "duration": 4000
+            },
+            {
+              "action": "fadeOut",
+              "soundId": "507_s12_gens_qui_courent",
               "duration": 4000
             }
           ]
@@ -3306,7 +3311,7 @@
           "loop": false,
           "fadeIn": 2485,
           "fadeOut": 4000,
-          "delay": 4800,
+          "delay": 800,
           "pan": 0,
           "panMode": "static",
           "muted": false,
@@ -3633,23 +3638,26 @@
           "id": "st_1782910665128_a4b1oyw77",
           "soundId": "507_s12_gens_qui_courent",
           "startSegmentId": "seg_1782404044216_34_rdfgf",
-          "endSegmentId": "seg_1782404044216_34_rdfgf",
+          "endSegmentId": "seg_1782404044216_36_3gibx",
           "column": 3,
-          "volume": 0.5,
+          "volume": 0.35,
           "fadeIn": 0,
-          "fadeOut": 0,
-          "delay": 0,
+          "fadeOut": 4000,
+          "delay": 300,
           "loop": false,
           "muted": false,
           "broken": false,
           "automationPoints": [
             {
               "segmentId": "seg_1782404044216_34_rdfgf",
-              "volume": 0.5,
+              "volume": 0.35,
               "fadeMs": 0,
               "_isAnchor": true
             }
-          ]
+          ],
+          "trimStart": 0,
+          "trimEnd": 23832,
+          "gainDb": 0
         }
       ],
       "vfxTracks": []
