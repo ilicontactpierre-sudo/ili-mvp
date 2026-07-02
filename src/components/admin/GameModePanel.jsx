@@ -14,6 +14,7 @@ const GAME_TYPES = [
   { value: 'crypte',       label: '🔐  Crypte / Déchiffrement' },
   { value: 'choice_quiz',  label: '🎯  QCM — Une bonne réponse' },
   { value: 'choice_branch',label: '🌿  Choix narratif — Bifurcation' },
+  { value: 'sound_check',  label: '🔊  Test de son' },
 ]
 
 const TINTS = [
