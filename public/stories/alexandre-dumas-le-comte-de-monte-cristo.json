@@ -46,11 +46,6 @@
           "loop": false
         },
         {
-          "id": "hmnbrth_female_fast_panic_struck_breath_sequence_02_b00m_one",
-          "url": "/sounds/HMNBrth_Female Fast Panic Struck Breath Sequence 02_B00M_ONE.mp3",
-          "loop": false
-        },
-        {
           "id": "whsh_cinematic_low_impact_muffled_hit_01_b00m_one",
           "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/whsh_cinematic_low_impact_muffled_hit_01_b00m_one.mp3",
           "loop": false
@@ -163,6 +158,11 @@
         {
           "id": "undiscovered_designed_rope_bridge_swinging_precarious_wooden_structure_slight_wi",
           "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/undiscovered_designed_rope_bridge_swinging_precarious_wooden_structure_slight_wi.mp3",
+          "loop": false
+        },
+        {
+          "id": "thinking_sound_effect_curious_male_humming_audio",
+          "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/thinking_sound_effect_curious_male_humming_audio.mp3",
           "loop": false
         }
       ],
@@ -1891,7 +1891,16 @@
           "text": "— Et… demanda Dantès avec une certaine hésitation, et il se porte bien, que vous sachiez, mon père ?",
           "breakAt": null,
           "isLeader": false,
-          "audioEvents": []
+          "audioEvents": [
+            {
+              "action": "play",
+              "soundId": "thinking_sound_effect_curious_male_humming_audio",
+              "volume": 0.6,
+              "gainDb": 0,
+              "delay": 1100,
+              "loop": false
+            }
+          ]
         },
         {
           "id": "seg_1782404044216_138_mw3by",
@@ -2491,7 +2500,7 @@
               "soundId": "medieval_market_ambience_no_music_fantasy_town_marketplace_sounds",
               "volume": 0.55,
               "gainDb": 0,
-              "duration": 2000,
+              "duration": 2802,
               "delay": 0,
               "loop": false
             }
@@ -2519,7 +2528,7 @@
             {
               "action": "fadeOut",
               "soundId": "medieval_market_ambience_no_music_fantasy_town_marketplace_sounds",
-              "duration": 3000
+              "duration": 4200
             }
           ]
         },
@@ -3304,8 +3313,8 @@
           "column": 2,
           "volume": 0.55,
           "loop": false,
-          "fadeIn": 2000,
-          "fadeOut": 3000,
+          "fadeIn": 2802,
+          "fadeOut": 4200,
           "delay": 0,
           "pan": 0,
           "panMode": "static",
@@ -3318,7 +3327,7 @@
           "automationPoints": [
             {
               "segmentId": "seg_1782404044216_190_gakys",
-              "volume": 0.35,
+              "volume": 0.55,
               "fadeMs": 0,
               "_isAnchor": true
             },
@@ -3328,7 +3337,10 @@
               "fadeMs": 0,
               "_isAnchor": true
             }
-          ]
+          ],
+          "trimStart": 1391,
+          "trimEnd": 114468.5625,
+          "gainDb": 0
         },
         {
           "id": "st_1782405291659_ubjdti7ar_20",
@@ -3609,18 +3621,18 @@
         },
         {
           "id": "st_1782405291660_zqk2ep4y8_27",
-          "soundId": "hmnbrth_female_fast_panic_struck_breath_sequence_02_b00m_one",
+          "soundId": "thinking_sound_effect_curious_male_humming_audio",
           "startSegmentId": "seg_1782404044216_137_htkxv",
           "endSegmentId": "seg_1782404044216_137_htkxv",
           "column": 1,
           "volume": 0.6,
           "loop": false,
           "fadeIn": 0,
-          "fadeOut": 1000,
-          "delay": 5100,
+          "fadeOut": 0,
+          "delay": 1100,
           "pan": 0,
           "panMode": "static",
-          "muted": true,
+          "muted": false,
           "broken": true,
           "color": "#F0A87E",
           "_orchestrationNote": "La légère hésitation de Dantès en demandant des nouvelles de son père — une pause, un souffle retenu. Très subtil.",
@@ -3634,7 +3646,10 @@
               "fadeMs": 0,
               "_isAnchor": true
             }
-          ]
+          ],
+          "trimStart": 3276,
+          "trimEnd": 6269.375,
+          "gainDb": 0
         },
         {
           "id": "st_1782570574735_8y2cgpk86",
