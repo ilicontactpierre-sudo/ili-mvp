@@ -1154,7 +1154,7 @@
             {
               "action": "play",
               "soundId": "ship_anchor_chain_chains_metallic_rattle_rattling_4",
-              "volume": 0.78,
+              "volume": 0.3,
               "gainDb": 0,
               "delay": 600,
               "loop": false
@@ -1283,7 +1283,7 @@
             {
               "action": "fadeIn",
               "soundId": "53_s11_drone_ambience",
-              "volume": 0.08,
+              "volume": 0.5,
               "gainDb": 0,
               "duration": 6000,
               "delay": 0,
@@ -2890,12 +2890,12 @@
           "startSegmentId": "seg_1782404044216_78_cm75f",
           "endSegmentId": "seg_1782404044216_78_cm75f",
           "column": 0,
-          "volume": 0.78,
+          "volume": 0.3,
           "loop": false,
           "fadeIn": 0,
           "fadeOut": 0,
           "delay": 600,
-          "pan": 0,
+          "pan": 0.23,
           "panMode": "static",
           "muted": false,
           "color": "#F0A87E",
@@ -2906,7 +2906,7 @@
           "automationPoints": [
             {
               "segmentId": "seg_1782404044216_78_cm75f",
-              "volume": 0.78,
+              "volume": 0.3,
               "fadeMs": 0,
               "_isAnchor": true
             }
@@ -2949,7 +2949,7 @@
           "startSegmentId": "seg_1782404044216_88_eg7tk",
           "endSegmentId": "seg_1782404044216_112_yyqht",
           "column": 0,
-          "volume": 0.08,
+          "volume": 0.5,
           "loop": true,
           "loopCrossfade": "long",
           "fadeIn": 6000,
@@ -2962,43 +2962,43 @@
           "automationPoints": [
             {
               "segmentId": "seg_1782404044216_88_eg7tk",
-              "volume": 0.4,
+              "volume": 0.5,
               "fadeMs": 0,
               "_isAnchor": true
             },
             {
               "segmentId": "seg_1782404044216_90_de83d",
-              "volume": 0.14,
+              "volume": 0.37,
               "fadeMs": 3000
             },
             {
               "segmentId": "seg_1782404044216_95_8xsdz",
-              "volume": 0.22,
+              "volume": 0.41,
               "fadeMs": 1500
             },
             {
               "segmentId": "seg_1782404044216_97_sbmbx",
-              "volume": 0.18,
+              "volume": 0.39,
               "fadeMs": 2500
             },
             {
               "segmentId": "seg_1782404044216_102_6m9cg",
-              "volume": 0.1,
+              "volume": 0.45,
               "fadeMs": 3000
             },
             {
               "segmentId": "seg_1782404044216_104_90bwm_overflow_105",
-              "volume": 0.18,
+              "volume": 0.45,
               "fadeMs": 2000
             },
             {
               "segmentId": "seg_1782404044216_107_keutm",
-              "volume": 0.08,
+              "volume": 0.31,
               "fadeMs": 3000
             },
             {
               "segmentId": "seg_1782404044216_112_yyqht",
-              "volume": 0.04,
+              "volume": 0.28,
               "fadeMs": 5000
             }
           ],
