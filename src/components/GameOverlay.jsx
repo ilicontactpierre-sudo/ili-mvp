@@ -1575,7 +1575,8 @@ return (
         {type === 'timer'     && <GameTimer     data={gameMode} onResolved={handleResolved} />}
         {type === 'sequence'  && <GameSequence  data={gameMode} onResolved={handleResolved} />}
         {type === 'journal'   && <GameJournal   data={gameMode} onResolved={handleResolved} />}
-        {type === 'crypte'    && <GameCrypte    data={gameMode} onResolved={handleResolved} />}
+        {type === 'crypte'      && <GameCrypte      data={gameMode} onResolved={handleResolved} />}
+        {type === 'sound_check' && <GameSoundCheck   data={gameMode} onResolved={handleResolved} />}
         {(type === 'choice_quiz' || type === 'choice_branch') && (
           <GameChoice data={gameMode} onResolved={handleResolved} onNavigateToPart={onNavigateToPart} />
         )}
