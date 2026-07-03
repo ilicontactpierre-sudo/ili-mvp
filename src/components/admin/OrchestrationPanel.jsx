@@ -939,7 +939,29 @@ function OrchestrationPanel({
         {/* ── Diagnostic ── */}
         {diagnosis && applyStatus !== 'success' && (
           <div style={{ marginTop: '0.75rem' }}>
-
+            {/* Pauses proposées */}
+            {diagnosis.pauses && diagnosis.pauses.length > 0 && (
+              <div style={s.diagBox('ok')}>
+                <div style={s.diagTitle('ok')}>⏱ {diagnosis.pauses.length} pause(s) proposée(s)</div>
+                {diagnosis.pauses.map((p, i) => (
+                  <div key={i} style={s.diagItem}>
+                    <strong style={{ color: 'rgba(255,255,255,0.75)' }}>
+                      après segment {p.afterSegment}
+                    </strong>{' '}
+                    · {p.durationMs}ms · <em>{p.intention || 'sans intention précisée'}</em>
+                    {p.note && <span style={{ opacity: 0.5 }}> — {p.note}</span>}
+                  </div>
+                ))}
+              </div>
+            )}
+            {diagnosis.invalidPauses && diagnosis.invalidPauses.length > 0 && (
+              <div style={{ ...s.diagBox('warn'), marginTop: '0.5rem' }}>
+                <div style={s.diagTitle('warn')}>⚠ {diagnosis.invalidPauses.length} pause(s) ignorée(s)</div>
+                {diagnosis.invalidPauses.map((p, i) => (
+                  <div key={i} style={s.diagItem}>{p.reason}</div>
+                ))}
+              </div>
+            )}
             {/* Sons trouvés */}
             {diagnosis.found.length > 0 && (
               <div style={s.diagBox('ok')}>
