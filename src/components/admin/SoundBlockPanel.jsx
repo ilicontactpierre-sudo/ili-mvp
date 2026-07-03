@@ -25,6 +25,8 @@ function SoundBlockPanel({
   const [isAnimating, setIsAnimating] = useState(false)
   const [showTrimmer, setShowTrimmer] = useState(false)
   const [showSoundPicker, setShowSoundPicker] = useState(false)
+  const [showSunoPrompt, setShowSunoPrompt] = useState(false)
+  const [sunoCopyStatus, setSunoCopyStatus] = useState('idle')
   const [pickerInitialSearch, setPickerInitialSearch] = useState('')
   // Texte brut des champs segment début/fin — découplé du calcul d'index,
   // pour ne jamais écraser ce que l'utilisateur est en train de taper.
