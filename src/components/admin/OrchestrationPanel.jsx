@@ -434,6 +434,7 @@ function OrchestrationPanel({
   soundLibrary,
   soundTracks,
   onSoundTracksChange,
+  onSegmentsChange,
   onSaveToHistory,
 }) {
   const [exportText, setExportText] = useState('')
