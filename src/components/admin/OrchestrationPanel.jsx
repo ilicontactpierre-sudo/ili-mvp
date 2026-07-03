@@ -639,20 +639,50 @@ function OrchestrationPanel({
   const handleApply = useCallback(() => {
     if (!diagnosis) return
 
-    const newTracks = []
-
-    const resolveSegmentId = (segNum) => {
-      const idx = segNum - 1
-      if (idx < 0 || idx >= segments.length) return null
-      const seg = segments[idx]
-      return { id: seg?.id || `seg_${idx}`, idx }
+    // ── 1. Insérer les pauses proposées AVANT toute résolution de son ──────
+    // On construit une nouvelle liste de segments en insérant les pauses,
+    // des numéros les plus grands vers les plus petits (comme handleDeleteSegment
+    // le fait déjà pour les suppressions), afin que les positions déjà traitées
+    // ne soient jamais invalidées par une insertion suivante.
+    const pausesToInsert = (diagnosis.pauses || []).slice().sort((a, b) => b.afterSegment - a.afterSegment)
+    let workingSegments = segments
+    if (pausesToInsert.length > 0 && onSegmentsChange) {
+      workingSegments = [...segments]
+      pausesToInsert.forEach((p, i) => {
+        const pauseSeg = {
+          id: `seg_pause_${Date.now()}_${i}_${Math.random().toString(36).slice(2, 7)}`,
+          text: '',
+          pause: p.durationMs,
+          _orchestrationPauseIntention: p.intention || '',
+          _orchestrationPauseNote: p.note || '',
+        }
+        workingSegments.splice(p.afterSegment, 0, pauseSeg)
+      })
+      onSegmentsChange(workingSegments)
     }
 
+    // Fonction de remappage : convertit un numéro de segment "d'origine"
+    // (tel que Claude l'a vu, avant insertion des pauses) vers sa nouvelle
+    // position réelle dans workingSegments.
+    const remap = (originalNum) => {
+      if (pausesToInsert.length === 0) return originalNum
+      const shift = pausesToInsert.filter(p => p.afterSegment < originalNum).length
+      return originalNum + shift
+    }
+
+    // ── 2. Construire les soundTracks à partir des sons diagnostiqués ──────
+    const newTracks = []
+    const resolveSegmentId = (segNum) => {
+      const idx = segNum - 1
+      if (idx < 0 || idx >= workingSegments.length) return null
+      const seg = workingSegments[idx]
+      return { id: seg?.id || `seg_${idx}`, idx }
+    }
     const findFreeColumn = (startIdx, endIdx) => {
       for (let c = 0; c < 6; c++) {
         const conflict = [...soundTracks, ...newTracks].some(track => {
-          const ts = segments.findIndex(s => (s.id || `seg_${segments.indexOf(s)}`) === track.startSegmentId)
-          const te = segments.findIndex(s => (s.id || `seg_${segments.indexOf(s)}`) === track.endSegmentId)
+          const ts = workingSegments.findIndex(s => (s.id || `seg_${workingSegments.indexOf(s)}`) === track.startSegmentId)
+          const te = workingSegments.findIndex(s => (s.id || `seg_${workingSegments.indexOf(s)}`) === track.endSegmentId)
           const teR = te !== -1 ? te : ts
           return track.column === c && ts <= endIdx && teR >= startIdx
         })
@@ -660,26 +690,21 @@ function OrchestrationPanel({
       }
       return 0
     }
-
-    // Calcule le délai en ms à partir d'un mot cible dans le texte du segment
     const computeDelayFromTarget = (block, segmentText) => {
       if (!block.delayTarget || !segmentText) return Math.round((block.delay ?? 0) * 1000)
       const words = segmentText.trim().split(/\s+/)
       const target = block.delayTarget.toLowerCase()
       const targetIdx = words.findIndex(w => w.toLowerCase().includes(target))
       if (targetIdx === -1) return Math.round((block.delay ?? 0) * 1000)
-      // 200 mots/min = 300ms/mot
       return Math.round(targetIdx * 300)
     }
-
-    // Convertit les automationPoints Claude (segment absolu) ou une volumeEnvelope en automationPoints AudioEngine
     const buildAutomationPoints = (block, startSeg) => {
-      // Priorité 1 : points bruts fournis par Claude (nouveau format)
       if (block.automationPoints && block.automationPoints.length > 0) {
         return block.automationPoints.map(pt => {
-          const segOffset = pt.segment - block.startSegment
+          const remappedPtSeg = remap(pt.segment)
+          const segOffset = remappedPtSeg - remap(block.startSegment)
           const segIdx = startSeg.idx + segOffset
-          const seg = segments[segIdx]
+          const seg = workingSegments[segIdx]
           if (!seg) return null
           return {
             segmentId: seg.id || seg._id || `seg_${segIdx}`,
@@ -688,13 +713,11 @@ function OrchestrationPanel({
           }
         }).filter(Boolean)
       }
-      // Fallback rétrocompat : volumeEnvelope (ancien format, inchangé)
       const envelope = block.volumeEnvelope || 'flat'
       if (envelope === 'flat') return []
       const vol = block.volume ?? 0.5
-      const segs = segments
       const makePoint = (segIdx, volume) => {
-        const seg = segs[segIdx]
+        const seg = workingSegments[segIdx]
         if (!seg) return null
         return {
           segmentId: seg.id || seg._id || `seg_${segIdx}`,
@@ -703,41 +726,29 @@ function OrchestrationPanel({
         }
       }
       const startIdx = startSeg.idx
-      const endSeg = resolveSegmentId(block.endSegment)
+      const endSeg = resolveSegmentId(remap(block.endSegment))
       const endIdx = endSeg ? endSeg.idx : startIdx
       const midIdx = Math.round((startIdx + endIdx) / 2)
-      if (envelope === 'crescendo') {
-        return [makePoint(startIdx, vol * 0.3), makePoint(endIdx, vol)].filter(Boolean)
-      }
-      if (envelope === 'decrescendo') {
-        return [makePoint(startIdx, vol), makePoint(endIdx, vol * 0.3)].filter(Boolean)
-      }
-      if (envelope === 'swell') {
-        return [makePoint(startIdx, vol * 0.3), makePoint(midIdx, vol), makePoint(endIdx, vol * 0.3)].filter(Boolean)
-      }
+      if (envelope === 'crescendo') return [makePoint(startIdx, vol * 0.3), makePoint(endIdx, vol)].filter(Boolean)
+      if (envelope === 'decrescendo') return [makePoint(startIdx, vol), makePoint(endIdx, vol * 0.3)].filter(Boolean)
+      if (envelope === 'swell') return [makePoint(startIdx, vol * 0.3), makePoint(midIdx, vol), makePoint(endIdx, vol * 0.3)].filter(Boolean)
       return []
     }
-
     const buildTrack = (sound, block, muted = false, broken = false) => {
-      const start = resolveSegmentId(block.startSegment)
-      const end = resolveSegmentId(block.endSegment)
+      const start = resolveSegmentId(remap(block.startSegment))
+      const end = resolveSegmentId(remap(block.endSegment))
       if (!start || !end) return null
-
       const col = findFreeColumn(start.idx, end.idx)
       const segmentText = (() => {
-        const seg = segments[start.idx]
+        const seg = workingSegments[start.idx]
         if (!seg) return ''
         return typeof seg === 'string' ? seg : (seg.text || '')
       })()
-
       const delayMs = computeDelayFromTarget(block, segmentText)
       const automationPoints = buildAutomationPoints(block, start)
-
-      // Pan : uniquement pour les sons diégétiques
       const isDiegetique = block.type === 'diegetique'
       const pan = isDiegetique ? (block.pan ?? 0) : 0
       const panMode = isDiegetique ? (block.panMode ?? 'static') : 'static'
-
       return {
         id: `st_${Date.now()}_${Math.random().toString(36).substr(2, 9)}_${newTracks.length}`,
         soundId: sound.id,
@@ -746,9 +757,7 @@ function OrchestrationPanel({
         column: col,
         volume: block.volume ?? 0.5,
         loop: block.loop ?? false,
-        loopCrossfade: block.loop
-          ? (block.loopCrossfade ?? 'medium')
-          : undefined,
+        loopCrossfade: block.loop ? (block.loopCrossfade ?? 'medium') : undefined,
         fadeIn: Math.round((block.fadeIn ?? 0) * 1000),
         fadeOut: Math.round((block.fadeOut ?? 0) * 1000),
         delay: delayMs,
@@ -761,9 +770,10 @@ function OrchestrationPanel({
         _orchestrationKeyword: block.soundId || block.keyword || '',
         _orchestrationLayer: block.layer || block.type || '',
         _orchestrationLeitmotiv: block.leitmotiv || '',
+        _orchestrationDiegeticMode: block.diegeticMode || null,
+        _orchestrationSunoPrompt: block.sunoPrompt || null,
       }
     }
-
     diagnosis.found.forEach(({ block, sound }) => {
       const track = buildTrack(sound, block, false, false)
       if (track) newTracks.push(track)
@@ -773,13 +783,11 @@ function OrchestrationPanel({
       const track = buildTrack(ghostSound, block, true, true)
       if (track) newTracks.push(track)
     })
-
-    if (newTracks.length === 0) { setApplyStatus('error'); return }
-
+    if (newTracks.length === 0 && pausesToInsert.length === 0) { setApplyStatus('error'); return }
     onSoundTracksChange([...soundTracks, ...newTracks])
     if (onSaveToHistory) onSaveToHistory()
     setApplyStatus('success')
-  }, [diagnosis, segments, soundTracks, onSoundTracksChange, onSaveToHistory])
+  }, [diagnosis, segments, soundTracks, onSoundTracksChange, onSegmentsChange, onSaveToHistory])
 
   // ── Reset ─────────────────────────────────────────────────────────────────
   const handleReset = () => {
