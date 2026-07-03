@@ -433,6 +433,44 @@ function findSoundById(soundId, soundLibrary) {
   return soundLibrary.find(s => s.id === soundId) || null
 }
 
+// ─────────────────────────────────────────────────────────────────────────────
+// EXTRACTION DES BLOCS JSON — le nouveau format retourne 2 tableaux
+// (pauses proposées, puis sons). On les extrait par comptage de crochets,
+// en ignorant tout le texte autour (bloc <script>, prose, balises ```json).
+// ─────────────────────────────────────────────────────────────────────────────
+function extractJsonBlocks(rawText) {
+  let cleaned = rawText.replace(/<script>[\s\S]*?<\/script>/gi, '')
+  cleaned = cleaned.replace(/```json/gi, '').replace(/```/g, '')
+  const arrays = []
+  let i = 0
+  while (i < cleaned.length) {
+    if (cleaned[i] === '[') {
+      let depth = 0
+      let start = i
+      let closed = false
+      for (let j = i; j < cleaned.length; j++) {
+        if (cleaned[j] === '[') depth++
+        if (cleaned[j] === ']') depth--
+        if (depth === 0) {
+          const candidate = cleaned.slice(start, j + 1)
+          try {
+            arrays.push(JSON.parse(candidate))
+          } catch (e) {
+            // pas un JSON valide à cette position, on ignore
+          }
+          i = j + 1
+          closed = true
+          break
+        }
+      }
+      if (!closed) break // crochets non équilibrés jusqu'à la fin, on arrête
+    } else {
+      i++
+    }
+  }
+  return arrays
+}
+
 function pickRandom(arr) {
   if (!arr || arr.length === 0) return null
   return arr[Math.floor(Math.random() * arr.length)]
