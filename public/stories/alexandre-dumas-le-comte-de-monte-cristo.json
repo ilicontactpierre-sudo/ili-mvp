@@ -2566,7 +2566,7 @@
           "lines": [
             "Seulement, il y avait une grande différence dans l’expression de ce double regard qui suivait le même homme."
           ],
-          "text": "Seulement, il y avait une grande différence dans l’expression de ce double regard qui suivait le même homme.",
+          "text": "Seulement, il y avait une grande différence dans l’expression de ce double regard qui suivait le même homme.  ",
           "breakAt": null,
           "isLeader": false,
           "audioEvents": [
@@ -2580,7 +2580,8 @@
               "soundId": "danglar_ending_court_4",
               "duration": 4000
             }
-          ]
+          ],
+          "delay": 3600
         }
       ],
       "soundTracks": [
