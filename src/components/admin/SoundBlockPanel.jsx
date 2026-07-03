@@ -352,7 +352,81 @@ function SoundBlockPanel({
           )}
         </div>
       )}
-
+      {/* Prompt Suno — repliable, uniquement si Claude en a proposé un */}
+      {soundTrack._orchestrationSunoPrompt && (
+        <div style={{ marginBottom: '1rem' }}>
+          <button
+            onClick={() => setShowSunoPrompt(v => !v)}
+            style={{
+              width: '100%',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              padding: '0.4rem 0.65rem',
+              background: 'rgba(124,58,237,0.08)',
+              border: '1px solid rgba(124,58,237,0.25)',
+              borderRadius: '6px',
+              color: 'rgba(196,181,253,0.9)',
+              fontSize: '0.75rem',
+              fontWeight: 600,
+              cursor: 'pointer',
+            }}
+          >
+            <span>🎵 Prompt Suno</span>
+            <span style={{ opacity: 0.6, fontSize: '0.7rem' }}>{showSunoPrompt ? '▲ replier' : '▼ afficher'}</span>
+          </button>
+          {showSunoPrompt && (
+            <div style={{
+              marginTop: '0.4rem',
+              padding: '0.5rem 0.65rem',
+              backgroundColor: 'rgba(124,58,237,0.06)',
+              border: '1px solid rgba(124,58,237,0.18)',
+              borderRadius: '6px',
+            }}>
+              <div style={{
+                fontSize: '0.72rem',
+                color: 'rgba(220,210,255,0.85)',
+                lineHeight: 1.5,
+                fontFamily: 'monospace',
+                whiteSpace: 'pre-wrap',
+                wordBreak: 'break-word',
+                marginBottom: '0.5rem',
+              }}>
+                {soundTrack._orchestrationSunoPrompt}
+              </div>
+              <button
+                onClick={() => {
+                  navigator.clipboard.writeText(soundTrack._orchestrationSunoPrompt).then(() => {
+                    setSunoCopyStatus('copied')
+                    setTimeout(() => setSunoCopyStatus('idle'), 2000)
+                  }).catch(() => {
+                    const el = document.createElement('textarea')
+                    el.value = soundTrack._orchestrationSunoPrompt
+                    el.style.cssText = 'position:fixed;opacity:0'
+                    document.body.appendChild(el)
+                    el.select()
+                    document.execCommand('copy')
+                    document.body.removeChild(el)
+                    setSunoCopyStatus('copied')
+                    setTimeout(() => setSunoCopyStatus('idle'), 2000)
+                  })
+                }}
+                style={{
+                  padding: '0.3rem 0.6rem',
+                  fontSize: '0.7rem',
+                  background: sunoCopyStatus === 'copied' ? 'rgba(74,222,128,0.15)' : 'rgba(124,58,237,0.15)',
+                  border: `1px solid ${sunoCopyStatus === 'copied' ? 'rgba(74,222,128,0.4)' : 'rgba(124,58,237,0.35)'}`,
+                  borderRadius: '4px',
+                  color: sunoCopyStatus === 'copied' ? 'rgba(134,239,172,0.9)' : 'rgba(196,181,253,0.9)',
+                  cursor: 'pointer',
+                }}
+              >
+                {sunoCopyStatus === 'copied' ? '✓ Copié' : '📋 Copier'}
+              </button>
+            </div>
+          )}
+        </div>
+      )}
       {/* Contrôles */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: '0.65rem' }}>
         
