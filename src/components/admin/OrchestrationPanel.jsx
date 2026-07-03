@@ -526,35 +526,50 @@ function OrchestrationPanel({
     setImportError('')
     setDiagnosis(null)
     setApplyStatus('idle')
-
     if (!importJson.trim()) {
       setImportError('Colle le JSON de Claude ici.')
       return
     }
-
-    let parsed
-    try {
-      const clean = importJson
-        .replace(/^```json\s*/i, '')
-        .replace(/^```\s*/i, '')
-        .replace(/\s*```$/i, '')
-        .trim()
-      parsed = JSON.parse(clean)
-    } catch (e) {
-      setImportError(`JSON invalide : ${e.message}`)
+    const arrays = extractJsonBlocks(importJson)
+    let pausesRaw = []
+    let soundsRaw = []
+    if (arrays.length >= 2) {
+      pausesRaw = arrays[0]
+      soundsRaw = arrays[1]
+    } else if (arrays.length === 1) {
+      // Rétrocompatibilité : ancien format, un seul tableau (sons uniquement)
+      soundsRaw = arrays[0]
+    } else {
+      setImportError('Aucun tableau JSON valide trouvé dans le texte collé.')
       return
     }
-
-    if (!Array.isArray(parsed)) {
-      setImportError('Le JSON doit être un tableau [ ... ]')
+    if (!Array.isArray(pausesRaw) || !Array.isArray(soundsRaw)) {
+      setImportError('Le format JSON est invalide (pauses et sons doivent être des tableaux).')
       return
     }
-
+    // ── Validation des pauses proposées ──────────────────────────────────
+    const validPauses = []
+    const invalidPauses = []
+    pausesRaw.forEach((p, idx) => {
+      const afterSegment = Number(p.afterSegment)
+      const durationMs = Number(p.durationMs)
+      const inRange = Number.isInteger(afterSegment) && afterSegment >= 1 && afterSegment <= segments.length
+      const validDuration = Number.isFinite(durationMs) && durationMs > 0
+      if (inRange && validDuration) {
+        validPauses.push({
+          afterSegment,
+          durationMs,
+          intention: p.intention || '',
+          note: p.note || '',
+        })
+      } else {
+        invalidPauses.push({ index: idx, reason: !inRange ? 'afterSegment hors limites' : 'durationMs invalide', raw: p })
+      }
+    })
+    // ── Diagnostic des sons (logique inchangée) ──────────────────────────
     const found = []
     const missing = []
-
-    parsed.forEach((block, idx) => {
-      // Cas 1 : soundId fourni → cherche directement par ID
+    soundsRaw.forEach((block, idx) => {
       if (block.soundId) {
         const sound = findSoundById(block.soundId, soundLibrary)
         if (!sound) {
@@ -583,16 +598,12 @@ function OrchestrationPanel({
         }
         return
       }
-
-      // Cas 2 : keyword → recherche enrichie
       if (!block.keyword) {
         missing.push({ index: idx, keyword: '(manquant)', reason: 'Pas de champ keyword ni soundId', type: block.type, block })
         return
       }
-
       const matches = findSoundsByKeyword(block.keyword, soundLibrary)
       const uploaded = matches.filter(s => s.url && s.url.startsWith('http'))
-
       if (matches.length === 0) {
         missing.push({
           index: idx,
@@ -621,9 +632,8 @@ function OrchestrationPanel({
         })
       }
     })
-
-    setDiagnosis({ found, missing, parsed })
-  }, [importJson, soundLibrary])
+    setDiagnosis({ found, missing, pauses: validPauses, invalidPauses, parsed: soundsRaw })
+  }, [importJson, soundLibrary, segments])
 
   // ── Application ───────────────────────────────────────────────────────────
   const handleApply = useCallback(() => {
