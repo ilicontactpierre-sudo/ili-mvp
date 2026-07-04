@@ -537,33 +537,77 @@ class AudioEngine {
   }
 
   // ── Fade avec courbe personnalisée ─────────────────────────────────────────
-  // curve : 'cut' | 'linear' | 'ease-out' | 'sigmoid' | 'cubic' | 'log'
-  _animatedFade(howl, instanceId, fromVol, toVol, durationMs, curve = 'sigmoid') {
+  // curve :
+  //  - 'cut'            : instantané
+  //  - 'linear'         : fondu linéaire natif Howler (uniquement pour les
+  //                        durées très courtes, où la différence est inaudible)
+  //  - 'natural'         : DÉFAUT — interpolation linéaire en dB. C'est la
+  //                        seule courbe qui sonne comme un changement de
+  //                        volume à vitesse constante pour l'oreille humaine
+  //                        (perception logarithmique). À utiliser pour tout
+  //                        fondu "neutre" : fade in/out d'un bloc, transition
+  //                        entre deux points d'automation.
+  //  - 'equal-power-out' / 'equal-power-in' : PAIRE dédiée au crossfade de
+  //                        loop. Utilise cos/sin pour que la somme d'énergie
+  //                        des deux instances reste constante pendant le
+  //                        recouvrement (évite le creux de volume perçu au
+  //                        milieu d'un crossfade classique).
+  //  - 'ease-out' / 'sigmoid' / 'cubic' / 'log' : courbes artistiques,
+  //                        conservées pour un usage ponctuel si besoin.
+  _animatedFade(howl, instanceId, fromVol, toVol, durationMs, curve = 'natural') {
     if (durationMs <= 0 || curve === 'cut') {
       instanceId != null
         ? howl.volume(toVol, instanceId)
         : howl.volume(toVol)
       return
     }
-    // Pour les durées très courtes, le linéaire natif de Howler suffit
+    // Pour les durées très courtes, la différence avec 'natural' est inaudible
     if (curve === 'linear' || durationMs <= 80) {
       instanceId != null
         ? howl.fade(fromVol, toVol, durationMs, instanceId)
         : howl.fade(fromVol, toVol, durationMs)
       return
     }
-    // Courbes custom : animation manuelle à 60fps
     const TICK = 16 // ms
     const steps = Math.ceil(durationMs / TICK)
     let step = 0
-    // Fonctions d'easing — t ∈ [0, 1] → valeur ∈ [0, 1]
+    // ── Courbe par défaut : linéaire en dB ──────────────────────────────
+    if (curve === 'natural') {
+      const fromDb = linearToDb(fromVol)
+      const toDb = linearToDb(toVol)
+      const intervalId = setInterval(() => {
+        step++
+        const t = Math.min(1, step / steps)
+        const vol = t >= 1 ? toVol : dbToLinear(fromDb + (toDb - fromDb) * t)
+        try {
+          instanceId != null ? howl.volume(vol, instanceId) : howl.volume(vol)
+        } catch (_) {}
+        if (t >= 1) clearInterval(intervalId)
+      }, TICK)
+      return
+    }
+    // ── Equal-power : réservée au crossfade de loop (voir _scheduleLoopCrossfade) ──
+    if (curve === 'equal-power-out' || curve === 'equal-power-in') {
+      const peak = curve === 'equal-power-out' ? fromVol : toVol
+      const intervalId = setInterval(() => {
+        step++
+        const t = Math.min(1, step / steps)
+        const angle = t * (Math.PI / 2)
+        const vol = curve === 'equal-power-out' ? peak * Math.cos(angle) : peak * Math.sin(angle)
+        try {
+          instanceId != null ? howl.volume(vol, instanceId) : howl.volume(vol)
+        } catch (_) {}
+        if (t >= 1) clearInterval(intervalId)
+      }, TICK)
+      return
+    }
+    // ── Courbes artistiques historiques (usage ponctuel) ────────────────
     const easings = {
       'ease-out': (t) => 1 - Math.pow(1 - t, 3),
       'sigmoid':  (t) => 1 / (1 + Math.exp(-12 * (t - 0.5))),
       'cubic':    (t) => t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2,
       'log':      (t) => Math.log(1 + t * (Math.E - 1)),
     }
-    // Normaliser sigmoid et log pour qu'ils partent de 0 et arrivent à 1
     const rawEasing = easings[curve] ?? easings['sigmoid']
     const v0 = rawEasing(0)
     const v1 = rawEasing(1)
