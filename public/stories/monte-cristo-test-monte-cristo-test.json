@@ -46,13 +46,8 @@
       "loop": false
     },
     {
-      "id": "suno_orchestral_cinematic_court_1",
-      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/suno_orchestral_cinematic_court_1.mp3",
-      "loop": false
-    },
-    {
-      "id": "ship_creaking_free_sound_effect",
-      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/ship_creaking_free_sound_effect.mp3",
+      "id": "pulling_rope_sfx_-_creaking_tension_and_stretching_sounds_-_floraphonic_com",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/pulling_rope_sfx_-_creaking_tension_and_stretching_sounds_-_floraphonic_com.mp3",
       "loop": false
     },
     {
@@ -61,8 +56,13 @@
       "loop": false
     },
     {
-      "id": "pulling_rope_sfx_-_creaking_tension_and_stretching_sounds_-_floraphonic_com",
-      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/pulling_rope_sfx_-_creaking_tension_and_stretching_sounds_-_floraphonic_com.mp3",
+      "id": "ship_creaking_free_sound_effect",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/ship_creaking_free_sound_effect.mp3",
+      "loop": false
+    },
+    {
+      "id": "suno_orchestral_cinematic_court_1",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/suno_orchestral_cinematic_court_1.mp3",
       "loop": false
     },
     {
@@ -539,7 +539,6 @@
       "pan": 0,
       "panMode": "static",
       "muted": false,
-      "broken": true,
       "automationPoints": [
         {
           "segmentId": "seg_1783153739414_0_umzmg",
@@ -581,7 +580,6 @@
       "pan": 0,
       "panMode": "static",
       "muted": false,
-      "broken": true,
       "automationPoints": [
         {
           "segmentId": "seg_1783153739414_7_pbm0m",
@@ -617,7 +615,6 @@
       "pan": 0,
       "panMode": "static",
       "muted": false,
-      "broken": true,
       "automationPoints": [
         {
           "segmentId": "seg_1783153739414_0_umzmg",
@@ -663,7 +660,6 @@
       "pan": 0,
       "panMode": "static",
       "muted": false,
-      "broken": true,
       "automationPoints": [
         {
           "segmentId": "seg_1783153739414_10_hyvz9",
@@ -702,7 +698,6 @@
       "pan": 0,
       "panMode": "static",
       "muted": false,
-      "broken": true,
       "_orchestrationNote": "Violon seul, attaque franche, phrasé bref et rythmique, sans accompagnement orchestral. Plan premier, au-dessus de l'atmosphere epic. Introduit le second du navire par contraste net avec la gravité qui précède, motif destiné à revenir transformé.",
       "_orchestrationKeyword": "violin",
       "_orchestrationLayer": "music",
@@ -736,7 +731,6 @@
       "pan": 0,
       "panMode": "static",
       "muted": false,
-      "broken": true,
       "_orchestrationNote": "Cloche lointaine, un seul coup, résonance courte sans traînée longue. Plan premier bref, seul son identifiable sur fond quasi nu. Accroche d'ouverture, signale la vigie avant que le décor ne soit complètement installé.",
       "_orchestrationKeyword": "bell",
       "_orchestrationLayer": "diegetic",
@@ -768,7 +762,6 @@
       "pan": 0,
       "panMode": "static",
       "muted": false,
-      "broken": true,
       "_orchestrationNote": "Vent continu dans du tissu tendu, sans rafale forte, régime stable et faible. Plan intermédiaire, sous l'atmosphere de tension. Traduit l'allure lente et triste du navire qui avance sous ses voiles.",
       "_orchestrationKeyword": "wind",
       "_orchestrationLayer": "diegetic",
@@ -803,7 +796,6 @@
       "pan": -0.4,
       "panMode": "static",
       "muted": false,
-      "broken": true,
       "_orchestrationNote": "Craquements de bois espacés et irréguliers, sans rythme fixe, registre grave-medium. Plan intermédiaire, coexiste avec le vent. Maintient une présence physique du navire pendant l'examen technique par les experts.",
       "_orchestrationKeyword": "wood",
       "_orchestrationLayer": "diegetic",
@@ -834,7 +826,6 @@
       "pan": 0,
       "panMode": "static",
       "muted": false,
-      "broken": true,
       "_orchestrationNote": "Cordage qui se détend brièvement, frottement sec sans écho long. Plan premier ponctuel sur fond de bois et de cordes musicales. Illustre concrètement le détail technique du gréement mentionné dans le texte.",
       "_orchestrationKeyword": "rope",
       "_orchestrationLayer": "diegetic",
@@ -869,7 +860,6 @@
       "pan": 0,
       "panMode": "static",
       "muted": false,
-      "broken": true,
       "_orchestrationNote": "Pas rapides sur pont de bois, cadence irrégulière, attaque franche. Plan premier, au même niveau que le violon du leitmotiv. Traduit la vivacité physique du jeune second qui surveille chaque mouvement.",
       "_orchestrationKeyword": "footstep",
       "_orchestrationLayer": "diegetic",
