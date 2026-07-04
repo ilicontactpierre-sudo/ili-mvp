@@ -1708,7 +1708,7 @@ function FormSoundCheck({ data, onChange, segment, soundLibrary = [], soundTrack
 }
 // ─── Panel principal ─────────────────────────────────────────────────────────
 
-function GameModePanel({ segment, segmentIndex, onSave, onDelete, onClose, parts }) {
+function GameModePanel({ segment, segmentIndex, onSave, onDelete, onClose, parts, soundLibrary = [], soundTracks = [], onSoundTracksChange, onSaveToHistory }) {
   const existing = segment?.gameMode ?? null
   const [type, setType] = useState(existing?.type || 'code')
   const [data, setData] = useState(existing || DEFAULTS['code'])
