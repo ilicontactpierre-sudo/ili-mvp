@@ -179,6 +179,7 @@ function buildExportPrompt(segments, soundLibrary) {
   lines.push('- **"ponctuel"** : 1 segment exact, `loop: false`, fadeIn: 0, fadeOut: 0. Volume élevé : 0.55–0.82. `delayTarget` pour synchroniser sur un mot précis. `pan` autorisé si position spatiale explicite dans le texte.')
   lines.push('- **"sequence"** : plusieurs segments, suit une action continue décrite dans le texte (une marche, un geste qui dure, une respiration qui s\'installe). Volume moyen : 0.35–0.55. FadeIn/fadeOut courts autorisés. Utilise-la activement — ne réduis pas le diégétique aux seuls impacts ponctuels, c\'est elle qui donne la sensation de corps et de présence continue.')
   lines.push('- Vise une présence diégétique régulière (au moins un événement, ponctuel ou en séquence, toutes les 8-12 segments quand l\'action le permet). Un texte sans diégétique pendant une longue plage est probablement un manque, pas un choix.')
+  lines.push('- Ne laisse pas le mode "sequence" dominer systématiquement : un texte riche en action concrète mérite aussi des impacts ponctuels nets et brefs (un objet posé, une porte, un coup, un choc) — pas seulement des présences continues en fond.')
   lines.push('- Jamais d\'`automationPoints` sur cette couche.')
   lines.push('')
   lines.push('### Couche "transition" — Rupture narrative')
