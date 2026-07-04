@@ -892,6 +892,11 @@ function OrchestrationPanel({
         <span style={s.stat}>📚 {soundLibrary.length} sons</span>
         <span style={s.stat}>☁️ {uploadedCount} uploadés</span>
         <span style={s.stat}>📝 {segments?.length || 0} segments</span>
+        {!soundLibraryReady && (
+          <span style={{ ...s.stat, color: 'rgba(255,193,7,0.85)', borderColor: 'rgba(255,193,7,0.3)' }}>
+            ⏳ bibliothèque en cours de chargement…
+          </span>
+        )}
       </div>
 
       {/* ── Étape 1 : Export ── */}
