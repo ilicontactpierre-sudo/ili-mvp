@@ -430,7 +430,7 @@ function buildExportPrompt(segments, soundLibrary) {
   })
   lines.push('')
   lines.push('---')
-  lines.push('Commence par le bloc `<script>`, puis le tableau JSON des pauses, puis le tableau JSON des sons. Rien d\'autre.')
+  lines.push('Commence par le bloc `<script>`, puis `### PAUSES` avec son tableau JSON (même vide), puis `### SONS` avec son tableau JSON. Rien d\'autre.')
   return lines.join('\n')
 }
 // ─────────────────────────────────────────────────────────────────────────────
