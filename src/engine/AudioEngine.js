@@ -277,13 +277,14 @@ class AudioEngine {
       const effectiveGainDb = state.gainDb ?? gainDb
       const currentPerceptualVol = howl.volume(undefined, state.instanceId) ?? this._toPerceptualVolume(state.volume ?? volume, effectiveGainDb)
       const currentLinearVol = state.volume ?? volume // version linéaire stockée dans le state
-      // Fade out sur l'instance en cours
-      this._animatedFade(howl, state.instanceId, currentPerceptualVol, 0, crossfadeMs, 'sigmoid')
+      // Fade out sur l'instance en cours — equal-power pour préserver
+      // l'énergie totale perçue pendant le recouvrement des deux instances
+      this._animatedFade(howl, state.instanceId, currentPerceptualVol, 0, crossfadeMs, 'equal-power-out')
       // Lancer la nouvelle instance immédiatement avec fade in depuis 0
       const newInstanceId = this._playInstance(howl, soundId, trimStart, trimEnd, key)
       howl.loop(false, newInstanceId)
       howl.volume(0, newInstanceId)
-      this._animatedFade(howl, newInstanceId, 0, currentPerceptualVol, crossfadeMs, 'sigmoid')
+      this._animatedFade(howl, newInstanceId, 0, currentPerceptualVol, crossfadeMs, 'equal-power-in')
       // Mettre à jour l'état avec la nouvelle instance — volume linéaire inchangé
       this.playingSounds.set(key, { ...state, instanceId: newInstanceId })
       // Arrêter l'ancienne instance après le crossfade
