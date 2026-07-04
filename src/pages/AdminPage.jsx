@@ -1468,7 +1468,9 @@ function AdminPage() {
         segments:    (p.segments    || []).map((seg, si) => ({
           ...seg, id: seg.id ?? `seg_${si}`, text: seg.text || '', audioEvents: seg.audioEvents || []
         })),
-        soundTracks: p.soundTracks || [],
+        // Re-vérifié contre la bibliothèque actuelle — un bloc marqué broken
+        // dans le JSON n'est plus une fatalité si le son est disponible maintenant.
+        soundTracks: healSoundTracksAgainstLibrary(p.soundTracks || [], soundLibrary),
         vfxTracks:   p.vfxTracks   || [],
       })))
       setActivePartIndex(0)
