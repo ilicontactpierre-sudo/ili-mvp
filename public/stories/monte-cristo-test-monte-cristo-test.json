@@ -16,6 +16,11 @@
       "loop": false
     },
     {
+      "id": "hrck_drone_wind_-_spooky_storm",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/hrck_drone_wind_-_spooky_storm.mp3",
+      "loop": false
+    },
+    {
       "id": "crwdsprt_football_match_ambience_crowd_chant_walla_01_b00m_one",
       "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/crwdsprt_football_match_ambience_crowd_chant_walla_01_b00m_one.mp3",
       "loop": false
@@ -28,16 +33,6 @@
     {
       "id": "doorwood_kitchen_door_closer_creak_wood_close_02_b00m_one",
       "url": "/sounds/DOORWood_Kitchen Door Closer Creak Wood Close 02_B00M_ONE.mp3",
-      "loop": false
-    },
-    {
-      "id": "mechrtch_tension_belt_tense_ratchet_01_b00m_one_1",
-      "url": "/sounds/MECHRtch_Tension Belt Tense Ratchet 01_B00M_ONE_1.mp3",
-      "loop": false
-    },
-    {
-      "id": "muscstngr_orchestra_drone_bass_sul_pont_sustain_high_intensity_octave_01_b00m_on",
-      "url": "/sounds/MUSCStngr_Orchestra Drone Bass Sul Pont Sustain High Intensity Octave 01_B00M_ONE.mp3",
       "loop": false
     },
     {
@@ -74,6 +69,11 @@
       "id": "harbor_sounds_seaside_market_ambience_",
       "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/harbor_sounds_seaside_market_ambience_.mp3",
       "loop": false
+    },
+    {
+      "id": "suno_orchestral_cinematic_court_1",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/suno_orchestral_cinematic_court_1.mp3",
+      "loop": false
     }
   ],
   "segments": [
@@ -103,6 +103,15 @@
           "duration": 5000,
           "delay": 0,
           "loop": true
+        },
+        {
+          "action": "fadeIn",
+          "soundId": "suno_orchestral_cinematic_court_1",
+          "volume": 0.28,
+          "gainDb": 0,
+          "duration": 6000,
+          "delay": 0,
+          "loop": false
         }
       ],
       "isChapter": true
@@ -115,7 +124,16 @@
       "text": "Le 24 février 1815, la vigie de Notre-Dame de la Garde signala le trois-mâts le Pharaon, venant de Smyrne, Trieste et Naples.",
       "breakAt": null,
       "isLeader": true,
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "play",
+          "soundId": "bellmisc_city_bike_bell_ring_single_01_b00m_one",
+          "volume": 0.55,
+          "gainDb": 0,
+          "delay": 3300,
+          "loop": false
+        }
+      ]
     },
     {
       "id": "seg_1783153739414_2_4s6e2",
@@ -184,7 +202,7 @@
         {
           "action": "fadeOut",
           "soundId": "crwdsprt_football_match_ambience_crowd_chant_walla_01_b00m_one",
-          "duration": 1500
+          "duration": 3142
         }
       ]
     },
@@ -196,7 +214,17 @@
       "text": "Cependant ce bâtiment s’avançait ; il avait heureusement franchi le détroit que quelque secousse volcanique a creusé entre l’île de Calasareigne et l’île de Jaros ;",
       "breakAt": null,
       "isLeader": true,
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "fadeIn",
+          "soundId": "hrck_drone_wind_-_spooky_storm",
+          "volume": 0.3,
+          "gainDb": 0,
+          "duration": 3000,
+          "delay": 0,
+          "loop": true
+        }
+      ]
     },
     {
       "id": "seg_1783153739414_8_gr0lr",
@@ -206,7 +234,13 @@
       "text": "il avait doublé Pomègue, et il s’avançait sous ses trois huniers, son grand foc et sa brigantine, mais si lentement et d’une allure si triste,",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "fadeOut",
+          "soundId": "suno_orchestral_cinematic_court_1",
+          "duration": 4000
+        }
+      ]
     },
     {
       "id": "seg_1783153739414_9_gkcj5",
@@ -216,7 +250,13 @@
       "text": "que les curieux, avec cet instinct qui pressent un malheur, se demandaient quel accident pouvait être arrivé à bord.",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "fadeOut",
+          "soundId": "hrck_drone_wind_-_spooky_storm",
+          "duration": 3500
+        }
+      ]
     },
     {
       "id": "seg_1783153739414_10_hyvz9",
@@ -375,7 +415,7 @@
       "loop": true,
       "loopCrossfade": "medium",
       "fadeIn": 1000,
-      "fadeOut": 1500,
+      "fadeOut": 3142,
       "delay": 0,
       "pan": 0,
       "panMode": "static",
@@ -386,7 +426,15 @@
       "_orchestrationLeitmotiv": "",
       "_orchestrationDiegeticMode": "sequence",
       "_orchestrationSunoPrompt": null,
-      "_orchestrationPlan": "intermediaire"
+      "_orchestrationPlan": "intermediaire",
+      "automationPoints": [
+        {
+          "segmentId": "seg_1783153739414_4_40kr6",
+          "volume": 0.55,
+          "fadeMs": 0,
+          "_isAnchor": true
+        }
+      ]
     },
     {
       "id": "st_1783156653928_wzlwtpcw2_3",
@@ -432,29 +480,30 @@
     },
     {
       "id": "st_1783156653928_mpd7j2ind_4",
-      "soundId": "mechrtch_tension_belt_tense_ratchet_01_b00m_one_1",
+      "soundId": "hrck_drone_wind_-_spooky_storm",
       "startSegmentId": "seg_1783153739414_7_pbm0m",
       "endSegmentId": "seg_1783153739414_9_gkcj5",
       "column": 0,
-      "volume": 0.18,
+      "volume": 0.3,
       "loop": true,
       "loopCrossfade": "medium",
       "fadeIn": 3000,
-      "fadeOut": 2500,
+      "fadeOut": 3500,
       "delay": 0,
       "pan": 0,
       "panMode": "static",
-      "muted": true,
+      "muted": false,
       "broken": true,
       "automationPoints": [
         {
-          "segmentId": "seg_1783153739414_8_gr0lr",
-          "volume": 0.24,
-          "fadeMs": 1500
+          "segmentId": "seg_1783153739414_7_pbm0m",
+          "volume": 0.3,
+          "fadeMs": 0,
+          "_isAnchor": true
         },
         {
           "segmentId": "seg_1783153739414_9_gkcj5",
-          "volume": 0.06,
+          "volume": 0.10000000000000016,
           "fadeMs": 2000
         }
       ],
@@ -468,7 +517,7 @@
     },
     {
       "id": "st_1783156653928_2gc2cu74i_5",
-      "soundId": "muscstngr_orchestra_drone_bass_sul_pont_sustain_high_intensity_octave_01_b00m_on",
+      "soundId": "suno_orchestral_cinematic_court_1",
       "startSegmentId": "seg_1783153739414_0_umzmg",
       "endSegmentId": "seg_1783153739414_8_gr0lr",
       "column": 3,
@@ -479,9 +528,15 @@
       "delay": 0,
       "pan": 0,
       "panMode": "static",
-      "muted": true,
+      "muted": false,
       "broken": true,
       "automationPoints": [
+        {
+          "segmentId": "seg_1783153739414_0_umzmg",
+          "volume": 0.28,
+          "fadeMs": 0,
+          "_isAnchor": true
+        },
         {
           "segmentId": "seg_1783153739414_1_kif85",
           "volume": 0.2,
@@ -572,7 +627,7 @@
       "delay": 3300,
       "pan": 0,
       "panMode": "static",
-      "muted": true,
+      "muted": false,
       "broken": true,
       "_orchestrationNote": "Cloche lointaine, un seul coup, résonance courte sans traînée longue. Plan premier bref, seul son identifiable sur fond quasi nu. Accroche d'ouverture, signale la vigie avant que le décor ne soit complètement installé.",
       "_orchestrationKeyword": "bell",
@@ -580,7 +635,15 @@
       "_orchestrationLeitmotiv": "",
       "_orchestrationDiegeticMode": "ponctuel",
       "_orchestrationSunoPrompt": null,
-      "_orchestrationPlan": "premier"
+      "_orchestrationPlan": "premier",
+      "automationPoints": [
+        {
+          "segmentId": "seg_1783153739414_1_kif85",
+          "volume": 0.55,
+          "fadeMs": 0,
+          "_isAnchor": true
+        }
+      ]
     },
     {
       "id": "st_1783156653928_nrm0zuvq0_9",
@@ -675,7 +738,15 @@
       "_orchestrationLeitmotiv": "",
       "_orchestrationDiegeticMode": "sequence",
       "_orchestrationSunoPrompt": null,
-      "_orchestrationPlan": "premier"
+      "_orchestrationPlan": "premier",
+      "automationPoints": [
+        {
+          "segmentId": "seg_1783153739414_13_097rx",
+          "volume": 0.42,
+          "fadeMs": 0,
+          "_isAnchor": true
+        }
+      ]
     },
     {
       "id": "st_1783156653928_878oa3rii_13",
@@ -698,7 +769,15 @@
       "_orchestrationLeitmotiv": "",
       "_orchestrationDiegeticMode": "ponctuel",
       "_orchestrationSunoPrompt": null,
-      "_orchestrationPlan": "premier"
+      "_orchestrationPlan": "premier",
+      "automationPoints": [
+        {
+          "segmentId": "seg_1783153739414_14_2vipt",
+          "volume": 0.55,
+          "fadeMs": 0,
+          "_isAnchor": true
+        }
+      ]
     }
   ],
   "vfxTracks": []
