@@ -94,7 +94,6 @@ function buildExportPrompt(segments, soundLibrary) {
     if (seg && typeof seg.text === 'string') return seg.text
     return ''
   }
-  const uploadedSounds = soundLibrary.filter(s => s.url && s.url.startsWith('http'))
   const lines = []
 
   // ── SECTION 1 — Identité et mission ──────────────────────────────────────
