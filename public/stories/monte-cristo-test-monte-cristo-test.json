@@ -26,43 +26,18 @@
       "loop": false
     },
     {
-      "id": "dsgnmisc_alienated_rope_01_b00m_one",
-      "url": "/sounds/DSGNMisc_Alienated Rope 01_B00M_ONE.mp3",
-      "loop": false
-    },
-    {
-      "id": "doorwood_kitchen_door_closer_creak_wood_close_02_b00m_one",
-      "url": "/sounds/DOORWood_Kitchen Door Closer Creak Wood Close 02_B00M_ONE.mp3",
-      "loop": false
-    },
-    {
-      "id": "muscstr_piano_play_on_strings_mid_01_b00m_one",
-      "url": "/sounds/MUSCStr_Piano Play On Strings Mid 01_B00M_ONE.mp3",
-      "loop": false
-    },
-    {
-      "id": "muscstr_vintage_violin_horror_sound_02_b00m_one",
-      "url": "/sounds/MUSCStr_Vintage Violin Horror Sound 02_B00M_ONE.mp3",
-      "loop": false
-    },
-    {
       "id": "robtvox_android_voice_malfunction_04_b00m_one",
       "url": "/sounds/ROBTVox_Android Voice Malfunction 04_B00M_ONE.mp3",
       "loop": false
     },
     {
-      "id": "weaparmr_plate_armor_steel_walk_single_step_03_b00m_one",
-      "url": "/sounds/WEAPArmr_Plate Armor Steel Walk Single Step 03_B00M_ONE.mp3",
+      "id": "np03_0384_town_flag_wind_birds_loop",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/np03_0384_town_flag_wind_birds_loop.mp3",
       "loop": false
     },
     {
-      "id": "winddsgn_wind_machine_long_sequence_soft_02_b00m_one",
-      "url": "/sounds/WINDDsgn_Wind Machine Long Sequence Soft 02_B00M_ONE.mp3",
-      "loop": false
-    },
-    {
-      "id": "danglars_theme_3_orchestral_aventure_epic_cinematic_violin_piano",
-      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/danglars_theme_3_orchestral_aventure_epic_cinematic_violin_piano.mp3",
+      "id": "507_s12_gens_qui_courent",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/507_s12_gens_qui_courent.mp3",
       "loop": false
     },
     {
@@ -73,6 +48,31 @@
     {
       "id": "suno_orchestral_cinematic_court_1",
       "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/suno_orchestral_cinematic_court_1.mp3",
+      "loop": false
+    },
+    {
+      "id": "ship_creaking_free_sound_effect",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/ship_creaking_free_sound_effect.mp3",
+      "loop": false
+    },
+    {
+      "id": "sfx_drone_warped_low_metal_squeak_eerie_depth",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/sfx_drone_warped_low_metal_squeak_eerie_depth.mp3",
+      "loop": false
+    },
+    {
+      "id": "pulling_rope_sfx_-_creaking_tension_and_stretching_sounds_-_floraphonic_com",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/pulling_rope_sfx_-_creaking_tension_and_stretching_sounds_-_floraphonic_com.mp3",
+      "loop": false
+    },
+    {
+      "id": "suno_quiet_after_the_storm_court_1",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/suno_quiet_after_the_storm_court_1.mp3",
+      "loop": false
+    },
+    {
+      "id": "suno_the_watcher_s_march",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/suno_the_watcher_s_march.mp3",
       "loop": false
     }
   ],
@@ -223,6 +223,24 @@
           "duration": 3000,
           "delay": 0,
           "loop": true
+        },
+        {
+          "action": "fadeIn",
+          "soundId": "np03_0384_town_flag_wind_birds_loop",
+          "volume": 0.8,
+          "gainDb": 6.5,
+          "duration": 2000,
+          "delay": 0,
+          "loop": true
+        },
+        {
+          "action": "fadeIn",
+          "soundId": "ship_creaking_free_sound_effect",
+          "volume": 0.3,
+          "gainDb": 0,
+          "duration": 2000,
+          "delay": 0,
+          "loop": true
         }
       ]
     },
@@ -239,6 +257,11 @@
           "action": "fadeOut",
           "soundId": "suno_orchestral_cinematic_court_1",
           "duration": 4000
+        },
+        {
+          "action": "fadeOut",
+          "soundId": "np03_0384_town_flag_wind_birds_loop",
+          "duration": 2000
         }
       ]
     },
@@ -269,12 +292,21 @@
       "audioEvents": [
         {
           "action": "fadeIn",
-          "soundId": "danglars_theme_3_orchestral_aventure_epic_cinematic_violin_piano",
-          "volume": 0.12,
+          "soundId": "sfx_drone_warped_low_metal_squeak_eerie_depth",
+          "volume": 0.45,
           "gainDb": 0,
           "duration": 4000,
           "delay": 0,
           "loop": true
+        },
+        {
+          "action": "fadeIn",
+          "soundId": "suno_quiet_after_the_storm_court_1",
+          "volume": 0.35,
+          "gainDb": 0,
+          "duration": 3000,
+          "delay": 0,
+          "loop": false
         }
       ]
     },
@@ -296,7 +328,26 @@
       "text": "son ancre était en mouillage, ses haubans de beaupré décrochés ;",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "fadeOut",
+          "soundId": "suno_quiet_after_the_storm_court_1",
+          "duration": 3000
+        },
+        {
+          "action": "fadeOut",
+          "soundId": "ship_creaking_free_sound_effect",
+          "duration": 2000
+        },
+        {
+          "action": "play",
+          "soundId": "pulling_rope_sfx_-_creaking_tension_and_stretching_sounds_-_floraphonic_com",
+          "volume": 0.58,
+          "gainDb": 0,
+          "delay": 2700,
+          "loop": false
+        }
+      ]
     },
     {
       "id": "seg_1783153739414_13_097rx",
@@ -306,7 +357,25 @@
       "text": "et près du pilote, qui s’apprêtait à diriger le Pharaon par l’étroite entrée du port de Marseille,",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "play",
+          "soundId": "suno_the_watcher_s_march",
+          "volume": 0.65,
+          "gainDb": 0,
+          "delay": 0,
+          "loop": false
+        },
+        {
+          "action": "fadeIn",
+          "soundId": "507_s12_gens_qui_courent",
+          "volume": 0.42,
+          "gainDb": 0,
+          "duration": 500,
+          "delay": 0,
+          "loop": true
+        }
+      ]
     },
     {
       "id": "seg_1783153739414_14_2vipt",
@@ -319,13 +388,23 @@
       "audioEvents": [
         {
           "action": "fadeOut",
-          "soundId": "danglars_theme_3_orchestral_aventure_epic_cinematic_violin_piano",
+          "soundId": "sfx_drone_warped_low_metal_squeak_eerie_depth",
           "duration": 5000
         },
         {
           "action": "fadeOut",
           "soundId": "harbor_sounds_seaside_market_ambience_",
           "duration": 6000
+        },
+        {
+          "action": "fadeOut",
+          "soundId": "suno_the_watcher_s_march",
+          "duration": 3200
+        },
+        {
+          "action": "fadeOut",
+          "soundId": "507_s12_gens_qui_courent",
+          "duration": 3500
         }
       ]
     }
@@ -372,11 +451,11 @@
     },
     {
       "id": "st_1783156653928_l6p9wk4rm_1",
-      "soundId": "danglars_theme_3_orchestral_aventure_epic_cinematic_violin_piano",
+      "soundId": "sfx_drone_warped_low_metal_squeak_eerie_depth",
       "startSegmentId": "seg_1783153739414_10_hyvz9",
       "endSegmentId": "seg_1783153739414_14_2vipt",
       "column": 0,
-      "volume": 0.12,
+      "volume": 0.45,
       "loop": true,
       "loopCrossfade": "medium",
       "fadeIn": 4000,
@@ -387,13 +466,19 @@
       "muted": false,
       "automationPoints": [
         {
+          "segmentId": "seg_1783153739414_10_hyvz9",
+          "volume": 0.45,
+          "fadeMs": 0,
+          "_isAnchor": true
+        },
+        {
           "segmentId": "seg_1783153739414_12_ff4je",
-          "volume": 0.2,
+          "volume": 0.7500000000000001,
           "fadeMs": 2000
         },
         {
           "segmentId": "seg_1783153739414_13_097rx",
-          "volume": 0.15,
+          "volume": 0.5625000000000001,
           "fadeMs": 1500
         }
       ],
@@ -403,7 +488,10 @@
       "_orchestrationLeitmotiv": "",
       "_orchestrationDiegeticMode": null,
       "_orchestrationSunoPrompt": null,
-      "_orchestrationPlan": "intermediaire"
+      "_orchestrationPlan": "intermediaire",
+      "trimStart": 0,
+      "trimEnd": 94368,
+      "gainDb": 0
     },
     {
       "id": "st_1783156653928_790rj9id5_2",
@@ -563,23 +651,29 @@
     },
     {
       "id": "st_1783156653928_evwyy2f8l_6",
-      "soundId": "muscstr_piano_play_on_strings_mid_01_b00m_one",
+      "soundId": "suno_quiet_after_the_storm_court_1",
       "startSegmentId": "seg_1783153739414_10_hyvz9",
       "endSegmentId": "seg_1783153739414_12_ff4je",
       "column": 1,
-      "volume": 0.2,
+      "volume": 0.35,
       "loop": false,
       "fadeIn": 3000,
       "fadeOut": 3000,
       "delay": 0,
       "pan": 0,
       "panMode": "static",
-      "muted": true,
+      "muted": false,
       "broken": true,
       "automationPoints": [
         {
+          "segmentId": "seg_1783153739414_10_hyvz9",
+          "volume": 0.35,
+          "fadeMs": 0,
+          "_isAnchor": true
+        },
+        {
           "segmentId": "seg_1783153739414_11_9si3t",
-          "volume": 0.3,
+          "volume": 0.5249999999999998,
           "fadeMs": 2000
         }
       ],
@@ -589,22 +683,25 @@
       "_orchestrationLeitmotiv": "",
       "_orchestrationDiegeticMode": null,
       "_orchestrationSunoPrompt": "solo string ensemble, warm cello and viola blend, resolving harmonic movement, calm reassuring mood, slow tempo 65bpm, intimate close recording, no piano, no percussion",
-      "_orchestrationPlan": "intermediaire"
+      "_orchestrationPlan": "intermediaire",
+      "trimStart": 2516,
+      "trimEnd": 63007.333333333336,
+      "gainDb": 0
     },
     {
       "id": "st_1783156653928_phb6j355o_7",
-      "soundId": "muscstr_vintage_violin_horror_sound_02_b00m_one",
+      "soundId": "suno_the_watcher_s_march",
       "startSegmentId": "seg_1783153739414_13_097rx",
       "endSegmentId": "seg_1783153739414_14_2vipt",
       "column": 1,
-      "volume": 0.32,
+      "volume": 0.65,
       "loop": false,
-      "fadeIn": 1000,
-      "fadeOut": 2000,
+      "fadeIn": 0,
+      "fadeOut": 3200,
       "delay": 0,
       "pan": 0,
       "panMode": "static",
-      "muted": true,
+      "muted": false,
       "broken": true,
       "_orchestrationNote": "Violon seul, attaque franche, phrasé bref et rythmique, sans accompagnement orchestral. Plan premier, au-dessus de l'atmosphere epic. Introduit le second du navire par contraste net avec la gravité qui précède, motif destiné à revenir transformé.",
       "_orchestrationKeyword": "violin",
@@ -612,7 +709,18 @@
       "_orchestrationLeitmotiv": "thème du jeune second",
       "_orchestrationDiegeticMode": null,
       "_orchestrationSunoPrompt": "solo violin theme, bright and agile phrasing, quick rhythmic motif, alert energetic mood, tempo 100bpm, single instrument close-mic, no orchestra, no reverb wash",
-      "_orchestrationPlan": "premier"
+      "_orchestrationPlan": "premier",
+      "automationPoints": [
+        {
+          "segmentId": "seg_1783153739414_13_097rx",
+          "volume": 0.65,
+          "fadeMs": 0,
+          "_isAnchor": true
+        }
+      ],
+      "trimStart": 1850,
+      "trimEnd": 152267.75,
+      "gainDb": 0
     },
     {
       "id": "st_1783156653928_ztt81lvw5_8",
@@ -647,11 +755,11 @@
     },
     {
       "id": "st_1783156653928_nrm0zuvq0_9",
-      "soundId": "winddsgn_wind_machine_long_sequence_soft_02_b00m_one",
+      "soundId": "np03_0384_town_flag_wind_birds_loop",
       "startSegmentId": "seg_1783153739414_7_pbm0m",
       "endSegmentId": "seg_1783153739414_8_gr0lr",
       "column": 1,
-      "volume": 0.36,
+      "volume": 0.8,
       "loop": true,
       "loopCrossfade": "medium",
       "fadeIn": 2000,
@@ -659,7 +767,7 @@
       "delay": 0,
       "pan": 0,
       "panMode": "static",
-      "muted": true,
+      "muted": false,
       "broken": true,
       "_orchestrationNote": "Vent continu dans du tissu tendu, sans rafale forte, régime stable et faible. Plan intermédiaire, sous l'atmosphere de tension. Traduit l'allure lente et triste du navire qui avance sous ses voiles.",
       "_orchestrationKeyword": "wind",
@@ -667,11 +775,22 @@
       "_orchestrationLeitmotiv": "",
       "_orchestrationDiegeticMode": "sequence",
       "_orchestrationSunoPrompt": null,
-      "_orchestrationPlan": "intermediaire"
+      "_orchestrationPlan": "intermediaire",
+      "automationPoints": [
+        {
+          "segmentId": "seg_1783153739414_7_pbm0m",
+          "volume": 0.8,
+          "fadeMs": 0,
+          "_isAnchor": true
+        }
+      ],
+      "trimStart": 0,
+      "trimEnd": 41500,
+      "gainDb": 6.5
     },
     {
       "id": "st_1783156653928_u3jekg62e_10",
-      "soundId": "doorwood_kitchen_door_closer_creak_wood_close_02_b00m_one",
+      "soundId": "ship_creaking_free_sound_effect",
       "startSegmentId": "seg_1783153739414_7_pbm0m",
       "endSegmentId": "seg_1783153739414_12_ff4je",
       "column": 4,
@@ -681,9 +800,9 @@
       "fadeIn": 2000,
       "fadeOut": 2000,
       "delay": 0,
-      "pan": 0,
+      "pan": -0.4,
       "panMode": "static",
-      "muted": true,
+      "muted": false,
       "broken": true,
       "_orchestrationNote": "Craquements de bois espacés et irréguliers, sans rythme fixe, registre grave-medium. Plan intermédiaire, coexiste avec le vent. Maintient une présence physique du navire pendant l'examen technique par les experts.",
       "_orchestrationKeyword": "wood",
@@ -691,11 +810,19 @@
       "_orchestrationLeitmotiv": "",
       "_orchestrationDiegeticMode": "sequence",
       "_orchestrationSunoPrompt": null,
-      "_orchestrationPlan": "intermediaire"
+      "_orchestrationPlan": "intermediaire",
+      "automationPoints": [
+        {
+          "segmentId": "seg_1783153739414_7_pbm0m",
+          "volume": 0.3,
+          "fadeMs": 0,
+          "_isAnchor": true
+        }
+      ]
     },
     {
       "id": "st_1783156653928_84qz3i9b8_11",
-      "soundId": "dsgnmisc_alienated_rope_01_b00m_one",
+      "soundId": "pulling_rope_sfx_-_creaking_tension_and_stretching_sounds_-_floraphonic_com",
       "startSegmentId": "seg_1783153739414_12_ff4je",
       "endSegmentId": "seg_1783153739414_12_ff4je",
       "column": 3,
@@ -706,7 +833,7 @@
       "delay": 2700,
       "pan": 0,
       "panMode": "static",
-      "muted": true,
+      "muted": false,
       "broken": true,
       "_orchestrationNote": "Cordage qui se détend brièvement, frottement sec sans écho long. Plan premier ponctuel sur fond de bois et de cordes musicales. Illustre concrètement le détail technique du gréement mentionné dans le texte.",
       "_orchestrationKeyword": "rope",
@@ -714,11 +841,22 @@
       "_orchestrationLeitmotiv": "",
       "_orchestrationDiegeticMode": "ponctuel",
       "_orchestrationSunoPrompt": null,
-      "_orchestrationPlan": "premier"
+      "_orchestrationPlan": "premier",
+      "automationPoints": [
+        {
+          "segmentId": "seg_1783153739414_12_ff4je",
+          "volume": 0.58,
+          "fadeMs": 0,
+          "_isAnchor": true
+        }
+      ],
+      "trimStart": 47730,
+      "trimEnd": 49005.70833333333,
+      "gainDb": 0
     },
     {
       "id": "st_1783156653928_uzck8asel_12",
-      "soundId": "weaparmr_plate_armor_steel_walk_single_step_03_b00m_one",
+      "soundId": "507_s12_gens_qui_courent",
       "startSegmentId": "seg_1783153739414_13_097rx",
       "endSegmentId": "seg_1783153739414_14_2vipt",
       "column": 3,
@@ -726,11 +864,11 @@
       "loop": true,
       "loopCrossfade": "medium",
       "fadeIn": 500,
-      "fadeOut": 500,
+      "fadeOut": 3500,
       "delay": 0,
       "pan": 0,
       "panMode": "static",
-      "muted": true,
+      "muted": false,
       "broken": true,
       "_orchestrationNote": "Pas rapides sur pont de bois, cadence irrégulière, attaque franche. Plan premier, au même niveau que le violon du leitmotiv. Traduit la vivacité physique du jeune second qui surveille chaque mouvement.",
       "_orchestrationKeyword": "footstep",
