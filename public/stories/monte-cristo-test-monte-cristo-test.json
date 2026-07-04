@@ -41,6 +41,11 @@
       "loop": false
     },
     {
+      "id": "dantes_theme_3",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/dantes_theme_3.mp3",
+      "loop": false
+    },
+    {
       "id": "harbor_sounds_seaside_market_ambience_",
       "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/harbor_sounds_seaside_market_ambience_.mp3",
       "loop": false
@@ -77,6 +82,31 @@
     }
   ],
   "segments": [
+    {
+      "text": "",
+      "id": "seg_1783172638634",
+      "gameMode": {
+        "type": "sound_check",
+        "prompt": "Un instant. Ajuste le volume de tes écouteurs.",
+        "buttonLabel": "Je suis prêt"
+      },
+      "audioEvents": [
+        {
+          "action": "fadeIn",
+          "soundId": "dantes_theme_3",
+          "volume": 0.75,
+          "gainDb": 0,
+          "duration": 300,
+          "delay": 0,
+          "loop": false
+        },
+        {
+          "action": "fadeOut",
+          "soundId": "dantes_theme_3",
+          "duration": 300
+        }
+      ]
+    },
     {
       "id": "seg_1783153739414_0_umzmg",
       "lines": [
@@ -902,6 +932,27 @@
         {
           "segmentId": "seg_1783153739414_14_2vipt",
           "volume": 0.55,
+          "fadeMs": 0,
+          "_isAnchor": true
+        }
+      ]
+    },
+    {
+      "id": "st_1783172663074_a5xx06d",
+      "soundId": "dantes_theme_3",
+      "startSegmentId": "seg_1783172638634",
+      "endSegmentId": "seg_1783172638634",
+      "column": 0,
+      "volume": 0.75,
+      "fadeIn": 300,
+      "fadeOut": 300,
+      "delay": 0,
+      "loop": false,
+      "muted": false,
+      "automationPoints": [
+        {
+          "segmentId": "seg_1783172638634",
+          "volume": 0.7,
           "fadeMs": 0,
           "_isAnchor": true
         }
