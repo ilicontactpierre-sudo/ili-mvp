@@ -1107,20 +1107,29 @@ function AdminPage() {
         }))
       const all = [...merged, ...supabaseOnly]
       setSoundLibrary(all)
-      // Synchroniser muted/broken sur les soundTracks selon les URLs réelles
-      setSoundTracks(prev => prev.map(track => {
-        const hasUrl = !!urlMap[track.soundId]
-        if (hasUrl && (track.muted || track.broken)) {
-          const { broken, ...rest } = track
-          return { ...rest, muted: false }
-        }
-        if (!hasUrl && !track.muted) {
-          return { ...track, muted: true, broken: true }
-        }
-        return track
-      }))
+      setSoundLibraryReady(true)
     })
   }, [])
+  // ── Auto-guérison continue ───────────────────────────────────────────────
+  // Se déclenche à chaque changement de soundLibrary (premier chargement,
+  // mais aussi tout enrichissement ultérieur). Corrige les soundTracks
+  // courants en mode simple ET en mode série — l'ancien code ne corrigeait
+  // que le mode simple, et seulement au montage, d'où les blocs restés
+  // "broken" une fois une histoire rechargée après coup.
+  useEffect(() => {
+    if (soundLibrary.length === 0) return
+    setSoundTracks(prev => healSoundTracksAgainstLibrary(prev, soundLibrary))
+    setParts(prev => {
+      if (!prev || prev.length === 0) return prev
+      let anyChanged = false
+      const next = prev.map(part => {
+        const healed = healSoundTracksAgainstLibrary(part.soundTracks || [], soundLibrary)
+        if (healed !== part.soundTracks) anyChanged = true
+        return healed === part.soundTracks ? part : { ...part, soundTracks: healed }
+      })
+      return anyChanged ? next : prev
+    })
+  }, [soundLibrary])
 
   // Sons filtrés (mémoïsé)
   const filteredSounds = useMemo(() => {
