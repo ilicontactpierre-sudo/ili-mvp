@@ -498,6 +498,7 @@ function pickRandom(arr) {
 function OrchestrationPanel({
   segments,
   soundLibrary,
+  soundLibraryReady = true,
   soundTracks,
   onSoundTracksChange,
   onSegmentsChange,
