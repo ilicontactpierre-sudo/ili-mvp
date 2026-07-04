@@ -92,18 +92,17 @@
       },
       "audioEvents": [
         {
-          "action": "fadeIn",
+          "action": "play",
           "soundId": "dantes_theme_3",
           "volume": 0.75,
           "gainDb": 0,
-          "duration": 300,
           "delay": 0,
           "loop": false
         },
         {
           "action": "fadeOut",
           "soundId": "dantes_theme_3",
-          "duration": 300
+          "duration": 800
         }
       ]
     },
@@ -944,19 +943,22 @@
       "endSegmentId": "seg_1783172638634",
       "column": 0,
       "volume": 0.75,
-      "fadeIn": 300,
-      "fadeOut": 300,
+      "fadeIn": 0,
+      "fadeOut": 800,
       "delay": 0,
       "loop": false,
       "muted": false,
       "automationPoints": [
         {
           "segmentId": "seg_1783172638634",
-          "volume": 0.7,
+          "volume": 0.75,
           "fadeMs": 0,
           "_isAnchor": true
         }
-      ]
+      ],
+      "trimStart": 6891,
+      "trimEnd": 72168,
+      "gainDb": 0
     }
   ],
   "vfxTracks": []
