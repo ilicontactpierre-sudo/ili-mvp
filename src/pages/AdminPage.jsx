@@ -15,7 +15,34 @@ import GameModePanel from '../components/admin/GameModePanel'
 import NewsletterPage from './NewsletterPage'
 import AnalyticsDashboard from '../components/admin/AnalyticsDashboard'
 import MenuManagerPage from '../components/admin/MenuManagerPage'
-
+// ─────────────────────────────────────────────────────────────────────────────
+// AUTO-GUÉRISON DES SOUNDTRACKS — fonction pure, réutilisée partout où des
+// soundTracks entrent dans l'état (chargement de bibliothèque, chargement
+// d'une histoire, restauration d'un snapshot). Un track n'est "cassé" que
+// tant que son soundId n'a pas d'URL exploitable dans la bibliothèque au
+// moment considéré — jamais de façon permanente : dès que l'URL existe
+// (même découverte plus tard), il est automatiquement réparé.
+// ─────────────────────────────────────────────────────────────────────────────
+function healSoundTracksAgainstLibrary(tracks, soundLibrary) {
+  if (!Array.isArray(tracks) || tracks.length === 0) return tracks
+  const urlMap = {}
+  soundLibrary.forEach(s => { if (s.id && s.url) urlMap[s.id] = s.url })
+  let changed = false
+  const healed = tracks.map(track => {
+    const hasUrl = !!urlMap[track.soundId]
+    if (hasUrl && (track.muted || track.broken)) {
+      changed = true
+      const { broken, ...rest } = track
+      return { ...rest, muted: false }
+    }
+    if (!hasUrl && !track.broken) {
+      changed = true
+      return { ...track, muted: true, broken: true }
+    }
+    return track
+  })
+  return changed ? healed : tracks
+}
 // ── Composant SplitPreviewPane ────────────────────────────────────────────────
 import { forwardRef, useImperativeHandle } from 'react'
 
