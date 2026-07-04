@@ -957,8 +957,8 @@ function OrchestrationPanel({
             <div style={s.row}>
               <button
                 onClick={handleDiagnose}
-                disabled={!importJson.trim()}
-                style={{ ...s.btn('primary'), opacity: importJson.trim() ? 1 : 0.4, cursor: importJson.trim() ? 'pointer' : 'not-allowed' }}
+                disabled={!importJson.trim() || !soundLibraryReady}
+                style={{ ...s.btn('primary'), opacity: (importJson.trim() && soundLibraryReady) ? 1 : 0.4, cursor: (importJson.trim() && soundLibraryReady) ? 'pointer' : 'not-allowed' }}
               >
                 🔍 Analyser
               </button>
