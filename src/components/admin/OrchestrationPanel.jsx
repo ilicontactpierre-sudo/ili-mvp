@@ -221,6 +221,22 @@ function buildExportPrompt(segments, soundLibrary) {
   lines.push('---')
   lines.push('')
 
+  // ── SECTION 6bis — Écriture des notes ────────────────────────────────────
+  lines.push('## Écriture des notes — langage concret, jamais poétique')
+  lines.push('')
+  lines.push('Le champ `note` de chaque bloc son suit toujours ce gabarit en 3 temps, dans cet ordre :')
+  lines.push('1. **Matière du son** : texture, registre (grave / médium / aigu), dynamique (attaque douce ou franche, continu ou ponctuel, rythmique ou non, avec ou sans mélodie).')
+  lines.push('2. **Fonction dans le mix** : quel plan perceptuel (premier plan / intermédiaire / arrière-plan — voir section suivante), avec quoi il coexiste.')
+  lines.push('3. **Intention** : une phrase simple qui dit pourquoi ce choix sert cette scène précise, sans reformuler le texte littéraire.')
+  lines.push('')
+  lines.push('**Interdit** : toute tournure poétique ou métaphorique ("un vent essoufflé", "une texture de pressentiment", "l\'âme du navire"). Écris comme un ingénieur du son qui décrit un fichier à un collègue, pas comme un romancier. Si tu ne peux pas transformer ta note en une recherche concrète dans une bibliothèque de sons, reformule-la.')
+  lines.push('')
+  lines.push('Exemple correct : "Drone grave continu, sans attaque ni pulsation rythmique, texture granuleuse, pas un synthé propre. Plan intermédiaire, sous le bed portuaire. Traduit un malaise diffus dont la cause n\'est pas encore nommée."')
+  lines.push('Exemple incorrect, à ne jamais produire : "Texture de pressentiment qui monte avec la lenteur suspecte du navire."')
+  lines.push('')
+  lines.push('---')
+  lines.push('')
+
   // ── SECTION 7 — Densité et mixage par plans ──────────────────────────────
   lines.push('## Densité et mixage par plans')
   lines.push('')
@@ -233,6 +249,18 @@ function buildExportPrompt(segments, soundLibrary) {
   lines.push('')
   lines.push('Un empilement fonctionne quand chaque son occupe un plan et un registre de fréquence différents — pas quand on entasse plusieurs sons au même plan.')
   lines.push('Garde une vraie variation de densité dans le temps : scènes touffues (climax) et scènes très nues (silence, intimité) — l\'alternance elle-même rend l\'écoute captivante. Respiration obligatoire : 1–2 segments sans aucun son entre deux scènes distinctes, sauf raison narrative de les enchaîner sans coupure.')
+  lines.push('')
+  lines.push('**Champ `plan` obligatoire sur chaque bloc son** : "premier" (l\'oreille le suit consciemment), "intermediaire" (colore sans capter l\'attention), ou "arriere" (le sol constant). Deux sons au même plan et au même registre de fréquence risquent de se marcher dessus — vérifie-le avant de les superposer.')
+  lines.push('')
+  lines.push('---')
+  lines.push('')
+
+  // ── SECTION 6ter — Unités de temps ───────────────────────────────────────
+  lines.push('## Unités de temps — ne jamais confondre')
+  lines.push('')
+  lines.push('- `fadeIn` et `fadeOut` (au niveau du bloc son) sont exprimés en SECONDES. Exemple : `"fadeIn": 0.5` = un fondu d\'une demi-seconde. Une valeur à 2-3 chiffres pour ces deux champs est presque toujours une erreur.')
+  lines.push('- `fadeMs` (dans les `automationPoints` uniquement) est exprimé en MILLISECONDES. Exemple : `"fadeMs": 500` = une demi-seconde.')
+  lines.push('- Ne confonds jamais les deux unités.')
   lines.push('')
   lines.push('---')
   lines.push('')
