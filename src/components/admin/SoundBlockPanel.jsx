@@ -492,7 +492,11 @@ function SoundBlockPanel({
             max="1"
             step="0.05"
             value={editedTrack.volume || 0.5}
-            onChange={(e) => handleChange('volume', parseFloat(e.target.value))}
+            onChange={(e) => handleVolumeChange(parseFloat(e.target.value))}
+            onMouseUp={clearVolumeDragBase}
+            onTouchEnd={clearVolumeDragBase}
+            onBlur={clearVolumeDragBase}
+            onKeyUp={clearVolumeDragBase}
             style={{ width: '100%', accentColor: color }}
           />
         </div>
