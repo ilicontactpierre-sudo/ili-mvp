@@ -808,6 +808,7 @@ function OrchestrationPanel({
         _orchestrationLeitmotiv: block.leitmotiv || '',
         _orchestrationDiegeticMode: block.diegeticMode || null,
         _orchestrationSunoPrompt: block.sunoPrompt || null,
+        _orchestrationSunoMode: block.sunoMode || null,
         _orchestrationPlan: block.plan || null,
       }
     }
