@@ -996,6 +996,10 @@ function AdminPage() {
 
   // Bibliothèque sonore
   const [soundLibrary, setSoundLibrary] = useState([])
+  // true une fois le premier chargement (local + Supabase) terminé — sert à
+  // empêcher l'orchestration de diagnostiquer des sons comme "manquants" à
+  // tort simplement parce que la bibliothèque n'a pas fini de charger.
+  const [soundLibraryReady, setSoundLibraryReady] = useState(false)
   const [soundSearch, setSoundSearch] = useState('')
   const [activeFilters, setActiveFilters] = useState({
     categories: [],
