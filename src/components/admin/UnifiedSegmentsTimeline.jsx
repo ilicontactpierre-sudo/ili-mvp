@@ -3597,6 +3597,10 @@ const handleTextSelection = useCallback(() => {
           segment={segments[gameModePanel]}
           segmentIndex={gameModePanel}
           parts={parts || []}
+          soundLibrary={soundLibrary}
+          soundTracks={soundTracks}
+          onSoundTracksChange={onSoundTracksChange}
+          onSaveToHistory={onSaveToHistory}
           onSave={(idx, gameMode) => {
             const updated = [...segments]
             updated[idx] = { ...updated[idx], gameMode }
