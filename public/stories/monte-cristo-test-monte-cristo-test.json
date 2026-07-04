@@ -6,11 +6,6 @@
   "published": true,
   "sounds": [
     {
-      "id": "ambnaut_city_river_boats_01_b00m_one",
-      "url": "/sounds/AMBNaut_City River Boats 01_B00M_ONE.mp3",
-      "loop": false
-    },
-    {
       "id": "bellmisc_city_bike_bell_ring_single_01_b00m_one",
       "url": "/sounds/BELLMisc_City Bike Bell Ring Single 01_B00M_ONE.mp3",
       "loop": false
@@ -74,6 +69,11 @@
       "id": "danglars_theme_3_orchestral_aventure_epic_cinematic_violin_piano",
       "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/danglars_theme_3_orchestral_aventure_epic_cinematic_violin_piano.mp3",
       "loop": false
+    },
+    {
+      "id": "harbor_sounds_seaside_market_ambience_",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/harbor_sounds_seaside_market_ambience_.mp3",
+      "loop": false
     }
   ],
   "segments": [
@@ -89,9 +89,18 @@
         {
           "action": "fadeIn",
           "soundId": "hrck_drone_mid_-_gentle_eerie_tones",
-          "volume": 0.3,
+          "volume": 0.45,
           "gainDb": 0,
           "duration": 4000,
+          "delay": 0,
+          "loop": true
+        },
+        {
+          "action": "fadeIn",
+          "soundId": "harbor_sounds_seaside_market_ambience_",
+          "volume": 0.18,
+          "gainDb": 0,
+          "duration": 5000,
           "delay": 0,
           "loop": true
         }
@@ -272,6 +281,11 @@
           "action": "fadeOut",
           "soundId": "danglars_theme_3_orchestral_aventure_epic_cinematic_violin_piano",
           "duration": 5000
+        },
+        {
+          "action": "fadeOut",
+          "soundId": "harbor_sounds_seaside_market_ambience_",
+          "duration": 6000
         }
       ]
     }
@@ -283,7 +297,7 @@
       "startSegmentId": "seg_1783153739414_0_umzmg",
       "endSegmentId": "seg_1783153739414_6_lwwam",
       "column": 0,
-      "volume": 0.3,
+      "volume": 0.45,
       "loop": true,
       "loopCrossfade": "medium",
       "fadeIn": 4000,
@@ -295,13 +309,13 @@
       "automationPoints": [
         {
           "segmentId": "seg_1783153739414_0_umzmg",
-          "volume": 0.3,
+          "volume": 0.45,
           "fadeMs": 0,
           "_isAnchor": true
         },
         {
           "segmentId": "seg_1783153739414_4_40kr6",
-          "volume": 0.4,
+          "volume": 0.5999999999999998,
           "fadeMs": 2000
         }
       ],
@@ -376,7 +390,7 @@
     },
     {
       "id": "st_1783156653928_wzlwtpcw2_3",
-      "soundId": "ambnaut_city_river_boats_01_b00m_one",
+      "soundId": "harbor_sounds_seaside_market_ambience_",
       "startSegmentId": "seg_1783153739414_0_umzmg",
       "endSegmentId": "seg_1783153739414_14_2vipt",
       "column": 2,
@@ -388,7 +402,7 @@
       "delay": 0,
       "pan": 0,
       "panMode": "static",
-      "muted": true,
+      "muted": false,
       "broken": true,
       "automationPoints": [
         {
