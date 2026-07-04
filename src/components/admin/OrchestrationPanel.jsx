@@ -293,6 +293,7 @@ function buildExportPrompt(segments, soundLibrary) {
   lines.push('- **Riser / whoosh / stinger** : toujours disponible, mais à utiliser avec parcimonie — jamais le choix par défaut.')
   lines.push('')
   lines.push('Une transition peut aussi faire durer un suspense, installer une ironie, ou marquer une respiration réflexive — pas seulement un changement de décor.')
+  lines.push('"Avec parcimonie" ne veut pas dire "jamais" : si aucune de tes transitions ne mérite un vrai bloc `layer: "transition"` sur toute l\'histoire, c\'est suspect — vérifie qu\'il n\'y a vraiment aucune rupture assez forte pour ça avant de t\'en passer entièrement.')
   lines.push('')
   lines.push('---')
   lines.push('')
