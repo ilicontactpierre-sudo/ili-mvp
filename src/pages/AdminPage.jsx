@@ -1501,7 +1501,9 @@ function AdminPage() {
     // Reconstruire soundTracks depuis sounds[] + audioEvents[]
     // si soundTracks n'existe pas dans le JSON (cas JSON publié)
     if (storyData.soundTracks && storyData.soundTracks.length > 0) {
-      setSoundTracks(storyData.soundTracks)
+      // Re-vérifié contre la bibliothèque actuelle avant d'appliquer —
+      // corrige immédiatement tout bloc marqué broken à tort dans le JSON.
+      setSoundTracks(healSoundTracksAgainstLibrary(storyData.soundTracks, soundLibrary))
     } else {
       const reconstructed = []
       const soundsMap = {}
