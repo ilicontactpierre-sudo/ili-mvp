@@ -6,8 +6,8 @@
   "published": true,
   "sounds": [
     {
-      "id": "bellmisc_city_bike_bell_ring_single_01_b00m_one",
-      "url": "/sounds/BELLMisc_City Bike Bell Ring Single 01_B00M_ONE.mp3",
+      "id": "belllrg_church_single_ring_01_b00m_one",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/belllrg_church_single_ring_01_b00m_one.mp3",
       "loop": false
     },
     {
@@ -98,7 +98,7 @@
         {
           "action": "fadeIn",
           "soundId": "harbor_sounds_seaside_market_ambience_",
-          "volume": 0.18,
+          "volume": 0.45,
           "gainDb": 0,
           "duration": 5000,
           "delay": 0,
@@ -107,7 +107,7 @@
         {
           "action": "fadeIn",
           "soundId": "suno_orchestral_cinematic_court_1",
-          "volume": 0.28,
+          "volume": 0.45,
           "gainDb": 0,
           "duration": 6000,
           "delay": 0,
@@ -127,7 +127,7 @@
       "audioEvents": [
         {
           "action": "play",
-          "soundId": "bellmisc_city_bike_bell_ring_single_01_b00m_one",
+          "soundId": "belllrg_church_single_ring_01_b00m_one",
           "volume": 0.55,
           "gainDb": 0,
           "delay": 3300,
@@ -530,7 +530,7 @@
       "startSegmentId": "seg_1783153739414_0_umzmg",
       "endSegmentId": "seg_1783153739414_14_2vipt",
       "column": 2,
-      "volume": 0.18,
+      "volume": 0.45,
       "loop": true,
       "loopCrossfade": "medium",
       "fadeIn": 5000,
@@ -543,18 +543,18 @@
       "automationPoints": [
         {
           "segmentId": "seg_1783153739414_0_umzmg",
-          "volume": 0.18,
+          "volume": 0.45,
           "fadeMs": 0,
           "_isAnchor": true
         },
         {
           "segmentId": "seg_1783153739414_7_pbm0m",
-          "volume": 0.14,
+          "volume": 0.35000000000000003,
           "fadeMs": 2500
         },
         {
           "segmentId": "seg_1783153739414_13_097rx",
-          "volume": 0.2,
+          "volume": 0.49999999999999994,
           "fadeMs": 2000
         }
       ],
@@ -609,7 +609,7 @@
       "startSegmentId": "seg_1783153739414_0_umzmg",
       "endSegmentId": "seg_1783153739414_8_gr0lr",
       "column": 3,
-      "volume": 0.28,
+      "volume": 0.45,
       "loop": false,
       "fadeIn": 6000,
       "fadeOut": 4000,
@@ -621,23 +621,23 @@
       "automationPoints": [
         {
           "segmentId": "seg_1783153739414_0_umzmg",
-          "volume": 0.28,
+          "volume": 0.45,
           "fadeMs": 0,
           "_isAnchor": true
         },
         {
           "segmentId": "seg_1783153739414_1_kif85",
-          "volume": 0.2,
+          "volume": 0.3214285714285713,
           "fadeMs": 1500
         },
         {
           "segmentId": "seg_1783153739414_5_diw2f",
-          "volume": 0.34,
+          "volume": 0.5464285714285705,
           "fadeMs": 2000
         },
         {
           "segmentId": "seg_1783153739414_7_pbm0m",
-          "volume": 0.14,
+          "volume": 0.22499999999999976,
           "fadeMs": 2500
         }
       ],
@@ -724,7 +724,7 @@
     },
     {
       "id": "st_1783156653928_ztt81lvw5_8",
-      "soundId": "bellmisc_city_bike_bell_ring_single_01_b00m_one",
+      "soundId": "belllrg_church_single_ring_01_b00m_one",
       "startSegmentId": "seg_1783153739414_1_kif85",
       "endSegmentId": "seg_1783153739414_1_kif85",
       "column": 1,
