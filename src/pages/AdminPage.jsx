@@ -3012,6 +3012,10 @@ function AdminPage() {
           segment={activeSegments[gameModePanel]}
           segmentIndex={gameModePanel}
           parts={isSerial ? parts : []}
+          soundLibrary={soundLibrary}
+          soundTracks={activeSoundTracks}
+          onSoundTracksChange={setActiveSoundTracks}
+          onSaveToHistory={() => saveToHistory(activeSegments, activeSoundTracks, activeVfxTracks)}
           onSave={(idx, gameMode) => {
             const updated = [...activeSegments]
             updated[idx] = { ...updated[idx], gameMode }
