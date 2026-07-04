@@ -173,6 +173,7 @@ function buildExportPrompt(segments, soundLibrary) {
   lines.push('- `automationPoints` quasi-systématiques : elle s\'efface pendant les dialogues, remonte pendant les descriptions.')
   lines.push('- `leitmotiv` obligatoire si lié à un personnage ou concept récurrent, sinon `null` (musique à l\'image).')
   lines.push('- Champ `sunoPrompt` optionnel — voir Section 10.')
+  lines.push('- **La musique se mérite, elle n\'est pas un défaut.** Avant de créer un bloc music, demande-toi si le sound design seul (bed + atmosphere + diegetic) ne suffit pas déjà à porter la scène. Une majorité de segments sans musique active est saine, même dans une scène chargée en émotion — beaucoup de tension ou de mélancolie se joue très bien sans note de musique du tout. Vise une couverture musicale nettement inférieure à la moitié du texte, sauf histoire qui appelle vraiment une trame continue.')
   lines.push('')
   lines.push('### Couche "diegetic" — Sons de l\'action narrée (deux modes, champ `diegeticMode`)')
   lines.push('- **"ponctuel"** : 1 segment exact, `loop: false`, fadeIn: 0, fadeOut: 0. Volume élevé : 0.55–0.82. `delayTarget` pour synchroniser sur un mot précis. `pan` autorisé si position spatiale explicite dans le texte.')
