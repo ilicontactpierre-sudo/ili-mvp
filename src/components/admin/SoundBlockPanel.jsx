@@ -153,7 +153,9 @@ function SoundBlockPanel({
   }, [])
   // Volume global du bloc modifié depuis le slider : on fait évoluer les
   // points d'automation existants EN PROPORTION, en les plafonnant à 0/100%.
-  const handleVolumeChange = useCallback((newVolume) => {
+  const clearVolumeDragBase = useCallback(() => {
+    volumeDragBaseRef.current = null
+  }, [])const handleVolumeChange = useCallback((newVolume) => {
     setEditedTrack(prev => {
       // Capture la base (volume + points) au tout début du geste de drag,
       // pas à chaque étape — évite la perte d'info en cas de plafonnement
