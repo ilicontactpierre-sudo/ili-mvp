@@ -5,8 +5,26 @@ import { CATEGORY_COLORS, SOUND_BLOCK_COLORS, getVolumeColor } from './constants
 import WaveformTrimmer from './WaveformTrimmer'
 import SoundLibraryPicker from './SoundLibraryPicker'
 import AudioEngine from '../../engine/AudioEngine'
-
-function SoundBlockPanel({ 
+// ── Conversion gain linéaire (ce qu'utilise Howler) ↔ position perceptuelle ──
+// L'oreille perçoit le volume de façon logarithmique, pas linéaire (c'est
+// pourquoi les faders de consoles de mixage sont calibrés en dB). On mappe
+// donc le gain sur une échelle dB entre -60dB (silence perçu) et 0dB (max),
+// pour qu'un même écart de position "sonne" comme un même écart de volume,
+// quel que soit l'endroit de l'échelle.
+const MIN_DB = -60
+const gainToPerceptual = (gain) => {
+  const g = Math.max(0, Math.min(1, gain))
+  if (g <= 0) return 0
+  const db = Math.max(MIN_DB, 20 * Math.log10(g))
+  return (db - MIN_DB) / (0 - MIN_DB)
+}
+const perceptualToGain = (perceptual) => {
+  const p = Math.max(0, Math.min(1, perceptual))
+  if (p <= 0) return 0
+  const db = MIN_DB + p * (0 - MIN_DB)
+  return Math.pow(10, db / 20)
+}
+function SoundBlockPanel({
   soundTrack, 
   sound, 
   segments,
