@@ -355,7 +355,7 @@ function buildExportPrompt(segments, soundLibrary) {
   lines.push(']')
   lines.push('```')
   lines.push('')
-  lines.push('**Tableau 2 — sons :**')
+  lines.push('**### SONS**')
   lines.push('```json')
   lines.push('[')
   lines.push('  {')
