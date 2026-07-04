@@ -153,9 +153,7 @@ function SoundBlockPanel({
   }, [])
   // Volume global du bloc modifié depuis le slider : on fait évoluer les
   // points d'automation existants EN PROPORTION, en les plafonnant à 0/100%.
-  const clearVolumeDragBase = useCallback(() => {
-    volumeDragBaseRef.current = null
-  }, [])
+  const handleVolumeChange = useCallback((newVolume) => {
     setEditedTrack(prev => {
       // Capture la base (volume + points) au tout début du geste de drag,
       // pas à chaque étape — évite la perte d'info en cas de plafonnement
@@ -169,22 +167,18 @@ function SoundBlockPanel({
       const { baseVolume, basePoints } = volumeDragBaseRef.current
       let newPoints = basePoints
       if (basePoints && basePoints.length > 0) {
-        if (baseVolume > 0) {
-          // Cas normal : scaling proportionnel (multiplicatif)
-          const ratio = newVolume / baseVolume
-          newPoints = basePoints.map(pt => ({
-            ...pt,
-            volume: Math.max(0, Math.min(1, pt.volume * ratio)),
-          }))
-        } else {
-          // Cas limite : volume de base à 0% → la proportion n'a pas de sens
-          // (division par zéro). On applique un décalage additif à la place.
-          const delta = newVolume - baseVolume
-          newPoints = basePoints.map(pt => ({
-            ...pt,
-            volume: Math.max(0, Math.min(1, pt.volume + delta)),
-          }))
-        }
+        // Delta calculé en espace perceptuel (échelle dB), pas en gain linéaire
+        // brut : ça préserve la sensation d'écart de volume entre les points,
+        // même près de 0% où l'oreille est beaucoup plus sensible aux petites
+        // variations de gain qu'autour de 100%.
+        const basePerceptual = gainToPerceptual(baseVolume)
+        const newPerceptual = gainToPerceptual(newVolume)
+        const deltaPerceptual = newPerceptual - basePerceptual
+        newPoints = basePoints.map(pt => {
+          const ptPerceptual = gainToPerceptual(pt.volume)
+          const shifted = Math.max(0, Math.min(1, ptPerceptual + deltaPerceptual))
+          return { ...pt, volume: perceptualToGain(shifted) }
+        })
       }
       return {
         ...prev,
