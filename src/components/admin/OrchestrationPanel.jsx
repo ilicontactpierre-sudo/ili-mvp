@@ -181,6 +181,7 @@ function buildExportPrompt(segments, soundLibrary) {
   lines.push('- **"sequence"** : plusieurs segments, suit une action continue décrite dans le texte (une marche, un geste qui dure, une respiration qui s\'installe). Volume moyen : 0.35–0.55. FadeIn/fadeOut courts autorisés. Utilise-la activement — ne réduis pas le diégétique aux seuls impacts ponctuels, c\'est elle qui donne la sensation de corps et de présence continue.')
   lines.push('- Vise une présence diégétique régulière (au moins un événement, ponctuel ou en séquence, toutes les 8-12 segments quand l\'action le permet). Un texte sans diégétique pendant une longue plage est probablement un manque, pas un choix.')
   lines.push('- Ne laisse pas le mode "sequence" dominer systématiquement : un texte riche en action concrète mérite aussi des impacts ponctuels nets et brefs (un objet posé, une porte, un coup, un choc) — pas seulement des présences continues en fond.')
+  lines.push('- Sème aussi des détails concrets qui n\'ont aucune importance dramatique : un texte vivant a de la texture même dans ses passages "neutres" (un geste, un matériau, un mouvement mentionné en passant). Ne réserve pas le diégétique aux seuls moments narrativement significatifs — c\'est cette densité de petits détails, pas seulement les grands beats, qui rend une fiction sonore captivante plutôt qu\'illustrative.')
   lines.push('- Jamais d\'`automationPoints` sur cette couche.')
   lines.push('')
   lines.push('### Couche "transition" — Rupture narrative')
