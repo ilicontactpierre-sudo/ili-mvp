@@ -543,6 +543,14 @@ function OrchestrationPanel({
     setImportError('')
     setDiagnosis(null)
     setApplyStatus('idle')
+    // Garde-fou : si la bibliothèque sonore n'a pas fini de charger (fetch
+    // Supabase encore en cours), tous les sons paraîtraient "manquants" à
+    // tort — mieux vaut bloquer l'analyse que produire des blocs grisés
+    // par erreur.
+    if (!soundLibraryReady) {
+      setImportError('La bibliothèque sonore est encore en cours de chargement — patiente quelques secondes puis relance l\'analyse.')
+      return
+    }
     if (!importJson.trim()) {
       setImportError('Colle le JSON de Claude ici.')
       return
