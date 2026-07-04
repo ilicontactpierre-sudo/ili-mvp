@@ -34,6 +34,10 @@ function SoundBlockPanel({
   const [endSegText, setEndSegText] = useState('')
   const panelRef = useRef(null)
   const animationRef = useRef(null)
+  // Mémorise le volume + les points d'automation au début d'un geste sur le
+  // slider Volume, pour calculer la proportion depuis cette base (et non
+  // depuis l'étape précédente, ce qui évite les effets de plafonnement intermédiaire).
+  const volumeDragBaseRef = useRef(null)
   // ── Aperçu sonore (lecture avec les réglages actuels) ──────────────────────
   const [isPreviewPlaying, setIsPreviewPlaying] = useState(false)
   const previewHowlRef = useRef(null)
