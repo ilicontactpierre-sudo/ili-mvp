@@ -638,56 +638,123 @@ function GameTimer({ data, onResolved }) {
 }
 // ─── Type : Test de son (calibration volume) ─────────────────────────────────
 function GameSoundCheck({ data, onResolved }) {
-  const [skipVisible, setSkipVisible] = useState(false)
+  const [kickerVisible, setKickerVisible] = useState(false)
+  const [promptVisible, setPromptVisible] = useState(false)
+  const [buttonReady, setButtonReady]     = useState(false)
+  const [skipVisible, setSkipVisible]     = useState(false)
+  const S_EASE = 'cubic-bezier(0.22, 1, 0.36, 1)'
+
   useEffect(() => {
-    const t = setTimeout(() => setSkipVisible(true), 3200)
-    return () => clearTimeout(t)
+    const timers = [
+      setTimeout(() => setKickerVisible(true), 150),
+      setTimeout(() => setPromptVisible(true), 550),
+      setTimeout(() => setButtonReady(true), 1500),
+      setTimeout(() => setSkipVisible(true), 4200),
+    ]
+    return () => timers.forEach(clearTimeout)
   }, [])
+
+  const BARS = 7
+
   return (
-    <AnimatedWrapper style={{ gap: '2.4rem' }}>
-      <div style={{ position: 'relative', width: '96px', height: '96px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        {[0, 1, 2].map(i => (
-          <span key={i} style={{
-            position: 'absolute',
-            width: '96px', height: '96px',
-            borderRadius: '50%',
-            border: '1px solid var(--color-text-focus, #222)',
-            opacity: 0,
-            animation: `game-soundcheck-ring 2.6s ease-out ${i * 0.8}s infinite`,
-          }} />
-        ))}
-        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="var(--color-text-focus, #222)" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" style={{ opacity: 0.6 }}>
-          <path d="M11 5 6 9H2v6h4l5 4V5z" />
-          <path d="M15.5 8.5a5 5 0 0 1 0 7" />
-          <path d="M18.5 5.5a9 9 0 0 1 0 13" />
-        </svg>
-      </div>
-      {data.prompt && (
-        <p style={{
-          fontSize: 'clamp(0.88rem, 2.1vw, 1rem)',
+    <AnimatedWrapper style={{ gap: 0 }}>
+      {/* Kicker — espace réservé, jamais de saut */}
+      <div style={{ minHeight: '1.2rem', display: 'flex', alignItems: 'center' }}>
+        <span style={{
+          fontSize: '0.62rem', letterSpacing: '0.28em', textTransform: 'uppercase',
+          fontFamily: 'var(--font-logo, sans-serif)',
           color: 'var(--color-text-focus, #222)',
-          textAlign: 'center', lineHeight: 1.65, opacity: 0.72,
-          margin: 0, maxWidth: '26rem',
+          opacity: kickerVisible ? 0.32 : 0,
+          transform: kickerVisible ? 'translateY(0)' : 'translateY(-5px)',
+          transition: `opacity 700ms ${S_EASE}, transform 700ms ${S_EASE}`,
         }}>
-          {data.prompt}
-        </p>
-      )}
-      <ContinueBtn onClick={onResolved} label={data.buttonLabel || 'je suis prêt'} delay={1200} />
-      {skipVisible && (
+          Réglage du son
+        </span>
+      </div>
+
+      {/* Respiration — visuel continu, présent dès l'arrivée */}
+      <div style={{
+        position: 'relative', width: '150px', height: '150px',
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+        margin: '1.8rem 0 2rem',
+      }}>
+        <div style={{
+          position: 'absolute', width: '100%', height: '100%', borderRadius: '50%',
+          background: 'radial-gradient(circle, color-mix(in srgb, var(--color-text-focus) 9%, transparent) 0%, transparent 68%)',
+          animation: 'sc-halo-breathe 4.6s cubic-bezier(0.45,0,0.55,1) infinite',
+          animationFillMode: 'both',
+        }} />
+        <div style={{ display: 'flex', alignItems: 'center', gap: '7px', zIndex: 1 }}>
+          {Array.from({ length: BARS }).map((_, i) => {
+            const mid = (BARS - 1) / 2
+            const dist = Math.abs(i - mid)
+            const baseHeight = 44 - dist * 8
+            return (
+              <div key={i} style={{
+                width: '3px', height: `${baseHeight}px`, borderRadius: '999px',
+                backgroundColor: 'var(--color-text-focus, #222)',
+                animation: `sc-bar-breathe 2.4s cubic-bezier(0.45,0,0.55,1) ${i * 0.11}s infinite`,
+                animationFillMode: 'both',
+              }} />
+            )
+          })}
+        </div>
+      </div>
+
+      {/* Prompt — espace réservé */}
+      <div style={{ minHeight: '3.4rem', display: 'flex', alignItems: 'flex-start', justifyContent: 'center', padding: '0 1rem' }}>
+        {data.prompt && (
+          <p style={{
+            fontSize: 'clamp(0.88rem, 2.1vw, 1rem)', color: 'var(--color-text-focus, #222)',
+            textAlign: 'center', lineHeight: 1.65, margin: 0, maxWidth: '26rem',
+            opacity: promptVisible ? 0.7 : 0,
+            transform: promptVisible ? 'translateY(0)' : 'translateY(10px)',
+            transition: `opacity 800ms ${S_EASE}, transform 800ms ${S_EASE}`,
+          }}>
+            {data.prompt}
+          </p>
+        )}
+      </div>
+
+      {/* Bouton — espace réservé, n'affecte jamais le prompt */}
+      <div style={{ minHeight: '3.1rem', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         <button
           onClick={onResolved}
           style={{
-            background: 'none', border: 'none', cursor: 'pointer',
-            fontSize: '0.68rem', color: 'var(--color-text-focus, #222)',
-            opacity: 0.28, letterSpacing: '0.06em', marginTop: '-1.2rem',
-            transition: `opacity 500ms ${EASE.inOut}`,
+            background: 'none',
+            border: '1px solid color-mix(in srgb, var(--color-text-focus) 35%, transparent)',
+            color: 'var(--color-text-focus, #222)',
+            fontFamily: 'var(--font-primary, Georgia, serif)',
+            fontSize: '0.85rem', letterSpacing: '0.08em',
+            padding: '0.7rem 2.3rem', borderRadius: '2px', cursor: 'pointer',
+            opacity: buttonReady ? 1 : 0,
+            transform: buttonReady ? 'translateY(0) scale(1)' : 'translateY(8px) scale(0.98)',
+            transition: `opacity 850ms ${S_EASE}, transform 850ms ${S_EASE}, border-color 250ms ease`,
+            pointerEvents: buttonReady ? 'auto' : 'none',
           }}
-          onMouseEnter={e => e.currentTarget.style.opacity = '0.55'}
-          onMouseLeave={e => e.currentTarget.style.opacity = '0.28'}
+          onMouseEnter={e => { e.currentTarget.style.borderColor = 'color-mix(in srgb, var(--color-text-focus) 60%, transparent)' }}
+          onMouseLeave={e => { e.currentTarget.style.borderColor = 'color-mix(in srgb, var(--color-text-focus) 35%, transparent)' }}
         >
-          passer
+          {data.buttonLabel || 'je suis prêt'}
         </button>
-      )}
+      </div>
+
+      {/* Passer — position fixe, hors du flux, ne peut rien décaler */}
+      <button
+        onClick={onResolved}
+        style={{
+          position: 'fixed', bottom: '2.2rem', left: '50%', transform: 'translateX(-50%)',
+          background: 'none', border: 'none', cursor: 'pointer',
+          fontSize: '0.68rem', color: 'var(--color-text-focus, #222)', letterSpacing: '0.06em',
+          opacity: skipVisible ? 0.26 : 0,
+          transition: `opacity 900ms ${S_EASE}`,
+          pointerEvents: skipVisible ? 'auto' : 'none',
+        }}
+        onMouseEnter={e => { if (skipVisible) e.currentTarget.style.opacity = '0.55' }}
+        onMouseLeave={e => { if (skipVisible) e.currentTarget.style.opacity = '0.26' }}
+      >
+        passer
+      </button>
     </AnimatedWrapper>
   )
 }
