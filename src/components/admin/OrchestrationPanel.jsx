@@ -295,24 +295,11 @@ function buildExportPrompt(segments, soundLibrary) {
   lines.push('')
 
   // ── SECTION 12 — Sons uploadés + vocabulaire ─────────────────────────────
-  if (uploadedSounds.length > 0) {
-    lines.push('## Sons déjà uploadés — UTILISE-LES EN PRIORITÉ ABSOLUE')
-    lines.push('')
-    lines.push('Pour ces sons, utilise le champ `"soundId"` avec leur ID exact (et mets `"keyword": null`).')
-    lines.push('')
-    uploadedSounds.forEach(s => {
-      const tags = (s.tags || []).slice(0, 5).join(', ')
-      const dur = s.duration ? `${Math.round(s.duration)}s` : '?'
-      const loop = s.loop ? ' · loop' : ''
-      lines.push(`- **${s.id}** | "${s.label}" | ${dur}${loop}`)
-      if (tags) lines.push(`  tags: ${tags}`)
-    })
-    lines.push('')
-  }
   lines.push('## Vocabulaire disponible — Keywords autorisés')
   lines.push('')
-  lines.push('**RÈGLE ABSOLUE : chaque `keyword` doit être un mot de cette liste exactement.**')
-  lines.push('Si aucun keyword ne correspond au son idéal, utilise le plus proche et signale-le dans `note`.')
+  lines.push('**RÈGLE ABSOLUE : chaque `keyword` doit être un mot de cette liste exactement. N\'utilise jamais le champ `soundId`.**')
+  lines.push('Tu n\'as aucune information sur les sons déjà présents dans la bibliothèque de l\'auteur — n\'en suppose jamais l\'existence, même si un nom te semble plausible. Décris toujours ton intention via `keyword` + `note` ; c\'est à l\'auteur de retrouver ou choisir le fichier exact ensuite.')
+  lines.push('Si aucun keyword ne correspond parfaitement au son idéal, utilise le plus proche et précise ce que tu voulais vraiment dans `note`.')
   lines.push('')
   Object.entries(CURATED_VOCABULARY).forEach(([group, words]) => {
     lines.push(`**${group}** :`)
