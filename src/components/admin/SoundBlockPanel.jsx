@@ -133,6 +133,50 @@ function SoundBlockPanel({
       [field]: value
     }))
   }, [])
+  // Volume global du bloc modifié depuis le slider : on fait évoluer les
+  // points d'automation existants EN PROPORTION, en les plafonnant à 0/100%.
+  const handleVolumeChange = useCallback((newVolume) => {
+    setEditedTrack(prev => {
+      // Capture la base (volume + points) au tout début du geste de drag,
+      // pas à chaque étape — évite la perte d'info en cas de plafonnement
+      // intermédiaire pendant un même glissé.
+      if (!volumeDragBaseRef.current) {
+        volumeDragBaseRef.current = {
+          baseVolume: prev.volume ?? 0.5,
+          basePoints: prev.automationPoints || null,
+        }
+      }
+      const { baseVolume, basePoints } = volumeDragBaseRef.current
+      let newPoints = basePoints
+      if (basePoints && basePoints.length > 0) {
+        if (baseVolume > 0) {
+          // Cas normal : scaling proportionnel (multiplicatif)
+          const ratio = newVolume / baseVolume
+          newPoints = basePoints.map(pt => ({
+            ...pt,
+            volume: Math.max(0, Math.min(1, pt.volume * ratio)),
+          }))
+        } else {
+          // Cas limite : volume de base à 0% → la proportion n'a pas de sens
+          // (division par zéro). On applique un décalage additif à la place.
+          const delta = newVolume - baseVolume
+          newPoints = basePoints.map(pt => ({
+            ...pt,
+            volume: Math.max(0, Math.min(1, pt.volume + delta)),
+          }))
+        }
+      }
+      return {
+        ...prev,
+        volume: newVolume,
+        ...(newPoints ? { automationPoints: newPoints } : {}),
+      }
+    })
+  }, [])
+  // Fin du geste sur le slider Volume : on réinitialise la base pour le prochain ajustement
+  const clearVolumeDragBase = useCallback(() => {
+    volumeDragBaseRef.current = null
+  }, [])
 
   const handleClose = useCallback(() => {
     // Sauvegarde finale si nécessaire
