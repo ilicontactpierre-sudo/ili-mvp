@@ -161,27 +161,13 @@ class AudioEngine {
         this._fadeTokens.delete(key)
         return
       }
-      // Choisir la courbe selon la durée
-      const OUT_CURVES = [
-        { ms: 80,   curve: 'linear'   },
-        { ms: 300,  curve: 'ease-out' },
-        { ms: 800,  curve: 'sigmoid'  },
-        { ms: 2000, curve: 'sigmoid'  },
-        { ms: 4000, curve: 'cubic'    },
-        { ms: 8000, curve: 'log'      },
-      ]
-      const outStep = OUT_CURVES.reduce((best, s) =>
-        Math.abs(s.ms - duration) < Math.abs(best.ms - duration) ? s : best
-      , OUT_CURVES[0])
       const capturedToken = token
       const capturedKey = key
+      // 'natural' = linéaire en dB, sonne comme un fondu à vitesse constante
+      // pour l'oreille quelle que soit la durée. En dessous de 80ms,
+      // _animatedFade bascule automatiquement sur le fade natif Howler.
       // _animatedFade ne déclenche pas d'event 'fade' — on arrête le son à la fin via setTimeout
-      this._animatedFade(
-        instanceId != null ? howl : howl,
-        instanceId,
-        fromVolume, 0, duration,
-        outStep.curve
-      )
+      this._animatedFade(howl, instanceId, fromVolume, 0, duration, 'natural')
       setTimeout(() => {
         if (this._fadeTokens.get(capturedKey) === capturedToken) {
           instanceId != null ? howl.stop(instanceId) : howl.stop()
