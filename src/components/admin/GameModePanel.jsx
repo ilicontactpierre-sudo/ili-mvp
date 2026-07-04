@@ -1545,7 +1545,68 @@ function FormTimer({ data, onChange }) {
     </>
   )
 }
-function FormSoundCheck({ data, onChange }) {
+function FormSoundCheck({ data, onChange, segment, soundLibrary = [], soundTracks = [], onSoundTracksChange, onSaveToHistory }) {
+  const segId = segment?.id || segment?._id
+  const linkedTrack = soundTracks.find(t => t.startSegmentId === segId && t.soundId)
+  const linkedSound = linkedTrack ? soundLibrary.find(s => s.id === linkedTrack.soundId) : null
+  const [search, setSearch] = useState('')
+  const [showPicker, setShowPicker] = useState(false)
+  const previewRef = useRef(null)
+
+  useEffect(() => () => {
+    if (previewRef.current) { previewRef.current.stop(); previewRef.current.unload() }
+  }, [])
+
+  const filtered = (search.trim()
+    ? soundLibrary.filter(s => {
+        const q = search.toLowerCase()
+        return s.label?.toLowerCase().includes(q) || (s.tags || []).some(t => t.toLowerCase().includes(q))
+      })
+    : soundLibrary
+  ).slice(0, 30)
+
+  const playPreview = (sound) => {
+    if (previewRef.current) { previewRef.current.stop(); previewRef.current.unload() }
+    const howl = new Howl({ src: [sound.url || `/sounds/${sound.filename}`], volume: 0.5 })
+    howl.play()
+    previewRef.current = howl
+    setTimeout(() => { if (howl.playing()) howl.stop(); howl.unload() }, 3000)
+  }
+
+  const pickSound = (sound) => {
+    if (!segId || !onSoundTracksChange) return
+    const next = linkedTrack
+      ? soundTracks.map(t => t.id === linkedTrack.id ? { ...t, soundId: sound.id, loop: sound.loop || false } : t)
+      : [...soundTracks, {
+          id: `st_${Date.now()}_${Math.random().toString(36).slice(2, 9)}`,
+          soundId: sound.id,
+          startSegmentId: segId,
+          endSegmentId: segId,
+          column: 0,
+          volume: 0.6,
+          fadeIn: 300,
+          fadeOut: 300,
+          delay: 0,
+          loop: sound.loop || false,
+          muted: false,
+        }]
+    onSoundTracksChange(next)
+    if (onSaveToHistory) onSaveToHistory()
+    setShowPicker(false)
+    setSearch('')
+  }
+
+  const removeSound = () => {
+    if (!linkedTrack || !onSoundTracksChange) return
+    onSoundTracksChange(soundTracks.filter(t => t.id !== linkedTrack.id))
+    if (onSaveToHistory) onSaveToHistory()
+  }
+
+  const updateVolume = (v) => {
+    if (!linkedTrack || !onSoundTracksChange) return
+    onSoundTracksChange(soundTracks.map(t => t.id === linkedTrack.id ? { ...t, volume: v } : t))
+  }
+
   return (
     <>
       <Field label="Texte affiché" hint="Invite le lecteur à ajuster son volume">
@@ -1558,9 +1619,90 @@ function FormSoundCheck({ data, onChange }) {
           placeholder="Je suis prêt"
           onChange={e => onChange({ ...data, buttonLabel: e.target.value })} />
       </Field>
-      <p style={{ fontSize: '0.72rem', color: 'rgba(255,255,255,0.35)', fontStyle: 'italic', margin: 0 }}>
-        Le son joué pendant ce segment est celui que vous ajoutez normalement dans la timeline audio — pas ici.
-      </p>
+      <Field label="Son de test" hint="Le son qui jouera pendant cet écran, propre à ce segment">
+        {!segId ? (
+          <p style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.35)', fontStyle: 'italic', margin: 0 }}>
+            Enregistrez d'abord ce segment pour pouvoir y attacher un son.
+          </p>
+        ) : linkedSound ? (
+          <>
+            <div style={{
+              display: 'flex', alignItems: 'center', gap: '0.6rem',
+              padding: '0.6rem 0.75rem', backgroundColor: 'rgba(62,207,142,0.08)',
+              border: '1px solid rgba(62,207,142,0.25)', borderRadius: '8px',
+            }}>
+              <button onClick={() => playPreview(linkedSound)} style={{
+                background: 'rgba(62,207,142,0.18)', border: 'none', borderRadius: '5px',
+                color: 'rgba(62,207,142,0.95)', padding: '0.3rem 0.55rem', cursor: 'pointer', fontSize: '0.75rem',
+              }}>▶</button>
+              <span style={{ flex: 1, fontSize: '0.82rem', color: 'rgba(255,255,255,0.85)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                {linkedSound.label || linkedSound.id}
+              </span>
+              <button onClick={removeSound} style={{
+                background: 'none', border: 'none', color: 'rgba(220,38,38,0.7)', cursor: 'pointer', fontSize: '0.8rem',
+              }}>✕</button>
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginTop: '0.5rem' }}>
+              <span style={{ fontSize: '0.68rem', color: 'rgba(255,255,255,0.4)', minWidth: '48px' }}>Volume</span>
+              <input type="range" min="0" max="1" step="0.05"
+                value={linkedTrack?.volume ?? 0.6}
+                onChange={e => updateVolume(parseFloat(e.target.value))}
+                onMouseUp={() => onSaveToHistory && onSaveToHistory()}
+                style={{ flex: 1, accentColor: '#3ecf8e' }} />
+              <span style={{ fontSize: '0.68rem', color: 'rgba(255,255,255,0.4)', minWidth: '30px', textAlign: 'right' }}>
+                {Math.round((linkedTrack?.volume ?? 0.6) * 100)}%
+              </span>
+            </div>
+          </>
+        ) : (
+          <button onClick={() => setShowPicker(true)} style={{
+            padding: '0.55rem 0.9rem', fontSize: '0.8rem', backgroundColor: 'rgba(255,255,255,0.05)',
+            border: '1px dashed rgba(255,255,255,0.2)', borderRadius: '8px', color: 'rgba(255,255,255,0.5)',
+            cursor: 'pointer', width: '100%',
+          }}>
+            + Choisir un son
+          </button>
+        )}
+      </Field>
+      {showPicker && (
+        <div style={{
+          border: '1px solid rgba(255,255,255,0.1)', borderRadius: '8px', padding: '0.6rem',
+          backgroundColor: 'rgba(255,255,255,0.03)', display: 'flex', flexDirection: 'column', gap: '0.5rem',
+        }}>
+          <div style={{ display: 'flex', gap: '0.4rem' }}>
+            <input autoFocus type="text" value={search} onChange={e => setSearch(e.target.value)}
+              placeholder="Rechercher un son…" style={{ ...inputStyle, flex: 1 }} />
+            <button onClick={() => { setShowPicker(false); setSearch('') }} style={{
+              background: 'none', border: '1px solid rgba(255,255,255,0.15)', borderRadius: '6px',
+              color: 'rgba(255,255,255,0.5)', padding: '0 0.6rem', cursor: 'pointer',
+            }}>✕</button>
+          </div>
+          <div style={{ maxHeight: '180px', overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '0.3rem' }}>
+            {filtered.map(sound => (
+              <div key={sound.id} style={{
+                display: 'flex', alignItems: 'center', gap: '0.5rem',
+                padding: '0.4rem 0.5rem', borderRadius: '5px', backgroundColor: 'rgba(255,255,255,0.03)',
+              }}>
+                <button onClick={() => playPreview(sound)} style={{
+                  background: 'none', border: '1px solid rgba(255,255,255,0.15)', borderRadius: '4px',
+                  color: 'rgba(255,255,255,0.6)', padding: '0.2rem 0.5rem', cursor: 'pointer', fontSize: '0.7rem',
+                }}>▶</button>
+                <span style={{ flex: 1, fontSize: '0.78rem', color: 'rgba(255,255,255,0.75)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                  {sound.label || sound.id}
+                </span>
+                <button onClick={() => pickSound(sound)} style={{
+                  background: 'rgba(167,139,250,0.15)', border: '1px solid rgba(167,139,250,0.3)',
+                  borderRadius: '4px', color: 'rgba(167,139,250,0.9)', padding: '0.2rem 0.6rem',
+                  cursor: 'pointer', fontSize: '0.72rem', whiteSpace: 'nowrap',
+                }}>choisir</button>
+              </div>
+            ))}
+            {filtered.length === 0 && (
+              <p style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.3)', textAlign: 'center', padding: '0.5rem' }}>Aucun son trouvé</p>
+            )}
+          </div>
+        </div>
+      )}
     </>
   )
 }
