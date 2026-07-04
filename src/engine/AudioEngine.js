@@ -4,6 +4,15 @@ function dbToLinear(db) {
   if (!db) return 1
   return Math.pow(10, db / 20)
 }
+// Convertit un gain linéaire (0-1, ce que Howler attend) vers un niveau en dB.
+// Plancher à -60dB pour éviter -Infinity au silence total — en dessous, le
+// son est de toute façon perçu comme inaudible.
+const FADE_MIN_DB = -60
+function linearToDb(v) {
+  const g = Math.max(0, Math.min(1, v))
+  if (g <= 0) return FADE_MIN_DB
+  return Math.max(FADE_MIN_DB, 20 * Math.log10(g))
+}
 class AudioEngine {
   constructor(howlMap) {
     this.howlMap = howlMap
