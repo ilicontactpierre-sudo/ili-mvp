@@ -409,6 +409,7 @@ function buildExportPrompt(segments, soundLibrary) {
   lines.push('    "leitmotiv": "thème d\'Elsa",')
   lines.push('    "type": "musique",')
   lines.push('    "plan": "intermediaire",')
+  lines.push('    "sunoMode": "theme",')
   lines.push('    "sunoPrompt": "melancholic solo piano, sparse notes, intimate close-mic recording, soft room tone, minor key, slow tempo 60bpm, cinematic, no percussion",')
   lines.push('    "note": "Piano solo, notes espacées, sans pédale de sustain longue. Plan intermédiaire, sous les dialogues, remonte en plan premier sur les descriptions intérieures. Porte l\'émotion d\'Elsa sans dépendre de sa présence physique dans la scène."')
   lines.push('  }')
