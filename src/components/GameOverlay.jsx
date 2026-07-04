@@ -174,10 +174,13 @@ const GLOBAL_KEYFRAMES = `
     0%, 50%, 100% { transform: translateY(0px) scale(1);   opacity: 0.32; }
     25%           { transform: translateY(-6px) scale(1.1); opacity: 1; }
   }
-  @keyframes game-soundcheck-ring {
-    0%   { transform: scale(0.6); opacity: 0.5; }
-    70%  { opacity: 0; }
-    100% { transform: scale(1.35); opacity: 0; }
+  @keyframes sc-halo-breathe {
+    0%, 100% { transform: scale(0.92); opacity: 0.55; }
+    50%      { transform: scale(1.08); opacity: 1; }
+  }
+  @keyframes sc-bar-breathe {
+    0%, 100% { transform: scaleY(0.55); opacity: 0.35; }
+    50%      { transform: scaleY(1);    opacity: 0.75; }
   }
 `
 
