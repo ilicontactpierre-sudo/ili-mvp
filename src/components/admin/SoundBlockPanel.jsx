@@ -155,7 +155,7 @@ function SoundBlockPanel({
   // points d'automation existants EN PROPORTION, en les plafonnant à 0/100%.
   const clearVolumeDragBase = useCallback(() => {
     volumeDragBaseRef.current = null
-  }, [])const handleVolumeChange = useCallback((newVolume) => {
+  }, [])
     setEditedTrack(prev => {
       // Capture la base (volume + points) au tout début du geste de drag,
       // pas à chaque étape — évite la perte d'info en cas de plafonnement
