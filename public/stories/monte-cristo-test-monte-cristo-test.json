@@ -4,7 +4,78 @@
   "author": "Monte Cristo Test",
   "description": "Monte Cristo Test",
   "published": true,
-  "sounds": [],
+  "sounds": [
+    {
+      "id": "ambnaut_city_river_boats_01_b00m_one",
+      "url": "/sounds/AMBNaut_City River Boats 01_B00M_ONE.mp3",
+      "loop": false
+    },
+    {
+      "id": "bellmisc_city_bike_bell_ring_single_01_b00m_one",
+      "url": "/sounds/BELLMisc_City Bike Bell Ring Single 01_B00M_ONE.mp3",
+      "loop": false
+    },
+    {
+      "id": "hrck_drone_mid_-_gentle_eerie_tones",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/hrck_drone_mid_-_gentle_eerie_tones.mp3",
+      "loop": false
+    },
+    {
+      "id": "crwdsprt_football_match_ambience_crowd_chant_walla_01_b00m_one",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/crwdsprt_football_match_ambience_crowd_chant_walla_01_b00m_one.mp3",
+      "loop": false
+    },
+    {
+      "id": "dsgnmisc_alienated_rope_01_b00m_one",
+      "url": "/sounds/DSGNMisc_Alienated Rope 01_B00M_ONE.mp3",
+      "loop": false
+    },
+    {
+      "id": "doorwood_kitchen_door_closer_creak_wood_close_02_b00m_one",
+      "url": "/sounds/DOORWood_Kitchen Door Closer Creak Wood Close 02_B00M_ONE.mp3",
+      "loop": false
+    },
+    {
+      "id": "mechrtch_tension_belt_tense_ratchet_01_b00m_one_1",
+      "url": "/sounds/MECHRtch_Tension Belt Tense Ratchet 01_B00M_ONE_1.mp3",
+      "loop": false
+    },
+    {
+      "id": "muscstngr_orchestra_drone_bass_sul_pont_sustain_high_intensity_octave_01_b00m_on",
+      "url": "/sounds/MUSCStngr_Orchestra Drone Bass Sul Pont Sustain High Intensity Octave 01_B00M_ONE.mp3",
+      "loop": false
+    },
+    {
+      "id": "muscstr_piano_play_on_strings_mid_01_b00m_one",
+      "url": "/sounds/MUSCStr_Piano Play On Strings Mid 01_B00M_ONE.mp3",
+      "loop": false
+    },
+    {
+      "id": "muscstr_vintage_violin_horror_sound_02_b00m_one",
+      "url": "/sounds/MUSCStr_Vintage Violin Horror Sound 02_B00M_ONE.mp3",
+      "loop": false
+    },
+    {
+      "id": "robtvox_android_voice_malfunction_04_b00m_one",
+      "url": "/sounds/ROBTVox_Android Voice Malfunction 04_B00M_ONE.mp3",
+      "loop": false
+    },
+    {
+      "id": "weaparmr_plate_armor_steel_walk_single_step_03_b00m_one",
+      "url": "/sounds/WEAPArmr_Plate Armor Steel Walk Single Step 03_B00M_ONE.mp3",
+      "loop": false
+    },
+    {
+      "id": "winddsgn_wind_machine_long_sequence_soft_02_b00m_one",
+      "url": "/sounds/WINDDsgn_Wind Machine Long Sequence Soft 02_B00M_ONE.mp3",
+      "loop": false
+    },
+    {
+      "id": "danglars_theme_3_orchestral_aventure_epic_cinematic_violin_piano",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/danglars_theme_3_orchestral_aventure_epic_cinematic_violin_piano.mp3",
+      "loop": false
+    }
+  ],
   "segments": [
     {
       "id": "seg_1783153739414_0_umzmg",
@@ -13,8 +84,19 @@
       ],
       "text": "I MARSEILLE. — L’ARRIVÉE.",
       "breakAt": null,
-      "isLeader": false,
-      "audioEvents": []
+      "isLeader": true,
+      "audioEvents": [
+        {
+          "action": "fadeIn",
+          "soundId": "hrck_drone_mid_-_gentle_eerie_tones",
+          "volume": 0.3,
+          "gainDb": 0,
+          "duration": 4000,
+          "delay": 0,
+          "loop": true
+        }
+      ],
+      "isChapter": true
     },
     {
       "id": "seg_1783153739414_1_kif85",
@@ -54,7 +136,17 @@
       "text": "Aussitôt, comme d’habitude encore, la plate-forme du fort Saint-Jean s’était couverte de curieux ;",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "fadeIn",
+          "soundId": "crwdsprt_football_match_ambience_crowd_chant_walla_01_b00m_one",
+          "volume": 0.42,
+          "gainDb": 0,
+          "duration": 1000,
+          "delay": 0,
+          "loop": true
+        }
+      ]
     },
     {
       "id": "seg_1783153739414_5_diw2f",
@@ -74,7 +166,18 @@
       "text": "comme le Pharaon, a été construit, gréé, arrimé sur les chantiers de la vieille Phocée, et appartient à un armateur de la ville.",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "fadeOut",
+          "soundId": "hrck_drone_mid_-_gentle_eerie_tones",
+          "duration": 3000
+        },
+        {
+          "action": "fadeOut",
+          "soundId": "crwdsprt_football_match_ambience_crowd_chant_walla_01_b00m_one",
+          "duration": 1500
+        }
+      ]
     },
     {
       "id": "seg_1783153739414_7_pbm0m",
@@ -114,7 +217,17 @@
       "text": "Néanmoins les experts en navigation reconnaissaient que si un accident était arrivé, ce ne pouvait être au bâtiment lui-même ;",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "fadeIn",
+          "soundId": "danglars_theme_3_orchestral_aventure_epic_cinematic_violin_piano",
+          "volume": 0.12,
+          "gainDb": 0,
+          "duration": 4000,
+          "delay": 0,
+          "loop": true
+        }
+      ]
     },
     {
       "id": "seg_1783153739414_11_9si3t",
@@ -154,9 +267,425 @@
       "text": "était un jeune homme au geste rapide et à l’œil actif, qui surveillait chaque mouvement du navire et répétait chaque ordre du pilote.",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "fadeOut",
+          "soundId": "danglars_theme_3_orchestral_aventure_epic_cinematic_violin_piano",
+          "duration": 5000
+        }
+      ]
     }
   ],
-  "soundTracks": [],
+  "soundTracks": [
+    {
+      "id": "st_1783156653927_h5xq3oxap_0",
+      "soundId": "hrck_drone_mid_-_gentle_eerie_tones",
+      "startSegmentId": "seg_1783153739414_0_umzmg",
+      "endSegmentId": "seg_1783153739414_6_lwwam",
+      "column": 0,
+      "volume": 0.3,
+      "loop": true,
+      "loopCrossfade": "medium",
+      "fadeIn": 4000,
+      "fadeOut": 3000,
+      "delay": 0,
+      "pan": 0,
+      "panMode": "static",
+      "muted": false,
+      "automationPoints": [
+        {
+          "segmentId": "seg_1783153739414_0_umzmg",
+          "volume": 0.3,
+          "fadeMs": 0,
+          "_isAnchor": true
+        },
+        {
+          "segmentId": "seg_1783153739414_4_40kr6",
+          "volume": 0.4,
+          "fadeMs": 2000
+        }
+      ],
+      "_orchestrationNote": "Nappe douce, continue, sans pulsation ni attaque marquée, registre medium-aigu. Plan intermédiaire sous le bed portuaire. Colore la curiosité collective sans dramatiser, monte légèrement quand la foule se forme.",
+      "_orchestrationKeyword": "ambient",
+      "_orchestrationLayer": "atmosphere",
+      "_orchestrationLeitmotiv": "",
+      "_orchestrationDiegeticMode": null,
+      "_orchestrationSunoPrompt": null,
+      "_orchestrationPlan": "intermediaire",
+      "trimStart": 0,
+      "trimEnd": 118848,
+      "gainDb": 0
+    },
+    {
+      "id": "st_1783156653928_l6p9wk4rm_1",
+      "soundId": "danglars_theme_3_orchestral_aventure_epic_cinematic_violin_piano",
+      "startSegmentId": "seg_1783153739414_10_hyvz9",
+      "endSegmentId": "seg_1783153739414_14_2vipt",
+      "column": 0,
+      "volume": 0.12,
+      "loop": true,
+      "loopCrossfade": "medium",
+      "fadeIn": 4000,
+      "fadeOut": 5000,
+      "delay": 0,
+      "pan": 0,
+      "panMode": "static",
+      "muted": false,
+      "automationPoints": [
+        {
+          "segmentId": "seg_1783153739414_12_ff4je",
+          "volume": 0.2,
+          "fadeMs": 2000
+        },
+        {
+          "segmentId": "seg_1783153739414_13_097rx",
+          "volume": 0.15,
+          "fadeMs": 1500
+        }
+      ],
+      "_orchestrationNote": "Nappe large, registre medium, sans attaque percussive, texture plus dense que l'ambient d'ouverture. Plan intermédiaire, sous la musique de réassurance puis sous le leitmotiv du second. Reconstruit la confiance après le doute, prépare la mise en valeur du jeune homme.",
+      "_orchestrationKeyword": "epic",
+      "_orchestrationLayer": "atmosphere",
+      "_orchestrationLeitmotiv": "",
+      "_orchestrationDiegeticMode": null,
+      "_orchestrationSunoPrompt": null,
+      "_orchestrationPlan": "intermediaire"
+    },
+    {
+      "id": "st_1783156653928_790rj9id5_2",
+      "soundId": "crwdsprt_football_match_ambience_crowd_chant_walla_01_b00m_one",
+      "startSegmentId": "seg_1783153739414_4_40kr6",
+      "endSegmentId": "seg_1783153739414_6_lwwam",
+      "column": 1,
+      "volume": 0.42,
+      "loop": true,
+      "loopCrossfade": "medium",
+      "fadeIn": 1000,
+      "fadeOut": 1500,
+      "delay": 0,
+      "pan": 0,
+      "panMode": "static",
+      "muted": false,
+      "_orchestrationNote": "Murmure de foule continu, voix indistinctes, sans mot isolé audible, registre medium. Plan intermédiaire, sous la musique et l'atmosphere. Donne corps à la fierté collective de la ville qui se rassemble.",
+      "_orchestrationKeyword": "crowd",
+      "_orchestrationLayer": "diegetic",
+      "_orchestrationLeitmotiv": "",
+      "_orchestrationDiegeticMode": "sequence",
+      "_orchestrationSunoPrompt": null,
+      "_orchestrationPlan": "intermediaire"
+    },
+    {
+      "id": "st_1783156653928_wzlwtpcw2_3",
+      "soundId": "ambnaut_city_river_boats_01_b00m_one",
+      "startSegmentId": "seg_1783153739414_0_umzmg",
+      "endSegmentId": "seg_1783153739414_14_2vipt",
+      "column": 2,
+      "volume": 0.18,
+      "loop": true,
+      "loopCrossfade": "medium",
+      "fadeIn": 5000,
+      "fadeOut": 6000,
+      "delay": 0,
+      "pan": 0,
+      "panMode": "static",
+      "muted": true,
+      "broken": true,
+      "automationPoints": [
+        {
+          "segmentId": "seg_1783153739414_0_umzmg",
+          "volume": 0.18,
+          "fadeMs": 0,
+          "_isAnchor": true
+        },
+        {
+          "segmentId": "seg_1783153739414_7_pbm0m",
+          "volume": 0.14,
+          "fadeMs": 2500
+        },
+        {
+          "segmentId": "seg_1783153739414_13_097rx",
+          "volume": 0.2,
+          "fadeMs": 2000
+        }
+      ],
+      "_orchestrationNote": "Ambiance portuaire continue, bruit de fond diffus, sans élément identifiable au premier plan. Arrière-plan constant sous tout le chapitre. Ancre géographiquement Marseille sans jamais capter l'attention.",
+      "_orchestrationKeyword": "harbor",
+      "_orchestrationLayer": "bed",
+      "_orchestrationLeitmotiv": "",
+      "_orchestrationDiegeticMode": null,
+      "_orchestrationSunoPrompt": null,
+      "_orchestrationPlan": "arriere"
+    },
+    {
+      "id": "st_1783156653928_mpd7j2ind_4",
+      "soundId": "mechrtch_tension_belt_tense_ratchet_01_b00m_one_1",
+      "startSegmentId": "seg_1783153739414_7_pbm0m",
+      "endSegmentId": "seg_1783153739414_9_gkcj5",
+      "column": 0,
+      "volume": 0.18,
+      "loop": true,
+      "loopCrossfade": "medium",
+      "fadeIn": 3000,
+      "fadeOut": 2500,
+      "delay": 0,
+      "pan": 0,
+      "panMode": "static",
+      "muted": true,
+      "broken": true,
+      "automationPoints": [
+        {
+          "segmentId": "seg_1783153739414_8_gr0lr",
+          "volume": 0.24,
+          "fadeMs": 1500
+        },
+        {
+          "segmentId": "seg_1783153739414_9_gkcj5",
+          "volume": 0.06,
+          "fadeMs": 2000
+        }
+      ],
+      "_orchestrationNote": "Drone grave, continu, texture granuleuse sans mélodie. Plan intermédiaire, sous le vent et le bois du navire. Traduit le pressentiment de malheur qui monte dans la foule, puis s'efface presque totalement pour le silence du seg 10.",
+      "_orchestrationKeyword": "tension",
+      "_orchestrationLayer": "atmosphere",
+      "_orchestrationLeitmotiv": "",
+      "_orchestrationDiegeticMode": null,
+      "_orchestrationSunoPrompt": null,
+      "_orchestrationPlan": "intermediaire"
+    },
+    {
+      "id": "st_1783156653928_2gc2cu74i_5",
+      "soundId": "muscstngr_orchestra_drone_bass_sul_pont_sustain_high_intensity_octave_01_b00m_on",
+      "startSegmentId": "seg_1783153739414_0_umzmg",
+      "endSegmentId": "seg_1783153739414_8_gr0lr",
+      "column": 3,
+      "volume": 0.28,
+      "loop": false,
+      "fadeIn": 6000,
+      "fadeOut": 4000,
+      "delay": 0,
+      "pan": 0,
+      "panMode": "static",
+      "muted": true,
+      "broken": true,
+      "automationPoints": [
+        {
+          "segmentId": "seg_1783153739414_1_kif85",
+          "volume": 0.2,
+          "fadeMs": 1500
+        },
+        {
+          "segmentId": "seg_1783153739414_5_diw2f",
+          "volume": 0.34,
+          "fadeMs": 2000
+        },
+        {
+          "segmentId": "seg_1783153739414_7_pbm0m",
+          "volume": 0.14,
+          "fadeMs": 2500
+        }
+      ],
+      "_orchestrationNote": "Cordes en registre médium, attaque douce, sans percussion, phrasé large et continu. Plan intermédiaire sous le bed et l'atmosphere. Porte la fierté collective de l'arrivée du navire, s'efface progressivement quand le doute apparaît.",
+      "_orchestrationKeyword": "orchestra",
+      "_orchestrationLayer": "music",
+      "_orchestrationLeitmotiv": "",
+      "_orchestrationDiegeticMode": null,
+      "_orchestrationSunoPrompt": "orchestral cinematic, warm string section lead, subtle woodwind color, hopeful but restrained mood, slow tempo 70bpm, early 19th century maritime atmosphere, no percussion, no brass fanfare",
+      "_orchestrationPlan": "intermediaire"
+    },
+    {
+      "id": "st_1783156653928_evwyy2f8l_6",
+      "soundId": "muscstr_piano_play_on_strings_mid_01_b00m_one",
+      "startSegmentId": "seg_1783153739414_10_hyvz9",
+      "endSegmentId": "seg_1783153739414_12_ff4je",
+      "column": 1,
+      "volume": 0.2,
+      "loop": false,
+      "fadeIn": 3000,
+      "fadeOut": 3000,
+      "delay": 0,
+      "pan": 0,
+      "panMode": "static",
+      "muted": true,
+      "broken": true,
+      "automationPoints": [
+        {
+          "segmentId": "seg_1783153739414_11_9si3t",
+          "volume": 0.3,
+          "fadeMs": 2000
+        }
+      ],
+      "_orchestrationNote": "Cordes chaudes, sans piano ni percussion, mouvement harmonique résolutif. Plan intermédiaire, remonte doucement après le silence du seg 10. Accompagne le retour au calme quand les experts contredisent le pressentiment de malheur.",
+      "_orchestrationKeyword": "strings",
+      "_orchestrationLayer": "music",
+      "_orchestrationLeitmotiv": "",
+      "_orchestrationDiegeticMode": null,
+      "_orchestrationSunoPrompt": "solo string ensemble, warm cello and viola blend, resolving harmonic movement, calm reassuring mood, slow tempo 65bpm, intimate close recording, no piano, no percussion",
+      "_orchestrationPlan": "intermediaire"
+    },
+    {
+      "id": "st_1783156653928_phb6j355o_7",
+      "soundId": "muscstr_vintage_violin_horror_sound_02_b00m_one",
+      "startSegmentId": "seg_1783153739414_13_097rx",
+      "endSegmentId": "seg_1783153739414_14_2vipt",
+      "column": 1,
+      "volume": 0.32,
+      "loop": false,
+      "fadeIn": 1000,
+      "fadeOut": 2000,
+      "delay": 0,
+      "pan": 0,
+      "panMode": "static",
+      "muted": true,
+      "broken": true,
+      "_orchestrationNote": "Violon seul, attaque franche, phrasé bref et rythmique, sans accompagnement orchestral. Plan premier, au-dessus de l'atmosphere epic. Introduit le second du navire par contraste net avec la gravité qui précède, motif destiné à revenir transformé.",
+      "_orchestrationKeyword": "violin",
+      "_orchestrationLayer": "music",
+      "_orchestrationLeitmotiv": "thème du jeune second",
+      "_orchestrationDiegeticMode": null,
+      "_orchestrationSunoPrompt": "solo violin theme, bright and agile phrasing, quick rhythmic motif, alert energetic mood, tempo 100bpm, single instrument close-mic, no orchestra, no reverb wash",
+      "_orchestrationPlan": "premier"
+    },
+    {
+      "id": "st_1783156653928_ztt81lvw5_8",
+      "soundId": "bellmisc_city_bike_bell_ring_single_01_b00m_one",
+      "startSegmentId": "seg_1783153739414_1_kif85",
+      "endSegmentId": "seg_1783153739414_1_kif85",
+      "column": 1,
+      "volume": 0.55,
+      "loop": false,
+      "fadeIn": 0,
+      "fadeOut": 0,
+      "delay": 3300,
+      "pan": 0,
+      "panMode": "static",
+      "muted": true,
+      "broken": true,
+      "_orchestrationNote": "Cloche lointaine, un seul coup, résonance courte sans traînée longue. Plan premier bref, seul son identifiable sur fond quasi nu. Accroche d'ouverture, signale la vigie avant que le décor ne soit complètement installé.",
+      "_orchestrationKeyword": "bell",
+      "_orchestrationLayer": "diegetic",
+      "_orchestrationLeitmotiv": "",
+      "_orchestrationDiegeticMode": "ponctuel",
+      "_orchestrationSunoPrompt": null,
+      "_orchestrationPlan": "premier"
+    },
+    {
+      "id": "st_1783156653928_nrm0zuvq0_9",
+      "soundId": "winddsgn_wind_machine_long_sequence_soft_02_b00m_one",
+      "startSegmentId": "seg_1783153739414_7_pbm0m",
+      "endSegmentId": "seg_1783153739414_8_gr0lr",
+      "column": 1,
+      "volume": 0.36,
+      "loop": true,
+      "loopCrossfade": "medium",
+      "fadeIn": 2000,
+      "fadeOut": 2000,
+      "delay": 0,
+      "pan": 0,
+      "panMode": "static",
+      "muted": true,
+      "broken": true,
+      "_orchestrationNote": "Vent continu dans du tissu tendu, sans rafale forte, régime stable et faible. Plan intermédiaire, sous l'atmosphere de tension. Traduit l'allure lente et triste du navire qui avance sous ses voiles.",
+      "_orchestrationKeyword": "wind",
+      "_orchestrationLayer": "diegetic",
+      "_orchestrationLeitmotiv": "",
+      "_orchestrationDiegeticMode": "sequence",
+      "_orchestrationSunoPrompt": null,
+      "_orchestrationPlan": "intermediaire"
+    },
+    {
+      "id": "st_1783156653928_u3jekg62e_10",
+      "soundId": "doorwood_kitchen_door_closer_creak_wood_close_02_b00m_one",
+      "startSegmentId": "seg_1783153739414_7_pbm0m",
+      "endSegmentId": "seg_1783153739414_12_ff4je",
+      "column": 4,
+      "volume": 0.3,
+      "loop": true,
+      "loopCrossfade": "medium",
+      "fadeIn": 2000,
+      "fadeOut": 2000,
+      "delay": 0,
+      "pan": 0,
+      "panMode": "static",
+      "muted": true,
+      "broken": true,
+      "_orchestrationNote": "Craquements de bois espacés et irréguliers, sans rythme fixe, registre grave-medium. Plan intermédiaire, coexiste avec le vent. Maintient une présence physique du navire pendant l'examen technique par les experts.",
+      "_orchestrationKeyword": "wood",
+      "_orchestrationLayer": "diegetic",
+      "_orchestrationLeitmotiv": "",
+      "_orchestrationDiegeticMode": "sequence",
+      "_orchestrationSunoPrompt": null,
+      "_orchestrationPlan": "intermediaire"
+    },
+    {
+      "id": "st_1783156653928_84qz3i9b8_11",
+      "soundId": "dsgnmisc_alienated_rope_01_b00m_one",
+      "startSegmentId": "seg_1783153739414_12_ff4je",
+      "endSegmentId": "seg_1783153739414_12_ff4je",
+      "column": 3,
+      "volume": 0.58,
+      "loop": false,
+      "fadeIn": 0,
+      "fadeOut": 0,
+      "delay": 2700,
+      "pan": 0,
+      "panMode": "static",
+      "muted": true,
+      "broken": true,
+      "_orchestrationNote": "Cordage qui se détend brièvement, frottement sec sans écho long. Plan premier ponctuel sur fond de bois et de cordes musicales. Illustre concrètement le détail technique du gréement mentionné dans le texte.",
+      "_orchestrationKeyword": "rope",
+      "_orchestrationLayer": "diegetic",
+      "_orchestrationLeitmotiv": "",
+      "_orchestrationDiegeticMode": "ponctuel",
+      "_orchestrationSunoPrompt": null,
+      "_orchestrationPlan": "premier"
+    },
+    {
+      "id": "st_1783156653928_uzck8asel_12",
+      "soundId": "weaparmr_plate_armor_steel_walk_single_step_03_b00m_one",
+      "startSegmentId": "seg_1783153739414_13_097rx",
+      "endSegmentId": "seg_1783153739414_14_2vipt",
+      "column": 3,
+      "volume": 0.42,
+      "loop": true,
+      "loopCrossfade": "medium",
+      "fadeIn": 500,
+      "fadeOut": 500,
+      "delay": 0,
+      "pan": 0,
+      "panMode": "static",
+      "muted": true,
+      "broken": true,
+      "_orchestrationNote": "Pas rapides sur pont de bois, cadence irrégulière, attaque franche. Plan premier, au même niveau que le violon du leitmotiv. Traduit la vivacité physique du jeune second qui surveille chaque mouvement.",
+      "_orchestrationKeyword": "footstep",
+      "_orchestrationLayer": "diegetic",
+      "_orchestrationLeitmotiv": "",
+      "_orchestrationDiegeticMode": "sequence",
+      "_orchestrationSunoPrompt": null,
+      "_orchestrationPlan": "premier"
+    },
+    {
+      "id": "st_1783156653928_878oa3rii_13",
+      "soundId": "robtvox_android_voice_malfunction_04_b00m_one",
+      "startSegmentId": "seg_1783153739414_14_2vipt",
+      "endSegmentId": "seg_1783153739414_14_2vipt",
+      "column": 4,
+      "volume": 0.55,
+      "loop": false,
+      "fadeIn": 0,
+      "fadeOut": 0,
+      "delay": 5400,
+      "pan": 0,
+      "panMode": "static",
+      "muted": true,
+      "broken": true,
+      "_orchestrationNote": "Voix masculine brève, ordre lancé sec, sans réverbération excessive. Plan premier, seul élément vocal du chapitre. Concrétise le rôle actif du jeune homme qui répète les ordres du pilote.",
+      "_orchestrationKeyword": "voice",
+      "_orchestrationLayer": "diegetic",
+      "_orchestrationLeitmotiv": "",
+      "_orchestrationDiegeticMode": "ponctuel",
+      "_orchestrationSunoPrompt": null,
+      "_orchestrationPlan": "premier"
+    }
+  ],
   "vfxTracks": []
 }
