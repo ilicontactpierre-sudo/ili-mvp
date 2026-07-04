@@ -41,5 +41,11 @@
     "genre": "Roman d'aventure",
     "description": "Et si ta vie basculait en une seule journée ? Entre injustice, espoir et désir de revanche, laisse-toi emporter par l'une des aventures les plus captivantes jamais écrites.",
     "type": "serial"
+  },
+  {
+    "id": "monte-cristo-test-monte-cristo-test",
+    "title": "Monte Cristo Test",
+    "author": "Monte Cristo Test",
+    "description": "Monte Cristo Test"
   }
 ]
