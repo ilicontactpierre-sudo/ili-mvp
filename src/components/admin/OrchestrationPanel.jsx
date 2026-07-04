@@ -788,6 +788,7 @@ function OrchestrationPanel({
         _orchestrationLeitmotiv: block.leitmotiv || '',
         _orchestrationDiegeticMode: block.diegeticMode || null,
         _orchestrationSunoPrompt: block.sunoPrompt || null,
+        _orchestrationPlan: block.plan || null,
       }
     }
     diagnosis.found.forEach(({ block, sound }) => {
