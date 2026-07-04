@@ -2770,6 +2770,7 @@ function AdminPage() {
             <OrchestrationPanel
               segments={activeSegments}
               soundLibrary={soundLibrary}
+              soundLibraryReady={soundLibraryReady}
               soundTracks={activeSoundTracks}
               onSoundTracksChange={setActiveSoundTracks}
               onSaveToHistory={() => saveToHistory(segments, soundTracks, vfxTracks)}
