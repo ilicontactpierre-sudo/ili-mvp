@@ -331,7 +331,6 @@ function buildExportPrompt(segments, soundLibrary) {
   lines.push('[')
   lines.push('  {')
   lines.push('    "keyword": "footstep",')
-  lines.push('    "soundId": null,')
   lines.push('    "startSegment": 5,')
   lines.push('    "endSegment": 11,')
   lines.push('    "volume": 0.42,')
