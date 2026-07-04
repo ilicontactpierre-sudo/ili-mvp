@@ -124,7 +124,7 @@ class AudioEngine {
         howl.off('play', onPlay)
         if (!this.playingSounds.has(key)) return
         if (duration > 0) {
-          this._animatedFade(howl, instanceId, 0, this._toPerceptualVolume(volume, gainDb), duration, 'sigmoid')
+          this._animatedFade(howl, instanceId, 0, this._toPerceptualVolume(volume, gainDb), duration, 'natural')
         } else {
           howl.volume(this._toPerceptualVolume(volume, gainDb), instanceId)
         }
