@@ -441,17 +441,10 @@ class AudioEngine {
           const targetPerceptual = this._toPerceptualVolume(targetVolume, state.gainDb ?? track.gainDb ?? 0)
           if (Math.abs(currentVol - targetPerceptual) > 0.01) {
             // Trouver la courbe associée à ce fadeMs
-            const AUTOMATION_FADE_STEPS = [
-              { ms: 0,    curve: 'cut'      },
-              { ms: 300,   curve: 'linear'   },
-              { ms: 600,  curve: 'ease-out' },
-              { ms: 1500,  curve: 'sigmoid'  },
-              { ms: 2500, curve: 'sigmoid'  },
-              { ms: 5000, curve: 'cubic'    },
-              { ms: 10000, curve: 'log'      },
-            ]
-            const step = AUTOMATION_FADE_STEPS.find(s => s.ms === fadeMs)
-            const curve = step?.curve ?? 'sigmoid'
+            // 'natural' (linéaire en dB) pour toute transition entre deux
+            // points d'automation — c'est la seule courbe neutre et fluide
+            // à l'oreille, quelle que soit la durée choisie (fadeMs).
+            const curve = fadeMs === 0 ? 'cut' : 'natural'
             this._animatedFade(state.howl, state.instanceId, currentVol, targetPerceptual, fadeMs, curve)
             this.playingSounds.set(key, { ...state, volume: targetVolume })
           }
