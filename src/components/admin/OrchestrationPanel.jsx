@@ -658,7 +658,7 @@ function OrchestrationPanel({
       }
     })
     setDiagnosis({ found, missing, pauses: validPauses, invalidPauses, parsed: soundsRaw })
-  }, [importJson, soundLibrary, segments])
+  }, [importJson, soundLibrary, segments, soundLibraryReady])
 
   // ── Application ───────────────────────────────────────────────────────────
   const handleApply = useCallback(() => {
