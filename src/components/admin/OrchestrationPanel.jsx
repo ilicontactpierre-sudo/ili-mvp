@@ -422,7 +422,7 @@ function buildExportPrompt(segments, soundLibrary) {
   lines.push('- `automationPoints: []` et `leitmotiv: null` si absents — ne jamais omettre ces champs')
   lines.push('- `diegeticMode` obligatoire sur toute couche `"diegetic"` ("ponctuel" ou "sequence")')
   lines.push('- `plan` obligatoire sur chaque bloc son ("premier" | "intermediaire" | "arriere")')
-  lines.push('- `sunoPrompt` uniquement sur les blocs `"music"`, et seulement quand une composition sur mesure sert mieux la scène — jamais systématique')
+  lines.push('- `sunoPrompt` et `sunoMode` uniquement sur les blocs `"music"`, et seulement quand une composition sur mesure sert mieux la scène — jamais systématique. `sunoMode` obligatoire dès que `sunoPrompt` est présent.')
   lines.push('- Le silence est une décision artistique aussi forte qu\'un son')
   lines.push('- Volumes de référence : bed 0.12–0.28 | atmosphere 0.10–0.22 | music 0.20–0.45 | diegetic ponctuel 0.55–0.82 | diegetic séquence 0.35–0.55 | transition 0.45–0.70')
   lines.push('')
