@@ -6,11 +6,6 @@
   "published": true,
   "sounds": [
     {
-      "id": "belllrg_church_bells_long_sequence_birds_loop_01_b00m_one",
-      "url": "/sounds/BELLLrg_Church Bells Long Sequence Birds Loop 01_B00M_ONE.mp3",
-      "loop": false
-    },
-    {
       "id": "belllrg_church_single_ring_01_b00m_one",
       "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/belllrg_church_single_ring_01_b00m_one.mp3",
       "loop": false
@@ -31,83 +26,18 @@
       "loop": false
     },
     {
-      "id": "mbck_prop_cello_scrape",
-      "url": "/sounds/MBCK PROP Cello Scrape.mp3",
-      "loop": false
-    },
-    {
       "id": "crwdsprt_football_match_ambience_crowd_chant_walla_01_b00m_one",
       "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/crwdsprt_football_match_ambience_crowd_chant_walla_01_b00m_one.mp3",
       "loop": false
     },
     {
-      "id": "dsgnmisc_alienated_rope_01_b00m_one",
-      "url": "/sounds/DSGNMisc_Alienated Rope 01_B00M_ONE.mp3",
-      "loop": false
-    },
-    {
-      "id": "dsgnmisc_processed-cello_distorted_dive_bomb_tonal_wide_b00m_cxck",
-      "url": "/sounds/DSGNMisc_PROCESSED-Cello Distorted Dive Bomb Tonal Wide_B00M_CXCK.mp3",
-      "loop": false
-    },
-    {
       "id": "doormetl_basement_door_handle_down_01_b00m_one",
-      "url": "/sounds/DOORMetl_Basement Door Handle Down 01_B00M_ONE.mp3",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/doormetl_basement_door_handle_down_01_b00m_one.mp3",
       "loop": false
     },
     {
-      "id": "equiprec_climbing_rope_bag_handling_01_b00m_one",
-      "url": "/sounds/EQUIPRec_Climbing Rope Bag Handling 01_B00M_ONE.mp3",
-      "loop": false
-    },
-    {
-      "id": "lethrcreak_creak_long_soft_01_b00m_one",
-      "url": "/sounds/LETHRCreak_Creak Long Soft 01_B00M_ONE.mp3",
-      "loop": false
-    },
-    {
-      "id": "lethrcreak_creak_long_soft_02_b00m_one",
-      "url": "/sounds/LETHRCreak_Creak Long Soft 02_B00M_ONE.mp3",
-      "loop": false
-    },
-    {
-      "id": "lethrcreak_creak_short_hard_01_b00m_one",
-      "url": "/sounds/LETHRCreak_Creak Short Hard 01_B00M_ONE.mp3",
-      "loop": false
-    },
-    {
-      "id": "lethrcreak_creak_short_medium_01_b00m_one",
-      "url": "/sounds/LETHRCreak_Creak Short Medium 01_B00M_ONE.mp3",
-      "loop": false
-    },
-    {
-      "id": "liqimpt_leather_impact_mud_hard_squelch_02_b00m_one",
-      "url": "/sounds/LIQImpt_Leather Impact Mud Hard Squelch 02_B00M_ONE.mp3",
-      "loop": false
-    },
-    {
-      "id": "mechrtch_tension_belt_tense_ratchet_01_b00m_one",
-      "url": "/sounds/MECHRtch_Tension Belt Tense Ratchet 01_B00M_ONE.mp3",
-      "loop": false
-    },
-    {
-      "id": "muscperc_cartoon_footsteps_run_bongo_drum_hit_sequence_high_01_b00m_one",
-      "url": "/sounds/MUSCPerc_Cartoon Footsteps Run Bongo Drum Hit Sequence High 01_B00M_ONE.mp3",
-      "loop": false
-    },
-    {
-      "id": "muscperc_footsteps_drum_hit_sequence_01_b00m_one",
-      "url": "/sounds/MUSCPerc_Footsteps Drum Hit Sequence 01_B00M_ONE.mp3",
-      "loop": false
-    },
-    {
-      "id": "muscstngr_orchestra_drone_cello_sul_pont_sustain_high_intensity_octave_01_b00m_o",
-      "url": "/sounds/MUSCStngr_Orchestra Drone Cello Sul Pont Sustain High Intensity Octave 01_B00M_ONE.mp3",
-      "loop": false
-    },
-    {
-      "id": "voxreac_male_sigh_03_b00m_one",
-      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/voxreac_male_sigh_03_b00m_one.mp3",
+      "id": "watrsplsh_big_splash_and_spray_01_b00m_one",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/watrsplsh_big_splash_and_spray_01_b00m_one.mp3",
       "loop": false
     },
     {
@@ -116,8 +46,8 @@
       "loop": false
     },
     {
-      "id": "wind_countryside_medium_wind_02_b00m_one",
-      "url": "/sounds/WIND_Countryside Medium Wind 02_B00M_ONE.mp3",
+      "id": "mlck_location_ship_wood_creak_medium",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/mlck_location_ship_wood_creak_medium.mp3",
       "loop": false
     },
     {
@@ -131,8 +61,23 @@
       "loop": false
     },
     {
+      "id": "atmo_eerie_cave_water_drips_emptyness_howling_interior_wind_oppressive_loop",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/atmo_eerie_cave_water_drips_emptyness_howling_interior_wind_oppressive_loop.mp3",
+      "loop": false
+    },
+    {
+      "id": "danglar_ending_court_1",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/danglar_ending_court_1.mp3",
+      "loop": false
+    },
+    {
       "id": "dantes_theme_3",
       "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/dantes_theme_3.mp3",
+      "loop": false
+    },
+    {
+      "id": "esm_lfe_heart_beat_loop_-_medium_-_fast_bass_medical_horror_scary_suspense",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/esm_lfe_heart_beat_loop_-_medium_-_fast_bass_medical_horror_scary_suspense.mp3",
       "loop": false
     },
     {
@@ -171,13 +116,53 @@
       "loop": false
     },
     {
-      "id": "atmo_eerie_cave_water_drips_emptyness_howling_interior_wind_oppressive_loop",
-      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/atmo_eerie_cave_water_drips_emptyness_howling_interior_wind_oppressive_loop.mp3",
+      "id": "underwater_designed_ambience_alien_signal_04",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/underwater_designed_ambience_alien_signal_04.mp3",
+      "loop": false
+    },
+    {
+      "id": "undiscovered_designed_rope_bridge_swinging_precarious_wooden_structure_slight_wi",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/undiscovered_designed_rope_bridge_swinging_precarious_wooden_structure_slight_wi.mp3",
       "loop": false
     },
     {
       "id": "walk_foot_feetsneakers_wood_parquet_2_",
       "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/walk_foot_feetsneakers_wood_parquet_2_.mp3",
+      "loop": false
+    },
+    {
+      "id": "whsh_whoosh_medium_to_long_14_jse_tw1",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/whsh_whoosh_medium_to_long_14_jse_tw1.mp3",
+      "loop": false
+    },
+    {
+      "id": "crew_e_quipage_boat_ship_rope_wood_foot_preparation",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/crew_e_quipage_boat_ship_rope_wood_foot_preparation.mp3",
+      "loop": false
+    },
+    {
+      "id": "arctica_-_annuminas_ambient_drone_dark_ambient_field_recordings_",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/arctica_-_annuminas_ambient_drone_dark_ambient_field_recordings_.mp3",
+      "loop": false
+    },
+    {
+      "id": "suno_the_last_farewell_-_cello_rubato_funeral",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/suno_the_last_farewell_-_cello_rubato_funeral.mp3",
+      "loop": false
+    },
+    {
+      "id": "sail_boat_sound_effect_hd_1_",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/sail_boat_sound_effect_hd_1_.mp3",
+      "loop": false
+    },
+    {
+      "id": "crew_e_quipage_boat_ship_rope_wood_foot_marche",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/crew_e_quipage_boat_ship_rope_wood_foot_marche.mp3",
+      "loop": false
+    },
+    {
+      "id": "sound_effect_cloth_rustle_",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/sound_effect_cloth_rustle_.mp3",
       "loop": false
     }
   ],
@@ -611,9 +596,9 @@
         {
           "action": "fadeIn",
           "soundId": "walk_foot_feetsneakers_wood_parquet_2_",
-          "volume": 0.65,
+          "volume": 0.55,
           "gainDb": 2,
-          "duration": 1700,
+          "duration": 2500,
           "delay": 0,
           "loop": false
         }
@@ -663,7 +648,17 @@
       "text": "— Ah ! c’est vous, Dantès ! cria l’homme à la barque ;",
       "breakAt": null,
       "isLeader": true,
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "fadeIn",
+          "soundId": "underwater_designed_ambience_alien_signal_04",
+          "volume": 0.4,
+          "gainDb": 0,
+          "duration": 2000,
+          "delay": 0,
+          "loop": true
+        }
+      ]
     },
     {
       "id": "seg_1783344799946_7_9rtqq",
@@ -713,7 +708,16 @@
       "text": "— Il est arrivé à bon port, monsieur Morrel, et je crois que vous serez content sous ce rapport ; mais ce pauvre capitaine Leclère…",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "play",
+          "soundId": "mlck_location_ship_wood_creak_medium",
+          "volume": 0.3,
+          "gainDb": 0,
+          "delay": 0,
+          "loop": false
+        }
+      ]
     },
     {
       "id": "seg_1783344799946_12_wjuhv",
@@ -733,7 +737,24 @@
       "text": "— Il est mort.",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "play",
+          "soundId": "esm_lfe_heart_beat_loop_-_medium_-_fast_bass_medical_horror_scary_suspense",
+          "volume": 0.5,
+          "gainDb": 0,
+          "delay": 0,
+          "loop": false
+        },
+        {
+          "action": "play",
+          "soundId": "belllrg_church_single_ring_01_b00m_one",
+          "volume": 0.24,
+          "gainDb": 0,
+          "delay": 0,
+          "loop": false
+        }
+      ]
     },
     {
       "id": "seg_1783344799946_14_7tqr7",
@@ -753,7 +774,13 @@
       "text": "— Non, monsieur ; mort d’une fièvre cérébrale, au milieu d’horribles souffrances. Puis,",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "fadeOut",
+          "soundId": "underwater_designed_ambience_alien_signal_04",
+          "duration": 3900
+        }
+      ]
     },
     {
       "id": "seg_1783344799946_16_wra31",
@@ -763,7 +790,16 @@
       "text": "se retournant vers ses hommes :",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "play",
+          "soundId": "whsh_whoosh_medium_to_long_14_jse_tw1",
+          "volume": 0.6,
+          "gainDb": 0,
+          "delay": 0,
+          "loop": false
+        }
+      ]
     },
     {
       "id": "seg_1783344799946_17_8d0o6",
@@ -773,7 +809,16 @@
       "text": "— Holà hé ! dit-il, chacun à son poste pour le mouillage !",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "play",
+          "soundId": "mlck_location_ship_wood_creak_medium",
+          "volume": 0.4,
+          "gainDb": 0,
+          "delay": 0,
+          "loop": false
+        }
+      ]
     },
     {
       "id": "seg_1783344799946_18_o6e7j",
@@ -793,7 +838,34 @@
       "text": "Au même instant, les huit ou dix matelots qui le composaient s’élancèrent les uns sur les écoutes,",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "fadeIn",
+          "soundId": "undiscovered_designed_rope_bridge_swinging_precarious_wooden_structure_slight_wi",
+          "volume": 0.48,
+          "gainDb": 0,
+          "duration": 300,
+          "delay": 0,
+          "loop": true
+        },
+        {
+          "action": "fadeIn",
+          "soundId": "507_s12_gens_qui_courent",
+          "volume": 0.42,
+          "gainDb": 0,
+          "duration": 200,
+          "delay": 0,
+          "loop": false
+        },
+        {
+          "action": "play",
+          "soundId": "crew_e_quipage_boat_ship_rope_wood_foot_preparation",
+          "volume": 0.5,
+          "gainDb": 0,
+          "delay": 0,
+          "loop": true
+        }
+      ]
     },
     {
       "id": "seg_1783344799946_20_4xb6n",
@@ -813,7 +885,13 @@
       "text": "Le jeune marin jeta un coup d’œil nonchalant sur ce commencement de manœuvre,",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "fadeOut",
+          "soundId": "507_s12_gens_qui_courent",
+          "duration": 4000
+        }
+      ]
     },
     {
       "id": "seg_1783344799946_22_i0dnc",
@@ -823,7 +901,18 @@
       "text": "et, voyant que ses ordres allaient s’exécuter, il revint à son interlocuteur.",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "fadeOut",
+          "soundId": "undiscovered_designed_rope_bridge_swinging_precarious_wooden_structure_slight_wi",
+          "duration": 4000
+        },
+        {
+          "action": "fadeOut",
+          "soundId": "crew_e_quipage_boat_ship_rope_wood_foot_preparation",
+          "duration": 4900
+        }
+      ]
     },
     {
       "id": "seg_1783344799946_23_4608v",
@@ -836,12 +925,30 @@
       "audioEvents": [
         {
           "action": "fadeIn",
-          "soundId": "voxreac_male_sigh_03_b00m_one",
+          "soundId": "arctica_-_annuminas_ambient_drone_dark_ambient_field_recordings_",
           "volume": 0.14,
           "gainDb": 0,
           "duration": 2000,
           "delay": 0,
           "loop": true
+        },
+        {
+          "action": "fadeIn",
+          "soundId": "ship_creaking_free_sound_effect",
+          "volume": 0.2,
+          "gainDb": 0,
+          "duration": 1000,
+          "delay": 0,
+          "loop": true
+        },
+        {
+          "action": "fadeIn",
+          "soundId": "suno_the_last_farewell_-_cello_rubato_funeral",
+          "volume": 0.55,
+          "gainDb": 0,
+          "duration": 4000,
+          "delay": 0,
+          "loop": false
         }
       ]
     },
@@ -883,7 +990,16 @@
       "text": "avec un boulet de trente-six aux pieds et un à la tête, à la hauteur de l’île d’el Giglio.",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "play",
+          "soundId": "watrsplsh_big_splash_and_spray_01_b00m_one",
+          "volume": 0.3,
+          "gainDb": 0,
+          "delay": 0,
+          "loop": false
+        }
+      ]
     },
     {
       "id": "seg_1783344799946_28_t8vrf",
@@ -916,8 +1032,13 @@
       "audioEvents": [
         {
           "action": "fadeOut",
-          "soundId": "voxreac_male_sigh_03_b00m_one",
-          "duration": 3000
+          "soundId": "arctica_-_annuminas_ambient_drone_dark_ambient_field_recordings_",
+          "duration": 4000
+        },
+        {
+          "action": "fadeOut",
+          "soundId": "suno_the_last_farewell_-_cello_rubato_funeral",
+          "duration": 5000
         }
       ]
     },
@@ -950,7 +1071,13 @@
       "text": "— Est en bon état, monsieur Morrel, je vous en réponds. Voici un voyage que je vous donne le conseil de ne point escompter pour 25,000 fr. de bénéfice.\nPuis, comme on venait de dépasser la tour ronde :",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "fadeOut",
+          "soundId": "ship_creaking_free_sound_effect",
+          "duration": 2900
+        }
+      ]
     },
     {
       "id": "seg_1783344799946_34_adcx6",
@@ -960,7 +1087,17 @@
       "text": "— Range à carguer les voiles de hune, le foc et la brigantine ! cria le jeune marin ; faites penaud !",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "fadeIn",
+          "soundId": "sail_boat_sound_effect_hd_1_",
+          "volume": 0.44,
+          "gainDb": 0,
+          "duration": 1141,
+          "delay": 0,
+          "loop": false
+        }
+      ]
     },
     {
       "id": "seg_1783344799946_35_zgf51",
@@ -970,7 +1107,16 @@
       "text": "L’ordre s’exécuta avec presque autant de promptitude que sur un bâtiment de guerre.",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "play",
+          "soundId": "crew_e_quipage_boat_ship_rope_wood_foot_marche",
+          "volume": 0.38,
+          "gainDb": 0,
+          "delay": 0,
+          "loop": false
+        }
+      ]
     },
     {
       "id": "seg_1783344799946_36_j4409",
@@ -980,7 +1126,16 @@
       "text": "— Amène et cargue partout !",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "play",
+          "soundId": "pulling_rope_sfx_-_creaking_tension_and_stretching_sounds_-_floraphonic_com",
+          "volume": 0.4,
+          "gainDb": 0,
+          "delay": 0,
+          "loop": false
+        }
+      ]
     },
     {
       "id": "seg_1783344799946_37_8zs5q",
@@ -990,7 +1145,16 @@
       "text": "Au dernier commandement, toutes les voiles s’abaissèrent,",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "play",
+          "soundId": "sound_effect_cloth_rustle_",
+          "volume": 0.85,
+          "gainDb": 0,
+          "delay": 0,
+          "loop": false
+        }
+      ]
     },
     {
       "id": "seg_1783344799946_38_0f269",
@@ -1000,7 +1164,13 @@
       "text": "et le navire s’avança d’un façon presque insensible, ne marchant plus que par l’impulsion donnée.",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "fadeOut",
+          "soundId": "sail_boat_sound_effect_hd_1_",
+          "duration": 2673
+        }
+      ]
     },
     {
       "id": "seg_1783344799946_39_9ojyl",
@@ -1025,6 +1195,28 @@
           "action": "fadeOut",
           "soundId": "watrwave_black_sea_waves_01_b00m_one",
           "duration": 8000
+        },
+        {
+          "action": "play",
+          "soundId": "doormetl_basement_door_handle_down_01_b00m_one",
+          "volume": 0.58,
+          "gainDb": 0,
+          "delay": 0,
+          "loop": false
+        },
+        {
+          "action": "fadeIn",
+          "soundId": "danglar_ending_court_1",
+          "volume": 0.35,
+          "gainDb": 0,
+          "duration": 2000,
+          "delay": 0,
+          "loop": false
+        },
+        {
+          "action": "fadeOut",
+          "soundId": "danglar_ending_court_1",
+          "duration": 3000
         }
       ]
     },
@@ -3045,33 +3237,39 @@
     },
     {
       "id": "st_1783346969464_ddit7as1q_2",
-      "soundId": "voxreac_male_sigh_03_b00m_one",
+      "soundId": "arctica_-_annuminas_ambient_drone_dark_ambient_field_recordings_",
       "startSegmentId": "seg_1783344799946_23_4608v",
       "endSegmentId": "seg_1783344799946_30_podez",
       "column": 1,
       "volume": 0.14,
       "loop": true,
-      "loopCrossfade": "medium",
+      "loopCrossfade": "long",
       "fadeIn": 2000,
-      "fadeOut": 3000,
+      "fadeOut": 4000,
       "delay": 0,
       "pan": 0,
       "panMode": "static",
       "muted": false,
       "automationPoints": [
         {
+          "segmentId": "seg_1783344799946_23_4608v",
+          "volume": 0.14,
+          "fadeMs": 0,
+          "_isAnchor": true
+        },
+        {
           "segmentId": "seg_1783344799946_24_90hij",
-          "volume": 0.1,
+          "volume": 0.2857142857142857,
           "fadeMs": 1500
         },
         {
           "segmentId": "seg_1783344799946_29_6vizb",
-          "volume": 0.22,
+          "volume": 0.6285714285714286,
           "fadeMs": 2000
         },
         {
           "segmentId": "seg_1783344799946_30_podez",
-          "volume": 0.08,
+          "volume": 0.22857142857142881,
           "fadeMs": 1800
         }
       ],
@@ -3157,19 +3355,18 @@
       "startSegmentId": "seg_1783344799946_2_60sd5",
       "endSegmentId": "seg_1783344799946_2_60sd5",
       "column": 1,
-      "volume": 0.65,
+      "volume": 0.55,
       "loop": false,
-      "fadeIn": 1700,
+      "fadeIn": 2500,
       "fadeOut": 0,
       "delay": 0,
       "pan": 0,
       "panMode": "sweep-lr",
       "muted": false,
-      "broken": true,
       "automationPoints": [
         {
           "segmentId": "seg_1783344799946_2_60sd5",
-          "volume": 0.65,
+          "volume": 0.55,
           "fadeMs": 0,
           "_isAnchor": true
         }
@@ -3188,7 +3385,7 @@
     },
     {
       "id": "st_1783346969465_nfc6mf7sm_8",
-      "soundId": "lethrcreak_creak_short_hard_01_b00m_one",
+      "soundId": "mlck_location_ship_wood_creak_medium",
       "startSegmentId": "seg_1783344799946_11_yxbbx",
       "endSegmentId": "seg_1783344799946_11_yxbbx",
       "column": 1,
@@ -3197,10 +3394,9 @@
       "fadeIn": 0,
       "fadeOut": 0,
       "delay": 0,
-      "pan": 0,
+      "pan": 0.53,
       "panMode": "static",
-      "muted": true,
-      "broken": true,
+      "muted": false,
       "_orchestrationNote": "Craquement isolé et bref, discret, sans attaque marquée. Arrière-plan, sous le dialogue en cours. Maintient une présence physique du navire pendant l'échange sans détourner l'attention du texte.",
       "_orchestrationKeyword": "creak",
       "_orchestrationLayer": "diegetic",
@@ -3208,43 +3404,59 @@
       "_orchestrationDiegeticMode": "ponctuel",
       "_orchestrationSunoPrompt": null,
       "_orchestrationSunoMode": null,
-      "_orchestrationPlan": "arriere"
+      "_orchestrationPlan": "arriere",
+      "automationPoints": [
+        {
+          "segmentId": "seg_1783344799946_11_yxbbx",
+          "volume": 0.3,
+          "fadeMs": 0,
+          "_isAnchor": true
+        }
+      ],
+      "trimStart": 0,
+      "trimEnd": 10454,
+      "gainDb": 0
     },
     {
       "id": "st_1783346969465_p7xcaqwo2_9",
-      "soundId": "mechrtch_tension_belt_tense_ratchet_01_b00m_one",
+      "soundId": "underwater_designed_ambience_alien_signal_04",
       "startSegmentId": "seg_1783344799946_6_zc4mv",
       "endSegmentId": "seg_1783344799946_15_k5ruk",
       "column": 2,
-      "volume": 0.12,
+      "volume": 0.4,
       "loop": true,
       "loopCrossfade": "medium",
       "fadeIn": 2000,
-      "fadeOut": 3000,
+      "fadeOut": 3900,
       "delay": 0,
       "pan": 0,
       "panMode": "static",
-      "muted": true,
-      "broken": true,
+      "muted": false,
       "automationPoints": [
         {
+          "segmentId": "seg_1783344799946_6_zc4mv",
+          "volume": 0.4,
+          "fadeMs": 0,
+          "_isAnchor": true
+        },
+        {
           "segmentId": "seg_1783344799946_9_krjk7",
-          "volume": 0.18,
+          "volume": 0.6000000000000003,
           "fadeMs": 1500
         },
         {
           "segmentId": "seg_1783344799946_10_tzo6w",
-          "volume": 0.08,
+          "volume": 0.2666666666666669,
           "fadeMs": 600
         },
         {
           "segmentId": "seg_1783344799946_13_an7fm",
-          "volume": 0.22,
+          "volume": 0.7333333333333337,
           "fadeMs": 300
         },
         {
           "segmentId": "seg_1783344799946_15_k5ruk",
-          "volume": 0.05,
+          "volume": 0.1666666666666667,
           "fadeMs": 2000
         }
       ],
@@ -3258,51 +3470,19 @@
       "_orchestrationPlan": "intermediaire"
     },
     {
-      "id": "st_1783346969465_zkycti7zc_10",
-      "soundId": "mbck_prop_cello_scrape",
-      "startSegmentId": "seg_1783344799946_13_an7fm",
-      "endSegmentId": "seg_1783344799946_15_k5ruk",
-      "column": 1,
-      "volume": 0.14,
-      "loop": false,
-      "fadeIn": 3000,
-      "fadeOut": 2000,
-      "delay": 0,
-      "pan": 0,
-      "panMode": "static",
-      "muted": true,
-      "broken": true,
-      "automationPoints": [
-        {
-          "segmentId": "seg_1783344799946_15_k5ruk",
-          "volume": 0.18,
-          "fadeMs": 1000
-        }
-      ],
-      "_orchestrationNote": "Violoncelle solo grave, notes très espacées, sans vibrato appuyé, dynamique douce. Plan intermédiaire, sous l'atmosphère de tension. Naissance à peine perceptible du thème sur la confirmation de la mort du capitaine, traitement en citation naissante.",
-      "_orchestrationKeyword": "cello",
-      "_orchestrationLayer": "music",
-      "_orchestrationLeitmotiv": "Leitmotiv Leclère",
-      "_orchestrationDiegeticMode": null,
-      "_orchestrationSunoPrompt": null,
-      "_orchestrationSunoMode": null,
-      "_orchestrationPlan": "intermediaire"
-    },
-    {
       "id": "st_1783346969465_2tlkjlnyd_11",
-      "soundId": "liqimpt_leather_impact_mud_hard_squelch_02_b00m_one",
+      "soundId": "whsh_whoosh_medium_to_long_14_jse_tw1",
       "startSegmentId": "seg_1783344799946_16_wra31",
       "endSegmentId": "seg_1783344799946_16_wra31",
       "column": 1,
-      "volume": 0.55,
+      "volume": 0.6,
       "loop": false,
       "fadeIn": 0,
-      "fadeOut": 500,
+      "fadeOut": 0,
       "delay": 0,
       "pan": 0,
       "panMode": "static",
-      "muted": true,
-      "broken": true,
+      "muted": false,
       "_orchestrationNote": "Coup bref et sec, sans traîne longue, attaque franche unique. Premier plan, isolé. Marque la bascule du deuil vers le devoir quand Dantès se retourne vers l'équipage.",
       "_orchestrationKeyword": "impact",
       "_orchestrationLayer": "transition",
@@ -3310,23 +3490,30 @@
       "_orchestrationDiegeticMode": null,
       "_orchestrationSunoPrompt": null,
       "_orchestrationSunoMode": null,
-      "_orchestrationPlan": "premier"
+      "_orchestrationPlan": "premier",
+      "automationPoints": [
+        {
+          "segmentId": "seg_1783344799946_16_wra31",
+          "volume": 0.6,
+          "fadeMs": 0,
+          "_isAnchor": true
+        }
+      ]
     },
     {
       "id": "st_1783346969465_g7052cfhb_12",
-      "soundId": "equiprec_climbing_rope_bag_handling_01_b00m_one",
-      "startSegmentId": "seg_1783344799946_16_wra31",
+      "soundId": "undiscovered_designed_rope_bridge_swinging_precarious_wooden_structure_slight_wi",
+      "startSegmentId": "seg_1783344799946_19_c1922",
       "endSegmentId": "seg_1783344799946_22_i0dnc",
       "column": 2,
       "volume": 0.48,
-      "loop": false,
+      "loop": true,
       "fadeIn": 300,
-      "fadeOut": 300,
+      "fadeOut": 4000,
       "delay": 0,
       "pan": 0,
       "panMode": "static",
-      "muted": true,
-      "broken": true,
+      "muted": false,
       "_orchestrationNote": "Frottements et tensions de cordage, dynamique irrégulière, pas de rythme fixe. Premier plan, seule couche active hors bed. Porte physiquement la manœuvre de l'équipage décrite dans le texte.",
       "_orchestrationKeyword": "rope",
       "_orchestrationLayer": "diegetic",
@@ -3334,11 +3521,20 @@
       "_orchestrationDiegeticMode": "sequence",
       "_orchestrationSunoPrompt": null,
       "_orchestrationSunoMode": null,
-      "_orchestrationPlan": "premier"
+      "_orchestrationPlan": "premier",
+      "automationPoints": [
+        {
+          "segmentId": "seg_1783344799946_19_c1922",
+          "volume": 0.48,
+          "fadeMs": 0,
+          "_isAnchor": true
+        }
+      ],
+      "loopCrossfade": "medium"
     },
     {
       "id": "st_1783346969465_j4r9k3ag4_13",
-      "soundId": "lethrcreak_creak_long_soft_01_b00m_one",
+      "soundId": "mlck_location_ship_wood_creak_medium",
       "startSegmentId": "seg_1783344799946_17_8d0o6",
       "endSegmentId": "seg_1783344799946_17_8d0o6",
       "column": 1,
@@ -3349,8 +3545,7 @@
       "delay": 0,
       "pan": 0,
       "panMode": "static",
-      "muted": true,
-      "broken": true,
+      "muted": false,
       "_orchestrationNote": "Craquement de tension isolé, attaque franche, résonance courte. Premier plan, accent synchronisé sur l'ordre lancé. Souligne l'exécution immédiate du commandement.",
       "_orchestrationKeyword": "creak",
       "_orchestrationLayer": "diegetic",
@@ -3358,23 +3553,33 @@
       "_orchestrationDiegeticMode": "ponctuel",
       "_orchestrationSunoPrompt": null,
       "_orchestrationSunoMode": null,
-      "_orchestrationPlan": "premier"
+      "_orchestrationPlan": "premier",
+      "automationPoints": [
+        {
+          "segmentId": "seg_1783344799946_17_8d0o6",
+          "volume": 0.4,
+          "fadeMs": 0,
+          "_isAnchor": true
+        }
+      ],
+      "trimStart": 60313,
+      "trimEnd": 66746,
+      "gainDb": 0
     },
     {
       "id": "st_1783346969465_b2fzuyvgw_14",
-      "soundId": "muscperc_footsteps_drum_hit_sequence_01_b00m_one",
+      "soundId": "507_s12_gens_qui_courent",
       "startSegmentId": "seg_1783344799946_19_c1922",
       "endSegmentId": "seg_1783344799946_21_f8zpi",
       "column": 1,
       "volume": 0.42,
       "loop": false,
       "fadeIn": 200,
-      "fadeOut": 200,
+      "fadeOut": 4000,
       "delay": 0,
       "pan": 0,
       "panMode": "static",
-      "muted": true,
-      "broken": true,
+      "muted": false,
       "_orchestrationNote": "Pas multiples superposés, dynamique irrégulière, pas de motif rythmique fixe. Plan intermédiaire, sous les cordages. Traduit l'agitation collective de l'équipage aux différents postes.",
       "_orchestrationKeyword": "footstep",
       "_orchestrationLayer": "diegetic",
@@ -3382,23 +3587,30 @@
       "_orchestrationDiegeticMode": "sequence",
       "_orchestrationSunoPrompt": null,
       "_orchestrationSunoMode": null,
-      "_orchestrationPlan": "intermediaire"
+      "_orchestrationPlan": "intermediaire",
+      "automationPoints": [
+        {
+          "segmentId": "seg_1783344799946_19_c1922",
+          "volume": 0.42,
+          "fadeMs": 0,
+          "_isAnchor": true
+        }
+      ]
     },
     {
       "id": "st_1783346969465_n10ojqio8_15",
-      "soundId": "lethrcreak_creak_short_medium_01_b00m_one",
+      "soundId": "ship_creaking_free_sound_effect",
       "startSegmentId": "seg_1783344799946_23_4608v",
       "endSegmentId": "seg_1783344799946_33_g7spl",
       "column": 2,
       "volume": 0.2,
-      "loop": false,
+      "loop": true,
       "fadeIn": 1000,
-      "fadeOut": 1000,
+      "fadeOut": 2900,
       "delay": 0,
       "pan": 0,
       "panMode": "static",
-      "muted": true,
-      "broken": true,
+      "muted": false,
       "_orchestrationNote": "Craquements espacés et discrets, dynamique faible et constante. Arrière-plan, sous l'atmosphère et le thème. Maintient la présence physique du navire pendant tout le récit et la reprise de conversation.",
       "_orchestrationKeyword": "creak",
       "_orchestrationLayer": "diegetic",
@@ -3406,37 +3618,51 @@
       "_orchestrationDiegeticMode": "sequence",
       "_orchestrationSunoPrompt": null,
       "_orchestrationSunoMode": null,
-      "_orchestrationPlan": "arriere"
+      "_orchestrationPlan": "arriere",
+      "automationPoints": [
+        {
+          "segmentId": "seg_1783344799946_23_4608v",
+          "volume": 0.2,
+          "fadeMs": 0,
+          "_isAnchor": true
+        }
+      ],
+      "loopCrossfade": "medium"
     },
     {
       "id": "st_1783346969466_hnqosd1bg_16",
-      "soundId": "muscstngr_orchestra_drone_cello_sul_pont_sustain_high_intensity_octave_01_b00m_o",
+      "soundId": "suno_the_last_farewell_-_cello_rubato_funeral",
       "startSegmentId": "seg_1783344799946_23_4608v",
       "endSegmentId": "seg_1783344799946_30_podez",
       "column": 3,
-      "volume": 0.22,
+      "volume": 0.55,
       "loop": false,
       "fadeIn": 4000,
       "fadeOut": 5000,
       "delay": 0,
       "pan": 0,
       "panMode": "static",
-      "muted": true,
-      "broken": true,
+      "muted": false,
       "automationPoints": [
         {
+          "segmentId": "seg_1783344799946_23_4608v",
+          "volume": 0.55,
+          "fadeMs": 0,
+          "_isAnchor": true
+        },
+        {
           "segmentId": "seg_1783344799946_24_90hij",
-          "volume": 0.14,
+          "volume": 0.35000000000000003,
           "fadeMs": 1500
         },
         {
           "segmentId": "seg_1783344799946_29_6vizb",
-          "volume": 0.32,
+          "volume": 0.7999999999999997,
           "fadeMs": 2500
         },
         {
           "segmentId": "seg_1783344799946_30_podez",
-          "volume": 0.1,
+          "volume": 0.24999999999999994,
           "fadeMs": 2000
         }
       ],
@@ -3451,19 +3677,18 @@
     },
     {
       "id": "st_1783346969466_0y0a9qpng_17",
-      "soundId": "belllrg_church_bells_long_sequence_birds_loop_01_b00m_one",
+      "soundId": "watrsplsh_big_splash_and_spray_01_b00m_one",
       "startSegmentId": "seg_1783344799946_27_1dj2a",
       "endSegmentId": "seg_1783344799946_27_1dj2a",
       "column": 4,
-      "volume": 0.12,
+      "volume": 0.3,
       "loop": false,
-      "fadeIn": 1000,
-      "fadeOut": 2000,
+      "fadeIn": 0,
+      "fadeOut": 0,
       "delay": 0,
       "pan": 0,
       "panMode": "static",
-      "muted": true,
-      "broken": true,
+      "muted": false,
       "_orchestrationNote": "Cloche grave isolée, résonance longue mais sans reprise mélodique, un seul coup. Plan intermédiaire, sous le violoncelle. Évoque brièvement le service funèbre en mer sans devenir un motif récurrent — musique à l'image, non un leitmotiv.",
       "_orchestrationKeyword": "bells",
       "_orchestrationLayer": "music",
@@ -3471,23 +3696,33 @@
       "_orchestrationDiegeticMode": null,
       "_orchestrationSunoPrompt": null,
       "_orchestrationSunoMode": null,
-      "_orchestrationPlan": "intermediaire"
+      "_orchestrationPlan": "intermediaire",
+      "automationPoints": [
+        {
+          "segmentId": "seg_1783344799946_27_1dj2a",
+          "volume": 0.3,
+          "fadeMs": 0,
+          "_isAnchor": true
+        }
+      ],
+      "trimStart": 0,
+      "trimEnd": 7321,
+      "gainDb": 0
     },
     {
       "id": "st_1783346969466_rl64p455s_18",
-      "soundId": "wind_countryside_medium_wind_02_b00m_one",
+      "soundId": "sail_boat_sound_effect_hd_1_",
       "startSegmentId": "seg_1783344799946_34_adcx6",
       "endSegmentId": "seg_1783344799946_38_0f269",
       "column": 1,
       "volume": 0.44,
       "loop": false,
-      "fadeIn": 500,
-      "fadeOut": 500,
+      "fadeIn": 1141,
+      "fadeOut": 2673,
       "delay": 0,
       "pan": 0,
       "panMode": "static",
-      "muted": true,
-      "broken": true,
+      "muted": false,
       "_orchestrationNote": "Flottement de toile irrégulier, dynamique décroissante en fin de bloc, pas de tonalité fixe. Premier plan, seule couche active avec le bed. Porte le carguage des voiles jusqu'à l'arrêt du navire.",
       "_orchestrationKeyword": "wind",
       "_orchestrationLayer": "diegetic",
@@ -3495,23 +3730,30 @@
       "_orchestrationDiegeticMode": "sequence",
       "_orchestrationSunoPrompt": null,
       "_orchestrationSunoMode": null,
-      "_orchestrationPlan": "premier"
+      "_orchestrationPlan": "premier",
+      "automationPoints": [
+        {
+          "segmentId": "seg_1783344799946_34_adcx6",
+          "volume": 0.44,
+          "fadeMs": 0,
+          "_isAnchor": true
+        }
+      ]
     },
     {
       "id": "st_1783346969466_1vm3amlgw_19",
-      "soundId": "muscperc_cartoon_footsteps_run_bongo_drum_hit_sequence_high_01_b00m_one",
-      "startSegmentId": "seg_1783344799946_34_adcx6",
+      "soundId": "crew_e_quipage_boat_ship_rope_wood_foot_marche",
+      "startSegmentId": "seg_1783344799946_35_zgf51",
       "endSegmentId": "seg_1783344799946_36_j4409",
       "column": 2,
       "volume": 0.38,
       "loop": false,
-      "fadeIn": 200,
-      "fadeOut": 200,
+      "fadeIn": 0,
+      "fadeOut": 0,
       "delay": 0,
       "pan": 0,
       "panMode": "static",
-      "muted": true,
-      "broken": true,
+      "muted": false,
       "_orchestrationNote": "Pas multiples sur pont, dynamique régulière modérée. Plan intermédiaire, sous le vent dans les voiles. Traduit l'exécution rapide et disciplinée des ordres de carguage.",
       "_orchestrationKeyword": "footstep",
       "_orchestrationLayer": "diegetic",
@@ -3519,23 +3761,36 @@
       "_orchestrationDiegeticMode": "sequence",
       "_orchestrationSunoPrompt": null,
       "_orchestrationSunoMode": null,
-      "_orchestrationPlan": "intermediaire"
+      "_orchestrationPlan": "intermediaire",
+      "automationPoints": [
+        {
+          "segmentId": "seg_1783344799946_35_zgf51",
+          "volume": 0.38,
+          "fadeMs": 0,
+          "_isAnchor": true
+        },
+        {
+          "segmentId": "seg_1783344799946_34_adcx6",
+          "volume": 0.38,
+          "fadeMs": 0,
+          "_isAnchor": true
+        }
+      ]
     },
     {
       "id": "st_1783346969466_g7u97gmc9_20",
-      "soundId": "dsgnmisc_alienated_rope_01_b00m_one",
+      "soundId": "pulling_rope_sfx_-_creaking_tension_and_stretching_sounds_-_floraphonic_com",
       "startSegmentId": "seg_1783344799946_36_j4409",
       "endSegmentId": "seg_1783344799946_36_j4409",
       "column": 3,
-      "volume": 0.62,
+      "volume": 0.4,
       "loop": false,
       "fadeIn": 0,
       "fadeOut": 0,
       "delay": 0,
       "pan": 0,
       "panMode": "static",
-      "muted": true,
-      "broken": true,
+      "muted": false,
       "_orchestrationNote": "Tension de cordage brève et franche, sans traîne. Premier plan, isolé. Marque le dernier commandement avant l'abaissement complet des voiles.",
       "_orchestrationKeyword": "rope",
       "_orchestrationLayer": "diegetic",
@@ -3543,31 +3798,18 @@
       "_orchestrationDiegeticMode": "ponctuel",
       "_orchestrationSunoPrompt": null,
       "_orchestrationSunoMode": null,
-      "_orchestrationPlan": "premier"
-    },
-    {
-      "id": "st_1783346969466_5ojvkd253_21",
-      "soundId": "lethrcreak_creak_long_soft_02_b00m_one",
-      "startSegmentId": "seg_1783344799946_37_8zs5q",
-      "endSegmentId": "seg_1783344799946_37_8zs5q",
-      "column": 2,
-      "volume": 0.35,
-      "loop": false,
-      "fadeIn": 0,
-      "fadeOut": 500,
-      "delay": 0,
-      "pan": 0,
-      "panMode": "static",
-      "muted": true,
-      "broken": true,
-      "_orchestrationNote": "Craquement de coque isolé, attaque modérée, résonance courte. Plan intermédiaire, seul sur ce segment avec le bed. Marque le passage du navire en mouvement à la quasi-immobilité.",
-      "_orchestrationKeyword": "creak",
-      "_orchestrationLayer": "diegetic",
-      "_orchestrationLeitmotiv": "",
-      "_orchestrationDiegeticMode": "ponctuel",
-      "_orchestrationSunoPrompt": null,
-      "_orchestrationSunoMode": null,
-      "_orchestrationPlan": "intermediaire"
+      "_orchestrationPlan": "premier",
+      "automationPoints": [
+        {
+          "segmentId": "seg_1783344799946_36_j4409",
+          "volume": 0.4,
+          "fadeMs": 0,
+          "_isAnchor": true
+        }
+      ],
+      "trimStart": 11060,
+      "trimEnd": 12544,
+      "gainDb": 0
     },
     {
       "id": "st_1783346969466_lhqe24b6u_22",
@@ -3582,8 +3824,7 @@
       "delay": 0,
       "pan": 0,
       "panMode": "static",
-      "muted": true,
-      "broken": true,
+      "muted": false,
       "_orchestrationNote": "Ouverture de porte de cabine, attaque nette, sans grincement long. Premier plan, isolé. Synchronise l'apparition physique de Danglars sortant de sa cabine.",
       "_orchestrationKeyword": "door",
       "_orchestrationLayer": "diegetic",
@@ -3591,22 +3832,33 @@
       "_orchestrationDiegeticMode": "ponctuel",
       "_orchestrationSunoPrompt": null,
       "_orchestrationSunoMode": null,
-      "_orchestrationPlan": "premier"
+      "_orchestrationPlan": "premier",
+      "automationPoints": [
+        {
+          "segmentId": "seg_1783344799946_40_h42fe",
+          "volume": 0.58,
+          "fadeMs": 0,
+          "_isAnchor": true
+        }
+      ],
+      "trimStart": 0,
+      "trimEnd": 2812,
+      "gainDb": 0
     },
     {
       "id": "st_1783346969466_0bpk07k1b_23",
-      "soundId": "dsgnmisc_processed-cello_distorted_dive_bomb_tonal_wide_b00m_cxck",
+      "soundId": "danglar_ending_court_1",
       "startSegmentId": "seg_1783344799946_40_h42fe",
       "endSegmentId": "seg_1783344799946_40_h42fe",
       "column": 2,
-      "volume": 0.1,
+      "volume": 0.35,
       "loop": false,
       "fadeIn": 2000,
       "fadeOut": 3000,
       "delay": 0,
       "pan": 0,
       "panMode": "static",
-      "muted": true,
+      "muted": false,
       "broken": true,
       "_orchestrationNote": "Violoncelle solo très bas volume, une phrase courte, sans développement. Plan intermédiaire, sous la porte de cabine. Écho final du thème sur la mention du deuil à venir, referme la scène en suspension.",
       "_orchestrationKeyword": "cello",
@@ -3615,7 +3867,107 @@
       "_orchestrationDiegeticMode": null,
       "_orchestrationSunoPrompt": null,
       "_orchestrationSunoMode": null,
-      "_orchestrationPlan": "intermediaire"
+      "_orchestrationPlan": "intermediaire",
+      "automationPoints": [
+        {
+          "segmentId": "seg_1783344799946_40_h42fe",
+          "volume": 0.35,
+          "fadeMs": 0,
+          "_isAnchor": true
+        }
+      ]
+    },
+    {
+      "id": "st_1783350424364_y6tlrtpe3",
+      "soundId": "esm_lfe_heart_beat_loop_-_medium_-_fast_bass_medical_horror_scary_suspense",
+      "startSegmentId": "seg_1783344799946_13_an7fm",
+      "endSegmentId": "seg_1783344799946_13_an7fm",
+      "column": 3,
+      "volume": 0.5,
+      "fadeIn": 0,
+      "fadeOut": 0,
+      "delay": 0,
+      "loop": false,
+      "muted": false,
+      "broken": false,
+      "automationPoints": [
+        {
+          "segmentId": "seg_1783344799946_13_an7fm",
+          "volume": 0.8,
+          "fadeMs": 0,
+          "_isAnchor": true
+        }
+      ]
+    },
+    {
+      "id": "st_1783350458438_akmz8atlu",
+      "soundId": "belllrg_church_single_ring_01_b00m_one",
+      "startSegmentId": "seg_1783344799946_13_an7fm",
+      "endSegmentId": "seg_1783344799946_13_an7fm",
+      "column": 4,
+      "volume": 0.24,
+      "fadeIn": 0,
+      "fadeOut": 0,
+      "delay": 0,
+      "loop": false,
+      "muted": false,
+      "broken": false,
+      "automationPoints": [
+        {
+          "segmentId": "seg_1783344799946_13_an7fm",
+          "volume": 0.24,
+          "fadeMs": 0,
+          "_isAnchor": true
+        }
+      ]
+    },
+    {
+      "id": "st_1783353106809_j9rtast51",
+      "soundId": "crew_e_quipage_boat_ship_rope_wood_foot_preparation",
+      "startSegmentId": "seg_1783344799946_19_c1922",
+      "endSegmentId": "seg_1783344799946_22_i0dnc",
+      "column": 3,
+      "volume": 0.5,
+      "fadeIn": 0,
+      "fadeOut": 4900,
+      "delay": 0,
+      "loop": true,
+      "muted": false,
+      "broken": false,
+      "automationPoints": [
+        {
+          "segmentId": "seg_1783344799946_19_c1922",
+          "volume": 0.5,
+          "fadeMs": 0,
+          "_isAnchor": true
+        }
+      ],
+      "loopCrossfade": "medium"
+    },
+    {
+      "id": "st_1783355415308_ixo0t5b1u",
+      "soundId": "sound_effect_cloth_rustle_",
+      "startSegmentId": "seg_1783344799946_37_8zs5q",
+      "endSegmentId": "seg_1783344799946_37_8zs5q",
+      "column": 2,
+      "volume": 0.85,
+      "fadeIn": 0,
+      "fadeOut": 0,
+      "delay": 0,
+      "loop": false,
+      "muted": false,
+      "broken": false,
+      "automationPoints": [
+        {
+          "segmentId": "seg_1783344799946_37_8zs5q",
+          "volume": 0.85,
+          "fadeMs": 0,
+          "_isAnchor": true
+        }
+      ],
+      "trimStart": 1294,
+      "trimEnd": 5250.604166666666,
+      "gainDb": 0
     }
   ],
   "vfxTracks": []
