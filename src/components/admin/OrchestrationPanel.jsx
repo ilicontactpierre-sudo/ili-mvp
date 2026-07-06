@@ -236,6 +236,7 @@ function buildExportPrompt(segments, soundLibrary) {
   lines.push('3. **Intention** : une phrase simple qui dit pourquoi ce choix sert cette scène précise, sans reformuler le texte littéraire.')
   lines.push('')
   lines.push('**Interdit** : toute tournure poétique ou métaphorique ("un vent essoufflé", "une texture de pressentiment", "l\'âme du navire"). Écris comme un ingénieur du son qui décrit un fichier à un collègue, pas comme un romancier. Si tu ne peux pas transformer ta note en une recherche concrète dans une bibliothèque de sons, reformule-la.')
+  lines.push('**Interdit également** : réutiliser la même formule de justification pour plusieurs sons différents (par exemple "détail neutre sans portée dramatique" ou "comble un vide" employés deux fois). Sur un texte long, la tentation de recycler une tournure passe-partout pour les sons de remplissage augmente — résiste-y. Chaque note, même pour un son mineur, doit décrire une raison concrète et propre à ce moment précis du texte.')
   lines.push('')
   lines.push('Exemple correct : "Drone grave continu, sans attaque ni pulsation rythmique, texture granuleuse, pas un synthé propre. Plan intermédiaire, sous le bed portuaire. Traduit un malaise diffus dont la cause n\'est pas encore nommée."')
   lines.push('Exemple incorrect, à ne jamais produire : "Texture de pressentiment qui monte avec la lenteur suspecte du navire."')
