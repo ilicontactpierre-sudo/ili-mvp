@@ -272,6 +272,8 @@ function StoryPage() {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isFinished, setIsFinished]   = useState(false)
   const [isFading, setIsFading]       = useState(false)
+  // Index pour lequel le son de test (sound_check) a été explicitement débloqué par l'overlay
+  const [audioGateOpenIndex, setAudioGateOpenIndex] = useState(null)
   const [isLoading, setIsLoading]     = useState(true)
   const [errorType, setErrorType]     = useState('')
 
