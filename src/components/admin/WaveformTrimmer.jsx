@@ -387,12 +387,33 @@ const [realDurationMs, setRealDurationMs] = useState((sound.duration || 0) * 100
               {gainDb > 0 ? '+' : ''}{gainDb.toFixed(1)} dB
             </span>
           </div>
-          <input
-            type="range" min={-10} max={10} step={0.5}
-            value={gainDb}
-            onChange={e => setGainDb(parseFloat(e.target.value))}
-            style={{ width: '100%', accentColor: COLOR_GAIN }}
-          />
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            <input
+              type="range" min={-10} max={10} step={0.5}
+              value={gainDb}
+              onChange={e => setGainDb(parseFloat(e.target.value))}
+              style={{ flex: 1, accentColor: COLOR_GAIN }}
+            />
+            <button
+              onClick={handleNormalize}
+              disabled={!maxPeak}
+              title="Monter le gain au maximum sans risquer de clipper"
+              style={{
+                flexShrink: 0,
+                background: 'rgba(245,158,11,0.1)',
+                border: `1px solid ${COLOR_GAIN}60`,
+                color: maxPeak ? COLOR_GAIN : '#555',
+                borderRadius: '6px',
+                padding: '0.3rem 0.6rem',
+                fontSize: '0.7rem',
+                fontWeight: 600,
+                cursor: maxPeak ? 'pointer' : 'default',
+                whiteSpace: 'nowrap',
+              }}
+            >
+              ⚡ Normaliser
+            </button>
+          </div>
           <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '0.2rem' }}>
             <span style={{ fontSize: '0.65rem', color: '#555' }}>-10 dB</span>
             <button
