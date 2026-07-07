@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
+import { Howl } from 'howler'
 
 // ── Lecture des préférences sons feedback ─────────────────────────────────────
 function loadFeedbackSoundPrefs() {
