@@ -1484,6 +1484,11 @@ function AdminPage() {
 
   // Charger une histoire depuis StoryLoader
   const handleLoadStory = (storyData) => {
+    // Idem : un historique d'une autre histoire ne doit jamais survivre au chargement.
+    setHistory([])
+    setHistoryIndex(-1)
+    historyRef.current = []
+    historyIndexRef.current = -1
     setStoryTitle(storyData.title || '')
     setStoryAuthor(storyData.author || '')
     setStorySlug(storyData.id || storyData.slug || '')
