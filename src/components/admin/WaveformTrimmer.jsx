@@ -39,6 +39,7 @@ const [realDurationMs, setRealDurationMs] = useState((sound.duration || 0) * 100
   const [trimEnd,   setTrimEnd]   = useState(initialEnd ?? realDurationMs)
   const [gainDb,    setGainDb]    = useState(initialGainDb)
   const [peaks,     setPeaks]     = useState(null)
+  const [maxPeak,   setMaxPeak]   = useState(0)   // pic réel du fichier (0..1), pour le bouton Normaliser
   const [loading,   setLoading]   = useState(true)
   const [error,     setError]     = useState(null)
   const [playhead,  setPlayhead]  = useState(null)   // position ms pendant preview
