@@ -687,19 +687,7 @@ function GameSoundCheck({ data, onResolved }) {
           opacity: isTransitioning ? 0 : 1,
           transition: `filter 600ms ${FOCUS_EASE}, opacity 600ms ${FOCUS_EASE}`,
         }}>
-          {/* Kicker — espace réservé, jamais de saut */}
-          <div style={{ minHeight: '1.2rem', display: 'flex', alignItems: 'center' }}>
-            <span style={{
-              fontSize: '0.62rem', letterSpacing: '0.28em', textTransform: 'uppercase',
-              fontFamily: 'var(--font-logo, sans-serif)',
-              color: 'var(--color-text-focus, #222)',
-              opacity: kickerVisible ? 0.32 : 0,
-              transform: kickerVisible ? 'translateY(0)' : 'translateY(-5px)',
-              transition: `opacity 700ms ${S_EASE}, transform 700ms ${S_EASE}`,
-            }}>
-              Réglage du son
-            </span>
-          </div>
+          
 
           {/* Respiration — visuel continu, présent dès l'arrivée */}
           <div style={{
