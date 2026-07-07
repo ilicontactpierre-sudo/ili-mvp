@@ -304,10 +304,33 @@ class AudioEngine {
     }
   }
 
+  // Calcule le volume "théorique" d'un track à un index donné, en tenant
+  // compte de ses automationPoints — sans jamais renvoyer de fadeMs. Sert à
+  // démarrer un son EXACTEMENT au bon niveau quand on le lance à froid en
+  // plein milieu de son bloc (ex: aperçu qui saute directement à un segment
+  // avancé) : dans ce cas il ne doit jamais y avoir de fondu, seulement la
+  // valeur qu'aurait atteinte le son s'il avait joué depuis le début normalement.
+  _getAutomatedVolumeAtIndex(track, targetIndex, getIndex) {
+    let targetVolume = track.volume ?? 0.5
+    if (!track.automationPoints || track.automationPoints.length === 0) return targetVolume
+    const sortedPoints = [...track.automationPoints]
+      .map(pt => ({ pt, idx: getIndex(pt.segmentId) }))
+      .filter(({ idx }) => idx !== -1)
+      .sort((a, b) => a.idx - b.idx)
+    for (const { pt, idx } of sortedPoints) {
+      if (idx <= targetIndex) targetVolume = pt.volume
+      else break
+    }
+    return targetVolume
+  }
   onSegmentChange(currentIndex, soundTracks = [], segments = []) {
     const getIndex = (segmentId) =>
       segments.findIndex(s => s.id === segmentId || s._id === segmentId)
-
+    // Segments dont le son vient d'être démarré À FROID dans cet appel
+    // (démarrage en milieu de bloc). Ces clés doivent ignorer toute logique
+    // de fade d'automation ensuite dans cette même exécution : le volume
+    // correct a déjà été appliqué dès le playSound initial.
+    const coldStartedKeys = new Set()
     // Sons qui doivent être actifs à ce segment
     const activeTracks = soundTracks.filter(track => {
       if (track.muted || track.broken) return false
