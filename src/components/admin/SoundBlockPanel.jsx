@@ -86,6 +86,13 @@ function SoundBlockPanel({
     setIsPreviewPlaying(false)
   }, [])
   useEffect(() => {
+    // Ne resynchroniser l'état local qu'au changement RÉEL de bloc édité
+    // (nouvel id). Si le parent re-render avec un objet soundTrack recréé
+    // mais qui concerne toujours le même bloc, on ignore : ça évite d'écraser
+    // une modif en cours (volume, pan, gain importé, etc.) avant que
+    // l'utilisateur ait pu cliquer sur "Fermer" pour la sauvegarder.
+    if (syncedTrackIdRef.current === soundTrack.id) return
+    syncedTrackIdRef.current = soundTrack.id
     stopPreview()
     setEditedTrack({ ...soundTrack })
     setShowDeleteConfirm(false)
