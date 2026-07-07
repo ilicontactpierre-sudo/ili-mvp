@@ -642,7 +642,10 @@ function GameSoundCheck({ data, onResolved }) {
   const [promptVisible, setPromptVisible] = useState(false)
   const [buttonReady, setButtonReady]     = useState(false)
   const [skipVisible, setSkipVisible]     = useState(false)
-  const S_EASE = 'cubic-bezier(0.22, 1, 0.36, 1)'
+  // idle → invert (flash clair, décor flouté) → dark (bascule au noir, bouton s'efface) → onResolved
+  const [transitionPhase, setTransitionPhase] = useState('idle')
+  const S_EASE     = 'cubic-bezier(0.22, 1, 0.36, 1)'
+  const FOCUS_EASE = 'cubic-bezier(0.25, 1, 0.5, 1)' // courbe du focus optique
 
   useEffect(() => {
     const timers = [
@@ -654,108 +657,143 @@ function GameSoundCheck({ data, onResolved }) {
     return () => timers.forEach(clearTimeout)
   }, [])
 
+  const handleReady = () => {
+    if (transitionPhase !== 'idle') return
+    setTransitionPhase('invert')
+    setTimeout(() => setTransitionPhase('dark'), 650)
+    setTimeout(() => onResolved(), 650 + 1450)
+  }
+
   const BARS = 7
+  const isTransitioning = transitionPhase !== 'idle'
+  const isDark = transitionPhase === 'dark'
 
   return (
-    <AnimatedWrapper style={{ gap: 0 }}>
-      {/* Kicker — espace réservé, jamais de saut */}
-      <div style={{ minHeight: '1.2rem', display: 'flex', alignItems: 'center' }}>
-        <span style={{
-          fontSize: '0.62rem', letterSpacing: '0.28em', textTransform: 'uppercase',
-          fontFamily: 'var(--font-logo, sans-serif)',
-          color: 'var(--color-text-focus, #222)',
-          opacity: kickerVisible ? 0.32 : 0,
-          transform: kickerVisible ? 'translateY(0)' : 'translateY(-5px)',
-          transition: `opacity 700ms ${S_EASE}, transform 700ms ${S_EASE}`,
-        }}>
-          Réglage du son
-        </span>
-      </div>
-
-      {/* Respiration — visuel continu, présent dès l'arrivée */}
+    <>
+      {/* Voile cinématique plein écran — flash clair puis bascule au noir */}
       <div style={{
-        position: 'relative', width: '150px', height: '150px',
-        display: 'flex', alignItems: 'center', justifyContent: 'center',
-        margin: '1.8rem 0 2rem',
-      }}>
+        position: 'fixed', inset: 0, zIndex: 50, pointerEvents: 'none',
+        backgroundColor: isDark ? '#000' : '#fff',
+        opacity: isTransitioning ? 1 : 0,
+        transition: isDark
+          ? `background-color 1450ms ${S_EASE}`
+          : `opacity 650ms ${FOCUS_EASE}`,
+      }} />
+      <AnimatedWrapper style={{ gap: 0 }}>
+        {/* Décor : kicker + respiration + prompt — se floute et s'efface au clic */}
         <div style={{
-          position: 'absolute', width: '100%', height: '100%', borderRadius: '50%',
-          background: 'radial-gradient(circle, color-mix(in srgb, var(--color-text-focus) 9%, transparent) 0%, transparent 68%)',
-          animation: 'sc-halo-breathe 4.6s cubic-bezier(0.45,0,0.55,1) infinite',
-          animationFillMode: 'both',
-        }} />
-        <div style={{ display: 'flex', alignItems: 'center', gap: '7px', zIndex: 1 }}>
-          {Array.from({ length: BARS }).map((_, i) => {
-            const mid = (BARS - 1) / 2
-            const dist = Math.abs(i - mid)
-            const baseHeight = 44 - dist * 8
-            return (
-              <div key={i} style={{
-                width: '3px', height: `${baseHeight}px`, borderRadius: '999px',
-                backgroundColor: 'var(--color-text-focus, #222)',
-                animation: `sc-bar-breathe 2.4s cubic-bezier(0.45,0,0.55,1) ${i * 0.11}s infinite`,
-                animationFillMode: 'both',
-              }} />
-            )
-          })}
-        </div>
-      </div>
+          display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%',
+          filter: isTransitioning ? 'blur(16px)' : 'blur(0px)',
+          opacity: isTransitioning ? 0 : 1,
+          transition: `filter 600ms ${FOCUS_EASE}, opacity 600ms ${FOCUS_EASE}`,
+        }}>
+          {/* Kicker — espace réservé, jamais de saut */}
+          <div style={{ minHeight: '1.2rem', display: 'flex', alignItems: 'center' }}>
+            <span style={{
+              fontSize: '0.62rem', letterSpacing: '0.28em', textTransform: 'uppercase',
+              fontFamily: 'var(--font-logo, sans-serif)',
+              color: 'var(--color-text-focus, #222)',
+              opacity: kickerVisible ? 0.32 : 0,
+              transform: kickerVisible ? 'translateY(0)' : 'translateY(-5px)',
+              transition: `opacity 700ms ${S_EASE}, transform 700ms ${S_EASE}`,
+            }}>
+              Réglage du son
+            </span>
+          </div>
 
-      {/* Prompt — espace réservé */}
-      <div style={{ minHeight: '3.4rem', display: 'flex', alignItems: 'flex-start', justifyContent: 'center', padding: '0 1rem' }}>
-        {data.prompt && (
-          <p style={{
-            fontSize: 'clamp(0.88rem, 2.1vw, 1rem)', color: 'var(--color-text-focus, #222)',
-            textAlign: 'center', lineHeight: 1.65, margin: 0, maxWidth: '26rem',
-            opacity: promptVisible ? 0.7 : 0,
-            transform: promptVisible ? 'translateY(0)' : 'translateY(10px)',
-            transition: `opacity 800ms ${S_EASE}, transform 800ms ${S_EASE}`,
+          {/* Respiration — visuel continu, présent dès l'arrivée */}
+          <div style={{
+            position: 'relative', width: '150px', height: '150px',
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            margin: '1.8rem 0 2rem',
           }}>
-            {data.prompt}
-          </p>
+            <div style={{
+              position: 'absolute', width: '100%', height: '100%', borderRadius: '50%',
+              background: 'radial-gradient(circle, color-mix(in srgb, var(--color-text-focus) 9%, transparent) 0%, transparent 68%)',
+              animation: 'sc-halo-breathe 4.6s cubic-bezier(0.45,0,0.55,1) infinite',
+              animationFillMode: 'both',
+            }} />
+            <div style={{ display: 'flex', alignItems: 'center', gap: '7px', zIndex: 1 }}>
+              {Array.from({ length: BARS }).map((_, i) => {
+                const mid = (BARS - 1) / 2
+                const dist = Math.abs(i - mid)
+                const baseHeight = 44 - dist * 8
+                return (
+                  <div key={i} style={{
+                    width: '3px', height: `${baseHeight}px`, borderRadius: '999px',
+                    backgroundColor: 'var(--color-text-focus, #222)',
+                    animation: `sc-bar-breathe 2.4s cubic-bezier(0.45,0,0.55,1) ${i * 0.11}s infinite`,
+                    animationFillMode: 'both',
+                  }} />
+                )
+              })}
+            </div>
+          </div>
+
+          {/* Prompt — espace réservé */}
+          <div style={{ minHeight: '3.4rem', display: 'flex', alignItems: 'flex-start', justifyContent: 'center', padding: '0 1rem' }}>
+            {data.prompt && (
+              <p style={{
+                fontSize: 'clamp(0.88rem, 2.1vw, 1rem)', color: 'var(--color-text-focus, #222)',
+                textAlign: 'center', lineHeight: 1.65, margin: 0, maxWidth: '26rem',
+                opacity: promptVisible ? 0.7 : 0,
+                transform: promptVisible ? 'translateY(0)' : 'translateY(10px)',
+                transition: `opacity 800ms ${S_EASE}, transform 800ms ${S_EASE}`,
+              }}>
+                {data.prompt}
+              </p>
+            )}
+          </div>
+        </div>
+
+        {/* Bouton — reveal en flou optique ; reste visible pendant le flash, s'efface en phase noire */}
+        <div style={{ minHeight: '3.1rem', display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative', zIndex: 60 }}>
+          <button
+            onClick={handleReady}
+            style={{
+              background: isTransitioning ? 'var(--color-text-focus, #222)' : 'none',
+              border: '1px solid color-mix(in srgb, var(--color-text-focus) 35%, transparent)',
+              color: isTransitioning ? 'var(--color-bg, #fff)' : 'var(--color-text-focus, #222)',
+              fontFamily: 'var(--font-primary, Georgia, serif)',
+              fontSize: '0.85rem', letterSpacing: '0.08em',
+              padding: '0.7rem 2.3rem', borderRadius: '2px', cursor: 'pointer',
+              filter: buttonReady
+                ? (isDark ? 'blur(8px)' : 'blur(0px)')
+                : 'blur(22px)',
+              opacity: buttonReady ? (isDark ? 0 : 1) : 0,
+              transform: buttonReady ? 'translateY(0) scale(1)' : 'translateY(8px) scale(0.97)',
+              transition: isTransitioning
+                ? `background-color 350ms ${FOCUS_EASE}, color 350ms ${FOCUS_EASE}, filter 900ms ${S_EASE}, opacity 900ms ${S_EASE}`
+                : `filter 1500ms ${FOCUS_EASE}, opacity 1500ms ${FOCUS_EASE}, transform 900ms ${S_EASE}, border-color 250ms ease`,
+              pointerEvents: buttonReady && !isTransitioning ? 'auto' : 'none',
+            }}
+            onMouseEnter={e => { if (!isTransitioning) e.currentTarget.style.borderColor = 'color-mix(in srgb, var(--color-text-focus) 60%, transparent)' }}
+            onMouseLeave={e => { if (!isTransitioning) e.currentTarget.style.borderColor = 'color-mix(in srgb, var(--color-text-focus) 35%, transparent)' }}
+          >
+            {data.buttonLabel || "c'est parti"}
+          </button>
+        </div>
+
+        {/* Passer — position fixe, hors du flux, ne peut rien décaler */}
+        {!isTransitioning && (
+          <button
+            onClick={onResolved}
+            style={{
+              position: 'fixed', bottom: '2.2rem', left: '50%', transform: 'translateX(-50%)',
+              background: 'none', border: 'none', cursor: 'pointer',
+              fontSize: '0.68rem', color: 'var(--color-text-focus, #222)', letterSpacing: '0.06em',
+              opacity: skipVisible ? 0.26 : 0,
+              transition: `opacity 900ms ${S_EASE}`,
+              pointerEvents: skipVisible ? 'auto' : 'none',
+            }}
+            onMouseEnter={e => { if (skipVisible) e.currentTarget.style.opacity = '0.55' }}
+            onMouseLeave={e => { if (skipVisible) e.currentTarget.style.opacity = '0.26' }}
+          >
+            passer
+          </button>
         )}
-      </div>
-
-      {/* Bouton — espace réservé, n'affecte jamais le prompt */}
-      <div style={{ minHeight: '3.1rem', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <button
-          onClick={onResolved}
-          style={{
-            background: 'none',
-            border: '1px solid color-mix(in srgb, var(--color-text-focus) 35%, transparent)',
-            color: 'var(--color-text-focus, #222)',
-            fontFamily: 'var(--font-primary, Georgia, serif)',
-            fontSize: '0.85rem', letterSpacing: '0.08em',
-            padding: '0.7rem 2.3rem', borderRadius: '2px', cursor: 'pointer',
-            opacity: buttonReady ? 1 : 0,
-            transform: buttonReady ? 'translateY(0) scale(1)' : 'translateY(8px) scale(0.98)',
-            transition: `opacity 850ms ${S_EASE}, transform 850ms ${S_EASE}, border-color 250ms ease`,
-            pointerEvents: buttonReady ? 'auto' : 'none',
-          }}
-          onMouseEnter={e => { e.currentTarget.style.borderColor = 'color-mix(in srgb, var(--color-text-focus) 60%, transparent)' }}
-          onMouseLeave={e => { e.currentTarget.style.borderColor = 'color-mix(in srgb, var(--color-text-focus) 35%, transparent)' }}
-        >
-          {data.buttonLabel || 'je suis prêt'}
-        </button>
-      </div>
-
-      {/* Passer — position fixe, hors du flux, ne peut rien décaler */}
-      <button
-        onClick={onResolved}
-        style={{
-          position: 'fixed', bottom: '2.2rem', left: '50%', transform: 'translateX(-50%)',
-          background: 'none', border: 'none', cursor: 'pointer',
-          fontSize: '0.68rem', color: 'var(--color-text-focus, #222)', letterSpacing: '0.06em',
-          opacity: skipVisible ? 0.26 : 0,
-          transition: `opacity 900ms ${S_EASE}`,
-          pointerEvents: skipVisible ? 'auto' : 'none',
-        }}
-        onMouseEnter={e => { if (skipVisible) e.currentTarget.style.opacity = '0.55' }}
-        onMouseLeave={e => { if (skipVisible) e.currentTarget.style.opacity = '0.26' }}
-      >
-        passer
-      </button>
-    </AnimatedWrapper>
+      </AnimatedWrapper>
+    </>
   )
 }
 // ─── Type : Message animé ─────────────────────────────────────────────────────
