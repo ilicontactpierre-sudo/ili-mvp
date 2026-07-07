@@ -108,6 +108,16 @@ function useTypeClickSound() {
   }, [])
   return () => { try { howlRef.current?.play() } catch {} }
 }
+// ── Son whoosh joué 1.5s après le clic sur le bouton du sound check ─────────
+// Placer le fichier dans /public/sounds/whoosh-2.mp3
+function useWhooshSound() {
+  const howlRef = useRef(null)
+  useEffect(() => {
+    howlRef.current = new Howl({ src: ['/sounds/whoosh-2.mp3'], volume: 0.5, preload: true })
+    return () => { howlRef.current?.unload() }
+  }, [])
+  return () => { try { howlRef.current?.play() } catch {} }
+}
 // ─── Distance de Levenshtein ──────────────────────────────────────────────────
 function levenshtein(a, b) {
   const m = a.length, n = b.length
