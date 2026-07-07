@@ -1439,6 +1439,12 @@ function AdminPage() {
   // Restaurer un snapshot (depuis DraftManager ou StoryLoader)
   const handleRestoreSnapshot = (snapshot) => {
     console.log('[restore] snapshot reçu :', JSON.stringify(snapshot, null, 2))
+    // On repart d'un historique propre : sinon un Ctrl+Z après restauration
+    // pouvait ramener des segments d'une histoire précédemment en cours d'édition.
+    setHistory([])
+    setHistoryIndex(-1)
+    historyRef.current = []
+    historyIndexRef.current = -1
     // flushSync force React à flusher chaque bloc de setters immédiatement,
     // sans batching — garantit que le reset est terminé avant la restauration
     flushSync(() => {
