@@ -85,6 +85,7 @@ const [realDurationMs, setRealDurationMs] = useState((sound.duration || 0) * 100
         const length = channels[0].length
         const step = Math.max(1, Math.floor(length / N))
         const peaks = new Float32Array(N)
+        let overallMax = 0
         for (let i = 0; i < N; i++) {
           let peak = 0
           const blockStart = i * step
@@ -96,7 +97,9 @@ const [realDurationMs, setRealDurationMs] = useState((sound.duration || 0) * 100
             }
           }
           peaks[i] = peak
+          if (peak > overallMax) overallMax = peak
         }
+        setMaxPeak(overallMax)
         // Pas de renormalisation ici : decodeAudioData renvoie déjà les
         // échantillons dans l'échelle réelle -1..1 (1.0 = pleine échelle
         // numérique = seuil de clipping). Garder cette échelle telle quelle
