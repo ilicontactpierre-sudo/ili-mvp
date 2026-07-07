@@ -759,6 +759,7 @@ function StoryPage() {
           segmentIndex={frozenIndex}
           onResolved={handleGameResolved}
           onNavigateToPart={handleNavigateToPart}
+          onAudioReady={() => handleAudioGateOpen(frozenIndex)}
           onBack={() => {
             setFrozenGameMode(null)
             setFrozenIndex(null)
