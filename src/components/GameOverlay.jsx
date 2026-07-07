@@ -716,12 +716,7 @@ function GameSoundCheck({ data, onResolved, onAudioReady }) {
     return () => clearTimeout(t)
   }, [typingDone])
 
-  // "Passer" — apparaît discrètement une fois le bouton visible
-  useEffect(() => {
-    if (!buttonReady) return
-    const t = setTimeout(() => setSkipVisible(true), 3000)
-    return () => clearTimeout(t)
-  }, [buttonReady])
+
 
   const handleReady = () => {
     if (transitionPhase !== 'idle') return
