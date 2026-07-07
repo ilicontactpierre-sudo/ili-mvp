@@ -52,6 +52,12 @@ function SoundBlockPanel({
   const [endSegText, setEndSegText] = useState('')
   const panelRef = useRef(null)
   const animationRef = useRef(null)
+  // Repère l'id du bloc dont l'état local (editedTrack) a été synchronisé en
+  // dernier. Sert à ne resynchroniser QUE quand on change réellement de bloc
+  // édité, jamais à chaque re-render du parent avec un objet soundTrack
+  // recréé mais de contenu identique — sinon on écrase les modifications en
+  // cours avant qu'elles ne soient sauvegardées.
+  const syncedTrackIdRef = useRef(null)
   // Mémorise le volume + les points d'automation au début d'un geste sur le
   // slider Volume, pour calculer la proportion depuis cette base (et non
   // depuis l'étape précédente, ce qui évite les effets de plafonnement intermédiaire).
