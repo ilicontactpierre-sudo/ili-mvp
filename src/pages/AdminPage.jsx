@@ -1279,21 +1279,37 @@ function AdminPage() {
     return () => window.removeEventListener('keydown', handleKeyDown)
   }, [])
 
-  const saveToHistory = (newSegments, newSoundTracks, newVfxTracks) => {
-    // En mode série on snapshote les données de la partie active
-    const snapshot = {
-      segments:    newSegments    ?? (isSerial ? (parts[activePartIndex]?.segments    ?? []) : segments),
-      soundTracks: newSoundTracks ?? (isSerial ? (parts[activePartIndex]?.soundTracks ?? []) : soundTracks),
-      vfxTracks:   newVfxTracks   ?? (isSerial ? (parts[activePartIndex]?.vfxTracks   ?? []) : vfxTracks),
+  // ─────────────────────────────────────────────────────────────────────────
+  // HISTORIQUE UNDO/REDO — capture automatique.
+  // On observe l'état réellement affiché (toujours correct, y compris en
+  // mode Série) et on capture un snapshot, avec un léger anti-rebond,
+  // uniquement quand il change pour de vrai.
+  // ─────────────────────────────────────────────────────────────────────────
+  useEffect(() => {
+    if (skipNextHistorySnapshotRef.current) {
+      skipNextHistorySnapshotRef.current = false
+      return
     }
-    const newHistory = history.slice(0, historyIndex + 1)
-    newHistory.push(JSON.parse(JSON.stringify(snapshot)))
-    if (newHistory.length > MAX_HISTORY) {
-      newHistory.shift()
-    }
-    setHistory(newHistory)
-    setHistoryIndex(newHistory.length - 1)
-  }
+    const timer = setTimeout(() => {
+      const snapshot = {
+        segments:    JSON.parse(JSON.stringify(activeSegments)),
+        soundTracks: JSON.parse(JSON.stringify(activeSoundTracks)),
+        vfxTracks:   JSON.parse(JSON.stringify(activeVfxTracks)),
+      }
+      const trimmed = historyRef.current.slice(0, historyIndexRef.current + 1)
+      trimmed.push(snapshot)
+      if (trimmed.length > MAX_HISTORY) trimmed.shift()
+      historyRef.current = trimmed
+      historyIndexRef.current = trimmed.length - 1
+      setHistory(trimmed)
+      setHistoryIndex(trimmed.length - 1)
+    }, 300)
+    return () => clearTimeout(timer)
+  }, [activeSegments, activeSoundTracks, activeVfxTracks])
+  // Conservé pour compatibilité avec les appels existants dans les composants
+  // enfants (Timeline, OrchestrationPanel, GameModePanel…) : ne fait plus
+  // rien, la capture automatique ci-dessus s'en charge seule, correctement.
+  const saveToHistory = () => {}
 
   const handleSegmentChange = (index, newText) => {
     setActiveSegments(prevSegments => {
