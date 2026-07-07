@@ -749,18 +749,7 @@ function GameSoundCheck({ data, onResolved, onAudioReady }) {
             opacity: isTransitioning ? 0 : 1,
             transition: `filter 600ms ease, opacity 600ms ease`,
           }}>
-            {/* Kicker */}
-            <div style={{ minHeight: '1.4rem', display: 'flex', alignItems: 'center' }}>
-              <span style={{
-                fontSize: '0.72rem', letterSpacing: '0.28em', textTransform: 'uppercase',
-                fontFamily: 'var(--font-logo, sans-serif)', color: '#fff',
-                opacity: kickerVisible ? 0.32 : 0,
-                transform: kickerVisible ? 'translateY(0)' : 'translateY(-5px)',
-                transition: `opacity 700ms ${S_EASE}, transform 700ms ${S_EASE}`,
-              }}>
-                Réglage du son
-              </span>
-            </div>
+            
 
             {/* Texte affiché — tapé lettre à lettre. Le sizer invisible réserve
                 déjà toute la place du texte complet : aucun élément en dessous
