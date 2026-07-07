@@ -647,7 +647,236 @@ function GameTimer({ data, onResolved }) {
   )
 }
 // ─── Type : Test de son (calibration volume) ─────────────────────────────────
+function GameSoundCheck({ data, onResolved, onAudioReady }) {
+  const fullPrompt = data.prompt || ''
+  const TYPE_MS = 55 // délai entre chaque lettre
 
+  const [kickerVisible, setKickerVisible] = useState(false)
+  const [typedCount, setTypedCount]       = useState(0)
+  const [typingDone, setTypingDone]       = useState(false)
+  const [logoVisible, setLogoVisible]     = useState(false)
+  const [buttonReady, setButtonReady]     = useState(false)
+  const [skipVisible, setSkipVisible]     = useState(false)
+  // idle → invert (flash blanc instantané) → dark (fondu doux vers le noir) → onResolved
+  const [transitionPhase, setTransitionPhase] = useState('idle')
+  const S_EASE = 'cubic-bezier(0.22, 1, 0.36, 1)'
+
+  const HOLD_MS = 1300
+  const DARK_MS = 3200
+
+  const playTypeClick = useTypeClickSound()
+  const audioReadyFiredRef = useRef(false)
+  const typeIntervalRef = useRef(null)
+
+  // Kicker
+  useEffect(() => {
+    const t = setTimeout(() => setKickerVisible(true), 150)
+    return () => clearTimeout(t)
+  }, [])
+
+  // Machine à écrire — lettre par lettre, avec son par lettre (sauf espaces)
+  useEffect(() => {
+    if (!fullPrompt) { setTypingDone(true); return }
+    const startDelay = setTimeout(() => {
+      let i = 0
+      typeIntervalRef.current = setInterval(() => {
+        i++
+        setTypedCount(i)
+        const ch = fullPrompt[i - 1]
+        if (ch && ch !== ' ') playTypeClick()
+        if (i >= fullPrompt.length) {
+          clearInterval(typeIntervalRef.current)
+          setTypingDone(true)
+        }
+      }, TYPE_MS)
+    }, 450)
+    return () => { clearTimeout(startDelay); if (typeIntervalRef.current) clearInterval(typeIntervalRef.current) }
+  }, [fullPrompt])
+
+  // Une fois le texte terminé : révéler le logo sonore + démarrer réellement le son de test
+  useEffect(() => {
+    if (!typingDone) return
+    setLogoVisible(true)
+    if (!audioReadyFiredRef.current) {
+      audioReadyFiredRef.current = true
+      onAudioReady?.()
+    }
+    const t = setTimeout(() => setButtonReady(true), 900)
+    return () => clearTimeout(t)
+  }, [typingDone])
+
+  // "Passer" — apparaît discrètement une fois le bouton visible
+  useEffect(() => {
+    if (!buttonReady) return
+    const t = setTimeout(() => setSkipVisible(true), 3000)
+    return () => clearTimeout(t)
+  }, [buttonReady])
+
+  const handleReady = () => {
+    if (transitionPhase !== 'idle') return
+    setTransitionPhase('invert')
+    setTimeout(() => setTransitionPhase('dark'), HOLD_MS)
+    setTimeout(() => onResolved(), HOLD_MS + DARK_MS)
+  }
+
+  const BARS = 7
+  const isTransitioning = transitionPhase !== 'idle'
+  const isDark = transitionPhase === 'dark'
+
+  return (
+    <>
+      {/* Fond plein écran — gère toute la couleur de cet écran */}
+      <div style={{
+        position: 'fixed', inset: 0, zIndex: 40,
+        backgroundColor: isDark ? '#000' : isTransitioning ? '#fff' : '#0b0b0d',
+        transition: isDark ? `background-color ${DARK_MS}ms ${S_EASE}` : 'none',
+      }} />
+
+      <div style={{
+        position: 'fixed', inset: 0, zIndex: 41,
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+        padding: '2rem', boxSizing: 'border-box',
+      }}>
+        <div style={{
+          width: '100%', maxWidth: '560px',
+          display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 0,
+          fontFamily: 'var(--font-primary, Georgia, serif)',
+        }}>
+          {/* Décor : kicker + texte tapé + logo sonore — se floute et s'efface au clic */}
+          <div style={{
+            display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%',
+            filter: isTransitioning ? 'blur(20px)' : 'blur(0px)',
+            opacity: isTransitioning ? 0 : 1,
+            transition: `filter 600ms ease, opacity 600ms ease`,
+          }}>
+            {/* Kicker */}
+            <div style={{ minHeight: '1.4rem', display: 'flex', alignItems: 'center' }}>
+              <span style={{
+                fontSize: '0.72rem', letterSpacing: '0.28em', textTransform: 'uppercase',
+                fontFamily: 'var(--font-logo, sans-serif)', color: '#fff',
+                opacity: kickerVisible ? 0.32 : 0,
+                transform: kickerVisible ? 'translateY(0)' : 'translateY(-5px)',
+                transition: `opacity 700ms ${S_EASE}, transform 700ms ${S_EASE}`,
+              }}>
+                Réglage du son
+              </span>
+            </div>
+
+            {/* Texte affiché — tapé lettre à lettre. Le sizer invisible réserve
+                déjà toute la place du texte complet : aucun élément en dessous
+                ne bouge pendant que les lettres apparaissent. */}
+            <div style={{ position: 'relative', width: '100%', maxWidth: '32rem', margin: '1.6rem 0 0' }}>
+              <p aria-hidden="true" style={{
+                visibility: 'hidden', margin: 0,
+                fontSize: 'clamp(1rem, 2.4vw, 1.18rem)', lineHeight: 1.68, textAlign: 'center',
+              }}>
+                {fullPrompt || '\u00A0'}
+              </p>
+              <p style={{
+                position: 'absolute', inset: 0, margin: 0,
+                fontSize: 'clamp(1rem, 2.4vw, 1.18rem)', lineHeight: 1.68, textAlign: 'center',
+                color: '#fff',
+                opacity: kickerVisible ? 0.78 : 0,
+                transition: `opacity 500ms ${S_EASE}`,
+              }}>
+                {fullPrompt.slice(0, typedCount)}
+                {!typingDone && fullPrompt && (
+                  <span style={{
+                    display: 'inline-block', width: '2px', height: '1em',
+                    backgroundColor: '#fff', marginLeft: '2px', verticalAlign: 'text-bottom',
+                    animation: 'game-blink 0.65s step-end infinite',
+                  }} />
+                )}
+              </p>
+            </div>
+
+            {/* Logo sonore — révélé une fois le texte terminé */}
+            <div style={{
+              position: 'relative', width: '184px', height: '184px',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              margin: '2.2rem 0 1.6rem',
+              opacity: logoVisible ? 1 : 0,
+              transform: logoVisible ? 'scale(1)' : 'scale(0.85)',
+              transition: `opacity 900ms ${S_EASE}, transform 900ms ${S_EASE}`,
+            }}>
+              <div style={{
+                position: 'absolute', width: '100%', height: '100%', borderRadius: '50%',
+                background: 'radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 68%)',
+                animation: 'sc-halo-breathe 4.6s cubic-bezier(0.45,0,0.55,1) infinite',
+                animationFillMode: 'both',
+              }} />
+              <div style={{ display: 'flex', alignItems: 'center', gap: '9px', zIndex: 1 }}>
+                {Array.from({ length: BARS }).map((_, i) => {
+                  const mid = (BARS - 1) / 2
+                  const dist = Math.abs(i - mid)
+                  const baseHeight = 54 - dist * 9
+                  return (
+                    <div key={i} style={{
+                      width: '4px', height: `${baseHeight}px`, borderRadius: '999px',
+                      backgroundColor: '#fff',
+                      animation: `sc-bar-breathe 2.4s cubic-bezier(0.45,0,0.55,1) ${i * 0.11}s infinite`,
+                      animationFillMode: 'both',
+                    }} />
+                  )
+                })}
+              </div>
+            </div>
+          </div>
+
+          {/* Bouton — au repos : bloc BLANC plein, texte NOIR.
+              Au clic : inversion instantanée → bloc NOIR plein, texte BLANC,
+              exactement quand l'écran bascule au blanc — un vrai effet miroir. */}
+          <div style={{ minHeight: '3.4rem', display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative', zIndex: 42 }}>
+            <button
+              onClick={handleReady}
+              style={{
+                background: isTransitioning ? '#000' : '#fff',
+                border: 'none',
+                color: isTransitioning ? '#fff' : '#000',
+                fontFamily: 'var(--font-primary, Georgia, serif)',
+                fontSize: '0.95rem', fontWeight: 600, letterSpacing: '0.08em',
+                padding: '0.85rem 2.8rem', borderRadius: '3px', cursor: 'pointer',
+                filter: buttonReady ? (isDark ? 'blur(10px)' : 'blur(0px)') : 'blur(22px)',
+                opacity: buttonReady ? (isDark ? 0 : 1) : 0,
+                transform: buttonReady ? 'translateY(0) scale(1)' : 'translateY(8px) scale(0.97)',
+                transition: isDark
+                  ? `filter ${DARK_MS * 0.75}ms ${S_EASE}, opacity ${DARK_MS * 0.75}ms ${S_EASE}`
+                  : buttonReady
+                    ? `filter 1500ms cubic-bezier(0.25, 1, 0.5, 1), opacity 1500ms cubic-bezier(0.25, 1, 0.5, 1), transform 350ms ${S_EASE}`
+                    : 'none',
+                pointerEvents: buttonReady && !isTransitioning ? 'auto' : 'none',
+              }}
+              onMouseEnter={e => { if (!isTransitioning) e.currentTarget.style.transform = 'translateY(0) scale(1.03)' }}
+              onMouseLeave={e => { if (!isTransitioning) e.currentTarget.style.transform = 'translateY(0) scale(1)' }}
+            >
+              {data.buttonLabel || "c'est parti"}
+            </button>
+          </div>
+
+          {/* Passer */}
+          {!isTransitioning && (
+            <button
+              onClick={onResolved}
+              style={{
+                position: 'fixed', bottom: '2.4rem', left: '50%', transform: 'translateX(-50%)',
+                background: 'none', border: 'none', cursor: 'pointer',
+                fontSize: '0.75rem', color: '#fff', letterSpacing: '0.06em',
+                opacity: skipVisible ? 0.26 : 0,
+                transition: `opacity 900ms ${S_EASE}`,
+                pointerEvents: skipVisible ? 'auto' : 'none',
+                zIndex: 42,
+              }}
+              onMouseEnter={e => { if (skipVisible) e.currentTarget.style.opacity = '0.55' }}
+              onMouseLeave={e => { if (skipVisible) e.currentTarget.style.opacity = '0.26' }}
+            >
+              passer
+            </button>
+          )}
+        </div>
+      </div>
+    </>
+  )
+}
 // ─── Type : Message animé ─────────────────────────────────────────────────────
 function GameMessage({ data, onResolved, tappable }) {
   const text = data.text || ''
