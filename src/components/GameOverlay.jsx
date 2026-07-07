@@ -642,10 +642,13 @@ function GameSoundCheck({ data, onResolved }) {
   const [promptVisible, setPromptVisible] = useState(false)
   const [buttonReady, setButtonReady]     = useState(false)
   const [skipVisible, setSkipVisible]     = useState(false)
-  // idle → invert (flash clair, décor flouté) → dark (bascule au noir, bouton s'efface) → onResolved
+  // idle → invert (flash blanc instantané, décor flouté) → dark (bascule douce au noir) → onResolved
   const [transitionPhase, setTransitionPhase] = useState('idle')
-  const S_EASE     = 'cubic-bezier(0.22, 1, 0.36, 1)'
-  const FOCUS_EASE = 'cubic-bezier(0.25, 1, 0.5, 1)' // courbe du focus optique
+  const S_EASE = 'cubic-bezier(0.22, 1, 0.36, 1)'
+
+  // Durées de la transition finale — palier blanc long, bascule au noir très douce
+  const HOLD_MS = 1300  // temps où l'écran reste blanc, cadre noir bien visible
+  const DARK_MS = 3200  // fondu blanc → noir, lent et symétrique
 
   useEffect(() => {
     const timers = [
@@ -660,8 +663,8 @@ function GameSoundCheck({ data, onResolved }) {
   const handleReady = () => {
     if (transitionPhase !== 'idle') return
     setTransitionPhase('invert')
-    setTimeout(() => setTransitionPhase('dark'), 650)
-    setTimeout(() => onResolved(), 650 + 1450)
+    setTimeout(() => setTransitionPhase('dark'), HOLD_MS)
+    setTimeout(() => onResolved(), HOLD_MS + DARK_MS)
   }
 
   const BARS = 7
@@ -670,24 +673,36 @@ function GameSoundCheck({ data, onResolved }) {
 
   return (
     <>
-      {/* Voile cinématique plein écran — flash clair puis bascule au noir */}
+      {/* Voile cinématique plein écran — flash blanc instantané puis fondu très doux vers le noir */}
       <div style={{
         position: 'fixed', inset: 0, zIndex: 50, pointerEvents: 'none',
         backgroundColor: isDark ? '#000' : '#fff',
         opacity: isTransitioning ? 1 : 0,
-        transition: isDark
-          ? `background-color 1450ms ${S_EASE}`
-          : `opacity 650ms ${FOCUS_EASE}`,
+        // Le passage idle → invert n'a AUCUNE transition (flash instantané, comme un flash d'appareil photo).
+        // Seul le passage invert → dark anime le fond, lentement.
+        transition: isDark ? `background-color ${DARK_MS}ms ${S_EASE}` : 'none',
       }} />
       <AnimatedWrapper style={{ gap: 0 }}>
         {/* Décor : kicker + respiration + prompt — se floute et s'efface au clic */}
         <div style={{
           display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%',
-          filter: isTransitioning ? 'blur(16px)' : 'blur(0px)',
+          filter: isTransitioning ? 'blur(20px)' : 'blur(0px)',
           opacity: isTransitioning ? 0 : 1,
-          transition: `filter 600ms ${FOCUS_EASE}, opacity 600ms ${FOCUS_EASE}`,
+          transition: `filter 600ms ease, opacity 600ms ease`,
         }}>
-          
+          {/* Kicker — espace réservé, jamais de saut */}
+          <div style={{ minHeight: '1.2rem', display: 'flex', alignItems: 'center' }}>
+            <span style={{
+              fontSize: '0.62rem', letterSpacing: '0.28em', textTransform: 'uppercase',
+              fontFamily: 'var(--font-logo, sans-serif)',
+              color: 'var(--color-text-focus, #222)',
+              opacity: kickerVisible ? 0.32 : 0,
+              transform: kickerVisible ? 'translateY(0)' : 'translateY(-5px)',
+              transition: `opacity 700ms ${S_EASE}, transform 700ms ${S_EASE}`,
+            }}>
+              Réglage du son
+            </span>
+          </div>
 
           {/* Respiration — visuel continu, présent dès l'arrivée */}
           <div style={{
@@ -734,25 +749,30 @@ function GameSoundCheck({ data, onResolved }) {
           </div>
         </div>
 
-        {/* Bouton — reveal en flou optique ; reste visible pendant le flash, s'efface en phase noire */}
+        {/* Bouton — au repos : contour discret assorti au thème.
+            Au clic : bascule INSTANTANÉE en bloc plein noir / texte blanc (aucune transition
+            sur background/color), pour créer le contraste net avec l'écran qui devient blanc.
+            Il ne s'efface qu'en phase 'dark', en fondu long et doux avec le fond. */}
         <div style={{ minHeight: '3.1rem', display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative', zIndex: 60 }}>
           <button
             onClick={handleReady}
             style={{
-              background: isTransitioning ? 'var(--color-text-focus, #222)' : 'none',
-              border: '1px solid color-mix(in srgb, var(--color-text-focus) 35%, transparent)',
-              color: isTransitioning ? 'var(--color-bg, #fff)' : 'var(--color-text-focus, #222)',
+              background: isTransitioning ? '#000' : 'none',
+              border: isTransitioning ? 'none' : '1px solid color-mix(in srgb, var(--color-text-focus) 35%, transparent)',
+              color: isTransitioning ? '#fff' : 'var(--color-text-focus, #222)',
               fontFamily: 'var(--font-primary, Georgia, serif)',
               fontSize: '0.85rem', letterSpacing: '0.08em',
               padding: '0.7rem 2.3rem', borderRadius: '2px', cursor: 'pointer',
-              filter: buttonReady
-                ? (isDark ? 'blur(8px)' : 'blur(0px)')
-                : 'blur(22px)',
+              filter: buttonReady ? (isDark ? 'blur(10px)' : 'blur(0px)') : 'blur(22px)',
               opacity: buttonReady ? (isDark ? 0 : 1) : 0,
               transform: buttonReady ? 'translateY(0) scale(1)' : 'translateY(8px) scale(0.97)',
-              transition: isTransitioning
-                ? `background-color 350ms ${FOCUS_EASE}, color 350ms ${FOCUS_EASE}, filter 900ms ${S_EASE}, opacity 900ms ${S_EASE}`
-                : `filter 1500ms ${FOCUS_EASE}, opacity 1500ms ${FOCUS_EASE}, transform 900ms ${S_EASE}, border-color 250ms ease`,
+              // Aucune transition sur background/color/border : le passage au noir plein est instantané.
+              // Seuls filter/opacity s'animent, et seulement pendant la phase 'dark', longuement.
+              transition: isDark
+                ? `filter ${DARK_MS * 0.75}ms ${S_EASE}, opacity ${DARK_MS * 0.75}ms ${S_EASE}`
+                : buttonReady
+                  ? `filter 1500ms cubic-bezier(0.25, 1, 0.5, 1), opacity 1500ms cubic-bezier(0.25, 1, 0.5, 1), transform 900ms ${S_EASE}, border-color 250ms ease`
+                  : 'none',
               pointerEvents: buttonReady && !isTransitioning ? 'auto' : 'none',
             }}
             onMouseEnter={e => { if (!isTransitioning) e.currentTarget.style.borderColor = 'color-mix(in srgb, var(--color-text-focus) 60%, transparent)' }}
@@ -762,7 +782,24 @@ function GameSoundCheck({ data, onResolved }) {
           </button>
         </div>
 
-        
+        {/* Passer — position fixe, hors du flux, ne peut rien décaler */}
+        {!isTransitioning && (
+          <button
+            onClick={onResolved}
+            style={{
+              position: 'fixed', bottom: '2.2rem', left: '50%', transform: 'translateX(-50%)',
+              background: 'none', border: 'none', cursor: 'pointer',
+              fontSize: '0.68rem', color: 'var(--color-text-focus, #222)', letterSpacing: '0.06em',
+              opacity: skipVisible ? 0.26 : 0,
+              transition: `opacity 900ms ${S_EASE}`,
+              pointerEvents: skipVisible ? 'auto' : 'none',
+            }}
+            onMouseEnter={e => { if (skipVisible) e.currentTarget.style.opacity = '0.55' }}
+            onMouseLeave={e => { if (skipVisible) e.currentTarget.style.opacity = '0.26' }}
+          >
+            passer
+          </button>
+        )}
       </AnimatedWrapper>
     </>
   )
