@@ -1380,37 +1380,39 @@ function AdminPage() {
     });
   };
 
-  // Fonctions undo/redo
-  const handleUndo = () => {
-    if (historyIndex > 0) {
-      const snapshot = history[historyIndex - 1]
-      setHistoryIndex(historyIndex - 1)
-      if (isSerial) {
-        setActiveSegments(JSON.parse(JSON.stringify(snapshot.segments)))
-        setActiveSoundTracks(JSON.parse(JSON.stringify(snapshot.soundTracks)))
-        setActiveVfxTracks(JSON.parse(JSON.stringify(snapshot.vfxTracks)))
-      } else {
-        setSegments(JSON.parse(JSON.stringify(snapshot.segments)))
-        setSoundTracks(JSON.parse(JSON.stringify(snapshot.soundTracks)))
-        setVfxTracks(JSON.parse(JSON.stringify(snapshot.vfxTracks)))
-      }
+  // Fonctions undo/redo — lisent l'historique via des refs toujours à jour
+  // (jamais périmées, même juste après un changement de partie en mode Série)
+  const applyHistorySnapshot = (snapshot) => {
+    if (isSerial) {
+      setActiveSegments(snapshot.segments)
+      setActiveSoundTracks(snapshot.soundTracks)
+      setActiveVfxTracks(snapshot.vfxTracks)
+    } else {
+      setSegments(snapshot.segments)
+      setSoundTracks(snapshot.soundTracks)
+      setVfxTracks(snapshot.vfxTracks)
     }
+  }
+  const handleUndo = () => {
+    if (historyIndexRef.current <= 0) return
+    const newIndex = historyIndexRef.current - 1
+    const snapshot = historyRef.current[newIndex]
+    skipNextHistorySnapshotRef.current = true
+    historyIndexRef.current = newIndex
+    setHistoryIndex(newIndex)
+    applyHistorySnapshot(snapshot)
   }
   const handleRedo = () => {
-    if (historyIndex < history.length - 1) {
-      const snapshot = history[historyIndex + 1]
-      setHistoryIndex(historyIndex + 1)
-      if (isSerial) {
-        setActiveSegments(JSON.parse(JSON.stringify(snapshot.segments)))
-        setActiveSoundTracks(JSON.parse(JSON.stringify(snapshot.soundTracks)))
-        setActiveVfxTracks(JSON.parse(JSON.stringify(snapshot.vfxTracks)))
-      } else {
-        setSegments(JSON.parse(JSON.stringify(snapshot.segments)))
-        setSoundTracks(JSON.parse(JSON.stringify(snapshot.soundTracks)))
-        setVfxTracks(JSON.parse(JSON.stringify(snapshot.vfxTracks)))
-      }
-    }
+    if (historyIndexRef.current >= historyRef.current.length - 1) return
+    const newIndex = historyIndexRef.current + 1
+    const snapshot = historyRef.current[newIndex]
+    skipNextHistorySnapshotRef.current = true
+    historyIndexRef.current = newIndex
+    setHistoryIndex(newIndex)
+    applyHistorySnapshot(snapshot)
   }
+  undoRedoRefs.current.undo = handleUndo
+  undoRedoRefs.current.redo = handleRedo
 
   const handleCutText = () => {
     setCutError('');
