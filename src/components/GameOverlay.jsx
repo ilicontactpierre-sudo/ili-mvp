@@ -852,26 +852,6 @@ function GameSoundCheck({ data, onResolved, onAudioReady }) {
               {data.buttonLabel || "c'est parti"}
             </button>
           </div>
-
-          {/* Passer */}
-          {!isTransitioning && (
-            <button
-              onClick={onResolved}
-              style={{
-                position: 'fixed', bottom: '2.4rem', left: '50%', transform: 'translateX(-50%)',
-                background: 'none', border: 'none', cursor: 'pointer',
-                fontSize: '0.75rem', color: '#fff', letterSpacing: '0.06em',
-                opacity: skipVisible ? 0.26 : 0,
-                transition: `opacity 900ms ${S_EASE}`,
-                pointerEvents: skipVisible ? 'auto' : 'none',
-                zIndex: 42,
-              }}
-              onMouseEnter={e => { if (skipVisible) e.currentTarget.style.opacity = '0.55' }}
-              onMouseLeave={e => { if (skipVisible) e.currentTarget.style.opacity = '0.26' }}
-            >
-              passer
-            </button>
-          )}
         </div>
       </div>
     </>
