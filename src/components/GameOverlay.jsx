@@ -774,24 +774,7 @@ function GameSoundCheck({ data, onResolved }) {
           </button>
         </div>
 
-        {/* Passer — position fixe, hors du flux, ne peut rien décaler */}
-        {!isTransitioning && (
-          <button
-            onClick={onResolved}
-            style={{
-              position: 'fixed', bottom: '2.2rem', left: '50%', transform: 'translateX(-50%)',
-              background: 'none', border: 'none', cursor: 'pointer',
-              fontSize: '0.68rem', color: 'var(--color-text-focus, #222)', letterSpacing: '0.06em',
-              opacity: skipVisible ? 0.26 : 0,
-              transition: `opacity 900ms ${S_EASE}`,
-              pointerEvents: skipVisible ? 'auto' : 'none',
-            }}
-            onMouseEnter={e => { if (skipVisible) e.currentTarget.style.opacity = '0.55' }}
-            onMouseLeave={e => { if (skipVisible) e.currentTarget.style.opacity = '0.26' }}
-          >
-            passer
-          </button>
-        )}
+        
       </AnimatedWrapper>
     </>
   )
