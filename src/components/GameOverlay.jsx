@@ -98,7 +98,16 @@ function useKeySound() {
   }
   return { playTock, playSuccess, playError, playDelete, playDing }
 }
-
+// ── Son de frappe pour le test de son (fichier dédié, pas un oscillateur) ────
+// Placer le fichier dans /public/sounds/Clic_soundcheck.mp3
+function useTypeClickSound() {
+  const howlRef = useRef(null)
+  useEffect(() => {
+    howlRef.current = new Howl({ src: ['/sounds/Clic_soundcheck.mp3'], volume: 0.4, preload: true })
+    return () => { howlRef.current?.unload() }
+  }, [])
+  return () => { try { howlRef.current?.play() } catch {} }
+}
 // ─── Distance de Levenshtein ──────────────────────────────────────────────────
 function levenshtein(a, b) {
   const m = a.length, n = b.length
