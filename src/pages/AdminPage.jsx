@@ -1256,25 +1256,28 @@ function AdminPage() {
     setError('')
   }
 
-  // Raccourcis clavier pour undo/redo
+  // Raccourcis clavier pour undo/redo — écouteur unique, jamais périmé
+  // (délègue à undoRedoRefs, toujours synchronisé, cf. plus bas).
+  // On ignore aussi le raccourci si on est en train de taper du texte,
+  // pour ne pas percuter l'undo natif du navigateur dans un champ.
   useEffect(() => {
     const handleKeyDown = (e) => {
-      const key = e.key?.toLowerCase() ?? ''  
-      // Ctrl+Z ou Cmd+Z pour undo
+      const key = e.key?.toLowerCase() ?? ''
+      const active = document.activeElement
+      const isTyping = active && (active.tagName === 'TEXTAREA' || active.tagName === 'INPUT')
+      if (isTyping) return
       if ((e.ctrlKey || e.metaKey) && key === 'z' && !e.shiftKey) {
         e.preventDefault()
-        handleUndo()
+        undoRedoRefs.current.undo()
       }
-      // Ctrl+Y ou Ctrl+Shift+Z ou Cmd+Shift+Z pour redo
       if ((e.ctrlKey || e.metaKey) && (key === 'y' || (key === 'z' && e.shiftKey))) {
         e.preventDefault()
-        handleRedo()
+        undoRedoRefs.current.redo()
       }
     }
-
     window.addEventListener('keydown', handleKeyDown)
     return () => window.removeEventListener('keydown', handleKeyDown)
-  }, [historyIndex, history])
+  }, [])
 
   const saveToHistory = (newSegments, newSoundTracks, newVfxTracks) => {
     // En mode série on snapshote les données de la partie active
