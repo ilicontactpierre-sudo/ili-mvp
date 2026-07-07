@@ -281,6 +281,15 @@ const [realDurationMs, setRealDurationMs] = useState((sound.duration || 0) * 100
   }
 
   const selDuration = trimEnd - trimStart
+  // ── Normalisation : calcule le gain (dB) qui amène le pic du fichier juste
+  // sous 0dBFS (seuil de clipping), avec une petite marge de sécurité.
+  const HEADROOM_DB = 0.3
+  const handleNormalize = () => {
+    if (!maxPeak || maxPeak <= 0) return
+    const targetDb = -20 * Math.log10(maxPeak) - HEADROOM_DB
+    const clamped = Math.max(-10, Math.min(10, targetDb))
+    setGainDb(Math.round(clamped * 10) / 10)
+  }
 
   return (
     <div
