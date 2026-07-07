@@ -447,6 +447,10 @@ class AudioEngine {
       // au segment courant et l'appliquer avec le fade du point concerné
       if (track.automationPoints && track.automationPoints.length > 0) {
         const key = track.id || track.soundId
+        // Ce son vient d'être démarré à froid juste au-dessus, avec déjà le
+        // bon volume automatisé appliqué directement — on ne retouche rien
+        // ici pour éviter un fade parasite superposé au démarrage.
+        if (coldStartedKeys.has(key)) continue
         if (this.playingSounds.has(key)) {
           // Trouver le dernier point d'automation dont le segment est ≤ currentIndex
           // Trier les points par index de segment pour garantir l'ordre
