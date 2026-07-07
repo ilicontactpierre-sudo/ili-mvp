@@ -61,8 +61,23 @@
       "loop": false
     },
     {
+      "id": "arctica_-_annuminas_ambient_drone_dark_ambient_field_recordings_",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/arctica_-_annuminas_ambient_drone_dark_ambient_field_recordings_.mp3",
+      "loop": false
+    },
+    {
       "id": "atmo_eerie_cave_water_drips_emptyness_howling_interior_wind_oppressive_loop",
       "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/atmo_eerie_cave_water_drips_emptyness_howling_interior_wind_oppressive_loop.mp3",
+      "loop": false
+    },
+    {
+      "id": "crew_e_quipage_boat_ship_rope_wood_foot_marche",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/crew_e_quipage_boat_ship_rope_wood_foot_marche.mp3",
+      "loop": false
+    },
+    {
+      "id": "crew_e_quipage_boat_ship_rope_wood_foot_preparation",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/crew_e_quipage_boat_ship_rope_wood_foot_preparation.mp3",
       "loop": false
     },
     {
@@ -91,6 +106,11 @@
       "loop": false
     },
     {
+      "id": "sail_boat_sound_effect_hd_1_",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/sail_boat_sound_effect_hd_1_.mp3",
+      "loop": false
+    },
+    {
       "id": "sfx_drone_warped_low_metal_squeak_eerie_depth",
       "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/sfx_drone_warped_low_metal_squeak_eerie_depth.mp3",
       "loop": false
@@ -101,6 +121,11 @@
       "loop": false
     },
     {
+      "id": "sound_effect_cloth_rustle_",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/sound_effect_cloth_rustle_.mp3",
+      "loop": false
+    },
+    {
       "id": "suno_orchestral_cinematic_court_1",
       "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/suno_orchestral_cinematic_court_1.mp3",
       "loop": false
@@ -108,6 +133,11 @@
     {
       "id": "suno_quiet_after_the_storm_court_1",
       "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/suno_quiet_after_the_storm_court_1.mp3",
+      "loop": false
+    },
+    {
+      "id": "suno_the_last_farewell_-_cello_rubato_funeral",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/suno_the_last_farewell_-_cello_rubato_funeral.mp3",
       "loop": false
     },
     {
@@ -136,33 +166,8 @@
       "loop": false
     },
     {
-      "id": "crew_e_quipage_boat_ship_rope_wood_foot_preparation",
-      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/crew_e_quipage_boat_ship_rope_wood_foot_preparation.mp3",
-      "loop": false
-    },
-    {
-      "id": "arctica_-_annuminas_ambient_drone_dark_ambient_field_recordings_",
-      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/arctica_-_annuminas_ambient_drone_dark_ambient_field_recordings_.mp3",
-      "loop": false
-    },
-    {
-      "id": "suno_the_last_farewell_-_cello_rubato_funeral",
-      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/suno_the_last_farewell_-_cello_rubato_funeral.mp3",
-      "loop": false
-    },
-    {
-      "id": "sail_boat_sound_effect_hd_1_",
-      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/sail_boat_sound_effect_hd_1_.mp3",
-      "loop": false
-    },
-    {
-      "id": "crew_e_quipage_boat_ship_rope_wood_foot_marche",
-      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/crew_e_quipage_boat_ship_rope_wood_foot_marche.mp3",
-      "loop": false
-    },
-    {
-      "id": "sound_effect_cloth_rustle_",
-      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/sound_effect_cloth_rustle_.mp3",
+      "id": "295_s08_alvaro_impact_2",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/295_s08_alvaro_impact_2.mp3",
       "loop": false
     }
   ],
@@ -187,7 +192,7 @@
         {
           "action": "fadeOut",
           "soundId": "dantes_theme_3",
-          "duration": 800
+          "duration": 3559
         }
       ]
     },
@@ -212,8 +217,8 @@
         {
           "action": "fadeIn",
           "soundId": "harbor_sounds_seaside_market_ambience_",
-          "volume": 0.45,
-          "gainDb": 0,
+          "volume": 0.28,
+          "gainDb": 7.5,
           "duration": 5000,
           "delay": 0,
           "loop": true
@@ -281,8 +286,8 @@
         {
           "action": "fadeIn",
           "soundId": "crwdsprt_football_match_ambience_crowd_chant_walla_01_b00m_one",
-          "volume": 0.42,
-          "gainDb": 0,
+          "volume": 0.55,
+          "gainDb": 9,
           "duration": 1000,
           "delay": 0,
           "loop": true
@@ -333,7 +338,7 @@
           "action": "fadeIn",
           "soundId": "hrck_drone_wind_-_spooky_storm",
           "volume": 0.3,
-          "gainDb": 0,
+          "gainDb": 5,
           "duration": 3000,
           "delay": 0,
           "loop": true
@@ -341,7 +346,7 @@
         {
           "action": "fadeIn",
           "soundId": "np03_0384_town_flag_wind_birds_loop",
-          "volume": 0.8,
+          "volume": 0.85,
           "gainDb": 6.5,
           "duration": 2000,
           "delay": 0,
@@ -375,7 +380,7 @@
         {
           "action": "fadeOut",
           "soundId": "np03_0384_town_flag_wind_birds_loop",
-          "duration": 2000
+          "duration": 2580
         }
       ]
     },
@@ -416,7 +421,7 @@
         {
           "action": "fadeIn",
           "soundId": "suno_quiet_after_the_storm_court_1",
-          "volume": 0.35,
+          "volume": 0.25,
           "gainDb": 0,
           "duration": 3000,
           "delay": 0,
@@ -456,7 +461,7 @@
         {
           "action": "play",
           "soundId": "pulling_rope_sfx_-_creaking_tension_and_stretching_sounds_-_floraphonic_com",
-          "volume": 0.58,
+          "volume": 0.35,
           "gainDb": 0,
           "delay": 2700,
           "loop": false
@@ -472,14 +477,6 @@
       "breakAt": null,
       "isLeader": false,
       "audioEvents": [
-        {
-          "action": "play",
-          "soundId": "suno_the_watcher_s_march",
-          "volume": 0.65,
-          "gainDb": 0,
-          "delay": 0,
-          "loop": false
-        },
         {
           "action": "fadeIn",
           "soundId": "507_s12_gens_qui_courent",
@@ -506,9 +503,12 @@
           "duration": 5000
         },
         {
-          "action": "fadeOut",
+          "action": "play",
           "soundId": "suno_the_watcher_s_march",
-          "duration": 3200
+          "volume": 0.55,
+          "gainDb": 0,
+          "delay": 0,
+          "loop": false
         },
         {
           "action": "fadeOut",
@@ -536,10 +536,15 @@
       "isLeader": false,
       "audioEvents": [
         {
+          "action": "fadeOut",
+          "soundId": "suno_the_watcher_s_march",
+          "duration": 3200
+        },
+        {
           "action": "fadeIn",
           "soundId": "watrwave_black_sea_waves_01_b00m_one",
-          "volume": 0.2,
-          "gainDb": 0,
+          "volume": 0.3,
+          "gainDb": 10,
           "duration": 6000,
           "delay": 0,
           "loop": true
@@ -547,8 +552,8 @@
         {
           "action": "fadeIn",
           "soundId": "atmo_eerie_cave_water_drips_emptyness_howling_interior_wind_oppressive_loop",
-          "volume": 0.6,
-          "gainDb": 4.5,
+          "volume": 0.85,
+          "gainDb": 10,
           "duration": 1000,
           "delay": 0,
           "loop": true
@@ -576,11 +581,6 @@
           "gainDb": 0,
           "delay": 330,
           "loop": false
-        },
-        {
-          "action": "fadeOut",
-          "soundId": "atmo_eerie_cave_water_drips_emptyness_howling_interior_wind_oppressive_loop",
-          "duration": 2000
         }
       ]
     },
@@ -593,6 +593,11 @@
       "breakAt": null,
       "isLeader": false,
       "audioEvents": [
+        {
+          "action": "fadeOut",
+          "soundId": "atmo_eerie_cave_water_drips_emptyness_howling_interior_wind_oppressive_loop",
+          "duration": 2000
+        },
         {
           "action": "fadeIn",
           "soundId": "walk_foot_feetsneakers_wood_parquet_2_",
@@ -712,8 +717,8 @@
         {
           "action": "play",
           "soundId": "mlck_location_ship_wood_creak_medium",
-          "volume": 0.3,
-          "gainDb": 0,
+          "volume": 0.25,
+          "gainDb": 3.5,
           "delay": 0,
           "loop": false
         }
@@ -741,15 +746,15 @@
         {
           "action": "play",
           "soundId": "esm_lfe_heart_beat_loop_-_medium_-_fast_bass_medical_horror_scary_suspense",
-          "volume": 0.5,
-          "gainDb": 0,
+          "volume": 0.6,
+          "gainDb": 4,
           "delay": 0,
           "loop": false
         },
         {
           "action": "play",
           "soundId": "belllrg_church_single_ring_01_b00m_one",
-          "volume": 0.24,
+          "volume": 0.35,
           "gainDb": 0,
           "delay": 0,
           "loop": false
@@ -837,7 +842,7 @@
       ],
       "text": "Au même instant, les huit ou dix matelots qui le composaient s’élancèrent les uns sur les écoutes,",
       "breakAt": null,
-      "isLeader": false,
+      "isLeader": true,
       "audioEvents": [
         {
           "action": "fadeIn",
@@ -926,8 +931,8 @@
         {
           "action": "fadeIn",
           "soundId": "arctica_-_annuminas_ambient_drone_dark_ambient_field_recordings_",
-          "volume": 0.14,
-          "gainDb": 0,
+          "volume": 0.25,
+          "gainDb": 4,
           "duration": 2000,
           "delay": 0,
           "loop": true
@@ -935,7 +940,7 @@
         {
           "action": "fadeIn",
           "soundId": "ship_creaking_free_sound_effect",
-          "volume": 0.2,
+          "volume": 0.35,
           "gainDb": 0,
           "duration": 1000,
           "delay": 0,
@@ -994,7 +999,15 @@
         {
           "action": "play",
           "soundId": "watrsplsh_big_splash_and_spray_01_b00m_one",
-          "volume": 0.3,
+          "volume": 0.72,
+          "gainDb": 0,
+          "delay": 0,
+          "loop": false
+        },
+        {
+          "action": "play",
+          "soundId": "295_s08_alvaro_impact_2",
+          "volume": 0.5,
           "gainDb": 0,
           "delay": 0,
           "loop": false
@@ -2747,7 +2760,7 @@
       "startSegmentId": "seg_1783153739414_4_40kr6",
       "endSegmentId": "seg_1783153739414_6_lwwam",
       "column": 1,
-      "volume": 0.42,
+      "volume": 0.55,
       "loop": true,
       "loopCrossfade": "medium",
       "fadeIn": 1000,
@@ -2770,7 +2783,10 @@
           "fadeMs": 0,
           "_isAnchor": true
         }
-      ]
+      ],
+      "trimStart": 0,
+      "trimEnd": 90199.60416666666,
+      "gainDb": 9
     },
     {
       "id": "st_1783156653928_wzlwtpcw2_3",
@@ -2778,7 +2794,7 @@
       "startSegmentId": "seg_1783153739414_0_umzmg",
       "endSegmentId": "seg_1783344799946_1_mgmni",
       "column": 2,
-      "volume": 0.45,
+      "volume": 0.28,
       "loop": true,
       "loopCrossfade": "medium",
       "fadeIn": 5000,
@@ -2790,19 +2806,24 @@
       "automationPoints": [
         {
           "segmentId": "seg_1783153739414_0_umzmg",
-          "volume": 0.45,
+          "volume": 0.28,
           "fadeMs": 0,
           "_isAnchor": true
         },
         {
           "segmentId": "seg_1783153739414_7_pbm0m",
-          "volume": 0.35000000000000003,
+          "volume": 0.1555555555555556,
           "fadeMs": 2500
         },
         {
           "segmentId": "seg_1783153739414_13_097rx",
-          "volume": 0.49999999999999994,
+          "volume": 0.22222222222222227,
           "fadeMs": 2000
+        },
+        {
+          "segmentId": "seg_1783153739414_1_kif85",
+          "volume": 0.22,
+          "fadeMs": 5000
         }
       ],
       "_orchestrationNote": "Ambiance portuaire continue, bruit de fond diffus, sans élément identifiable au premier plan. Arrière-plan constant sous tout le chapitre. Ancre géographiquement Marseille sans jamais capter l'attention.",
@@ -2811,7 +2832,10 @@
       "_orchestrationLeitmotiv": "",
       "_orchestrationDiegeticMode": null,
       "_orchestrationSunoPrompt": null,
-      "_orchestrationPlan": "arriere"
+      "_orchestrationPlan": "arriere",
+      "trimStart": 0,
+      "trimEnd": 94693.875,
+      "gainDb": 7.5
     },
     {
       "id": "st_1783156653928_mpd7j2ind_4",
@@ -2847,7 +2871,10 @@
       "_orchestrationLeitmotiv": "",
       "_orchestrationDiegeticMode": null,
       "_orchestrationSunoPrompt": null,
-      "_orchestrationPlan": "intermediaire"
+      "_orchestrationPlan": "intermediaire",
+      "trimStart": 0,
+      "trimEnd": 124440,
+      "gainDb": 5
     },
     {
       "id": "st_1783156653928_2gc2cu74i_5",
@@ -2872,13 +2899,13 @@
         },
         {
           "segmentId": "seg_1783153739414_1_kif85",
-          "volume": 0.3214285714285713,
-          "fadeMs": 1500
+          "volume": 0.2,
+          "fadeMs": 2500
         },
         {
           "segmentId": "seg_1783153739414_5_diw2f",
-          "volume": 0.5464285714285705,
-          "fadeMs": 2000
+          "volume": 0.29,
+          "fadeMs": 0
         },
         {
           "segmentId": "seg_1783153739414_7_pbm0m",
@@ -2900,7 +2927,7 @@
       "startSegmentId": "seg_1783153739414_10_hyvz9",
       "endSegmentId": "seg_1783153739414_12_ff4je",
       "column": 6,
-      "volume": 0.35,
+      "volume": 0.25,
       "loop": false,
       "fadeIn": 3000,
       "fadeOut": 3000,
@@ -2911,14 +2938,19 @@
       "automationPoints": [
         {
           "segmentId": "seg_1783153739414_10_hyvz9",
-          "volume": 0.35,
+          "volume": 0.25,
           "fadeMs": 0,
           "_isAnchor": true
         },
         {
           "segmentId": "seg_1783153739414_11_9si3t",
-          "volume": 0.5249999999999998,
+          "volume": 0.3749999999999997,
           "fadeMs": 2000
+        },
+        {
+          "segmentId": "seg_1783153739414_12_ff4je",
+          "volume": 0.13,
+          "fadeMs": 5000
         }
       ],
       "_orchestrationNote": "Cordes chaudes, sans piano ni percussion, mouvement harmonique résolutif. Plan intermédiaire, remonte doucement après le silence du seg 10. Accompagne le retour au calme quand les experts contredisent le pressentiment de malheur.",
@@ -2935,10 +2967,10 @@
     {
       "id": "st_1783156653928_phb6j355o_7",
       "soundId": "suno_the_watcher_s_march",
-      "startSegmentId": "seg_1783153739414_13_097rx",
-      "endSegmentId": "seg_1783153739414_14_2vipt",
+      "startSegmentId": "seg_1783153739414_14_2vipt",
+      "endSegmentId": "seg_1783344799946_0_2jevo",
       "column": 6,
-      "volume": 0.65,
+      "volume": 0.55,
       "loop": false,
       "fadeIn": 0,
       "fadeOut": 3200,
@@ -2955,10 +2987,21 @@
       "_orchestrationPlan": "premier",
       "automationPoints": [
         {
-          "segmentId": "seg_1783153739414_13_097rx",
-          "volume": 0.65,
+          "segmentId": "seg_1783153739414_14_2vipt",
+          "volume": 0.55,
           "fadeMs": 0,
           "_isAnchor": true
+        },
+        {
+          "segmentId": "seg_1783153739414_13_097rx",
+          "volume": 0.55,
+          "fadeMs": 0,
+          "_isAnchor": true
+        },
+        {
+          "segmentId": "seg_1783344799946_0_2jevo",
+          "volume": 0.25,
+          "fadeMs": 5000
         }
       ],
       "trimStart": 1850,
@@ -3001,11 +3044,11 @@
       "startSegmentId": "seg_1783153739414_7_pbm0m",
       "endSegmentId": "seg_1783153739414_8_gr0lr",
       "column": 1,
-      "volume": 0.8,
+      "volume": 0.85,
       "loop": true,
       "loopCrossfade": "medium",
       "fadeIn": 2000,
-      "fadeOut": 2000,
+      "fadeOut": 2580,
       "delay": 0,
       "pan": 0,
       "panMode": "static",
@@ -3020,7 +3063,7 @@
       "automationPoints": [
         {
           "segmentId": "seg_1783153739414_7_pbm0m",
-          "volume": 0.8,
+          "volume": 0.85,
           "fadeMs": 0,
           "_isAnchor": true
         }
@@ -3058,7 +3101,10 @@
           "fadeMs": 0,
           "_isAnchor": true
         }
-      ]
+      ],
+      "trimStart": 0,
+      "trimEnd": 20035.916666666664,
+      "gainDb": 0
     },
     {
       "id": "st_1783156653928_84qz3i9b8_11",
@@ -3066,7 +3112,7 @@
       "startSegmentId": "seg_1783153739414_12_ff4je",
       "endSegmentId": "seg_1783153739414_12_ff4je",
       "column": 3,
-      "volume": 0.58,
+      "volume": 0.35,
       "loop": false,
       "fadeIn": 0,
       "fadeOut": 0,
@@ -3084,7 +3130,7 @@
       "automationPoints": [
         {
           "segmentId": "seg_1783153739414_12_ff4je",
-          "volume": 0.58,
+          "volume": 0.35,
           "fadeMs": 0,
           "_isAnchor": true
         }
@@ -3132,7 +3178,7 @@
       "column": 0,
       "volume": 0.75,
       "fadeIn": 0,
-      "fadeOut": 800,
+      "fadeOut": 3559,
       "delay": 0,
       "loop": false,
       "muted": false,
@@ -3154,7 +3200,7 @@
       "startSegmentId": "seg_1783344799946_0_2jevo",
       "endSegmentId": "seg_1783344799946_40_h42fe",
       "column": 0,
-      "volume": 0.2,
+      "volume": 0.3,
       "loop": true,
       "loopCrossfade": "medium",
       "fadeIn": 6000,
@@ -3166,23 +3212,23 @@
       "automationPoints": [
         {
           "segmentId": "seg_1783344799946_0_2jevo",
-          "volume": 0.2,
+          "volume": 0.3,
           "fadeMs": 0,
           "_isAnchor": true
         },
         {
           "segmentId": "seg_1783344799946_36_j4409",
-          "volume": 0.1,
+          "volume": 0.1499999999999999,
           "fadeMs": 2500
         },
         {
           "segmentId": "seg_1783344799946_38_0f269",
-          "volume": 0.08,
+          "volume": 0.12000000000000008,
           "fadeMs": 1500
         },
         {
           "segmentId": "seg_1783344799946_40_h42fe",
-          "volume": 0.14,
+          "volume": 0.20999999999999996,
           "fadeMs": 2000
         }
       ],
@@ -3193,7 +3239,10 @@
       "_orchestrationDiegeticMode": null,
       "_orchestrationSunoPrompt": null,
       "_orchestrationSunoMode": null,
-      "_orchestrationPlan": "arriere"
+      "_orchestrationPlan": "arriere",
+      "trimStart": 0,
+      "trimEnd": 76847.91666666666,
+      "gainDb": 10
     },
     {
       "id": "st_1783346969464_7jdncwsex_1",
@@ -3241,7 +3290,7 @@
       "startSegmentId": "seg_1783344799946_23_4608v",
       "endSegmentId": "seg_1783344799946_30_podez",
       "column": 1,
-      "volume": 0.14,
+      "volume": 0.25,
       "loop": true,
       "loopCrossfade": "long",
       "fadeIn": 2000,
@@ -3253,23 +3302,23 @@
       "automationPoints": [
         {
           "segmentId": "seg_1783344799946_23_4608v",
-          "volume": 0.14,
+          "volume": 0.25,
           "fadeMs": 0,
           "_isAnchor": true
         },
         {
           "segmentId": "seg_1783344799946_24_90hij",
-          "volume": 0.2857142857142857,
-          "fadeMs": 1500
+          "volume": 0.4,
+          "fadeMs": 5000
         },
         {
           "segmentId": "seg_1783344799946_29_6vizb",
-          "volume": 0.6285714285714286,
+          "volume": 1,
           "fadeMs": 2000
         },
         {
           "segmentId": "seg_1783344799946_30_podez",
-          "volume": 0.22857142857142881,
+          "volume": 0.4897959183673475,
           "fadeMs": 1800
         }
       ],
@@ -3280,15 +3329,18 @@
       "_orchestrationDiegeticMode": null,
       "_orchestrationSunoPrompt": null,
       "_orchestrationSunoMode": null,
-      "_orchestrationPlan": "intermediaire"
+      "_orchestrationPlan": "intermediaire",
+      "trimStart": 0,
+      "trimEnd": 77035.08333333333,
+      "gainDb": 4
     },
     {
       "id": "st_1783346969465_8y2zkzr19_4",
       "soundId": "atmo_eerie_cave_water_drips_emptyness_howling_interior_wind_oppressive_loop",
       "startSegmentId": "seg_1783344799946_0_2jevo",
-      "endSegmentId": "seg_1783344799946_1_mgmni",
+      "endSegmentId": "seg_1783344799946_2_60sd5",
       "column": 5,
-      "volume": 0.6,
+      "volume": 0.85,
       "loop": true,
       "loopCrossfade": "medium",
       "fadeIn": 1000,
@@ -3300,7 +3352,7 @@
       "automationPoints": [
         {
           "segmentId": "seg_1783344799946_0_2jevo",
-          "volume": 0.6,
+          "volume": 0.85,
           "fadeMs": 0,
           "_isAnchor": true
         }
@@ -3315,7 +3367,7 @@
       "_orchestrationPlan": "arriere",
       "trimStart": 0,
       "trimEnd": 34416,
-      "gainDb": 4.5
+      "gainDb": 10
     },
     {
       "id": "st_1783346969465_mvhocr67r_5",
@@ -3389,7 +3441,7 @@
       "startSegmentId": "seg_1783344799946_11_yxbbx",
       "endSegmentId": "seg_1783344799946_11_yxbbx",
       "column": 1,
-      "volume": 0.3,
+      "volume": 0.25,
       "loop": false,
       "fadeIn": 0,
       "fadeOut": 0,
@@ -3408,14 +3460,14 @@
       "automationPoints": [
         {
           "segmentId": "seg_1783344799946_11_yxbbx",
-          "volume": 0.3,
+          "volume": 0.25,
           "fadeMs": 0,
           "_isAnchor": true
         }
       ],
       "trimStart": 0,
       "trimEnd": 10454,
-      "gainDb": 0
+      "gainDb": 3.5
     },
     {
       "id": "st_1783346969465_p7xcaqwo2_9",
@@ -3452,12 +3504,17 @@
         {
           "segmentId": "seg_1783344799946_13_an7fm",
           "volume": 0.7333333333333337,
-          "fadeMs": 300
+          "fadeMs": 600
         },
         {
           "segmentId": "seg_1783344799946_15_k5ruk",
           "volume": 0.1666666666666667,
           "fadeMs": 2000
+        },
+        {
+          "segmentId": "seg_1783344799946_14_7tqr7",
+          "volume": 0.35,
+          "fadeMs": 300
         }
       ],
       "_orchestrationNote": "Drone continu bas, sans mélodie, texture granuleuse évolutive. Plan intermédiaire sous le dialogue. Suit la montée puis la chute ironique puis la confirmation dramatique de l'annonce du deuil.",
@@ -3467,7 +3524,10 @@
       "_orchestrationDiegeticMode": null,
       "_orchestrationSunoPrompt": null,
       "_orchestrationSunoMode": null,
-      "_orchestrationPlan": "intermediaire"
+      "_orchestrationPlan": "intermediaire",
+      "trimStart": 0,
+      "trimEnd": 173448,
+      "gainDb": 0
     },
     {
       "id": "st_1783346969465_2tlkjlnyd_11",
@@ -3603,7 +3663,7 @@
       "startSegmentId": "seg_1783344799946_23_4608v",
       "endSegmentId": "seg_1783344799946_33_g7spl",
       "column": 2,
-      "volume": 0.2,
+      "volume": 0.35,
       "loop": true,
       "fadeIn": 1000,
       "fadeOut": 2900,
@@ -3622,7 +3682,7 @@
       "automationPoints": [
         {
           "segmentId": "seg_1783344799946_23_4608v",
-          "volume": 0.2,
+          "volume": 0.35,
           "fadeMs": 0,
           "_isAnchor": true
         }
@@ -3681,7 +3741,7 @@
       "startSegmentId": "seg_1783344799946_27_1dj2a",
       "endSegmentId": "seg_1783344799946_27_1dj2a",
       "column": 4,
-      "volume": 0.3,
+      "volume": 0.72,
       "loop": false,
       "fadeIn": 0,
       "fadeOut": 0,
@@ -3700,7 +3760,7 @@
       "automationPoints": [
         {
           "segmentId": "seg_1783344799946_27_1dj2a",
-          "volume": 0.3,
+          "volume": 0.72,
           "fadeMs": 0,
           "_isAnchor": true
         }
@@ -3859,7 +3919,6 @@
       "pan": 0,
       "panMode": "static",
       "muted": false,
-      "broken": true,
       "_orchestrationNote": "Violoncelle solo très bas volume, une phrase courte, sans développement. Plan intermédiaire, sous la porte de cabine. Écho final du thème sur la mention du deuil à venir, referme la scène en suspension.",
       "_orchestrationKeyword": "cello",
       "_orchestrationLayer": "music",
@@ -3883,7 +3942,7 @@
       "startSegmentId": "seg_1783344799946_13_an7fm",
       "endSegmentId": "seg_1783344799946_13_an7fm",
       "column": 3,
-      "volume": 0.5,
+      "volume": 0.6,
       "fadeIn": 0,
       "fadeOut": 0,
       "delay": 0,
@@ -3893,11 +3952,14 @@
       "automationPoints": [
         {
           "segmentId": "seg_1783344799946_13_an7fm",
-          "volume": 0.8,
+          "volume": 0.6,
           "fadeMs": 0,
           "_isAnchor": true
         }
-      ]
+      ],
+      "trimStart": 0,
+      "trimEnd": 1152,
+      "gainDb": 4
     },
     {
       "id": "st_1783350458438_akmz8atlu",
@@ -3905,7 +3967,7 @@
       "startSegmentId": "seg_1783344799946_13_an7fm",
       "endSegmentId": "seg_1783344799946_13_an7fm",
       "column": 4,
-      "volume": 0.24,
+      "volume": 0.35,
       "fadeIn": 0,
       "fadeOut": 0,
       "delay": 0,
@@ -3915,7 +3977,7 @@
       "automationPoints": [
         {
           "segmentId": "seg_1783344799946_13_an7fm",
-          "volume": 0.24,
+          "volume": 0.35,
           "fadeMs": 0,
           "_isAnchor": true
         }
@@ -3968,6 +4030,20 @@
       "trimStart": 1294,
       "trimEnd": 5250.604166666666,
       "gainDb": 0
+    },
+    {
+      "id": "st_1783424443048_c1oy51kuy",
+      "soundId": "295_s08_alvaro_impact_2",
+      "startSegmentId": "seg_1783344799946_27_1dj2a",
+      "endSegmentId": "seg_1783344799946_27_1dj2a",
+      "column": 5,
+      "volume": 0.5,
+      "fadeIn": 0,
+      "fadeOut": 0,
+      "delay": 0,
+      "loop": false,
+      "muted": false,
+      "broken": false
     }
   ],
   "vfxTracks": []
