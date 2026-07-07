@@ -103,7 +103,7 @@ function useKeySound() {
 function useTypeClickSound() {
   const howlRef = useRef(null)
   useEffect(() => {
-    howlRef.current = new Howl({ src: ['/sounds/Clic_soundcheck.mp3'], volume: 0.4, preload: true })
+    howlRef.current = new Howl({ src: ['/sounds/Clic_soundcheck.mp3'], volume: 0.1, preload: true })
     return () => { howlRef.current?.unload() }
   }, [])
   return () => { try { howlRef.current?.play() } catch {} }
