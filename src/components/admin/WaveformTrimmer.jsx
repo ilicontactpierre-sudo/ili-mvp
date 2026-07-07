@@ -74,21 +74,35 @@ const [realDurationMs, setRealDurationMs] = useState((sound.duration || 0) * 100
           const wasDefault = !initialEnd || Math.abs(prev - (sound.duration || 0) * 1000) < 50
           return wasDefault ? realMs : Math.min(prev, realMs)
         })
-        // Moyenner les canaux et sous-échantillonner en N points
+        // Sous-échantillonner en N points — on garde le PIC (amplitude max
+        // absolue) de chaque bloc, pas la moyenne : c'est l'amplitude de
+        // crête qui sature avec le gain, pas l'amplitude moyenne. On regarde
+        // aussi tous les canaux (pas seulement le canal 0) pour ne rater
+        // aucun pic sur un fichier stéréo.
         const N = 600
-        const data = audioBuffer.getChannelData(0)
-        const step = Math.floor(data.length / N)
+        const channels = []
+        for (let c = 0; c < audioBuffer.numberOfChannels; c++) channels.push(audioBuffer.getChannelData(c))
+        const length = channels[0].length
+        const step = Math.max(1, Math.floor(length / N))
         const peaks = new Float32Array(N)
-        let max = 0
         for (let i = 0; i < N; i++) {
-          let sum = 0
-          for (let j = 0; j < step; j++) sum += Math.abs(data[i * step + j] || 0)
-          peaks[i] = sum / step
-          if (peaks[i] > max) max = peaks[i]
+          let peak = 0
+          const blockStart = i * step
+          const blockEnd = Math.min(blockStart + step, length)
+          for (let j = blockStart; j < blockEnd; j++) {
+            for (let c = 0; c < channels.length; c++) {
+              const v = Math.abs(channels[c][j] || 0)
+              if (v > peak) peak = v
+            }
+          }
+          peaks[i] = peak
         }
-        // Normaliser
-        if (max > 0) for (let i = 0; i < N; i++) peaks[i] /= max
-
+        // Pas de renormalisation ici : decodeAudioData renvoie déjà les
+        // échantillons dans l'échelle réelle -1..1 (1.0 = pleine échelle
+        // numérique = seuil de clipping). Garder cette échelle telle quelle
+        // est indispensable : si on renormalisait au pic du fichier, un son
+        // enregistré bas s'afficherait à tort à pleine hauteur, et tu ne
+        // pourrais jamais voir visuellement qu'il a de la marge avant de saturer.
         setPeaks(peaks)
         setLoading(false)
       } catch (e) {
