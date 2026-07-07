@@ -1214,27 +1214,21 @@ function AdminPage() {
     setSegments(prevSegments => {
       const newSegments = [...prevSegments]
       const segment = newSegments[segmentIndex]
-      
-      // Initialiser audioEvents si inexistant
-      if (!segment.audioEvents) {
-        segment.audioEvents = []
-      }
-      
-      // Ajouter le nouveau son
-      segment.audioEvents.push({
+      const newEvent = {
         soundId: sound.id,
         action: 'play',
         volume: 0.5,
         loop: sound.loop || false,
         delay: 0,
         duration: 0
-      })
-      
-      saveToHistory(newSegments, soundTracks, vfxTracks)
+      }
+      // Mise à jour immuable (pas de mutation du segment existant)
+      newSegments[segmentIndex] = {
+        ...segment,
+        audioEvents: [...(segment.audioEvents || []), newEvent],
+      }
       return newSegments
     })
-    
-    // Fermer le picker
     setShowSoundPicker(null)
   }
 
