@@ -11,6 +11,11 @@
       "loop": false
     },
     {
+      "id": "boatrow_rowboat_squeaky_mounting_fast_sequence_01_b00m_one",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/boatrow_rowboat_squeaky_mounting_fast_sequence_01_b00m_one.mp3",
+      "loop": false
+    },
+    {
       "id": "cfck_body_fall_sweetener_cardboard_throw_down_small_wood_steps",
       "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/cfck_body_fall_sweetener_cardboard_throw_down_small_wood_steps.mp3",
       "loop": false
@@ -1009,7 +1014,7 @@
           "soundId": "295_s08_alvaro_impact_2",
           "volume": 0.5,
           "gainDb": 0,
-          "delay": 0,
+          "delay": 130,
           "loop": false
         }
       ]
@@ -1063,7 +1068,17 @@
       "text": "— Dame ! que voulez-vous, monsieur Edmond, reprit l’armateur qui paraissait se consoler de plus en plus,",
       "breakAt": null,
       "isLeader": true,
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "fadeIn",
+          "soundId": "harbor_sounds_seaside_market_ambience_",
+          "volume": 0.5,
+          "gainDb": 0,
+          "duration": 2126,
+          "delay": 0,
+          "loop": true
+        }
+      ]
     },
     {
       "id": "seg_1783344799946_32_2rwfb",
@@ -1084,13 +1099,7 @@
       "text": "— Est en bon état, monsieur Morrel, je vous en réponds. Voici un voyage que je vous donne le conseil de ne point escompter pour 25,000 fr. de bénéfice.\nPuis, comme on venait de dépasser la tour ronde :",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": [
-        {
-          "action": "fadeOut",
-          "soundId": "ship_creaking_free_sound_effect",
-          "duration": 2900
-        }
-      ]
+      "audioEvents": []
     },
     {
       "id": "seg_1783344799946_34_adcx6",
@@ -1102,11 +1111,15 @@
       "isLeader": false,
       "audioEvents": [
         {
-          "action": "fadeIn",
+          "action": "fadeOut",
+          "soundId": "ship_creaking_free_sound_effect",
+          "duration": 2900
+        },
+        {
+          "action": "play",
           "soundId": "sail_boat_sound_effect_hd_1_",
           "volume": 0.44,
           "gainDb": 0,
-          "duration": 1141,
           "delay": 0,
           "loop": false
         }
@@ -1128,6 +1141,14 @@
           "gainDb": 0,
           "delay": 0,
           "loop": false
+        },
+        {
+          "action": "play",
+          "soundId": "boatrow_rowboat_squeaky_mounting_fast_sequence_01_b00m_one",
+          "volume": 0.5,
+          "gainDb": 0,
+          "delay": 0,
+          "loop": false
         }
       ]
     },
@@ -1143,7 +1164,7 @@
         {
           "action": "play",
           "soundId": "pulling_rope_sfx_-_creaking_tension_and_stretching_sounds_-_floraphonic_com",
-          "volume": 0.4,
+          "volume": 0.25,
           "gainDb": 0,
           "delay": 0,
           "loop": false
@@ -1163,7 +1184,7 @@
           "action": "play",
           "soundId": "sound_effect_cloth_rustle_",
           "volume": 0.85,
-          "gainDb": 0,
+          "gainDb": 10,
           "delay": 0,
           "loop": false
         }
@@ -1180,8 +1201,8 @@
       "audioEvents": [
         {
           "action": "fadeOut",
-          "soundId": "sail_boat_sound_effect_hd_1_",
-          "duration": 2673
+          "soundId": "boatrow_rowboat_squeaky_mounting_fast_sequence_01_b00m_one",
+          "duration": 1500
         }
       ]
     },
@@ -1212,8 +1233,8 @@
         {
           "action": "play",
           "soundId": "doormetl_basement_door_handle_down_01_b00m_one",
-          "volume": 0.58,
-          "gainDb": 0,
+          "volume": 0.7,
+          "gainDb": 4.5,
           "delay": 0,
           "loop": false
         },
@@ -1230,6 +1251,11 @@
           "action": "fadeOut",
           "soundId": "danglar_ending_court_1",
           "duration": 3000
+        },
+        {
+          "action": "fadeOut",
+          "soundId": "harbor_sounds_seaside_market_ambience_",
+          "duration": 2269
         }
       ]
     },
@@ -3218,18 +3244,18 @@
         },
         {
           "segmentId": "seg_1783344799946_36_j4409",
-          "volume": 0.1499999999999999,
+          "volume": 0.32,
           "fadeMs": 2500
         },
         {
           "segmentId": "seg_1783344799946_38_0f269",
-          "volume": 0.12000000000000008,
+          "volume": 0.32,
           "fadeMs": 1500
         },
         {
           "segmentId": "seg_1783344799946_40_h42fe",
-          "volume": 0.20999999999999996,
-          "fadeMs": 2000
+          "volume": 0.25,
+          "fadeMs": 0
         }
       ],
       "_orchestrationNote": "Clapot continu, sans mélodie ni pulsation rythmique, texture liquide régulière. Arrière-plan constant sur toute la traversée. La descente de volume en fin de bloc traduit le ralentissement physique du navire au mouillage.",
@@ -3241,7 +3267,7 @@
       "_orchestrationSunoMode": null,
       "_orchestrationPlan": "arriere",
       "trimStart": 0,
-      "trimEnd": 76847.91666666666,
+      "trimEnd": 75514,
       "gainDb": 10
     },
     {
@@ -3313,13 +3339,13 @@
         },
         {
           "segmentId": "seg_1783344799946_29_6vizb",
-          "volume": 1,
+          "volume": 0.85,
           "fadeMs": 2000
         },
         {
           "segmentId": "seg_1783344799946_30_podez",
           "volume": 0.4897959183673475,
-          "fadeMs": 1800
+          "fadeMs": 0
         }
       ],
       "_orchestrationNote": "Nappe continue sans attaque ni pulsation, texture douce et stable. Plan intermédiaire, sous le violoncelle. Colore le récit de la mort du capitaine sans dupliquer la fonction du thème musical.",
@@ -3661,7 +3687,7 @@
       "id": "st_1783346969465_n10ojqio8_15",
       "soundId": "ship_creaking_free_sound_effect",
       "startSegmentId": "seg_1783344799946_23_4608v",
-      "endSegmentId": "seg_1783344799946_33_g7spl",
+      "endSegmentId": "seg_1783344799946_34_adcx6",
       "column": 2,
       "volume": 0.35,
       "loop": true,
@@ -3717,13 +3743,13 @@
         },
         {
           "segmentId": "seg_1783344799946_29_6vizb",
-          "volume": 0.7999999999999997,
+          "volume": 0.71,
           "fadeMs": 2500
         },
         {
           "segmentId": "seg_1783344799946_30_podez",
           "volume": 0.24999999999999994,
-          "fadeMs": 2000
+          "fadeMs": 0
         }
       ],
       "_orchestrationNote": "Violoncelle solo grave, phrasé libre et espacé, dynamique douce à franche selon les segments. Passe du plan intermédiaire au premier plan sur le pic mélancolique. Porte le deuil du capitaine Leclère, culmine sur l'ironie tragique de mourir dans son lit après dix ans de guerre.",
@@ -3765,7 +3791,7 @@
           "_isAnchor": true
         }
       ],
-      "trimStart": 0,
+      "trimStart": 900,
       "trimEnd": 7321,
       "gainDb": 0
     },
@@ -3773,12 +3799,12 @@
       "id": "st_1783346969466_rl64p455s_18",
       "soundId": "sail_boat_sound_effect_hd_1_",
       "startSegmentId": "seg_1783344799946_34_adcx6",
-      "endSegmentId": "seg_1783344799946_38_0f269",
+      "endSegmentId": "seg_1783344799946_34_adcx6",
       "column": 1,
       "volume": 0.44,
       "loop": false,
-      "fadeIn": 1141,
-      "fadeOut": 2673,
+      "fadeIn": 0,
+      "fadeOut": 0,
       "delay": 0,
       "pan": 0,
       "panMode": "static",
@@ -3798,7 +3824,10 @@
           "fadeMs": 0,
           "_isAnchor": true
         }
-      ]
+      ],
+      "trimStart": 0,
+      "trimEnd": 44068.5625,
+      "gainDb": 0
     },
     {
       "id": "st_1783346969466_1vm3amlgw_19",
@@ -3843,12 +3872,12 @@
       "startSegmentId": "seg_1783344799946_36_j4409",
       "endSegmentId": "seg_1783344799946_36_j4409",
       "column": 3,
-      "volume": 0.4,
+      "volume": 0.25,
       "loop": false,
       "fadeIn": 0,
       "fadeOut": 0,
       "delay": 0,
-      "pan": 0,
+      "pan": 0.44,
       "panMode": "static",
       "muted": false,
       "_orchestrationNote": "Tension de cordage brève et franche, sans traîne. Premier plan, isolé. Marque le dernier commandement avant l'abaissement complet des voiles.",
@@ -3862,7 +3891,7 @@
       "automationPoints": [
         {
           "segmentId": "seg_1783344799946_36_j4409",
-          "volume": 0.4,
+          "volume": 0.25,
           "fadeMs": 0,
           "_isAnchor": true
         }
@@ -3877,7 +3906,7 @@
       "startSegmentId": "seg_1783344799946_40_h42fe",
       "endSegmentId": "seg_1783344799946_40_h42fe",
       "column": 1,
-      "volume": 0.58,
+      "volume": 0.7,
       "loop": false,
       "fadeIn": 0,
       "fadeOut": 0,
@@ -3896,14 +3925,14 @@
       "automationPoints": [
         {
           "segmentId": "seg_1783344799946_40_h42fe",
-          "volume": 0.58,
+          "volume": 0.7,
           "fadeMs": 0,
           "_isAnchor": true
         }
       ],
       "trimStart": 0,
       "trimEnd": 2812,
-      "gainDb": 0
+      "gainDb": 4.5
     },
     {
       "id": "st_1783346969466_0bpk07k1b_23",
@@ -3934,7 +3963,10 @@
           "fadeMs": 0,
           "_isAnchor": true
         }
-      ]
+      ],
+      "trimStart": 5232,
+      "trimEnd": 65515.083333333336,
+      "gainDb": 0
     },
     {
       "id": "st_1783350424364_y6tlrtpe3",
@@ -4029,7 +4061,7 @@
       ],
       "trimStart": 1294,
       "trimEnd": 5250.604166666666,
-      "gainDb": 0
+      "gainDb": 10
     },
     {
       "id": "st_1783424443048_c1oy51kuy",
@@ -4040,10 +4072,63 @@
       "volume": 0.5,
       "fadeIn": 0,
       "fadeOut": 0,
+      "delay": 130,
+      "loop": false,
+      "muted": false,
+      "broken": false,
+      "automationPoints": [
+        {
+          "segmentId": "seg_1783344799946_27_1dj2a",
+          "volume": 0.5,
+          "fadeMs": 0,
+          "_isAnchor": true
+        }
+      ]
+    },
+    {
+      "id": "st_1783427249813_rogazn4is",
+      "soundId": "boatrow_rowboat_squeaky_mounting_fast_sequence_01_b00m_one",
+      "startSegmentId": "seg_1783344799946_35_zgf51",
+      "endSegmentId": "seg_1783344799946_38_0f269",
+      "column": 4,
+      "volume": 0.5,
+      "fadeIn": 0,
+      "fadeOut": 1500,
       "delay": 0,
       "loop": false,
       "muted": false,
-      "broken": false
+      "broken": false,
+      "automationPoints": [
+        {
+          "segmentId": "seg_1783344799946_35_zgf51",
+          "volume": 0.5,
+          "fadeMs": 0,
+          "_isAnchor": true
+        }
+      ]
+    },
+    {
+      "id": "st_1783427348210_g68aog3nn",
+      "soundId": "harbor_sounds_seaside_market_ambience_",
+      "startSegmentId": "seg_1783344799946_31_qy4ux",
+      "endSegmentId": "seg_1783344799946_40_h42fe",
+      "column": 5,
+      "volume": 0.5,
+      "fadeIn": 2126,
+      "fadeOut": 2269,
+      "delay": 0,
+      "loop": true,
+      "muted": false,
+      "broken": false,
+      "automationPoints": [
+        {
+          "segmentId": "seg_1783344799946_31_qy4ux",
+          "volume": 0.5,
+          "fadeMs": 0,
+          "_isAnchor": true
+        }
+      ],
+      "loopCrossfade": "medium"
     }
   ],
   "vfxTracks": []
