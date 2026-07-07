@@ -728,6 +728,7 @@ function GameSoundCheck({ data, onResolved, onAudioReady }) {
     setTransitionPhase('invert')
     setTimeout(() => setTransitionPhase('dark'), HOLD_MS)
     setTimeout(() => onResolved(), HOLD_MS + DARK_MS)
+    setTimeout(() => playWhoosh(), 1500)
   }
 
   const BARS = 7
