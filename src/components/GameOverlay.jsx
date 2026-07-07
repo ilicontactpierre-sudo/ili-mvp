@@ -1469,7 +1469,7 @@ function GameChoice({ data, onResolved, onNavigateToPart }) {
 }
 
 // ─── Overlay principal ────────────────────────────────────────────────────────
-function GameOverlay({ gameMode, onResolved, onBack, segmentIndex, onNavigateToPart }) {
+function GameOverlay({ gameMode, onResolved, onBack, segmentIndex, onNavigateToPart, onAudioReady }) {
   const [leaving, setLeaving] = useState(false)
   const [visible, setVisible] = useState(false)
   const [tappable, setTappable] = useState(false)
