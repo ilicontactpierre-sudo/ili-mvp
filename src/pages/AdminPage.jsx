@@ -944,7 +944,13 @@ function AdminPage() {
   // Historique pour undo/redo
   const [history, setHistory] = useState([])
   const [historyIndex, setHistoryIndex] = useState(-1)
+  const historyRef = useRef([])
+  const historyIndexRef = useRef(-1)
   const MAX_HISTORY = 50
+  // Empêche la ré-capture d'un snapshot juste après un undo/redo
+  const skipNextHistorySnapshotRef = useRef(false)
+  // Toujours à jour, pour que le raccourci clavier ne soit jamais "périmé"
+  const undoRedoRefs = useRef({ undo: () => {}, redo: () => {} })
 
   // SoundTracks - nouveau modèle de données pour la timeline audio
   const [soundTracks, setSoundTracks] = useState([])
