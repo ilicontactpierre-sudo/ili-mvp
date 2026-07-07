@@ -417,11 +417,18 @@ class AudioEngine {
             }, delayMs)
           }
         } else {
-          // On arrive en milieu de bloc (ex: démarrage depuis un segment non-zéro)
+          // On arrive en milieu de bloc (ex: démarrage depuis un segment non-zéro,
+          // aperçu qui saute directement à ce segment). On calcule le volume
+          // EXACT qu'aurait atteint le son à ce point de sa progression normale
+          // (en tenant compte des automationPoints déjà "passés") et on
+          // l'applique dès le premier instant — jamais de fadeIn ici, jamais
+          // le volume de base du bloc : l'auditeur doit entendre le son
+          // directement dans l'état où il serait s'il avait joué depuis le début.
+          const startVolume = this._getAutomatedVolumeAtIndex(track, currentIndex, getIndex)
           this.playSound({
             trackId: track.id,
             soundId: track.soundId,
-            volume: track.volume ?? 0.5,
+            volume: startVolume,
             gainDb: track.gainDb ?? 0,
             loop: track.loop ?? false,
             loopCrossfade: track.loopCrossfade,
@@ -430,6 +437,7 @@ class AudioEngine {
             pan: track.pan ?? 0,
             panMode: track.panMode ?? 'static',
           })
+          coldStartedKeys.add(track.id || track.soundId)
         }
       }
       // (fadeOut géré à la sortie du bloc, pas sur isLastSegment)
