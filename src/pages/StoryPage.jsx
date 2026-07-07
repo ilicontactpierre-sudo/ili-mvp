@@ -460,14 +460,23 @@ function StoryPage() {
   }, [storyId])
 
   // ── Audio sur changement de segment ───────────────────────────────────────
+  // Cas particulier "sound_check" : le son du segment n'est déclenché qu'une fois
+  // que l'overlay a fini d'afficher son texte et signale via onAudioReady.
   useEffect(() => {
     if (!isStarted || !audioEngineRef.current || !segments[currentIndex]) return
+    const seg = segments[currentIndex]
+    const isGatedSoundCheck = seg?.gameMode?.type === 'sound_check'
+    if (isGatedSoundCheck && audioGateOpenIndex !== currentIndex) return
     if (activeStory?.soundTracks?.length) {
       audioEngineRef.current.onSegmentChange(currentIndex, activeStory.soundTracks, segments)
     } else {
       audioEngineRef.current.executeEvents(segments[currentIndex].audioEvents ?? [])
     }
-  }, [currentIndex, isStarted])
+  }, [currentIndex, isStarted, audioGateOpenIndex])
+
+  const handleAudioGateOpen = useCallback((idx) => {
+    setAudioGateOpenIndex(idx)
+  }, [])
 
   // ── Auto-avance pour les segments "pause" ──────────────────────────────────
   // Un segment pause (segment.pause = durée en ms) est transparent pour le lecteur :
