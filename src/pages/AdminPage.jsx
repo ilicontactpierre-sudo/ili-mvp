@@ -1801,6 +1801,8 @@ function AdminPage() {
     setActivePartIndex(0)
     setHistory([])
     setHistoryIndex(-1)
+    historyRef.current = []
+    historyIndexRef.current = -1
     setCutError('')
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
