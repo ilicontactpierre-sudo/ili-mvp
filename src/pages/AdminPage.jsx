@@ -1124,6 +1124,7 @@ function AdminPage() {
   // "broken" une fois une histoire rechargée après coup.
   useEffect(() => {
     if (soundLibrary.length === 0) return
+    console.count('[heal] effet déclenché')
     setSoundTracks(prev => healSoundTracksAgainstLibrary(prev, soundLibrary))
     setParts(prev => {
       if (!prev || prev.length === 0) return prev
@@ -1644,6 +1645,7 @@ function AdminPage() {
     // se déclenche plusieurs fois dans la même frame (ex: undo/redo qui
     // modifie beaucoup d'éléments d'un coup), on ne mesure qu'une seule fois.
     const scheduleUpdate = () => {
+      console.count('[sticky] scheduleUpdate appelé')
       if (rafId !== null) return
       rafId = requestAnimationFrame(() => {
         rafId = null
