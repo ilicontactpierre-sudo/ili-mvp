@@ -398,6 +398,7 @@ class AudioEngine {
                 trimEnd: track.trimEnd,
                 pan: track.pan ?? 0,
                 panMode: track.panMode ?? 'static',
+                panSpeedMs: track.panSpeedMs,
               })
             }, delayMs)
           } else {
@@ -413,6 +414,7 @@ class AudioEngine {
                 trimEnd: track.trimEnd,
                 pan: track.pan ?? 0,
                 panMode: track.panMode ?? 'static',
+                panSpeedMs: track.panSpeedMs,
               })
             }, delayMs)
           }
@@ -436,6 +438,7 @@ class AudioEngine {
             trimEnd: track.trimEnd,
             pan: track.pan ?? 0,
             panMode: track.panMode ?? 'static',
+            panSpeedMs: track.panSpeedMs,
           })
           coldStartedKeys.add(track.id || track.soundId)
         }
