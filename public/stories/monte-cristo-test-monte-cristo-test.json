@@ -6,13 +6,38 @@
   "published": true,
   "sounds": [
     {
+      "id": "ambtran_airport_big_hall_02_b00m_one",
+      "url": "/sounds/AMBTran_Airport Big Hall 02_B00M_ONE.mp3",
+      "loop": false
+    },
+    {
+      "id": "bellhand_bicycle_bell_ring_03_b00m_one",
+      "url": "/sounds/BELLHand_Bicycle Bell Ring 03_B00M_ONE.mp3",
+      "loop": false
+    },
+    {
       "id": "belllrg_church_single_ring_01_b00m_one",
       "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/belllrg_church_single_ring_01_b00m_one.mp3",
       "loop": false
     },
     {
+      "id": "boatrow_rowboat_paddle_in_water_sequence_01_b00m_one",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/boatrow_rowboat_paddle_in_water_sequence_01_b00m_one.mp3",
+      "loop": false
+    },
+    {
       "id": "boatrow_rowboat_squeaky_mounting_fast_sequence_01_b00m_one",
       "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/boatrow_rowboat_squeaky_mounting_fast_sequence_01_b00m_one.mp3",
+      "loop": false
+    },
+    {
+      "id": "toonboing_jews_harp_boing_short_01_b00m_one",
+      "url": "/sounds/TOONBoing_Jews Harp Boing Short 01_B00M_ONE.mp3",
+      "loop": false
+    },
+    {
+      "id": "cermimpt_hit_on_tile_and_break_01_b00m_one",
+      "url": "/sounds/CERMImpt_Hit On Tile And Break 01_B00M_ONE.mp3",
       "loop": false
     },
     {
@@ -51,6 +76,11 @@
       "loop": false
     },
     {
+      "id": "mbck_prop_accordion_nose_breath_multiple",
+      "url": "/sounds/MBCK PROP Accordion Nose Breath Multiple.mp3",
+      "loop": false
+    },
+    {
       "id": "crwdsprt_football_match_ambience_crowd_chant_walla_01_b00m_one",
       "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/crwdsprt_football_match_ambience_crowd_chant_walla_01_b00m_one.mp3",
       "loop": false
@@ -61,6 +91,16 @@
       "loop": false
     },
     {
+      "id": "dsgndron_simple_strings_02_b00m_one",
+      "url": "/sounds/DSGNDron_Simple Strings 02_B00M_ONE.mp3",
+      "loop": false
+    },
+    {
+      "id": "neon_ambience_high_floating_chamber",
+      "url": "/sounds/NEON AMBIENCE HIGH Floating Chamber.mp3",
+      "loop": false
+    },
+    {
       "id": "dsgnrmbl_rumble_heater_water_movement_low_01_b00m_one",
       "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/dsgnrmbl_rumble_heater_water_movement_low_01_b00m_one.mp3",
       "loop": false
@@ -68,6 +108,36 @@
     {
       "id": "doormetl_basement_door_handle_down_01_b00m_one",
       "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/doormetl_basement_door_handle_down_01_b00m_one.mp3",
+      "loop": false
+    },
+    {
+      "id": "hmnbrth_male_1_gasp_soft_low_01_b00m_one",
+      "url": "/sounds/HMNBrth_Male 1 Gasp Soft Low 01_B00M_ONE.mp3",
+      "loop": false
+    },
+    {
+      "id": "lethrcreak_creak_long_hard_03_b00m_one",
+      "url": "/sounds/LETHRCreak_Creak Long Hard 03_B00M_ONE.mp3",
+      "loop": false
+    },
+    {
+      "id": "mechrtch_tension_belt_tense_ratchet_01_b00m_one",
+      "url": "/sounds/MECHRtch_Tension Belt Tense Ratchet 01_B00M_ONE.mp3",
+      "loop": false
+    },
+    {
+      "id": "mechrolr_supermarket_cashpoint_conveyor_belt_01_b00m_one",
+      "url": "/sounds/MECHRolr_Supermarket Cashpoint Conveyor Belt 01_B00M_ONE.mp3",
+      "loop": false
+    },
+    {
+      "id": "movecrwd_troops_run_sub_layer_01_b00m_one",
+      "url": "/sounds/MOVECrwd_Troops Run Sub Layer 01_B00M_ONE.mp3",
+      "loop": false
+    },
+    {
+      "id": "muscperc_footsteps_horse_riding_random_drum_hit_sequence_01_b00m_one",
+      "url": "/sounds/MUSCPerc_Footsteps Horse Riding Random Drum Hit Sequence 01_B00M_ONE.mp3",
       "loop": false
     },
     {
@@ -93,6 +163,11 @@
     {
       "id": "whsh_cinematic_airy_medium_short_01_b00m_one",
       "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/whsh_cinematic_airy_medium_short_01_b00m_one.mp3",
+      "loop": false
+    },
+    {
+      "id": "uiclick_low_end_menu_click_single_01_b00m_one_1",
+      "url": "/sounds/UIClick_Low End Menu Click Single 01_B00M_ONE_1.mp3",
       "loop": false
     },
     {
@@ -2946,7 +3021,17 @@
       "text": "après un voyage de trois mois, le retiendrait loin de moi.",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "fadeIn",
+          "soundId": "harbor_sounds_seaside_market_ambience_",
+          "volume": 0.16,
+          "gainDb": 0,
+          "duration": 5000,
+          "delay": 0,
+          "loop": true
+        }
+      ]
     },
     {
       "id": "seg_1783344799946_142_t9rmo",
@@ -3218,7 +3303,16 @@
       "text": "— Allez, vous dis-je.\n— Vous permettez que je prenne votre canot ?",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "play",
+          "soundId": "ropecreak_hemp_rope_twist_squeak_very_short_01_b00m_one",
+          "volume": 0.55,
+          "gainDb": 0,
+          "delay": 0,
+          "loop": false
+        }
+      ]
     },
     {
       "id": "seg_1783344799946_169_7u8nr",
@@ -3248,7 +3342,13 @@
       "text": "— Au revoir, mon cher Edmond, bonne chance !",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "fadeOut",
+          "soundId": "harbor_sounds_seaside_market_ambience_",
+          "duration": 4000
+        }
+      ]
     },
     {
       "id": "seg_1783344799946_172_3bzix",
@@ -3258,7 +3358,16 @@
       "text": "Le jeune marin sauta dans le canot, alla s’asseoir à la poupe,",
       "breakAt": null,
       "isLeader": true,
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "play",
+          "soundId": "watrsplsh_big_splash_and_spray_01_b00m_one",
+          "volume": 0.68,
+          "gainDb": 0,
+          "delay": 0,
+          "loop": false
+        }
+      ]
     },
     {
       "id": "seg_1783344799946_173_if6x1",
@@ -3268,7 +3377,17 @@
       "text": "et donna l’ordre d’aborder à la Canebière.",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "fadeIn",
+          "soundId": "watrwave_black_sea_waves_01_b00m_one",
+          "volume": 0.42,
+          "gainDb": 0,
+          "duration": 1000,
+          "delay": 0,
+          "loop": false
+        }
+      ]
     },
     {
       "id": "seg_1783344916710_a_3u8e9",
@@ -3288,7 +3407,17 @@
       "text": "au milieu des mille barques qui obstruent l’espèce de rue étroite qui conduit, entre deux rangées de navires, de l’entrée du port au quai d’Orléans.",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "fadeIn",
+          "soundId": "boatrow_rowboat_paddle_in_water_sequence_01_b00m_one",
+          "volume": 0.38,
+          "gainDb": 0,
+          "duration": 1000,
+          "delay": 0,
+          "loop": false
+        }
+      ]
     },
     {
       "id": "seg_1783344799946_175_6pkyv",
@@ -3298,7 +3427,18 @@
       "text": "L’armateur le suivit des yeux en souriant, jusqu’au bord,",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "fadeOut",
+          "soundId": "watrwave_black_sea_waves_01_b00m_one",
+          "duration": 1500
+        },
+        {
+          "action": "fadeOut",
+          "soundId": "boatrow_rowboat_paddle_in_water_sequence_01_b00m_one",
+          "duration": 1500
+        }
+      ]
     },
     {
       "id": "seg_1783344940948_a_0ea20",
@@ -3308,7 +3448,17 @@
       "text": "le vit sauter sur les dalles du quai, et se perdre aussitôt au milieu de la foule bariolée qui, de cinq heures du matin à neuf heures du soir, encombre cette fameuse rue de la Canebière, dont les Phocéens modernes sont si fiers,",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "fadeIn",
+          "soundId": "crwdsprt_football_match_ambience_crowd_chant_walla_01_b00m_one",
+          "volume": 0.45,
+          "gainDb": 0,
+          "duration": 1500,
+          "delay": 0,
+          "loop": false
+        }
+      ]
     },
     {
       "id": "seg_1783344940948_b_ymob1",
@@ -3328,7 +3478,13 @@
       "text": "Paris serait un petit Marseille.",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "fadeOut",
+          "soundId": "crwdsprt_football_match_ambience_crowd_chant_walla_01_b00m_one",
+          "duration": 2000
+        }
+      ]
     },
     {
       "id": "seg_1783344799946_177_4o6p6",
@@ -3338,7 +3494,17 @@
       "text": "En se retournant, l’armateur vit derrière lui Danglars, qui, en apparence, semblait attendre ses ordres,",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "fadeIn",
+          "soundId": "harbor_sounds_seaside_market_ambience_",
+          "volume": 0.14,
+          "gainDb": 0,
+          "duration": 3000,
+          "delay": 0,
+          "loop": true
+        }
+      ]
     },
     {
       "id": "seg_1783344799946_178_1515w",
@@ -3348,7 +3514,17 @@
       "text": "mais qui, en réalité, suivait comme lui le jeune marin du regard.",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "fadeIn",
+          "soundId": "suno_the_last_farewell_-_cello_rubato_funeral",
+          "volume": 0.18,
+          "gainDb": 0,
+          "duration": 4000,
+          "delay": 0,
+          "loop": false
+        }
+      ]
     },
     {
       "id": "seg_1783344799946_179_o7rzn",
@@ -3358,7 +3534,18 @@
       "text": "Seulement, il y avait une grande différence dans l’expression de ce double regard qui suivait le même homme.",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "fadeOut",
+          "soundId": "harbor_sounds_seaside_market_ambience_",
+          "duration": 5000
+        },
+        {
+          "action": "fadeOut",
+          "soundId": "suno_the_last_farewell_-_cello_rubato_funeral",
+          "duration": 6000
+        }
+      ]
     }
   ],
   "soundTracks": [
@@ -6279,6 +6466,613 @@
         }
       ],
       "loopCrossfade": "medium"
+    },
+    {
+      "id": "st_1783531241036_2oqp09kgj_0",
+      "soundId": "harbor_sounds_seaside_market_ambience_",
+      "startSegmentId": "seg_1783344799946_141_g82na",
+      "endSegmentId": "seg_1783344799946_171_7ahv6",
+      "column": 0,
+      "volume": 0.16,
+      "loop": true,
+      "loopCrossfade": "medium",
+      "fadeIn": 5000,
+      "fadeOut": 4000,
+      "delay": 0,
+      "pan": 0,
+      "panMode": "static",
+      "muted": false,
+      "automationPoints": [
+        {
+          "segmentId": "seg_1783344799946_149_sgy0j",
+          "volume": 0.19,
+          "fadeMs": 2000
+        },
+        {
+          "segmentId": "seg_1783344799946_157_6qyth",
+          "volume": 0.14,
+          "fadeMs": 2000
+        },
+        {
+          "segmentId": "seg_1783344799946_165_sm4u5",
+          "volume": 0.17,
+          "fadeMs": 1500
+        }
+      ],
+      "_orchestrationNote": "Nappe portuaire continue, grain de fond bas sans pic identifiable, mix de clapot lointain et de bruit de gréement. Arrière-plan constant sous tout le dialogue du pont. Ancre la scène dans le lieu sans jamais capter l'attention.",
+      "_orchestrationKeyword": "harbor",
+      "_orchestrationLayer": "bed",
+      "_orchestrationLeitmotiv": "",
+      "_orchestrationDiegeticMode": null,
+      "_orchestrationSunoPrompt": null,
+      "_orchestrationSunoMode": null,
+      "_orchestrationPlan": "arriere"
+    },
+    {
+      "id": "st_1783531241036_0fogpal5y_1",
+      "soundId": "ropecreak_hemp_rope_twist_squeak_very_short_01_b00m_one",
+      "startSegmentId": "seg_1783344799946_168_9akys",
+      "endSegmentId": "seg_1783344799946_168_9akys",
+      "column": 1,
+      "volume": 0.55,
+      "loop": false,
+      "fadeIn": 0,
+      "fadeOut": 0,
+      "delay": 0,
+      "pan": 0,
+      "panMode": "static",
+      "muted": false,
+      "_orchestrationNote": "Frottement de cordage court, pas de grincement long. Plan intermédiaire. Détail concret du canot qu'on détache, sans portée dramatique propre.",
+      "_orchestrationKeyword": "rope",
+      "_orchestrationLayer": "diegetic",
+      "_orchestrationLeitmotiv": "",
+      "_orchestrationDiegeticMode": "ponctuel",
+      "_orchestrationSunoPrompt": null,
+      "_orchestrationSunoMode": null,
+      "_orchestrationPlan": "intermediaire"
+    },
+    {
+      "id": "st_1783531241037_898cthln8_2",
+      "soundId": "watrsplsh_big_splash_and_spray_01_b00m_one",
+      "startSegmentId": "seg_1783344799946_172_3bzix",
+      "endSegmentId": "seg_1783344799946_172_3bzix",
+      "column": 0,
+      "volume": 0.68,
+      "loop": false,
+      "fadeIn": 0,
+      "fadeOut": 0,
+      "delay": 0,
+      "pan": 0,
+      "panMode": "static",
+      "muted": false,
+      "_orchestrationNote": "Impact eau bref, franc, pas de traînée longue. Plan premier, sert de pré-lap à la bascule de lieu. Marque physiquement le saut dans le canot au moment exact du texte.",
+      "_orchestrationKeyword": "splash",
+      "_orchestrationLayer": "diegetic",
+      "_orchestrationLeitmotiv": "",
+      "_orchestrationDiegeticMode": "ponctuel",
+      "_orchestrationSunoPrompt": null,
+      "_orchestrationSunoMode": null,
+      "_orchestrationPlan": "premier"
+    },
+    {
+      "id": "st_1783531241037_u7nxjelix_3",
+      "soundId": "watrwave_black_sea_waves_01_b00m_one",
+      "startSegmentId": "seg_1783344799946_173_if6x1",
+      "endSegmentId": "seg_1783344799946_175_6pkyv",
+      "column": 0,
+      "volume": 0.42,
+      "loop": false,
+      "fadeIn": 1000,
+      "fadeOut": 1500,
+      "delay": 0,
+      "pan": 0,
+      "panMode": "static",
+      "muted": false,
+      "_orchestrationNote": "Clapot rythmique régulier, pas de mélodie, cadence continue évoquant les avirons plongés dans l'eau. Plan premier, action centrale de la scène. Donne la sensation physique du trajet en canot.",
+      "_orchestrationKeyword": "waves",
+      "_orchestrationLayer": "diegetic",
+      "_orchestrationLeitmotiv": "",
+      "_orchestrationDiegeticMode": "sequence",
+      "_orchestrationSunoPrompt": null,
+      "_orchestrationSunoMode": null,
+      "_orchestrationPlan": "premier"
+    },
+    {
+      "id": "st_1783531241038_7ixe4o2d9_4",
+      "soundId": "boatrow_rowboat_paddle_in_water_sequence_01_b00m_one",
+      "startSegmentId": "seg_1783344916710_b_fcaii",
+      "endSegmentId": "seg_1783344799946_175_6pkyv",
+      "column": 1,
+      "volume": 0.38,
+      "loop": false,
+      "fadeIn": 1000,
+      "fadeOut": 1500,
+      "delay": 0,
+      "pan": 0,
+      "panMode": "static",
+      "muted": false,
+      "_orchestrationNote": "Coques de bois qui s'entrechoquent au loin, irrégulier, sans rythme fixe. Plan intermédiaire, distinct du clapot des rames. Traduit la congestion des mille barques décrite dans le texte.",
+      "_orchestrationKeyword": "boat",
+      "_orchestrationLayer": "diegetic",
+      "_orchestrationLeitmotiv": "",
+      "_orchestrationDiegeticMode": "sequence",
+      "_orchestrationSunoPrompt": null,
+      "_orchestrationSunoMode": null,
+      "_orchestrationPlan": "intermediaire"
+    },
+    {
+      "id": "st_1783531241038_n2jovvgec_5",
+      "soundId": "crwdsprt_football_match_ambience_crowd_chant_walla_01_b00m_one",
+      "startSegmentId": "seg_1783344940948_a_0ea20",
+      "endSegmentId": "seg_1783344799946_176_o4ay9_overflow_178",
+      "column": 0,
+      "volume": 0.45,
+      "loop": false,
+      "fadeIn": 1500,
+      "fadeOut": 2000,
+      "delay": 0,
+      "pan": 0,
+      "panMode": "static",
+      "muted": false,
+      "_orchestrationNote": "Brouhaha de foule continu, sans voix isolée dominante, densité constante. Plan intermédiaire, sous le bed de rue. Donne la texture humaine de la foule bariolée qui absorbe Dantès.",
+      "_orchestrationKeyword": "crowd",
+      "_orchestrationLayer": "diegetic",
+      "_orchestrationLeitmotiv": "",
+      "_orchestrationDiegeticMode": "sequence",
+      "_orchestrationSunoPrompt": null,
+      "_orchestrationSunoMode": null,
+      "_orchestrationPlan": "intermediaire"
+    },
+    {
+      "id": "st_1783531241038_5t1wxl9uk_6",
+      "soundId": "harbor_sounds_seaside_market_ambience_",
+      "startSegmentId": "seg_1783344799946_177_4o6p6",
+      "endSegmentId": "seg_1783344799946_179_o7rzn",
+      "column": 0,
+      "volume": 0.14,
+      "loop": true,
+      "loopCrossfade": "medium",
+      "fadeIn": 3000,
+      "fadeOut": 5000,
+      "delay": 0,
+      "pan": 0,
+      "panMode": "static",
+      "muted": false,
+      "_orchestrationNote": "Nappe portuaire resserrée, plus basse que la scène 1, sans variation notable. Arrière-plan constant, resserre l'espace sur les deux hommes qui regardent. Recentre la scène après le bruit de rue.",
+      "_orchestrationKeyword": "harbor",
+      "_orchestrationLayer": "bed",
+      "_orchestrationLeitmotiv": "",
+      "_orchestrationDiegeticMode": null,
+      "_orchestrationSunoPrompt": null,
+      "_orchestrationSunoMode": null,
+      "_orchestrationPlan": "arriere"
+    },
+    {
+      "id": "st_1783531241039_dplbgoqps_7",
+      "soundId": "suno_the_last_farewell_-_cello_rubato_funeral",
+      "startSegmentId": "seg_1783344799946_178_1515w",
+      "endSegmentId": "seg_1783344799946_179_o7rzn",
+      "column": 6,
+      "volume": 0.18,
+      "loop": false,
+      "fadeIn": 4000,
+      "fadeOut": 6000,
+      "delay": 0,
+      "pan": 0,
+      "panMode": "static",
+      "muted": false,
+      "automationPoints": [
+        {
+          "segmentId": "seg_1783344799946_179_o7rzn",
+          "volume": 0.22,
+          "fadeMs": 2000
+        }
+      ],
+      "_orchestrationNote": "Drone grave continu, cordes graves sans pincement ni mélodie, texture granuleuse. Plan intermédiaire, sous l'atmosphere. Première apparition du motif de Danglars, volontairement non résolue à la fin du passage.",
+      "_orchestrationKeyword": "cello",
+      "_orchestrationLayer": "music",
+      "_orchestrationLeitmotiv": "Ombre de Danglars",
+      "_orchestrationDiegeticMode": null,
+      "_orchestrationSunoPrompt": "low sustained cello and double bass drone, no melody, no lead instrument, no hook, non-melodic, granular texture, unresolved harmonic tension, dark ambient hybrid score, textural only",
+      "_orchestrationSunoMode": "texture",
+      "_orchestrationPlan": "intermediaire"
+    },
+    {
+      "id": "st_1783531241040_fa6pxnjuy_8",
+      "soundId": "bellhand_bicycle_bell_ring_03_b00m_one",
+      "startSegmentId": "seg_1783344799946_148_mvbnq",
+      "endSegmentId": "seg_1783344799946_148_mvbnq",
+      "column": 1,
+      "volume": 0.58,
+      "loop": false,
+      "fadeIn": 0,
+      "fadeOut": 0,
+      "delay": 0,
+      "pan": 0,
+      "panMode": "static",
+      "muted": true,
+      "broken": true,
+      "_orchestrationNote": "Cloche de bord unique, résonance courte, pas de réverbération excessive. Plan intermédiaire, discret sous le dialogue. Détail neutre de vie portuaire qui marque le temps qui passe sans appuyer le texte.",
+      "_orchestrationKeyword": "bell",
+      "_orchestrationLayer": "diegetic",
+      "_orchestrationLeitmotiv": "",
+      "_orchestrationDiegeticMode": "ponctuel",
+      "_orchestrationSunoPrompt": null,
+      "_orchestrationSunoMode": null,
+      "_orchestrationPlan": "intermediaire"
+    },
+    {
+      "id": "st_1783531241040_nvrxs6vde_9",
+      "soundId": "cermimpt_hit_on_tile_and_break_01_b00m_one",
+      "startSegmentId": "seg_1783344799946_149_sgy0j",
+      "endSegmentId": "seg_1783344799946_149_sgy0j",
+      "column": 1,
+      "volume": 0.6,
+      "loop": false,
+      "fadeIn": 0,
+      "fadeOut": 0,
+      "delay": 0,
+      "pan": 0,
+      "panMode": "static",
+      "muted": true,
+      "broken": true,
+      "_orchestrationNote": "Impact main sur tissu/épaule, sec et court, sans écho. Plan premier, synchronisé sur le geste. Ponctue physiquement la promesse de Morrel au moment exact du texte.",
+      "_orchestrationKeyword": "hit",
+      "_orchestrationLayer": "diegetic",
+      "_orchestrationLeitmotiv": "",
+      "_orchestrationDiegeticMode": "ponctuel",
+      "_orchestrationSunoPrompt": null,
+      "_orchestrationSunoMode": null,
+      "_orchestrationPlan": "premier"
+    },
+    {
+      "id": "st_1783531241041_u3smk5x8x_10",
+      "soundId": "toonboing_jews_harp_boing_short_01_b00m_one",
+      "startSegmentId": "seg_1783344799946_150_l1dv0",
+      "endSegmentId": "seg_1783344799946_156_oi3ma",
+      "column": 1,
+      "volume": 0.3,
+      "loop": false,
+      "fadeIn": 3000,
+      "fadeOut": 4000,
+      "delay": 0,
+      "pan": 0,
+      "panMode": "static",
+      "muted": true,
+      "broken": true,
+      "automationPoints": [
+        {
+          "segmentId": "seg_1783344799946_152_garq7",
+          "volume": 0.12,
+          "fadeMs": 1500
+        },
+        {
+          "segmentId": "seg_1783344799946_154_xzo2s",
+          "volume": 0.38,
+          "fadeMs": 2000
+        },
+        {
+          "segmentId": "seg_1783344799946_156_oi3ma",
+          "volume": 0.2,
+          "fadeMs": 2500
+        }
+      ],
+      "_orchestrationNote": "Harpe arpégée, cordes légères en soutien, attaque douce, pas de percussion. Plan intermédiaire, descend pendant la réplique explicative de Morrel puis remonte en plan premier bref sur la gratitude de Dantès. Traduit l'espoir de Dantès sans que le texte ait besoin de le nommer.",
+      "_orchestrationKeyword": "harp",
+      "_orchestrationLayer": "music",
+      "_orchestrationLeitmotiv": "Espoir d'Edmond",
+      "_orchestrationDiegeticMode": null,
+      "_orchestrationSunoPrompt": "solo harp with light strings underneath, hopeful arpeggios, sparse phrasing, warm intimate recording, major key, tempo 80bpm, cinematic, no percussion, no vocals",
+      "_orchestrationSunoMode": "theme",
+      "_orchestrationPlan": "intermediaire"
+    },
+    {
+      "id": "st_1783531241042_y7sh00xd4_11",
+      "soundId": "hmnbrth_male_1_gasp_soft_low_01_b00m_one",
+      "startSegmentId": "seg_1783344799946_154_xzo2s",
+      "endSegmentId": "seg_1783344799946_154_xzo2s",
+      "column": 2,
+      "volume": 0.55,
+      "loop": false,
+      "fadeIn": 0,
+      "fadeOut": 0,
+      "delay": 0,
+      "pan": 0,
+      "panMode": "static",
+      "muted": true,
+      "broken": true,
+      "_orchestrationNote": "Inspiration brève, retenue, pas de sanglot développé. Plan premier, coïncide avec le pic du leitmotiv. Marque le corps à l'instant précis de l'émotion contenue.",
+      "_orchestrationKeyword": "gasp",
+      "_orchestrationLayer": "diegetic",
+      "_orchestrationLeitmotiv": "",
+      "_orchestrationDiegeticMode": "ponctuel",
+      "_orchestrationSunoPrompt": null,
+      "_orchestrationSunoMode": null,
+      "_orchestrationPlan": "premier"
+    },
+    {
+      "id": "st_1783531241042_lre401yg0_12",
+      "soundId": "mechrtch_tension_belt_tense_ratchet_01_b00m_one",
+      "startSegmentId": "seg_1783344799946_157_6qyth",
+      "endSegmentId": "seg_1783344799946_160_u11el",
+      "column": 1,
+      "volume": 0.12,
+      "loop": true,
+      "loopCrossfade": "medium",
+      "fadeIn": 4000,
+      "fadeOut": 4000,
+      "delay": 0,
+      "pan": 0,
+      "panMode": "static",
+      "muted": true,
+      "broken": true,
+      "automationPoints": [
+        {
+          "segmentId": "seg_1783344799946_160_u11el",
+          "volume": 0.08,
+          "fadeMs": 2000
+        }
+      ],
+      "_orchestrationNote": "Nappe basse continue, sans pulsation ni attaque marquée, texture granuleuse plutôt que synthé propre. Plan intermédiaire, sous le bed portuaire. Traduit le malaise diplomatique de Dantès qui pèse ses mots sur Danglars, sans que le texte le dise explicitement.",
+      "_orchestrationKeyword": "tension",
+      "_orchestrationLayer": "atmosphere",
+      "_orchestrationLeitmotiv": "",
+      "_orchestrationDiegeticMode": null,
+      "_orchestrationSunoPrompt": null,
+      "_orchestrationSunoMode": null,
+      "_orchestrationPlan": "intermediaire"
+    },
+    {
+      "id": "st_1783531241043_osxsfaztx_13",
+      "soundId": "muscperc_footsteps_horse_riding_random_drum_hit_sequence_01_b00m_one",
+      "startSegmentId": "seg_1783344799946_166_x4iu4",
+      "endSegmentId": "seg_1783344799946_166_x4iu4",
+      "column": 1,
+      "volume": 0.56,
+      "loop": false,
+      "fadeIn": 0,
+      "fadeOut": 0,
+      "delay": 0,
+      "pan": 0,
+      "panMode": "static",
+      "muted": true,
+      "broken": true,
+      "_orchestrationNote": "Pas de chaussure sur planche de pont, appui unique, pas de série de pas. Plan intermédiaire, discret. Traduit physiquement l'impatience de Dantès qui change d'appui.",
+      "_orchestrationKeyword": "footstep",
+      "_orchestrationLayer": "diegetic",
+      "_orchestrationLeitmotiv": "",
+      "_orchestrationDiegeticMode": "ponctuel",
+      "_orchestrationSunoPrompt": null,
+      "_orchestrationSunoMode": null,
+      "_orchestrationPlan": "intermediaire"
+    },
+    {
+      "id": "st_1783531241044_sm8bjqaj4_14",
+      "soundId": "dsgndron_simple_strings_02_b00m_one",
+      "startSegmentId": "seg_1783344799946_167_1k3ie",
+      "endSegmentId": "seg_1783344799946_171_7ahv6",
+      "column": 2,
+      "volume": 0.28,
+      "loop": false,
+      "fadeIn": 2000,
+      "fadeOut": 3000,
+      "delay": 0,
+      "pan": 0,
+      "panMode": "static",
+      "muted": true,
+      "broken": true,
+      "automationPoints": [
+        {
+          "segmentId": "seg_1783344799946_170_va83m",
+          "volume": 0.18,
+          "fadeMs": 1500
+        }
+      ],
+      "_orchestrationNote": "Reprise du motif harpe/cordes de la scène 2, registre plus plein, résolution majeure marquée. Plan intermédiaire, descend sur l'échange bref des adieux puis remonte. Transformation du leitmotiv initial : l'espoir devient acquis.",
+      "_orchestrationKeyword": "strings",
+      "_orchestrationLayer": "music",
+      "_orchestrationLeitmotiv": "Espoir d'Edmond",
+      "_orchestrationDiegeticMode": null,
+      "_orchestrationSunoPrompt": "same hopeful theme resolved, fuller strings and harp together, brighter register, still no percussion, tempo 84bpm, warm cinematic resolution",
+      "_orchestrationSunoMode": "theme",
+      "_orchestrationPlan": "intermediaire"
+    },
+    {
+      "id": "st_1783531241045_k7yv6katm_15",
+      "soundId": "ambtran_airport_big_hall_02_b00m_one",
+      "startSegmentId": "seg_1783344799946_172_3bzix",
+      "endSegmentId": "seg_1783344799946_175_6pkyv",
+      "column": 2,
+      "volume": 0.18,
+      "loop": true,
+      "loopCrossfade": "medium",
+      "fadeIn": 3000,
+      "fadeOut": 3000,
+      "delay": 0,
+      "pan": 0,
+      "panMode": "static",
+      "muted": true,
+      "broken": true,
+      "automationPoints": [
+        {
+          "segmentId": "seg_1783344916710_b_fcaii",
+          "volume": 0.22,
+          "fadeMs": 2000
+        }
+      ],
+      "_orchestrationNote": "Nappe d'eau et de trafic portuaire, plus dense que le bed du pont, sans mélodie ni pulsation. Arrière-plan constant du trajet en canot. Traduit l'encombrement du port au fil du texte.",
+      "_orchestrationKeyword": "port",
+      "_orchestrationLayer": "bed",
+      "_orchestrationLeitmotiv": "",
+      "_orchestrationDiegeticMode": null,
+      "_orchestrationSunoPrompt": null,
+      "_orchestrationSunoMode": null,
+      "_orchestrationPlan": "arriere"
+    },
+    {
+      "id": "st_1783531241045_svi4v557u_16",
+      "soundId": "mechrolr_supermarket_cashpoint_conveyor_belt_01_b00m_one",
+      "startSegmentId": "seg_1783344940948_a_0ea20",
+      "endSegmentId": "seg_1783344799946_176_o4ay9_overflow_178",
+      "column": 1,
+      "volume": 0.24,
+      "loop": true,
+      "loopCrossfade": "medium",
+      "fadeIn": 4000,
+      "fadeOut": 4000,
+      "delay": 0,
+      "pan": 0,
+      "panMode": "static",
+      "muted": true,
+      "broken": true,
+      "automationPoints": [
+        {
+          "segmentId": "seg_1783344940948_b_ymob1",
+          "volume": 0.2,
+          "fadeMs": 1500
+        }
+      ],
+      "_orchestrationNote": "Nappe de rue commerçante dense, voix indistinctes mélangées, pas de mot isolé reconnaissable. Arrière-plan constant de la Canebière. Descend légèrement pendant la citation de fierté marseillaise pour laisser passer l'accordéon.",
+      "_orchestrationKeyword": "market",
+      "_orchestrationLayer": "bed",
+      "_orchestrationLeitmotiv": "",
+      "_orchestrationDiegeticMode": null,
+      "_orchestrationSunoPrompt": null,
+      "_orchestrationSunoMode": null,
+      "_orchestrationPlan": "arriere"
+    },
+    {
+      "id": "st_1783531241046_7fxg0q7mq_17",
+      "soundId": "movecrwd_troops_run_sub_layer_01_b00m_one",
+      "startSegmentId": "seg_1783344940948_a_0ea20",
+      "endSegmentId": "seg_1783344940948_a_0ea20",
+      "column": 2,
+      "volume": 0.62,
+      "loop": false,
+      "fadeIn": 0,
+      "fadeOut": 0,
+      "delay": 0,
+      "pan": 0,
+      "panMode": "static",
+      "muted": true,
+      "broken": true,
+      "_orchestrationNote": "Impact de semelle sur pierre, sec, un seul appui. Plan premier, synchronisé sur le saut. Marque le passage du canot à la terre ferme.",
+      "_orchestrationKeyword": "footstep",
+      "_orchestrationLayer": "diegetic",
+      "_orchestrationLeitmotiv": "",
+      "_orchestrationDiegeticMode": "ponctuel",
+      "_orchestrationSunoPrompt": null,
+      "_orchestrationSunoMode": null,
+      "_orchestrationPlan": "premier"
+    },
+    {
+      "id": "st_1783531241047_sta93uxhb_18",
+      "soundId": "mbck_prop_accordion_nose_breath_multiple",
+      "startSegmentId": "seg_1783344940948_b_ymob1",
+      "endSegmentId": "seg_1783344799946_176_o4ay9_overflow_178",
+      "column": 2,
+      "volume": 0.28,
+      "loop": false,
+      "fadeIn": 1000,
+      "fadeOut": 1500,
+      "delay": 0,
+      "pan": 0,
+      "panMode": "static",
+      "muted": true,
+      "broken": true,
+      "_orchestrationNote": "Accordéon musette, phrase courte et taquine, pas de développement long. Plan intermédiaire, sous le bed de rue. Souligne avec humour la fierté marseillaise citée en discours indirect, musique à l'image sans vocation à revenir.",
+      "_orchestrationKeyword": "accordion",
+      "_orchestrationLayer": "music",
+      "_orchestrationLeitmotiv": "",
+      "_orchestrationDiegeticMode": null,
+      "_orchestrationSunoPrompt": "french musette accordion, playful teasing melody, light waltz feel, tempo 100bpm, warm vintage recording, brief cinematic wink, no percussion",
+      "_orchestrationSunoMode": "theme",
+      "_orchestrationPlan": "intermediaire"
+    },
+    {
+      "id": "st_1783531241048_9ic0xkjzo_19",
+      "soundId": "uiclick_low_end_menu_click_single_01_b00m_one_1",
+      "startSegmentId": "seg_1783344799946_177_4o6p6",
+      "endSegmentId": "seg_1783344799946_177_4o6p6",
+      "column": 1,
+      "volume": 0.5,
+      "loop": false,
+      "fadeIn": 0,
+      "fadeOut": 0,
+      "delay": 0,
+      "pan": 0,
+      "panMode": "static",
+      "muted": true,
+      "broken": true,
+      "_orchestrationNote": "Clic sec unique, sans traîne ni réverbération. Plan premier, coupure nette sans fondu. Marque la bascule psychologique du retournement de Morrel, technique de coupure sèche plutôt que whoosh.",
+      "_orchestrationKeyword": "click",
+      "_orchestrationLayer": "transition",
+      "_orchestrationLeitmotiv": "",
+      "_orchestrationDiegeticMode": null,
+      "_orchestrationSunoPrompt": null,
+      "_orchestrationSunoMode": null,
+      "_orchestrationPlan": "premier"
+    },
+    {
+      "id": "st_1783531241049_f8t6eexqy_20",
+      "soundId": "lethrcreak_creak_long_hard_03_b00m_one",
+      "startSegmentId": "seg_1783344799946_177_4o6p6",
+      "endSegmentId": "seg_1783344799946_177_4o6p6",
+      "column": 2,
+      "volume": 0.55,
+      "loop": false,
+      "fadeIn": 0,
+      "fadeOut": 0,
+      "delay": 0,
+      "pan": 0,
+      "panMode": "static",
+      "muted": true,
+      "broken": true,
+      "_orchestrationNote": "Grincement de bois bref sous un pied qui se déplace légèrement, pas de série. Plan intermédiaire. Signale la présence physique de Danglars debout derrière Morrel sans qu'aucun mot ne le décrive.",
+      "_orchestrationKeyword": "creak",
+      "_orchestrationLayer": "diegetic",
+      "_orchestrationLeitmotiv": "",
+      "_orchestrationDiegeticMode": "ponctuel",
+      "_orchestrationSunoPrompt": null,
+      "_orchestrationSunoMode": null,
+      "_orchestrationPlan": "intermediaire"
+    },
+    {
+      "id": "st_1783531241051_ojkkt0185_21",
+      "soundId": "neon_ambience_high_floating_chamber",
+      "startSegmentId": "seg_1783344799946_177_4o6p6",
+      "endSegmentId": "seg_1783344799946_179_o7rzn",
+      "column": 3,
+      "volume": 0.14,
+      "loop": true,
+      "loopCrossfade": "medium",
+      "fadeIn": 3000,
+      "fadeOut": 6000,
+      "delay": 0,
+      "pan": 0,
+      "panMode": "static",
+      "muted": true,
+      "broken": true,
+      "automationPoints": [
+        {
+          "segmentId": "seg_1783344799946_178_1515w",
+          "volume": 0.17,
+          "fadeMs": 2000
+        },
+        {
+          "segmentId": "seg_1783344799946_179_o7rzn",
+          "volume": 0.22,
+          "fadeMs": 2500
+        }
+      ],
+      "_orchestrationNote": "Nappe basse continue, sans attaque ni mélodie, montée progressive et lente. Plan intermédiaire, sous le bed resserré. Traduit la bascule du regard de Morrel vers l'inquiétude, sans que le texte la nomme encore.",
+      "_orchestrationKeyword": "ominous",
+      "_orchestrationLayer": "atmosphere",
+      "_orchestrationLeitmotiv": "",
+      "_orchestrationDiegeticMode": null,
+      "_orchestrationSunoPrompt": null,
+      "_orchestrationSunoMode": null,
+      "_orchestrationPlan": "intermediaire"
     }
   ],
   "vfxTracks": []
