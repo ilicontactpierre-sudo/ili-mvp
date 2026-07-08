@@ -6,11 +6,6 @@
   "published": true,
   "sounds": [
     {
-      "id": "ambfarm_chicken_walking_around_the_yard_01_b00m_one",
-      "url": "/sounds/AMBFarm_Chicken Walking Around The Yard 01_B00M_ONE.mp3",
-      "loop": false
-    },
-    {
       "id": "belllrg_church_single_ring_01_b00m_one",
       "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/belllrg_church_single_ring_01_b00m_one.mp3",
       "loop": false
@@ -18,11 +13,6 @@
     {
       "id": "boatrow_rowboat_squeaky_mounting_fast_sequence_01_b00m_one",
       "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/boatrow_rowboat_squeaky_mounting_fast_sequence_01_b00m_one.mp3",
-      "loop": false
-    },
-    {
-      "id": "toonboing_jews_harp_boing_uprising_sequence_01_b00m_one",
-      "url": "/sounds/TOONBoing_Jews Harp Boing Uprising Sequence 01_B00M_ONE.mp3",
       "loop": false
     },
     {
@@ -61,11 +51,6 @@
       "loop": false
     },
     {
-      "id": "crwdlaff_laughter_large_group_adult_joyful_04_b00m_one",
-      "url": "/sounds/CRWDLaff_Laughter Large Group Adult Joyful 04_B00M_ONE.mp3",
-      "loop": false
-    },
-    {
       "id": "crwdsprt_football_match_ambience_crowd_chant_walla_01_b00m_one",
       "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/crwdsprt_football_match_ambience_crowd_chant_walla_01_b00m_one.mp3",
       "loop": false
@@ -81,18 +66,8 @@
       "loop": false
     },
     {
-      "id": "dsgnsynth_choir_hum_01_b00m_one",
-      "url": "/sounds/DSGNSynth_Choir Hum 01_B00M_ONE.mp3",
-      "loop": false
-    },
-    {
       "id": "doormetl_basement_door_handle_down_01_b00m_one",
       "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/doormetl_basement_door_handle_down_01_b00m_one.mp3",
-      "loop": false
-    },
-    {
-      "id": "hmnbrth_female_2_breath_slow_02_b00m_one",
-      "url": "/sounds/HMNBrth_Female 2 Breath Slow 02_B00M_ONE.mp3",
       "loop": false
     },
     {
@@ -118,11 +93,6 @@
     {
       "id": "whsh_cinematic_airy_medium_short_01_b00m_one",
       "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/whsh_cinematic_airy_medium_short_01_b00m_one.mp3",
-      "loop": false
-    },
-    {
-      "id": "voxreac_male_sigh_03_b00m_one",
-      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/voxreac_male_sigh_03_b00m_one.mp3",
       "loop": false
     },
     {
@@ -266,6 +236,11 @@
       "loop": false
     },
     {
+      "id": "sfx_transition_deep_sub_whoosh_sweetener_01",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/sfx_transition_deep_sub_whoosh_sweetener_01.mp3",
+      "loop": false
+    },
+    {
       "id": "ship_creaking_free_sound_effect",
       "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/ship_creaking_free_sound_effect.mp3",
       "loop": false
@@ -273,6 +248,16 @@
     {
       "id": "sound_effect_cloth_rustle_",
       "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/sound_effect_cloth_rustle_.mp3",
+      "loop": false
+    },
+    {
+      "id": "sp_08_wind_whoosh",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/sp_08_wind_whoosh.mp3",
+      "loop": false
+    },
+    {
+      "id": "suno_live_from_the_moon_1",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/suno_live_from_the_moon_1.mp3",
       "loop": false
     },
     {
@@ -301,8 +286,18 @@
       "loop": false
     },
     {
+      "id": "tone_harp_violin_nostalgic_soft_slow_1",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/tone_harp_violin_nostalgic_soft_slow_1.mp3",
+      "loop": false
+    },
+    {
       "id": "underwater_designed_ambience_alien_signal_04",
       "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/underwater_designed_ambience_alien_signal_04.mp3",
+      "loop": false
+    },
+    {
+      "id": "underwater_designed_ambience_dark_depths",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/underwater_designed_ambience_dark_depths.mp3",
       "loop": false
     },
     {
@@ -321,28 +316,18 @@
       "loop": false
     },
     {
-      "id": "sfx_transition_deep_sub_whoosh_sweetener_01",
-      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/sfx_transition_deep_sub_whoosh_sweetener_01.mp3",
+      "id": "hrck_vocal_-_laugh_male_2_",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/hrck_vocal_-_laugh_male_2_.mp3",
       "loop": false
     },
     {
-      "id": "tone_harp_violin_nostalgic_soft_slow_1",
-      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/tone_harp_violin_nostalgic_soft_slow_1.mp3",
+      "id": "dsgndron_positive_simple_meditation_jse_cd",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/dsgndron_positive_simple_meditation_jse_cd.mp3",
       "loop": false
     },
     {
-      "id": "underwater_designed_ambience_dark_depths",
-      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/underwater_designed_ambience_dark_depths.mp3",
-      "loop": false
-    },
-    {
-      "id": "sp_08_wind_whoosh",
-      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/sp_08_wind_whoosh.mp3",
-      "loop": false
-    },
-    {
-      "id": "suno_live_from_the_moon_1",
-      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/suno_live_from_the_moon_1.mp3",
+      "id": "suno_pizzicato_suprises_violin_2",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/suno_pizzicato_suprises_violin_2.mp3",
       "loop": false
     }
   ],
@@ -2604,8 +2589,8 @@
       "audioEvents": [
         {
           "action": "fadeIn",
-          "soundId": "voxreac_male_sigh_03_b00m_one",
-          "volume": 0.1,
+          "soundId": "dsgndron_positive_simple_meditation_jse_cd",
+          "volume": 0.3,
           "gainDb": 0,
           "duration": 4000,
           "delay": 0,
@@ -2730,7 +2715,16 @@
       "text": "Dantès sourit.",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "play",
+          "soundId": "hrck_vocal_-_laugh_male_2_",
+          "volume": 1,
+          "gainDb": 0,
+          "delay": 300,
+          "loop": false
+        }
+      ]
     },
     {
       "id": "seg_1783344799946_126_7jzqj",
@@ -2743,13 +2737,8 @@
       "audioEvents": [
         {
           "action": "fadeOut",
-          "soundId": "voxreac_male_sigh_03_b00m_one",
-          "duration": 5000
-        },
-        {
-          "action": "fadeOut",
           "soundId": "suno_live_from_the_moon_1",
-          "duration": 6000
+          "duration": 6800
         }
       ]
     },
@@ -2792,7 +2781,16 @@
       "text": "— Ah ! c’est vrai, Dantès ; j’oubliais qu’il y a aux Catalans quelqu’un qui doit vous attendre avec non moins d’impatience que votre père : c’est la belle Mercédès.\nDantès sourit.",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "play",
+          "soundId": "suno_pizzicato_suprises_violin_2",
+          "volume": 0.35,
+          "gainDb": 0,
+          "delay": 0,
+          "loop": true
+        }
+      ]
     },
     {
       "id": "seg_1783344799946_131_erp1x",
@@ -2842,7 +2840,18 @@
       "text": "— Pas pour nous, Monsieur, répondit Dantès.",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "fadeOut",
+          "soundId": "dsgndron_positive_simple_meditation_jse_cd",
+          "duration": 5000
+        },
+        {
+          "action": "fadeOut",
+          "soundId": "suno_pizzicato_suprises_violin_2",
+          "duration": 5200
+        }
+      ]
     },
     {
       "id": "seg_1783344799946_136_17m35",
@@ -2852,7 +2861,17 @@
       "text": "— Allons, allons, mon cher Edmond, continua l’armateur, que je ne vous retienne pas ; vous avez assez bien fait mes affaires pour que je vous donne tout loisir de faire les vôtres. Avez-vous besoin d’argent ?",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "fadeIn",
+          "soundId": "ship_creaking_free_sound_effect",
+          "volume": 0.36,
+          "gainDb": 0,
+          "duration": 500,
+          "delay": 0,
+          "loop": true
+        }
+      ]
     },
     {
       "id": "seg_1783344799946_137_k2j8c",
@@ -2886,7 +2905,7 @@
         {
           "action": "fadeIn",
           "soundId": "suno_the_last_farewell_-_cello_rubato_funeral",
-          "volume": 0.22,
+          "volume": 0.48,
           "gainDb": 0,
           "duration": 300,
           "delay": 0,
@@ -2901,6 +2920,11 @@
           "action": "fadeOut",
           "soundId": "harbor_sounds_seaside_market_ambience_",
           "duration": 6000
+        },
+        {
+          "action": "fadeOut",
+          "soundId": "ship_creaking_free_sound_effect",
+          "duration": 4000
         }
       ]
     },
@@ -5773,11 +5797,11 @@
     },
     {
       "id": "st_1783525311702_h8rmedu41_2",
-      "soundId": "voxreac_male_sigh_03_b00m_one",
+      "soundId": "dsgndron_positive_simple_meditation_jse_cd",
       "startSegmentId": "seg_1783344799946_115_1jq1u",
-      "endSegmentId": "seg_1783344799946_126_7jzqj",
+      "endSegmentId": "seg_1783344799946_135_ivv1g",
       "column": 0,
-      "volume": 0.1,
+      "volume": 0.3,
       "loop": true,
       "loopCrossfade": "medium",
       "fadeIn": 4000,
@@ -5788,19 +5812,40 @@
       "muted": false,
       "automationPoints": [
         {
+          "segmentId": "seg_1783344799946_115_1jq1u",
+          "volume": 0.3,
+          "fadeMs": 0,
+          "_isAnchor": true
+        },
+        {
           "segmentId": "seg_1783344799946_120_68xsn",
-          "volume": 0.16,
+          "volume": 0.15,
           "fadeMs": 1800
         },
         {
           "segmentId": "seg_1783344799946_123_fzzym",
-          "volume": 0.18,
+          "volume": 0.14,
           "fadeMs": 1500
         },
         {
           "segmentId": "seg_1783344799946_126_7jzqj",
-          "volume": 0.08,
+          "volume": 0.4800000000000004,
+          "fadeMs": 5000
+        },
+        {
+          "segmentId": "seg_1783344799946_127_xdm55",
+          "volume": 0.22,
           "fadeMs": 2500
+        },
+        {
+          "segmentId": "seg_1783344799946_130_escpc",
+          "volume": 0.4,
+          "fadeMs": 1500
+        },
+        {
+          "segmentId": "seg_1783344799946_133_k5rn8",
+          "volume": 0.48,
+          "fadeMs": 1500
         }
       ],
       "_orchestrationNote": "Nappe douce et continue, registre médium, sans pulsation. Plan intermédiaire, sous le bed portuaire. Colore l'hésitation de Dantès avant d'évoquer son père, puis la solitude de ce dernier enfermé dans sa chambre.",
@@ -5810,7 +5855,10 @@
       "_orchestrationDiegeticMode": null,
       "_orchestrationSunoPrompt": null,
       "_orchestrationSunoMode": null,
-      "_orchestrationPlan": "intermediaire"
+      "_orchestrationPlan": "intermediaire",
+      "trimStart": 0,
+      "trimEnd": 3094.5833333333335,
+      "gainDb": 0
     },
     {
       "id": "st_1783525311703_dnpdhna59_3",
@@ -5822,7 +5870,7 @@
       "loop": true,
       "loopCrossfade": "long",
       "fadeIn": 5000,
-      "fadeOut": 6000,
+      "fadeOut": 6800,
       "delay": 0,
       "pan": 0,
       "panMode": "static",
@@ -5836,8 +5884,8 @@
         },
         {
           "segmentId": "seg_1783344799946_122_v3non",
-          "volume": 0.16363636363636366,
-          "fadeMs": 2000
+          "volume": 0.22,
+          "fadeMs": 0
         },
         {
           "segmentId": "seg_1783344799946_126_7jzqj",
@@ -5862,8 +5910,8 @@
       "soundId": "suno_the_last_farewell_-_cello_rubato_funeral",
       "startSegmentId": "seg_1783344799946_139_px4de",
       "endSegmentId": "seg_1783344799946_139_px4de",
-      "column": 0,
-      "volume": 0.22,
+      "column": 6,
+      "volume": 0.48,
       "loop": false,
       "fadeIn": 300,
       "fadeOut": 2000,
@@ -5878,7 +5926,15 @@
       "_orchestrationDiegeticMode": null,
       "_orchestrationSunoPrompt": "single sustained cello note, minor key, quiet decay, intimate recording, no rhythm, brief and understated",
       "_orchestrationSunoMode": "theme",
-      "_orchestrationPlan": "premier"
+      "_orchestrationPlan": "premier",
+      "automationPoints": [
+        {
+          "segmentId": "seg_1783344799946_139_px4de",
+          "volume": 0.48,
+          "fadeMs": 0,
+          "_isAnchor": true
+        }
+      ]
     },
     {
       "id": "st_1783525311703_j25k4ku2j_5",
@@ -5914,7 +5970,7 @@
         },
         {
           "segmentId": "seg_1783344799946_127_xdm55",
-          "volume": 0.8749999999999999,
+          "volume": 0.68,
           "fadeMs": 2500
         }
       ],
@@ -5925,7 +5981,10 @@
       "_orchestrationDiegeticMode": null,
       "_orchestrationSunoPrompt": null,
       "_orchestrationSunoMode": null,
-      "_orchestrationPlan": "arriere"
+      "_orchestrationPlan": "arriere",
+      "trimStart": 0,
+      "trimEnd": 94693.875,
+      "gainDb": 0
     },
     {
       "id": "st_1783525311704_1su4cxjrz_6",
@@ -6108,19 +6167,18 @@
     },
     {
       "id": "st_1783525311707_sg2xuk7uo_13",
-      "soundId": "hmnbrth_female_2_breath_slow_02_b00m_one",
+      "soundId": "hrck_vocal_-_laugh_male_2_",
       "startSegmentId": "seg_1783344799946_125_r7zse",
       "endSegmentId": "seg_1783344799946_125_r7zse",
       "column": 3,
-      "volume": 0.55,
+      "volume": 1,
       "loop": false,
       "fadeIn": 0,
       "fadeOut": 0,
       "delay": 300,
       "pan": 0,
       "panMode": "static",
-      "muted": true,
-      "broken": true,
+      "muted": false,
       "_orchestrationNote": "Souffle court et doux, sans effort marqué. Plan intermédiaire, discret sous le sourire de Dantès. Rend audible le soulagement physique du personnage avant sa réplique sur la fierté de son père.",
       "_orchestrationKeyword": "breath",
       "_orchestrationLayer": "diegetic",
@@ -6128,81 +6186,52 @@
       "_orchestrationDiegeticMode": "ponctuel",
       "_orchestrationSunoPrompt": null,
       "_orchestrationSunoMode": null,
-      "_orchestrationPlan": "intermediaire"
-    },
-    {
-      "id": "st_1783525311707_d54xc0c3p_14",
-      "soundId": "dsgnsynth_choir_hum_01_b00m_one",
-      "startSegmentId": "seg_1783344799946_127_xdm55",
-      "endSegmentId": "seg_1783344799946_135_ivv1g",
-      "column": 0,
-      "volume": 0.12,
-      "loop": true,
-      "loopCrossfade": "medium",
-      "fadeIn": 4000,
-      "fadeOut": 5000,
-      "delay": 0,
-      "pan": 0,
-      "panMode": "static",
-      "muted": true,
-      "broken": true,
+      "_orchestrationPlan": "intermediaire",
       "automationPoints": [
         {
-          "segmentId": "seg_1783344799946_130_escpc",
-          "volume": 0.17,
-          "fadeMs": 1500
-        },
-        {
-          "segmentId": "seg_1783344799946_133_k5rn8",
-          "volume": 0.2,
-          "fadeMs": 1000
+          "segmentId": "seg_1783344799946_125_r7zse",
+          "volume": 1,
+          "fadeMs": 0,
+          "_isAnchor": true
         }
-      ],
-      "_orchestrationNote": "Nappe douce et stable, registre médium-aigu, sans dissonance. Plan intermédiaire, sous le bed portuaire. Installe la légèreté affectueuse du sujet Mercédès avant que la musique ne prenne le relais.",
-      "_orchestrationKeyword": "peaceful",
-      "_orchestrationLayer": "atmosphere",
-      "_orchestrationLeitmotiv": "",
-      "_orchestrationDiegeticMode": null,
-      "_orchestrationSunoPrompt": null,
-      "_orchestrationSunoMode": null,
-      "_orchestrationPlan": "intermediaire"
+      ]
     },
     {
       "id": "st_1783525311708_s9yjfns2a_15",
-      "soundId": "toonboing_jews_harp_boing_uprising_sequence_01_b00m_one",
+      "soundId": "suno_pizzicato_suprises_violin_2",
       "startSegmentId": "seg_1783344799946_130_escpc",
       "endSegmentId": "seg_1783344799946_135_ivv1g",
-      "column": 1,
-      "volume": 0.24,
+      "column": 6,
+      "volume": 0.35,
       "loop": true,
       "loopCrossfade": "medium",
-      "fadeIn": 3000,
-      "fadeOut": 4000,
+      "fadeIn": 0,
+      "fadeOut": 5200,
       "delay": 0,
       "pan": 0,
       "panMode": "static",
-      "muted": true,
+      "muted": false,
       "broken": true,
       "automationPoints": [
         {
           "segmentId": "seg_1783344799946_130_escpc",
-          "volume": 0.24,
+          "volume": 0.35,
           "fadeMs": 0,
           "_isAnchor": true
         },
         {
           "segmentId": "seg_1783344799946_132_92gmk",
-          "volume": 0.3,
+          "volume": 0.43750000000000017,
           "fadeMs": 1200
         },
         {
           "segmentId": "seg_1783344799946_134_gzlvq",
-          "volume": 0.1,
+          "volume": 0.14583333333333334,
           "fadeMs": 800
         },
         {
           "segmentId": "seg_1783344799946_135_ivv1g",
-          "volume": 0.32,
+          "volume": 0.4666666666666667,
           "fadeMs": 600
         }
       ],
@@ -6213,46 +6242,25 @@
       "_orchestrationDiegeticMode": null,
       "_orchestrationSunoPrompt": "solo harp, warm gentle arpeggios, major key, tender and light, delicate intimate recording, tempo 70bpm, no percussion, folk-inspired simplicity",
       "_orchestrationSunoMode": "theme",
-      "_orchestrationPlan": "premier"
-    },
-    {
-      "id": "st_1783525311709_ufvsyvtcl_16",
-      "soundId": "crwdlaff_laughter_large_group_adult_joyful_04_b00m_one",
-      "startSegmentId": "seg_1783344799946_134_gzlvq",
-      "endSegmentId": "seg_1783344799946_134_gzlvq",
-      "column": 3,
-      "volume": 0.6,
-      "loop": false,
-      "fadeIn": 0,
-      "fadeOut": 0,
-      "delay": 0,
-      "pan": 0,
-      "panMode": "static",
-      "muted": true,
-      "broken": true,
-      "_orchestrationNote": "Rire bref, un seul souffle vocal, sans écho de salle. Plan premier, isolé sur la réplique de Morrel. Souligne le ton badin de l'armateur juste avant la correction sérieuse de Dantès.",
-      "_orchestrationKeyword": "laugh",
-      "_orchestrationLayer": "diegetic",
-      "_orchestrationLeitmotiv": "",
-      "_orchestrationDiegeticMode": "ponctuel",
-      "_orchestrationSunoPrompt": null,
-      "_orchestrationSunoMode": null,
-      "_orchestrationPlan": "premier"
+      "_orchestrationPlan": "premier",
+      "trimStart": 2717,
+      "trimEnd": 209214.6875,
+      "gainDb": 0
     },
     {
       "id": "st_1783525311709_96y20mb5z_17",
-      "soundId": "ambfarm_chicken_walking_around_the_yard_01_b00m_one",
+      "soundId": "ship_creaking_free_sound_effect",
       "startSegmentId": "seg_1783344799946_136_17m35",
       "endSegmentId": "seg_1783344799946_139_px4de",
       "column": 1,
       "volume": 0.36,
-      "loop": false,
+      "loop": true,
       "fadeIn": 500,
-      "fadeOut": 1000,
+      "fadeOut": 4000,
       "delay": 0,
       "pan": 0,
       "panMode": "static",
-      "muted": true,
+      "muted": false,
       "broken": true,
       "_orchestrationNote": "Pas légers et irréguliers, poids transféré d'un pied à l'autre, sans déplacement franc. Plan intermédiaire, sous le dialogue de clôture. Traduit l'impatience contenue de Dantès pressé de partir voir son père puis Mercédès.",
       "_orchestrationKeyword": "footstep",
@@ -6261,7 +6269,16 @@
       "_orchestrationDiegeticMode": "sequence",
       "_orchestrationSunoPrompt": null,
       "_orchestrationSunoMode": null,
-      "_orchestrationPlan": "intermediaire"
+      "_orchestrationPlan": "intermediaire",
+      "automationPoints": [
+        {
+          "segmentId": "seg_1783344799946_136_17m35",
+          "volume": 0.36,
+          "fadeMs": 0,
+          "_isAnchor": true
+        }
+      ],
+      "loopCrossfade": "medium"
     }
   ],
   "vfxTracks": []
