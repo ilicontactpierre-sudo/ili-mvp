@@ -1377,7 +1377,6 @@ function AdminPage() {
   // Fonctions undo/redo — lisent l'historique via des refs toujours à jour
   // (jamais périmées, même juste après un changement de partie en mode Série)
   const applyHistorySnapshot = (snapshot) => {
-    console.time('[undo] applyHistorySnapshot')
     if (isSerial) {
       setActiveSegments(snapshot.segments)
       setActiveSoundTracks(snapshot.soundTracks)
