@@ -11,11 +11,6 @@
       "loop": false
     },
     {
-      "id": "boatrow_rowboat_paddle_in_water_sequence_01_b00m_one",
-      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/boatrow_rowboat_paddle_in_water_sequence_01_b00m_one.mp3",
-      "loop": false
-    },
-    {
       "id": "boatrow_rowboat_squeaky_mounting_fast_sequence_01_b00m_one",
       "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/boatrow_rowboat_squeaky_mounting_fast_sequence_01_b00m_one.mp3",
       "loop": false
@@ -57,7 +52,7 @@
     },
     {
       "id": "dsgndron_erratic_pulse_01_b00m_one",
-      "url": "/sounds/DSGNDron_Erratic Pulse 01_B00M_ONE.mp3",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/dsgndron_erratic_pulse_01_b00m_one.mp3",
       "loop": false
     },
     {
@@ -66,18 +61,13 @@
       "loop": false
     },
     {
-      "id": "dsgnerie_ghostly_atmosphere_long_01_b00m_one",
-      "url": "/sounds/DSGNErie_Ghostly Atmosphere Long 01_B00M_ONE.mp3",
+      "id": "dsgnrmbl_rumble_heater_water_movement_low_01_b00m_one",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/dsgnrmbl_rumble_heater_water_movement_low_01_b00m_one.mp3",
       "loop": false
     },
     {
       "id": "doormetl_basement_door_handle_down_01_b00m_one",
       "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/doormetl_basement_door_handle_down_01_b00m_one.mp3",
-      "loop": false
-    },
-    {
-      "id": "muscperc_footsteps_drum_hit_sequence_01_b00m_one",
-      "url": "/sounds/MUSCPerc_Footsteps Drum Hit Sequence 01_B00M_ONE.mp3",
       "loop": false
     },
     {
@@ -88,11 +78,6 @@
     {
       "id": "muscstngr_orchestra_drone_bass_sul_pont_sustain_high_intensity_octave_01_b00m_on",
       "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/muscstngr_orchestra_drone_bass_sul_pont_sustain_high_intensity_octave_01_b00m_on.mp3",
-      "loop": false
-    },
-    {
-      "id": "muscstr_harp_string_slide_01_b00m_one",
-      "url": "/sounds/MUSCStr_Harp String Slide 01_B00M_ONE.mp3",
       "loop": false
     },
     {
@@ -108,6 +93,16 @@
     {
       "id": "watrwave_black_sea_waves_01_b00m_one",
       "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/watrwave_black_sea_waves_01_b00m_one.mp3",
+      "loop": false
+    },
+    {
+      "id": "cc-ck_whoosh_cloth_soft_02",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/cc-ck_whoosh_cloth_soft_02.mp3",
+      "loop": false
+    },
+    {
+      "id": "mlck_location_between_two_boats_water_laps_wood_creaks",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/mlck_location_between_two_boats_water_laps_wood_creaks.mp3",
       "loop": false
     },
     {
@@ -151,6 +146,16 @@
       "loop": false
     },
     {
+      "id": "cfck_body_fall_water_medium_turbulent_hard_2_",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/cfck_body_fall_water_medium_turbulent_hard_2_.mp3",
+      "loop": false
+    },
+    {
+      "id": "cfck_step_wood_backpack_no_lining_2_",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/cfck_step_wood_backpack_no_lining_2_.mp3",
+      "loop": false
+    },
+    {
       "id": "climbing_asmr_soothing_sounds_for_sport_climbers",
       "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/climbing_asmr_soothing_sounds_for_sport_climbers.mp3",
       "loop": false
@@ -176,6 +181,11 @@
       "loop": false
     },
     {
+      "id": "distant_crew_voices_and_indistinct_work_noises_boat_crew",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/distant_crew_voices_and_indistinct_work_noises_boat_crew.mp3",
+      "loop": false
+    },
+    {
       "id": "esm_lfe_heart_beat_loop_-_medium_-_fast_bass_medical_horror_scary_suspense",
       "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/esm_lfe_heart_beat_loop_-_medium_-_fast_bass_medical_horror_scary_suspense.mp3",
       "loop": false
@@ -183,6 +193,11 @@
     {
       "id": "feet_-_boots_group_walk_hardwood",
       "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/feet_-_boots_group_walk_hardwood.mp3",
+      "loop": false
+    },
+    {
+      "id": "footsteps_hardwood_floor_running_hq_sound_effects",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/footsteps_hardwood_floor_running_hq_sound_effects.mp3",
       "loop": false
     },
     {
@@ -198,6 +213,11 @@
     {
       "id": "sail_boat_sound_effect_hd_1_",
       "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/sail_boat_sound_effect_hd_1_.mp3",
+      "loop": false
+    },
+    {
+      "id": "sailboat_-_sail_flapping_-_fabric_movement_9",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/sailboat_-_sail_flapping_-_fabric_movement_9.mp3",
       "loop": false
     },
     {
@@ -261,28 +281,13 @@
       "loop": false
     },
     {
-      "id": "distant_crew_voices_and_indistinct_work_noises_boat_crew",
-      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/distant_crew_voices_and_indistinct_work_noises_boat_crew.mp3",
+      "id": "sfx_transition_deep_sub_whoosh_sweetener_01",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/sfx_transition_deep_sub_whoosh_sweetener_01.mp3",
       "loop": false
     },
     {
-      "id": "cfck_body_fall_water_medium_turbulent_hard_2_",
-      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/cfck_body_fall_water_medium_turbulent_hard_2_.mp3",
-      "loop": false
-    },
-    {
-      "id": "sailboat_-_sail_flapping_-_fabric_movement_9",
-      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/sailboat_-_sail_flapping_-_fabric_movement_9.mp3",
-      "loop": false
-    },
-    {
-      "id": "footsteps_hardwood_floor_running_hq_sound_effects",
-      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/footsteps_hardwood_floor_running_hq_sound_effects.mp3",
-      "loop": false
-    },
-    {
-      "id": "cfck_step_wood_backpack_no_lining_2_",
-      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/cfck_step_wood_backpack_no_lining_2_.mp3",
+      "id": "tone_harp_violin_nostalgic_soft_slow_1",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/tone_harp_violin_nostalgic_soft_slow_1.mp3",
       "loop": false
     }
   ],
@@ -1810,10 +1815,11 @@
           "duration": 1500
         },
         {
-          "action": "play",
+          "action": "fadeIn",
           "soundId": "footsteps_hardwood_floor_running_hq_sound_effects",
           "volume": 0.56,
           "gainDb": 0,
+          "duration": 4700,
           "delay": 0,
           "loop": false
         }
@@ -1827,7 +1833,13 @@
       "text": "— Pardon, monsieur Morrel, dit Dantès en s’approchant ; maintenant que le navire est mouillé,",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "fadeOut",
+          "soundId": "footsteps_hardwood_floor_running_hq_sound_effects",
+          "duration": 400
+        }
+      ]
     },
     {
       "id": "seg_1783344799946_68_pdb4j",
@@ -1841,7 +1853,7 @@
         {
           "action": "play",
           "soundId": "cfck_step_wood_backpack_no_lining_2_",
-          "volume": 0.64,
+          "volume": 0.57,
           "gainDb": 0,
           "delay": 0,
           "loop": false
@@ -1921,7 +1933,7 @@
         {
           "action": "fadeOut",
           "soundId": "watrwave_black_sea_waves_01_b00m_one",
-          "duration": 2000
+          "duration": 3683
         }
       ]
     },
@@ -1933,7 +1945,33 @@
       "text": "Morrel regarda autour de lui, et tira Dantès à part.",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "fadeIn",
+          "soundId": "dsgnrmbl_rumble_heater_water_movement_low_01_b00m_one",
+          "volume": 0.55,
+          "gainDb": 10,
+          "duration": 3000,
+          "delay": 0,
+          "loop": true
+        },
+        {
+          "action": "play",
+          "soundId": "cc-ck_whoosh_cloth_soft_02",
+          "volume": 0.42,
+          "gainDb": 0,
+          "delay": 600,
+          "loop": false
+        },
+        {
+          "action": "play",
+          "soundId": "sfx_transition_deep_sub_whoosh_sweetener_01",
+          "volume": 0.5,
+          "gainDb": 0,
+          "delay": 0,
+          "loop": false
+        }
+      ]
     },
     {
       "id": "seg_1783344799946_76_pxlh2",
@@ -1943,7 +1981,17 @@
       "text": "— Et comment va l’empereur ? demanda-t-il vivement.",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "fadeIn",
+          "soundId": "dsgndron_erratic_pulse_01_b00m_one",
+          "volume": 0.16,
+          "gainDb": 0,
+          "duration": 1000,
+          "delay": 0,
+          "loop": true
+        }
+      ]
     },
     {
       "id": "seg_1783344799946_77_stuvi",
@@ -1974,7 +2022,13 @@
       "text": "— Et vous lui avez parlé ?",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "fadeOut",
+          "soundId": "dsgndron_erratic_pulse_01_b00m_one",
+          "duration": 4200
+        }
+      ]
     },
     {
       "id": "seg_1783344799946_80_0v49e",
@@ -2024,7 +2078,17 @@
       "text": "— C’est pardieu vrai ! s’écria l’armateur tout joyeux ; c’était Policar Morrel,",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "fadeIn",
+          "soundId": "tone_harp_violin_nostalgic_soft_slow_1",
+          "volume": 0.32,
+          "gainDb": 0,
+          "duration": 2000,
+          "delay": 0,
+          "loop": false
+        }
+      ]
     },
     {
       "id": "seg_1783344799946_85_hg9wv",
@@ -2034,7 +2098,13 @@
       "text": "mon oncle, qui est devenu capitaine. Dantès, vous direz à mon oncle que l’empereur s’est souvenu de lui, et vous le verrez pleurer, le vieux grognard. Allons, allons, continua l’armateur en frappant amicalement sur l’épaule du jeune homme, vous avez bien fait, Dantès, de suivre les instructions du capitaine Leclère et de vous arrêter à l’île d’Elbe, quoique,",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "fadeOut",
+          "soundId": "tone_harp_violin_nostalgic_soft_slow_1",
+          "duration": 300
+        }
+      ]
     },
     {
       "id": "seg_1783344799946_85_hg9wv_overflow_86",
@@ -2044,7 +2114,13 @@
       "text": "si l’on savait que vous avez remis un paquet au maréchal et causé avec l’empereur, cela pourrait vous compromettre.",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "fadeOut",
+          "soundId": "dsgnrmbl_rumble_heater_water_movement_low_01_b00m_one",
+          "duration": 6300
+        }
+      ]
     },
     {
       "id": "seg_1783344799946_86_p0c7h",
@@ -2057,7 +2133,7 @@
       "audioEvents": [
         {
           "action": "fadeIn",
-          "soundId": "boatrow_rowboat_paddle_in_water_sequence_01_b00m_one",
+          "soundId": "mlck_location_between_two_boats_water_laps_wood_creaks",
           "volume": 0.44,
           "gainDb": 0,
           "duration": 1500,
@@ -2112,7 +2188,7 @@
         },
         {
           "action": "fadeOut",
-          "soundId": "boatrow_rowboat_paddle_in_water_sequence_01_b00m_one",
+          "soundId": "mlck_location_between_two_boats_water_laps_wood_creaks",
           "duration": 2000
         },
         {
@@ -4968,6 +5044,11 @@
           "segmentId": "seg_1783344799946_87_mjq29",
           "volume": 0.5206611570247935,
           "fadeMs": 1500
+        },
+        {
+          "segmentId": "seg_1783344799946_80_0v49e",
+          "volume": 0.4,
+          "fadeMs": 1500
         }
       ],
       "_orchestrationNote": "Bourdon portuaire continu, grain d'eau et de quai, sans événement identifiable. Plan arrière, sol constant sous toute la scène. Se réduit fortement pendant l'aparté secret (92-103) pour resserrer l'espace autour des deux hommes, puis remonte avec l'arrivée du bateau de la santé.",
@@ -5059,7 +5140,7 @@
       "volume": 0.38,
       "loop": false,
       "fadeIn": 2000,
-      "fadeOut": 2000,
+      "fadeOut": 3683,
       "delay": 0,
       "pan": 0,
       "panMode": "static",
@@ -5071,11 +5152,19 @@
       "_orchestrationDiegeticMode": "sequence",
       "_orchestrationSunoPrompt": null,
       "_orchestrationSunoMode": null,
-      "_orchestrationPlan": "intermediaire"
+      "_orchestrationPlan": "intermediaire",
+      "automationPoints": [
+        {
+          "segmentId": "seg_1783344799946_69_w5640",
+          "volume": 0.45,
+          "fadeMs": 0,
+          "_isAnchor": true
+        }
+      ]
     },
     {
       "id": "st_1783518863903_c7pj8kgbt_5",
-      "soundId": "boatrow_rowboat_paddle_in_water_sequence_01_b00m_one",
+      "soundId": "mlck_location_between_two_boats_water_laps_wood_creaks",
       "startSegmentId": "seg_1783344799946_86_p0c7h",
       "endSegmentId": "seg_1783344799946_89_g0smq",
       "column": 1,
@@ -5161,8 +5250,8 @@
       "column": 1,
       "volume": 0.56,
       "loop": false,
-      "fadeIn": 0,
-      "fadeOut": 0,
+      "fadeIn": 4700,
+      "fadeOut": 400,
       "delay": 0,
       "pan": -0.44,
       "panMode": "sweep-lr",
@@ -5175,7 +5264,7 @@
       "_orchestrationSunoPrompt": null,
       "_orchestrationSunoMode": null,
       "_orchestrationPlan": "premier",
-      "trimStart": 33880,
+      "trimStart": 24200,
       "trimEnd": 37547,
       "gainDb": 0
     },
@@ -5185,18 +5274,18 @@
       "startSegmentId": "seg_1783344799946_68_pdb4j",
       "endSegmentId": "seg_1783344799946_68_pdb4j",
       "column": 1,
-      "volume": 0.64,
+      "volume": 0.57,
       "loop": false,
       "fadeIn": 0,
       "fadeOut": 0,
       "delay": 0,
-      "pan": -0.37,
+      "pan": -0.02,
       "panMode": "static",
       "muted": false,
       "automationPoints": [
         {
           "segmentId": "seg_1783344799946_68_pdb4j",
-          "volume": 0.64,
+          "volume": 0.57,
           "fadeMs": 0,
           "_isAnchor": true
         }
@@ -5212,30 +5301,40 @@
     },
     {
       "id": "st_1783518863905_v8ws9o5wf_10",
-      "soundId": "dsgnerie_ghostly_atmosphere_long_01_b00m_one",
+      "soundId": "dsgnrmbl_rumble_heater_water_movement_low_01_b00m_one",
       "startSegmentId": "seg_1783344799946_75_3h2uu",
       "endSegmentId": "seg_1783344799946_85_hg9wv_overflow_86",
       "column": 1,
-      "volume": 0.14,
+      "volume": 0.55,
       "loop": true,
       "loopCrossfade": "medium",
       "fadeIn": 3000,
-      "fadeOut": 4000,
+      "fadeOut": 6300,
       "delay": 0,
       "pan": 0,
       "panMode": "static",
-      "muted": true,
-      "broken": true,
+      "muted": false,
       "automationPoints": [
         {
+          "segmentId": "seg_1783344799946_75_3h2uu",
+          "volume": 0.55,
+          "fadeMs": 0,
+          "_isAnchor": true
+        },
+        {
           "segmentId": "seg_1783344799946_76_pxlh2",
-          "volume": 0.2,
+          "volume": 0.7857142857142847,
           "fadeMs": 1500
         },
         {
           "segmentId": "seg_1783344799946_83_ngxrg",
-          "volume": 0.12,
+          "volume": 0.7857142857142847,
           "fadeMs": 2000
+        },
+        {
+          "segmentId": "seg_1783344799946_80_0v49e",
+          "volume": 0.29,
+          "fadeMs": 2500
         }
       ],
       "_orchestrationNote": "Nappe grave continue, sans attaque ni rythme, texture granuleuse plutôt que synthétique propre. Plan intermédiaire, sous les voix chuchotées et le pulse. Signale que ce que les deux hommes échangent doit rester hors de portée du reste de l'équipage.",
@@ -5245,23 +5344,25 @@
       "_orchestrationDiegeticMode": null,
       "_orchestrationSunoPrompt": null,
       "_orchestrationSunoMode": null,
-      "_orchestrationPlan": "intermediaire"
+      "_orchestrationPlan": "intermediaire",
+      "trimStart": 0,
+      "trimEnd": 64391.99999999999,
+      "gainDb": 10
     },
     {
       "id": "st_1783518863905_iwyn0la13_11",
-      "soundId": "muscperc_footsteps_drum_hit_sequence_01_b00m_one",
+      "soundId": "cc-ck_whoosh_cloth_soft_02",
       "startSegmentId": "seg_1783344799946_75_3h2uu",
-      "endSegmentId": "seg_1783344799946_76_pxlh2",
+      "endSegmentId": "seg_1783344799946_75_3h2uu",
       "column": 2,
       "volume": 0.42,
       "loop": false,
-      "fadeIn": 1000,
-      "fadeOut": 1000,
-      "delay": 0,
+      "fadeIn": 0,
+      "fadeOut": 0,
+      "delay": 600,
       "pan": 0,
       "panMode": "static",
-      "muted": true,
-      "broken": true,
+      "muted": false,
       "_orchestrationNote": "Deux à trois pas rapprochés, cadence lente, sans écho de foule autour. Plan intermédiaire, accompagne le déplacement de Morrel qui tire Dantès à l'écart. Marque physiquement le passage d'un espace public à un espace privé.",
       "_orchestrationKeyword": "footstep",
       "_orchestrationLayer": "diegetic",
@@ -5269,24 +5370,31 @@
       "_orchestrationDiegeticMode": "sequence",
       "_orchestrationSunoPrompt": null,
       "_orchestrationSunoMode": null,
-      "_orchestrationPlan": "intermediaire"
+      "_orchestrationPlan": "intermediaire",
+      "automationPoints": [
+        {
+          "segmentId": "seg_1783344799946_75_3h2uu",
+          "volume": 0.42,
+          "fadeMs": 0,
+          "_isAnchor": true
+        }
+      ]
     },
     {
       "id": "st_1783518863906_xtb53ugbg_12",
       "soundId": "dsgndron_erratic_pulse_01_b00m_one",
       "startSegmentId": "seg_1783344799946_76_pxlh2",
       "endSegmentId": "seg_1783344799946_79_f5uam",
-      "column": 3,
+      "column": 6,
       "volume": 0.16,
       "loop": true,
       "loopCrossfade": "medium",
       "fadeIn": 1000,
-      "fadeOut": 1500,
+      "fadeOut": 4200,
       "delay": 0,
       "pan": 0,
       "panMode": "static",
-      "muted": true,
-      "broken": true,
+      "muted": false,
       "_orchestrationNote": "Pulsation sourde régulière, registre grave, sans variation mélodique, distincte de la nappe de fond par son caractère rythmique. Plan premier, se détache brièvement de l'atmosphere de fond. Rend sensible la tension de la question posée à voix basse sur l'Empereur.",
       "_orchestrationKeyword": "pulse",
       "_orchestrationLayer": "atmosphere",
@@ -5298,10 +5406,10 @@
     },
     {
       "id": "st_1783518863906_obtn2cacx_13",
-      "soundId": "muscstr_harp_string_slide_01_b00m_one",
+      "soundId": "tone_harp_violin_nostalgic_soft_slow_1",
       "startSegmentId": "seg_1783344799946_84_n1bg4",
       "endSegmentId": "seg_1783344799946_85_hg9wv",
-      "column": 2,
+      "column": 6,
       "volume": 0.32,
       "loop": false,
       "fadeIn": 2000,
@@ -5309,8 +5417,7 @@
       "delay": 0,
       "pan": 0,
       "panMode": "static",
-      "muted": true,
-      "broken": true,
+      "muted": false,
       "automationPoints": [
         {
           "segmentId": "seg_1783344799946_85_hg9wv",
@@ -5325,7 +5432,10 @@
       "_orchestrationDiegeticMode": null,
       "_orchestrationSunoPrompt": "warm intimate solo harp, sparse arpeggios, soft room tone, tender nostalgic mood, slow tempo 70bpm, cinematic understatement, no percussion, no strings",
       "_orchestrationSunoMode": "theme",
-      "_orchestrationPlan": "premier"
+      "_orchestrationPlan": "premier",
+      "trimStart": 3082,
+      "trimEnd": 221936.3125,
+      "gainDb": 0
     },
     {
       "id": "st_1783518863907_lfs6e9f7r_14",
@@ -5350,6 +5460,20 @@
       "_orchestrationSunoPrompt": null,
       "_orchestrationSunoMode": null,
       "_orchestrationPlan": "premier"
+    },
+    {
+      "id": "st_1783522726615_gmv7wjoeh",
+      "soundId": "sfx_transition_deep_sub_whoosh_sweetener_01",
+      "startSegmentId": "seg_1783344799946_75_3h2uu",
+      "endSegmentId": "seg_1783344799946_75_3h2uu",
+      "column": 3,
+      "volume": 0.5,
+      "fadeIn": 0,
+      "fadeOut": 0,
+      "delay": 0,
+      "loop": false,
+      "muted": false,
+      "broken": false
     }
   ],
   "vfxTracks": []
