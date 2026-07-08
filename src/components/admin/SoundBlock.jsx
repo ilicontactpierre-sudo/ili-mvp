@@ -116,7 +116,13 @@ function SoundBlock({
       }
     }
     soundTrackRef.current = soundTrack
-  }, [soundTrack])
+  // Dépendances précises plutôt que l'objet soundTrack entier : après un
+  // undo/redo, AdminPage clone TOUS les soundTracks (nouvelles références
+  // pour des champs qui n'ont pas changé, comme column ou muted). En ne
+  // dépendant que des champs réellement utilisés par cet effet, on évite de
+  // le redéclencher — et de rappeler onUpdate — pour des blocs qui n'ont
+  // rien à voir avec le changement réel.
+  }, [soundTrack.id, soundTrack.startSegmentId, soundTrack.endSegmentId, soundTrack.automationPoints, soundTrack.volume])
   useEffect(() => {
     propsRef.current = { onSelect, onDoubleClick, onResize, onColumnChange, onUpdate, onDragStart, onDragEnd, onDragTargetChange, soundTrack, onMove, isCmdPressed }
   })
