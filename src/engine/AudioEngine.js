@@ -98,7 +98,7 @@ class AudioEngine {
     if (howl) howl.stop()
   }
 
-  fadeInSound({ trackId, soundId, volume = 1, gainDb = 0, duration = 400, loop, loopCrossfade, trimStart, trimEnd, pan = 0, panMode = 'static' }) {
+  fadeInSound({ trackId, soundId, volume = 1, gainDb = 0, duration = 400, loop, loopCrossfade, trimStart, trimEnd, pan = 0, panMode = 'static', panSpeedMs }) {
     if (!soundId) return
     const key = trackId || soundId
     const howl = this.howlMap.get(soundId)
