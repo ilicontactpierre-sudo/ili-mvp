@@ -56,11 +56,6 @@
       "loop": false
     },
     {
-      "id": "dsgndron_simple_strings_02_b00m_one",
-      "url": "/sounds/DSGNDron_Simple Strings 02_B00M_ONE.mp3",
-      "loop": false
-    },
-    {
       "id": "dsgnrmbl_rumble_heater_water_movement_low_01_b00m_one",
       "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/dsgnrmbl_rumble_heater_water_movement_low_01_b00m_one.mp3",
       "loop": false
@@ -2102,7 +2097,7 @@
         {
           "action": "fadeOut",
           "soundId": "tone_harp_violin_nostalgic_soft_slow_1",
-          "duration": 300
+          "duration": 6300
         }
       ]
     },
@@ -2135,7 +2130,7 @@
           "action": "fadeIn",
           "soundId": "mlck_location_between_two_boats_water_laps_wood_creaks",
           "volume": 0.44,
-          "gainDb": 0,
+          "gainDb": 10,
           "duration": 1500,
           "delay": 0,
           "loop": false
@@ -2154,7 +2149,7 @@
         {
           "action": "fadeIn",
           "soundId": "crwdsprt_football_match_ambience_crowd_chant_walla_01_b00m_one",
-          "volume": 0.4,
+          "volume": 0.75,
           "gainDb": 0,
           "duration": 1500,
           "delay": 0,
@@ -2195,6 +2190,20 @@
           "action": "fadeOut",
           "soundId": "crwdsprt_football_match_ambience_crowd_chant_walla_01_b00m_one",
           "duration": 1500
+        },
+        {
+          "action": "fadeIn",
+          "soundId": "hrck_instrument_-_piano_hits_strings",
+          "volume": 0.68,
+          "gainDb": 0,
+          "duration": 300,
+          "delay": 0,
+          "loop": false
+        },
+        {
+          "action": "fadeOut",
+          "soundId": "hrck_instrument_-_piano_hits_strings",
+          "duration": 600
         }
       ]
     },
@@ -5183,7 +5192,10 @@
       "_orchestrationDiegeticMode": "sequence",
       "_orchestrationSunoPrompt": null,
       "_orchestrationSunoMode": null,
-      "_orchestrationPlan": "intermediaire"
+      "_orchestrationPlan": "intermediaire",
+      "trimStart": 0,
+      "trimEnd": 78624,
+      "gainDb": 10
     },
     {
       "id": "st_1783518863903_tnqp9390a_6",
@@ -5191,7 +5203,7 @@
       "startSegmentId": "seg_1783344799946_87_mjq29",
       "endSegmentId": "seg_1783344799946_89_g0smq",
       "column": 2,
-      "volume": 0.4,
+      "volume": 0.75,
       "loop": false,
       "fadeIn": 1500,
       "fadeOut": 1500,
@@ -5206,7 +5218,15 @@
       "_orchestrationDiegeticMode": "sequence",
       "_orchestrationSunoPrompt": null,
       "_orchestrationSunoMode": null,
-      "_orchestrationPlan": "intermediaire"
+      "_orchestrationPlan": "intermediaire",
+      "automationPoints": [
+        {
+          "segmentId": "seg_1783344799946_87_mjq29",
+          "volume": 0.75,
+          "fadeMs": 0,
+          "_isAnchor": true
+        }
+      ]
     },
     {
       "id": "st_1783518863904_4124ycj4k_7",
@@ -5413,15 +5433,21 @@
       "volume": 0.32,
       "loop": false,
       "fadeIn": 2000,
-      "fadeOut": 300,
+      "fadeOut": 6300,
       "delay": 0,
       "pan": 0,
       "panMode": "static",
       "muted": false,
       "automationPoints": [
         {
+          "segmentId": "seg_1783344799946_84_n1bg4",
+          "volume": 0.32,
+          "fadeMs": 0,
+          "_isAnchor": true
+        },
+        {
           "segmentId": "seg_1783344799946_85_hg9wv",
-          "volume": 0.18,
+          "volume": 0.28125,
           "fadeMs": 800
         }
       ],
@@ -5439,18 +5465,18 @@
     },
     {
       "id": "st_1783518863907_lfs6e9f7r_14",
-      "soundId": "dsgndron_simple_strings_02_b00m_one",
+      "soundId": "hrck_instrument_-_piano_hits_strings",
       "startSegmentId": "seg_1783344799946_89_g0smq",
       "endSegmentId": "seg_1783344799946_89_g0smq",
       "column": 3,
-      "volume": 0.52,
+      "volume": 0.68,
       "loop": false,
       "fadeIn": 300,
       "fadeOut": 600,
       "delay": 0,
       "pan": 0,
       "panMode": "static",
-      "muted": true,
+      "muted": false,
       "broken": true,
       "_orchestrationNote": "Même tenue de cordes graves désaccordées qu'au segment 82-83, mais plus present et plus courte. Plan premier, seul son marquant sur ce segment de clôture. Referme la scène sur une note de suspicion, en pont vers la suite du récit.",
       "_orchestrationKeyword": "strings",
@@ -5459,7 +5485,15 @@
       "_orchestrationDiegeticMode": null,
       "_orchestrationSunoPrompt": null,
       "_orchestrationSunoMode": null,
-      "_orchestrationPlan": "premier"
+      "_orchestrationPlan": "premier",
+      "automationPoints": [
+        {
+          "segmentId": "seg_1783344799946_89_g0smq",
+          "volume": 0.68,
+          "fadeMs": 0,
+          "_isAnchor": true
+        }
+      ]
     },
     {
       "id": "st_1783522726615_gmv7wjoeh",
