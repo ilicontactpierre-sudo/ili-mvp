@@ -58,7 +58,7 @@ class AudioEngine {
     if (event.action === 'volume')  return this.setSoundVolume(event)
   }
 
-  playSound({ trackId, soundId, volume = 1, gainDb = 0, loop, loopCrossfade, trimStart, trimEnd, pan = 0, panMode = 'static' }) {
+  playSound({ trackId, soundId, volume = 1, gainDb = 0, loop, loopCrossfade, trimStart, trimEnd, pan = 0, panMode = 'static', panSpeedMs }) {
     if (!soundId) return
     const key = trackId || soundId
     if (this.playingSounds.has(key)) return
@@ -77,7 +77,7 @@ class AudioEngine {
       howl.volume(this._toPerceptualVolume(volume, gainDb), instanceId)
       this.playingSounds.set(key, { howl, soundId, volume, gainDb, instanceId, loop, loopCrossfade, trimStart, trimEnd, pan, panMode })
     }
-    this._applyPan(key, pan, panMode, howl)
+    this._applyPan(key, pan, panMode, howl, trimStart, trimEnd, panSpeedMs)
   }
 
   stopSound(soundId, trackId) {
