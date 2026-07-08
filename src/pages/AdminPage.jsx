@@ -1629,18 +1629,44 @@ function AdminPage() {
   const timelineContainerRef = useRef(null)
   const [timelineRect, setTimelineRect] = useState({ left: 0, right: 0 })
   useEffect(() => {
+    let rafId = null
     const updateStickyHeight = () => {
       const tabBar = document.querySelector('[data-sticky="tabbar"]')
       const draftBar = document.querySelector('[data-sticky="draftbar"]')
       const draftBanner = document.querySelector('[data-sticky="draftbanner"]')
       const h = (tabBar?.offsetHeight || 45) + (draftBar?.offsetHeight || 44) + (draftBanner?.offsetHeight || 0)
-      setStickyHeight(h)
+      // Ne déclenche un re-render QUE si la hauteur a réellement changé —
+      // condition indispensable pour ne pas retriggerer le MutationObserver
+      // en boucle avec des mises à jour inutiles.
+      setStickyHeight(prev => (prev === h ? prev : h))
     }
-    updateStickyHeight()
-    window.addEventListener('resize', updateStickyHeight)
-    const observer = new MutationObserver(updateStickyHeight)
-    observer.observe(document.body, { childList: true, subtree: true, attributes: true })
-    return () => { window.removeEventListener('resize', updateStickyHeight); observer.disconnect() }
+    // Regrouper les appels avec requestAnimationFrame : si le MutationObserver
+    // se déclenche plusieurs fois dans la même frame (ex: undo/redo qui
+    // modifie beaucoup d'éléments d'un coup), on ne mesure qu'une seule fois.
+    const scheduleUpdate = () => {
+      if (rafId !== null) return
+      rafId = requestAnimationFrame(() => {
+        rafId = null
+        updateStickyHeight()
+      })
+    }
+    scheduleUpdate()
+    window.addEventListener('resize', scheduleUpdate)
+    // On ne surveille plus que les 3 barres sticky elles-mêmes (et leurs
+    // enfants directs), plus jamais tout le <body> — on n'a besoin de savoir
+    // que si LEUR hauteur a pu changer, pas de tout changement DOM de la page.
+    const targets = ['[data-sticky="tabbar"]', '[data-sticky="draftbar"]', '[data-sticky="draftbanner"]']
+      .map(sel => document.querySelector(sel))
+      .filter(Boolean)
+    const observer = new MutationObserver(scheduleUpdate)
+    targets.forEach(el => {
+      observer.observe(el, { childList: true, subtree: true, attributes: true })
+    })
+    return () => {
+      window.removeEventListener('resize', scheduleUpdate)
+      if (rafId !== null) cancelAnimationFrame(rafId)
+      observer.disconnect()
+    }
   }, [])
   useEffect(() => {
     const updateTimelineRect = () => {
