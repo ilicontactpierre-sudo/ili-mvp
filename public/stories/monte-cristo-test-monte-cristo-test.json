@@ -51,11 +51,6 @@
       "loop": false
     },
     {
-      "id": "doorwood_apartment_door_wood_glass_close_bell_02_b00m_one",
-      "url": "/sounds/DOORWood_Apartment Door Wood Glass Close Bell 02_B00M_ONE.mp3",
-      "loop": false
-    },
-    {
       "id": "equiprec_climbing_rope_handling_in_rope_bag_01_b00m_one",
       "url": "/sounds/EQUIPRec_Climbing Rope Handling In Rope Bag 01_B00M_ONE.mp3",
       "loop": false
@@ -88,6 +83,11 @@
     {
       "id": "mlck_location_port_seagulls_light_waves_water_laps",
       "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/mlck_location_port_seagulls_light_waves_water_laps.mp3",
+      "loop": false
+    },
+    {
+      "id": "mlck_location_ship_wood_creak_big_slow",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/mlck_location_ship_wood_creak_big_slow.mp3",
       "loop": false
     },
     {
@@ -151,6 +151,11 @@
       "loop": false
     },
     {
+      "id": "feet_-_boots_group_walk_hardwood",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/feet_-_boots_group_walk_hardwood.mp3",
+      "loop": false
+    },
+    {
       "id": "harbor_sounds_seaside_market_ambience_",
       "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/harbor_sounds_seaside_market_ambience_.mp3",
       "loop": false
@@ -178,6 +183,11 @@
     {
       "id": "sound_effect_cloth_rustle_",
       "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/sound_effect_cloth_rustle_.mp3",
+      "loop": false
+    },
+    {
+      "id": "suno_melancolic_piano_solo_1",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/suno_melancolic_piano_solo_1.mp3",
       "loop": false
     },
     {
@@ -218,16 +228,6 @@
     {
       "id": "whsh_whoosh_medium_to_long_14_jse_tw1",
       "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/whsh_whoosh_medium_to_long_14_jse_tw1.mp3",
-      "loop": false
-    },
-    {
-      "id": "feet_-_boots_group_walk_hardwood",
-      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/feet_-_boots_group_walk_hardwood.mp3",
-      "loop": false
-    },
-    {
-      "id": "suno_melancolic_piano_solo_1",
-      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/suno_melancolic_piano_solo_1.mp3",
       "loop": false
     }
   ],
@@ -1317,17 +1317,7 @@
       "text": "L’armateur ne se le fit pas dire deux fois.",
       "breakAt": null,
       "isLeader": true,
-      "audioEvents": [
-        {
-          "action": "fadeIn",
-          "soundId": "harbor_sounds_seaside_market_ambience_",
-          "volume": 0.26,
-          "gainDb": 6,
-          "duration": 4000,
-          "delay": 0,
-          "loop": true
-        }
-      ]
+      "audioEvents": []
     },
     {
       "id": "seg_1783344799946_42_z54wb",
@@ -1341,7 +1331,7 @@
         {
           "action": "play",
           "soundId": "ropecreak_hemp_rope_twist_squeak_very_short_01_b00m_one",
-          "volume": 0.45,
+          "volume": 0.4,
           "gainDb": 5.5,
           "delay": 0,
           "loop": false
@@ -1387,9 +1377,9 @@
         {
           "action": "fadeIn",
           "soundId": "mlck_location_port_seagulls_light_waves_water_laps",
-          "volume": 0.35,
-          "gainDb": 10,
-          "duration": 1200,
+          "volume": 0.1,
+          "gainDb": 6.5,
+          "duration": 3300,
           "delay": 0,
           "loop": true
         },
@@ -1413,13 +1403,12 @@
       "isLeader": false,
       "audioEvents": [
         {
-          "action": "fadeIn",
+          "action": "play",
           "soundId": "muscstngr_bass_low_sub_tension_01_b00m_one",
           "volume": 0.7,
           "gainDb": 2,
-          "duration": 3000,
           "delay": 0,
-          "loop": true
+          "loop": false
         },
         {
           "action": "fadeOut",
@@ -1439,10 +1428,10 @@
       "audioEvents": [
         {
           "action": "fadeIn",
-          "soundId": "suno_melancolic_piano_solo_1",
-          "volume": 0.4,
-          "gainDb": 0,
-          "duration": 2000,
+          "soundId": "mlck_location_ship_wood_creak_big_slow",
+          "volume": 0.35,
+          "gainDb": 10,
+          "duration": 1000,
           "delay": 0,
           "loop": false
         }
@@ -1456,7 +1445,17 @@
       "text": "— Oui, oui. Pauvre capitaine Leclère ! c’était un brave et honnête homme !",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "fadeIn",
+          "soundId": "suno_melancolic_piano_solo_1",
+          "volume": 0.2,
+          "gainDb": 0,
+          "duration": 2000,
+          "delay": 0,
+          "loop": false
+        }
+      ]
     },
     {
       "id": "seg_1783344799946_48_1h6wj",
@@ -1487,11 +1486,6 @@
       "breakAt": null,
       "isLeader": false,
       "audioEvents": [
-        {
-          "action": "fadeOut",
-          "soundId": "muscstngr_bass_low_sub_tension_01_b00m_one",
-          "duration": 4000
-        },
         {
           "action": "fadeOut",
           "soundId": "suno_melancolic_piano_solo_1",
@@ -1537,7 +1531,13 @@
       "text": "quant à perdre un jour et demi à l’île d’Elbe, il a eu tort ; à moins que le navire n’ait eu quelque avarie à réparer.",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "fadeOut",
+          "soundId": "mlck_location_ship_wood_creak_big_slow",
+          "duration": 1000
+        }
+      ]
     },
     {
       "id": "seg_1783344799946_55_fij6g",
@@ -1605,11 +1605,6 @@
           "gainDb": 0,
           "delay": 300,
           "loop": false
-        },
-        {
-          "action": "fadeOut",
-          "soundId": "harbor_sounds_seaside_market_ambience_",
-          "duration": 5000
         }
       ]
     },
@@ -4310,6 +4305,26 @@
           "segmentId": "seg_1783344799946_44_av3j6",
           "volume": 0.2,
           "fadeMs": 2500
+        },
+        {
+          "segmentId": "seg_1783344799946_41_8kqao",
+          "volume": 0.28,
+          "fadeMs": 600
+        },
+        {
+          "segmentId": "seg_1783344799946_51_f25hy",
+          "volume": 0.16,
+          "fadeMs": 1500
+        },
+        {
+          "segmentId": "seg_1783344799946_53_csmm4",
+          "volume": 0.21,
+          "fadeMs": 1500
+        },
+        {
+          "segmentId": "seg_1783344799946_46_1802g",
+          "volume": 0.3,
+          "fadeMs": 2500
         }
       ],
       "loopCrossfade": "medium"
@@ -4361,71 +4376,27 @@
       "_orchestrationPlan": "premier"
     },
     {
-      "id": "st_1783427601888_hoikvn5x8_2",
-      "soundId": "harbor_sounds_seaside_market_ambience_",
-      "startSegmentId": "seg_1783344799946_41_8kqao",
-      "endSegmentId": "seg_1783344799946_58_ta9ta",
-      "column": 2,
-      "volume": 0.26,
-      "loop": true,
-      "loopCrossfade": "medium",
-      "fadeIn": 4000,
-      "fadeOut": 5000,
-      "delay": 0,
-      "pan": 0,
-      "panMode": "static",
-      "muted": false,
-      "automationPoints": [
-        {
-          "segmentId": "seg_1783344799946_41_8kqao",
-          "volume": 0.26,
-          "fadeMs": 0,
-          "_isAnchor": true
-        },
-        {
-          "segmentId": "seg_1783344799946_51_f25hy",
-          "volume": 0.14,
-          "fadeMs": 1200
-        },
-        {
-          "segmentId": "seg_1783344799946_53_csmm4",
-          "volume": 0.2,
-          "fadeMs": 1500
-        },
-        {
-          "segmentId": "seg_1783344799946_44_av3j6",
-          "volume": 0.2,
-          "fadeMs": 1500
-        }
-      ],
-      "_orchestrationNote": "Nappe portuaire continue, grave et douce, bruit d'eau et d'activité lointaine sans détail identifiable. Plan arrière, sous toutes les autres couches. Ancre l'ensemble de la scène dans le port de Marseille sans jamais capter l'attention.",
-      "_orchestrationKeyword": "port",
-      "_orchestrationLayer": "bed",
-      "_orchestrationLeitmotiv": "",
-      "_orchestrationDiegeticMode": null,
-      "_orchestrationSunoPrompt": null,
-      "_orchestrationSunoMode": null,
-      "_orchestrationPlan": "arriere",
-      "trimStart": 0,
-      "trimEnd": 94693.875,
-      "gainDb": 6
-    },
-    {
       "id": "st_1783427601888_hco8rzsyh_3",
       "soundId": "muscstngr_bass_low_sub_tension_01_b00m_one",
       "startSegmentId": "seg_1783344799946_45_n90v4",
-      "endSegmentId": "seg_1783344799946_50_xppw4",
+      "endSegmentId": "seg_1783344799946_45_n90v4",
       "column": 0,
       "volume": 0.7,
-      "loop": true,
+      "loop": false,
       "loopCrossfade": "long",
-      "fadeIn": 3000,
-      "fadeOut": 4000,
+      "fadeIn": 0,
+      "fadeOut": 0,
       "delay": 0,
       "pan": 0,
       "panMode": "static",
       "muted": false,
       "automationPoints": [
+        {
+          "segmentId": "seg_1783344799946_45_n90v4",
+          "volume": 0.7,
+          "fadeMs": 0,
+          "_isAnchor": true
+        },
         {
           "segmentId": "seg_1783344799946_44_av3j6",
           "volume": 0.5833333333333336,
@@ -4450,17 +4421,17 @@
       "_orchestrationSunoPrompt": null,
       "_orchestrationSunoMode": null,
       "_orchestrationPlan": "intermediaire",
-      "trimStart": 264,
-      "trimEnd": 22637,
+      "trimStart": 0,
+      "trimEnd": 25368,
       "gainDb": 2
     },
     {
       "id": "st_1783427601888_f9aj109gw_4",
       "soundId": "suno_melancolic_piano_solo_1",
-      "startSegmentId": "seg_1783344799946_46_1802g",
+      "startSegmentId": "seg_1783344799946_47_5p8r6",
       "endSegmentId": "seg_1783344799946_50_xppw4",
       "column": 1,
-      "volume": 0.4,
+      "volume": 0.2,
       "loop": false,
       "fadeIn": 2000,
       "fadeOut": 3000,
@@ -4468,27 +4439,26 @@
       "pan": 0,
       "panMode": "static",
       "muted": false,
-      "broken": true,
       "automationPoints": [
         {
           "segmentId": "seg_1783344799946_46_1802g",
-          "volume": 0.29333333333333356,
+          "volume": 0.14666666666666675,
           "fadeMs": 1500
         },
         {
           "segmentId": "seg_1783344799946_47_5p8r6",
-          "volume": 0.4266666666666669,
+          "volume": 0.17,
           "fadeMs": 1000
         },
         {
           "segmentId": "seg_1783344799946_48_1h6wj",
-          "volume": 0.15999999999999998,
-          "fadeMs": 1200
+          "volume": 0.13,
+          "fadeMs": 0
         },
         {
           "segmentId": "seg_1783344799946_49_2gvj8",
-          "volume": 0.37333333333333346,
-          "fadeMs": 1500
+          "volume": 0.2,
+          "fadeMs": 2500
         }
       ],
       "_orchestrationNote": "Piano solo, notes espacées sans pédale longue, dynamique douce. Plan intermédiaire, sous les répliques, remonte sur les phrases de deuil sincère. Porte le chagrin de Morrel et s'efface pendant la réplique obséquieuse de Danglars pour souligner son insincérité.",
@@ -4556,7 +4526,7 @@
       "startSegmentId": "seg_1783344799946_42_z54wb",
       "endSegmentId": "seg_1783344799946_43_rs8sw",
       "column": 0,
-      "volume": 0.45,
+      "volume": 0.4,
       "loop": false,
       "fadeIn": 0,
       "fadeOut": 0,
@@ -4578,7 +4548,7 @@
       "automationPoints": [
         {
           "segmentId": "seg_1783344799946_42_z54wb",
-          "volume": 0.45,
+          "volume": 0.4,
           "fadeMs": 0,
           "_isAnchor": true
         }
@@ -4614,8 +4584,8 @@
           "_isAnchor": true
         }
       ],
-      "trimStart": 48943,
-      "trimEnd": 58488,
+      "trimStart": 25589,
+      "trimEnd": 31681,
       "gainDb": 10
     },
     {
@@ -4624,9 +4594,9 @@
       "startSegmentId": "seg_1783344799946_44_av3j6",
       "endSegmentId": "seg_1783344799946_45_n90v4",
       "column": 3,
-      "volume": 0.35,
+      "volume": 0.1,
       "loop": true,
-      "fadeIn": 1200,
+      "fadeIn": 3300,
       "fadeOut": 3300,
       "delay": 0,
       "pan": 0,
@@ -4642,12 +4612,20 @@
       "_orchestrationPlan": "arriere",
       "trimStart": 0,
       "trimEnd": 40728,
-      "gainDb": 10,
-      "loopCrossfade": "medium"
+      "gainDb": 6.5,
+      "loopCrossfade": "medium",
+      "automationPoints": [
+        {
+          "segmentId": "seg_1783344799946_44_av3j6",
+          "volume": 0.1,
+          "fadeMs": 0,
+          "_isAnchor": true
+        }
+      ]
     },
     {
       "id": "st_1783427601889_8yzpp8ijv_10",
-      "soundId": "doorwood_apartment_door_wood_glass_close_bell_02_b00m_one",
+      "soundId": "mlck_location_ship_wood_creak_big_slow",
       "startSegmentId": "seg_1783344799946_46_1802g",
       "endSegmentId": "seg_1783344799946_54_nqg69",
       "column": 3,
@@ -4658,7 +4636,7 @@
       "delay": 0,
       "pan": 0,
       "panMode": "static",
-      "muted": true,
+      "muted": false,
       "broken": true,
       "_orchestrationNote": "Craquements légers et irréguliers de la coque sous le poids des hommes immobiles, sans motif répétitif. Plan arrière, sous la musique et l'atmosphère. Maintient la présence physique du pont pendant tout l'échange verbal.",
       "_orchestrationKeyword": "wood",
@@ -4667,7 +4645,18 @@
       "_orchestrationDiegeticMode": "sequence",
       "_orchestrationSunoPrompt": null,
       "_orchestrationSunoMode": null,
-      "_orchestrationPlan": "arriere"
+      "_orchestrationPlan": "arriere",
+      "trimStart": 0,
+      "trimEnd": 171576,
+      "gainDb": 10,
+      "automationPoints": [
+        {
+          "segmentId": "seg_1783344799946_46_1802g",
+          "volume": 0.35,
+          "fadeMs": 0,
+          "_isAnchor": true
+        }
+      ]
     },
     {
       "id": "st_1783427601890_1ogt74ui9_11",
@@ -4722,7 +4711,15 @@
       "delay": 0,
       "loop": false,
       "muted": false,
-      "broken": false
+      "broken": false,
+      "automationPoints": [
+        {
+          "segmentId": "seg_1783344799946_44_av3j6",
+          "volume": 0.45,
+          "fadeMs": 0,
+          "_isAnchor": true
+        }
+      ]
     }
   ],
   "vfxTracks": []
