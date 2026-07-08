@@ -76,11 +76,6 @@
       "loop": false
     },
     {
-      "id": "muscperc_cartoon_footsteps_run_bongo_drum_hit_sequence_wide_01_b00m_one",
-      "url": "/sounds/MUSCPerc_Cartoon Footsteps Run Bongo Drum Hit Sequence Wide 01_B00M_ONE.mp3",
-      "loop": false
-    },
-    {
       "id": "muscperc_footsteps_drum_hit_sequence_01_b00m_one",
       "url": "/sounds/MUSCPerc_Footsteps Drum Hit Sequence 01_B00M_ONE.mp3",
       "loop": false
@@ -278,6 +273,16 @@
     {
       "id": "sailboat_-_sail_flapping_-_fabric_movement_9",
       "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/sailboat_-_sail_flapping_-_fabric_movement_9.mp3",
+      "loop": false
+    },
+    {
+      "id": "footsteps_hardwood_floor_running_hq_sound_effects",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/footsteps_hardwood_floor_running_hq_sound_effects.mp3",
+      "loop": false
+    },
+    {
+      "id": "cfck_step_wood_backpack_no_lining_2_",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/cfck_step_wood_backpack_no_lining_2_.mp3",
       "loop": false
     }
   ],
@@ -1803,6 +1808,14 @@
           "action": "fadeOut",
           "soundId": "crwdsprt_football_match_ambience_crowd_chant_walla_01_b00m_one",
           "duration": 1500
+        },
+        {
+          "action": "play",
+          "soundId": "footsteps_hardwood_floor_running_hq_sound_effects",
+          "volume": 0.56,
+          "gainDb": 0,
+          "delay": 0,
+          "loop": false
         }
       ]
     },
@@ -1814,16 +1827,7 @@
       "text": "— Pardon, monsieur Morrel, dit Dantès en s’approchant ; maintenant que le navire est mouillé,",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": [
-        {
-          "action": "play",
-          "soundId": "walk_foot_feetsneakers_wood_parquet_2_",
-          "volume": 0.56,
-          "gainDb": 0,
-          "delay": 0,
-          "loop": false
-        }
-      ]
+      "audioEvents": []
     },
     {
       "id": "seg_1783344799946_68_pdb4j",
@@ -1833,7 +1837,16 @@
       "text": "me voilà tout à vous : vous m’avez appelé, je crois ? Danglars fit un pas en arrière.",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "play",
+          "soundId": "cfck_step_wood_backpack_no_lining_2_",
+          "volume": 0.64,
+          "gainDb": 0,
+          "delay": 0,
+          "loop": false
+        }
+      ]
     },
     {
       "id": "seg_1783344799946_69_w5640",
@@ -5120,7 +5133,6 @@
       "pan": 0,
       "panMode": "static",
       "muted": false,
-      "broken": true,
       "automationPoints": [
         {
           "segmentId": "seg_1783344799946_65_hzjvn",
@@ -5143,8 +5155,8 @@
     },
     {
       "id": "st_1783518863904_21zw7ly81_8",
-      "soundId": "walk_foot_feetsneakers_wood_parquet_2_",
-      "startSegmentId": "seg_1783344799946_67_ipprr",
+      "soundId": "footsteps_hardwood_floor_running_hq_sound_effects",
+      "startSegmentId": "seg_1783344799946_66_5meix",
       "endSegmentId": "seg_1783344799946_67_ipprr",
       "column": 1,
       "volume": 0.56,
@@ -5153,9 +5165,8 @@
       "fadeOut": 0,
       "delay": 0,
       "pan": -0.44,
-      "panMode": "static",
+      "panMode": "sweep-lr",
       "muted": false,
-      "broken": true,
       "_orchestrationNote": "Pas isolé sur pont de bois, attaque nette, pas de réverbération longue. Plan premier, seul événement sur ce segment. Marque physiquement l'approche de Dantès vers le groupe.",
       "_orchestrationKeyword": "footstep",
       "_orchestrationLayer": "diegetic",
@@ -5164,25 +5175,32 @@
       "_orchestrationSunoPrompt": null,
       "_orchestrationSunoMode": null,
       "_orchestrationPlan": "premier",
-      "trimStart": 9760,
-      "trimEnd": 10640,
+      "trimStart": 33880,
+      "trimEnd": 37547,
       "gainDb": 0
     },
     {
       "id": "st_1783518863904_6128fty6e_9",
-      "soundId": "muscperc_cartoon_footsteps_run_bongo_drum_hit_sequence_wide_01_b00m_one",
+      "soundId": "cfck_step_wood_backpack_no_lining_2_",
       "startSegmentId": "seg_1783344799946_68_pdb4j",
       "endSegmentId": "seg_1783344799946_68_pdb4j",
       "column": 1,
-      "volume": 0.52,
+      "volume": 0.64,
       "loop": false,
       "fadeIn": 0,
       "fadeOut": 0,
       "delay": 0,
-      "pan": 0,
+      "pan": -0.37,
       "panMode": "static",
-      "muted": true,
-      "broken": true,
+      "muted": false,
+      "automationPoints": [
+        {
+          "segmentId": "seg_1783344799946_68_pdb4j",
+          "volume": 0.64,
+          "fadeMs": 0,
+          "_isAnchor": true
+        }
+      ],
       "_orchestrationNote": "Pas unique, plus court et plus étouffé que le précédent, direction inverse suggérée par la brièveté. Plan premier, isolé. Traduit le recul physique et involontaire de Danglars face à Dantès.",
       "_orchestrationKeyword": "footstep",
       "_orchestrationLayer": "diegetic",
