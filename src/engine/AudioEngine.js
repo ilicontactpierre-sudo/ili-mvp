@@ -133,7 +133,7 @@ class AudioEngine {
         } else if (loop) {
           howl.loop(true, instanceId)
         }
-        this._applyPan(key, pan, panMode, howl)
+        this._applyPan(key, pan, panMode, howl, trimStart, trimEnd, panSpeedMs)
       }
       howl.on('play', onPlay)
     }
