@@ -6,11 +6,6 @@
   "published": true,
   "sounds": [
     {
-      "id": "ambforst_birds_chirping_frogs_croaking_forest_b00m_one",
-      "url": "/sounds/AMBForst_Birds Chirping Frogs Croaking Forest_B00M_ONE.mp3",
-      "loop": false
-    },
-    {
       "id": "belllrg_church_single_ring_01_b00m_one",
       "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/belllrg_church_single_ring_01_b00m_one.mp3",
       "loop": false
@@ -66,16 +61,6 @@
       "loop": false
     },
     {
-      "id": "muscinst_piano_arm_chords_sustain_pedal_low_01_b00m_one",
-      "url": "/sounds/MUSCInst_Piano Arm Chords Sustain Pedal Low 01_B00M_ONE.mp3",
-      "loop": false
-    },
-    {
-      "id": "muscperc_footsteps_horse_riding_drum_hits_01_b00m_one",
-      "url": "/sounds/MUSCPerc_Footsteps Horse Riding Drum Hits 01_B00M_ONE.mp3",
-      "loop": false
-    },
-    {
       "id": "muscstngr_bass_low_sub_tension_01_b00m_one",
       "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/muscstngr_bass_low_sub_tension_01_b00m_one.mp3",
       "loop": false
@@ -98,6 +83,11 @@
     {
       "id": "watrwave_black_sea_waves_01_b00m_one",
       "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/watrwave_black_sea_waves_01_b00m_one.mp3",
+      "loop": false
+    },
+    {
+      "id": "mlck_location_port_seagulls_light_waves_water_laps",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/mlck_location_port_seagulls_light_waves_water_laps.mp3",
       "loop": false
     },
     {
@@ -233,6 +223,11 @@
     {
       "id": "feet_-_boots_group_walk_hardwood",
       "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/feet_-_boots_group_walk_hardwood.mp3",
+      "loop": false
+    },
+    {
+      "id": "suno_melancolic_piano_solo_1",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/suno_melancolic_piano_solo_1.mp3",
       "loop": false
     }
   ],
@@ -1341,7 +1336,7 @@
       ],
       "text": "Il saisit un câble que lui jeta Dantès, et, avec une dextérité qui eût fait honneur à un homme de mer,",
       "breakAt": null,
-      "isLeader": false,
+      "isLeader": true,
       "audioEvents": [
         {
           "action": "play",
@@ -1373,8 +1368,8 @@
         {
           "action": "play",
           "soundId": "feet_-_boots_group_walk_hardwood",
-          "volume": 0.6,
-          "gainDb": 0,
+          "volume": 1,
+          "gainDb": 10,
           "delay": 900,
           "loop": false
         }
@@ -1391,10 +1386,10 @@
       "audioEvents": [
         {
           "action": "fadeIn",
-          "soundId": "muscstngr_bass_low_sub_tension_01_b00m_one",
-          "volume": 0.12,
-          "gainDb": 0,
-          "duration": 3000,
+          "soundId": "mlck_location_port_seagulls_light_waves_water_laps",
+          "volume": 0.35,
+          "gainDb": 10,
+          "duration": 1200,
           "delay": 0,
           "loop": true
         },
@@ -1416,7 +1411,22 @@
       "text": "aussi, outre son titre d’agent comptable, qui est toujours un motif de répulsion pour les matelots, était-il généralement aussi mal vu de l’équipage qu’Edmond Dantès au contraire en était aimé.",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "fadeIn",
+          "soundId": "muscstngr_bass_low_sub_tension_01_b00m_one",
+          "volume": 0.7,
+          "gainDb": 2,
+          "duration": 3000,
+          "delay": 0,
+          "loop": true
+        },
+        {
+          "action": "fadeOut",
+          "soundId": "mlck_location_port_seagulls_light_waves_water_laps",
+          "duration": 3300
+        }
+      ]
     },
     {
       "id": "seg_1783344799946_46_1802g",
@@ -1426,7 +1436,17 @@
       "text": "— Eh bien ! monsieur Morrel, dit Danglars, vous savez le malheur, n’est-ce pas ?",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "fadeIn",
+          "soundId": "suno_melancolic_piano_solo_1",
+          "volume": 0.4,
+          "gainDb": 0,
+          "duration": 2000,
+          "delay": 0,
+          "loop": false
+        }
+      ]
     },
     {
       "id": "seg_1783344799946_47_5p8r6",
@@ -1471,6 +1491,11 @@
           "action": "fadeOut",
           "soundId": "muscstngr_bass_low_sub_tension_01_b00m_one",
           "duration": 4000
+        },
+        {
+          "action": "fadeOut",
+          "soundId": "suno_melancolic_piano_solo_1",
+          "duration": 3000
         }
       ]
     },
@@ -4280,6 +4305,11 @@
           "segmentId": "seg_1783344799946_42_z54wb",
           "volume": 0.35,
           "fadeMs": 5000
+        },
+        {
+          "segmentId": "seg_1783344799946_44_av3j6",
+          "volume": 0.2,
+          "fadeMs": 2500
         }
       ],
       "loopCrossfade": "medium"
@@ -4361,6 +4391,11 @@
           "segmentId": "seg_1783344799946_53_csmm4",
           "volume": 0.2,
           "fadeMs": 1500
+        },
+        {
+          "segmentId": "seg_1783344799946_44_av3j6",
+          "volume": 0.2,
+          "fadeMs": 1500
         }
       ],
       "_orchestrationNote": "Nappe portuaire continue, grave et douce, bruit d'eau et d'activité lointaine sans détail identifiable. Plan arrière, sous toutes les autres couches. Ancre l'ensemble de la scène dans le port de Marseille sans jamais capter l'attention.",
@@ -4378,10 +4413,10 @@
     {
       "id": "st_1783427601888_hco8rzsyh_3",
       "soundId": "muscstngr_bass_low_sub_tension_01_b00m_one",
-      "startSegmentId": "seg_1783344799946_44_av3j6",
+      "startSegmentId": "seg_1783344799946_45_n90v4",
       "endSegmentId": "seg_1783344799946_50_xppw4",
       "column": 0,
-      "volume": 0.12,
+      "volume": 0.7,
       "loop": true,
       "loopCrossfade": "long",
       "fadeIn": 3000,
@@ -4390,21 +4425,20 @@
       "pan": 0,
       "panMode": "static",
       "muted": false,
-      "broken": true,
       "automationPoints": [
         {
           "segmentId": "seg_1783344799946_44_av3j6",
-          "volume": 0.27,
+          "volume": 0.5833333333333336,
           "fadeMs": 2000
         },
         {
           "segmentId": "seg_1783344799946_48_1h6wj",
-          "volume": 0.16,
+          "volume": 0.9333333333333342,
           "fadeMs": 1500
         },
         {
           "segmentId": "seg_1783344799946_50_xppw4",
-          "volume": 0.06,
+          "volume": 0.3500000000000006,
           "fadeMs": 2000
         }
       ],
@@ -4418,42 +4452,42 @@
       "_orchestrationPlan": "intermediaire",
       "trimStart": 264,
       "trimEnd": 22637,
-      "gainDb": 0
+      "gainDb": 2
     },
     {
       "id": "st_1783427601888_f9aj109gw_4",
-      "soundId": "muscinst_piano_arm_chords_sustain_pedal_low_01_b00m_one",
+      "soundId": "suno_melancolic_piano_solo_1",
       "startSegmentId": "seg_1783344799946_46_1802g",
       "endSegmentId": "seg_1783344799946_50_xppw4",
       "column": 1,
-      "volume": 0.3,
+      "volume": 0.4,
       "loop": false,
       "fadeIn": 2000,
       "fadeOut": 3000,
       "delay": 0,
       "pan": 0,
       "panMode": "static",
-      "muted": true,
+      "muted": false,
       "broken": true,
       "automationPoints": [
         {
           "segmentId": "seg_1783344799946_46_1802g",
-          "volume": 0.22,
+          "volume": 0.29333333333333356,
           "fadeMs": 1500
         },
         {
           "segmentId": "seg_1783344799946_47_5p8r6",
-          "volume": 0.32,
+          "volume": 0.4266666666666669,
           "fadeMs": 1000
         },
         {
           "segmentId": "seg_1783344799946_48_1h6wj",
-          "volume": 0.12,
+          "volume": 0.15999999999999998,
           "fadeMs": 1200
         },
         {
           "segmentId": "seg_1783344799946_49_2gvj8",
-          "volume": 0.28,
+          "volume": 0.37333333333333346,
           "fadeMs": 1500
         }
       ],
@@ -4464,7 +4498,10 @@
       "_orchestrationDiegeticMode": null,
       "_orchestrationSunoPrompt": "melancholic solo piano elegy, sparse notes, minor key, slow tempo 58bpm, intimate close-mic recording, subtle room tone, no percussion, restrained cinematic",
       "_orchestrationSunoMode": "theme",
-      "_orchestrationPlan": "intermediaire"
+      "_orchestrationPlan": "intermediaire",
+      "trimStart": 1405,
+      "trimEnd": 202318.35416666666,
+      "gainDb": 0
     },
     {
       "id": "st_1783427601888_csns1jbi6_5",
@@ -4553,7 +4590,7 @@
       "startSegmentId": "seg_1783344799946_43_rs8sw",
       "endSegmentId": "seg_1783344799946_43_rs8sw",
       "column": 1,
-      "volume": 0.6,
+      "volume": 1,
       "loop": false,
       "fadeIn": 0,
       "fadeOut": 0,
@@ -4576,47 +4613,25 @@
           "fadeMs": 0,
           "_isAnchor": true
         }
-      ]
-    },
-    {
-      "id": "st_1783427601889_0jozue49j_8",
-      "soundId": "muscperc_footsteps_horse_riding_drum_hits_01_b00m_one",
-      "startSegmentId": "seg_1783344799946_44_av3j6",
-      "endSegmentId": "seg_1783344799946_44_av3j6",
-      "column": 1,
-      "volume": 0.55,
-      "loop": false,
-      "fadeIn": 0,
-      "fadeOut": 0,
-      "delay": 0,
-      "pan": 0,
-      "panMode": "static",
-      "muted": true,
-      "broken": true,
-      "_orchestrationNote": "Pas unique sur le pont, attaque nette, sans réverbération longue. Plan intermédiaire, sous la voix narrative. Détail concret qui accompagne l'entrée en scène de Danglars sans intention dramatique appuyée.",
-      "_orchestrationKeyword": "footstep",
-      "_orchestrationLayer": "diegetic",
-      "_orchestrationLeitmotiv": "",
-      "_orchestrationDiegeticMode": "ponctuel",
-      "_orchestrationSunoPrompt": null,
-      "_orchestrationSunoMode": null,
-      "_orchestrationPlan": "intermediaire"
+      ],
+      "trimStart": 48943,
+      "trimEnd": 58488,
+      "gainDb": 10
     },
     {
       "id": "st_1783427601889_555p3vwix_9",
-      "soundId": "ambforst_birds_chirping_frogs_croaking_forest_b00m_one",
+      "soundId": "mlck_location_port_seagulls_light_waves_water_laps",
       "startSegmentId": "seg_1783344799946_44_av3j6",
       "endSegmentId": "seg_1783344799946_45_n90v4",
       "column": 3,
       "volume": 0.35,
-      "loop": false,
-      "fadeIn": 500,
-      "fadeOut": 500,
+      "loop": true,
+      "fadeIn": 1200,
+      "fadeOut": 3300,
       "delay": 0,
       "pan": 0,
       "panMode": "static",
-      "muted": true,
-      "broken": true,
+      "muted": false,
       "_orchestrationNote": "Cris d'oiseaux marins épars, irréguliers, sans rythme. Plan arrière, sous le bed portuaire. Simple détail d'ambiance de port sans portée dramatique, pour la texture du lieu.",
       "_orchestrationKeyword": "birds",
       "_orchestrationLayer": "diegetic",
@@ -4624,7 +4639,11 @@
       "_orchestrationDiegeticMode": "sequence",
       "_orchestrationSunoPrompt": null,
       "_orchestrationSunoMode": null,
-      "_orchestrationPlan": "arriere"
+      "_orchestrationPlan": "arriere",
+      "trimStart": 0,
+      "trimEnd": 40728,
+      "gainDb": 10,
+      "loopCrossfade": "medium"
     },
     {
       "id": "st_1783427601889_8yzpp8ijv_10",
