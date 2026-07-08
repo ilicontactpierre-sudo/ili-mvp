@@ -1395,7 +1395,6 @@ function AdminPage() {
     historyIndexRef.current = newIndex
     setHistoryIndex(newIndex)
     applyHistorySnapshot(snapshot)
-    console.timeEnd('[undo] applyHistorySnapshot')
   }
   const handleRedo = () => {
     if (historyIndexRef.current >= historyRef.current.length - 1) return
