@@ -77,7 +77,6 @@ function SoundBlock({
         // Ne mettre à jour que si le composant est monté et les props disponibles
         // (propsRef.current.onUpdate peut être absent au premier render)
         if (propsRef.current.onUpdate) {
-          console.count('[C-anchor] création point ancre pour ' + soundTrack.id)
           propsRef.current.onUpdate(soundTrack.id, {
             automationPoints: [newAnchor, ...points],
           })
