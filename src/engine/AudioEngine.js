@@ -489,49 +489,54 @@ class AudioEngine {
   }
 
   // ── Spatialisation pan ──────────────────────────────────────────────
-  _applyPan(key, pan = 0, panMode = 'static', howl) {
+  // trimStart/trimEnd : bornes de la portion réellement jouée (ms). Toute
+  // trajectoire de pan (sweep, converge, diverge) doit se dérouler sur la
+  // durée de CETTE portion, jamais sur la durée totale du fichier brut —
+  // sinon l'effet reste bien plus lent (ou incomplet) que ce qui est audible.
+  // panSpeedMs : période en ms pour les modes oscillate (remplace le défaut
+  // 6000/1500 si l'utilisateur a réglé une vitesse personnalisée).
+  _applyPan(key, pan = 0, panMode = 'static', howl, trimStart, trimEnd, panSpeedMs) {
     // Nettoyer toute animation existante sur cette key
     this._stopPanAnimation(key)
-
     if (panMode === 'static') {
       // Pan fixe : appliquer une seule fois
       try { howl.stereo(pan) } catch (_) {}
       return
     }
-
-    // Durée totale du son en ms (pour le sweep)
-    const durationMs = (howl.duration() || 4) * 1000
-
+    // Durée EFFECTIVE (portion trimée) du son en ms — pas la durée du fichier brut
+    const start = trimStart || 0
+    const fullMs = (howl.duration() || 4) * 1000
+    const end = (trimEnd != null && trimEnd > start) ? trimEnd : fullMs
+    const durationMs = Math.max(1, end - start)
     // Résolution de mise à jour : 60 fps
     const tickMs = 16
     let elapsed = 0
-
+    const oscillatePeriod = panSpeedMs > 0
+      ? panSpeedMs
+      : (panMode === 'oscillate-fast' ? 1500 : 6000)
     const getPanValue = (t) => {
       // t = temps écoulé en ms
       switch (panMode) {
         case 'sweep-lr':
-          // -1 → +1 linéaire sur la durée totale
+          // -1 → +1 linéaire sur la durée effective (trimée)
           return Math.max(-1, Math.min(1, -1 + 2 * (t / durationMs)))
         case 'sweep-rl':
           // +1 → -1
           return Math.max(-1, Math.min(1, 1 - 2 * (t / durationMs)))
         case 'oscillate-slow':
-          // Période 6s
-          return Math.sin((t / 6000) * 2 * Math.PI)
         case 'oscillate-fast':
-          // Période 1.5s
-          return Math.sin((t / 1500) * 2 * Math.PI)
+          // Période réglable via panSpeedMs (défauts : 6s lent / 1.5s vite)
+          return Math.sin((t / oscillatePeriod) * 2 * Math.PI)
         case 'converge':
-          // Deux extrêmes → centre : |cos| décroissant
+          // Deux extrêmes → centre : |cos| décroissant, sur la durée effective
           return Math.cos(Math.PI * (t / durationMs)) * (1 - t / durationMs)
         case 'diverge':
-          // Centre → extrêmes : signe alterné, amplitude croissante
+          // Centre → extrêmes : signe alterné, amplitude croissante, sur la durée effective
           return Math.sin((t / durationMs) * Math.PI) * (t / durationMs > 0.5 ? 1 : -1) * (t / durationMs)
         default:
           return 0
       }
     }
-
     const intervalId = setInterval(() => {
       const state = this.playingSounds.get(key)
       if (!state) {
@@ -541,13 +546,11 @@ class AudioEngine {
       const panValue = getPanValue(elapsed)
       try { state.howl.stereo(panValue) } catch (_) {}
       elapsed += tickMs
-
-      // Pour les sweeps, on boucle sur durationMs puis on s'arrête
-      if ((panMode === 'sweep-lr' || panMode === 'sweep-rl') && elapsed >= durationMs) {
+      // Pour les sweeps/converge/diverge (bornés à la portion trimée), on s'arrête à la fin
+      if (panMode !== 'oscillate-slow' && panMode !== 'oscillate-fast' && elapsed >= durationMs) {
         this._stopPanAnimation(key)
       }
     }, tickMs)
-
     this._panAnimations.set(key, intervalId)
   }
 
