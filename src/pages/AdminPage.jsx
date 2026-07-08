@@ -1644,7 +1644,6 @@ function AdminPage() {
     // se déclenche plusieurs fois dans la même frame (ex: undo/redo qui
     // modifie beaucoup d'éléments d'un coup), on ne mesure qu'une seule fois.
     const scheduleUpdate = () => {
-      console.count('[B-sticky] scheduleUpdate appelé')
       if (rafId !== null) return
       rafId = requestAnimationFrame(() => {
         rafId = null
