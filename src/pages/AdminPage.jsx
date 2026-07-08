@@ -1124,7 +1124,7 @@ function AdminPage() {
   // "broken" une fois une histoire rechargée après coup.
   useEffect(() => {
     if (soundLibrary.length === 0) return
-    console.count('[heal] effet déclenché')
+    console.count('[A-heal] effet déclenché')
     setSoundTracks(prev => healSoundTracksAgainstLibrary(prev, soundLibrary))
     setParts(prev => {
       if (!prev || prev.length === 0) return prev
