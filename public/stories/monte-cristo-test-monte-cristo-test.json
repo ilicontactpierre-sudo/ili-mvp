@@ -16,8 +16,8 @@
       "loop": false
     },
     {
-      "id": "chainimpt_metal_chain_on_wood_impact_01_b00m_one",
-      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/chainimpt_metal_chain_on_wood_impact_01_b00m_one.mp3",
+      "id": "chainmvmt_big_coil_up_01_b00m_one",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/chainmvmt_big_coil_up_01_b00m_one.mp3",
       "loop": false
     },
     {
@@ -51,18 +51,13 @@
       "loop": false
     },
     {
-      "id": "equiprec_climbing_rope_handling_in_rope_bag_01_b00m_one",
-      "url": "/sounds/EQUIPRec_Climbing Rope Handling In Rope Bag 01_B00M_ONE.mp3",
-      "loop": false
-    },
-    {
       "id": "muscstngr_bass_low_sub_tension_01_b00m_one",
       "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/muscstngr_bass_low_sub_tension_01_b00m_one.mp3",
       "loop": false
     },
     {
-      "id": "muscstngr_orchestra_drone_bass_sustain_high_intensity_octave_01_b00m_one",
-      "url": "/sounds/MUSCStngr_Orchestra Drone Bass Sustain High Intensity Octave 01_B00M_ONE.mp3",
+      "id": "muscstngr_orchestra_drone_bass_sul_pont_sustain_high_intensity_octave_01_b00m_on",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/muscstngr_orchestra_drone_bass_sul_pont_sustain_high_intensity_octave_01_b00m_on.mp3",
       "loop": false
     },
     {
@@ -228,6 +223,16 @@
     {
       "id": "whsh_whoosh_medium_to_long_14_jse_tw1",
       "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/whsh_whoosh_medium_to_long_14_jse_tw1.mp3",
+      "loop": false
+    },
+    {
+      "id": "distant_crew_voices_and_indistinct_work_noises_boat_crew",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/distant_crew_voices_and_indistinct_work_noises_boat_crew.mp3",
+      "loop": false
+    },
+    {
+      "id": "cfck_body_fall_water_medium_turbulent_hard_2_",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/cfck_body_fall_water_medium_turbulent_hard_2_.mp3",
       "loop": false
     }
   ],
@@ -1429,11 +1434,11 @@
         {
           "action": "fadeIn",
           "soundId": "mlck_location_ship_wood_creak_big_slow",
-          "volume": 0.35,
+          "volume": 0.4,
           "gainDb": 10,
-          "duration": 1000,
+          "duration": 1800,
           "delay": 0,
-          "loop": false
+          "loop": true
         }
       ]
     },
@@ -1501,7 +1506,17 @@
       "text": "— Oui, dit Danglars en jetant sur Dantès un regard oblique où brilla un éclair de haine, oui, c’est jeune, et cela ne doute de rien. À peine le capitaine a-t-il été mort qu’il a pris le commandement sans consulter personne,",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "fadeIn",
+          "soundId": "muscstngr_orchestra_drone_bass_sul_pont_sustain_high_intensity_octave_01_b00m_on",
+          "volume": 0.15,
+          "gainDb": 1,
+          "duration": 2000,
+          "delay": 0,
+          "loop": true
+        }
+      ]
     },
     {
       "id": "seg_1783344799946_52_6298d",
@@ -1535,7 +1550,7 @@
         {
           "action": "fadeOut",
           "soundId": "mlck_location_ship_wood_creak_big_slow",
-          "duration": 1000
+          "duration": 3600
         }
       ]
     },
@@ -1550,12 +1565,12 @@
       "audioEvents": [
         {
           "action": "fadeIn",
-          "soundId": "crwdsprt_football_match_ambience_crowd_chant_walla_01_b00m_one",
+          "soundId": "distant_crew_voices_and_indistinct_work_noises_boat_crew",
           "volume": 0.4,
           "gainDb": 0,
           "duration": 800,
           "delay": 0,
-          "loop": false
+          "loop": true
         }
       ]
     },
@@ -1567,7 +1582,13 @@
       "text": "— Dantès, dit l’armateur se retournant vers le jeune homme, venez donc ici.",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "fadeOut",
+          "soundId": "muscstngr_orchestra_drone_bass_sul_pont_sustain_high_intensity_octave_01_b00m_on",
+          "duration": 3000
+        }
+      ]
     },
     {
       "id": "seg_1783344799946_57_87xtl",
@@ -1595,16 +1616,8 @@
         },
         {
           "action": "fadeOut",
-          "soundId": "crwdsprt_football_match_ambience_crowd_chant_walla_01_b00m_one",
-          "duration": 800
-        },
-        {
-          "action": "play",
-          "soundId": "chainimpt_metal_chain_on_wood_impact_01_b00m_one",
-          "volume": 0.75,
-          "gainDb": 0,
-          "delay": 300,
-          "loop": false
+          "soundId": "distant_crew_voices_and_indistinct_work_noises_boat_crew",
+          "duration": 4800
         }
       ]
     },
@@ -1616,7 +1629,24 @@
       "text": "Aussitôt l’ancre tomba, et la chaîne fila avec bruit.",
       "breakAt": null,
       "isLeader": true,
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "play",
+          "soundId": "chainmvmt_big_coil_up_01_b00m_one",
+          "volume": 0.75,
+          "gainDb": 0,
+          "delay": 300,
+          "loop": false
+        },
+        {
+          "action": "play",
+          "soundId": "cfck_body_fall_water_medium_turbulent_hard_2_",
+          "volume": 0.55,
+          "gainDb": 0,
+          "delay": 1200,
+          "loop": false
+        }
+      ]
     },
     {
       "id": "seg_1783344799946_60_845g4",
@@ -4313,7 +4343,7 @@
         },
         {
           "segmentId": "seg_1783344799946_51_f25hy",
-          "volume": 0.16,
+          "volume": 0.26,
           "fadeMs": 1500
         },
         {
@@ -4331,14 +4361,14 @@
     },
     {
       "id": "st_1783427601887_uiz4t6s4s_0",
-      "soundId": "crwdsprt_football_match_ambience_crowd_chant_walla_01_b00m_one",
+      "soundId": "distant_crew_voices_and_indistinct_work_noises_boat_crew",
       "startSegmentId": "seg_1783344799946_55_fij6g",
       "endSegmentId": "seg_1783344799946_58_ta9ta",
       "column": 0,
       "volume": 0.4,
-      "loop": false,
+      "loop": true,
       "fadeIn": 800,
-      "fadeOut": 800,
+      "fadeOut": 4800,
       "delay": 0,
       "pan": 0,
       "panMode": "static",
@@ -4350,13 +4380,14 @@
       "_orchestrationDiegeticMode": "sequence",
       "_orchestrationSunoPrompt": null,
       "_orchestrationSunoMode": null,
-      "_orchestrationPlan": "intermediaire"
+      "_orchestrationPlan": "intermediaire",
+      "loopCrossfade": "long"
     },
     {
       "id": "st_1783427601887_msycnx0y7_1",
-      "soundId": "chainimpt_metal_chain_on_wood_impact_01_b00m_one",
-      "startSegmentId": "seg_1783344799946_58_ta9ta",
-      "endSegmentId": "seg_1783344799946_58_ta9ta",
+      "soundId": "chainmvmt_big_coil_up_01_b00m_one",
+      "startSegmentId": "seg_1783344799946_59_ny3h3",
+      "endSegmentId": "seg_1783344799946_59_ny3h3",
       "column": 1,
       "volume": 0.75,
       "loop": false,
@@ -4373,7 +4404,18 @@
       "_orchestrationDiegeticMode": "ponctuel",
       "_orchestrationSunoPrompt": null,
       "_orchestrationSunoMode": null,
-      "_orchestrationPlan": "premier"
+      "_orchestrationPlan": "premier",
+      "trimStart": 0,
+      "trimEnd": 3480,
+      "gainDb": 0,
+      "automationPoints": [
+        {
+          "segmentId": "seg_1783344799946_58_ta9ta",
+          "volume": 0.65,
+          "fadeMs": 0,
+          "_isAnchor": true
+        }
+      ]
     },
     {
       "id": "st_1783427601888_hco8rzsyh_3",
@@ -4475,39 +4517,38 @@
     },
     {
       "id": "st_1783427601888_csns1jbi6_5",
-      "soundId": "muscstngr_orchestra_drone_bass_sustain_high_intensity_octave_01_b00m_one",
+      "soundId": "muscstngr_orchestra_drone_bass_sul_pont_sustain_high_intensity_octave_01_b00m_on",
       "startSegmentId": "seg_1783344799946_51_f25hy",
       "endSegmentId": "seg_1783344799946_56_rq97z",
       "column": 1,
-      "volume": 0.1,
+      "volume": 0.15,
       "loop": true,
-      "loopCrossfade": "medium",
+      "loopCrossfade": "long",
       "fadeIn": 2000,
       "fadeOut": 3000,
       "delay": 0,
       "pan": 0,
       "panMode": "static",
-      "muted": true,
-      "broken": true,
+      "muted": false,
       "automationPoints": [
         {
           "segmentId": "seg_1783344799946_51_f25hy",
-          "volume": 0.1,
+          "volume": 0.15000000000000005,
           "fadeMs": 1500
         },
         {
           "segmentId": "seg_1783344799946_52_6298d",
-          "volume": 0.18,
+          "volume": 0.2700000000000001,
           "fadeMs": 1500
         },
         {
           "segmentId": "seg_1783344799946_55_fij6g",
-          "volume": 0.3,
+          "volume": 0.37,
           "fadeMs": 2000
         },
         {
           "segmentId": "seg_1783344799946_56_rq97z",
-          "volume": 0.05,
+          "volume": 0.07500000000000008,
           "fadeMs": 1800
         }
       ],
@@ -4518,7 +4559,10 @@
       "_orchestrationDiegeticMode": null,
       "_orchestrationSunoPrompt": "dark ambient drone, no melody, no lead instrument, non-melodic, textural only, granular sustained low strings, uneven subtle pulse, sound-design hybrid score, ominous undertone",
       "_orchestrationSunoMode": "texture",
-      "_orchestrationPlan": "intermediaire"
+      "_orchestrationPlan": "intermediaire",
+      "trimStart": 34159,
+      "trimEnd": 64462,
+      "gainDb": 1
     },
     {
       "id": "st_1783427601888_o3sc7p2gk_6",
@@ -4624,65 +4668,6 @@
       ]
     },
     {
-      "id": "st_1783427601889_8yzpp8ijv_10",
-      "soundId": "mlck_location_ship_wood_creak_big_slow",
-      "startSegmentId": "seg_1783344799946_46_1802g",
-      "endSegmentId": "seg_1783344799946_54_nqg69",
-      "column": 3,
-      "volume": 0.35,
-      "loop": false,
-      "fadeIn": 1000,
-      "fadeOut": 1000,
-      "delay": 0,
-      "pan": 0,
-      "panMode": "static",
-      "muted": false,
-      "broken": true,
-      "_orchestrationNote": "Craquements légers et irréguliers de la coque sous le poids des hommes immobiles, sans motif répétitif. Plan arrière, sous la musique et l'atmosphère. Maintient la présence physique du pont pendant tout l'échange verbal.",
-      "_orchestrationKeyword": "wood",
-      "_orchestrationLayer": "diegetic",
-      "_orchestrationLeitmotiv": "",
-      "_orchestrationDiegeticMode": "sequence",
-      "_orchestrationSunoPrompt": null,
-      "_orchestrationSunoMode": null,
-      "_orchestrationPlan": "arriere",
-      "trimStart": 0,
-      "trimEnd": 171576,
-      "gainDb": 10,
-      "automationPoints": [
-        {
-          "segmentId": "seg_1783344799946_46_1802g",
-          "volume": 0.35,
-          "fadeMs": 0,
-          "_isAnchor": true
-        }
-      ]
-    },
-    {
-      "id": "st_1783427601890_1ogt74ui9_11",
-      "soundId": "equiprec_climbing_rope_handling_in_rope_bag_01_b00m_one",
-      "startSegmentId": "seg_1783344799946_56_rq97z",
-      "endSegmentId": "seg_1783344799946_56_rq97z",
-      "column": 3,
-      "volume": 0.5,
-      "loop": false,
-      "fadeIn": 200,
-      "fadeOut": 200,
-      "delay": 0,
-      "pan": 0,
-      "panMode": "static",
-      "muted": true,
-      "broken": true,
-      "_orchestrationNote": "Frottement bref de cordage manipulé en préparation, attaque discrète et courte. Plan intermédiaire, en dessous de la voix de Morrel. Anticipe la manoeuvre à venir avant même que Dantès ne donne l'ordre — pré-lap diégétique.",
-      "_orchestrationKeyword": "rope",
-      "_orchestrationLayer": "transition",
-      "_orchestrationLeitmotiv": "",
-      "_orchestrationDiegeticMode": null,
-      "_orchestrationSunoPrompt": null,
-      "_orchestrationSunoMode": null,
-      "_orchestrationPlan": "intermediaire"
-    },
-    {
       "id": "st_1783500504980_qurddy1bw",
       "soundId": "climbing_asmr_soothing_sounds_for_sport_climbers",
       "startSegmentId": "seg_1783344799946_42_z54wb",
@@ -4720,6 +4705,57 @@
           "_isAnchor": true
         }
       ]
+    },
+    {
+      "id": "st_1783514573194_lpio5xnoc",
+      "soundId": "mlck_location_ship_wood_creak_big_slow",
+      "startSegmentId": "seg_1783344799946_46_1802g",
+      "endSegmentId": "seg_1783344799946_54_nqg69",
+      "column": 3,
+      "volume": 0.4,
+      "fadeIn": 1800,
+      "fadeOut": 3600,
+      "delay": 0,
+      "loop": true,
+      "muted": false,
+      "broken": false,
+      "automationPoints": [
+        {
+          "segmentId": "seg_1783344799946_46_1802g",
+          "volume": 0.4,
+          "fadeMs": 0,
+          "_isAnchor": true
+        }
+      ],
+      "loopCrossfade": "medium",
+      "trimStart": 0,
+      "trimEnd": 171576,
+      "gainDb": 10
+    },
+    {
+      "id": "st_1783518631598_oobp2iemu",
+      "soundId": "cfck_body_fall_water_medium_turbulent_hard_2_",
+      "startSegmentId": "seg_1783344799946_59_ny3h3",
+      "endSegmentId": "seg_1783344799946_59_ny3h3",
+      "column": 2,
+      "volume": 0.55,
+      "fadeIn": 0,
+      "fadeOut": 0,
+      "delay": 1200,
+      "loop": false,
+      "muted": false,
+      "broken": false,
+      "automationPoints": [
+        {
+          "segmentId": "seg_1783344799946_58_ta9ta",
+          "volume": 0.55,
+          "fadeMs": 0,
+          "_isAnchor": true
+        }
+      ],
+      "trimStart": 138,
+      "trimEnd": 2904,
+      "gainDb": 0
     }
   ],
   "vfxTracks": []
