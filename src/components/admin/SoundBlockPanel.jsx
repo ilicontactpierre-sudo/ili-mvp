@@ -831,6 +831,33 @@ function SoundBlockPanel({
               )
             })}
           </div>
+          {/* Vitesse d'oscillation — visible UNIQUEMENT pour les modes oscillate,
+              pour ne pas encombrer le panel avec un réglage sans effet ailleurs. */}
+          {(editedTrack.panMode === 'oscillate-slow' || editedTrack.panMode === 'oscillate-fast') && (
+            <div style={{ marginTop: '0.5rem' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.2rem' }}>
+                <label style={{ fontSize: '0.68rem', color: '#888' }}>Vitesse d'oscillation</label>
+                <span style={{ fontSize: '0.68rem', color }}>
+                  {((editedTrack.panSpeedMs ?? (editedTrack.panMode === 'oscillate-fast' ? 1500 : 6000)) / 1000).toFixed(1)}s / cycle
+                </span>
+              </div>
+              <input
+                type="range"
+                min="300"
+                max="12000"
+                step="100"
+                value={editedTrack.panSpeedMs ?? (editedTrack.panMode === 'oscillate-fast' ? 1500 : 6000)}
+                onChange={(e) => handleChange('panSpeedMs', parseInt(e.target.value))}
+                style={{ width: '100%', accentColor: color }}
+              />
+            </div>
+          )}
+          {/* Info discrète : rappel que sweep/converge/diverge suivent le trim */}
+          {['sweep-lr', 'sweep-rl', 'converge', 'diverge'].includes(editedTrack.panMode) && (
+            <div style={{ marginTop: '0.4rem', fontSize: '0.65rem', color: '#666', fontStyle: 'italic' }}>
+              Se déroule sur la portion trimée du son (pas le fichier entier).
+            </div>
+          )}
         </div>
         {/* ─────────────────────────────────────────────────────────── */}
 
