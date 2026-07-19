@@ -2619,7 +2619,7 @@ const handleTextSelection = useCallback(() => {
   // isAnyBlockDragging/isAnyVfxDragging/isDraggingSegment dans les deps :
   // quand ils passent de true à false (fin de drag), le effect se re-déclenche
   // et mesure les hauteurs une seule fois proprement
-  }, [segments, editTexts, dividerPosition, editingSegmentIndex, selectedSegmentIndices, soundTracks.length, hiddenSegments, isAnyBlockDragging, isAnyVfxDragging, isDraggingSegment])
+  }, [segments, dividerPosition, editingSegmentIndex, selectedSegmentIndices, soundTracks.length, hiddenSegments, isAnyBlockDragging, isAnyVfxDragging, isDraggingSegment])
   const totalHeight = rowHeights.reduce((sum, rowHeight) => sum + rowHeight + 8, 0)
 
   // ── Handlers drag & drop segments ──────────────────────────
