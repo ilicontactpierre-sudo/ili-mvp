@@ -918,6 +918,10 @@ function SeuilEditor({ seuil = [], onChange }) {
   )
 }
 
+// Référence stable réutilisée quand aucun seuil n'est défini —
+// évite de recréer un [] différent à chaque render (ce qui casserait
+// la mémoïsation de currentSeuil / seuilKeys plus bas).
+const EMPTY_SEUIL = []
 function AdminPage() {
   const isMobile = useIsMobile()
   const [isAuthenticated, setIsAuthenticated] = useState(false)
@@ -1698,6 +1702,16 @@ function AdminPage() {
     }
     return hidden
   }, [activeSegments, collapsedChapters])
+  // Référence stable pour seuilKeys — évite de recréer un nouveau tableau
+  // (et donc de casser la mémoïsation de CHAQUE segment de la timeline)
+  // à chaque frappe dans un champ texte, où qu'il soit dans la page.
+  const currentSeuil = isSerial
+    ? (parts[activePartIndex]?.seuil ?? EMPTY_SEUIL)
+    : (storyExtraMeta.seuil ?? EMPTY_SEUIL)
+  const seuilKeys = useMemo(
+    () => currentSeuil.map(q => q.cle).filter(Boolean),
+    [currentSeuil]
+  )
 
   const handleToggleChapter = useCallback((index) => {
     setCollapsedChapters(prev => {
