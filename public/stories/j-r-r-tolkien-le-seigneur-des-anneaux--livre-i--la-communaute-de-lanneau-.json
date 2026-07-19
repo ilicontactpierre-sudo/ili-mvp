@@ -1022,7 +1022,128 @@
       "subtitle": "",
       "description": "",
       "published": false,
-      "sounds": [],
+      "sounds": [
+        {
+          "id": "ambforst_birds_chirping_frogs_croaking_forest_b00m_one",
+          "url": "/sounds/AMBForst_Birds Chirping Frogs Croaking Forest_B00M_ONE.mp3",
+          "loop": false
+        },
+        {
+          "id": "ambrest_restaurant_german_crowd_bar_01_b00m_one",
+          "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/ambrest_restaurant_german_crowd_bar_01_b00m_one.mp3",
+          "loop": false
+        },
+        {
+          "id": "ambroom_living_room_wind_howl_01_b00m_one",
+          "url": "/sounds/AMBRoom_Living Room Wind Howl 01_B00M_ONE.mp3",
+          "loop": false
+        },
+        {
+          "id": "ambrurl_insects_in_afternoon_01_b00m_one",
+          "url": "/sounds/AMBRurl_Insects In Afternoon 01_B00M_ONE.mp3",
+          "loop": false
+        },
+        {
+          "id": "belllrg_church_bell_steady_loop_01_b00m_one",
+          "url": "/sounds/BELLLrg_Church Bell Steady Loop 01_B00M_ONE.mp3",
+          "loop": false
+        },
+        {
+          "id": "clockmech_alarm_wound_up_clockwork_ticking_01_b00m_one",
+          "url": "/sounds/CLOCKMech_Alarm Wound Up Clockwork Ticking 01_B00M_ONE.mp3",
+          "loop": false
+        },
+        {
+          "id": "mbck_prop_accordion_nose_breath_single",
+          "url": "/sounds/MBCK PROP Accordion Nose Breath Single.mp3",
+          "loop": false
+        },
+        {
+          "id": "crwdsprt_football_match_ambience_crowd_chant_walla_01_b00m_one",
+          "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/crwdsprt_football_match_ambience_crowd_chant_walla_01_b00m_one.mp3",
+          "loop": false
+        },
+        {
+          "id": "dsgnerie_musical_pad_dark_space_horror_02_b00m_one",
+          "url": "/sounds/DSGNErie_Musical Pad Dark Space Horror 02_B00M_ONE.mp3",
+          "loop": false
+        },
+        {
+          "id": "doorwood_closet_wood_close_02_b00m_one",
+          "url": "/sounds/DOORWood_Closet Wood Close 02_B00M_ONE.mp3",
+          "loop": false
+        },
+        {
+          "id": "firecrkl_camp_fire_crackle_01_b00m_one",
+          "url": "/sounds/FIRECrkl_Camp Fire Crackle 01_B00M_ONE.mp3",
+          "loop": false
+        },
+        {
+          "id": "glasfric_cork_squeak_glass_twist_back_and_forth_slow_01_b00m_one",
+          "url": "/sounds/GLASFric_Cork Squeak Glass Twist Back And Forth Slow 01_B00M_ONE.mp3",
+          "loop": false
+        },
+        {
+          "id": "mechclik_slide_medium_metal_ball_bearing_slide_release_snap_01_b00m_one_1",
+          "url": "/sounds/MECHClik_Slide Medium Metal Ball Bearing Slide Release Snap 01_B00M_ONE_1.mp3",
+          "loop": false
+        },
+        {
+          "id": "movecrwd_troops_march_sub_layer_01_b00m_one",
+          "url": "/sounds/MOVECrwd_Troops March Sub Layer 01_B00M_ONE.mp3",
+          "loop": false
+        },
+        {
+          "id": "muscstr_mandolin_steel_chord_neutral_01_b00m_one",
+          "url": "/sounds/MUSCStr_Mandolin Steel Chord Neutral 01_B00M_ONE.mp3",
+          "loop": false
+        },
+        {
+          "id": "muscstr_oriental_strings_chord_dissonant_01_b00m_one",
+          "url": "/sounds/MUSCStr_Oriental Strings Chord Dissonant 01_B00M_ONE.mp3",
+          "loop": false
+        },
+        {
+          "id": "muscstr_vintage_violin_high_notes_01_b00m_one",
+          "url": "/sounds/MUSCStr_Vintage Violin High Notes 01_B00M_ONE.mp3",
+          "loop": false
+        },
+        {
+          "id": "muscstr_vintage_violin_horror_sound_01_b00m_one",
+          "url": "/sounds/MUSCStr_Vintage Violin Horror Sound 01_B00M_ONE.mp3",
+          "loop": false
+        },
+        {
+          "id": "rainconc_village_terrace_variable_intensity_01_b00m_one",
+          "url": "/sounds/RAINConc_Village Terrace Variable Intensity 01_B00M_ONE.mp3",
+          "loop": false
+        },
+        {
+          "id": "robtvox_android_voice_malfunction_02_b00m_one",
+          "url": "/sounds/ROBTVox_Android Voice Malfunction 02_B00M_ONE.mp3",
+          "loop": false
+        },
+        {
+          "id": "vegeleaf_leaves_grab_crunch_long_medium_01_b00m_one_1",
+          "url": "/sounds/VEGELeaf_Leaves Grab Crunch Long Medium 01_B00M_ONE_1.mp3",
+          "loop": false
+        },
+        {
+          "id": "voxreac_male_sigh_03_b00m_one",
+          "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/voxreac_male_sigh_03_b00m_one.mp3",
+          "loop": false
+        },
+        {
+          "id": "watrpour_pour_designed_long_02_b00m_one",
+          "url": "/sounds/WATRPour_Pour Designed Long 02_B00M_ONE.mp3",
+          "loop": false
+        },
+        {
+          "id": "03_s00_ambience_-_room_tone_hum_ambient_leaving_room_atmosphere_1",
+          "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/03_s00_ambience_-_room_tone_hum_ambient_leaving_room_atmosphere_1.mp3",
+          "loop": false
+        }
+      ],
       "segments": [
         {
           "id": "seg_1784475569135_0_ze5wm",
@@ -1063,7 +1184,17 @@
           "text": "Bilbon était en même temps très riche et très particulier, et il avait fait l’étonnement de la Comté pendant soixante ans,",
           "breakAt": null,
           "isLeader": false,
-          "audioEvents": []
+          "audioEvents": [
+            {
+              "action": "fadeIn",
+              "soundId": "voxreac_male_sigh_03_b00m_one",
+              "volume": 0.13,
+              "gainDb": 0,
+              "duration": 3000,
+              "delay": 0,
+              "loop": true
+            }
+          ]
         },
         {
           "id": "seg_1784483167052_b_wal2q",
@@ -1183,7 +1314,13 @@
           "text": "Il était en relations de visite avec ses parents (hormis, naturellement, les Sacquet de Besace) et il avait de nombreux admirateurs fervents parmi les Hobbits des familles pauvres et peu importantes.",
           "breakAt": null,
           "isLeader": false,
-          "audioEvents": []
+          "audioEvents": [
+            {
+              "action": "fadeOut",
+              "soundId": "voxreac_male_sigh_03_b00m_one",
+              "duration": 3000
+            }
+          ]
         },
         {
           "id": "seg_1784475569135_15_kegg1",
@@ -1314,7 +1451,17 @@
           "text": "On commença à jaser à Hobbitebourg et à Lèzeau ;",
           "breakAt": null,
           "isLeader": false,
-          "audioEvents": []
+          "audioEvents": [
+            {
+              "action": "fadeIn",
+              "soundId": "03_s00_ambience_-_room_tone_hum_ambient_leaving_room_atmosphere_1",
+              "volume": 0.16,
+              "gainDb": 0,
+              "duration": 2000,
+              "delay": 0,
+              "loop": true
+            }
+          ]
         },
         {
           "id": "seg_1784475569135_29_bvvpj",
@@ -1334,7 +1481,31 @@
           "text": "L’histoire et le personnage de M. Bilbon Sacquet firent une fois de plus le principal sujet de conversation, et les gens âgés virent soudain leurs souvenirs très bienvenus.",
           "breakAt": null,
           "isLeader": false,
-          "audioEvents": []
+          "audioEvents": [
+            {
+              "action": "fadeOut",
+              "soundId": "03_s00_ambience_-_room_tone_hum_ambient_leaving_room_atmosphere_1",
+              "duration": 2000
+            },
+            {
+              "action": "fadeIn",
+              "soundId": "ambrest_restaurant_german_crowd_bar_01_b00m_one",
+              "volume": 0.2,
+              "gainDb": 0,
+              "duration": 3000,
+              "delay": 0,
+              "loop": true
+            },
+            {
+              "action": "fadeIn",
+              "soundId": "crwdsprt_football_match_ambience_crowd_chant_walla_01_b00m_one",
+              "volume": 0.2,
+              "gainDb": 0,
+              "duration": 3000,
+              "delay": 0,
+              "loop": true
+            }
+          ]
         },
         {
           "id": "seg_1784475569135_31_ynn6y",
@@ -1518,7 +1689,13 @@
           "breakAt": null,
           "isLeader": false,
           "delay": 12600,
-          "audioEvents": []
+          "audioEvents": [
+            {
+              "action": "fadeOut",
+              "soundId": "crwdsprt_football_match_ambience_crowd_chant_walla_01_b00m_one",
+              "duration": 2000
+            }
+          ]
         },
         {
           "id": "seg_1784483399622_b_tdumq",
@@ -1539,7 +1716,13 @@
           "text": "— Noyé ? firent plusieurs voix.",
           "breakAt": null,
           "isLeader": false,
-          "audioEvents": []
+          "audioEvents": [
+            {
+              "action": "fadeOut",
+              "soundId": "ambrest_restaurant_german_crowd_bar_01_b00m_one",
+              "duration": 4000
+            }
+          ]
         },
         {
           "id": "seg_1784475569135_49_o8wuu",
@@ -2348,7 +2531,697 @@
           "audioEvents": []
         }
       ],
-      "soundTracks": [],
+      "soundTracks": [
+        {
+          "id": "st_1784485196698_pb2kacx91_0",
+          "soundId": "voxreac_male_sigh_03_b00m_one",
+          "startSegmentId": "seg_1784483167052_a_4lnqi",
+          "endSegmentId": "seg_1784475569135_14_cano9",
+          "column": 0,
+          "volume": 0.13,
+          "loop": true,
+          "loopCrossfade": "medium",
+          "fadeIn": 3000,
+          "fadeOut": 3000,
+          "delay": 0,
+          "pan": 0,
+          "panMode": "static",
+          "muted": false,
+          "automationPoints": [
+            {
+              "segmentId": "seg_1784475569135_7_zedv6",
+              "volume": 0.11,
+              "fadeMs": 1500
+            },
+            {
+              "segmentId": "seg_1784475569135_12_v904u",
+              "volume": 0.18,
+              "fadeMs": 2000
+            }
+          ],
+          "_orchestrationNote": "Nappe basse continue sans pulsation, texture douce sans attaque. Plan intermédiaire, sous le bed et le thème de Bilbon. Traduit le temps qui passe sans marquer de danger réel — juste une légère étrangeté.",
+          "_orchestrationKeyword": "melancholic",
+          "_orchestrationLayer": "atmosphere",
+          "_orchestrationLeitmotiv": "",
+          "_orchestrationDiegeticMode": null,
+          "_orchestrationSunoPrompt": null,
+          "_orchestrationSunoMode": null,
+          "_orchestrationPlan": "intermediaire"
+        },
+        {
+          "id": "st_1784485196698_rvaxivwg5_1",
+          "soundId": "03_s00_ambience_-_room_tone_hum_ambient_leaving_room_atmosphere_1",
+          "startSegmentId": "seg_1784475569135_28_7e0aa",
+          "endSegmentId": "seg_1784475569135_30_icmuz",
+          "column": 0,
+          "volume": 0.16,
+          "loop": true,
+          "loopCrossfade": "medium",
+          "fadeIn": 2000,
+          "fadeOut": 2000,
+          "delay": 0,
+          "pan": 0,
+          "panMode": "static",
+          "muted": false,
+          "_orchestrationNote": "Texture continue sans rythme ni mélodie, légèrement plus dense que le bed. Plan intermédiaire, sous le bed de village. Traduit le bourdonnement collectif de la rumeur sans recourir à une musique composée pour ce moment.",
+          "_orchestrationKeyword": "ambient",
+          "_orchestrationLayer": "atmosphere",
+          "_orchestrationLeitmotiv": "",
+          "_orchestrationDiegeticMode": null,
+          "_orchestrationSunoPrompt": null,
+          "_orchestrationSunoMode": null,
+          "_orchestrationPlan": "intermediaire"
+        },
+        {
+          "id": "st_1784485196698_wvxqev1hr_2",
+          "soundId": "ambrest_restaurant_german_crowd_bar_01_b00m_one",
+          "startSegmentId": "seg_1784475569135_30_icmuz",
+          "endSegmentId": "seg_1784475569135_48_1e67o",
+          "column": 1,
+          "volume": 0.2,
+          "loop": true,
+          "loopCrossfade": "medium",
+          "fadeIn": 3000,
+          "fadeOut": 4000,
+          "delay": 0,
+          "pan": 0,
+          "panMode": "static",
+          "muted": false,
+          "automationPoints": [
+            {
+              "segmentId": "seg_1784475569135_35_12zlm",
+              "volume": 0.16,
+              "fadeMs": 1800
+            },
+            {
+              "segmentId": "seg_1784475569135_42_2tlnb",
+              "volume": 0.22,
+              "fadeMs": 1500
+            },
+            {
+              "segmentId": "seg_1784483399622_b_tdumq",
+              "volume": 0.1,
+              "fadeMs": 2500
+            }
+          ],
+          "_orchestrationNote": "Ambiance d'auberge continue, résonance de pièce basse de plafond, sans événement isolé. Plan arrière. Démarre un segment avant que le texte ne nomme l'auberge (pré-lap), descend nettement juste avant la révélation de la noyade.",
+          "_orchestrationKeyword": "tavern",
+          "_orchestrationLayer": "bed",
+          "_orchestrationLeitmotiv": "",
+          "_orchestrationDiegeticMode": null,
+          "_orchestrationSunoPrompt": null,
+          "_orchestrationSunoMode": null,
+          "_orchestrationPlan": "arriere"
+        },
+        {
+          "id": "st_1784485196699_t8wms98vs_3",
+          "soundId": "crwdsprt_football_match_ambience_crowd_chant_walla_01_b00m_one",
+          "startSegmentId": "seg_1784475569135_30_icmuz",
+          "endSegmentId": "seg_1784483399622_a_o924l",
+          "column": 2,
+          "volume": 0.2,
+          "loop": true,
+          "loopCrossfade": "medium",
+          "fadeIn": 3000,
+          "fadeOut": 2000,
+          "delay": 0,
+          "pan": 0,
+          "panMode": "static",
+          "muted": false,
+          "_orchestrationNote": "Murmure de conversations indistinctes, registre grave-médium, aucun mot compréhensible. Plan intermédiaire. Donne à la scène sa densité de salle occupée, s'arrête avant le passage du silence final pour ne pas parasiter la révélation.",
+          "_orchestrationKeyword": "crowd",
+          "_orchestrationLayer": "diegetic",
+          "_orchestrationLeitmotiv": "",
+          "_orchestrationDiegeticMode": "sequence",
+          "_orchestrationSunoPrompt": null,
+          "_orchestrationSunoMode": null,
+          "_orchestrationPlan": "intermediaire"
+        },
+        {
+          "id": "st_1784485196699_jl2gzmux6_4",
+          "soundId": "belllrg_church_bell_steady_loop_01_b00m_one",
+          "startSegmentId": "seg_1784475569135_0_ze5wm",
+          "endSegmentId": "seg_1784475569135_0_ze5wm",
+          "column": 0,
+          "volume": 0.55,
+          "loop": false,
+          "fadeIn": 300,
+          "fadeOut": 1500,
+          "delay": 0,
+          "pan": 0,
+          "panMode": "static",
+          "muted": true,
+          "broken": true,
+          "_orchestrationNote": "Une seule frappe de cloche lointaine, résonance longue sans percussion sèche, pas de mélodie. Plan premier, seul son de la scène. Accroche d'ouverture avant que le titre du chapitre ne s'installe.",
+          "_orchestrationKeyword": "bell",
+          "_orchestrationLayer": "diegetic",
+          "_orchestrationLeitmotiv": "",
+          "_orchestrationDiegeticMode": "ponctuel",
+          "_orchestrationSunoPrompt": null,
+          "_orchestrationSunoMode": null,
+          "_orchestrationPlan": "premier"
+        },
+        {
+          "id": "st_1784485196699_glfm4uses_5",
+          "soundId": "ambrurl_insects_in_afternoon_01_b00m_one",
+          "startSegmentId": "seg_1784475569135_1_8e790",
+          "endSegmentId": "seg_1784475569135_17_7v4ud",
+          "column": 1,
+          "volume": 0.18,
+          "loop": true,
+          "loopCrossfade": "medium",
+          "fadeIn": 5000,
+          "fadeOut": 4000,
+          "delay": 0,
+          "pan": 0,
+          "panMode": "static",
+          "muted": true,
+          "broken": true,
+          "automationPoints": [
+            {
+              "segmentId": "seg_1784475569135_8_8cic2",
+              "volume": 0.14,
+              "fadeMs": 2000
+            },
+            {
+              "segmentId": "seg_1784475569135_15_kegg1",
+              "volume": 0.2,
+              "fadeMs": 1500
+            }
+          ],
+          "_orchestrationNote": "Ambiance rurale continue, sans événement identifiable, volume constant en sourdine. Plan arrière, sol sonore de toute la scène d'exposition. Situe le lecteur en Comté avant tout autre traitement.",
+          "_orchestrationKeyword": "rural",
+          "_orchestrationLayer": "bed",
+          "_orchestrationLeitmotiv": "",
+          "_orchestrationDiegeticMode": null,
+          "_orchestrationSunoPrompt": null,
+          "_orchestrationSunoMode": null,
+          "_orchestrationPlan": "arriere"
+        },
+        {
+          "id": "st_1784485196699_jf699zx8m_6",
+          "soundId": "muscstr_mandolin_steel_chord_neutral_01_b00m_one",
+          "startSegmentId": "seg_1784475569135_2_67r5z",
+          "endSegmentId": "seg_1784475569135_14_cano9",
+          "column": 2,
+          "volume": 0.25,
+          "loop": true,
+          "loopCrossfade": "medium",
+          "fadeIn": 2000,
+          "fadeOut": 6000,
+          "delay": 0,
+          "pan": 0,
+          "panMode": "static",
+          "muted": true,
+          "broken": true,
+          "automationPoints": [
+            {
+              "segmentId": "seg_1784475569135_4_mr2po",
+              "volume": 0.34,
+              "fadeMs": 1200
+            },
+            {
+              "segmentId": "seg_1784475569135_5_thdap",
+              "volume": 0.15,
+              "fadeMs": 1500
+            },
+            {
+              "segmentId": "seg_1784475569135_11_7zzc0",
+              "volume": 0.3,
+              "fadeMs": 1800
+            }
+          ],
+          "_orchestrationNote": "Accordéon principal, cordes légères en soutien, mélodie identifiable mais irrégulière dans son phrasé. Plan intermédiaire, sous le bed et l'atmosphere. Porte le décalage entre l'excentricité de Bilbon et l'affection du village, remonte brièvement sur la mention du trésor puis s'efface pendant l'énumération factuelle de son âge.",
+          "_orchestrationKeyword": "folk",
+          "_orchestrationLayer": "music",
+          "_orchestrationLeitmotiv": "thème de Bilbon",
+          "_orchestrationDiegeticMode": null,
+          "_orchestrationSunoPrompt": "folk instrumental, lead accordion with light strings underneath, playful but slightly off-kilter melody, slow tempo 70bpm, warm intimate acoustic recording, no percussion",
+          "_orchestrationSunoMode": "theme",
+          "_orchestrationPlan": "intermediaire"
+        },
+        {
+          "id": "st_1784485196699_qjqng8bw0_7",
+          "soundId": "clockmech_alarm_wound_up_clockwork_ticking_01_b00m_one",
+          "startSegmentId": "seg_1784475569135_5_thdap",
+          "endSegmentId": "seg_1784475569135_5_thdap",
+          "column": 3,
+          "volume": 0.5,
+          "loop": false,
+          "fadeIn": 0,
+          "fadeOut": 500,
+          "delay": 0,
+          "pan": 0,
+          "panMode": "static",
+          "muted": true,
+          "broken": true,
+          "_orchestrationNote": "Un seul tic d'horloge mécanique, sans carillon ni résonance longue. Plan intermédiaire, sous le thème de Bilbon. Illustre littéralement la phrase sur le temps qui s'écoule, sans emphase supplémentaire.",
+          "_orchestrationKeyword": "clock",
+          "_orchestrationLayer": "diegetic",
+          "_orchestrationLeitmotiv": "",
+          "_orchestrationDiegeticMode": "ponctuel",
+          "_orchestrationSunoPrompt": null,
+          "_orchestrationSunoMode": null,
+          "_orchestrationPlan": "intermediaire"
+        },
+        {
+          "id": "st_1784485196699_q7mxfn3rs_8",
+          "soundId": "muscstr_vintage_violin_high_notes_01_b00m_one",
+          "startSegmentId": "seg_1784475569135_15_kegg1",
+          "endSegmentId": "seg_1784475569135_17_7v4ud",
+          "column": 0,
+          "volume": 0.22,
+          "loop": true,
+          "loopCrossfade": "medium",
+          "fadeIn": 3000,
+          "fadeOut": 2000,
+          "delay": 0,
+          "pan": 0,
+          "panMode": "static",
+          "muted": true,
+          "broken": true,
+          "_orchestrationNote": "Reprise du motif du thème de Bilbon mais joué au violon plutôt qu'à l'accordéon, phrasé plus tenu. Plan intermédiaire. Amorce la transformation du thème avant qu'il ne cède la place à celui de Frodon sur les segments suivants.",
+          "_orchestrationKeyword": "violin",
+          "_orchestrationLayer": "music",
+          "_orchestrationLeitmotiv": "thème de Bilbon",
+          "_orchestrationDiegeticMode": null,
+          "_orchestrationSunoPrompt": null,
+          "_orchestrationSunoMode": null,
+          "_orchestrationPlan": "intermediaire"
+        },
+        {
+          "id": "st_1784485196699_senmm0b4p_9",
+          "soundId": "ambforst_birds_chirping_frogs_croaking_forest_b00m_one",
+          "startSegmentId": "seg_1784475569135_15_kegg1",
+          "endSegmentId": "seg_1784475569135_17_7v4ud",
+          "column": 2,
+          "volume": 0.35,
+          "loop": true,
+          "loopCrossfade": "medium",
+          "fadeIn": 2000,
+          "fadeOut": 2000,
+          "delay": 0,
+          "pan": 0,
+          "panMode": "static",
+          "muted": true,
+          "broken": true,
+          "_orchestrationNote": "Chants d'oiseaux épars, sans motif répétitif reconnaissable, registre aigu. Plan intermédiaire, coexiste avec le violon sans le couvrir. Détail neutre qui ancre la scène en extérieur au moment où les cousins de Bilbon grandissent.",
+          "_orchestrationKeyword": "birds",
+          "_orchestrationLayer": "diegetic",
+          "_orchestrationLeitmotiv": "",
+          "_orchestrationDiegeticMode": "sequence",
+          "_orchestrationSunoPrompt": null,
+          "_orchestrationSunoMode": null,
+          "_orchestrationPlan": "intermediaire"
+        },
+        {
+          "id": "st_1784485196699_rmptz7mvg_10",
+          "soundId": "muscstr_vintage_violin_horror_sound_01_b00m_one",
+          "startSegmentId": "seg_1784475569135_16_ach7h",
+          "endSegmentId": "seg_1784475569135_19_s6wpx",
+          "column": 3,
+          "volume": 0.2,
+          "loop": true,
+          "loopCrossfade": "medium",
+          "fadeIn": 2000,
+          "fadeOut": 3000,
+          "delay": 0,
+          "pan": 0,
+          "panMode": "static",
+          "muted": true,
+          "broken": true,
+          "automationPoints": [
+            {
+              "segmentId": "seg_1784475569135_18_z7dsd",
+              "volume": 0.28,
+              "fadeMs": 1500
+            }
+          ],
+          "_orchestrationNote": "Violon seul, registre plus clair que le thème précédent, notes plus rapprochées, pas de vibrato marqué. Plan premier au moment de la réplique de Bilbon. Introduit le motif propre à Frodon en chevauchant volontairement le thème de Bilbon pour marquer la continuité familiale plutôt qu'une rupture.",
+          "_orchestrationKeyword": "violin",
+          "_orchestrationLayer": "music",
+          "_orchestrationLeitmotiv": "thème de Frodon",
+          "_orchestrationDiegeticMode": null,
+          "_orchestrationSunoPrompt": "solo violin, brighter register than a folk theme, closely spaced notes, warm minor-to-major shift, slow tempo 65bpm, intimate chamber recording, no vibrato excess",
+          "_orchestrationSunoMode": "theme",
+          "_orchestrationPlan": "premier"
+        },
+        {
+          "id": "st_1784485196699_nae0hc8lr_11",
+          "soundId": "ambroom_living_room_wind_howl_01_b00m_one",
+          "startSegmentId": "seg_1784475569135_18_z7dsd",
+          "endSegmentId": "seg_1784475569135_19_s6wpx",
+          "column": 0,
+          "volume": 0.16,
+          "loop": true,
+          "loopCrossfade": "medium",
+          "fadeIn": 2000,
+          "fadeOut": 2000,
+          "delay": 0,
+          "pan": 0,
+          "panMode": "static",
+          "muted": true,
+          "broken": true,
+          "_orchestrationNote": "Tonalité de pièce fermée, sans réverbération excessive, silence de fond typique d'un intérieur habité. Plan arrière, sous le violon de Frodon. Marque le passage de l'extérieur à l'intérieur de Cul-de-sac pour la réplique de Bilbon.",
+          "_orchestrationKeyword": "room",
+          "_orchestrationLayer": "bed",
+          "_orchestrationLeitmotiv": "",
+          "_orchestrationDiegeticMode": null,
+          "_orchestrationSunoPrompt": null,
+          "_orchestrationSunoMode": null,
+          "_orchestrationPlan": "arriere"
+        },
+        {
+          "id": "st_1784485196699_er5h3uhy3_12",
+          "soundId": "rainconc_village_terrace_variable_intensity_01_b00m_one",
+          "startSegmentId": "seg_1784475569135_20_cr5ng",
+          "endSegmentId": "seg_1784475569135_30_icmuz",
+          "column": 3,
+          "volume": 0.17,
+          "loop": true,
+          "loopCrossfade": "medium",
+          "fadeIn": 4000,
+          "fadeOut": 3000,
+          "delay": 0,
+          "pan": 0,
+          "panMode": "static",
+          "muted": true,
+          "broken": true,
+          "automationPoints": [
+            {
+              "segmentId": "seg_1784475569135_23_8jd7e",
+              "volume": 0.15,
+              "fadeMs": 1500
+            },
+            {
+              "segmentId": "seg_1784475569135_28_7e0aa",
+              "volume": 0.22,
+              "fadeMs": 2000
+            }
+          ],
+          "_orchestrationNote": "Ambiance de village élargie, plus ouverte que le bed rural précédent, sans événement isolé identifiable. Plan arrière. Accompagne le passage des douze années puis la montée de la rumeur, remonte légèrement quand celle-ci s'intensifie.",
+          "_orchestrationKeyword": "village",
+          "_orchestrationLayer": "bed",
+          "_orchestrationLeitmotiv": "",
+          "_orchestrationDiegeticMode": null,
+          "_orchestrationSunoPrompt": null,
+          "_orchestrationSunoMode": null,
+          "_orchestrationPlan": "arriere"
+        },
+        {
+          "id": "st_1784485196699_a53zsono1_13",
+          "soundId": "muscstr_oriental_strings_chord_dissonant_01_b00m_one",
+          "startSegmentId": "seg_1784475569135_25_fvcus",
+          "endSegmentId": "seg_1784475569135_26_nj1ry",
+          "column": 0,
+          "volume": 0.3,
+          "loop": false,
+          "fadeIn": 1500,
+          "fadeOut": 3000,
+          "delay": 0,
+          "pan": 0,
+          "panMode": "static",
+          "muted": true,
+          "broken": true,
+          "_orchestrationNote": "Petit ensemble de cordes, ligne mélodique montante sans soliste dominant, pas de percussion. Plan premier, seule couche en avant sur ce court passage. Musique à l'image sans vocation à revenir : souligne la coïncidence des deux anniversaires pour ce qu'elle a d'unique, pas pour en faire un motif récurrent.",
+          "_orchestrationKeyword": "strings",
+          "_orchestrationLayer": "music",
+          "_orchestrationLeitmotiv": "",
+          "_orchestrationDiegeticMode": null,
+          "_orchestrationSunoPrompt": "warm string ensemble, no soloist standing out, gentle rising melodic line, tempo 80bpm, celebratory but understated, cinematic orchral texture, short duration cue",
+          "_orchestrationSunoMode": "theme",
+          "_orchestrationPlan": "premier"
+        },
+        {
+          "id": "st_1784485196699_666jibfsq_14",
+          "soundId": "movecrwd_troops_march_sub_layer_01_b00m_one",
+          "startSegmentId": "seg_1784475569135_33_4h0uu",
+          "endSegmentId": "seg_1784475569135_35_12zlm",
+          "column": 0,
+          "volume": 0.38,
+          "loop": true,
+          "loopCrossfade": "medium",
+          "fadeIn": 1000,
+          "fadeOut": 1000,
+          "delay": 0,
+          "pan": 0,
+          "panMode": "static",
+          "muted": true,
+          "broken": true,
+          "_orchestrationNote": "Pas réguliers sur gravier, sans percussion nette, cadence lente. Plan intermédiaire. Illustre le travail de jardinage évoqué en passant, sans portée dramatique — un détail de texture pour rendre le récit du vieux Ham concret.",
+          "_orchestrationKeyword": "footstep",
+          "_orchestrationLayer": "diegetic",
+          "_orchestrationLeitmotiv": "",
+          "_orchestrationDiegeticMode": "sequence",
+          "_orchestrationSunoPrompt": null,
+          "_orchestrationSunoMode": null,
+          "_orchestrationPlan": "intermediaire"
+        },
+        {
+          "id": "st_1784485196699_apahbcv49_15",
+          "soundId": "vegeleaf_leaves_grab_crunch_long_medium_01_b00m_one_1",
+          "startSegmentId": "seg_1784475569135_33_4h0uu",
+          "endSegmentId": "seg_1784475569135_35_12zlm",
+          "column": 3,
+          "volume": 0.3,
+          "loop": true,
+          "loopCrossfade": "medium",
+          "fadeIn": 1000,
+          "fadeOut": 1000,
+          "delay": 0,
+          "pan": 0,
+          "panMode": "static",
+          "muted": true,
+          "broken": true,
+          "_orchestrationNote": "Froissement léger de feuillage, registre aigu, sans rythme régulier. Plan intermédiaire, coexiste avec les pas sur un registre différent. Complète l'évocation du jardin sans dupliquer la fréquence des pas.",
+          "_orchestrationKeyword": "leaves",
+          "_orchestrationLayer": "diegetic",
+          "_orchestrationLeitmotiv": "",
+          "_orchestrationDiegeticMode": "sequence",
+          "_orchestrationSunoPrompt": null,
+          "_orchestrationSunoMode": null,
+          "_orchestrationPlan": "intermediaire"
+        },
+        {
+          "id": "st_1784485196699_8lxnvbafm_16",
+          "soundId": "mbck_prop_accordion_nose_breath_single",
+          "startSegmentId": "seg_1784475569135_30_icmuz",
+          "endSegmentId": "seg_1784475569135_48_1e67o",
+          "column": 4,
+          "volume": 0.3,
+          "loop": true,
+          "loopCrossfade": "medium",
+          "fadeIn": 3000,
+          "fadeOut": 3000,
+          "delay": 0,
+          "pan": 0.1,
+          "panMode": "static",
+          "muted": true,
+          "broken": true,
+          "_orchestrationNote": "Accordéon de fond joué par un musicien de taverne non identifié, mélodie simple répétée sans variation dramatique. Plan intermédiaire, légèrement décalé en pan pour suggérer une position dans la salle. Source diégétique — pas une musique de scène composée — qui justifie l'absence de music layer ici.",
+          "_orchestrationKeyword": "accordion",
+          "_orchestrationLayer": "diegetic",
+          "_orchestrationLeitmotiv": "",
+          "_orchestrationDiegeticMode": "sequence",
+          "_orchestrationSunoPrompt": null,
+          "_orchestrationSunoMode": null,
+          "_orchestrationPlan": "intermediaire"
+        },
+        {
+          "id": "st_1784485196699_grugupxwb_17",
+          "soundId": "firecrkl_camp_fire_crackle_01_b00m_one",
+          "startSegmentId": "seg_1784475569135_30_icmuz",
+          "endSegmentId": "seg_1784475569135_48_1e67o",
+          "column": 5,
+          "volume": 0.26,
+          "loop": true,
+          "loopCrossfade": "medium",
+          "fadeIn": 3000,
+          "fadeOut": 3000,
+          "delay": 0,
+          "pan": 0,
+          "panMode": "static",
+          "muted": true,
+          "broken": true,
+          "automationPoints": [
+            {
+              "segmentId": "seg_1784483399622_b_tdumq",
+              "volume": 0.14,
+              "fadeMs": 2500
+            }
+          ],
+          "_orchestrationNote": "Crépitement de bois continu, registre médium-aigu irrégulier, sans cycle audible. Plan arrière, sous l'accordéon et le bed. Reste la seule présence sonore pendant le silence actif de la révélation de noyade, à volume très réduit.",
+          "_orchestrationKeyword": "fire",
+          "_orchestrationLayer": "diegetic",
+          "_orchestrationLeitmotiv": "",
+          "_orchestrationDiegeticMode": "sequence",
+          "_orchestrationSunoPrompt": null,
+          "_orchestrationSunoMode": null,
+          "_orchestrationPlan": "arriere"
+        },
+        {
+          "id": "st_1784485196699_9hl642q7e_18",
+          "soundId": "glasfric_cork_squeak_glass_twist_back_and_forth_slow_01_b00m_one",
+          "startSegmentId": "seg_1784475569135_38_jxbwa",
+          "endSegmentId": "seg_1784475569135_38_jxbwa",
+          "column": 0,
+          "volume": 0.58,
+          "loop": false,
+          "fadeIn": 0,
+          "fadeOut": 0,
+          "delay": 0,
+          "pan": 0,
+          "panMode": "static",
+          "muted": true,
+          "broken": true,
+          "_orchestrationNote": "Choc bref de verre contre bois, sans résonance longue. Plan premier, ponctuel. Détail concret sans portée narrative, place une chope reposée sur la table pendant la réplique de l'Ancien.",
+          "_orchestrationKeyword": "glass",
+          "_orchestrationLayer": "diegetic",
+          "_orchestrationLeitmotiv": "",
+          "_orchestrationDiegeticMode": "ponctuel",
+          "_orchestrationSunoPrompt": null,
+          "_orchestrationSunoMode": null,
+          "_orchestrationPlan": "premier"
+        },
+        {
+          "id": "st_1784485196700_yyarulqg6_19",
+          "soundId": "doorwood_closet_wood_close_02_b00m_one",
+          "startSegmentId": "seg_1784475569135_43_hr0t8",
+          "endSegmentId": "seg_1784475569135_43_hr0t8",
+          "column": 0,
+          "volume": 0.5,
+          "loop": false,
+          "fadeIn": 0,
+          "fadeOut": 0,
+          "delay": 0,
+          "pan": -0.15,
+          "panMode": "static",
+          "muted": true,
+          "broken": true,
+          "_orchestrationNote": "Craquement bref de bois, attaque sèche, sans vibration prolongée. Plan premier. Un tabouret qui bouge quand le Vieux Chénier se penche pour poser sa question sur Frodon — léger pan pour suggérer sa position à côté de l'Ancien.",
+          "_orchestrationKeyword": "wood",
+          "_orchestrationLayer": "diegetic",
+          "_orchestrationLeitmotiv": "",
+          "_orchestrationDiegeticMode": "ponctuel",
+          "_orchestrationSunoPrompt": null,
+          "_orchestrationSunoMode": null,
+          "_orchestrationPlan": "premier"
+        },
+        {
+          "id": "st_1784485196700_lcqp9gs34_20",
+          "soundId": "watrpour_pour_designed_long_02_b00m_one",
+          "startSegmentId": "seg_1784475569135_44_t74ne",
+          "endSegmentId": "seg_1784475569135_44_t74ne",
+          "column": 0,
+          "volume": 0.55,
+          "loop": false,
+          "fadeIn": 0,
+          "fadeOut": 300,
+          "delay": 0,
+          "pan": 0,
+          "panMode": "static",
+          "muted": true,
+          "broken": true,
+          "_orchestrationNote": "Liquide versé dans un contenant, débit continu bref, sans éclaboussure marquée. Plan premier. Papa Bipied qu'on ressert pendant qu'il intervient dans la conversation, détail neutre qui garde la scène vivante.",
+          "_orchestrationKeyword": "pour",
+          "_orchestrationLayer": "diegetic",
+          "_orchestrationLeitmotiv": "",
+          "_orchestrationDiegeticMode": "ponctuel",
+          "_orchestrationSunoPrompt": null,
+          "_orchestrationSunoMode": null,
+          "_orchestrationPlan": "premier"
+        },
+        {
+          "id": "st_1784485196700_s38bbqej8_21",
+          "soundId": "dsgnerie_musical_pad_dark_space_horror_02_b00m_one",
+          "startSegmentId": "seg_1784475569135_42_2tlnb",
+          "endSegmentId": "seg_1784483399622_a_o924l",
+          "column": 3,
+          "volume": 0.13,
+          "loop": true,
+          "loopCrossfade": "medium",
+          "fadeIn": 2000,
+          "fadeOut": 3000,
+          "delay": 0,
+          "pan": 0,
+          "panMode": "static",
+          "muted": true,
+          "broken": true,
+          "automationPoints": [
+            {
+              "segmentId": "seg_1784475569135_42_2tlnb",
+              "volume": 0.1,
+              "fadeMs": 1000
+            },
+            {
+              "segmentId": "seg_1784475569135_45_elvzx",
+              "volume": 0.2,
+              "fadeMs": 2000
+            },
+            {
+              "segmentId": "seg_1784483399622_a_o924l",
+              "volume": 0.14,
+              "fadeMs": 1800
+            }
+          ],
+          "_orchestrationNote": "Nappe basse sans pulsation ni mélodie, texture légèrement plus sombre que l'atmosphere d'ouverture. Plan intermédiaire, sous le bed de taverne. Accompagne le folklore inquiétant sur la Vieille Forêt sans jamais devenir franchement menaçante — reste au niveau du ragot.",
+          "_orchestrationKeyword": "ominous",
+          "_orchestrationLayer": "atmosphere",
+          "_orchestrationLeitmotiv": "",
+          "_orchestrationDiegeticMode": null,
+          "_orchestrationSunoPrompt": null,
+          "_orchestrationSunoMode": null,
+          "_orchestrationPlan": "intermediaire"
+        },
+        {
+          "id": "st_1784485196700_cafpwjeo5_22",
+          "soundId": "mechclik_slide_medium_metal_ball_bearing_slide_release_snap_01_b00m_one_1",
+          "startSegmentId": "seg_1784475569135_42_2tlnb",
+          "endSegmentId": "seg_1784475569135_42_2tlnb",
+          "column": 0,
+          "volume": 0.48,
+          "loop": false,
+          "fadeIn": 0,
+          "fadeOut": 200,
+          "delay": 0,
+          "pan": 0,
+          "panMode": "static",
+          "muted": true,
+          "broken": true,
+          "_orchestrationNote": "Accent sec et bref, sans traînée ni réverbération, pas un whoosh. Plan premier, seul événement marqué de cette rupture. Marque le pivot de sujet quand le Vieux Chénier ramène la conversation sur Frodon.",
+          "_orchestrationKeyword": "snap",
+          "_orchestrationLayer": "transition",
+          "_orchestrationLeitmotiv": "",
+          "_orchestrationDiegeticMode": null,
+          "_orchestrationSunoPrompt": null,
+          "_orchestrationSunoMode": null,
+          "_orchestrationPlan": "premier"
+        },
+        {
+          "id": "st_1784485196700_sqvhcvuk6_23",
+          "soundId": "robtvox_android_voice_malfunction_02_b00m_one",
+          "startSegmentId": "seg_1784475569135_48_1e67o",
+          "endSegmentId": "seg_1784475569135_48_1e67o",
+          "column": 0,
+          "volume": 0.68,
+          "loop": false,
+          "fadeIn": 0,
+          "fadeOut": 400,
+          "delay": 0,
+          "pan": 0,
+          "panMode": "static",
+          "muted": true,
+          "broken": true,
+          "_orchestrationNote": "Superposition brève de plusieurs voix courtes, sans mot intelligible isolé, attaque simultanée. Plan premier, seul son actif à cet instant. Rend concrète la réaction collective du texte sur le mot Noyé, sert de point d'ancrage au hook de clôture.",
+          "_orchestrationKeyword": "voice",
+          "_orchestrationLayer": "diegetic",
+          "_orchestrationLeitmotiv": "",
+          "_orchestrationDiegeticMode": "ponctuel",
+          "_orchestrationSunoPrompt": null,
+          "_orchestrationSunoMode": null,
+          "_orchestrationPlan": "premier"
+        }
+      ],
       "vfxTracks": []
     }
   ]
