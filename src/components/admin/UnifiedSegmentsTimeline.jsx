@@ -2619,7 +2619,38 @@ const handleTextSelection = useCallback(() => {
   // isAnyBlockDragging/isAnyVfxDragging/isDraggingSegment dans les deps :
   // quand ils passent de true à false (fin de drag), le effect se re-déclenche
   // et mesure les hauteurs une seule fois proprement
-  }, [segments, dividerPosition, editingSegmentIndex, selectedSegmentIndices, soundTracks.length, hiddenSegments, isAnyBlockDragging, isAnyVfxDragging, isDraggingSegment])
+  // La sélection (surlignage) et l'entrée/sortie d'édition ne changent JAMAIS
+  // la hauteur des lignes non concernées — retirées des dépendances de cette
+  // remesure GLOBALE (coûteuse : O(n) reflows). L'édition est gérée par
+  // l'effet ciblé juste en dessous.
+  }, [segments, dividerPosition, soundTracks.length, hiddenSegments, isAnyBlockDragging, isAnyVfxDragging, isDraggingSegment])
+
+  // ── Remesure CIBLÉE lors d'un changement de mode édition ──────────────────
+  // Ne mesure QUE la ligne qui entre ou sort de l'édition : un double-clic ou
+  // une perte de focus ne doit coûter qu'UNE lecture DOM, pas un reflow complet.
+  const prevEditingIndexRef = useRef(null)
+  useLayoutEffect(() => {
+    if (isAnyBlockDragging || isAnyVfxDragging || isDraggingSegment) return
+    const toRemeasure = new Set()
+    if (editingSegmentIndex !== null) toRemeasure.add(editingSegmentIndex)
+    if (prevEditingIndexRef.current !== null) toRemeasure.add(prevEditingIndexRef.current)
+    prevEditingIndexRef.current = editingSegmentIndex
+    if (toRemeasure.size === 0) return
+    setMeasuredRowHeights(prev => {
+      const next = [...prev]
+      let changed = false
+      toRemeasure.forEach(idx => {
+        const row = rowRefs.current[idx]
+        if (!row) return
+        const h = Math.max(SEGMENT_HEIGHT, Math.ceil(row.getBoundingClientRect().height))
+        if (next[idx] !== h) {
+          next[idx] = h
+          changed = true
+        }
+      })
+      return changed ? next : prev
+    })
+  }, [editingSegmentIndex, isAnyBlockDragging, isAnyVfxDragging, isDraggingSegment])
   const totalHeight = rowHeights.reduce((sum, rowHeight) => sum + rowHeight + 8, 0)
 
   // ── Handlers drag & drop segments ──────────────────────────
