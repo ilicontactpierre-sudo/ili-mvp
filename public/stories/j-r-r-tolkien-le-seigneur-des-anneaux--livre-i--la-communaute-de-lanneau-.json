@@ -1056,13 +1056,23 @@
           "audioEvents": []
         },
         {
-          "id": "seg_1784475569135_3_odf6s",
+          "id": "seg_1784483167052_a_4lnqi",
           "lines": [
             "Bilbon était en même temps très riche et très particulier, et il avait fait l’étonnement de la Comté pendant soixante ans, c’est-à-dire depuis sa remarquable disparition et son retour inattendu."
           ],
-          "text": "Bilbon était en même temps très riche et très particulier, et il avait fait l’étonnement de la Comté pendant soixante ans, c’est-à-dire depuis sa remarquable disparition et son retour inattendu.",
+          "text": "Bilbon était en même temps très riche et très particulier, et il avait fait l’étonnement de la Comté pendant soixante ans,",
           "breakAt": null,
-          "isLeader": true,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784483167052_b_wal2q",
+          "lines": [
+            "Bilbon était en même temps très riche et très particulier, et il avait fait l’étonnement de la Comté pendant soixante ans, c’est-à-dire depuis sa remarquable disparition et son retour inattendu."
+          ],
+          "text": "c’est-à-dire depuis sa remarquable disparition et son retour inattendu.",
+          "breakAt": null,
+          "isLeader": false,
           "audioEvents": []
         },
         {
@@ -1161,7 +1171,7 @@
             "Mais jusque-là aucun ennui n’était venu ; et comme M. Sacquet était généreux de son argent, la plupart des gens lui pardonnaient volontiers ses singularités et sa bonne fortune."
           ],
           "text": "Mais jusque-là aucun ennui n’était venu ; et comme M. Sacquet était généreux de son argent, la plupart des gens lui pardonnaient volontiers ses singularités et sa bonne fortune.",
-          "breakAt": 55,
+          "breakAt": null,
           "isLeader": false,
           "audioEvents": []
         },
@@ -1262,7 +1272,7 @@
           ],
           "text": "Tous les ans, les Sacquet avaient donné des réceptions d’anniversaire pleines d’entrain à Cul-de-sac,",
           "breakAt": null,
-          "isLeader": false,
+          "isLeader": true,
           "audioEvents": []
         },
         {
@@ -1290,19 +1300,10 @@
           "lines": [
             "chiffre important : la date de sa «"
           ],
-          "text": "chiffre important : la date de sa «",
+          "text": "chiffre important : la date de sa « majorité ».",
           "breakAt": null,
           "isLeader": false,
-          "audioEvents": []
-        },
-        {
-          "id": "seg_1784475569135_27_emhks",
-          "lines": [
-            "majorité »."
-          ],
-          "text": "majorité ».",
-          "breakAt": null,
-          "isLeader": false,
+          "delay": 1600,
           "audioEvents": []
         },
         {
@@ -1312,7 +1313,7 @@
           ],
           "text": "On commença à jaser à Hobbitebourg et à Lèzeau ;",
           "breakAt": null,
-          "isLeader": true,
+          "isLeader": false,
           "audioEvents": []
         },
         {
@@ -1426,23 +1427,25 @@
           "audioEvents": []
         },
         {
-          "id": "seg_1784475569135_40_uh28v",
+          "id": "seg_1784483336692_a_4ho68",
           "lines": [
             "Ce qui était l’exacte vérité : car Bilbon se montrait très poli à son égard, l’appelant « Maître Hamfast » et le consultant constamment sur la pousse des légumes en matière de « racines », et en particulier de pommes de terre, tout le voisinage"
           ],
-          "text": "Ce qui était l’exacte vérité : car Bilbon se montrait très poli à son égard, l’appelant « Maître Hamfast » et le consultant constamment sur la pousse des légumes en matière de « racines », et en particulier de pommes de terre, tout le voisinage",
+          "text": "Ce qui était l’exacte vérité : car Bilbon se montrait très poli à son égard, l’appelant « Maître Hamfast » et le consultant constamment sur la pousse des légumes en matière de « racines », et en particulier de pommes de terre,",
           "breakAt": null,
           "isLeader": false,
+          "delay": 9000,
           "audioEvents": []
         },
         {
-          "id": "seg_1784475569135_41_unmsr",
+          "id": "seg_1784483336692_b_qvmvt",
           "lines": [
-            "(lui-même compris) le considérait comme l’autorité maîtresse."
+            "Ce qui était l’exacte vérité : car Bilbon se montrait très poli à son égard, l’appelant « Maître Hamfast » et le consultant constamment sur la pousse des légumes en matière de « racines », et en particulier de pommes de terre, tout le voisinage"
           ],
-          "text": "(lui-même compris) le considérait comme l’autorité maîtresse.",
+          "text": "tout le voisinage (lui-même compris) le considérait comme l’autorité maîtresse.",
           "breakAt": null,
           "isLeader": false,
+          "delay": 9000,
           "audioEvents": []
         },
         {
@@ -1496,23 +1499,36 @@
           "audioEvents": []
         },
         {
-          "id": "seg_1784475569135_47_17dag",
+          "id": "seg_1784483390271_a_oq91a",
           "lines": [
             "mais c’est une drôle de lignée, apparemment. Ils batifolent toujours en bateau sur cette grande rivière et ce n’est pas naturel, ça. Ce n’est pas étonnant qu’il en soit sorti des ennuis, que je dis. Mais quoi qu’il en soit, M. Frodon est un jeune Hobbit aussi gentil qu’on pourrait le souhaiter. Il ressemble beaucoup à M. Bilbon, et pas seulement de traits."
           ],
-          "text": "mais c’est une drôle de lignée, apparemment. Ils batifolent toujours en bateau sur cette grande rivière et ce n’est pas naturel, ça. Ce n’est pas étonnant qu’il en soit sorti des ennuis, que je dis. Mais quoi qu’il en soit, M. Frodon est un jeune Hobbit aussi gentil qu’on pourrait le souhaiter. Il ressemble beaucoup à M. Bilbon, et pas seulement de traits.",
+          "text": "mais c’est une drôle de lignée, apparemment. Ils batifolent toujours en bateau sur cette grande rivière et ce n’est pas naturel, ça. Ce n’est pas étonnant qu’il en soit sorti des ennuis, que je dis. Mais quoi qu’il en soit, M. Frodon est un jeune Hobbit aussi gentil qu’on pourrait le souhaiter. Il ressemble beaucoup à M. Bilbon,",
           "breakAt": null,
           "isLeader": false,
+          "delay": 12600,
           "audioEvents": []
         },
         {
-          "id": "seg_1784475569135_47_17dag_overflow_48",
+          "id": "seg_1784483399622_a_o924l",
           "lines": [
-            "Son père était un Sacquet après tout. Et c’était un respectable Hobbit très comme il faut que M. Drogon Sacquet ; il n’y a jamais eu grand-chose à dire de lui jusqu’au jour où il s’est noyé."
+            "mais c’est une drôle de lignée, apparemment. Ils batifolent toujours en bateau sur cette grande rivière et ce n’est pas naturel, ça. Ce n’est pas étonnant qu’il en soit sorti des ennuis, que je dis. Mais quoi qu’il en soit, M. Frodon est un jeune Hobbit aussi gentil qu’on pourrait le souhaiter. Il ressemble beaucoup à M. Bilbon, et pas seulement de traits."
           ],
-          "text": "Son père était un Sacquet après tout. Et c’était un respectable Hobbit très comme il faut que M. Drogon Sacquet ; il n’y a jamais eu grand-chose à dire de lui jusqu’au jour où il s’est noyé.",
+          "text": "et pas seulement de traits. Son père était un Sacquet après tout. Et c’était un respectable Hobbit très comme il faut que M. Drogon Sacquet ;",
           "breakAt": null,
           "isLeader": false,
+          "delay": 12600,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784483399622_b_tdumq",
+          "lines": [
+            "mais c’est une drôle de lignée, apparemment. Ils batifolent toujours en bateau sur cette grande rivière et ce n’est pas naturel, ça. Ce n’est pas étonnant qu’il en soit sorti des ennuis, que je dis. Mais quoi qu’il en soit, M. Frodon est un jeune Hobbit aussi gentil qu’on pourrait le souhaiter. Il ressemble beaucoup à M. Bilbon, et pas seulement de traits."
+          ],
+          "text": "il n’y a jamais eu grand-chose à dire de lui jusqu’au jour où il s’est noyé.",
+          "breakAt": null,
+          "isLeader": false,
+          "delay": 12600,
           "audioEvents": []
         },
         {
@@ -1536,33 +1552,45 @@
           "audioEvents": []
         },
         {
-          "id": "seg_1784475569135_50_9lbma",
+          "id": "seg_1784483414022_a_a44uq",
           "lines": [
             "— Eh ! bien, c’est ce qu’on dit, répondit l’Ancien. Voyez-vous : M. Drogon, il avait épousé la pauvre Mlle Primula Brandebouc. Elle était la cousine germaine de notre M. Bilbon du côté maternel (sa mère étant la plus jeune des filles du Vieux Touque), et M. Drogon était son cousin issu de germain. Ainsi M. Frodon est en même temps son cousin germain et son cousin issu de germain,"
           ],
-          "text": "— Eh ! bien, c’est ce qu’on dit, répondit l’Ancien. Voyez-vous : M. Drogon, il avait épousé la pauvre Mlle Primula Brandebouc. Elle était la cousine germaine de notre M. Bilbon du côté maternel (sa mère étant la plus jeune des filles du Vieux Touque), et M. Drogon était son cousin issu de germain. Ainsi M. Frodon est en même temps son cousin germain et son cousin issu de germain,",
+          "text": "— Eh ! bien, c’est ce qu’on dit, répondit l’Ancien. Voyez-vous : M. Drogon, il avait épousé la pauvre Mlle Primula Brandebouc. Elle était la cousine germaine de notre M. Bilbon du côté maternel (sa mère étant la plus jeune des filles du Vieux Touque),",
           "breakAt": null,
           "isLeader": false,
           "audioEvents": []
         },
         {
-          "id": "seg_1784475569135_50_9lbma_overflow_52",
+          "id": "seg_1784483414022_b_32njb",
+          "lines": [
+            "— Eh ! bien, c’est ce qu’on dit, répondit l’Ancien. Voyez-vous : M. Drogon, il avait épousé la pauvre Mlle Primula Brandebouc. Elle était la cousine germaine de notre M. Bilbon du côté maternel (sa mère étant la plus jeune des filles du Vieux Touque), et M. Drogon était son cousin issu de germain. Ainsi M. Frodon est en même temps son cousin germain et son cousin issu de germain,"
+          ],
+          "text": "et M. Drogon était son cousin issu de germain. Ainsi M. Frodon est en même temps son cousin germain et son cousin issu de germain,",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784483435833_a_th17i",
           "lines": [
             "son oncle à la mode de Bretagne des deux côtés,"
           ],
-          "text": "son oncle à la mode de Bretagne des deux côtés,",
+          "text": "son oncle à la mode de Bretagne des deux côtés, comme on dit, si vous me suivez. Et M. Drogon était en séjour à Château-Brande chez son beau-père,",
           "breakAt": null,
           "isLeader": false,
+          "delay": 2600,
           "audioEvents": []
         },
         {
-          "id": "seg_1784475569135_51_r6fg9",
+          "id": "seg_1784483435833_b_fhj52",
           "lines": [
-            "comme on dit, si vous me suivez. Et M. Drogon était en séjour à Château-Brande chez son beau-père, le vieux Maître Gorbadoc, comme il le faisait souvent après son mariage (car il était assez porté sur la boustifaille,"
+            "son oncle à la mode de Bretagne des deux côtés,"
           ],
-          "text": "comme on dit, si vous me suivez. Et M. Drogon était en séjour à Château-Brande chez son beau-père, le vieux Maître Gorbadoc, comme il le faisait souvent après son mariage (car il était assez porté sur la boustifaille,",
+          "text": "le vieux Maître Gorbadoc, comme il le faisait souvent après son mariage (car il était assez porté sur la boustifaille,",
           "breakAt": null,
           "isLeader": false,
+          "delay": 2600,
           "audioEvents": []
         },
         {
@@ -1646,11 +1674,31 @@
           "audioEvents": []
         },
         {
-          "id": "seg_1784475569136_58_6xc53",
+          "id": "seg_1784483471133_a_ac3lu",
           "lines": [
             "la fois où il était parti et où on l’avait cru mort. Et le voilà qui revient et les renvoie, et il continue à vivre, à vivre, sans jamais paraître d’un jour plus vieux, Dieu le bénisse ! Et tout d’un coup il sort un héritier et il fait proprement établir tous les papiers. Les Sacquet de Besace ne verront jamais l’intérieur de Cul-de-Sac, à présent, ou il faut l’espérer."
           ],
-          "text": "la fois où il était parti et où on l’avait cru mort. Et le voilà qui revient et les renvoie, et il continue à vivre, à vivre, sans jamais paraître d’un jour plus vieux, Dieu le bénisse ! Et tout d’un coup il sort un héritier et il fait proprement établir tous les papiers. Les Sacquet de Besace ne verront jamais l’intérieur de Cul-de-Sac, à présent, ou il faut l’espérer.",
+          "text": "la fois où il était parti et où on l’avait cru mort. Et le voilà qui revient et les renvoie,",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784483478301_a_sbrty",
+          "lines": [
+            "la fois où il était parti et où on l’avait cru mort. Et le voilà qui revient et les renvoie, et il continue à vivre, à vivre, sans jamais paraître d’un jour plus vieux, Dieu le bénisse ! Et tout d’un coup il sort un héritier et il fait proprement établir tous les papiers. Les Sacquet de Besace ne verront jamais l’intérieur de Cul-de-Sac, à présent, ou il faut l’espérer."
+          ],
+          "text": "et il continue à vivre, à vivre, sans jamais paraître d’un jour plus vieux, Dieu le bénisse ! Et tout d’un coup il sort un héritier et il fait proprement établir tous les papiers. Les Sacquet de Besace ne verront jamais l’intérieur de Cul-de-Sac, à présent,",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784483478301_b_w8deq",
+          "lines": [
+            "la fois où il était parti et où on l’avait cru mort. Et le voilà qui revient et les renvoie, et il continue à vivre, à vivre, sans jamais paraître d’un jour plus vieux, Dieu le bénisse ! Et tout d’un coup il sort un héritier et il fait proprement établir tous les papiers. Les Sacquet de Besace ne verront jamais l’intérieur de Cul-de-Sac, à présent, ou il faut l’espérer."
+          ],
+          "text": "ou il faut l’espérer.",
           "breakAt": null,
           "isLeader": false,
           "audioEvents": []
@@ -1686,11 +1734,21 @@
           "audioEvents": []
         },
         {
-          "id": "seg_1784475569136_61_wohu6_overflow_66",
+          "id": "seg_1784483520715_a_ca1fh",
           "lines": [
             "mais il m’a fait monter à Cul-de-Sac pour l’aider à empêcher les gens de se balader partout et de tout piétiner dans le jardin pendant la vente. Et au milieu de tout ça, voilà M. Bilbon qui monte la colline avec un poney et des énormes sacs et deux coffres. Je ne doute pas qu’ils étaient remplis pour la plus grande part de trésors qu’il avait ramassés à l’étranger,"
           ],
-          "text": "mais il m’a fait monter à Cul-de-Sac pour l’aider à empêcher les gens de se balader partout et de tout piétiner dans le jardin pendant la vente. Et au milieu de tout ça, voilà M. Bilbon qui monte la colline avec un poney et des énormes sacs et deux coffres. Je ne doute pas qu’ils étaient remplis pour la plus grande part de trésors qu’il avait ramassés à l’étranger,",
+          "text": "mais il m’a fait monter à Cul-de-Sac pour l’aider à empêcher les gens de se balader partout et de tout piétiner dans le jardin pendant la vente. Et au milieu de tout ça,",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784483520715_b_ecnrm",
+          "lines": [
+            "mais il m’a fait monter à Cul-de-Sac pour l’aider à empêcher les gens de se balader partout et de tout piétiner dans le jardin pendant la vente. Et au milieu de tout ça, voilà M. Bilbon qui monte la colline avec un poney et des énormes sacs et deux coffres. Je ne doute pas qu’ils étaient remplis pour la plus grande part de trésors qu’il avait ramassés à l’étranger,"
+          ],
+          "text": "voilà M. Bilbon qui monte la colline avec un poney et des énormes sacs et deux coffres. Je ne doute pas qu’ils étaient remplis pour la plus grande part de trésors qu’il avait ramassés à l’étranger,",
           "breakAt": null,
           "isLeader": false,
           "audioEvents": []
@@ -1720,19 +1778,10 @@
           "lines": [
             "Mieux vaut pour toi et moi des choux et des pommes de terre."
           ],
-          "text": "Mieux vaut pour toi et moi des choux et des pommes de terre.",
+          "text": "Mieux vaut pour toi et moi des choux et des pommes de terre. Ne va pas te mêler des affaires de ceux qui sont au-dessus de toi,",
           "breakAt": null,
           "isLeader": false,
-          "audioEvents": []
-        },
-        {
-          "id": "seg_1784475569136_64_74ibm",
-          "lines": [
-            "Ne va pas te mêler des affaires de ceux qui sont au-dessus de toi,"
-          ],
-          "text": "Ne va pas te mêler des affaires de ceux qui sont au-dessus de toi,",
-          "breakAt": null,
-          "isLeader": false,
+          "delay": 2600,
           "audioEvents": []
         },
         {
@@ -1776,11 +1825,21 @@
           "audioEvents": []
         },
         {
-          "id": "seg_1784475569136_69_12u8j",
+          "id": "seg_1784483597146_a_xq3f3",
           "lines": [
             "des Nains qui viennent la nuit et ce vieux magicien errant, Gandalf, et tout ça. Vous me direz ce que vous voudrez, l’Ancien, mais Cul-de-Sac est un endroit bizarre et ses habitants sont bizarres."
           ],
-          "text": "des Nains qui viennent la nuit et ce vieux magicien errant, Gandalf, et tout ça. Vous me direz ce que vous voudrez, l’Ancien, mais Cul-de-Sac est un endroit bizarre et ses habitants sont bizarres.",
+          "text": "des Nains qui viennent la nuit et ce vieux magicien errant, Gandalf, et tout ça. Vous me direz ce que vous voudrez, l’Ancien,",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784483597146_b_y167y",
+          "lines": [
+            "des Nains qui viennent la nuit et ce vieux magicien errant, Gandalf, et tout ça. Vous me direz ce que vous voudrez, l’Ancien, mais Cul-de-Sac est un endroit bizarre et ses habitants sont bizarres."
+          ],
+          "text": "mais Cul-de-Sac est un endroit bizarre et ses habitants sont bizarres.",
           "breakAt": null,
           "isLeader": false,
           "audioEvents": []
@@ -1826,24 +1885,37 @@
           "audioEvents": []
         },
         {
-          "id": "seg_1784475569136_73_w0srt",
+          "id": "seg_1784483673547_a_dd2no",
           "lines": [
             "Un ou deux jours après, une rumeur (sans doute lancée par ce Sam si bien informé) se répandit, comme quoi il y aurait un feu d’artifice – qui plus est, un feu d’artifice tel qu’on n’en avait plus vu dans la Comté depuis près d’un siècle, depuis"
           ],
-          "text": "Un ou deux jours après, une rumeur (sans doute lancée par ce Sam si bien informé) se répandit, comme quoi il y aurait un feu d’artifice – qui plus est, un feu d’artifice tel qu’on n’en avait plus vu dans la Comté depuis près d’un siècle, depuis",
+          "text": "Un ou deux jours après, une rumeur (sans doute lancée par ce Sam si bien informé) se répandit, comme quoi il y aurait un feu d’artifice – qui plus est,",
           "breakAt": null,
           "isLeader": false,
+          "delay": 5200,
           "audioEvents": []
         },
         {
-          "id": "seg_1784475569136_74_ax2yx",
+          "id": "seg_1784483673547_b_k2wzl",
           "lines": [
-            "la mort du Vieux Touque, en fait."
+            "Un ou deux jours après, une rumeur (sans doute lancée par ce Sam si bien informé) se répandit, comme quoi il y aurait un feu d’artifice – qui plus est, un feu d’artifice tel qu’on n’en avait plus vu dans la Comté depuis près d’un siècle, depuis"
           ],
-          "text": "la mort du Vieux Touque, en fait.",
+          "text": "un feu d’artifice tel qu’on n’en avait plus vu dans la Comté depuis près d’un siècle,",
           "breakAt": null,
           "isLeader": false,
+          "delay": 5200,
           "audioEvents": []
+        },
+        {
+          "id": "seg_1784483620396_b_vkqho",
+          "lines": [
+            "Un ou deux jours après, une rumeur (sans doute lancée par ce Sam si bien informé) se répandit, comme quoi il y aurait un feu d’artifice – qui plus est, un feu d’artifice tel qu’on n’en avait plus vu dans la Comté depuis près d’un siècle, depuis"
+          ],
+          "text": "depuis la mort du Vieux Touque, en fait.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": [],
+          "delay": 4200
         },
         {
           "id": "seg_1784475569136_75_5o0p6",
@@ -2226,11 +2298,21 @@
           "audioEvents": []
         },
         {
-          "id": "seg_1784475569136_113_07i8k",
+          "id": "seg_1784483688515_a_yv879",
           "lines": [
             "— Très bien. Il est inutile de rien ajouter. Tenez-vous-en à votre plan – à votre plan dans son entier, notez-le bien – et j’espère que cela réussira au mieux, pour vous et pour nous tous."
           ],
-          "text": "— Très bien. Il est inutile de rien ajouter. Tenez-vous-en à votre plan – à votre plan dans son entier, notez-le bien – et j’espère que cela réussira au mieux, pour vous et pour nous tous.",
+          "text": "— Très bien. Il est inutile de rien ajouter. Tenez-vous-en à votre plan – à votre plan dans son entier, notez-le bien – et j’espère que cela réussira au mieux,",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784483688515_b_evyff",
+          "lines": [
+            "— Très bien. Il est inutile de rien ajouter. Tenez-vous-en à votre plan – à votre plan dans son entier, notez-le bien – et j’espère que cela réussira au mieux, pour vous et pour nous tous."
+          ],
+          "text": "pour vous et pour nous tous.",
           "breakAt": null,
           "isLeader": false,
           "audioEvents": []
@@ -2246,11 +2328,21 @@
           "audioEvents": []
         },
         {
-          "id": "seg_1784475569136_115_zx9cl",
+          "id": "seg_1784483644316_a_k5mdz",
           "lines": [
             "— Qui rira, je me le demande, dit Gandalf avec un hochement de tête. — On verra, dit Bilbon."
           ],
-          "text": "— Qui rira, je me le demande, dit Gandalf avec un hochement de tête. — On verra, dit Bilbon.",
+          "text": "— Qui rira, je me le demande, dit Gandalf avec un hochement de tête.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784483644317_b_44k6x",
+          "lines": [
+            "— Qui rira, je me le demande, dit Gandalf avec un hochement de tête. — On verra, dit Bilbon."
+          ],
+          "text": "— On verra, dit Bilbon.",
           "breakAt": null,
           "isLeader": false,
           "audioEvents": []
