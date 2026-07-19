@@ -2780,11 +2780,7 @@ function AdminPage() {
                             ? (v) => setParts(prev => { const next = [...prev]; next[activePartIndex] = { ...next[activePartIndex], masterVolume: v }; return next })
                             : setStoryMasterVolume
                           }
-                          seuilKeys={
-                            isSerial
-                              ? (parts[activePartIndex]?.seuil ?? []).map(q => q.cle).filter(Boolean)
-                              : (storyExtraMeta.seuil ?? []).map(q => q.cle).filter(Boolean)
-                          }
+                          seuilKeys={seuilKeys}
                           onSoundsImported={(updatedSounds) => {
                             if (Array.isArray(updatedSounds) && updatedSounds.length > 0) {
                               const urlMap = {}
