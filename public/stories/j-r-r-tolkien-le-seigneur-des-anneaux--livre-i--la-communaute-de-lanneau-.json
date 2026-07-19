@@ -1,0 +1,2263 @@
+{
+  "id": "j-r-r-tolkien-le-seigneur-des-anneaux--livre-i--la-communaute-de-lanneau-",
+  "title": "LE SEIGNEUR DES ANNEAUX • Livre I : La communauté de l’anneau ",
+  "author": "J. R. R. TOLKIEN",
+  "type": "serial",
+  "published": true,
+  "parts": [
+    {
+      "id": "part_1784475372064_0",
+      "title": "PROLOGUE",
+      "subtitle": "",
+      "description": "",
+      "published": false,
+      "sounds": [],
+      "segments": [
+        {
+          "id": "seg_1784475050036_0_j7qdm",
+          "lines": [
+            "Trois Anneaux pour les Rois Elfes sous le ciel,"
+          ],
+          "text": "Trois Anneaux pour les Rois Elfes sous le ciel,",
+          "breakAt": null,
+          "isLeader": true,
+          "italic": true,
+          "isChapter": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475062832_a_jgv1s",
+          "lines": [
+            "Sept pour les Seigneurs Nains dans leurs demeures de pierre, Neuf pour les Hommes Mortels destinés au trépas, Un pour le Seigneur des Ténèbres sur son sombre trône Dans le Pays de Mordor où s'étendent les Ombres."
+          ],
+          "text": "Sept pour les Seigneurs Nains dans leurs demeures de pierre,",
+          "breakAt": null,
+          "isLeader": true,
+          "italic": true,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475064392_a_8cwr4",
+          "lines": [
+            "Sept pour les Seigneurs Nains dans leurs demeures de pierre, Neuf pour les Hommes Mortels destinés au trépas, Un pour le Seigneur des Ténèbres sur son sombre trône Dans le Pays de Mordor où s'étendent les Ombres."
+          ],
+          "text": "Neuf pour les Hommes Mortels destinés au trépas,",
+          "breakAt": null,
+          "isLeader": true,
+          "audioEvents": [],
+          "italic": true
+        },
+        {
+          "id": "seg_1784475068083_a_0g4b8",
+          "lines": [
+            "Sept pour les Seigneurs Nains dans leurs demeures de pierre, Neuf pour les Hommes Mortels destinés au trépas, Un pour le Seigneur des Ténèbres sur son sombre trône Dans le Pays de Mordor où s'étendent les Ombres."
+          ],
+          "text": "Un pour le Seigneur des Ténèbres sur son sombre trône",
+          "breakAt": null,
+          "isLeader": true,
+          "audioEvents": [],
+          "italic": true
+        },
+        {
+          "id": "seg_1784475068083_b_ar6e7",
+          "lines": [
+            "Sept pour les Seigneurs Nains dans leurs demeures de pierre, Neuf pour les Hommes Mortels destinés au trépas, Un pour le Seigneur des Ténèbres sur son sombre trône Dans le Pays de Mordor où s'étendent les Ombres."
+          ],
+          "text": "Dans le Pays de Mordor où s'étendent les Ombres.",
+          "breakAt": null,
+          "isLeader": true,
+          "audioEvents": [],
+          "italic": true
+        },
+        {
+          "id": "seg_1784475050036_2_a7751",
+          "lines": [
+            "Un Anneau pour les gouverner tous, Un Anneau pour les trouver, Un Anneau pour les amener tous et dans les ténèbres les lier Au Pays de Mordor où s'étendent les Ombres."
+          ],
+          "text": "Un Anneau pour les gouverner tous, \nUn Anneau pour les trouver, \nUn Anneau pour les amener tous et dans les ténèbres les lier Au Pays de Mordor où s'étendent les Ombres.",
+          "breakAt": null,
+          "isLeader": true,
+          "italic": true,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475050036_3_wvpif",
+          "lines": [
+            "PROLOGUE"
+          ],
+          "text": "PROLOGUE",
+          "breakAt": null,
+          "isLeader": true,
+          "isChapter": true,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475050036_4_f997a",
+          "lines": [
+            "I - DES HOBBITS"
+          ],
+          "text": "I - DES HOBBITS",
+          "breakAt": null,
+          "isLeader": true,
+          "isChapter": true,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475050036_5_2y12g",
+          "lines": [
+            "Ce livre traite dans une large mesure des Hobbits,"
+          ],
+          "text": "Ce livre traite dans une large mesure des Hobbits,",
+          "breakAt": null,
+          "isLeader": true,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475050036_6_ed6w7",
+          "lines": [
+            "et le lecteur découvrira dans ses pages une bonne part de leur caractère et un peu de leur histoire."
+          ],
+          "text": "et le lecteur découvrira dans ses pages une bonne part de leur caractère et un peu de leur histoire.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475050036_7_5237i",
+          "lines": [
+            "On pourra trouver d’autres renseignements dans les extraits du Livre Rouge de la Marche de l’Ouest déjà publiés sous le titre : Le Hobbit."
+          ],
+          "text": "On pourra trouver d’autres renseignements dans les extraits du Livre Rouge de la Marche de l’Ouest déjà publiés sous le titre : Le Hobbit.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475050036_8_hymcm",
+          "lines": [
+            "La présente histoire a pour origine les premiers chapitres du Livre Rouge composé par Bilbon lui-même,"
+          ],
+          "text": "La présente histoire a pour origine les premiers chapitres du Livre Rouge composé par Bilbon lui-même,",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475050036_9_36r8l",
+          "lines": [
+            "premier Hobbit à devenir fameux dans le monde entier ;"
+          ],
+          "text": "premier Hobbit à devenir fameux dans le monde entier ;",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475050036_10_c7cod",
+          "lines": [
+            "il leur donna pour titre : Histoire d’un aller et retour, puisqu’ils traitaient de son voyage dans l’Est et de son retour : aventure qui devait engager tous les Hobbits dans les importants événements de cet Âge, ici rapportés."
+          ],
+          "text": "il leur donna pour titre : Histoire d’un aller et retour, puisqu’ils traitaient de son voyage dans l’Est et de son retour : aventure qui devait engager tous les Hobbits dans les importants événements de cet Âge, ici rapportés.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475050036_11_d21xt",
+          "lines": [
+            "Mais maints lecteurs voudront sans doute en savoir dès l’abord davantage sur ce peuple remarquable ; certains peuvent aussi ne point posséder le premier livre."
+          ],
+          "text": "Mais maints lecteurs voudront sans doute en savoir dès l’abord davantage sur ce peuple remarquable ; certains peuvent aussi ne point posséder le premier livre.",
+          "breakAt": null,
+          "isLeader": true,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475050036_12_06zmm",
+          "lines": [
+            "À l’intention de telles personnes, nous réunissons ici quelques notes sur les points les plus importants de la tradition hobbite, et nous rappelons brièvement la première aventure."
+          ],
+          "text": "À l’intention de telles personnes, nous réunissons ici quelques notes sur les points les plus importants de la tradition hobbite, et nous rappelons brièvement la première aventure.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475050036_13_6y2r8",
+          "lines": [
+            "Les Hobbits sont un peuple effacé mais très ancien,"
+          ],
+          "text": "Les Hobbits sont un peuple effacé mais très ancien,",
+          "breakAt": null,
+          "isLeader": true,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475050036_14_9yglo",
+          "lines": [
+            "qui fut plus nombreux dans l’ancien temps que de nos jours, car ils aiment la paix, la tranquillité et une terre bien cultivée : une campagne bien ordonnée et bien mise en valeur était leur retraite favorite."
+          ],
+          "text": "qui fut plus nombreux dans l’ancien temps que de nos jours, car ils aiment la paix, la tranquillité et une terre bien cultivée : une campagne bien ordonnée et bien mise en valeur était leur retraite favorite.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475050036_15_dhp6e",
+          "lines": [
+            "Ils ne comprennent ni ne comprenaient, et ils n’aiment pas davantage les machines dont la complication dépasse celle d’un soufflet de forge, d’un moulin à eau ou d’un métier à tisser manuel, encore qu’ils fussent habiles au maniement des outils."
+          ],
+          "text": "Ils ne comprennent ni ne comprenaient, et ils n’aiment pas davantage les machines dont la complication dépasse celle d’un soufflet de forge, d’un moulin à eau ou d’un métier à tisser manuel, encore qu’ils fussent habiles au maniement des outils.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475050036_16_7850m",
+          "lines": [
+            "Même dans l’ancien temps, ils se méfiaient des « Grandes Gens », comme ils nous appellent, et à présent où ils nous évitent avec effroi, il devient difficile de les trouver."
+          ],
+          "text": "Même dans l’ancien temps, ils se méfiaient des « Grandes Gens », comme ils nous appellent, et à présent où ils nous évitent avec effroi, il devient difficile de les trouver.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475050036_17_q0n63",
+          "lines": [
+            "Ils ont l’oreille fine et l’œil vif, et s’ils ont tendance à l’embonpoint et ne se pressent pas sans nécessité,"
+          ],
+          "text": "Ils ont l’oreille fine et l’œil vif, et s’ils ont tendance à l’embonpoint et ne se pressent pas sans nécessité,",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475050036_18_27ess",
+          "lines": [
+            "ils n’en sont pas moins lestes et adroits dans leurs mouvements."
+          ],
+          "text": "ils n’en sont pas moins lestes et adroits dans leurs mouvements.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475050036_19_65vxz",
+          "lines": [
+            "Ils ont toujours eu l’art de disparaître vivement et en silence quand des Grandes Gens qu’ils ne désirent pas rencontrer viennent par hasard de leur côté,"
+          ],
+          "text": "Ils ont toujours eu l’art de disparaître vivement et en silence quand des Grandes Gens qu’ils ne désirent pas rencontrer viennent par hasard de leur côté,",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475050036_20_xfhg1",
+          "lines": [
+            "et cet art, ils l’ont développé au point qu’aux Hommes il pourrait paraître magique."
+          ],
+          "text": "et cet art, ils l’ont développé au point qu’aux Hommes il pourrait paraître magique.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475050036_21_x8rmk",
+          "lines": [
+            "Mais les Hobbits n’ont en fait jamais étudié de magie d’aucune sorte, et leur caractère insaisissable est dû uniquement à une habileté professionnelle que l’hérédité et la pratique,"
+          ],
+          "text": "Mais les Hobbits n’ont en fait jamais étudié de magie d’aucune sorte, et leur caractère insaisissable est dû uniquement à une habileté professionnelle que l’hérédité et la pratique,",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475050036_22_6o5to",
+          "lines": [
+            "ainsi qu’une amitié intime avec la terre, ont rendue"
+          ],
+          "text": "ainsi qu’une amitié intime avec la terre, ont rendue",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475050036_23_fptew",
+          "lines": [
+            "inimitable pour les races plus grandes et plus lourdes."
+          ],
+          "text": "inimitable pour les races plus grandes et plus lourdes.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475050036_24_a2ovz",
+          "lines": [
+            "Car ce sont de petites personnes, plus menues que les Nains : ils sont moins gros et trapus, disons, même s’ils ne sont pas vraiment beaucoup plus courts."
+          ],
+          "text": "Car ce sont de petites personnes, plus menues que les Nains : ils sont moins gros et trapus, disons, même s’ils ne sont pas vraiment beaucoup plus courts.",
+          "breakAt": null,
+          "isLeader": true,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475050036_25_msfst",
+          "lines": [
+            "Leur taille est variable et va de 60 cm à 1,20 m selon notre mesure. Aujourd’hui, ils atteignent rarement 90 cm, mais ils ont diminué, disent-ils,"
+          ],
+          "text": "Leur taille est variable et va de 60 cm à 1,20 m selon notre mesure. Aujourd’hui, ils atteignent rarement 90 cm, mais ils ont diminué, disent-ils,",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475050036_26_fnij3",
+          "lines": [
+            "et dans l’ancien temps ils étaient plus grands."
+          ],
+          "text": "et dans l’ancien temps ils étaient plus grands.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475050036_27_0nor6",
+          "lines": [
+            "D’après le Livre Rouge, Bandobras Touque (Le Taureau mugissant), fils d’Isengrin II, mesurait 1,40 m et il était capable de monter à cheval."
+          ],
+          "text": "D’après le Livre Rouge, Bandobras Touque (Le Taureau mugissant), fils d’Isengrin II, mesurait 1,40 m et il était capable de monter à cheval.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475050036_28_4vvls",
+          "lines": [
+            "Il ne fut dépassé dans toutes les annales hobbites que par deux personnages fameux de l’ancien temps ; mais il sera traité de ce curieux sujet dans le présent livre."
+          ],
+          "text": "Il ne fut dépassé dans toutes les annales hobbites que par deux personnages fameux de l’ancien temps ; mais il sera traité de ce curieux sujet dans le présent livre.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475050036_29_g2ejl",
+          "lines": [
+            "Quant aux Hobbits de la Comté, dont il s’agit dans ces récits, ils étaient,"
+          ],
+          "text": "Quant aux Hobbits de la Comté, dont il s’agit dans ces récits, ils étaient,",
+          "breakAt": null,
+          "isLeader": true,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475050036_30_cl4ss",
+          "lines": [
+            "du temps de leur paix et de leur prospérité, de joyeuses gens."
+          ],
+          "text": "du temps de leur paix et de leur prospérité, de joyeuses gens.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475050036_31_0hn4l",
+          "lines": [
+            "Ils se vêtaient de couleurs vives et affectionnaient particulièrement le jaune et le vert, mais ils portaient rarement des chaussures, leurs pieds ayant la plante dure comme du cuir et étant revêtu d’un épais poil frisé, très semblable à leur chevelure, communément brune."
+          ],
+          "text": "Ils se vêtaient de couleurs vives et affectionnaient particulièrement le jaune et le vert, mais ils portaient rarement des chaussures, leurs pieds ayant la plante dure comme du cuir et étant revêtu d’un épais poil frisé, très semblable à leur chevelure, communément brune.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475050036_32_pp7ke",
+          "lines": [
+            "Ainsi le seul métier manuel qui fût peu en honneur chez eux était-il la cordonnerie, mais ils avaient les doigts longs et habiles,"
+          ],
+          "text": "Ainsi le seul métier manuel qui fût peu en honneur chez eux était-il la cordonnerie, mais ils avaient les doigts longs et habiles,",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475050036_33_7wo7e",
+          "lines": [
+            "et ils savaient fabriquer bien d’autres objets utiles et agréables à l’œil."
+          ],
+          "text": "et ils savaient fabriquer bien d’autres objets utiles et agréables à l’œil.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475050036_34_ke2ae",
+          "lines": [
+            "Leur visage était en règle générale plus aimable que beau – large,"
+          ],
+          "text": "Leur visage était en règle générale plus aimable que beau – large,",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475050036_35_g83gd",
+          "lines": [
+            "avec les yeux brillants, les joues rouges et la bouche toute prête au rire, au manger et au boire."
+          ],
+          "text": "avec les yeux brillants, les joues rouges et la bouche toute prête au rire, au manger et au boire.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475050036_36_iu15k",
+          "lines": [
+            "Et, pour ce qui était de rire, de manger et de boire, ils le faisaient bien, souvent et cordialement,"
+          ],
+          "text": "Et, pour ce qui était de rire, de manger et de boire, ils le faisaient bien, souvent et cordialement,",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475050036_37_4zh55",
+          "lines": [
+            "car ils aimaient les simples facéties en tout temps et six repas par jour (quand ils pouvaient les avoir)."
+          ],
+          "text": "car ils aimaient les simples facéties en tout temps et six repas par jour (quand ils pouvaient les avoir).",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475050036_38_7ywc3",
+          "lines": [
+            "Ils étaient hospitaliers, et ils se plaisaient aux parties ainsi qu’aux cadeaux,"
+          ],
+          "text": "Ils étaient hospitaliers, et ils se plaisaient aux parties ainsi qu’aux cadeaux,",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475050036_39_9lygx",
+          "lines": [
+            "qu’ils s’offraient avec libéralité et qu’ils acceptaient avidement."
+          ],
+          "text": "qu’ils s’offraient avec libéralité et qu’ils acceptaient avidement.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475050036_40_h1k0s",
+          "lines": [
+            "Il est clair qu’en dépit d’un éloignement ultérieur,"
+          ],
+          "text": "Il est clair qu’en dépit d’un éloignement ultérieur,",
+          "breakAt": null,
+          "isLeader": true,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475050036_41_px9oh",
+          "lines": [
+            "les Hobbits nous sont apparentés : Ils sont beaucoup plus proches de nous que les Elfes ou même que les Nains."
+          ],
+          "text": "les Hobbits nous sont apparentés : Ils sont beaucoup plus proches de nous que les Elfes ou même que les Nains.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475050036_42_pefic",
+          "lines": [
+            "Ils parlaient autrefois la langue des hommes, à leur propre façon,"
+          ],
+          "text": "Ils parlaient autrefois la langue des hommes, à leur propre façon,",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475050036_43_9b0lr",
+          "lines": [
+            "et leurs goûts étaient très semblables à ceux des hommes dans leurs inclinations ou leurs aversions."
+          ],
+          "text": "et leurs goûts étaient très semblables à ceux des hommes dans leurs inclinations ou leurs aversions.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475050036_44_wv3s7",
+          "lines": [
+            "Mais il est impossible de découvrir aujourd’hui notre relation exacte."
+          ],
+          "text": "Mais il est impossible de découvrir aujourd’hui notre relation exacte.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475050036_45_pt93i",
+          "lines": [
+            "L’origine des Hobbits remonte très loin dans les temps anciens, maintenant perdus et oubliés."
+          ],
+          "text": "L’origine des Hobbits remonte très loin dans les temps anciens, maintenant perdus et oubliés.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475050036_46_lfe5w",
+          "lines": [
+            "Seuls les Elfes conservent encore des annales de cette époque évanouie,"
+          ],
+          "text": "Seuls les Elfes conservent encore des annales de cette époque évanouie,",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475050036_47_dt11f",
+          "lines": [
+            "et leurs traditions ne concernent pratiquement que leur propre histoire, dans laquelle les Hommes apparaissent rarement et où il n’est fait aucune mention des Hobbits."
+          ],
+          "text": "et leurs traditions ne concernent pratiquement que leur propre histoire, dans laquelle les Hommes apparaissent rarement et où il n’est fait aucune mention des Hobbits.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475050036_48_apgpx",
+          "lines": [
+            "Il est cependant clair que ceux-ci avaient, en fait, vécu tranquillement dans la Terre du Milieu durant de longues années avant que d’autres n’eussent même conscience de leur existence."
+          ],
+          "text": "Il est cependant clair que ceux-ci avaient, en fait, vécu tranquillement dans la Terre du Milieu durant de longues années avant que d’autres n’eussent même conscience de leur existence.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475050036_49_uj1ib",
+          "lines": [
+            "Et le monde étant après tout rempli d’innombrables créatures étranges,"
+          ],
+          "text": "Et le monde étant après tout rempli d’innombrables créatures étranges,",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475050036_50_pketh",
+          "lines": [
+            "ce petit peuple semblait de bien peu d’importance."
+          ],
+          "text": "ce petit peuple semblait de bien peu d’importance.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475050036_51_evdow",
+          "lines": [
+            "Mais du temps de Bilbon et de son héritier Frodon, ils devinrent soudain,"
+          ],
+          "text": "Mais du temps de Bilbon et de son héritier Frodon, ils devinrent soudain,",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475050036_52_afz8v",
+          "lines": [
+            "malgré eux, importants et renommés, et ils troublèrent les conseils des Sages et des Grands."
+          ],
+          "text": "malgré eux, importants et renommés, et ils troublèrent les conseils des Sages et des Grands.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475050036_53_y1cdx",
+          "lines": [
+            "Ces temps, le Tiers Âge de la Terre du Milieu, sont du lointain passé, et la forme de toutes les terres a été modifiée,"
+          ],
+          "text": "Ces temps, le Tiers Âge de la Terre du Milieu, sont du lointain passé, et la forme de toutes les terres a été modifiée,",
+          "breakAt": null,
+          "isLeader": true,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475050036_54_3qq88",
+          "lines": [
+            "mais les régions où vivaient alors les Hobbits étaient sans doute celles où ils demeurent encore : Le Nord-ouest de l’Ancien Monde, à l’Est de la Mer."
+          ],
+          "text": "mais les régions où vivaient alors les Hobbits étaient sans doute celles où ils demeurent encore : Le Nord-ouest de l’Ancien Monde, à l’Est de la Mer.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475050036_55_rl6rh",
+          "lines": [
+            "De leur pays original, les Hobbits du temps de Bilbon ne conservaient aucune connaissance."
+          ],
+          "text": "De leur pays original, les Hobbits du temps de Bilbon ne conservaient aucune connaissance.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475050036_56_2c1lq",
+          "lines": [
+            "Le goût du savoir (autre que la généalogie) était peu prononcé parmi eux, mais il restait encore quelques membres des plus anciennes familles qui étudiaient leurs propres livres et même rassemblaient les documents des anciens temps et des terres lointaines auprès des Elfes, des Nains et des Hommes."
+          ],
+          "text": "Le goût du savoir (autre que la généalogie) était peu prononcé parmi eux, mais il restait encore quelques membres des plus anciennes familles qui étudiaient leurs propres livres et même rassemblaient les documents des anciens temps et des terres lointaines auprès des Elfes, des Nains et des Hommes.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475050036_57_c8yk6",
+          "lines": [
+            "Leurs propres archives ne remontaient qu’à l’établissement de la Comté,"
+          ],
+          "text": "Leurs propres archives ne remontaient qu’à l’établissement de la Comté,",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475050036_58_rwh56",
+          "lines": [
+            "et leurs légendes les plus anciennes ne se reportaient pas au-delà du temps de leur odyssée."
+          ],
+          "text": "et leurs légendes les plus anciennes ne se reportaient pas au-delà du temps de leur odyssée.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475050036_59_6k18y",
+          "lines": [
+            "Il ressort néanmoins clairement de ces légendes et du témoignage de leurs paroles et coutumes particulières que,"
+          ],
+          "text": "Il ressort néanmoins clairement de ces légendes et du témoignage de leurs paroles et coutumes particulières que,",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475050036_60_glmxl",
+          "lines": [
+            "comme maints autres peuples, les Hobbits s’étaient dans un lointain passé déplacés vers l’Ouest."
+          ],
+          "text": "comme maints autres peuples, les Hobbits s’étaient dans un lointain passé déplacés vers l’Ouest.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475050036_61_g13zj",
+          "lines": [
+            "Leurs plus anciens récits semblent entrevoir un temps où ils demeuraient dans les vallées supérieures de l’Anduin, entre les saillants de Vertbois-le-Grand et les Monts Brumeux."
+          ],
+          "text": "Leurs plus anciens récits semblent entrevoir un temps où ils demeuraient dans les vallées supérieures de l’Anduin, entre les saillants de Vertbois-le-Grand et les Monts Brumeux.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475050036_62_qf29u",
+          "lines": [
+            "On ne sait plus avec certitude pour quelle raison ils entreprirent plus tard la dure et périlleuse traversée des montagnes et se rendirent en Eriador."
+          ],
+          "text": "On ne sait plus avec certitude pour quelle raison ils entreprirent plus tard la dure et périlleuse traversée des montagnes et se rendirent en Eriador.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475050036_63_r1p0r",
+          "lines": [
+            "Leurs propres récits parlent de la multiplication des Hommes dans le pays et d’une ombre tombée de la forêt,"
+          ],
+          "text": "Leurs propres récits parlent de la multiplication des Hommes dans le pays et d’une ombre tombée de la forêt,",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475050036_64_ccquf",
+          "lines": [
+            "de sorte qu’elle devint ténébreuse et reçut le nouveau nom de Forêt Noire."
+          ],
+          "text": "de sorte qu’elle devint ténébreuse et reçut le nouveau nom de Forêt Noire.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475050036_65_yxdqi",
+          "lines": [
+            "Avant la traversée des montagnes, les Hobbits s’étaient déjà divisés en trois branches quelque peu différentes : Les Pieds velus, les Forts et les Pâles."
+          ],
+          "text": "Avant la traversée des montagnes, les Hobbits s’étaient déjà divisés en trois branches quelque peu différentes : Les Pieds velus, les Forts et les Pâles.",
+          "breakAt": null,
+          "isLeader": true,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475050036_66_062kz",
+          "lines": [
+            "Les Pieds velus étaient plus bruns de peau, plus petits et plus courts,"
+          ],
+          "text": "Les Pieds velus étaient plus bruns de peau, plus petits et plus courts,",
+          "breakAt": null,
+          "isLeader": true,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475050036_67_b0l6n",
+          "lines": [
+            "ils n’avaient pas de barbe, et ils allaient sans chaussures, ils avaient les mains et les pieds agiles et lestes, ils préféraient les hautes terres et les collines."
+          ],
+          "text": "ils n’avaient pas de barbe, et ils allaient sans chaussures, ils avaient les mains et les pieds agiles et lestes, ils préféraient les hautes terres et les collines.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475050036_68_nz1gc",
+          "lines": [
+            "Les Forts étaient plus larges, de conformation plus lourde, leurs mains et leurs pieds étaient plus grands,"
+          ],
+          "text": "Les Forts étaient plus larges, de conformation plus lourde, leurs mains et leurs pieds étaient plus grands,",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475050036_69_nuemi",
+          "lines": [
+            "ils préféraient les terrains plats et le bord des rivières."
+          ],
+          "text": "ils préféraient les terrains plats et le bord des rivières.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475050036_70_05v9b",
+          "lines": [
+            "Les Pâles étaient plus clairs de peau et aussi de cheveux, et ils étaient plus grands et plus élancés que les autres,"
+          ],
+          "text": "Les Pâles étaient plus clairs de peau et aussi de cheveux, et ils étaient plus grands et plus élancés que les autres,",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475050036_71_1iwa4",
+          "lines": [
+            "ils aimaient les arbres et les terrains boisés."
+          ],
+          "text": "ils aimaient les arbres et les terrains boisés.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475050036_72_z11sw",
+          "lines": [
+            "Les Pieds velus eurent beaucoup de rapports avec les Nains dans les temps anciens, et ils vécurent longtemps sur les contreforts des montagnes."
+          ],
+          "text": "Les Pieds velus eurent beaucoup de rapports avec les Nains dans les temps anciens, et ils vécurent longtemps sur les contreforts des montagnes.",
+          "breakAt": null,
+          "isLeader": true,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475050036_73_qs1yt",
+          "lines": [
+            "Ils émigrèrent de bonne heure dans l’Ouest et ils parcoururent l’Eriador jusqu’au Mont Venteux, tandis que les autres étaient encore au Pays Sauvage."
+          ],
+          "text": "Ils émigrèrent de bonne heure dans l’Ouest et ils parcoururent l’Eriador jusqu’au Mont Venteux, tandis que les autres étaient encore au Pays Sauvage.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475050036_74_tqzeo",
+          "lines": [
+            "C’était la variété la plus normale et la plus représentative des Hobbits, de beaucoup la plus nombreuse."
+          ],
+          "text": "C’était la variété la plus normale et la plus représentative des Hobbits, de beaucoup la plus nombreuse.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475050036_75_wdo1i",
+          "lines": [
+            "Ils étaient les plus enclins à s’établir dans un endroit précis, et ce furent eux qui conservèrent le plus longtemps la coutume ancestrale de vivre dans des galeries et des trous."
+          ],
+          "text": "Ils étaient les plus enclins à s’établir dans un endroit précis, et ce furent eux qui conservèrent le plus longtemps la coutume ancestrale de vivre dans des galeries et des trous.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475050036_76_q6pii",
+          "lines": [
+            "Les Forts s’attardèrent longtemps sur les bords du Grand Fleuve Anduin, et ils craignaient moins les Hommes."
+          ],
+          "text": "Les Forts s’attardèrent longtemps sur les bords du Grand Fleuve Anduin, et ils craignaient moins les Hommes.",
+          "breakAt": null,
+          "isLeader": true,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475050036_77_uoizj",
+          "lines": [
+            "Ils vinrent dans l’Ouest après les Pieds velus et suivirent le cours de la Sonoronne en direction du sud ; et là,"
+          ],
+          "text": "Ils vinrent dans l’Ouest après les Pieds velus et suivirent le cours de la Sonoronne en direction du sud ; et là,",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475050036_78_pfjst",
+          "lines": [
+            "ils furent nombreux à demeurer entre Tharbad et la frontière du Pays de Dun avant de repartir vers le nord."
+          ],
+          "text": "ils furent nombreux à demeurer entre Tharbad et la frontière du Pays de Dun avant de repartir vers le nord.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475050036_79_80yz7",
+          "lines": [
+            "Les Pâles, les moins nombreux, étaient une branche nordique."
+          ],
+          "text": "Les Pâles, les moins nombreux, étaient une branche nordique.",
+          "breakAt": null,
+          "isLeader": true,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475050036_80_k620n",
+          "lines": [
+            "Ils avaient plus de rapports amicaux avec les Nains que les autres Hobbits, et ils s’entendaient davantage au langage et au chant qu’aux travaux manuels ; et jadis ils préféraient la chasse à l’agriculture."
+          ],
+          "text": "Ils avaient plus de rapports amicaux avec les Nains que les autres Hobbits, et ils s’entendaient davantage au langage et au chant qu’aux travaux manuels ; et jadis ils préféraient la chasse à l’agriculture.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475050036_81_mhl9y",
+          "lines": [
+            "Ils traversèrent la montagne au nord de Fondcombe et suivirent la Fontgrise."
+          ],
+          "text": "Ils traversèrent la montagne au nord de Fondcombe et suivirent la Fontgrise.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475050036_82_vcehg",
+          "lines": [
+            "En Eriador, ils ne tardèrent pas à se mêler aux autres espèces qui les avaient précédés, mais, plus hardis et plus aventureux,"
+          ],
+          "text": "En Eriador, ils ne tardèrent pas à se mêler aux autres espèces qui les avaient précédés, mais, plus hardis et plus aventureux,",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475050036_83_1if0n",
+          "lines": [
+            "on les trouvait souvent comme meneurs ou chefs de clan parmi les Pieds velus ou les Forts."
+          ],
+          "text": "on les trouvait souvent comme meneurs ou chefs de clan parmi les Pieds velus ou les Forts.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475050036_84_maz89",
+          "lines": [
+            "Même du temps de Bilbon, on pouvait encore constater la puissante veine pâle dans les grandes familles telles que les Touques et les Maîtres du Pays-de-Bouc."
+          ],
+          "text": "Même du temps de Bilbon, on pouvait encore constater la puissante veine pâle dans les grandes familles telles que les Touques et les Maîtres du Pays-de-Bouc.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475050036_85_noihx",
+          "lines": [
+            "Dans les terres de l’ouest d’Eriador, entre les Monts Brumeux et les Monts de Lune, les Hobbits trouvèrent tant des Hommes que des Elfes."
+          ],
+          "text": "Dans les terres de l’ouest d’Eriador, entre les Monts Brumeux et les Monts de Lune, les Hobbits trouvèrent tant des Hommes que des Elfes.",
+          "breakAt": null,
+          "isLeader": true,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475050036_86_vlh55",
+          "lines": [
+            "En fait, demeurait là un restant des Dunedains, les rois des Hommes qui vinrent par la mer de l’Ouistrenesse ; mais ils diminuaient rapidement,"
+          ],
+          "text": "En fait, demeurait là un restant des Dunedains, les rois des Hommes qui vinrent par la mer de l’Ouistrenesse ; mais ils diminuaient rapidement,",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475050036_87_k8gqa",
+          "lines": [
+            "et les terres de leur royaume du nord retombaient partout en friche."
+          ],
+          "text": "et les terres de leur royaume du nord retombaient partout en friche.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475050036_88_bu253",
+          "lines": [
+            "La place ne manquait pas pour de nouveaux arrivants, et les Hobbits ne tardèrent pas à s’établir en communautés ordonnées."
+          ],
+          "text": "La place ne manquait pas pour de nouveaux arrivants, et les Hobbits ne tardèrent pas à s’établir en communautés ordonnées.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475050036_89_gudmv",
+          "lines": [
+            "La plupart de leurs premiers établissements,"
+          ],
+          "text": "La plupart de leurs premiers établissements,",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475050036_90_wz48g",
+          "lines": [
+            "depuis longtemps disparus, étaient oubliés à l’époque de Bilbon ; mais l’un des premiers à prendre de l’importance avait persisté, bien qu’en dimension réduite ;"
+          ],
+          "text": "depuis longtemps disparus, étaient oubliés à l’époque de Bilbon ; mais l’un des premiers à prendre de l’importance avait persisté, bien qu’en dimension réduite ;",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475050036_91_8c0h6",
+          "lines": [
+            "il se trouvait à Bree au milieu du Bois de Chet, à quelque quarante milles à l’est de la Comté."
+          ],
+          "text": "il se trouvait à Bree au milieu du Bois de Chet, à quelque quarante milles à l’est de la Comté.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475050036_92_o6fh1",
+          "lines": [
+            "Ce fut sans nul doute en ces temps anciens que les Hobbits apprirent leurs lettres et commencèrent à écrire à la manière des Dunedains, qui avaient eux-mêmes acquis longtemps auparavant cet art des Elfes."
+          ],
+          "text": "Ce fut sans nul doute en ces temps anciens que les Hobbits apprirent leurs lettres et commencèrent à écrire à la manière des Dunedains, qui avaient eux-mêmes acquis longtemps auparavant cet art des Elfes.",
+          "breakAt": null,
+          "isLeader": true,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475050036_93_w29o4",
+          "lines": [
+            "Et à cette époque aussi ils oublièrent les langues qu’ils pouvaient avoir parlées antérieurement, pour adopter dorénavant le langage ordinaire, nommé ouistrain, courant dans tous les territoires des rois de l’Arnor au Gondor et le long de toutes les côtes de la mer, de Belfalas à Lune."
+          ],
+          "text": "Et à cette époque aussi ils oublièrent les langues qu’ils pouvaient avoir parlées antérieurement, pour adopter dorénavant le langage ordinaire, nommé ouistrain, courant dans tous les territoires des rois de l’Arnor au Gondor et le long de toutes les côtes de la mer, de Belfalas à Lune.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475050036_94_2sakr",
+          "lines": [
+            "Ils conservèrent néanmoins quelques mots à eux,"
+          ],
+          "text": "Ils conservèrent néanmoins quelques mots à eux,",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475050036_95_cc0ju",
+          "lines": [
+            "ainsi que leurs propres appellations pour les mois et les jours et un grand fonds de noms personnels du passé."
+          ],
+          "text": "ainsi que leurs propres appellations pour les mois et les jours et un grand fonds de noms personnels du passé.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        }
+      ],
+      "soundTracks": [],
+      "vfxTracks": []
+    },
+    {
+      "id": "part_1784475387432_1",
+      "title": "CHAPITRE 1",
+      "subtitle": "",
+      "description": "",
+      "published": false,
+      "sounds": [],
+      "segments": [
+        {
+          "id": "seg_1784475569135_0_ze5wm",
+          "lines": [
+            "CHAPITRE PREMIER"
+          ],
+          "text": "CHAPITRE PREMIER",
+          "breakAt": null,
+          "isLeader": true,
+          "isChapter": true,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569135_1_8e790",
+          "lines": [
+            "UNE RÉCEPTION DEPUIS LONGTEMPS ATTENDUE"
+          ],
+          "text": "UNE RÉCEPTION DEPUIS LONGTEMPS ATTENDUE",
+          "breakAt": null,
+          "isLeader": true,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569135_2_67r5z",
+          "lines": [
+            "Quand M. Bilbon Sacquet, de Cul-de-sac, annonça qu’il donnerait à l’occasion de son undécante-unième anniversaire une réception d’une magnificence particulière, une grande excitation régna dans Hobbitebourg, et toute la ville en parla."
+          ],
+          "text": "Quand M. Bilbon Sacquet, de Cul-de-sac, annonça qu’il donnerait à l’occasion de son undécante-unième anniversaire une réception d’une magnificence particulière, une grande excitation régna dans Hobbitebourg, et toute la ville en parla.",
+          "breakAt": null,
+          "isLeader": true,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569135_3_odf6s",
+          "lines": [
+            "Bilbon était en même temps très riche et très particulier, et il avait fait l’étonnement de la Comté pendant soixante ans, c’est-à-dire depuis sa remarquable disparition et son retour inattendu."
+          ],
+          "text": "Bilbon était en même temps très riche et très particulier, et il avait fait l’étonnement de la Comté pendant soixante ans, c’est-à-dire depuis sa remarquable disparition et son retour inattendu.",
+          "breakAt": null,
+          "isLeader": true,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569135_4_mr2po",
+          "lines": [
+            "Les richesses qu’il avait rapportées de ses voyages étaient devenus une légende locale, et l’on croyait communément, en dépit des assurances des anciens, que la Colline de Cul-de-sac était creusée de galeries bourrées de trésors."
+          ],
+          "text": "Les richesses qu’il avait rapportées de ses voyages étaient devenus une légende locale, et l’on croyait communément, en dépit des assurances des anciens, que la Colline de Cul-de-sac était creusée de galeries bourrées de trésors.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569135_5_thdap",
+          "lines": [
+            "Et si cela n’eût pas suffi à assurer sa renommée, sa vigueur prolongée aurait encore fait l’admiration de tous. Le temps s’écoulait,"
+          ],
+          "text": "Et si cela n’eût pas suffi à assurer sa renommée, sa vigueur prolongée aurait encore fait l’admiration de tous. Le temps s’écoulait,",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569135_6_pnwj7",
+          "lines": [
+            "mais il semblait n’avoir aucune prise sur M. Sacquet."
+          ],
+          "text": "mais il semblait n’avoir aucune prise sur M. Sacquet.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569135_7_zedv6",
+          "lines": [
+            "À quatre-vingt- dix ans, il était tout semblable à ce qu’il était à cinquante."
+          ],
+          "text": "À quatre-vingt- dix ans, il était tout semblable à ce qu’il était à cinquante.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569135_8_8cic2",
+          "lines": [
+            "À quatre-vingt-dix-neuf ans, on commença à le qualifier de bien conservé ;"
+          ],
+          "text": "À quatre-vingt-dix-neuf ans, on commença à le qualifier de bien conservé ;",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569135_9_tl25s",
+          "lines": [
+            "mais inchangé aurait été plus près de la vérité."
+          ],
+          "text": "mais inchangé aurait été plus près de la vérité.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569135_10_c68t8",
+          "lines": [
+            "D’aucuns hochaient la tête, pensant que c’était trop d’une bonne chose ; il paraissait injuste que quelqu’un pût jouir (visiblement) d’une jeunesse perpétuelle en même temps que (suivant l’opinion commune) d’une opulence inépuisable."
+          ],
+          "text": "D’aucuns hochaient la tête, pensant que c’était trop d’une bonne chose ; il paraissait injuste que quelqu’un pût jouir (visiblement) d’une jeunesse perpétuelle en même temps que (suivant l’opinion commune) d’une opulence inépuisable.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569135_11_7zzc0",
+          "lines": [
+            "— Cela aura sa contrepartie, disait-on. Ce n’est pas naturel,"
+          ],
+          "text": "— Cela aura sa contrepartie, disait-on. Ce n’est pas naturel,",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569135_12_v904u",
+          "lines": [
+            "et il en viendra certainement des ennuis !"
+          ],
+          "text": "et il en viendra certainement des ennuis !",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569135_13_62xx4",
+          "lines": [
+            "Mais jusque-là aucun ennui n’était venu ; et comme M. Sacquet était généreux de son argent, la plupart des gens lui pardonnaient volontiers ses singularités et sa bonne fortune."
+          ],
+          "text": "Mais jusque-là aucun ennui n’était venu ; et comme M. Sacquet était généreux de son argent, la plupart des gens lui pardonnaient volontiers ses singularités et sa bonne fortune.",
+          "breakAt": 55,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569135_14_cano9",
+          "lines": [
+            "Il était en relations de visite avec ses parents (hormis, naturellement, les Sacquet de Besace) et il avait de nombreux admirateurs fervents parmi les Hobbits des familles pauvres et peu importantes."
+          ],
+          "text": "Il était en relations de visite avec ses parents (hormis, naturellement, les Sacquet de Besace) et il avait de nombreux admirateurs fervents parmi les Hobbits des familles pauvres et peu importantes.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569135_15_kegg1",
+          "lines": [
+            "Mais il n’eut pas d’amis intimes jusqu’au moment où certains de ses jeunes cousins commencèrent à prendre de l’âge."
+          ],
+          "text": "Mais il n’eut pas d’amis intimes jusqu’au moment où certains de ses jeunes cousins commencèrent à prendre de l’âge.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569135_16_ach7h",
+          "lines": [
+            "L’aîné de ceux-ci et le favori de Bilbon était le jeune Frodon Sacquet."
+          ],
+          "text": "L’aîné de ceux-ci et le favori de Bilbon était le jeune Frodon Sacquet.",
+          "breakAt": null,
+          "isLeader": true,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569135_17_7v4ud",
+          "lines": [
+            "À quatre-vingt- dix-neuf ans, Bilbon l’adopta comme héritier ; il l’amena vivre à Cul-de-sac, et les espérances des Sacquet de Besace furent définitivement anéanties."
+          ],
+          "text": "À quatre-vingt- dix-neuf ans, Bilbon l’adopta comme héritier ; il l’amena vivre à Cul-de-sac, et les espérances des Sacquet de Besace furent définitivement anéanties.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569135_18_z7dsd",
+          "lines": [
+            "Bilbon et Frodon se trouvaient avoir le même anniversaire : le 22 septembre."
+          ],
+          "text": "Bilbon et Frodon se trouvaient avoir le même anniversaire : le 22 septembre.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569135_19_s6wpx",
+          "lines": [
+            "« Tu ferais mieux de venir habiter ici, Frodon, mon gars, dit un jour Bilbon, nous pourrons ainsi célébrer confortablement notre anniversaire ensemble. »"
+          ],
+          "text": "« Tu ferais mieux de venir habiter ici, Frodon, mon gars, dit un jour Bilbon, nous pourrons ainsi célébrer confortablement notre anniversaire ensemble. »",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569135_20_cr5ng",
+          "lines": [
+            "À cette époque, Frodon était encore dans ses années intermédiaires,"
+          ],
+          "text": "À cette époque, Frodon était encore dans ses années intermédiaires,",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569135_21_bb1co",
+          "lines": [
+            "comme les Hobbits appelaient les années d’irresponsabilité qui s’étendaient entre l’enfance et la majorité à trente-trois ans."
+          ],
+          "text": "comme les Hobbits appelaient les années d’irresponsabilité qui s’étendaient entre l’enfance et la majorité à trente-trois ans.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569135_22_vujb4",
+          "lines": [
+            "Douze autres années s’écoulèrent."
+          ],
+          "text": "Douze autres années s’écoulèrent.",
+          "breakAt": null,
+          "isLeader": true,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569135_23_8jd7e",
+          "lines": [
+            "Tous les ans, les Sacquet avaient donné des réceptions d’anniversaire pleines d’entrain à Cul-de-sac,"
+          ],
+          "text": "Tous les ans, les Sacquet avaient donné des réceptions d’anniversaire pleines d’entrain à Cul-de-sac,",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569135_24_t4hpx",
+          "lines": [
+            "mais à présent il était entendu que quelque chose de tout à fait exceptionnel se préparait pour cet automne."
+          ],
+          "text": "mais à présent il était entendu que quelque chose de tout à fait exceptionnel se préparait pour cet automne.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569135_25_fvcus",
+          "lines": [
+            "Bilbon allait avoir undécante-un ans, 111, chiffre plutôt curieux et âge très respectable pour un Hobbit (le Vieux Touque lui-même n’avait atteint que 130 ans) et Frodon allait en avoir trente- trois, 33,"
+          ],
+          "text": "Bilbon allait avoir undécante-un ans, 111, chiffre plutôt curieux et âge très respectable pour un Hobbit (le Vieux Touque lui-même n’avait atteint que 130 ans) et Frodon allait en avoir trente- trois, 33,",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569135_26_nj1ry",
+          "lines": [
+            "chiffre important : la date de sa «"
+          ],
+          "text": "chiffre important : la date de sa «",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569135_27_emhks",
+          "lines": [
+            "majorité »."
+          ],
+          "text": "majorité ».",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569135_28_7e0aa",
+          "lines": [
+            "On commença à jaser à Hobbitebourg et à Lèzeau ;"
+          ],
+          "text": "On commença à jaser à Hobbitebourg et à Lèzeau ;",
+          "breakAt": null,
+          "isLeader": true,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569135_29_bvvpj",
+          "lines": [
+            "et la rumeur de l’événement attendu courut partout dans la Comté."
+          ],
+          "text": "et la rumeur de l’événement attendu courut partout dans la Comté.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569135_30_icmuz",
+          "lines": [
+            "L’histoire et le personnage de M. Bilbon Sacquet firent une fois de plus le principal sujet de conversation, et les gens âgés virent soudain leurs souvenirs très bienvenus."
+          ],
+          "text": "L’histoire et le personnage de M. Bilbon Sacquet firent une fois de plus le principal sujet de conversation, et les gens âgés virent soudain leurs souvenirs très bienvenus.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569135_31_ynn6y",
+          "lines": [
+            "Personne n’eut d’auditoire plus attentif que le vieux Ham Gamegie, communément appelé l’Ancien."
+          ],
+          "text": "Personne n’eut d’auditoire plus attentif que le vieux Ham Gamegie, communément appelé l’Ancien.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569135_32_6u7cb",
+          "lines": [
+            "Il pérorait au Buisson de Lierre, une petite auberge de la route de Lèzeau, et il parlait avec quelque autorité,"
+          ],
+          "text": "Il pérorait au Buisson de Lierre, une petite auberge de la route de Lèzeau, et il parlait avec quelque autorité,",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569135_33_4h0uu",
+          "lines": [
+            "car il avait entretenu le jardin de Cul-de-sac durant quarante ans, et avant cela il avait déjà aidé le vieux Trogon dans le même office."
+          ],
+          "text": "car il avait entretenu le jardin de Cul-de-sac durant quarante ans, et avant cela il avait déjà aidé le vieux Trogon dans le même office.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569135_34_4pcgw",
+          "lines": [
+            "Maintenant que lui-même, devenu vieux, avait les articulations ankylosées,"
+          ],
+          "text": "Maintenant que lui-même, devenu vieux, avait les articulations ankylosées,",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569135_35_12zlm",
+          "lines": [
+            "le travail était principalement effectué par son plus jeune fils, Sam Gamegie."
+          ],
+          "text": "le travail était principalement effectué par son plus jeune fils, Sam Gamegie.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569135_36_776xf",
+          "lines": [
+            "Tant le père que le fils étaient en relations très amicales avec Bilbon et Frodon."
+          ],
+          "text": "Tant le père que le fils étaient en relations très amicales avec Bilbon et Frodon.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569135_37_hxivl",
+          "lines": [
+            "Ils habitaient sur la Colline même, au n°3 du Chemin des Trous-du-Talus, juste sous Cul-de-Sac."
+          ],
+          "text": "Ils habitaient sur la Colline même, au n°3 du Chemin des Trous-du-Talus, juste sous Cul-de-Sac.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569135_38_jxbwa",
+          "lines": [
+            "« C’est un aimable gentil hobbit à la parole affable que M. Bilbon,"
+          ],
+          "text": "« C’est un aimable gentil hobbit à la parole affable que M. Bilbon,",
+          "breakAt": null,
+          "isLeader": true,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569135_39_qluy5",
+          "lines": [
+            "comme je l’ai toujours dit », déclarait l’Ancien."
+          ],
+          "text": "comme je l’ai toujours dit », déclarait l’Ancien.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569135_40_uh28v",
+          "lines": [
+            "Ce qui était l’exacte vérité : car Bilbon se montrait très poli à son égard, l’appelant « Maître Hamfast » et le consultant constamment sur la pousse des légumes en matière de « racines », et en particulier de pommes de terre, tout le voisinage"
+          ],
+          "text": "Ce qui était l’exacte vérité : car Bilbon se montrait très poli à son égard, l’appelant « Maître Hamfast » et le consultant constamment sur la pousse des légumes en matière de « racines », et en particulier de pommes de terre, tout le voisinage",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569135_41_unmsr",
+          "lines": [
+            "(lui-même compris) le considérait comme l’autorité maîtresse."
+          ],
+          "text": "(lui-même compris) le considérait comme l’autorité maîtresse.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569135_42_2tlnb",
+          "lines": [
+            "— Mais qu’en est-il de ce Frodon qui vit avec lui ? demanda le Vieux Chénier de Lèzeau. Il s’appelle Sacquet, mais il est plus qu’à moitié un Brandebouc,"
+          ],
+          "text": "— Mais qu’en est-il de ce Frodon qui vit avec lui ? demanda le Vieux Chénier de Lèzeau. Il s’appelle Sacquet, mais il est plus qu’à moitié un Brandebouc,",
+          "breakAt": null,
+          "isLeader": true,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569135_43_hr0t8",
+          "lines": [
+            "à ce qu’on dit. Je ne comprends pas pourquoi un Sacquet de Hobbitebourg irait chercher femme là-bas dans le Pays de Bouc, où les gens sont si bizarres."
+          ],
+          "text": "à ce qu’on dit. Je ne comprends pas pourquoi un Sacquet de Hobbitebourg irait chercher femme là-bas dans le Pays de Bouc, où les gens sont si bizarres.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569135_44_t74ne",
+          "lines": [
+            "— Et il n’y a rien d’étonnant à ce qu’ils le soient, intervint Papa Bipied (voisin immédiat de l’Ancien),"
+          ],
+          "text": "— Et il n’y a rien d’étonnant à ce qu’ils le soient, intervint Papa Bipied (voisin immédiat de l’Ancien),",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569135_45_elvzx",
+          "lines": [
+            "vu qu’ils habitent du mauvais côté du Brandevin et tout contre la Vieille Forêt. C’est un sombre et mauvais endroit, si la moitié de ce qu’on rapporte est vrai."
+          ],
+          "text": "vu qu’ils habitent du mauvais côté du Brandevin et tout contre la Vieille Forêt. C’est un sombre et mauvais endroit, si la moitié de ce qu’on rapporte est vrai.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569135_46_99vl4",
+          "lines": [
+            "— Tu as raison, Papa ! dit l’ancien. Non que les Brandebouc du Pays de Bouc vivent dans la Vieille Forêt ;"
+          ],
+          "text": "— Tu as raison, Papa ! dit l’ancien. Non que les Brandebouc du Pays de Bouc vivent dans la Vieille Forêt ;",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569135_47_17dag",
+          "lines": [
+            "mais c’est une drôle de lignée, apparemment. Ils batifolent toujours en bateau sur cette grande rivière et ce n’est pas naturel, ça. Ce n’est pas étonnant qu’il en soit sorti des ennuis, que je dis. Mais quoi qu’il en soit, M. Frodon est un jeune Hobbit aussi gentil qu’on pourrait le souhaiter. Il ressemble beaucoup à M. Bilbon, et pas seulement de traits."
+          ],
+          "text": "mais c’est une drôle de lignée, apparemment. Ils batifolent toujours en bateau sur cette grande rivière et ce n’est pas naturel, ça. Ce n’est pas étonnant qu’il en soit sorti des ennuis, que je dis. Mais quoi qu’il en soit, M. Frodon est un jeune Hobbit aussi gentil qu’on pourrait le souhaiter. Il ressemble beaucoup à M. Bilbon, et pas seulement de traits.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569135_47_17dag_overflow_48",
+          "lines": [
+            "Son père était un Sacquet après tout. Et c’était un respectable Hobbit très comme il faut que M. Drogon Sacquet ; il n’y a jamais eu grand-chose à dire de lui jusqu’au jour où il s’est noyé."
+          ],
+          "text": "Son père était un Sacquet après tout. Et c’était un respectable Hobbit très comme il faut que M. Drogon Sacquet ; il n’y a jamais eu grand-chose à dire de lui jusqu’au jour où il s’est noyé.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569135_48_1e67o",
+          "lines": [
+            "— Noyé ? firent plusieurs voix."
+          ],
+          "text": "— Noyé ? firent plusieurs voix.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569135_49_o8wuu",
+          "lines": [
+            "On avait déjà entendu cela et d’autres rumeurs plus sombres, bien sûr, mais les Hobbits ont une passion pour l’histoire des familles, et on était prêt à l’entendre raconter de nouveau."
+          ],
+          "text": "On avait déjà entendu cela et d’autres rumeurs plus sombres, bien sûr, mais les Hobbits ont une passion pour l’histoire des familles, et on était prêt à l’entendre raconter de nouveau.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569135_50_9lbma",
+          "lines": [
+            "— Eh ! bien, c’est ce qu’on dit, répondit l’Ancien. Voyez-vous : M. Drogon, il avait épousé la pauvre Mlle Primula Brandebouc. Elle était la cousine germaine de notre M. Bilbon du côté maternel (sa mère étant la plus jeune des filles du Vieux Touque), et M. Drogon était son cousin issu de germain. Ainsi M. Frodon est en même temps son cousin germain et son cousin issu de germain,"
+          ],
+          "text": "— Eh ! bien, c’est ce qu’on dit, répondit l’Ancien. Voyez-vous : M. Drogon, il avait épousé la pauvre Mlle Primula Brandebouc. Elle était la cousine germaine de notre M. Bilbon du côté maternel (sa mère étant la plus jeune des filles du Vieux Touque), et M. Drogon était son cousin issu de germain. Ainsi M. Frodon est en même temps son cousin germain et son cousin issu de germain,",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569135_50_9lbma_overflow_52",
+          "lines": [
+            "son oncle à la mode de Bretagne des deux côtés,"
+          ],
+          "text": "son oncle à la mode de Bretagne des deux côtés,",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569135_51_r6fg9",
+          "lines": [
+            "comme on dit, si vous me suivez. Et M. Drogon était en séjour à Château-Brande chez son beau-père, le vieux Maître Gorbadoc, comme il le faisait souvent après son mariage (car il était assez porté sur la boustifaille,"
+          ],
+          "text": "comme on dit, si vous me suivez. Et M. Drogon était en séjour à Château-Brande chez son beau-père, le vieux Maître Gorbadoc, comme il le faisait souvent après son mariage (car il était assez porté sur la boustifaille,",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569135_51_r6fg9_split",
+          "lines": [
+            "et le vieux Gorbadoc tenait une bonne et généreuse table), et il était allé canoter sur le Brandevin, et lui et sa femme se sont noyés, alors que M. Frodon était encore un enfant et tout."
+          ],
+          "text": "et le vieux Gorbadoc tenait une bonne et généreuse table), et il était allé canoter sur le Brandevin, et lui et sa femme se sont noyés, alors que M. Frodon était encore un enfant et tout.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569136_52_ot4yz",
+          "lines": [
+            "— J’ai entendu dire qu’ils étaient allés sur l’eau après le dîner au clair de lune,"
+          ],
+          "text": "— J’ai entendu dire qu’ils étaient allés sur l’eau après le dîner au clair de lune,",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569136_53_49dbz",
+          "lines": [
+            "dit le Vieux Chénier, et que c’était le poids de Drogon qui avait fait couler la barque."
+          ],
+          "text": "dit le Vieux Chénier, et que c’était le poids de Drogon qui avait fait couler la barque.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569136_54_5kb19",
+          "lines": [
+            "— Et moi j’ai entendu dire qu’elle l’avait poussé dedans et qu’il l’avait entraînée avec lui, dit Rouquin, le meunier de Hobbitebourg."
+          ],
+          "text": "— Et moi j’ai entendu dire qu’elle l’avait poussé dedans et qu’il l’avait entraînée avec lui, dit Rouquin, le meunier de Hobbitebourg.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569136_55_uahrp",
+          "lines": [
+            "— Tu ne devrais pas écouter tout ce que t’entends,"
+          ],
+          "text": "— Tu ne devrais pas écouter tout ce que t’entends,",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569136_56_0g072",
+          "lines": [
+            "Rouquin, dit l’Ancien, qui n’aimait pas beaucoup le meunier. Y a pas besoin de parler de poussée ou de tirage. Les bateaux, c’est déjà assez ficelle pour ceux qui restent assis tranquilles sans aller chercher plus loin la cause des ennuis. En tout cas, y avait ce M. Frodon resté orphelin et échoué, comme qui dirait, parmi ces bizarres gens du Pays de Bouc,"
+          ],
+          "text": "Rouquin, dit l’Ancien, qui n’aimait pas beaucoup le meunier. Y a pas besoin de parler de poussée ou de tirage. Les bateaux, c’est déjà assez ficelle pour ceux qui restent assis tranquilles sans aller chercher plus loin la cause des ennuis. En tout cas, y avait ce M. Frodon resté orphelin et échoué, comme qui dirait, parmi ces bizarres gens du Pays de Bouc,",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569136_56_0g072_overflow_60",
+          "lines": [
+            "élevé en tout cas à Château-Brande. Une vraie lapinière, de tous points de vue. Le vieux Maître Gorbadoc n’avait jamais moins de deux centaines de parents chez lui. M. Bilbon n’a jamais fait meilleure action qu’en ramenant le gamin vivre parmi des gens normaux."
+          ],
+          "text": "élevé en tout cas à Château-Brande. Une vraie lapinière, de tous points de vue. Le vieux Maître Gorbadoc n’avait jamais moins de deux centaines de parents chez lui. M. Bilbon n’a jamais fait meilleure action qu’en ramenant le gamin vivre parmi des gens normaux.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569136_57_fi92k",
+          "lines": [
+            "— Mais j’ai dans l’idée que ç’a été un coup dur pour ces Sacquet de Besace. Ils pensaient qu’ils allaient avoir Cul-de-sac,"
+          ],
+          "text": "— Mais j’ai dans l’idée que ç’a été un coup dur pour ces Sacquet de Besace. Ils pensaient qu’ils allaient avoir Cul-de-sac,",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569136_58_6xc53",
+          "lines": [
+            "la fois où il était parti et où on l’avait cru mort. Et le voilà qui revient et les renvoie, et il continue à vivre, à vivre, sans jamais paraître d’un jour plus vieux, Dieu le bénisse ! Et tout d’un coup il sort un héritier et il fait proprement établir tous les papiers. Les Sacquet de Besace ne verront jamais l’intérieur de Cul-de-Sac, à présent, ou il faut l’espérer."
+          ],
+          "text": "la fois où il était parti et où on l’avait cru mort. Et le voilà qui revient et les renvoie, et il continue à vivre, à vivre, sans jamais paraître d’un jour plus vieux, Dieu le bénisse ! Et tout d’un coup il sort un héritier et il fait proprement établir tous les papiers. Les Sacquet de Besace ne verront jamais l’intérieur de Cul-de-Sac, à présent, ou il faut l’espérer.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569136_59_6v1dd",
+          "lines": [
+            "— Y a un gentil petit magot serré là-haut, que j’ai entendu raconter, dit un étranger, venu pour affaires de Grand’Cave dans le Quartier Ouest. Tout le haut de votre colline est truffé de galeries remplies de coffres d’or et d’argent, et de joyaux, d’après ce qu’on m’a dit."
+          ],
+          "text": "— Y a un gentil petit magot serré là-haut, que j’ai entendu raconter, dit un étranger, venu pour affaires de Grand’Cave dans le Quartier Ouest. Tout le haut de votre colline est truffé de galeries remplies de coffres d’or et d’argent, et de joyaux, d’après ce qu’on m’a dit.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569136_60_oniif",
+          "lines": [
+            "— Eh ! Bien, vous en avez entendu plus que je ne pourrais garantir,"
+          ],
+          "text": "— Eh ! Bien, vous en avez entendu plus que je ne pourrais garantir,",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569136_61_wohu6",
+          "lines": [
+            "répondit l’Ancien. Je ne sais rien de joyaux. M. Bilbon ne regarde pas à l’argent, et il ne paraît pas en manquer, mais je n’ai pas connaissance du creusement de galeries. J’ai vu M. Bilbon quand il est revenu, il y a à peu près soixante ans, alors que j’étais gosse. Il n’y avait pas longtemps que j’étais en apprentissage chez le vieux Trogon (qu’était un cousin de papa),"
+          ],
+          "text": "répondit l’Ancien. Je ne sais rien de joyaux. M. Bilbon ne regarde pas à l’argent, et il ne paraît pas en manquer, mais je n’ai pas connaissance du creusement de galeries. J’ai vu M. Bilbon quand il est revenu, il y a à peu près soixante ans, alors que j’étais gosse. Il n’y avait pas longtemps que j’étais en apprentissage chez le vieux Trogon (qu’était un cousin de papa),",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569136_61_wohu6_overflow_66",
+          "lines": [
+            "mais il m’a fait monter à Cul-de-Sac pour l’aider à empêcher les gens de se balader partout et de tout piétiner dans le jardin pendant la vente. Et au milieu de tout ça, voilà M. Bilbon qui monte la colline avec un poney et des énormes sacs et deux coffres. Je ne doute pas qu’ils étaient remplis pour la plus grande part de trésors qu’il avait ramassés à l’étranger,"
+          ],
+          "text": "mais il m’a fait monter à Cul-de-Sac pour l’aider à empêcher les gens de se balader partout et de tout piétiner dans le jardin pendant la vente. Et au milieu de tout ça, voilà M. Bilbon qui monte la colline avec un poney et des énormes sacs et deux coffres. Je ne doute pas qu’ils étaient remplis pour la plus grande part de trésors qu’il avait ramassés à l’étranger,",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569136_61_wohu6_overflow_67",
+          "lines": [
+            "où il y a des montagnes d’or, qu’on dit ; mais il n’y avait pas de quoi remplir des galeries. En tout cas, mon gars Sam doit en savoir plus long là-dessus. Il est tout le temps fourré à Cul-de-Sac. Il est fou des histoires de l’ancien temps, et il écoute tous les récits de M. Bilbon. M. Bilbon lui a appris ses lettres – sans malice, remarquez bien, et j’espère qu’il n’en sortira aucun mal."
+          ],
+          "text": "où il y a des montagnes d’or, qu’on dit ; mais il n’y avait pas de quoi remplir des galeries. En tout cas, mon gars Sam doit en savoir plus long là-dessus. Il est tout le temps fourré à Cul-de-Sac. Il est fou des histoires de l’ancien temps, et il écoute tous les récits de M. Bilbon. M. Bilbon lui a appris ses lettres – sans malice, remarquez bien, et j’espère qu’il n’en sortira aucun mal.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569136_62_n0n83",
+          "lines": [
+            "Des Elfes et des Dragons ! que je lui dis."
+          ],
+          "text": "Des Elfes et des Dragons ! que je lui dis.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569136_63_forku",
+          "lines": [
+            "Mieux vaut pour toi et moi des choux et des pommes de terre."
+          ],
+          "text": "Mieux vaut pour toi et moi des choux et des pommes de terre.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569136_64_74ibm",
+          "lines": [
+            "Ne va pas te mêler des affaires de ceux qui sont au-dessus de toi,"
+          ],
+          "text": "Ne va pas te mêler des affaires de ceux qui sont au-dessus de toi,",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569136_65_va3u2",
+          "lines": [
+            "ou tu vas aboutir à des ennuis trop gros pour toi, que je lui dis. Et je pourrais en dire autant à d’autres, ajouta-t-il, jetant un regard à l’étranger et au meunier."
+          ],
+          "text": "ou tu vas aboutir à des ennuis trop gros pour toi, que je lui dis. Et je pourrais en dire autant à d’autres, ajouta-t-il, jetant un regard à l’étranger et au meunier.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569136_66_4e612",
+          "lines": [
+            "Mais l’Ancien ne convainquit pas son auditoire."
+          ],
+          "text": "Mais l’Ancien ne convainquit pas son auditoire.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569136_67_p1lny",
+          "lines": [
+            "La légende des richesses de Bilbon était à présent trop fermement établie dans l’idée de la jeune génération de Hobbits."
+          ],
+          "text": "La légende des richesses de Bilbon était à présent trop fermement établie dans l’idée de la jeune génération de Hobbits.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569136_68_kptgd",
+          "lines": [
+            "— Ah ! mais il est bien probable qu’il a ajouté à ce qu’il avait d’abord rapporté, argua le meunier, exprimant l’opinion commune. Il est souvent parti de chez lui. Et pensez à ces étrangers qui viennent le voir :"
+          ],
+          "text": "— Ah ! mais il est bien probable qu’il a ajouté à ce qu’il avait d’abord rapporté, argua le meunier, exprimant l’opinion commune. Il est souvent parti de chez lui. Et pensez à ces étrangers qui viennent le voir :",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569136_69_12u8j",
+          "lines": [
+            "des Nains qui viennent la nuit et ce vieux magicien errant, Gandalf, et tout ça. Vous me direz ce que vous voudrez, l’Ancien, mais Cul-de-Sac est un endroit bizarre et ses habitants sont bizarres."
+          ],
+          "text": "des Nains qui viennent la nuit et ce vieux magicien errant, Gandalf, et tout ça. Vous me direz ce que vous voudrez, l’Ancien, mais Cul-de-Sac est un endroit bizarre et ses habitants sont bizarres.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569136_70_bphxj",
+          "lines": [
+            "— Et vous pourrez me dire ce que vous voudrez sur ce à quoi vous ne connaissez pas davantage qu’à la navigation, M. Rouquin, répliqua l’Ancien,"
+          ],
+          "text": "— Et vous pourrez me dire ce que vous voudrez sur ce à quoi vous ne connaissez pas davantage qu’à la navigation, M. Rouquin, répliqua l’Ancien,",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569136_71_5qiu5",
+          "lines": [
+            "détestant le meunier plus encore qu’à l’ordinaire. Si cela est être bizarre, eh bien on pourrait s’accommoder d’un peu plus de bizarrerie par ici. Il y en a pas loin qui n’offriraient pas une pinte de bière à un ami, s’ils vivaient dans un trou aux murs d’or. Mais à Cul-de-Sac on fait les choses convenablement. Notre Sam dit que tout le monde sera invité à la réception,"
+          ],
+          "text": "détestant le meunier plus encore qu’à l’ordinaire. Si cela est être bizarre, eh bien on pourrait s’accommoder d’un peu plus de bizarrerie par ici. Il y en a pas loin qui n’offriraient pas une pinte de bière à un ami, s’ils vivaient dans un trou aux murs d’or. Mais à Cul-de-Sac on fait les choses convenablement. Notre Sam dit que tout le monde sera invité à la réception,",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569136_71_5qiu5_overflow_78",
+          "lines": [
+            "et il y aura des cadeaux, notez, des cadeaux pour tous – ce mois même où nous sommes."
+          ],
+          "text": "et il y aura des cadeaux, notez, des cadeaux pour tous – ce mois même où nous sommes.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569136_72_aenx5",
+          "lines": [
+            "Ce mois même était celui de septembre, et il était aussi beau qu’on pouvait le souhaiter."
+          ],
+          "text": "Ce mois même était celui de septembre, et il était aussi beau qu’on pouvait le souhaiter.",
+          "breakAt": null,
+          "isLeader": true,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569136_73_w0srt",
+          "lines": [
+            "Un ou deux jours après, une rumeur (sans doute lancée par ce Sam si bien informé) se répandit, comme quoi il y aurait un feu d’artifice – qui plus est, un feu d’artifice tel qu’on n’en avait plus vu dans la Comté depuis près d’un siècle, depuis"
+          ],
+          "text": "Un ou deux jours après, une rumeur (sans doute lancée par ce Sam si bien informé) se répandit, comme quoi il y aurait un feu d’artifice – qui plus est, un feu d’artifice tel qu’on n’en avait plus vu dans la Comté depuis près d’un siècle, depuis",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569136_74_ax2yx",
+          "lines": [
+            "la mort du Vieux Touque, en fait."
+          ],
+          "text": "la mort du Vieux Touque, en fait.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569136_75_5o0p6",
+          "lines": [
+            "Des jours passèrent et le Jour approchait."
+          ],
+          "text": "Des jours passèrent et le Jour approchait.",
+          "breakAt": null,
+          "isLeader": true,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569136_76_0jtme",
+          "lines": [
+            "Un soir, un chariot d’aspect inhabituel transportant des paquets également d’aspect inhabituel traversa Hobbitebourg et gravit la Colline vers Cul-de-Sac."
+          ],
+          "text": "Un soir, un chariot d’aspect inhabituel transportant des paquets également d’aspect inhabituel traversa Hobbitebourg et gravit la Colline vers Cul-de-Sac.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569136_77_9bbv2",
+          "lines": [
+            "Les Hobbits saisis passèrent la tête par les portes éclairées pour regarder bouche bée."
+          ],
+          "text": "Les Hobbits saisis passèrent la tête par les portes éclairées pour regarder bouche bée.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569136_78_owii6",
+          "lines": [
+            "Le chariot était conduit par des étrangers, qui chantaient des chansons étranges : des Nains à longue barbe et à profonds capuchons."
+          ],
+          "text": "Le chariot était conduit par des étrangers, qui chantaient des chansons étranges : des Nains à longue barbe et à profonds capuchons.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569136_79_tlslk",
+          "lines": [
+            "Quelques-uns d’entre eux restèrent à Cul-de-Sac."
+          ],
+          "text": "Quelques-uns d’entre eux restèrent à Cul-de-Sac.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569136_80_7s2l9",
+          "lines": [
+            "À la fin de la seconde semaine de septembre, une charrette entra en plein jour par Lèzeau,"
+          ],
+          "text": "À la fin de la seconde semaine de septembre, une charrette entra en plein jour par Lèzeau,",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569136_81_tcjsi",
+          "lines": [
+            "venant de la direction du Pont de Brandevin."
+          ],
+          "text": "venant de la direction du Pont de Brandevin.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569136_82_pvpgj",
+          "lines": [
+            "Un vieillard la conduisait seul."
+          ],
+          "text": "Un vieillard la conduisait seul.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569136_83_l9izj",
+          "lines": [
+            "Il portait un haut chapeau bleu à pointe, un long manteau gris et un cache-col argenté."
+          ],
+          "text": "Il portait un haut chapeau bleu à pointe, un long manteau gris et un cache-col argenté.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569136_84_n4l2u",
+          "lines": [
+            "Il avait une longue barbe blanche et des sourcils broussailleux qui ressortaient sous le bord de son chapeau."
+          ],
+          "text": "Il avait une longue barbe blanche et des sourcils broussailleux qui ressortaient sous le bord de son chapeau.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569136_85_zi72d",
+          "lines": [
+            "Des petits enfants hobbits coururent derrière la charrette à travers tout Hobbitebourg et jusqu’au haut de la colline."
+          ],
+          "text": "Des petits enfants hobbits coururent derrière la charrette à travers tout Hobbitebourg et jusqu’au haut de la colline.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569136_86_bj47l",
+          "lines": [
+            "La charrette portait un chargement de pièces d’artifice, comme ils le devinaient justement."
+          ],
+          "text": "La charrette portait un chargement de pièces d’artifice, comme ils le devinaient justement.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569136_87_agt0v",
+          "lines": [
+            "À la porte de devant de Bilbon, le vieillard commença de la décharger :"
+          ],
+          "text": "À la porte de devant de Bilbon, le vieillard commença de la décharger :",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569136_88_arp61",
+          "lines": [
+            "il y avait de grands paquets de pièces d’artifice de toutes sortes et de toutes formes, dont chacun était marqué d’un grand G rouge et de la rune elfique ."
+          ],
+          "text": "il y avait de grands paquets de pièces d’artifice de toutes sortes et de toutes formes, dont chacun était marqué d’un grand G rouge et de la rune elfique .",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569136_89_wklv9",
+          "lines": [
+            "C’était la marque de Gandalf, naturellement,"
+          ],
+          "text": "C’était la marque de Gandalf, naturellement,",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569136_90_mbehc",
+          "lines": [
+            "et le vieillard était Gandalf le Magicien, dont la renommée dans la Comté se fondait en premier lieu sur son habileté au maniement des feux, fumées et lumières."
+          ],
+          "text": "et le vieillard était Gandalf le Magicien, dont la renommée dans la Comté se fondait en premier lieu sur son habileté au maniement des feux, fumées et lumières.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569136_91_vzjag",
+          "lines": [
+            "Son affaire principale était bien plus difficile et dangereuse,"
+          ],
+          "text": "Son affaire principale était bien plus difficile et dangereuse,",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569136_92_74ef5",
+          "lines": [
+            "mais les gens de la Comté n’en connaissaient rien."
+          ],
+          "text": "mais les gens de la Comté n’en connaissaient rien.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569136_93_zc0io",
+          "lines": [
+            "Pour eux, il n’était qu’une des « attractions » de la Réception."
+          ],
+          "text": "Pour eux, il n’était qu’une des « attractions » de la Réception.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569136_94_rh5rp",
+          "lines": [
+            "De là l’excitation des petits Hobbits."
+          ],
+          "text": "De là l’excitation des petits Hobbits.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569136_95_isajb",
+          "lines": [
+            "« G comme Grand », criaient-ils, et le vieillard sourit."
+          ],
+          "text": "« G comme Grand », criaient-ils, et le vieillard sourit.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569136_96_k8t44",
+          "lines": [
+            "Ils le connaissaient de vue, bien qu’il ne parût qu’occasionnellement à Hobbitebourg et qu’il ne s’y arrêtera jamais longtemps, mais ni eux ni aucun des plus vieux de leurs aînés n’avaient vu un de ses spectacles de feux d’artifice, qui"
+          ],
+          "text": "Ils le connaissaient de vue, bien qu’il ne parût qu’occasionnellement à Hobbitebourg et qu’il ne s’y arrêtera jamais longtemps, mais ni eux ni aucun des plus vieux de leurs aînés n’avaient vu un de ses spectacles de feux d’artifice, qui",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569136_97_693t4",
+          "lines": [
+            "appartenaient maintenant à un passé légendaire."
+          ],
+          "text": "appartenaient maintenant à un passé légendaire.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569136_98_bkflu",
+          "lines": [
+            "Quand le vieillard eut achevé le déchargement,"
+          ],
+          "text": "Quand le vieillard eut achevé le déchargement,",
+          "breakAt": null,
+          "isLeader": true,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569136_99_2id3x",
+          "lines": [
+            "avec l’aide de quelques Nains et de Bilbon, celui-ci distribua quelques sous, mais pas un seul pétard, pas le moindre diablotin ne parut, à la déception des spectateurs."
+          ],
+          "text": "avec l’aide de quelques Nains et de Bilbon, celui-ci distribua quelques sous, mais pas un seul pétard, pas le moindre diablotin ne parut, à la déception des spectateurs.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569136_100_wdia1",
+          "lines": [
+            "— Sauvez-vous, maintenant ! dit Gandalf. Vous aurez tout ce qu’il faut le moment venu."
+          ],
+          "text": "— Sauvez-vous, maintenant ! dit Gandalf. Vous aurez tout ce qu’il faut le moment venu.",
+          "breakAt": 27,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569136_101_7j24z",
+          "lines": [
+            "Puis il disparut à l’intérieur avec Bilbon, et la porte se referma."
+          ],
+          "text": "Puis il disparut à l’intérieur avec Bilbon, et la porte se referma.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569136_102_5h7g2",
+          "lines": [
+            "Les jeunes Hobbits restèrent un moment les yeux écarquillés en vain sur la porte, puis ils s’en furent,"
+          ],
+          "text": "Les jeunes Hobbits restèrent un moment les yeux écarquillés en vain sur la porte, puis ils s’en furent,",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569136_103_ytr9g",
+          "lines": [
+            "avec l’impression que le jour de la réception n’arriverait jamais."
+          ],
+          "text": "avec l’impression que le jour de la réception n’arriverait jamais.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569136_104_chte6",
+          "lines": [
+            "À Cul-de-Sac, Bilbon et Gandalf étaient assis à la fenêtre ouverte d’une petite chambre donnant à l’ouest sur le jardin."
+          ],
+          "text": "À Cul-de-Sac, Bilbon et Gandalf étaient assis à la fenêtre ouverte d’une petite chambre donnant à l’ouest sur le jardin.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569136_105_56k49",
+          "lines": [
+            "Cette fin d’après-midi était claire et paisible."
+          ],
+          "text": "Cette fin d’après-midi était claire et paisible.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569136_106_qslti",
+          "lines": [
+            "Les fleurs rutilaient, rouges et or : gueules-de-loup et soleils,"
+          ],
+          "text": "Les fleurs rutilaient, rouges et or : gueules-de-loup et soleils,",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569136_107_17l91",
+          "lines": [
+            "et des capucines qui grimpaient sur toutes les parois de gazon et débordaient au bord des fenêtres rondes."
+          ],
+          "text": "et des capucines qui grimpaient sur toutes les parois de gazon et débordaient au bord des fenêtres rondes.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569136_108_qtdnt",
+          "lines": [
+            "— Que votre jardin est éclatant ! dit Gandalf."
+          ],
+          "text": "— Que votre jardin est éclatant ! dit Gandalf.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569136_109_ix4mk",
+          "lines": [
+            "— Oui, répondit Bilbon, je l’aime beaucoup,"
+          ],
+          "text": "— Oui, répondit Bilbon, je l’aime beaucoup,",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569136_110_g5il2",
+          "lines": [
+            "comme toute cette vieille Comté ; mais je crois que j’ai besoin de vacances."
+          ],
+          "text": "comme toute cette vieille Comté ; mais je crois que j’ai besoin de vacances.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569136_111_38f84",
+          "lines": [
+            "— Vous voulez donc poursuivre votre projet ?"
+          ],
+          "text": "— Vous voulez donc poursuivre votre projet ?",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569136_112_5x4ym",
+          "lines": [
+            "— Oui. J’ai pris ma décision il y a plusieurs mois, et je ne l’ai pas changée."
+          ],
+          "text": "— Oui. J’ai pris ma décision il y a plusieurs mois, et je ne l’ai pas changée.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569136_113_07i8k",
+          "lines": [
+            "— Très bien. Il est inutile de rien ajouter. Tenez-vous-en à votre plan – à votre plan dans son entier, notez-le bien – et j’espère que cela réussira au mieux, pour vous et pour nous tous."
+          ],
+          "text": "— Très bien. Il est inutile de rien ajouter. Tenez-vous-en à votre plan – à votre plan dans son entier, notez-le bien – et j’espère que cela réussira au mieux, pour vous et pour nous tous.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569136_114_yp7hz",
+          "lines": [
+            "— Je l’espère. En tout cas, je me propose de bien m’amuser jeudi et de faire ma petite farce."
+          ],
+          "text": "— Je l’espère. En tout cas, je me propose de bien m’amuser jeudi et de faire ma petite farce.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784475569136_115_zx9cl",
+          "lines": [
+            "— Qui rira, je me le demande, dit Gandalf avec un hochement de tête. — On verra, dit Bilbon."
+          ],
+          "text": "— Qui rira, je me le demande, dit Gandalf avec un hochement de tête. — On verra, dit Bilbon.",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        }
+      ],
+      "soundTracks": [],
+      "vfxTracks": []
+    }
+  ]
+}
