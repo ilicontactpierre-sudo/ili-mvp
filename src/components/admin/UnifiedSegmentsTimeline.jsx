@@ -3786,4 +3786,22 @@ function reorderMultiple(sortedIndices, toIndex, segments, soundTracks) {
   return { newSegments, newSoundTracks }
 }
 
-export default UnifiedSegmentsTimeline
+// Sans ça, tout le composant se reconstruit à chaque frappe dans N'IMPORTE
+// QUEL champ d'AdminPage (titre, humeur…), même sans rapport avec la timeline.
+// On ignore volontairement les props de type fonction dans la comparaison :
+// elles changent de référence à chaque render d'AdminPage (closures recréées),
+// mais leur identité n'a jamais d'incidence sur ce qui doit être affiché.
+export default memo(UnifiedSegmentsTimeline, (prevProps, nextProps) => {
+  return (
+    prevProps.segments === nextProps.segments &&
+    prevProps.soundTracks === nextProps.soundTracks &&
+    prevProps.vfxTracks === nextProps.vfxTracks &&
+    prevProps.soundLibrary === nextProps.soundLibrary &&
+    prevProps.parts === nextProps.parts &&
+    prevProps.seuilKeys === nextProps.seuilKeys &&
+    prevProps.masterVolume === nextProps.masterVolume &&
+    prevProps.splitViewOffset === nextProps.splitViewOffset &&
+    prevProps.timelineLeft === nextProps.timelineLeft &&
+    prevProps.adminPassword === nextProps.adminPassword
+  )
+})
