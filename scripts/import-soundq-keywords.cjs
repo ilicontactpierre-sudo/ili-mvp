@@ -198,16 +198,20 @@ parser.on('data', (row) => {
   const key = normalizeFilename(fileName)
   if (!key) return
 
+  // Ne pas écrire un fichier qui n'existe pas dans la bibliothèque actuelle
+  // de l'app — évite de gonfler le JSON de sortie avec des entrées mortes.
+  if (!validKeys.has(key)) {
+    filteredOutCount++
+    return
+  }
+
   allKeywords.forEach(k => {
     keywordFrequency[k] = (keywordFrequency[k] || 0) + 1
   })
 
-  result[key] = {
-    keywords: allKeywords,
-    category: category || null,
-    subcategory: subcategory || null,
-    library: (row['Library'] || '').trim() || null,
-  }
+  // Format plat : juste le tableau de mots-clés, sans enveloppe — category/
+  // subcategory/library ne sont utilisés nulle part dans l'app actuellement.
+  result[key] = allKeywords
   matchedCount++
 })
 
