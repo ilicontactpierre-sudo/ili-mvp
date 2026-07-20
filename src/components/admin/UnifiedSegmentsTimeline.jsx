@@ -1787,6 +1787,21 @@ function UnifiedSegmentsTimeline({
     onSegmentsChange(updatedSegments)
     if (onSaveToHistory) onSaveToHistory()
   }, [segments, onSegmentsChange, onSaveToHistory])
+  // Cycle l'override de la barre dialogue : auto → off → continue → start → auto
+  const handleToggleDialogueOverride = useCallback((index) => {
+    const order = [undefined, 'off', 'continue', 'start']
+    const segment = segments[index]
+    if (!segment) return
+    const currentIdx = order.indexOf(segment.dialogueOverride)
+    const next = order[(currentIdx + 1) % order.length]
+    const updatedSegments = [...segments]
+    const base = typeof segment === 'string' ? { text: segment } : { ...segment }
+    if (next === undefined) delete base.dialogueOverride
+    else base.dialogueOverride = next
+    updatedSegments[index] = base
+    onSegmentsChange(updatedSegments)
+    if (onSaveToHistory) onSaveToHistory()
+  }, [segments, onSegmentsChange, onSaveToHistory])
 
   const handleAddVfxToCell = useCallback((segmentIndex, column) => {
     if (!onVfxTracksChange) return
