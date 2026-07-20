@@ -1141,12 +1141,7 @@ function AdminPage() {
               .map(normalizeForSoundQ)
             const entry = candidates.map(c => soundQMap[c]).find(Boolean)
             if (!entry) return sound
-            return {
-              ...sound,
-              soundQKeywords: entry.keywords || [],
-              soundQCategory: entry.category || null,
-              soundQSubcategory: entry.subcategory || null,
-            }
+            return { ...sound, soundQKeywords: entry }
           })
         : all
       setSoundLibrary(enriched)
