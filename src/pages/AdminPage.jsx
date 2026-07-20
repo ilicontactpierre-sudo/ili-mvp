@@ -1080,8 +1080,14 @@ function AdminPage() {
       .then(res => res.json())
       .catch(() => [])
 
-    // 3. Fusionner : le JSON local est la base, Supabase enrichit avec l'URL
-    Promise.all([localPromise, supabasePromise]).then(([localSounds, supabaseRows]) => {
+    // 3. Charger les mots-clés SoundQ (données curées, pré-générées par
+    // scripts/import-soundq-keywords.cjs — voir ce script pour la source)
+    const soundQPromise = fetch('/sounds/soundq-keywords.json')
+      .then(res => res.json())
+      .catch(() => ({}))
+    // 4. Fusionner : le JSON local est la base, Supabase enrichit avec l'URL,
+    // SoundQ enrichit avec des mots-clés de recherche curés
+    Promise.all([localPromise, supabasePromise, soundQPromise]).then(([localSounds, supabaseRows, soundQMap]) => {
       const urlMap = {}
       const supabaseFullMap = {}
       if (Array.isArray(supabaseRows)) {
