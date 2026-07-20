@@ -77,6 +77,7 @@ function extractLooseKeywords(text) {
     if (w.length < 3) continue
     if (STOPWORDS.has(w)) continue
     if (/^\d+$/.test(w)) continue
+    if (/^\d+bit$|^\d+k?hz$/.test(w)) continue
     if (seen.has(w)) continue
     seen.add(w)
     kept.push(w)
