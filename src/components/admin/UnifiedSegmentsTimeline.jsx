@@ -948,25 +948,13 @@ const SegmentTimelineRow = memo(function SegmentTimelineRow({
           title={DIALOGUE_OVERRIDE_META(segment?.dialogueOverride).title}
           style={{
             background: 'none', border: 'none', cursor: 'pointer',
-            padding: 0, width: '12px', height: '12px',
+            padding: 0, width: '12px', height: '13px',
             display: 'flex', alignItems: 'center', justifyContent: 'center',
+            color: DIALOGUE_OVERRIDE_META(segment?.dialogueOverride).color,
+            transition: 'color 0.2s ease',
           }}
         >
-          {(() => {
-            const meta = DIALOGUE_OVERRIDE_META(segment?.dialogueOverride)
-            return (
-              <span style={{
-                display: 'inline-block',
-                width: '7px',
-                height: '7px',
-                borderRadius: meta.shape === 'circle' ? '50%' : '1.5px',
-                background: meta.fill,
-                border: meta.border || 'none',
-                boxSizing: 'border-box',
-                transition: 'background-color 0.2s ease, border-color 0.2s ease',
-              }} />
-            )
-          })()}
+          <DialogueOverrideIcon override={segment?.dialogueOverride} />
         </button>
       </div>
       {/* Boutons d'action — grid 2×3 compact */}
