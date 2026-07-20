@@ -481,7 +481,8 @@ function scoreSound(sound, termSets, isAmbienceSearch) {
 
         if (tagsNorm.some(tag => tag === term))     termScore += 4
         else if (tagsNorm.some(tag => tag.includes(term))) termScore += 3
-
+        if (soundQKeywords.some(k => k === term))   termScore += 5
+        else if (soundQKeywords.some(k => k.includes(term))) termScore += 3
         if (labelWords.some(w => w === term))       termScore += 3
         else if (labelNorm.includes(term))          termScore += 2
 
