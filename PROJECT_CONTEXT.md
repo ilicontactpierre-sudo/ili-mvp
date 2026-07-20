@@ -1,20 +1,23 @@
-# ILi — Projet de Lecture Immersive
+# ILi MVP — Contexte Projet
+
+Application web de lecture immersive interactive avec sons, effets visuels et gamification.
+
+---
 
 ## 1. Stack Technique
 
-| Couche | Technologie | Version | Rôle / Détails |
-|--------|-------------|---------|----------------|
+| Couche | Technologie | Version | Rôle/Détails |
+|--------|-------------|---------|--------------|
 | **Frontend** | React | 19.2.6 | UI component-based avec hooks |
-| **Routing** | React Router DOM | 7.15.0 | Navigation SPA (HomePage, StoryPage, AdminPage, TutorialPage) |
-| **Bundler** | Vite | 8.0.12 | Build rapide avec HMR, config dans `vite.config.js` |
-| **Backend dev** | Express | 5.2.1 | Serveur API local sur port 3001 (`scripts/dev-api-server.js`) |
-| **Backend prod** | Vercel Serverless Functions | — | Fonctions dans `/api/*.js` déployées sur Vercel |
+| **Routing** | React Router DOM | 7.15.0 | Navigation SPA (/, /lire/:id, /admin, /tutoriel) |
+| **Bundler** | Vite | 8.0.12 | Build rapide + HMR |
+| **Backend dev** | Express | 5.2.1 | Serveur API local (port 3001) pour upload audio, preview, publish |
+| **Backend prod** | Vercel Serverless | — | Rewrites vers index.html (SPA), API via fonctions serverless |
 | **Base de données** | Supabase | 2.106.1 | Storage (bucket `sounds`) + table `sounds` pour métadonnées |
-| **Audio** | Howler.js | 2.2.4 | Moteur de lecture audio avec gestion des instances, fade, loop |
-| **Audio avancé** | @ffmpeg/ffmpeg | 0.12.15 | Compression audio côté client avant upload |
-| **Recherche** | Fuse.js | 7.3.0 | Recherche fuzzy dans la bibliothèque de sons |
-| **Déploiement** | Vercel | — | Hosting frontend + serverless functions |
-| **Linting** | ESLint | 10.3.0 | Vérification code avec plugins react-hooks et react-refresh |
+| **Audio** | Howler.js | 2.2.4 | Moteur de lecture audio avec sprites, loops, spatialisation |
+| **Audio enc** | @ffmpeg/ffmpeg | 0.12.15 | Encodage/compression audio côté client |
+| **Recherche** | Fuse.js | 7.3.0 | Recherche fuzzy dans la bibliothèque sonore |
+| **Déploiement** | Vercel | — | Hosting statique + serverless |
 
 ---
 
@@ -22,300 +25,233 @@
 
 ```
 ili-mvp/
-├── index.html                    # Point d'entrée HTML (mount React)
-├── package.json                  # Dépendances, scripts npm
-├── vite.config.js               # Config Vite : proxy API, headers COOP/COEP
-├── vercel.json                  # Rewrites SPA vers index.html
-├── eslint.config.js             # Config ESLint
+├── package.json                    # Dépendances, scripts npm (dev, build, lint)
+├── vite.config.js                  # Config Vite : proxy API, headers COOP/COEP
+├── vercel.json                     # Rewrites SPA vers index.html
+├── index.html                      # Point d'entrée HTML (root React)
+├── .gitignore                      # Exclut .env, node_modules, dist
 │
-├── api/                         # Fonctions serverless Vercel (backend prod)
-│   ├── delete-sound.js          # Supprime son (storage + DB Supabase)
-│   ├── delete.js                # Supprime une histoire (GitHub API)
-│   ├── get-upload-url.js        # Génère URL signée Supabase pour upload
-│   ├── manage-menu.js           # Gestion du menu (CRUD histoires)
-│   ├── preview-sound.js         # Stream audio avec range requests
-│   ├── publish.js               # Publie histoire sur GitHub
-│   ├── send-newsletter.js       # Envoi newsletter (intégration à venir)
-│   ├── subscribe.js             # Inscription newsletter
-│   ├── toggle-visibility.js     # Change visibilité histoire
-│   ├── upload-audio.js          # Upload fichier audio vers Supabase
-│   └── upload-sound.js          # Upsert métadonnées son dans Supabase
+├── api/                            # Fonctions serverless Vercel (production)
+│   ├── upload-audio.js             # Upload audio vers Supabase Storage
+│   ├── upload-sound.js             # Upsert métadonnées son dans table sounds
+│   ├── get-upload-url.js           # Génère URL signée Supabase
+│   ├── preview-sound.js            # Stream audio local (dev)
+│   ├── publish.js                  # Publie histoire via GitHub API
+│   ├── delete-sound.js             # Supprime son (storage + DB)
+│   ├── delete.js                   # Supprime ressource générique
+│   ├── manage-menu.js              # Gestion menus navigation
+│   ├── send-newsletter.js          # Envoi newsletter
+│   └── subscribe.js                # Inscription newsletter
 │
-├── public/                      # Assets statiques servis par Vercel/Vite
-│   ├── favicon.svg              # Favicon
-│   ├── icons.svg                # Sprite SVG pour icônes UI
-│   ├── manifest.json            # PWA manifest
-│   ├── soundSearchWorker.js     # Web Worker pour recherche fuzzy
-│   ├── tutoriel-icon.png        # Icône page tutoriel
-│   │
-│   ├── fonts/                   # Polices personnalisées
-│   │   ├── Benedict Regular.otf # Police serif pour titres
-│   │   └── Oanteh.ttf           # Police display pour logo
-│   │
-│   ├── sounds/                  # Sons UI et bibliothèque locale
-│   │   ├── sounds-index.json    # Index des sons (ID, URL, tags, catégories)
-│   │   ├── Clic ILi.mp3         # Son clic navigation
-│   │   ├── Clic-Settings.mp3    # Son clic paramètres
-│   │   ├── Clic_soundcheck.mp3  # Son test audio
-│   │   ├── whoosh-*.mp3         # Transitions (6 variantes)
-│   │   └── tutoriel-casque.mp3  # Son tutoriel
-│   │
-│   └── stories/                 # Histoires publiées (JSON)
-│       ├── index.json           # Liste des histoires (id, title, author, hidden)
-│       └── *.json               # Fichiers d'histoires individuelles
+├── public/                         # Assets statiques servis par Vercel
+│   ├── sounds/                     # Fichiers audio locaux + index JSON
+│   │   ├── sounds-index.json       # Index complet bibliothèque sonore (id, url, tags, categories)
+│   │   ├── soundq-keywords.json    # Mots-clés pour recherche
+│   │   └── *.mp3                   # Sons UI (clic, whoosh, tutoriel)
+│   ├── stories/                    # Histoires publiées (JSON)
+│   │   ├── index.json              # Liste des histoires (id, titre, auteur, hidden)
+│   │   └── *.json                  # Données d'histoire (segments, soundTracks, vfxTracks)
+│   ├── fonts/                      # Polices custom (Benedict, Oanteh)
+│   ├── textures/                   # Images (paper.png pour effets)
+│   ├── manifest.json               # PWA manifest
+│   ├── soundSearchWorker.js        # Web Worker recherche fuzzy
+│   └── icons.svg                   # Sprite SVG icônes
 │
-├── scripts/                     # Scripts utilitaires
-│   ├── dev-api-server.js        # Serveur Express dev (proxy vers Supabase)
-│   ├── addSound.js              # CLI ajout son à la bibliothèque
-│   ├── audio-dictionary.js      # Dictionnaire mapping sons
-│   ├── checkpoint.js            # Script de checkpoint git
-│   ├── convert-stories.js       # Conversion format histoires
-│   ├── generateSoundsIndex.js   # Génère sounds-index.json
-│   ├── index-boom-library.js    # Indexe bibliothèque BOOM
-│   ├── migrate-sounds-to-supabase.js  # Migration sons vers Supabase
-│   ├── stats-sounds.cjs         # Stats bibliothèque sons
-│   ├── update-story-urls.js     # Met à jour URLs dans histoires
-│   └── git-sync.sh              # Script sync git
+├── scripts/                        # Scripts utilitaires Node.js
+│   ├── dev-api-server.js           # Serveur Express dev (port 3001) — routes API locales
+│   ├── addSound.js                 # CLI ajout son à la bibliothèque
+│   ├── convert-stories.js          # Conversion format histoires
+│   ├── generateSoundsIndex.js      # Génère sounds-index.json depuis bibliothèque
+│   ├── import-soundq-keywords.cjs  # Import mots-clés SoundQ
+│   ├── debug-key-mismatch.cjs      # Debug mismatch clés
+│   ├── debug-soundq-row.cjs        # Debug ligne SoundQ
+│   ├── check-soundq-coverage.cjs   # Vérifie couverture SoundQ
+│   ├── stats-sounds.cjs            # Stats bibliothèque
+│   ├── migrate-sounds-to-supabase.js # Migration vers Supabase
+│   └── git-sync.sh                 # Sync Git multi-remotes
 │
-├── src/                         # Code source React
-│   ├── main.jsx                 # Point d'entrée React (BrowserRouter)
-│   ├── App.jsx                  # Routes + sons globaux (clic ILi)
-│   ├── index.css                # Styles globaux (CSS variables)
+├── src/
+│   ├── main.jsx                    # Point d'entrée React (rendu dans #root)
+│   ├── App.jsx                     # Routes + sons UI globaux (clic, settings)
+│   ├── index.css                   # Styles globaux (CSS variables, reset)
 │   │
-│   ├── pages/                   # Pages principales
-│   │   ├── HomePage.jsx         # Accueil avec logo animé + liste histoires
-│   │   ├── StoryPage.jsx        # Lecteur d'histoire (segments + audio)
-│   │   ├── AdminPage.jsx        # Interface création/édition histoires
-│   │   ├── TutorialPage.jsx     # Page tutoriel
-│   │   ├── NewsletterPage.jsx   # Page newsletter
-│   │   └── AnalyticsDashboard.jsx # Dashboard analytics
+│   ├── pages/                      # Pages principales
+│   │   ├── HomePage.jsx            # Accueil — liste des histoires
+│   │   ├── StoryPage.jsx           # Lecteur d'histoire (charge StoryReader)
+│   │   ├── AdminPage.jsx           # Éditeur complet (segments, sons, VFX, publish)
+│   │   ├── TutorialPage.jsx        # Page tutoriel
+│   │   ├── NewsletterPage.jsx      # Page newsletter
+│   │   └── AnalyticsDashboard.jsx  # Dashboard analytics
 │   │
-│   ├── components/              # Composants réutilisables
-│   │   ├── StoryMenu.jsx        # Menu déroulant des histoires
-│   │   ├── StoryReader.jsx      # Affichage texte segmenté
-│   │   ├── StoryReader.css      # Styles du lecteur
-│   │   ├── StartScreen.jsx      # Écran démarrage (preload audio)
-│   │   ├── EndScreen.jsx        # Écran fin d'histoire
-│   │   ├── SeuilScreen.jsx      # Questions avant lecture (seuil)
-│   │   ├── GameOverlay.jsx      # Overlay gamification (sound_check, etc.)
-│   │   ├── VfxOverlay.jsx       # Overlay effets visuels
-│   │   ├── ReaderSettings.jsx   # Paramètres lecteur (volume, progression)
+│   ├── components/                 # Composants UI
+│   │   ├── StoryReader.jsx         # Lecteur cœur — rendu segments, effets texte, navigation
+│   │   ├── StoryReader.css         # Styles du lecteur (blur, focus, transitions)
+│   │   ├── StartScreen.jsx         # Écran démarrage histoire
+│   │   ├── EndScreen.jsx           # Écran fin histoire
+│   │   ├── SeuilScreen.jsx         # Écran questions avant lecture (seuil)
+│   │   ├── GameOverlay.jsx         # Overlay modes jeu (énigmes, timer)
+│   │   ├── VfxOverlay.jsx          # Overlay effets ambiance (brouillard, pluie, feu)
+│   │   ├── ReaderSettings.jsx      # Paramètres lecture (DYS, thème, emojis)
+│   │   ├── StoryMenu.jsx           # Menu sélection histoire
 │   │   │
-│   │   └── admin/               # Composants interface admin
-│   │       ├── AudioTimeline.jsx         # Timeline audio avec segments
-│   │       ├── UnifiedSegmentsTimeline.jsx # Timeline unifiée (audio + VFX)
-│   │       ├── SoundBlock.jsx            # Bloc sonore dans timeline
-│   │       ├── SoundBlockPanel.jsx       # Panneau édition bloc sonore
-│   │       ├── SoundLibraryPicker.jsx    # Sélecteur de sons (recherche/filtres)
-│   │       ├── SoundImporter.jsx         # Import sons depuis bibliothèque
-│   │       ├── WaveformTrimmer.jsx       # Édition trim (début/fin)
-│   │       ├── OrchestrationPanel.jsx    # Orchestration audio (tracks)
-│   │       ├── GameModePanel.jsx         # Édition gamification segments
-│   │       ├── VfxBlock.jsx              # Bloc effets visuels
-│   │       ├── VfxBlockPanel.jsx         # Panneau édition VFX
-│   │       ├── FormatToolbar.jsx         # Toolbar formatage texte
-│   │       ├── InlineFunctionMenu.jsx    # Menu fonctions inline
-│   │       ├── TagsInput.jsx             # Input tags avec autocomplete
-│   │       ├── DraftManager.jsx          # Gestion brouillons (localStorage)
-│   │       ├── StoryLoader.jsx           # Chargement histoires existantes
-│   │       ├── StoryPreviewModal.jsx     # Modal aperçu avant publication
-│   │       ├── PublishPanel.jsx          # Panneau publication
-│   │       ├── PublishAnimation.jsx      # Animation publication
-│   │       ├── MenuManagerPage.jsx       # Gestion menu histoires
-│   │       ├── AnalyticsDashboard.jsx    # Dashboard analytics
-│   │       ├── constants.js              # Constantes (couleurs, dimensions)
-│   │       └── README.md                 # Documentation interface audio
+│   │   └── admin/                  # Composants éditeur
+│   │       ├── UnifiedSegmentsTimeline.jsx  # Timeline segments + sons + VFX
+│   │       ├── SoundBlock.jsx               # Bloc son individuel
+│   │       ├── SoundBlockPanel.jsx          # Panneau édition son
+│   │       ├── VfxBlock.jsx                 # Bloc effet visuel
+│   │       ├── VfxBlockPanel.jsx            # Panneau édition VFX
+│   │       ├── AudioTimeline.jsx            # Timeline audio legacy
+│   │       ├── FormatToolbar.jsx            # Toolbar formatage texte
+│   │       ├── InlineFunctionMenu.jsx       # Menu fonctions inline (</pulse/>, etc.)
+│   │       ├── TagsInput.jsx                # Input tags avec autocomplete
+│   │       ├── SoundLibraryPicker.jsx       # Sélecteur bibliothèque sonore
+│   │       ├── SoundImporter.jsx            # Import sons depuis fichier
+│   │       ├── WaveformTrimmer.jsx          # Édition trim start/end
+│   │       ├── PublishPanel.jsx             # Panneau publication
+│   │       ├── PublishAnimation.jsx         # Animation publication
+│   │       ├── OrchestrationPanel.jsx       # Panneau orchestration audio
+│   │       ├── GameModePanel.jsx            # Panneau modes jeu
+│   │       ├── DraftManager.jsx             # Gestion brouillons
+│   │       ├── StoryLoader.jsx              # Chargement histoire existante
+│   │       ├── StoryPreviewModal.jsx        # Modal aperçu
+│   │       ├── AnalyticsDashboard.jsx       # Dashboard stats
+│   │       ├── MenuManagerPage.jsx          # Gestion menus
+│   │       ├── constants.js                 # Couleurs, configs VFX/GAME, defaults
+│   │       └── README.md                    # Doc composants admin
 │   │
-│   ├── engine/                  # Moteurs audio/haptique
-│   │   ├── AudioEngine.js       # Moteur audio (play, fade, loop, pan, automation)
-│   │   └── HapticEngine.js      # Moteur haptique (vibrations)
+│   ├── engine/                     # Moteurs temps réel
+│   │   ├── AudioEngine.js          # Moteur audio — play/stop/fade/loop/pan/automation
+│   │   └── HapticEngine.js         # Moteur haptique (vibrations)
 │   │
-│   ├── styles/                  # Styles globaux
-│   │   ├── global.css           # Variables CSS, reset, typography
-│   │   └── vfx.css              # Styles effets visuels
+│   ├── utils/                      # Fonctions utilitaires
+│   │   ├── renderMarkdown.jsx      # Rendu Markdown → HTML avec inline functions
+│   │   ├── inlineFunctions.jsx     # Parser + rendu tags </nom:args|contenu/>
+│   │   ├── emojiDict.jsx           # Conversion texte → emojis
+│   │   ├── bionicReading.jsx       # Mise en gras bionic reading
+│   │   ├── segmentAlgorithm.js     # Découpage texte en segments
+│   │   ├── soundSearch.js          # Recherche fuzzy bibliothèque
+│   │   └── analytics.js            # Tracking analytics
 │   │
-│   ├── utils/                   # Utilitaires
-│   │   ├── segmentAlgorithm.js  # Algorithme découpage texte en segments
-│   │   ├── renderMarkdown.jsx   # Rendu markdown avec syntaxe ILi
-│   │   ├── inlineFunctions.jsx  # Fonctions inline (variables, journal)
-│   │   ├── bionicReading.jsx    # Mode lecture bionique
-│   │   ├── emojiDict.jsx        # Dictionnaire emoji
-│   │   ├── soundSearch.js       # Recherche dans bibliothèque sons
-│   │   └── analytics.js         # Tracking analytics
-│   │
-│   └── assets/                  # Assets importés
-│       ├── hero.png             # Image héro
-│       ├── react.svg            # Logo React
-│       └── vite.svg             # Logo Vite
+│   └── styles/                     # Styles globaux
+│       ├── global.css              # Variables CSS, reset, thèmes
+│       └── vfx.css                 # Animations effets visuels (shake, glitch, etc.)
 │
-└── .gitignore                   # Fichiers ignorés par git
+└── scripts/
+    ├── git-sync.sh                 # Script sync Git
+    └── publish.sh                  # Script publication
 ```
 
 ---
 
 ## 3. Flux de Données Principal
 
-### 3.1 Lecture d'une histoire
-
+### Scénario : Lecture d'une histoire
 ```
-1. HomePage → clic sur histoire → navigate('/lire/:storyId')
-2. StoryPage charge `/stories/${storyId}.json`
-3. StartScreen précharge les sons (Howl instances)
-4. AudioEngine exécute audioEvents/onSegmentChange à chaque segment
-5. StoryReader affiche le texte segmenté
-6. Navigation : swipe/clic gauche-droite ou flèches clavier
-7. Fin → EndScreen avec options (feedback, partie suivante)
-```
-
-### 3.2 Upload d'un son (Admin)
-
-```
-1. Admin → SoundLibraryPicker → sélection son
-2. Compression via @ffmpeg/ffmpeg (si nécessaire)
-3. POST /api/get-upload-url → URL signée Supabase
-4. PUT vers URL signée → fichier dans bucket `sounds`
-5. POST /api/upload-sound → métadonnées dans table `sounds`
-6. Mise à jour sounds-index.json (côté client)
+1. HomePage → clic sur histoire → StoryPage
+2. StoryPage charge public/stories/{storyId}.json
+3. StoryReader rendu :
+   - Segments textuels avec effets (</pulse/>, </glitch/>, etc.)
+   - AudioEngine gère soundTracks (play/fade/stop par segment)
+   - VfxOverlay gère ambiance (brouillard, pluie, feu)
+   - Navigation : scroll/clic → segment suivant
+4. Mémoire narrative : sessionStorage (`ili_mem_{storyId}_{key}`)
+   - Permet </lire:cle|defaut/> et {{journal:cle}}
 ```
 
-### 3.3 Publication d'une histoire
-
+### Scénario : Upload son (Admin)
 ```
-1. Admin → PublishPanel → clic "Publier"
-2. POST /api/publish avec storyData + slug + password
-3. Serveur lit fichier existant via GitHub API
-4. Écrit nouveau JSON dans `public/stories/${slug}.json`
-5. Met à jour `public/stories/index.json`
-6. Commit automatique sur branche main
+1. AdminPage → SoundImporter ou SoundLibraryPicker
+2. POST /api/upload-audio (dev: localhost:3001, prod: Vercel fn)
+   - Auth : password dans body
+   - Compression via @ffmpeg/ffmpeg (WASM)
+   - Upload vers Supabase Storage bucket `sounds`
+3. POST /api/upload-sound
+   - Upsert métadonnées dans table `sounds` (id, url, tags, categories)
+4. Mise à jour sounds-index.json via GitHub API
 ```
 
-### 3.4 Gestion de l'auth
+### Scénario : Publication histoire
+```
+1. AdminPage → PublishPanel → POST /api/publish
+2. Écrit public/stories/{slug}.json via GitHub API
+3. Met à jour public/stories/index.json
+4. Histoire disponible sur HomePage
+```
 
-| Élément | Mécanisme | Stockage |
-|---------|-----------|----------|
-| **Admin** | Mot de passe simple (`ADMIN_PASSWORD`) | Variable d'environnement |
-| **Lecteur** | Pas d'auth requise | — |
-| **Progression** | localStorage (`ili_progress_${storyId}`) | Client-side |
-| **Newsletter** | Email + token (à implémenter) | Supabase DB |
+### Authentification
+- **Admin** : password simple (`ADMIN_PASSWORD` env var)
+- **Lecteur** : pas d'auth, données en sessionStorage
+- **Stockage credentials** : localStorage pour thème/préférences, sessionStorage pour mémoire narrative
 
 ---
 
 ## 4. Points Sensibles
 
-### 4.1 Fichiers de configuration critiques
+### Fichiers de Configuration Critiques
 
-| Fichier | Rôle | Impact si modifié |
-|---------|------|-------------------|
-| `vite.config.js` | Proxy API dev, headers COOP/COEP (FFmpeg) | Audio FFmpeg cassé sans headers |
-| `vercel.json` | Rewrite SPA vers index.html | Routing cassé en prod |
-| `package.json` | Scripts, dépendances | Build/dev cassé |
-| `.env` (local) | Variables Supabase, GitHub, Admin | Backend dev inaccessible |
-| `public/stories/index.json` | Liste histoires visibles | Histoires masquées/ajoutées |
-| `public/sounds/sounds-index.json` | Bibliothèque sons (recherche) | Recherche sons cassée |
+| Fichier | Rôle |
+|---------|------|
+| `vite.config.js` | Proxy API vers localhost:3001, headers COOP/COEP pour SharedArrayBuffer (FFmpeg WASM) |
+| `vercel.json` | Rewrite SPA : toutes routes → index.html |
+| `package.json` | Scripts dev (`concurrently` pour lancer Vite + Express) |
+| `.env` (non commité) | `SUPABASE_URL`, `SUPABASE_SERVICE_KEY`, `ADMIN_PASSWORD`, `GITHUB_TOKEN`, `GITHUB_OWNER`, `GITHUB_REPO`, `GITHUB_BRANCH` |
 
-### 4.2 Différences local vs production
+### Différences Local vs Production
 
-| Aspect | Local (dev) | Production (Vercel) |
-|--------|-------------|---------------------|
-| **Backend API** | Express port 3001 (`scripts/dev-api-server.js`) | Vercel Serverless Functions (`/api/*.js`) |
-| **Audio preview** | Fichiers locaux via `/api/preview-sound` | URLs Supabase publiques |
-| **Upload audio** | Compression locale + upload Supabase | Compression locale + upload Supabase |
-| **Stories** | Fichiers `public/stories/*.json` locaux | Fichiers sur GitHub (via API) |
-| **Proxy** | Vite proxy vers localhost:3001 | Pas de proxy, appels directs |
-| **COOP/COEP** | Headers dans vite.config.js | Headers Vercel (à configurer) |
+| Aspect | Local | Production |
+|--------|-------|------------|
+| **Serveur API** | Express sur port 3001 | Fonctions serverless Vercel (`/api/*`) |
+| **Preview audio** | Fichiers locaux via Express | URLs Supabase Storage publiques |
+| **Upload audio** | Express → Supabase | Vercel fn → Supabase |
+| **Stories** | Fichiers `public/stories/*.json` locaux | Même chemin, servis par Vercel CDN |
+| **Build** | `vite` (dev server) | `vite build` → `dist/` → Vercel |
 
-### 4.3 Assets statiques
+### Assets Statiques
+- **Servis depuis** : `public/` → Vercel CDN
+- **Chemins** : `/sounds/*.mp3`, `/stories/*.json`, `/fonts/*.ttf`, `/textures/*.png`
+- **Cache** : géré par Vercel (CDN automatique)
 
-| Type | Chemin | Servi depuis |
-|------|--------|--------------|
-| **HTML/CSS/JS** | `dist/` (build) | Vercel CDN |
-| **Polices** | `public/fonts/` | Vercel CDN |
-| **Sons UI** | `public/sounds/` | Vercel CDN |
-| **Histoires** | `public/stories/` | Vercel CDN |
-| **Images** | `public/` | Vercel CDN |
-| **Sons bibliothèque** | Bucket Supabase `sounds` | Supabase CDN |
+### Gestion des Fichiers Médias
 
-### 4.4 Gestion des fichiers médias
-
-| Aspect | Détails |
-|--------|---------|
-| **Formats audio supportés** | MP3, WAV, AIFF, FLAC (upload) ; MP3 (lecture optimale) |
-| **Pipeline upload** | Sélection → Compression FFmpeg → Signed URL Supabase → Upload → Métadonnées DB |
-| **Stockage** | Bucket Supabase `sounds` (public) |
-| **Métadonnées** | Table Supabase `sounds` : id, filename, url, tags, categories, duration, loop, mood, etc. |
-| **Index local** | `public/sounds/sounds-index.json` — généré par `scripts/generateSoundsIndex.js` |
-| **CDN** | Supabase CDN pour les fichiers audio |
-| **Trim/édition** | Côté client via WaveformTrimmer (définit trimStart/trimEnd en ms) |
+| Type | Pipeline | Formats | Stockage | Métadonnées |
+|------|----------|---------|----------|-------------|
+| **Audio** | Upload → FFmpeg WASM (compression) → Supabase Storage | MP3, WAV, AIFF, FLAC | Bucket `sounds` (Supabase) | Table `sounds` : id, url, tags, categories, duration, loop, etc. |
+| **Images** | Upload direct | PNG, JPG, SVG | Supabase Storage ou GitHub (stories) | Inline dans JSON histoires |
+| **Histoires** | Édition → Publish → GitHub API | JSON | GitHub repo (`public/stories/`) | index.json : id, title, author, hidden, mood, genre |
 
 ---
 
 ## 5. Commandes Clés
 
 ```bash
-# ── Développement ──────────────────────────────────────────────────────────────
-npm run dev           # Lance Vite + serveur API Express (concurrently)
-npm run dev:clean     # Tue les process existants puis lance dev
+# ── Développement ──
+npm run dev              # Lance Vite + Express API server (concurrently)
+npm run dev:clean        # Tue les processus existants et relance
 
-# ── Build ──────────────────────────────────────────────────────────────────────
-npm run build         # Build Vite → dossier dist/
-npm run preview       # Prévisualise le build en local
+# ── Build ──
+npm run build            # Build Vite → dist/
+npm run preview          # Preview build en local
 
-# ── Linting ────────────────────────────────────────────────────────────────────
-npm run lint          # Vérifie avec ESLint
+# ── Lint ──
+npm run lint             # ESLint avec règles React
 
-# ── Utilitaires ────────────────────────────────────────────────────────────────
-npm run add-sound     # CLI : ajoute un son à la bibliothèque
-npm run sync          # Lance git-sync.sh (sync branches)
-npm run publish       # Lance publish.sh (déploiement)
-npm run checkpoint    # Crée un checkpoint git + lance dev server
-
-# ── Scripts manuels ────────────────────────────────────────────────────────────
-node scripts/generateSoundsIndex.js    # Régénère sounds-index.json
-node scripts/index-boom-library.js     # Indexe bibliothèque BOOM externe
-node scripts/migrate-sounds-to-supabase.js  # Migration sons vers Supabase
-node scripts/update-story-urls.js      # Met à jour URLs dans histoires
+# ── Utilitaires ──
+npm run add-sound        # CLI : node scripts/addSound.js — ajoute un son
+npm run checkpoint       # Lance un checkpoint (vite --host 0.0.0.0)
+npm run publish          # bash publish.sh — publie sur Vercel
+npm run sync             # bash git-sync.sh — sync multi-remotes
 ```
 
 ---
 
 ## 6. Variables d'Environnement
 
-| Variable | Usage | Requis |
-|----------|-------|--------|
-| `ADMIN_PASSWORD` | Authentification routes API admin (upload, publish, delete) | Oui (dev + prod) |
-| `SUPABASE_URL` | URL du projet Supabase | Oui (dev + prod) |
-| `SUPABASE_SERVICE_KEY` | Clé service Supabase (admin) pour uploads | Oui (dev + prod) |
-| `GITHUB_TOKEN` | Token GitHub API pour publication histoires | Oui (publish) |
-| `GITHUB_OWNER` | Propriétaire du repo GitHub | Oui (publish) |
-| `GITHUB_REPO` | Nom du repo GitHub | Oui (publish) |
-| `GITHUB_BRANCH` | Branche cible (défaut : `main`) | Non |
-| `NODE_ENV` | Mode (development/production) — utilisé dans preview-sound.js | Non |
-
----
-
-## 7. Architecture Audio (AudioEngine)
-
-L'`AudioEngine` (`src/engine/AudioEngine.js`) est le cœur du système audio :
-
-### Capacités
-- **Lecture** : play, stop, pause
-- **Volume** : linéaire et perceptuel (courbe quadratique)
-- **Fade** : fade in/out avec courbes personnalisables (natural, linear, ease-out, sigmoid, etc.)
-- **Loop** : avec crossfade configurable (none, medium, long)
-- **Pan/Stereo** : statique ou animé (sweep, oscillate, converge, diverge)
-- **Trim** : sprite dynamique (trimStart/trimEnd)
-- **Automation** : points d'automation de volume par segment
-
-### Modèle d'événements
-```javascript
-// Format audioEvents (ancien, par segment)
-{ action: 'play' | 'stop' | 'fadeIn' | 'fadeOut' | 'volume', ...params }
-
-// Format soundTracks (nouveau, par track)
-{ id, soundId, startSegmentId, endSegmentId, volume, fadeIn, fadeOut, delay, loop, pan, ... }
-```
-
-### Méthode principale
-```javascript
-audioEngine.onSegmentChange(currentIndex, soundTracks, segments)
-// Synchronise automatiquement l'état audio avec le segment courant
+| Variable | Usage |
+|----------|-------|
+| `SUPABASE_URL` | URL du projet Supabase (ex: `https://xxx.supabase.co`) |
+| `SUPABASE_SERVICE_KEY` | Clé service Supabase (admin, pour uploads) |
+| `ADMIN_PASSWORD` | Mot de passe pour routes API admin (/api/upload-*, /api/publish) |
+| `GITHUB_TOKEN` | Token GitHub pour publication histoires (write repo content) |
+| `GITHUB_OWNER` | Propriétaire du repo GitHub |
+| `GITHUB_REPO` | Nom du repo GitHub |
+| `GITHUB_BRANCH` | Branche cible (défaut: `main`) |
