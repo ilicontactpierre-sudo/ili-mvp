@@ -1014,7 +1014,7 @@
       "lines": [
         "— Non, monsieur ; mort d’une fièvre cérébrale, au milieu d’horribles souffrances. Puis,"
       ],
-      "text": "— Non, monsieur ; mort d’une fièvre cérébrale, au milieu d’horribles souffrances. Puis,",
+      "text": "— Non, monsieur ; mort d’une fièvre cérébrale, au milieu d’horribles souffrances.",
       "breakAt": null,
       "isLeader": false,
       "audioEvents": [
@@ -1030,7 +1030,7 @@
       "lines": [
         "se retournant vers ses hommes :"
       ],
-      "text": "se retournant vers ses hommes :",
+      "text": "Puis, se retournant vers ses hommes :",
       "breakAt": null,
       "isLeader": false,
       "audioEvents": [
@@ -6663,6 +6663,12 @@
       "panMode": "static",
       "muted": false,
       "automationPoints": [
+        {
+          "segmentId": "seg_1783344799946_178_1515w",
+          "volume": 0.18,
+          "fadeMs": 0,
+          "_isAnchor": true
+        },
         {
           "segmentId": "seg_1783344799946_179_o7rzn",
           "volume": 0.22,
