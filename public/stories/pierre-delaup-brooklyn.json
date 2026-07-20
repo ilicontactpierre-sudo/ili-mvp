@@ -261,7 +261,7 @@
         {
           "action": "play",
           "soundId": "la_valle_e_du_okuno",
-          "volume": 1,
+          "volume": 0.71,
           "gainDb": 0,
           "delay": 0,
           "loop": false
@@ -733,7 +733,7 @@
           "soundId": "tuba_skinny_-_jubilee_stomp_-_royal_street_ii_1_",
           "volume": 0.25,
           "gainDb": 0,
-          "duration": 600,
+          "duration": 673,
           "delay": 0,
           "loop": false
         },
@@ -1233,8 +1233,8 @@
       "lines": [
         "Un dernier coup d'œil aux camarades qui resteront ici."
       ],
-      "text": "• Fusil plasma XKO2 chargé \n• Combinaison fermée \n• Masque intégral verrouillé et dépressurisé \n• Photo du mariage dans sa poche poitrine,\nO.K. …Quand faut y aller, faut y aller !",
-      "breakAt": null,
+      "text": "• Fusil plasma XKO2 chargé \n• Combinaison fermée \n• Masque intégral verrouillé et dépressurisé \n• Photo du mariage dans sa poche poitrine, O.K. …Quand faut y aller, faut y aller !",
+      "breakAt": 139,
       "isLeader": false,
       "audioEvents": [
         {
@@ -1722,7 +1722,7 @@
       "endSegmentId": "seg_1781326327990_47_kzzmi",
       "column": 1,
       "volume": 0.25,
-      "fadeIn": 600,
+      "fadeIn": 673,
       "fadeOut": 400,
       "delay": 0,
       "loop": false,
@@ -1730,7 +1730,15 @@
       "broken": false,
       "trimStart": 8425,
       "trimEnd": 231079.1666666667,
-      "pan": 0.59
+      "pan": 0.59,
+      "automationPoints": [
+        {
+          "segmentId": "seg_1781326327990_42_va4t4",
+          "volume": 0.2,
+          "fadeMs": 0,
+          "_isAnchor": true
+        }
+      ]
     },
     {
       "id": "st_1781707244241_u45unxui3",
@@ -2360,7 +2368,7 @@
       "startSegmentId": "seg_1784538081368",
       "endSegmentId": "seg_pause_1781803095254_mkdky",
       "column": 0,
-      "volume": 1,
+      "volume": 0.71,
       "fadeIn": 0,
       "fadeOut": 3100,
       "delay": 0,
@@ -2369,7 +2377,7 @@
       "automationPoints": [
         {
           "segmentId": "seg_1784538081368",
-          "volume": 1,
+          "volume": 0.71,
           "fadeMs": 0,
           "_isAnchor": true
         }
