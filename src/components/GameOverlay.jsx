@@ -118,6 +118,16 @@ function useWhooshSound() {
   }, [])
   return () => { try { howlRef.current?.play() } catch {} }
 }
+// ── Son de clic joué immédiatement au clic sur "Je suis prêt" ────────────────
+// Placer le fichier dans /public/sounds/Clic ILi simple.mp3
+function useClicSimpleSound() {
+  const howlRef = useRef(null)
+  useEffect(() => {
+    howlRef.current = new Howl({ src: ['/sounds/Clic ILi simple.mp3'], volume: 0.5, preload: true })
+    return () => { howlRef.current?.unload() }
+  }, [])
+  return () => { try { howlRef.current?.play() } catch {} }
+}
 // ─── Distance de Levenshtein ──────────────────────────────────────────────────
 function levenshtein(a, b) {
   const m = a.length, n = b.length
