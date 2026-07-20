@@ -686,6 +686,7 @@ function GameSoundCheck({ data, onResolved, onAudioReady }) {
 
   const playTypeClick = useTypeClickSound()
   const playWhoosh = useWhooshSound()
+  const playClicSimple = useClicSimpleSound()
   const audioReadyFiredRef = useRef(false)
   const typeIntervalRef = useRef(null)
 
