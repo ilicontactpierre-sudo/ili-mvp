@@ -228,6 +228,11 @@
       "loop": false
     },
     {
+      "id": "sp_08_wind_whoosh",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/sp_08_wind_whoosh.mp3",
+      "loop": false
+    },
+    {
       "id": "tuba_skinny_-_jubilee_stomp_-_royal_street_ii_1_",
       "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/tuba_skinny_-_jubilee_stomp_-_royal_street_ii_1_.mp3",
       "loop": false
@@ -262,6 +267,14 @@
           "action": "fadeOut",
           "soundId": "la_valle_e_du_okuno",
           "duration": 3100
+        },
+        {
+          "action": "play",
+          "soundId": "sp_08_wind_whoosh",
+          "volume": 0.5,
+          "gainDb": 0,
+          "delay": 0,
+          "loop": false
         }
       ],
       "transition": {
@@ -2335,6 +2348,28 @@
       "automationPoints": [
         {
           "segmentId": "seg_1784538081368",
+          "volume": 1,
+          "fadeMs": 0,
+          "_isAnchor": true
+        }
+      ]
+    },
+    {
+      "id": "st_1784538863241_ni8giksh7",
+      "soundId": "sp_08_wind_whoosh",
+      "startSegmentId": "seg_pause_1781803095254_mkdky",
+      "endSegmentId": "seg_pause_1781803095254_mkdky",
+      "column": 1,
+      "volume": 0.5,
+      "fadeIn": 0,
+      "fadeOut": 0,
+      "delay": 0,
+      "loop": false,
+      "muted": false,
+      "broken": false,
+      "automationPoints": [
+        {
+          "segmentId": "seg_pause_1781803095254_mkdky",
           "volume": 1,
           "fadeMs": 0,
           "_isAnchor": true
