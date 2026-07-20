@@ -52,14 +52,31 @@ function normalizeFilename(name) {
 // des virgules — c'est la liste de mots-clés, pas une phrase.
 function extractKeywordsFromDescription(desc) {
   if (!desc) return []
-  const parts = desc.split('.').map(p => p.trim()).filter(Boolean)
-  if (parts.length === 0) return []
-  const last = parts[parts.length - 1]
-  if (!last.includes(',')) return []
-  return last
-    .split(',')
-    .map(k => k.trim().toLowerCase())
-    .filter(k => k.length > 1)
+  // Découpe en "phrases" — un point ne marque une fin de phrase que s'il est
+  // suivi d'un espace ou de la fin du texte, pour ne jamais couper un nombre
+  // décimal du type "27.0L" en "27" + "0L".
+  const sentences = desc.split(/\.(?=\s|$)/).map(s => s.trim()).filter(Boolean)
+  const keywords = new Set()
+  for (const sentence of sentences) {
+    // BOOM met tous ses mots-clés dans la DERNIÈRE phrase ; PSE/SoundQ les
+    // étale sur PLUSIEURS phrases courtes. On traite donc chaque phrase,
+    // et chaque phrase peut elle-même contenir plusieurs mots-clés
+    // séparés par des virgules.
+    const fragments = sentence.split(',').map(f => f.trim()).filter(Boolean)
+    for (const frag of fragments) {
+      const clean = frag.toLowerCase()
+      if (clean.length < 2) continue
+      // Ignore les fragments purement numériques/techniques (années,
+      // cotes type "27.0l", numéros de prise "01") — pas des mots-clés
+      // de recherche utiles.
+      if (/^\d+(\.\d+)?[a-z]?$/.test(clean)) continue
+      // Au-delà de ~5 mots, c'est une phrase descriptive, pas un mot-clé
+      // exploitable pour un matching de recherche.
+      if (clean.split(/\s+/).length > 5) continue
+      keywords.add(clean)
+    }
+  }
+  return [...keywords]
 }
 
 // ── Traitement du flux ──────────────────────────────────────────────────
