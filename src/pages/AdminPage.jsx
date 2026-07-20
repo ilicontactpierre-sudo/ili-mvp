@@ -1122,7 +1122,34 @@ function AdminPage() {
           searchString: r.search_string || null,
         }))
       const all = [...merged, ...supabaseOnly]
-      setSoundLibrary(all)
+      // Enrichissement SoundQ — même normalisation de nom de fichier que
+      // scripts/import-soundq-keywords.cjs, pour rester cohérent avec les
+      // clés générées côté script.
+      const normalizeForSoundQ = (str) => {
+        if (!str) return ''
+        return str
+          .replace(/\.[^.]+$/, '')
+          .replace(/[_\-]+/g, ' ')
+          .replace(/\s+/g, ' ')
+          .trim()
+          .toLowerCase()
+      }
+      const enriched = (soundQMap && typeof soundQMap === 'object')
+        ? all.map(sound => {
+            const candidates = [sound.filename, sound.id, sound.label]
+              .filter(Boolean)
+              .map(normalizeForSoundQ)
+            const entry = candidates.map(c => soundQMap[c]).find(Boolean)
+            if (!entry) return sound
+            return {
+              ...sound,
+              soundQKeywords: entry.keywords || [],
+              soundQCategory: entry.category || null,
+              soundQSubcategory: entry.subcategory || null,
+            }
+          })
+        : all
+      setSoundLibrary(enriched)
       setSoundLibraryReady(true)
     })
   }, [])
