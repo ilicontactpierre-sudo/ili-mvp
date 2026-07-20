@@ -257,3 +257,37 @@
   transition: filter 400ms cubic-bezier(0.4, 0, 0.2, 1);
   filter: blur(18px);
 }
+/* ── Barre de continuité dialogue ── */
+.story-reader__track {
+  --segment-gap: clamp(1.8rem, 4vh, 2.8rem);
+}
+.story-reader__segment--dialogue::before {
+  content: '';
+  position: absolute;
+  left: 6px;
+  top: 0.15em;
+  bottom: 0.15em;
+  width: 2px;
+  border-radius: 2px;
+  background: color-mix(in srgb, var(--color-text-focus) 55%, transparent);
+  opacity: 0.55;
+  pointer-events: none;
+  transition: opacity var(--transition-speed) cubic-bezier(0.1, 0.0, 0.1, 1.0);
+}
+.story-reader__segment--blur-near.story-reader__segment--dialogue::before {
+  opacity: 0.34;
+}
+.story-reader__segment--blur-mid.story-reader__segment--dialogue::before {
+  opacity: 0.22;
+}
+.story-reader__segment--blur.story-reader__segment--dialogue::before {
+  opacity: 0.14;
+}
+.story-reader__segment--dialogue-up::before {
+  top: calc(-1 * var(--segment-gap));
+  border-radius: 2px 2px 0 0;
+}
+.story-reader__segment--dialogue-down::before {
+  bottom: calc(-1 * var(--segment-gap));
+  border-radius: 0 0 2px 2px;
+}
