@@ -50,6 +50,41 @@ function normalizeFilename(name) {
 // Format observé chez BOOM Library : "Phrase descriptive. Mot, Mot, Mot, Mot."
 // → on garde le DERNIER segment (après le dernier point), s'il contient
 // des virgules — c'est la liste de mots-clés, pas une phrase.
+// Mots vides à ignorer dans le filet de sécurité "sac de mots" — grammaire
+// anglaise de base + quelques mots de remplissage récurrents dans les
+// descriptions SoundQ (consignes techniques, pas du contenu sonore).
+const STOPWORDS = new Set([
+  'the', 'a', 'an', 'of', 'in', 'on', 'at', 'from', 'with', 'for', 'to', 'and', 'or',
+  'is', 'are', 'was', 'were', 'be', 'been', 'being', 'it', 'its', 'this', 'that',
+  'these', 'those', 'as', 'by', 'into', 'onto', 'than', 'then', 'there', 'here',
+  'use', 'used', 'using', 'applied', 'nr', 'db', 'level', 'levels', 'recorded',
+  'recording', 'take', 'very', 'quite', 'slightly', 'moderately', 'ends', 'derivative',
+])
+
+// Filet de sécurité : quand aucune structure exploitable (tirets, virgules)
+// n'a été trouvée dans la description, on extrait quand même les mots
+// individuels significatifs plutôt que de perdre le fichier entièrement.
+// Moins précis qu'une vraie liste de tags, mais bien mieux que rien.
+function extractLooseKeywords(text) {
+  const words = text
+    .toLowerCase()
+    .replace(/[.,;:()'"]/g, ' ')
+    .split(/\s+/)
+    .filter(Boolean)
+  const kept = []
+  const seen = new Set()
+  for (const w of words) {
+    if (w.length < 3) continue
+    if (STOPWORDS.has(w)) continue
+    if (/^\d+$/.test(w)) continue
+    if (seen.has(w)) continue
+    seen.add(w)
+    kept.push(w)
+    if (kept.length >= 12) break
+  }
+  return kept
+}
+
 function extractKeywordsFromDescription(desc) {
   if (!desc) return []
   const trimmed = desc.trim()
@@ -84,7 +119,11 @@ function extractKeywordsFromDescription(desc) {
       keywords.add(clean)
     }
   }
-  return [...keywords]
+  if (keywords.size > 0) return [...keywords]
+  // Rien d'exploitable en structuré (prose libre, sans virgules ni tirets,
+  // phrases trop longues) — filet de sécurité en sac de mots plutôt que de
+  // perdre le fichier entièrement.
+  return extractLooseKeywords(trimmed)
 }
 
 // ── Traitement du flux ──────────────────────────────────────────────────
