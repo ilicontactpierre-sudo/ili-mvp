@@ -236,51 +236,34 @@
   "segments": [
     {
       "text": "",
-      "id": "seg_1781794386339",
+      "id": "seg_1784538081368",
+      "gameMode": {
+        "type": "sound_check",
+        "prompt": "Un instant. Ajuste le volume de tes écouteurs.",
+        "buttonLabel": "Je suis prêt"
+      },
       "audioEvents": [
         {
           "action": "play",
           "soundId": "la_valle_e_du_okuno",
           "volume": 1,
+          "gainDb": 0,
           "delay": 0,
           "loop": false
-        },
-        {
-          "action": "fadeOut",
-          "soundId": "la_valle_e_du_okuno",
-          "duration": 2353
         }
-      ],
-      "breakAt": null,
-      "isLeader": false,
-      "gameMode": {
-        "type": "choice_branch",
-        "layout": {
-          "axis": "H",
-          "linesH": 0,
-          "linesV": 0,
-          "proportions": [
-            1
-          ],
-          "tint": "noir",
-          "style": "flat",
-          "equalSizes": false
-        },
-        "prompt": "Petit test pour le volume :)",
-        "choices": [
-          {
-            "id": "c1",
-            "text": "Clic quand tu es ready.",
-            "targetPartId": ""
-          }
-        ]
-      }
+      ]
     },
     {
       "id": "seg_pause_1781803095254_mkdky",
       "text": "",
       "pause": 1500,
-      "audioEvents": [],
+      "audioEvents": [
+        {
+          "action": "fadeOut",
+          "soundId": "la_valle_e_du_okuno",
+          "duration": 3100
+        }
+      ],
       "transition": {
         "type": "fade",
         "color": "#000000",
@@ -304,6 +287,7 @@
           "action": "fadeIn",
           "soundId": "tuba_skinny_-_jubilee_stomp_-_royal_street_ii_1_",
           "volume": 0.35,
+          "gainDb": 0,
           "duration": 370,
           "delay": 0,
           "loop": true
@@ -323,6 +307,7 @@
           "action": "play",
           "soundId": "doorwood_wooden_door_open_outdoor_single_01_b00m_one",
           "volume": 0.35,
+          "gainDb": 0,
           "delay": 0,
           "loop": false
         },
@@ -330,6 +315,7 @@
           "action": "fadeIn",
           "soundId": "ambrest_restaurant_german_crowd_bar_01_b00m_one",
           "volume": 0.6,
+          "gainDb": 0,
           "duration": 244,
           "delay": 500,
           "loop": true
@@ -338,6 +324,7 @@
           "action": "play",
           "soundId": "foodgware_glass_tumblers_chink_01_b00m_one",
           "volume": 0.35,
+          "gainDb": 0,
           "delay": 2000,
           "loop": false
         }
@@ -366,6 +353,7 @@
           "action": "play",
           "soundId": "65_s02a_toast",
           "volume": 0.4,
+          "gainDb": 0,
           "delay": 1400,
           "loop": false
         }
@@ -494,6 +482,7 @@
           "action": "play",
           "soundId": "watrpour_water_fill_glass_ring_01_b00m_one",
           "volume": 0.3,
+          "gainDb": 0,
           "delay": 4000,
           "loop": false
         }
@@ -579,6 +568,7 @@
           "action": "play",
           "soundId": "objfurn_wood_chair_take_slide_medium_02_b00m_one",
           "volume": 0.75,
+          "gainDb": 0,
           "delay": 0,
           "loop": false
         }
@@ -597,6 +587,7 @@
           "action": "play",
           "soundId": "printer_receipt",
           "volume": 0.25,
+          "gainDb": 0,
           "delay": 0,
           "loop": false
         }
@@ -615,6 +606,7 @@
           "action": "fadeIn",
           "soundId": "best_drum_solo_ever",
           "volume": 0.55,
+          "gainDb": 0,
           "duration": 300,
           "delay": 0,
           "loop": false
@@ -645,6 +637,7 @@
           "action": "play",
           "soundId": "notification_futuristic_beep_05",
           "volume": 0.65,
+          "gainDb": 0,
           "delay": 0,
           "loop": false
         },
@@ -652,6 +645,7 @@
           "action": "play",
           "soundId": "machappl_razor_smooth_double_01_b00m_one",
           "volume": 0.9,
+          "gainDb": 0,
           "delay": 0,
           "loop": false
         }
@@ -671,6 +665,7 @@
           "action": "play",
           "soundId": "ambdsgn_digital_bubbles_01_b00m_one",
           "volume": 0.5,
+          "gainDb": 0,
           "delay": 0,
           "loop": false
         },
@@ -683,6 +678,7 @@
           "action": "fadeIn",
           "soundId": "whsh_cinematic_low_impact_muffled_hit_01_b00m_one",
           "volume": 0.5,
+          "gainDb": 0,
           "duration": 700,
           "delay": 0,
           "loop": false
@@ -705,6 +701,7 @@
           "action": "fadeIn",
           "soundId": "tuba_skinny_-_jubilee_stomp_-_royal_street_ii_1_",
           "volume": 0.25,
+          "gainDb": 0,
           "duration": 600,
           "delay": 0,
           "loop": false
@@ -713,6 +710,7 @@
           "action": "play",
           "soundId": "ambrest_restaurant_german_crowd_bar_01_b00m_one",
           "volume": 0.5,
+          "gainDb": 0,
           "delay": 0,
           "loop": false
         }
@@ -785,6 +783,7 @@
           "action": "play",
           "soundId": "08_s02_brooklyn_explosion",
           "volume": 0.5,
+          "gainDb": 0,
           "delay": 0,
           "loop": false
         },
@@ -792,6 +791,7 @@
           "action": "fadeIn",
           "soundId": "bob_marley_get_up_stand_up_instrumental_original",
           "volume": 0.75,
+          "gainDb": 0,
           "duration": 200,
           "delay": 2000,
           "loop": false
@@ -811,6 +811,7 @@
           "action": "fadeIn",
           "soundId": "08_s02_brooklyn_birds",
           "volume": 0.15,
+          "gainDb": 0,
           "duration": 2300,
           "delay": 0,
           "loop": true
@@ -819,6 +820,7 @@
           "action": "fadeIn",
           "soundId": "03_s00_ambience_-_room_tone_hum_ambient_leaving_room_atmosphere_1",
           "volume": 0.4,
+          "gainDb": 0,
           "duration": 2000,
           "delay": 0,
           "loop": true
@@ -841,6 +843,7 @@
           "action": "fadeIn",
           "soundId": "13_s03_ville",
           "volume": 0.45,
+          "gainDb": 0,
           "duration": 1500,
           "delay": 0,
           "loop": true
@@ -861,6 +864,7 @@
           "action": "play",
           "soundId": "15_s04_respi",
           "volume": 0.8,
+          "gainDb": 0,
           "delay": 0,
           "loop": false
         },
@@ -868,6 +872,7 @@
           "action": "play",
           "soundId": "17_s05_drap",
           "volume": 0.95,
+          "gainDb": 0,
           "delay": 1000,
           "loop": false
         }
@@ -887,6 +892,7 @@
           "action": "play",
           "soundId": "21_s06_soleil",
           "volume": 0.6,
+          "gainDb": 0,
           "delay": 0,
           "loop": false
         }
@@ -928,6 +934,7 @@
           "action": "play",
           "soundId": "30_s07_militaire",
           "volume": 0.6,
+          "gainDb": 0,
           "delay": 0,
           "loop": true
         }
@@ -947,6 +954,7 @@
           "action": "play",
           "soundId": "36_s08_cafe_",
           "volume": 0.75,
+          "gainDb": 0,
           "delay": 0,
           "loop": false
         }
@@ -965,6 +973,7 @@
           "action": "play",
           "soundId": "40_s09_frigo_lait",
           "volume": 0.65,
+          "gainDb": 0,
           "delay": 0,
           "loop": false
         }
@@ -1036,6 +1045,7 @@
           "action": "play",
           "soundId": "54_s02a2_lucia_flash",
           "volume": 0.5,
+          "gainDb": 0,
           "delay": 0,
           "loop": false
         },
@@ -1043,6 +1053,7 @@
           "action": "play",
           "soundId": "54_s02a2_lucia_film",
           "volume": 0.5,
+          "gainDb": 0,
           "delay": 0,
           "loop": true
         },
@@ -1066,6 +1077,7 @@
           "action": "play",
           "soundId": "54_s02a2_lucia_whoosh",
           "volume": 0.5,
+          "gainDb": 0,
           "delay": 0,
           "loop": false
         }
@@ -1108,6 +1120,7 @@
           "action": "fadeIn",
           "soundId": "apocalyptic_drone_state_of_emergency_atmosphere_02",
           "volume": 0.5,
+          "gainDb": 0,
           "duration": 600,
           "delay": 0,
           "loop": false
@@ -1132,6 +1145,7 @@
           "action": "fadeIn",
           "soundId": "50_s10_tv_1",
           "volume": 0.7,
+          "gainDb": 0,
           "duration": 300,
           "delay": 0,
           "loop": false
@@ -1140,6 +1154,7 @@
           "action": "play",
           "soundId": "50_s10_tv_explosions_2",
           "volume": 0.65,
+          "gainDb": 0,
           "delay": 17000,
           "loop": false
         },
@@ -1147,6 +1162,7 @@
           "action": "fadeIn",
           "soundId": "61_s11_1_base_central_clean",
           "volume": 0.25,
+          "gainDb": 0,
           "duration": 2687,
           "delay": 19000,
           "loop": true
@@ -1194,6 +1210,7 @@
           "action": "fadeIn",
           "soundId": "61_s11_1_base_central_sourde",
           "volume": 0.5,
+          "gainDb": 0,
           "duration": 464,
           "delay": 0,
           "loop": false
@@ -1207,6 +1224,7 @@
           "action": "play",
           "soundId": "61_s12_2_de_compress",
           "volume": 0.5,
+          "gainDb": 0,
           "delay": 0,
           "loop": false
         }
@@ -1227,6 +1245,7 @@
           "action": "play",
           "soundId": "53_s11_drone_porte",
           "volume": 0.65,
+          "gainDb": 0,
           "delay": 0,
           "loop": false
         },
@@ -1234,6 +1253,7 @@
           "action": "play",
           "soundId": "53_s11_drone_ambience",
           "volume": 0.5,
+          "gainDb": 0,
           "delay": 0,
           "loop": true
         },
@@ -1241,6 +1261,7 @@
           "action": "play",
           "soundId": "53_s11_drone_heatbit",
           "volume": 0.5,
+          "gainDb": 0,
           "delay": 0,
           "loop": true
         },
@@ -1248,6 +1269,7 @@
           "action": "play",
           "soundId": "53_s11_drone_respiration",
           "volume": 0.3,
+          "gainDb": 0,
           "delay": 0,
           "loop": true
         }
@@ -1277,6 +1299,7 @@
           "action": "fadeIn",
           "soundId": "61_s12_comando_drone",
           "volume": 0.5,
+          "gainDb": 0,
           "duration": 4000,
           "delay": 0,
           "loop": false
@@ -1285,6 +1308,7 @@
           "action": "fadeIn",
           "soundId": "61_s12_comando_pression",
           "volume": 0.4,
+          "gainDb": 0,
           "duration": 4000,
           "delay": 0,
           "loop": true
@@ -1293,6 +1317,7 @@
           "action": "fadeIn",
           "soundId": "61_s12_comando_walk",
           "volume": 0.35,
+          "gainDb": 0,
           "duration": 735,
           "delay": 0,
           "loop": false
@@ -1365,6 +1390,7 @@
           "action": "play",
           "soundId": "73_s13_1_beep_msg",
           "volume": 0.5,
+          "gainDb": 0,
           "delay": 0,
           "loop": false
         }
@@ -1398,6 +1424,7 @@
           "action": "play",
           "soundId": "73_s13_1_beep_accept",
           "volume": 0.65,
+          "gainDb": 0,
           "delay": 0,
           "loop": false
         },
@@ -1405,6 +1432,7 @@
           "action": "play",
           "soundId": "73_s13_porte_radio",
           "volume": 0.5,
+          "gainDb": 0,
           "delay": 0,
           "loop": false
         }
@@ -1485,6 +1513,7 @@
           "action": "play",
           "soundId": "73_s14_sweep_3",
           "volume": 0.7,
+          "gainDb": 0,
           "delay": 0,
           "loop": false
         }
@@ -2210,28 +2239,6 @@
       ]
     },
     {
-      "id": "st_1781794425494_nvni9kv9t",
-      "soundId": "la_valle_e_du_okuno",
-      "startSegmentId": "seg_1781794386339",
-      "endSegmentId": "seg_1781794386339",
-      "column": 0,
-      "volume": 1,
-      "fadeIn": 0,
-      "fadeOut": 2353,
-      "delay": 0,
-      "loop": false,
-      "muted": false,
-      "broken": false,
-      "automationPoints": [
-        {
-          "segmentId": "seg_1781794386339",
-          "volume": 1,
-          "fadeMs": 0,
-          "_isAnchor": true
-        }
-      ]
-    },
-    {
       "id": "st_1781797814605_qn3q6knjn",
       "soundId": "54_s02a2_lucia_flash",
       "startSegmentId": "seg_1781331233156",
@@ -2312,6 +2319,27 @@
       "trimStart": 0,
       "trimEnd": 1222,
       "pan": -0.61
+    },
+    {
+      "id": "st_1784538119292_9qu4hkb",
+      "soundId": "la_valle_e_du_okuno",
+      "startSegmentId": "seg_1784538081368",
+      "endSegmentId": "seg_pause_1781803095254_mkdky",
+      "column": 0,
+      "volume": 1,
+      "fadeIn": 0,
+      "fadeOut": 3100,
+      "delay": 0,
+      "loop": false,
+      "muted": false,
+      "automationPoints": [
+        {
+          "segmentId": "seg_1784538081368",
+          "volume": 1,
+          "fadeMs": 0,
+          "_isAnchor": true
+        }
+      ]
     }
   ],
   "vfxTracks": [
