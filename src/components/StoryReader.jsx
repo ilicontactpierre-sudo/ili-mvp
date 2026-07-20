@@ -262,6 +262,10 @@ useEffect(() => {
     () => rawSegments.map(normalizeSegment),
     [rawSegments]
   )
+  const dialogueFlags = useMemo(
+    () => computeDialogueFlags(finalSegments),
+    [finalSegments]
+  )
 
   // ── Quel chapitre est pertinent pour l'affichage ? ──
   // "focused" : le segment actif est lui-même un chapitre
