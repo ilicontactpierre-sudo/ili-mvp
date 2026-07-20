@@ -13,10 +13,43 @@ import InlineFunctionMenu from './InlineFunctionMenu'
 import { INLINE_FUNCTIONS, getCaretCoordinates } from '../../utils/inlineFunctions'
 
 const DIALOGUE_OVERRIDE_META = (v) => {
-  if (v === 'off')      return { shape: 'circle', fill: 'rgba(239,68,68,0.7)', border: null, title: 'Barre dialogue : masquée (forcé) — cliquer pour changer' }
-  if (v === 'continue') return { shape: 'circle', fill: '#0ea5b7',             border: null, title: 'Barre dialogue : suite forcée du segment précédent — cliquer pour changer' }
-  if (v === 'start')    return { shape: 'square', fill: '#F97316',             border: null, title: 'Barre dialogue : nouveau début forcé — cliquer pour changer' }
-  return { shape: 'circle', fill: 'transparent', border: '1.3px solid rgba(0,0,0,0.35)', title: 'Barre dialogue : auto — cliquer pour forcer un état' }
+  if (v === 'off')      return { color: '#ef4444', title: 'Barre dialogue : masquée (forcé) — cliquer pour changer' }
+  if (v === 'continue') return { color: '#0ea5b7', title: 'Barre dialogue : suite forcée du segment précédent — cliquer pour changer' }
+  if (v === 'start')    return { color: '#F97316', title: 'Barre dialogue : nouveau début forcé — cliquer pour changer' }
+  return { color: 'rgba(0,0,0,0.32)', title: 'Barre dialogue : auto — cliquer pour forcer un état' }
+}
+function DialogueOverrideIcon({ override }) {
+  const common = { width: 10, height: 12, viewBox: '0 0 10 12', style: { overflow: 'visible', display: 'block' } }
+  if (override === 'off') {
+    return (
+      <svg {...common}>
+        <rect x="4" y="1" width="2" height="10" rx="1" fill="currentColor" />
+        <line x1="1" y1="11" x2="9" y2="1" stroke="currentColor" strokeWidth="1.4" />
+      </svg>
+    )
+  }
+  if (override === 'continue') {
+    return (
+      <svg {...common}>
+        <rect x="4" y="0" width="2" height="12" fill="currentColor" />
+      </svg>
+    )
+  }
+  if (override === 'start') {
+    return (
+      <svg {...common}>
+        <rect x="4" y="5" width="2" height="7" rx="1" fill="currentColor" />
+      </svg>
+    )
+  }
+  // auto
+  return (
+    <svg {...common}>
+      <circle cx="5" cy="2" r="1" fill="currentColor" />
+      <circle cx="5" cy="6" r="1" fill="currentColor" />
+      <circle cx="5" cy="10" r="1" fill="currentColor" />
+    </svg>
+  )
 }
 const getSegmentText = (segment) => {
   if (typeof segment === 'string') {
