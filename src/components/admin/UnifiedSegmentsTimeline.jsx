@@ -915,13 +915,16 @@ const SegmentTimelineRow = memo(function SegmentTimelineRow({
           title={DIALOGUE_OVERRIDE_META(segment?.dialogueOverride).title}
           style={{
             background: 'none', border: 'none', cursor: 'pointer',
-            padding: 0, width: '12px', height: '13px',
+            padding: 0, width: '14px', height: '14px',
             display: 'flex', alignItems: 'center', justifyContent: 'center',
+            fontSize: '0.72rem',
+            fontWeight: 700,
+            lineHeight: 1,
             color: DIALOGUE_OVERRIDE_META(segment?.dialogueOverride).color,
             transition: 'color 0.2s ease',
           }}
         >
-          <DialogueOverrideIcon override={segment?.dialogueOverride} />
+          {DIALOGUE_OVERRIDE_META(segment?.dialogueOverride).char}
         </button>
       </div>
       {/* Boutons d'action — grid 2×3 compact */}
