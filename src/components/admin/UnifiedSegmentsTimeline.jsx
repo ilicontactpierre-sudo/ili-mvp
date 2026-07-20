@@ -909,6 +909,20 @@ const SegmentTimelineRow = memo(function SegmentTimelineRow({
         >
           {isLeader ? '◆' : '◇'}
         </button>
+        <button
+          onClick={(e) => { e.stopPropagation(); onToggleDialogueOverride(index) }}
+          title={DIALOGUE_OVERRIDE_META(segment?.dialogueOverride).title}
+          style={{
+            background: 'none', border: 'none', cursor: 'pointer',
+            padding: 0, fontSize: '0.6rem', lineHeight: 1,
+            color: DIALOGUE_OVERRIDE_META(segment?.dialogueOverride).color,
+            width: '12px', height: '12px',
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            transition: 'color 0.2s ease',
+          }}
+        >
+          {DIALOGUE_OVERRIDE_META(segment?.dialogueOverride).icon}
+        </button>
       </div>
       {/* Boutons d'action — grid 2×3 compact */}
       <div style={{
