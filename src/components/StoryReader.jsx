@@ -31,6 +31,47 @@ const TW_DELAY = { lent: 80, normal: 45, rapide: 20 }
 
 // ── Erased : ratio de lettres effacées par mode ──
 const ERASED_RATIO = { faible: 0.2, normal: 0.4, intense: 0.65 }
+// ── Dialogue : détection auto + override manuel ──
+const DIALOGUE_START_RE = /^[—-]\s?\S/
+const DIALOGUE_SENTENCE_END_RE = /[.!?…]["'»)]?\s*$/
+function computeDialogueFlags(segs) {
+  const results = []
+  let prevOpen = false
+  let prevWasDialogue = false
+  for (let i = 0; i < segs.length; i++) {
+    const seg = segs[i]
+    const t = (seg?.text || '').trim()
+    const override = seg?.dialogueOverride
+    let isDialogue = false
+    let connectsUp = false
+    if (override === 'off') {
+      isDialogue = false
+    } else if (override === 'start') {
+      isDialogue = true
+      connectsUp = false
+    } else if (override === 'continue') {
+      isDialogue = true
+      connectsUp = prevWasDialogue
+    } else {
+      const startsDash = DIALOGUE_START_RE.test(t)
+      if (startsDash) {
+        isDialogue = true
+        connectsUp = false
+      } else if (prevOpen) {
+        isDialogue = true
+        connectsUp = true
+      }
+    }
+    const endsClosed = isDialogue && DIALOGUE_SENTENCE_END_RE.test(t)
+    results.push({ show: isDialogue, connectsUp })
+    prevOpen = isDialogue && !endsClosed
+    prevWasDialogue = isDialogue
+  }
+  return results.map((r, i) => ({
+    ...r,
+    connectsDown: i + 1 < results.length ? results[i + 1].connectsUp : false,
+  }))
+}
 
 // ── Static : groupes de caractères par largeur visuelle similaire ──
 const STATIC_CHAR_GROUPS = {
