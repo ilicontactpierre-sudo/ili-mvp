@@ -271,7 +271,7 @@
     {
       "id": "seg_pause_1781803095254_mkdky",
       "text": "",
-      "pause": 1500,
+      "pause": 500,
       "audioEvents": [
         {
           "action": "fadeOut",
