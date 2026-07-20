@@ -236,6 +236,16 @@
       "id": "tuba_skinny_-_jubilee_stomp_-_royal_street_ii_1_",
       "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/tuba_skinny_-_jubilee_stomp_-_royal_street_ii_1_.mp3",
       "loop": false
+    },
+    {
+      "id": "iphone_notification_sound_spam",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/iphone_notification_sound_spam.mp3",
+      "loop": false
+    },
+    {
+      "id": "iphone_apple_notification_sound",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/iphone_apple_notification_sound.mp3",
+      "loop": false
     }
   ],
   "segments": [
@@ -644,21 +654,29 @@
         {
           "action": "fadeOut",
           "soundId": "best_drum_solo_ever",
-          "duration": 1263
-        },
-        {
-          "action": "play",
-          "soundId": "notification_futuristic_beep_05",
-          "volume": 0.65,
-          "gainDb": 0,
-          "delay": 0,
-          "loop": false
+          "duration": 1700
         },
         {
           "action": "play",
           "soundId": "machappl_razor_smooth_double_01_b00m_one",
           "volume": 0.9,
           "gainDb": 0,
+          "delay": 0,
+          "loop": false
+        },
+        {
+          "action": "play",
+          "soundId": "iphone_notification_sound_spam",
+          "volume": 0.4,
+          "gainDb": 0,
+          "delay": 820,
+          "loop": false
+        },
+        {
+          "action": "play",
+          "soundId": "iphone_apple_notification_sound",
+          "volume": 0.7,
+          "gainDb": 8,
           "delay": 0,
           "loop": false
         }
@@ -1687,12 +1705,15 @@
       "column": 2,
       "volume": 0.55,
       "fadeIn": 300,
-      "fadeOut": 1263,
+      "fadeOut": 1700,
       "delay": 0,
       "loop": false,
       "muted": false,
       "pan": 0.37,
-      "panMode": "static"
+      "panMode": "static",
+      "trimStart": 0,
+      "trimEnd": 25391.020408163266,
+      "gainDb": 0
     },
     {
       "id": "st_1781707137938_nj9rxp3vc",
@@ -2306,7 +2327,7 @@
       "fadeOut": 0,
       "delay": 0,
       "loop": false,
-      "muted": false,
+      "muted": true,
       "pan": -0.58,
       "automationPoints": [
         {
@@ -2375,6 +2396,59 @@
           "_isAnchor": true
         }
       ]
+    },
+    {
+      "id": "st_1784539217897_0h95y0617",
+      "soundId": "iphone_notification_sound_spam",
+      "startSegmentId": "seg_1781326327990_37_24l4g",
+      "endSegmentId": "seg_1781326327990_37_24l4g",
+      "column": 5,
+      "volume": 0.4,
+      "fadeIn": 0,
+      "fadeOut": 0,
+      "delay": 820,
+      "loop": false,
+      "muted": false,
+      "broken": false,
+      "automationPoints": [
+        {
+          "segmentId": "seg_1781326327990_37_24l4g",
+          "volume": 0.4,
+          "fadeMs": 0,
+          "_isAnchor": true
+        }
+      ],
+      "pan": 1,
+      "trimStart": 0,
+      "trimEnd": 3051,
+      "gainDb": 0,
+      "panMode": "static"
+    },
+    {
+      "id": "st_1784539275036_61hw5l45b",
+      "soundId": "iphone_apple_notification_sound",
+      "startSegmentId": "seg_1781326327990_37_24l4g",
+      "endSegmentId": "seg_1781326327990_37_24l4g",
+      "column": 6,
+      "volume": 0.7,
+      "fadeIn": 0,
+      "fadeOut": 0,
+      "delay": 0,
+      "loop": false,
+      "muted": false,
+      "broken": false,
+      "pan": -0.04,
+      "automationPoints": [
+        {
+          "segmentId": "seg_1781326327990_37_24l4g",
+          "volume": 0.7,
+          "fadeMs": 0,
+          "_isAnchor": true
+        }
+      ],
+      "trimStart": 1297,
+      "trimEnd": 3831.2925170068024,
+      "gainDb": 8
     }
   ],
   "vfxTracks": [
