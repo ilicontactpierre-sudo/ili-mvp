@@ -73,6 +73,9 @@ function extractKeywordsFromDescription(desc) {
       // Au-delà de ~5 mots, c'est une phrase descriptive, pas un mot-clé
       // exploitable pour un matching de recherche.
       if (clean.split(/\s+/).length > 5) continue
+      // Ignore les specs techniques de fichier audio ("16bit 44100khz",
+      // "24bit 96000hz"...) — pas des mots-clés de contenu sonore.
+      if (/\d+\s*bit\b|\d+\s*k?hz\b/i.test(clean)) continue
       keywords.add(clean)
     }
   }
