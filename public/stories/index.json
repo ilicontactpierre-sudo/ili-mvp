@@ -45,7 +45,8 @@
     "id": "monte-cristo-test-monte-cristo-test",
     "title": "Monte Cristo Test",
     "author": "Monte Cristo Test",
-    "description": "Monte Cristo Test"
+    "description": "Monte Cristo Test",
+    "hidden": true
   },
   {
     "id": "j-r-r-tolkien-le-seigneur-des-anneaux--livre-i--la-communaute-de-lanneau-",
