@@ -32,6 +32,7 @@ if (!fs.existsSync(csvPath)) {
 }
 
 const OUTPUT_PATH = path.join(__dirname, '..', 'public', 'sounds', 'soundq-keywords.json')
+const SOUNDS_INDEX_PATH = path.join(__dirname, '..', 'public', 'sounds', 'sounds-index.json')
 
 // ── Normalisation du nom de fichier — DOIT rester cohérente avec la façon
 // dont sounds-index.json identifie déjà tes sons (filename sans extension,
