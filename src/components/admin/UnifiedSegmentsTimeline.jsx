@@ -305,6 +305,7 @@ const SegmentTimelineRow = memo(function SegmentTimelineRow({
   isPause = false,
   pauseDuration = null,
   onPauseDurationChange,
+  onToggleDialogueOverride,
 }) {
   const containerRef = useRef(null)
   const textareaRef = useRef(null)
