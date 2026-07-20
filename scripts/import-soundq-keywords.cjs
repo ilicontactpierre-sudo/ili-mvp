@@ -52,30 +52,35 @@ function normalizeFilename(name) {
 // des virgules — c'est la liste de mots-clés, pas une phrase.
 function extractKeywordsFromDescription(desc) {
   if (!desc) return []
-  // Découpe en "phrases" — un point ne marque une fin de phrase que s'il est
-  // suivi d'un espace ou de la fin du texte, pour ne jamais couper un nombre
-  // décimal du type "27.0L" en "27" + "0L".
-  const sentences = desc.split(/\.(?=\s|$)/).map(s => s.trim()).filter(Boolean)
+  const trimmed = desc.trim()
+
+  // FORMAT "tags à tirets" — souvent en MAJUSCULES : "BLEAT - RATTLE - LARGE - LONG - SOFT - MID"
+  // Le tiret est entouré d'espaces des deux côtés, ce qui le distingue sans
+  // ambiguïté d'un tiret de mot composé comme "Rolls-Royce" (jamais espacé).
+  const dashParts = trimmed.split(/\s+-\s+/).map(p => p.trim()).filter(Boolean)
+  if (dashParts.length >= 3 && dashParts.every(p => p.split(/\s+/).length <= 3)) {
+    return [...new Set(
+      dashParts
+        .map(p => p.toLowerCase())
+        .filter(k => k.length > 1 && !/^\d+$/.test(k))
+    )]
+  }
+
+  // FORMAT "phrases + virgules" (BOOM, PSE/SoundQ) — un point ne marque une
+  // fin de phrase que s'il est suivi d'un espace ou de la fin du texte, pour
+  // ne jamais couper un nombre décimal du type "27.0L" en "27" + "0L".
+  const sentences = trimmed.split(/\.(?=\s|$)/).map(s => s.trim()).filter(Boolean)
   const keywords = new Set()
   for (const sentence of sentences) {
-    // BOOM met tous ses mots-clés dans la DERNIÈRE phrase ; PSE/SoundQ les
-    // étale sur PLUSIEURS phrases courtes. On traite donc chaque phrase,
-    // et chaque phrase peut elle-même contenir plusieurs mots-clés
-    // séparés par des virgules.
     const fragments = sentence.split(',').map(f => f.trim()).filter(Boolean)
     for (const frag of fragments) {
       const clean = frag.toLowerCase()
       if (clean.length < 2) continue
-      // Ignore les fragments purement numériques/techniques (années,
-      // cotes type "27.0l", numéros de prise "01") — pas des mots-clés
-      // de recherche utiles.
       if (/^\d+(\.\d+)?[a-z]?$/.test(clean)) continue
-      // Au-delà de ~5 mots, c'est une phrase descriptive, pas un mot-clé
-      // exploitable pour un matching de recherche.
-      if (clean.split(/\s+/).length > 5) continue
-      // Ignore les specs techniques de fichier audio ("16bit 44100khz",
-      // "24bit 96000hz"...) — pas des mots-clés de contenu sonore.
+      // Specs techniques de fichier audio ("16bit 44100khz"...) — pas des
+      // mots-clés de contenu sonore.
       if (/\d+\s*bit\b|\d+\s*k?hz\b/i.test(clean)) continue
+      if (clean.split(/\s+/).length > 5) continue
       keywords.add(clean)
     }
   }
