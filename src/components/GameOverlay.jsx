@@ -731,6 +731,7 @@ function GameSoundCheck({ data, onResolved, onAudioReady }) {
 
   const handleReady = () => {
     if (transitionPhase !== 'idle') return
+    playClicSimple()
     setTransitionPhase('invert')
     setTimeout(() => setTransitionPhase('dark'), HOLD_MS)
     setTimeout(() => onResolved(), HOLD_MS + DARK_MS)
