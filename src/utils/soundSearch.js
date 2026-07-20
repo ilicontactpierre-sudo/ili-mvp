@@ -449,7 +449,9 @@ function scoreSound(sound, termSets, isAmbienceSearch) {
       else if (tags.some(tag => tag === term))      termScore += 7
       else if (tagsNorm.some(tag => tag.includes(term))) termScore += 6
       else if (tags.some(tag => tag.includes(term))) termScore += 5
-
+      // Mots-clés SoundQ — poids le plus élevé, donnée curée fiable.
+      if (soundQKeywords.some(k => k === term))     termScore += 10
+      else if (soundQKeywords.some(k => k.includes(term))) termScore += 7
       // Label — mot exact (×5), partiel (×4)
       if (labelWords.some(w => w === term))         termScore += 5
       else if (labelNorm.includes(term))            termScore += 4
