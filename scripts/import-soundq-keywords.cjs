@@ -128,11 +128,33 @@ function extractKeywordsFromDescription(desc) {
   return extractLooseKeywords(trimmed)
 }
 
+// ── Bibliothèque réelle de l'app — sert de filtre : inutile d'écrire des
+// mots-clés pour des fichiers qui ne sont même pas dans sounds-index.json,
+// ça alourdirait le fichier de sortie pour rien.
+function normalizeFilenameForFilter(name) {
+  if (!name) return ''
+  return name
+    .replace(/\.[^.]+$/, '')
+    .replace(/[_\-]+/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim()
+    .toLowerCase()
+}
+const soundsIndex = JSON.parse(fs.readFileSync(SOUNDS_INDEX_PATH, 'utf8'))
+const validKeys = new Set()
+soundsIndex.forEach(s => {
+  ;[s.filename, s.id, s.label].filter(Boolean).forEach(v => {
+    validKeys.add(normalizeFilenameForFilter(v))
+  })
+})
+console.log(`${validKeys.size} clés valides chargées depuis sounds-index.json (filtre de sortie).`)
+
 // ── Traitement du flux ──────────────────────────────────────────────────
 const result = {}
 let rowCount = 0
 let matchedCount = 0
 let emptyCount = 0
+let filteredOutCount = 0
 // Compteur global de fréquence — utile plus tard pour générer
 // automatiquement un vocabulaire curé à partir des mots-clés réellement
 // présents dans ta bibliothèque (voir étape suivante).
