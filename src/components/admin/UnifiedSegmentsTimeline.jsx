@@ -12,6 +12,12 @@ import { renderMarkdown } from '../../utils/renderMarkdown'
 import InlineFunctionMenu from './InlineFunctionMenu'
 import { INLINE_FUNCTIONS, getCaretCoordinates } from '../../utils/inlineFunctions'
 
+const getSegmentText = (segment) => {const DIALOGUE_OVERRIDE_META = (v) => {
+  if (v === 'off')      return { icon: '−', color: 'rgba(239,68,68,0.6)',  title: 'Barre dialogue : masquée (forcé) — cliquer pour changer' }
+  if (v === 'continue') return { icon: '⋮', color: '#0ea5b7',              title: 'Barre dialogue : suite forcée du segment précédent — cliquer pour changer' }
+  if (v === 'start')    return { icon: '❘', color: '#F97316',              title: 'Barre dialogue : nouveau début forcé — cliquer pour changer' }
+  return { icon: '·', color: 'rgba(0,0,0,0.18)', title: 'Barre dialogue : auto — cliquer pour forcer un état' }
+}
 const getSegmentText = (segment) => {
   if (typeof segment === 'string') {
     return segment
