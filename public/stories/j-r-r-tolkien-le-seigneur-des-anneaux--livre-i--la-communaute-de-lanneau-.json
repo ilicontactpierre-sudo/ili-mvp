@@ -1827,11 +1827,21 @@
           "audioEvents": []
         },
         {
-          "id": "seg_1784475569136_56_0g072",
+          "id": "seg_1784536962525_a_am1ll",
           "lines": [
             "Rouquin, dit l’Ancien, qui n’aimait pas beaucoup le meunier. Y a pas besoin de parler de poussée ou de tirage. Les bateaux, c’est déjà assez ficelle pour ceux qui restent assis tranquilles sans aller chercher plus loin la cause des ennuis. En tout cas, y avait ce M. Frodon resté orphelin et échoué, comme qui dirait, parmi ces bizarres gens du Pays de Bouc,"
           ],
-          "text": "Rouquin, dit l’Ancien, qui n’aimait pas beaucoup le meunier. Y a pas besoin de parler de poussée ou de tirage. Les bateaux, c’est déjà assez ficelle pour ceux qui restent assis tranquilles sans aller chercher plus loin la cause des ennuis. En tout cas, y avait ce M. Frodon resté orphelin et échoué, comme qui dirait, parmi ces bizarres gens du Pays de Bouc,",
+          "text": "Rouquin, dit l’Ancien, qui n’aimait pas beaucoup le meunier. Y a pas besoin de parler de poussée ou de tirage. Les bateaux, c’est déjà assez ficelle pour ceux qui restent assis tranquilles sans aller chercher plus loin la cause des ennuis. En tout cas, y avait ce M. Frodon resté orphelin et échoué, comme qui dirait,",
+          "breakAt": null,
+          "isLeader": false,
+          "audioEvents": []
+        },
+        {
+          "id": "seg_1784536962525_b_dl32a",
+          "lines": [
+            "Rouquin, dit l’Ancien, qui n’aimait pas beaucoup le meunier. Y a pas besoin de parler de poussée ou de tirage. Les bateaux, c’est déjà assez ficelle pour ceux qui restent assis tranquilles sans aller chercher plus loin la cause des ennuis. En tout cas, y avait ce M. Frodon resté orphelin et échoué, comme qui dirait, parmi ces bizarres gens du Pays de Bouc,"
+          ],
+          "text": "parmi ces bizarres gens du Pays de Bouc,",
           "breakAt": null,
           "isLeader": false,
           "audioEvents": []
