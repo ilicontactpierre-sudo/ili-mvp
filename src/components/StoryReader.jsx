@@ -814,6 +814,9 @@ useEffect(() => {
                     .map(t => getVfxClass(t))
                     .filter(Boolean)
                 })(),
+                dialogueFlags[index]?.show ? 'story-reader__segment--dialogue' : '',
+                dialogueFlags[index]?.connectsUp ? 'story-reader__segment--dialogue-up' : '',
+                dialogueFlags[index]?.connectsDown ? 'story-reader__segment--dialogue-down' : '',
               ].join(' ')}
               style={{
                 fontFamily: segment.fontFamily || 'inherit',
