@@ -1182,12 +1182,22 @@
           "loop": false
         },
         {
+          "action": "fadeOut",
+          "soundId": "50_s10_tv_1",
+          "duration": 1400
+        },
+        {
           "action": "play",
           "soundId": "50_s10_tv_explosions_2",
           "volume": 0.65,
           "gainDb": 0,
           "delay": 17000,
           "loop": false
+        },
+        {
+          "action": "fadeOut",
+          "soundId": "50_s10_tv_explosions_2",
+          "duration": 1600
         },
         {
           "action": "fadeIn",
@@ -2056,7 +2066,7 @@
       "column": 0,
       "volume": 0.7,
       "fadeIn": 300,
-      "fadeOut": 0,
+      "fadeOut": 1400,
       "delay": 0,
       "loop": false,
       "muted": false,
@@ -2071,7 +2081,7 @@
       "column": 2,
       "volume": 0.65,
       "fadeIn": 0,
-      "fadeOut": 0,
+      "fadeOut": 1600,
       "delay": 17000,
       "loop": false,
       "muted": false
