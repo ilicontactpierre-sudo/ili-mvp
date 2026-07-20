@@ -3258,6 +3258,7 @@ const handleTextSelection = useCallback(() => {
                     isLeader: segment?.isLeader === true,
                     isFinisher: finisherSegments.has(index),
                     onToggleIsLeader: handleToggleIsLeader,
+                    onToggleDialogueOverride: handleToggleDialogueOverride,
                     onVfxUpdate: handleVfxUpdate,
                     // Handle drag
                     onDragHandleMouseDown: dragHandleMouseDownHandlers[index],
