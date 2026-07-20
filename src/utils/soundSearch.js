@@ -430,7 +430,10 @@ function scoreSound(sound, termSets, isAmbienceSearch) {
   const boomSub      = cleanBoomField(sound.boomSubcategory)
   const catId        = normalize(sound.catId || '')
   const virtual      = buildVirtualSearchField(sound)
-
+  // Mots-clés SoundQ — donnée curée externe (voir scripts/import-soundq-keywords.cjs).
+  // La source la plus fiable quand elle existe : poids volontairement le
+  // plus élevé de tout le scoring.
+  const soundQKeywords = (sound.soundQKeywords || []).map(k => normalize(k))
   let score = 0
   let termsCovered = 0
 
