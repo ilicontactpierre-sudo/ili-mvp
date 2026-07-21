@@ -23,10 +23,11 @@ const path = require('path')
 const SOUNDQ_PATH = path.join(__dirname, '..', 'public', 'sounds', 'soundq-keywords.json')
 const OUTPUT_CSV = path.join(__dirname, 'vocabulary-review.csv')
 
-// ── Seuil de fréquence minimum pour être considéré ──────────────────────
-// En-dessous, un mot-clé est trop rare pour mériter une place dans un
-// vocabulaire curé destiné à un prompt (bruit / typo / cas isolé).
-const MIN_FREQUENCY = 25
+// ── Plafond : on ne considère QUE les N mots les plus fréquents ─────────
+// Un simple seuil de fréquence ne garantit rien sur la taille finale du
+// tas à trier (la longue traîne peut être énorme). Un plafond fixe, lui,
+// contrôle directement combien de mots tu auras à trier manuellement.
+const TOP_N = 500
 
 // ── Vocabulaire actuel (copié depuis OrchestrationPanel.jsx) ────────────
 // Sert à savoir ce qui est DÉJÀ couvert, pour ne pas te refaire trier ce
