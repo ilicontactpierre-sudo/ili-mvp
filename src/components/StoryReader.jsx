@@ -270,6 +270,24 @@ useEffect(() => {
     () => computeDialogueFlags(finalSegments),
     [finalSegments]
   )
+  // ── Opacité du trait de dialogue : plein pour le segment focus,
+  // dégradé pour le reste du même bloc de dialogue, très estompé sinon.
+  const dialogueBarOpacity = useMemo(() => {
+    const focused = dialogueFlags[currentIndex]
+    const focusedGroupId = focused?.show ? focused.groupId : null
+    return finalSegments.map((_, i) => {
+      const flag = dialogueFlags[i]
+      if (!flag?.show) return null
+      if (focusedGroupId !== null && flag.groupId === focusedGroupId) {
+        const dist = Math.abs(i - currentIndex)
+        if (dist === 0) return 1
+        if (dist === 1) return 0.65
+        if (dist === 2) return 0.45
+        return 0.25
+      }
+      return 0.10
+    })
+  }, [dialogueFlags, currentIndex, finalSegments])
 
   // ── Quel chapitre est pertinent pour l'affichage ? ──
   // "focused" : le segment actif est lui-même un chapitre
