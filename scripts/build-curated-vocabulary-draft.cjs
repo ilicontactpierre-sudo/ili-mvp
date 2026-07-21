@@ -121,7 +121,7 @@ fs.writeFileSync(OUTPUT_CSV, lines.join('\n'))
 
 console.log('')
 console.log('═══════════════════════════════════════════')
-console.log(`Mots-clés uniques (fréq. ≥ ${MIN_FREQUENCY})  : ${Object.values(frequency).filter(c => c >= MIN_FREQUENCY).length}`)
+console.log(`Top ${TOP_N} mots-clés considérés`)
 console.log(`Déjà dans CURATED_VOCABULARY   : ${alreadyKnown}`)
 console.log(`Exclus (liste STOPLIST)        : ${excluded}`)
 console.log(`À trier manuellement           : ${toReview.length}`)
