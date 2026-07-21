@@ -89,12 +89,19 @@ Object.values(soundq).forEach(keywords => {
 })
 
 // ── Répartition en 3 tas ──────────────────────────────────────────────────
+// On ne regarde QUE les TOP_N mots les plus fréquents de toute la
+// bibliothèque — le reste (la longue traîne, souvent très spécifique ou
+// rare) est délibérément laissé de côté, il ne mérite pas une place dans
+// un vocabulaire curé compact.
+const topWords = Object.entries(frequency)
+  .sort((a, b) => b[1] - a[1])
+  .slice(0, TOP_N)
+
 let alreadyKnown = 0
 let excluded = 0
 const toReview = []
 
-Object.entries(frequency).forEach(([word, count]) => {
-  if (count < MIN_FREQUENCY) return
+topWords.forEach(([word, count]) => {
   if (knownWords.has(word)) { alreadyKnown++; return }
   if (STOPLIST.has(word)) { excluded++; return }
   // Ignore les mots à plus de 3 termes (probablement un résidu de phrase
