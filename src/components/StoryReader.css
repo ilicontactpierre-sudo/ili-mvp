@@ -21,6 +21,7 @@
 }
 
 .story-reader__segment {
+  position: relative;
   width: min(100%, var(--segment-max-width));
   margin: 0 auto;
   padding: 0 1.75rem;
