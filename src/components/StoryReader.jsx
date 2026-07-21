@@ -853,11 +853,11 @@ useEffect(() => {
               }}
               data-vfx-text={segment.text}
             >
+              <span className="story-reader__segment-inner">
               {(() => {
                 if (twTrack) return renderTypewriter(segment.text, twTrack.mode)
                 if (staticTrack) return renderStatic(segment.text, `seg_${index}`)
                 if (erasedTrack) return renderErased(segment.text, erasedTrack.mode)
-
                 if (segment.breakAt != null && segment.breakAt > 0 && segment.breakAt < segment.text?.length) {
                   return (
                     <>
@@ -878,6 +878,7 @@ useEffect(() => {
                 }
                 return renderMarkdown(segment.text, segment, dys1, { isFocused, keyPrefix: `s${index}_t${themeKey}_`, emojiMode })
               })()}
+              </span>
             </p>
           )
         })}
