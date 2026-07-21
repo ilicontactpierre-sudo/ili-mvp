@@ -281,10 +281,13 @@ useEffect(() => {
       if (focusedGroupId !== null && flag.groupId === focusedGroupId) {
         const dist = Math.abs(i - currentIndex)
         if (dist === 0) return 1
-        if (dist === 1) return 0.65
-        if (dist === 2) return 0.45
-        return 0.25
+        if (dist === 1) return 1
+        if (dist === 2) return 0.75
+        return 0.5
       }
+      // Dialogue différent du bloc actif : très estompé,
+      // sauf le tout prochain segment qui reçoit un léger indice visuel.
+      if (i === currentIndex + 1) return 0.3
       return 0.10
     })
   }, [dialogueFlags, currentIndex, finalSegments])
