@@ -38,6 +38,7 @@ function computeDialogueFlags(segs) {
   const results = []
   let prevOpen = false
   let prevWasDialogue = false
+  let groupCounter = -1
   for (let i = 0; i < segs.length; i++) {
     const seg = segs[i]
     const t = (seg?.text || '').trim()
@@ -63,7 +64,10 @@ function computeDialogueFlags(segs) {
       }
     }
     const endsClosed = isDialogue && DIALOGUE_SENTENCE_END_RE.test(t)
-    results.push({ show: isDialogue, connectsUp })
+    // Un nouveau bloc de dialogue démarre quand ce n'est pas une continuité
+    if (isDialogue && !connectsUp) groupCounter++
+    const groupId = isDialogue ? groupCounter : null
+    results.push({ show: isDialogue, connectsUp, groupId })
     prevOpen = isDialogue && !endsClosed
     prevWasDialogue = isDialogue
   }
