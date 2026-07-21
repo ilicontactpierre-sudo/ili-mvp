@@ -846,6 +846,7 @@ useEffect(() => {
                 ...(isHidden ? { pointerEvents: 'none' } : {}),
                 ...(isFocused ? { touchAction: 'pan-y' } : {}),
                 ...(flashTrack ? { '--vfx-flash-color': flashTrack.color } : {}),
+                ...(dialogueBarOpacity[index] != null ? { '--dialogue-bar-opacity': dialogueBarOpacity[index] } : {}),
               }}
               data-vfx-text={segment.text}
             >
