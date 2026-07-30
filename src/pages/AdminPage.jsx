@@ -2875,7 +2875,6 @@ function AdminPage() {
           <div ref={refOrchestration} style={{ scrollMarginTop: `${stickyHeight + 12}px` }} />
           {activeSegments.length > 0 && (
             <OrchestrationPanel
-            <OrchestrationPanel
               segments={activeSegments}
               soundLibrary={soundLibrary}
               soundLibraryReady={soundLibraryReady}
