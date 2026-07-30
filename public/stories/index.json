@@ -54,5 +54,13 @@
     "author": "J. R. R. TOLKIEN",
     "type": "serial",
     "hidden": true
+  },
+  {
+    "id": "de-joel-dicker-la-verite-sur-laffaire-harry-quebert",
+    "title": "La vérité sur l’affaire Harry Quebert",
+    "author": "de Joël Dicker",
+    "mood": "Intrigant, Haletant, Envoûtant",
+    "genre": "Thriller, Mystère, Suspense, Romance",
+    "description": "Ne commence pas cette histoire si tu ne veux pas annuler tout ce que tu avais prévu."
   }
 ]
