@@ -1,0 +1,980 @@
+{
+  "id": "de-joel-dicker-la-verite-sur-laffaire-harry-quebert",
+  "title": "La vérité sur l’affaire Harry Quebert",
+  "author": "de Joël Dicker",
+  "mood": "Intrigant, Haletant, Envoûtant",
+  "genre": "Thriller, Mystère, Suspense, Romance",
+  "description": "Ne commence pas cette histoire si tu ne veux pas annuler tout ce que tu avais prévu.",
+  "published": true,
+  "sounds": [],
+  "segments": [
+    {
+      "id": "seg_1785400977416_0_6oahb",
+      "lines": [
+        "La vérité sur l’affaire Harry Quebert de Joël Dicker"
+      ],
+      "text": "</apparition:0;lent|La vérité sur l’affaire Harry Quebert de Joël Dicker/>",
+      "breakAt": null,
+      "isLeader": true,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1785400977416_1_k2p4m",
+      "lines": [
+        "À mes parents"
+      ],
+      "text": "</couleur:#ececf8|À mes parents/>",
+      "breakAt": null,
+      "isLeader": true,
+      "isChapter": false,
+      "italic": true,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1785400977416_2_w3e0y",
+      "lines": [
+        "Le jour de la disparition (samedi 30 août 1975)"
+      ],
+      "text": "Le jour de la disparition (samedi 30 août 1975)",
+      "breakAt": null,
+      "isLeader": true,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1785400977416_3_1fwqd",
+      "lines": [
+        "- Centrale de la police, quelle est votre urgence ?"
+      ],
+      "text": "- Centrale de la police, quelle est votre urgence ?",
+      "breakAt": null,
+      "isLeader": true,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1785400977416_4_pmhdx",
+      "lines": [
+        "- Allô ? Mon nom est Deborah Cooper, j’habite à Side Creek Lane. Je crois que je viens de voir une jeune fille poursuivie par un homme dans la forêt."
+      ],
+      "text": "- Allô ? Mon nom est Deborah Cooper, j’habite à Side Creek Lane. Je crois que je viens de voir une jeune fille poursuivie par un homme dans la forêt.",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1785400977416_5_oe0qq",
+      "lines": [
+        "- Que s’est-il passé exactement ?"
+      ],
+      "text": "- Que s’est-il passé exactement ?",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1785400977417_6_faas3",
+      "lines": [
+        "- Je ne sais pas ! J’étais à la fenêtre, je regardais en direction des bois et là, j’ai vu cette jeune fille qui courait entre les arbres… Il y avait un homme derrière elle… Je crois qu’elle essayait de lui échapper."
+      ],
+      "text": "- Je ne sais pas ! J’étais à la fenêtre, je regardais en direction des bois et là, j’ai vu cette jeune fille qui courait entre les arbres… Il y avait un homme derrière elle… Je crois qu’elle essayait de lui échapper.",
+      "breakAt": 142,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1785400977417_7_luacx",
+      "lines": [
+        "- Où sont-ils à présent ?"
+      ],
+      "text": "- Où sont-ils à présent ?",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1785400977417_8_cxl8l",
+      "lines": [
+        "- Je… Je ne les vois plus. Ils sont dans la forêt."
+      ],
+      "text": "- Je… Je ne les vois plus. Ils sont dans la forêt.",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1785400977417_9_kdpdf",
+      "lines": [
+        "- Je vous envoie immédiatement une patrouille, Madame."
+      ],
+      "text": "- Je vous envoie immédiatement une patrouille, Madame.",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1785400977417_10_kt7gi",
+      "lines": [
+        "C’est par cet appel que débuta le fait divers qui secoua la ville d’Aurora, dans le New Hampshire. Ce jour-là, Nola Kellergan, quinze ans,"
+      ],
+      "text": "C’est par cet appel que débuta le fait divers qui secoua la ville d’Aurora, dans le New Hampshire. Ce jour-là, Nola Kellergan, quinze ans,",
+      "breakAt": 99,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1785400977417_11_reelw",
+      "lines": [
+        "une jeune fille de la région, disparut."
+      ],
+      "text": "une jeune fille de la région, disparut.",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1785400977417_12_zi530",
+      "lines": [
+        "On ne retrouva plus jamais sa trace."
+      ],
+      "text": "On ne retrouva plus jamais sa trace.",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1785400977417_13_d810z",
+      "lines": [
+        "Prologue Octobre 2008 (33 ans après la disparition)"
+      ],
+      "text": "Prologue Octobre 2008 (33 ans après la disparition)",
+      "breakAt": null,
+      "isLeader": true,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1785400977417_14_ff3yl",
+      "lines": [
+        "Tout le monde parlait du livre.",
+        "Dans les rues de New York, je ne pouvais plus déambuler en paix, je ne pouvais plus faire mon jogging dans les allées de Central Park sans que des promeneurs me reconnaissent et s’exclament : « Hé, c’est Goldman !"
+      ],
+      "text": "Tout le monde parlait du livre. Dans les rues de New York, je ne pouvais plus déambuler en paix, je ne pouvais plus faire mon jogging dans les allées de Central Park sans que des promeneurs me reconnaissent et s’exclament : « Hé, c’est Goldman !",
+      "breakAt": null,
+      "isLeader": true,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1785400977417_15_s8ggp",
+      "lines": [
+        "C’est l’écrivain ! »"
+      ],
+      "text": "C’est l’écrivain ! »",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1785400977417_16_ux7dp",
+      "lines": [
+        "Il arrivait même que certains entament quelques pas de course pour me suivre et me poser les questions qui les taraudaient :"
+      ],
+      "text": "Il arrivait même que certains entament quelques pas de course pour me suivre et me poser les questions qui les taraudaient :",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1785400977417_17_anpuq",
+      "lines": [
+        "« Ce que vous y dites, dans votre bouquin, c’est la vérité ?"
+      ],
+      "text": "« Ce que vous y dites, dans votre bouquin, c’est la vérité ?",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1785400977417_18_zfmxy",
+      "lines": [
+        "Harry Quebert a vraiment fait ça ? »"
+      ],
+      "text": "Harry Quebert a vraiment fait ça ? »",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1785400977417_19_z8no3",
+      "lines": [
+        "Dans le café de West Village où j’avais mes habitudes, certains clients n’hésitaient plus à s’asseoir à ma table pour me parler : « Je suis en train de lire votre livre,"
+      ],
+      "text": "Dans le café de West Village où j’avais mes habitudes, certains clients n’hésitaient plus à s’asseoir à ma table pour me parler : « Je suis en train de lire votre livre,",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1785400977417_20_jvu22",
+      "lines": [
+        "Monsieur Goldman : je ne peux pas m’arrêter !"
+      ],
+      "text": "Monsieur Goldman : je ne peux pas m’arrêter !",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1785400977417_21_njhfe",
+      "lines": [
+        "Le premier était déjà bon, mais alors celui-là !",
+        "On vous a vraiment filé un million de dollars pour l’écrire ?"
+      ],
+      "text": "Le premier était déjà bon, mais alors celui-là ! On vous a vraiment filé un million de dollars pour l’écrire ?",
+      "breakAt": 52,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1785400977417_22_e7i9x",
+      "lines": [
+        "Vous avez quel âge ?"
+      ],
+      "text": "Vous avez quel âge ?",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1785400977417_23_iiwuh",
+      "lines": [
+        "Trente ans à peine ?"
+      ],
+      "text": "Trente ans à peine ?",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1785400977417_24_7g1z7",
+      "lines": [
+        "Trente ans !",
+        "Et vous avez déjà amassé tellement de pognon ! »"
+      ],
+      "text": "Trente ans ! Et vous avez déjà amassé tellement de pognon ! »",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1785400977417_25_j67p5",
+      "lines": [
+        "Même le portier de mon immeuble, que je voyais avancer dans sa lecture entre deux ouvertures de portes,"
+      ],
+      "text": "Même le portier de mon immeuble, que je voyais avancer dans sa lecture entre deux ouvertures de portes,",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1785400977417_26_lg9yi",
+      "lines": [
+        "avait fini par me coincer longuement devant l’ascenseur, une fois le livre terminé, pour me confier ce qu’il avait sur le cœur : « Alors, voilà ce qui est arrivé à Nola Kellergan ?"
+      ],
+      "text": "avait fini par me coincer longuement devant l’ascenseur, une fois le livre terminé, pour me confier ce qu’il avait sur le cœur : « Alors, voilà ce qui est arrivé à Nola Kellergan ?",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1785400977417_27_qk51r",
+      "lines": [
+        "Quelle horreur !"
+      ],
+      "text": "Quelle horreur !",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1785400977417_28_tf7d1",
+      "lines": [
+        "Mais comment en arrive-t-on là ?"
+      ],
+      "text": "Mais comment en arrive-t-on là ?",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1785400977417_29_vvo9j",
+      "lines": [
+        "Hein, Monsieur Goldman, comment est-ce possible ? »"
+      ],
+      "text": "Hein, Monsieur Goldman, comment est-ce possible ? »",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1785400977417_30_lswyf",
+      "lines": [
+        "Le Tout-New York se passionnait pour mon livre; il y avait deux semaines qu’il était paru et il promettait déjà d’être la meilleure vente de l’année sur le continent américain."
+      ],
+      "text": "Le Tout-New York se passionnait pour mon livre; il y avait deux semaines qu’il était paru et il promettait déjà d’être la meilleure vente de l’année sur le continent américain.",
+      "breakAt": null,
+      "isLeader": true,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1785400977417_31_umwrc",
+      "lines": [
+        "Tout le monde voulait savoir ce qui s’était passé à Aurora en 1975."
+      ],
+      "text": "Tout le monde voulait savoir ce qui s’était passé à Aurora en 1975.",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1785400977417_32_08u8h",
+      "lines": [
+        "On en parlait partout : à la télévision, à la radio, dans les journaux."
+      ],
+      "text": "On en parlait partout : à la télévision, à la radio, dans les journaux.",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1785400977417_33_9io6h",
+      "lines": [
+        "J’avais à peine trente ans et avec ce livre,"
+      ],
+      "text": "J’avais à peine trente ans et avec ce livre,",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1785400977417_34_y2ph6",
+      "lines": [
+        "qui était seulement le deuxième de ma carrière, j’étais devenu l’écrivain le plus en vue du pays."
+      ],
+      "text": "qui était seulement le deuxième de ma carrière, j’étais devenu l’écrivain le plus en vue du pays.",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1785400977417_35_eudnv",
+      "lines": [
+        "L’affaire qui agitait l’Amérique, et dont j’avais tiré l’essence de mon récit,"
+      ],
+      "text": "L’affaire qui agitait l’Amérique, et dont j’avais tiré l’essence de mon récit,",
+      "breakAt": null,
+      "isLeader": true,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1785400977417_36_krjq4",
+      "lines": [
+        "avait éclaté quelques mois plus tôt, au début de l’été, lorsqu’on avait retrouvé les restes d’une jeune fille disparue depuis trente-trois ans."
+      ],
+      "text": "avait éclaté quelques mois plus tôt, au début de l’été, lorsqu’on avait retrouvé les restes d’une jeune fille disparue depuis trente-trois ans.",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1785400977417_37_zsb7l",
+      "lines": [
+        "C’est ainsi que débutèrent les événements du New Hampshire qui vont être rapportés ici, et sans lesquels la petite ville d’Aurora serait certainement demeurée inconnue du reste de l’Amérique."
+      ],
+      "text": "C’est ainsi que débutèrent les événements du New Hampshire qui vont être rapportés ici, et sans lesquels la petite ville d’Aurora serait certainement demeurée inconnue du reste de l’Amérique.",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1785400977417_38_6pgtt",
+      "lines": [
+        "PREMIÈRE PARTIE La maladie des écrivains (8 mois avant la sortie du livre)"
+      ],
+      "text": "PREMIÈRE PARTIE La maladie des écrivains (8 mois avant la sortie du livre)",
+      "breakAt": null,
+      "isLeader": true,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1785400977417_39_19owc",
+      "lines": [
+        "31. Dans les abîmes de la mémoire"
+      ],
+      "text": "31. Dans les abîmes de la mémoire",
+      "breakAt": null,
+      "isLeader": true,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1785400977417_40_gytgi",
+      "lines": [
+        "- Le premier chapitre, Marcus, est essentiel. Si les lecteurs ne l’aiment pas, ils ne liront pas le reste de votre livre. Par quoi comptez-vous commencer le vôtre ?"
+      ],
+      "text": "- Le premier chapitre, Marcus, est essentiel. Si les lecteurs ne l’aiment pas, ils ne liront pas le reste de votre livre. Par quoi comptez-vous commencer le vôtre ?",
+      "breakAt": 45,
+      "isLeader": true,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1785400977417_41_biwt2",
+      "lines": [
+        "- Je ne sais pas, Harry. Vous pensez qu’un jour j’y arriverai ? - À quoi ?"
+      ],
+      "text": "- Je ne sais pas, Harry. Vous pensez qu’un jour j’y arriverai ? - À quoi ?",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1785400977417_42_h1m3t",
+      "lines": [
+        "- À écrire un livre."
+      ],
+      "text": "- À écrire un livre.",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1785400977417_43_lnfxu",
+      "lines": [
+        "- J’en suis certain.”"
+      ],
+      "text": "- J’en suis certain.”",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1785400977417_44_6pzia",
+      "lines": [
+        "Au début de l’année 2008, soit environ un an et demi après être devenu, grâce à mon premier roman, la nouvelle coqueluche des lettres américaines,"
+      ],
+      "text": "Au début de l’année 2008, soit environ un an et demi après être devenu, grâce à mon premier roman, la nouvelle coqueluche des lettres américaines,",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1785400977417_45_ek5if",
+      "lines": [
+        "je fus frappé d’une terrible crise de page blanche, syndrome qui, paraît-il, n’est pas rare chez les écrivains ayant connu un succès immédiat et fracassant."
+      ],
+      "text": "je fus frappé d’une terrible crise de page blanche, syndrome qui, paraît-il, n’est pas rare chez les écrivains ayant connu un succès immédiat et fracassant.",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1785400977417_46_w30v8",
+      "lines": [
+        "La maladie n’était pas venue d’un coup :"
+      ],
+      "text": "La maladie n’était pas venue d’un coup :",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1785400977417_47_v96a6",
+      "lines": [
+        "elle s’était installée en moi lentement."
+      ],
+      "text": "elle s’était installée en moi lentement.",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1785400977417_48_8nwqd",
+      "lines": [
+        "C’était comme si mon cerveau, atteint, s’était figé peu à peu."
+      ],
+      "text": "C’était comme si mon cerveau, atteint, s’était figé peu à peu.",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1785400977417_49_ikr4p",
+      "lines": [
+        "À l’apparition des premiers symptômes, je n’avais pas voulu y prêter attention :"
+      ],
+      "text": "À l’apparition des premiers symptômes, je n’avais pas voulu y prêter attention :",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1785400977417_50_5f63p",
+      "lines": [
+        "je m’étais dit que l’inspiration reviendrait le lendemain, ou le jour d’après, ou le suivant peut-être."
+      ],
+      "text": "je m’étais dit que l’inspiration reviendrait le lendemain, ou le jour d’après, ou le suivant peut-être.",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1785400977417_51_n3h4z",
+      "lines": [
+        "Mais les jours, les semaines et les mois avaient passé et l’inspiration n’était jamais revenue."
+      ],
+      "text": "Mais les jours, les semaines et les mois avaient passé et l’inspiration n’était jamais revenue.",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1785400977417_52_hrwpr",
+      "lines": [
+        "Ma descente aux enfers s’était décomposée en trois phases."
+      ],
+      "text": "Ma descente aux enfers s’était décomposée en trois phases.",
+      "breakAt": null,
+      "isLeader": true,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1785400977417_53_iml9h",
+      "lines": [
+        "La première, indispensable à toute bonne chute vertigineuse, avait été une ascension fulgurante :"
+      ],
+      "text": "La première, indispensable à toute bonne chute vertigineuse, avait été une ascension fulgurante :",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1785400977417_54_0rd1e",
+      "lines": [
+        "mon premier roman s’était vendu à deux millions d’exemplaires, me propulsant, à l’âge de vingt-huit ans, au rang d’écrivain à succès."
+      ],
+      "text": "mon premier roman s’était vendu à deux millions d’exemplaires, me propulsant, à l’âge de vingt-huit ans, au rang d’écrivain à succès.",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1785400977417_55_6midq",
+      "lines": [
+        "C’était l’automne 2006 et en quelques semaines mon nom devint un nom : on me vit partout,"
+      ],
+      "text": "C’était l’automne 2006 et en quelques semaines mon nom devint un nom : on me vit partout,",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1785400977417_56_uesbf",
+      "lines": [
+        "à la télévision, dans les journaux, en couverture des magazines."
+      ],
+      "text": "à la télévision, dans les journaux, en couverture des magazines.",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1785400977417_57_eii7p",
+      "lines": [
+        "Mon visage s’affichait sur d’immenses panneaux publicitaires dans les stations de métro."
+      ],
+      "text": "Mon visage s’affichait sur d’immenses panneaux publicitaires dans les stations de métro.",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1785400977417_58_tfzva",
+      "lines": [
+        "Les critiques les plus sévères des grands quotidiens de la côte Est étaient unanimes : le jeune Marcus Goldman allait devenir un très grand écrivain."
+      ],
+      "text": "Les critiques les plus sévères des grands quotidiens de la côte Est étaient unanimes : le jeune Marcus Goldman allait devenir un très grand écrivain.",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1785400977417_59_p4nnf",
+      "lines": [
+        "Un livre, un seul, et je me voyais désormais ouvrir les portes d’une nouvelle vie : celle des jeunes vedettes millionnaires."
+      ],
+      "text": "Un livre, un seul, et je me voyais désormais ouvrir les portes d’une nouvelle vie : celle des jeunes vedettes millionnaires.",
+      "breakAt": null,
+      "isLeader": true,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1785400977417_60_2ljod",
+      "lines": [
+        "Je déménageai de chez mes parents à Newark pour m’installer dans un appartement cossu du Village, je troquai ma Ford de troisième main pour une Range Rover noire flambant neuve aux vitres teintées, je me mis à fréquenter les restaurants huppés,"
+      ],
+      "text": "Je déménageai de chez mes parents à Newark pour m’installer dans un appartement cossu du Village, je troquai ma Ford de troisième main pour une Range Rover noire flambant neuve aux vitres teintées, je me mis à fréquenter les restaurants huppés,",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1785400977417_60_2ljod_overflow_61",
+      "lines": [
+        "je m’attachai les services d’un agent littéraire qui gérait mon emploi du temps et venait regarder le base-ball sur un écran géant dans mon nouveau chez-moi."
+      ],
+      "text": "je m’attachai les services d’un agent littéraire qui gérait mon emploi du temps et venait regarder le base-ball sur un écran géant dans mon nouveau chez-moi.",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1785400977417_61_46c7w",
+      "lines": [
+        "Je louai, à deux pas de Central Park, un bureau dans lequel une secrétaire un peu amoureuse et prénommée Denise triait mon courrier, préparait mon café et classait mes documents importants."
+      ],
+      "text": "Je louai, à deux pas de Central Park, un bureau dans lequel une secrétaire un peu amoureuse et prénommée Denise triait mon courrier, préparait mon café et classait mes documents importants.",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1785400977417_62_17exg",
+      "lines": [
+        "Durant les six premiers mois qui suivirent la sortie du livre,"
+      ],
+      "text": "Durant les six premiers mois qui suivirent la sortie du livre,",
+      "breakAt": null,
+      "isLeader": true,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1785400977417_63_2ualo",
+      "lines": [
+        "je m’étais contenté de profiter de la douceur de ma nouvelle existence."
+      ],
+      "text": "je m’étais contenté de profiter de la douceur de ma nouvelle existence.",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1785400977417_64_ttccy",
+      "lines": [
+        "Le matin, je passais à mon bureau pour parcourir les éventuels articles à mon sujet et lire les dizaines de lettres d’admirateurs que je recevais quotidiennement et que Denise rangeait ensuite dans des grands classeurs."
+      ],
+      "text": "Le matin, je passais à mon bureau pour parcourir les éventuels articles à mon sujet et lire les dizaines de lettres d’admirateurs que je recevais quotidiennement et que Denise rangeait ensuite dans des grands classeurs.",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1785400977417_65_g2tzt",
+      "lines": [
+        "Puis, content de moi-même et jugeant que j’avais assez travaillé, je m’en allais flâner dans les rues de Manhattan, où les passants bruissaient à mon passage."
+      ],
+      "text": "Puis, content de moi-même et jugeant que j’avais assez travaillé, je m’en allais flâner dans les rues de Manhattan, où les passants bruissaient à mon passage.",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1785400977417_66_1bj1r",
+      "lines": [
+        "Je consacrais le reste de mes journées à profiter des nouveaux droits que la célébrité m’octroyait :"
+      ],
+      "text": "Je consacrais le reste de mes journées à profiter des nouveaux droits que la célébrité m’octroyait :",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1785400977417_67_ux06n",
+      "lines": [
+        "droit de m’acheter tout ce dont j’avais envie, droit aux loges VIP du Madison Square Garden pour suivre les matchs des Rangers, droit de marcher sur des tapis rouges avec des stars de la musique dont j’avais, plus jeune, acheté tous les disques, droit de sortir avec Lydia Gloor, l’actrice principale de la série télé du moment et que tout le monde s’arrachait."
+      ],
+      "text": "droit de m’acheter tout ce dont j’avais envie, droit aux loges VIP du Madison Square Garden pour suivre les matchs des Rangers, droit de marcher sur des tapis rouges avec des stars de la musique dont j’avais, plus jeune, acheté tous les disques, droit de sortir avec Lydia Gloor, l’actrice principale de la série télé du moment et que tout le monde s’arrachait.",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1785400977417_68_zmzym",
+      "lines": [
+        "J’étais un écrivain célèbre; j’avais l’impression d’exercer le plus beau métier au monde."
+      ],
+      "text": "J’étais un écrivain célèbre; j’avais l’impression d’exercer le plus beau métier au monde.",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1785400977417_69_zh54p",
+      "lines": [
+        "Et, certain que mon succès durerait toujours, je ne m’étais pas soucié des premiers avertissements de mon agent et de mon éditeur qui me pressaient de me remettre au travail et de commencer à écrire mon second roman."
+      ],
+      "text": "Et, certain que mon succès durerait toujours, je ne m’étais pas soucié des premiers avertissements de mon agent et de mon éditeur qui me pressaient de me remettre au travail et de commencer à écrire mon second roman.",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1785400977417_70_k1srd",
+      "lines": [
+        "C’est au cours des six mois suivants que je réalisai que le vent était en train de tourner : les lettres d’admirateurs se firent plus rares et dans les rues on m’abordait moins."
+      ],
+      "text": "C’est au cours des six mois suivants que je réalisai que le vent était en train de tourner : les lettres d’admirateurs se firent plus rares et dans les rues on m’abordait moins.",
+      "breakAt": null,
+      "isLeader": true,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1785400977417_71_107q1",
+      "lines": [
+        "Bientôt, ceux des passants qui me reconnaissaient encore se mirent à me demander :"
+      ],
+      "text": "Bientôt, ceux des passants qui me reconnaissaient encore se mirent à me demander :",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1785400977417_72_f5sz9",
+      "lines": [
+        "« Monsieur Goldman, quel sera le sujet de votre prochain livre ?"
+      ],
+      "text": "« Monsieur Goldman, quel sera le sujet de votre prochain livre ?",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1785400977417_73_d7vof",
+      "lines": [
+        "Et quand sortira-t-il ? »"
+      ],
+      "text": "Et quand sortira-t-il ? »",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1785400977417_74_7gemh",
+      "lines": [
+        "Je compris qu’il fallait m’y mettre et je m’y étais mis :"
+      ],
+      "text": "Je compris qu’il fallait m’y mettre et je m’y étais mis :",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1785400977417_75_khlhb",
+      "lines": [
+        "j’avais noté des idées sur des feuilles volantes et esquissé des synopsis sur mon ordinateur."
+      ],
+      "text": "j’avais noté des idées sur des feuilles volantes et esquissé des synopsis sur mon ordinateur.",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1785400977417_76_berqg",
+      "lines": [
+        "Mais rien de bon."
+      ],
+      "text": "Mais rien de bon.",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1785400977417_77_sik4d",
+      "lines": [
+        "J’avais alors pensé à d’autres idées et esquissé d’autres synopsis."
+      ],
+      "text": "J’avais alors pensé à d’autres idées et esquissé d’autres synopsis.",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1785400977417_78_y67kx",
+      "lines": [
+        "Mais sans succès non plus.",
+        "Je m’étais finalement acheté un nouvel ordinateur, dans l’espoir qu’il serait vendu avec de bonnes idées et d’excellents synopsis."
+      ],
+      "text": "Mais sans succès non plus. Je m’étais finalement acheté un nouvel ordinateur, dans l’espoir qu’il serait vendu avec de bonnes idées et d’excellents synopsis.",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1785400977417_79_jp8ho",
+      "lines": [
+        "Mais en vain."
+      ],
+      "text": "Mais en vain.",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1785400977417_80_hq855",
+      "lines": [
+        "J’avais ensuite essayé de changer de méthode :"
+      ],
+      "text": "J’avais ensuite essayé de changer de méthode :",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1785400977417_81_eixmw",
+      "lines": [
+        "j’avais réquisitionné Denise jusque tard dans la nuit pour qu’elle prenne en dictée ce que je pensais être de grandes phrases, de bons mots et des attaques de roman exceptionnelles."
+      ],
+      "text": "j’avais réquisitionné Denise jusque tard dans la nuit pour qu’elle prenne en dictée ce que je pensais être de grandes phrases, de bons mots et des attaques de roman exceptionnelles.",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1785400977417_82_flyux",
+      "lines": [
+        "Mais le lendemain, les mots me paraissaient fades, les phrases bancales et mes attaques, des défaites."
+      ],
+      "text": "Mais le lendemain, les mots me paraissaient fades, les phrases bancales et mes attaques, des défaites.",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1785400977417_83_jhzzm",
+      "lines": [
+        "J’entrais dans la seconde phase de ma maladie."
+      ],
+      "text": "J’entrais dans la seconde phase de ma maladie.",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1785400977417_84_713xs",
+      "lines": [
+        "À l’automne 2007, il y avait une année que mon premier livre était paru et je n’avais pas encore écrit la moindre ligne du suivant."
+      ],
+      "text": "À l’automne 2007, il y avait une année que mon premier livre était paru et je n’avais pas encore écrit la moindre ligne du suivant.",
+      "breakAt": null,
+      "isLeader": true,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1785400977417_85_khd8t",
+      "lines": [
+        "Lorsqu’il n’y eut plus de lettres à classer, que dans les lieux publics on ne me reconnaissait plus et que,"
+      ],
+      "text": "Lorsqu’il n’y eut plus de lettres à classer, que dans les lieux publics on ne me reconnaissait plus et que,",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1785400977417_86_c065y",
+      "lines": [
+        "dans les grandes librairies de Broadway, les affiches à mon effigie avaient disparu, je compris que la gloire était éphémère."
+      ],
+      "text": "dans les grandes librairies de Broadway, les affiches à mon effigie avaient disparu, je compris que la gloire était éphémère.",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1785400977417_87_kemis",
+      "lines": [
+        "Elle était une gorgone affamée et ceux qui ne la nourrissaient pas se voyaient rapidement remplacés :"
+      ],
+      "text": "Elle était une gorgone affamée et ceux qui ne la nourrissaient pas se voyaient rapidement remplacés :",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1785400977417_88_z863y",
+      "lines": [
+        "les hommes politiques du moment, la starlette de la dernière émission de téléréalité, le groupe de rock qui venait de percer avaient repris pour eux ma part d’attention."
+      ],
+      "text": "les hommes politiques du moment, la starlette de la dernière émission de téléréalité, le groupe de rock qui venait de percer avaient repris pour eux ma part d’attention.",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1785400977417_89_yvq7f",
+      "lines": [
+        "Il ne s’était pourtant écoulé que douze petits mois depuis mon livre : un laps de temps ridiculement court à mes yeux mais qui, à l’échelle de l’humanité,"
+      ],
+      "text": "Il ne s’était pourtant écoulé que douze petits mois depuis mon livre : un laps de temps ridiculement court à mes yeux mais qui, à l’échelle de l’humanité,",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1785400977417_90_729rt",
+      "lines": [
+        "correspondait à une éternité."
+      ],
+      "text": "correspondait à une éternité.",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1785400977417_91_qfels",
+      "lines": [
+        "Durant cette même année, pour la seule Amérique,"
+      ],
+      "text": "Durant cette même année, pour la seule Amérique,",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1785400977417_92_557ri",
+      "lines": [
+        "un million d’enfants étaient nés, un million de personnes étaient mortes, une bonne dizaine de milliers s’étaient fait tirer dessus, un demi-million avaient plongé dans la drogue, un million étaient devenues millionnaires, dix-sept millions avaient changé de téléphone portable, cinquante mille étaient décédées dans un accident de voiture et, dans les mêmes circonstances,"
+      ],
+      "text": "un million d’enfants étaient nés, un million de personnes étaient mortes, une bonne dizaine de milliers s’étaient fait tirer dessus, un demi-million avaient plongé dans la drogue, un million étaient devenues millionnaires, dix-sept millions avaient changé de téléphone portable, cinquante mille étaient décédées dans un accident de voiture et, dans les mêmes circonstances,",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1785400977417_92_557ri_overflow_94",
+      "lines": [
+        "deux millions avaient été blessées plus ou moins gravement."
+      ],
+      "text": "deux millions avaient été blessées plus ou moins gravement.",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1785400977417_93_ocq5f",
+      "lines": [
+        "Quant à moi, je n’avais écrit qu’un seul livre."
+      ],
+      "text": "Quant à moi, je n’avais écrit qu’un seul livre.",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    }
+  ],
+  "soundTracks": [],
+  "vfxTracks": []
+}
