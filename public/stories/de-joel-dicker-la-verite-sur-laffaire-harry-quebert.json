@@ -53,14 +53,36 @@
       "audioEvents": []
     },
     {
-      "id": "seg_1785400977416_4_pmhdx",
+      "id": "seg_1785403481859_a_lrz90",
       "lines": [
         "- Allô ? Mon nom est Deborah Cooper, j’habite à Side Creek Lane. Je crois que je viens de voir une jeune fille poursuivie par un homme dans la forêt."
       ],
-      "text": "- Allô ? Mon nom est Deborah Cooper, j’habite à Side Creek Lane. Je crois que je viens de voir une jeune fille poursuivie par un homme dans la forêt.",
+      "text": "- Allô ? Mon nom est Deborah Cooper, j’habite à Side Creek Lane.",
       "breakAt": null,
       "isLeader": false,
       "audioEvents": []
+    },
+    {
+      "id": "seg_1785403507975_a_xz0of",
+      "lines": [
+        "- Allô ? Mon nom est Deborah Cooper, j’habite à Side Creek Lane. Je crois que je viens de voir une jeune fille poursuivie par un homme dans la forêt."
+      ],
+      "text": "Je crois que je viens de voir une jeune fille poursuivie par un homme",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": [],
+      "dialogueOverride": "continue"
+    },
+    {
+      "id": "seg_1785403507975_b_yfavx",
+      "lines": [
+        "- Allô ? Mon nom est Deborah Cooper, j’habite à Side Creek Lane. Je crois que je viens de voir une jeune fille poursuivie par un homme dans la forêt."
+      ],
+      "text": "dans la forêt.",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": [],
+      "dialogueOverride": "continue"
     },
     {
       "id": "seg_1785400977416_5_oe0qq",
@@ -117,10 +139,15 @@
       "lines": [
         "C’est par cet appel que débuta le fait divers qui secoua la ville d’Aurora, dans le New Hampshire. Ce jour-là, Nola Kellergan, quinze ans,"
       ],
-      "text": "C’est par cet appel que débuta le fait divers qui secoua la ville d’Aurora, dans le New Hampshire. Ce jour-là, Nola Kellergan, quinze ans,",
+      "text": "C’est par cet appel que débuta le fait divers qui secoua la ville d’Aurora, dans le New Hampshire. Ce jour-là, </couleur:#a13d3d|Nola Kellergan/>, quinze ans,",
       "breakAt": 99,
       "isLeader": false,
-      "audioEvents": []
+      "audioEvents": [],
+      "bold": false,
+      "italic": false,
+      "underline": false,
+      "strikethrough": false,
+      "fontFamily": null
     },
     {
       "id": "seg_1785400977417_11_reelw",
@@ -140,6 +167,20 @@
       "text": "On ne retrouva plus jamais sa trace.",
       "breakAt": null,
       "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_pause_1785403393446_2_1gtk4",
+      "text": "",
+      "pause": 2800,
+      "transition": {
+        "type": "fade",
+        "color": "#0d0d0d",
+        "easing": "ease-in-out",
+        "fadeInDuration": 600,
+        "holdDuration": 800,
+        "fadeOutDuration": 600
+      },
       "audioEvents": []
     },
     {
@@ -205,11 +246,21 @@
       "audioEvents": []
     },
     {
-      "id": "seg_1785400977417_19_z8no3",
+      "id": "seg_1785403581125_a_gthnr",
       "lines": [
         "Dans le café de West Village où j’avais mes habitudes, certains clients n’hésitaient plus à s’asseoir à ma table pour me parler : « Je suis en train de lire votre livre,"
       ],
-      "text": "Dans le café de West Village où j’avais mes habitudes, certains clients n’hésitaient plus à s’asseoir à ma table pour me parler : « Je suis en train de lire votre livre,",
+      "text": "Dans le café de West Village où j’avais mes habitudes, certains clients n’hésitaient plus à s’asseoir à ma table pour me parler :",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1785403581125_b_7jrp4",
+      "lines": [
+        "Dans le café de West Village où j’avais mes habitudes, certains clients n’hésitaient plus à s’asseoir à ma table pour me parler : « Je suis en train de lire votre livre,"
+      ],
+      "text": "« Je suis en train de lire votre livre,",
       "breakAt": null,
       "isLeader": false,
       "audioEvents": []
@@ -222,7 +273,8 @@
       "text": "Monsieur Goldman : je ne peux pas m’arrêter !",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": []
+      "audioEvents": [],
+      "dialogueOverride": "continue"
     },
     {
       "id": "seg_1785400977417_21_njhfe",
@@ -231,9 +283,10 @@
         "On vous a vraiment filé un million de dollars pour l’écrire ?"
       ],
       "text": "Le premier était déjà bon, mais alors celui-là ! On vous a vraiment filé un million de dollars pour l’écrire ?",
-      "breakAt": 52,
+      "breakAt": 53,
       "isLeader": false,
-      "audioEvents": []
+      "audioEvents": [],
+      "dialogueOverride": "continue"
     },
     {
       "id": "seg_1785400977417_22_e7i9x",
@@ -243,7 +296,8 @@
       "text": "Vous avez quel âge ?",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": []
+      "audioEvents": [],
+      "dialogueOverride": "continue"
     },
     {
       "id": "seg_1785400977417_23_iiwuh",
@@ -253,7 +307,8 @@
       "text": "Trente ans à peine ?",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": []
+      "audioEvents": [],
+      "dialogueOverride": "continue"
     },
     {
       "id": "seg_1785400977417_24_7g1z7",
@@ -264,7 +319,8 @@
       "text": "Trente ans ! Et vous avez déjà amassé tellement de pognon ! »",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": []
+      "audioEvents": [],
+      "dialogueOverride": "continue"
     },
     {
       "id": "seg_1785400977417_25_j67p5",
@@ -294,7 +350,12 @@
       "text": "Quelle horreur !",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": []
+      "audioEvents": [],
+      "bold": true,
+      "italic": false,
+      "underline": false,
+      "strikethrough": false,
+      "fontFamily": null
     },
     {
       "id": "seg_1785400977417_28_tf7d1",
@@ -317,13 +378,23 @@
       "audioEvents": []
     },
     {
-      "id": "seg_1785400977417_30_lswyf",
+      "id": "seg_1785403655914_a_u8zlh",
       "lines": [
         "Le Tout-New York se passionnait pour mon livre; il y avait deux semaines qu’il était paru et il promettait déjà d’être la meilleure vente de l’année sur le continent américain."
       ],
-      "text": "Le Tout-New York se passionnait pour mon livre; il y avait deux semaines qu’il était paru et il promettait déjà d’être la meilleure vente de l’année sur le continent américain.",
+      "text": "Le Tout-New York se passionnait pour mon livre; il y avait deux semaines qu’il était paru",
       "breakAt": null,
       "isLeader": true,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1785403655914_b_ltikd",
+      "lines": [
+        "Le Tout-New York se passionnait pour mon livre; il y avait deux semaines qu’il était paru et il promettait déjà d’être la meilleure vente de l’année sur le continent américain."
+      ],
+      "text": "et il promettait déjà d’être la meilleure vente de l’année sur le continent américain.",
+      "breakAt": null,
+      "isLeader": false,
       "audioEvents": []
     },
     {
@@ -381,19 +452,48 @@
       "lines": [
         "avait éclaté quelques mois plus tôt, au début de l’été, lorsqu’on avait retrouvé les restes d’une jeune fille disparue depuis trente-trois ans."
       ],
-      "text": "avait éclaté quelques mois plus tôt, au début de l’été, lorsqu’on avait retrouvé les restes d’une jeune fille disparue depuis trente-trois ans.",
+      "text": "avait éclaté quelques mois plus tôt, au début de l’été, lorsqu’on avait retrouvé </pulse:faible;lent|les restes/> d’une jeune fille disparue depuis trente-trois ans.",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": [],
+      "bold": false,
+      "italic": false,
+      "underline": false,
+      "strikethrough": false,
+      "fontFamily": null
+    },
+    {
+      "id": "seg_1785403686860_a_a9wyf",
+      "lines": [
+        "C’est ainsi que débutèrent les événements du New Hampshire qui vont être rapportés ici, et sans lesquels la petite ville d’Aurora serait certainement demeurée inconnue du reste de l’Amérique."
+      ],
+      "text": "C’est ainsi que débutèrent les événements du New Hampshire qui vont être rapportés ici,",
       "breakAt": null,
       "isLeader": false,
       "audioEvents": []
     },
     {
-      "id": "seg_1785400977417_37_zsb7l",
+      "id": "seg_1785403686860_b_wgzns",
       "lines": [
         "C’est ainsi que débutèrent les événements du New Hampshire qui vont être rapportés ici, et sans lesquels la petite ville d’Aurora serait certainement demeurée inconnue du reste de l’Amérique."
       ],
-      "text": "C’est ainsi que débutèrent les événements du New Hampshire qui vont être rapportés ici, et sans lesquels la petite ville d’Aurora serait certainement demeurée inconnue du reste de l’Amérique.",
+      "text": "et sans lesquels la petite ville d’Aurora serait certainement demeurée inconnue du reste de l’Amérique.",
       "breakAt": null,
       "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_pause_1785403393446_1_om06y",
+      "text": "",
+      "pause": 3200,
+      "transition": {
+        "type": "veil",
+        "color": "#f5f2e8",
+        "easing": "ease-in-out",
+        "fadeInDuration": 700,
+        "holdDuration": 900,
+        "fadeOutDuration": 700
+      },
       "audioEvents": []
     },
     {
@@ -401,11 +501,13 @@
       "lines": [
         "PREMIÈRE PARTIE La maladie des écrivains (8 mois avant la sortie du livre)"
       ],
-      "text": "PREMIÈRE PARTIE La maladie des écrivains (8 mois avant la sortie du livre)",
+      "text": "PREMIÈRE PARTIE \nLa maladie des écrivains \n(8 mois avant la sortie du livre)",
       "breakAt": null,
       "isLeader": true,
-      "isChapter": true,
-      "audioEvents": []
+      "isChapter": false,
+      "audioEvents": [],
+      "bold": true,
+      "underline": false
     },
     {
       "id": "seg_1785400977417_39_19owc",
@@ -415,7 +517,11 @@
       "text": "31. Dans les abîmes de la mémoire",
       "breakAt": null,
       "isLeader": true,
-      "audioEvents": []
+      "audioEvents": [],
+      "strikethrough": false,
+      "italic": false,
+      "bold": false,
+      "isChapter": true
     },
     {
       "id": "seg_1785400977417_40_gytgi",
@@ -455,6 +561,25 @@
       "text": "- J’en suis certain.”",
       "breakAt": null,
       "isLeader": false,
+      "audioEvents": [],
+      "bold": false,
+      "italic": true,
+      "underline": false,
+      "strikethrough": false,
+      "fontFamily": null
+    },
+    {
+      "id": "seg_pause_1785403393446_0_4gdou",
+      "text": "",
+      "pause": 900,
+      "transition": {
+        "type": "blur",
+        "color": "#ffffff",
+        "easing": "ease-in-out",
+        "fadeInDuration": 300,
+        "holdDuration": 200,
+        "fadeOutDuration": 300
+      },
       "audioEvents": []
     },
     {
@@ -464,7 +589,7 @@
       ],
       "text": "Au début de l’année 2008, soit environ un an et demi après être devenu, grâce à mon premier roman, la nouvelle coqueluche des lettres américaines,",
       "breakAt": null,
-      "isLeader": false,
+      "isLeader": true,
       "audioEvents": []
     },
     {
@@ -562,17 +687,32 @@
       "lines": [
         "mon premier roman s’était vendu à deux millions d’exemplaires, me propulsant, à l’âge de vingt-huit ans, au rang d’écrivain à succès."
       ],
-      "text": "mon premier roman s’était vendu à deux millions d’exemplaires, me propulsant, à l’âge de vingt-huit ans, au rang d’écrivain à succès.",
+      "text": "mon premier roman s’était vendu à </taille:1.3|deux millions d’exemplaires/>, me propulsant, à l’âge de vingt-huit ans, au rang d’écrivain à succès.",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": [],
+      "bold": false,
+      "italic": false,
+      "underline": false,
+      "strikethrough": false,
+      "fontFamily": null
+    },
+    {
+      "id": "seg_1785403811362_a_ij6f7",
+      "lines": [
+        "C’était l’automne 2006 et en quelques semaines mon nom devint un nom : on me vit partout,"
+      ],
+      "text": "C’était l’automne 2006 et en quelques semaines mon nom devint un nom :",
       "breakAt": null,
       "isLeader": false,
       "audioEvents": []
     },
     {
-      "id": "seg_1785400977417_55_6midq",
+      "id": "seg_1785403811362_b_bdkcx",
       "lines": [
         "C’était l’automne 2006 et en quelques semaines mon nom devint un nom : on me vit partout,"
       ],
-      "text": "C’était l’automne 2006 et en quelques semaines mon nom devint un nom : on me vit partout,",
+      "text": "on me vit partout,",
       "breakAt": null,
       "isLeader": false,
       "audioEvents": []
@@ -598,11 +738,21 @@
       "audioEvents": []
     },
     {
-      "id": "seg_1785400977417_58_tfzva",
+      "id": "seg_1785403823497_a_lur0b",
       "lines": [
         "Les critiques les plus sévères des grands quotidiens de la côte Est étaient unanimes : le jeune Marcus Goldman allait devenir un très grand écrivain."
       ],
-      "text": "Les critiques les plus sévères des grands quotidiens de la côte Est étaient unanimes : le jeune Marcus Goldman allait devenir un très grand écrivain.",
+      "text": "Les critiques les plus sévères des grands quotidiens de la côte Est étaient unanimes :",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1785403823497_b_xmoox",
+      "lines": [
+        "Les critiques les plus sévères des grands quotidiens de la côte Est étaient unanimes : le jeune Marcus Goldman allait devenir un très grand écrivain."
+      ],
+      "text": "</taille:1.3|le jeune Marcus Goldman allait devenir un très grand écrivain./>",
       "breakAt": null,
       "isLeader": false,
       "audioEvents": []
@@ -618,11 +768,21 @@
       "audioEvents": []
     },
     {
-      "id": "seg_1785400977417_60_2ljod",
+      "id": "seg_1785403889999_a_mdez9",
       "lines": [
         "Je déménageai de chez mes parents à Newark pour m’installer dans un appartement cossu du Village, je troquai ma Ford de troisième main pour une Range Rover noire flambant neuve aux vitres teintées, je me mis à fréquenter les restaurants huppés,"
       ],
-      "text": "Je déménageai de chez mes parents à Newark pour m’installer dans un appartement cossu du Village, je troquai ma Ford de troisième main pour une Range Rover noire flambant neuve aux vitres teintées, je me mis à fréquenter les restaurants huppés,",
+      "text": "Je déménageai de chez mes parents à Newark pour m’installer dans un appartement cossu du Village,",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1785403889999_b_ibjfn",
+      "lines": [
+        "Je déménageai de chez mes parents à Newark pour m’installer dans un appartement cossu du Village, je troquai ma Ford de troisième main pour une Range Rover noire flambant neuve aux vitres teintées, je me mis à fréquenter les restaurants huppés,"
+      ],
+      "text": "je troquai ma Ford de troisième main pour une Range Rover noire flambant neuve aux vitres teintées, je me mis à fréquenter les restaurants huppés,",
       "breakAt": null,
       "isLeader": false,
       "audioEvents": []
@@ -678,11 +838,21 @@
       "audioEvents": []
     },
     {
-      "id": "seg_1785400977417_65_g2tzt",
+      "id": "seg_1785403943559_a_h7s1f",
       "lines": [
         "Puis, content de moi-même et jugeant que j’avais assez travaillé, je m’en allais flâner dans les rues de Manhattan, où les passants bruissaient à mon passage."
       ],
-      "text": "Puis, content de moi-même et jugeant que j’avais assez travaillé, je m’en allais flâner dans les rues de Manhattan, où les passants bruissaient à mon passage.",
+      "text": "Puis, content de moi-même et jugeant que j’avais assez travaillé, je m’en allais flâner dans les rues de Manhattan,",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1785403943559_b_rto8m",
+      "lines": [
+        "Puis, content de moi-même et jugeant que j’avais assez travaillé, je m’en allais flâner dans les rues de Manhattan, où les passants bruissaient à mon passage."
+      ],
+      "text": "où les passants bruissaient à mon passage.",
       "breakAt": null,
       "isLeader": false,
       "audioEvents": []
@@ -698,11 +868,31 @@
       "audioEvents": []
     },
     {
-      "id": "seg_1785400977417_67_ux06n",
+      "id": "seg_1785403955234_a_vxlu3",
       "lines": [
         "droit de m’acheter tout ce dont j’avais envie, droit aux loges VIP du Madison Square Garden pour suivre les matchs des Rangers, droit de marcher sur des tapis rouges avec des stars de la musique dont j’avais, plus jeune, acheté tous les disques, droit de sortir avec Lydia Gloor, l’actrice principale de la série télé du moment et que tout le monde s’arrachait."
       ],
-      "text": "droit de m’acheter tout ce dont j’avais envie, droit aux loges VIP du Madison Square Garden pour suivre les matchs des Rangers, droit de marcher sur des tapis rouges avec des stars de la musique dont j’avais, plus jeune, acheté tous les disques, droit de sortir avec Lydia Gloor, l’actrice principale de la série télé du moment et que tout le monde s’arrachait.",
+      "text": "droit de m’acheter tout ce dont j’avais envie, droit aux loges VIP du Madison Square Garden pour suivre les matchs des Rangers,",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1785403957965_a_ngqqe",
+      "lines": [
+        "droit de m’acheter tout ce dont j’avais envie, droit aux loges VIP du Madison Square Garden pour suivre les matchs des Rangers, droit de marcher sur des tapis rouges avec des stars de la musique dont j’avais, plus jeune, acheté tous les disques, droit de sortir avec Lydia Gloor, l’actrice principale de la série télé du moment et que tout le monde s’arrachait."
+      ],
+      "text": "droit de marcher sur des tapis rouges avec des stars de la musique dont j’avais, plus jeune, acheté tous les disques,",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1785403957965_b_mql8j",
+      "lines": [
+        "droit de m’acheter tout ce dont j’avais envie, droit aux loges VIP du Madison Square Garden pour suivre les matchs des Rangers, droit de marcher sur des tapis rouges avec des stars de la musique dont j’avais, plus jeune, acheté tous les disques, droit de sortir avec Lydia Gloor, l’actrice principale de la série télé du moment et que tout le monde s’arrachait."
+      ],
+      "text": "droit de sortir avec Lydia Gloor, l’actrice principale de la série télé du moment et que tout le monde s’arrachait.",
       "breakAt": null,
       "isLeader": false,
       "audioEvents": []
@@ -712,10 +902,15 @@
       "lines": [
         "J’étais un écrivain célèbre; j’avais l’impression d’exercer le plus beau métier au monde."
       ],
-      "text": "J’étais un écrivain célèbre; j’avais l’impression d’exercer le plus beau métier au monde.",
+      "text": "J’étais un écrivain célèbre; j’avais l’impression d’exercer </couleur:#d4af37|le plus beau métier au monde/>.",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": []
+      "audioEvents": [],
+      "bold": false,
+      "italic": false,
+      "underline": false,
+      "strikethrough": false,
+      "fontFamily": null
     },
     {
       "id": "seg_1785400977417_69_zh54p",
@@ -755,7 +950,8 @@
       "text": "« Monsieur Goldman, quel sera le sujet de votre prochain livre ?",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": []
+      "audioEvents": [],
+      "dialogueOverride": "start"
     },
     {
       "id": "seg_1785400977417_73_d7vof",
@@ -765,7 +961,8 @@
       "text": "Et quand sortira-t-il ? »",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": []
+      "audioEvents": [],
+      "dialogueOverride": "continue"
     },
     {
       "id": "seg_1785400977417_74_7gemh",
@@ -869,6 +1066,20 @@
       "audioEvents": []
     },
     {
+      "id": "seg_pause_1785404088550_9lits",
+      "text": "",
+      "pause": 1000,
+      "transition": {
+        "type": "veil",
+        "color": "#000000",
+        "easing": "ease-in-out",
+        "fadeInDuration": 400,
+        "holdDuration": 0,
+        "fadeOutDuration": 400
+      },
+      "audioEvents": []
+    },
+    {
       "id": "seg_1785400977417_84_713xs",
       "lines": [
         "À l’automne 2007, il y avait une année que mon premier livre était paru et je n’avais pas encore écrit la moindre ligne du suivant."
@@ -903,10 +1114,15 @@
       "lines": [
         "Elle était une gorgone affamée et ceux qui ne la nourrissaient pas se voyaient rapidement remplacés :"
       ],
-      "text": "Elle était une gorgone affamée et ceux qui ne la nourrissaient pas se voyaient rapidement remplacés :",
+      "text": "Elle était une </couleur:#7a1f1f|gorgone affamée/> et ceux qui ne la nourrissaient pas se voyaient rapidement remplacés :",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": []
+      "audioEvents": [],
+      "bold": false,
+      "italic": false,
+      "underline": false,
+      "strikethrough": false,
+      "fontFamily": null
     },
     {
       "id": "seg_1785400977417_88_z863y",
@@ -969,14 +1185,34 @@
       "audioEvents": []
     },
     {
-      "id": "seg_1785400977417_93_ocq5f",
+      "id": "seg_1785404257122_a_vxby2",
       "lines": [
         "Quant à moi, je n’avais écrit qu’un seul livre."
       ],
-      "text": "Quant à moi, je n’avais écrit qu’un seul livre.",
+      "text": "Quant à moi,",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": []
+      "audioEvents": [],
+      "bold": false,
+      "italic": false,
+      "underline": false,
+      "strikethrough": false,
+      "fontFamily": null
+    },
+    {
+      "id": "seg_1785404257122_b_c752k",
+      "lines": [
+        "Quant à moi, je n’avais écrit qu’un seul livre."
+      ],
+      "text": "je n’avais écrit </fondu_mot:1200;lent|qu’un seul livre/>.",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": [],
+      "bold": false,
+      "italic": false,
+      "underline": false,
+      "strikethrough": false,
+      "fontFamily": null
     }
   ],
   "soundTracks": [],
