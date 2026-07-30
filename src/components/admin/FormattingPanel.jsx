@@ -306,7 +306,7 @@ function FormattingPanel({ segments, onSegmentsChange, onSaveToHistory }) {
     }
     const { segmentsRaw, pausesRaw, vfxRaw } = splitFormattingSections(importText)
     if (segmentsRaw.length === 0 && pausesRaw.length === 0 && vfxRaw.length === 0) {
-      setImportError('Aucun tableau JSON valide trouvé (vérifie que les 3 marqueurs ### sont bien présents).')
+      setImportError('Aucun tableau JSON valide trouvé dans le texte collé.')
       return
     }
     // ── Segments modifiés ──
