@@ -194,26 +194,66 @@ function extractFirstJsonArray(text) {
   }
   return []
 }
+function extractAllJsonArrays(rawText) {
+  const cleaned = rawText.replace(/```json/gi, '').replace(/```/g, '')
+  const arrays = []
+  let i = 0
+  while (i < cleaned.length) {
+    if (cleaned[i] === '[') {
+      let depth = 0
+      const start = i
+      let closed = false
+      for (let j = i; j < cleaned.length; j++) {
+        if (cleaned[j] === '[') depth++
+        if (cleaned[j] === ']') depth--
+        if (depth === 0) {
+          const candidate = cleaned.slice(start, j + 1)
+          try { arrays.push(JSON.parse(candidate)) } catch {}
+          i = j + 1
+          closed = true
+          break
+        }
+      }
+      if (!closed) break
+    } else {
+      i++
+    }
+  }
+  return arrays
+}
 function splitFormattingSections(rawText) {
   const withoutScript = rawText.replace(/<script>[\s\S]*?<\/script>/gi, '')
+  // Tolérant : accepte "### SEGMENTS_MODIFIES" comme "SEGMENTS_MODIFIES" seul
+  // (les ### disparaissent souvent au copier-coller depuis une interface qui
+  // affiche le markdown au lieu du texte brut).
   const markerDefs = [
-    { name: 'segments', re: /###\s*SEGMENTS_MODIFIES/i },
-    { name: 'pauses',   re: /###\s*PAUSES/i },
-    { name: 'vfx',      re: /###\s*VFX_TEXTE/i },
+    { name: 'segments', re: /\bSEGMENTS_MODIFIES\b/i },
+    { name: 'pauses',   re: /\bPAUSES\b/i },
+    { name: 'vfx',      re: /\bVFX_TEXTE\b/i },
   ]
   const markers = markerDefs
     .map(m => ({ name: m.name, idx: withoutScript.search(m.re) }))
     .filter(m => m.idx !== -1)
     .sort((a, b) => a.idx - b.idx)
-  const sections = { segments: '', pauses: '', vfx: '' }
-  markers.forEach((m, i) => {
-    const end = i + 1 < markers.length ? markers[i + 1].idx : withoutScript.length
-    sections[m.name] = withoutScript.slice(m.idx, end)
-  })
+  if (markers.length > 0) {
+    const sections = { segments: '', pauses: '', vfx: '' }
+    markers.forEach((m, i) => {
+      const end = i + 1 < markers.length ? markers[i + 1].idx : withoutScript.length
+      sections[m.name] = withoutScript.slice(m.idx, end)
+    })
+    return {
+      segmentsRaw: extractFirstJsonArray(sections.segments),
+      pausesRaw:   extractFirstJsonArray(sections.pauses),
+      vfxRaw:      extractFirstJsonArray(sections.vfx),
+    }
+  }
+  // ── Filet de sécurité : aucun marqueur trouvé (cas extrême) — on prend les
+  // tableaux JSON dans leur ordre d'apparition (segments, pauses, vfx).
+  const allArrays = extractAllJsonArrays(withoutScript)
   return {
-    segmentsRaw: extractFirstJsonArray(sections.segments),
-    pausesRaw:   extractFirstJsonArray(sections.pauses),
-    vfxRaw:      extractFirstJsonArray(sections.vfx),
+    segmentsRaw: allArrays[0] || [],
+    pausesRaw:   allArrays[1] || [],
+    vfxRaw:      allArrays[2] || [],
   }
 }
 function getSegmentText(seg) {
