@@ -16,6 +16,7 @@
       "text": "</apparition:0;lent|La vérité sur l’affaire Harry Quebert de Joël Dicker/>",
       "breakAt": null,
       "isLeader": true,
+      "isChapter": false,
       "audioEvents": []
     },
     {
@@ -38,6 +39,7 @@
       "text": "Le jour de la disparition (samedi 30 août 1975)",
       "breakAt": null,
       "isLeader": true,
+      "isChapter": true,
       "audioEvents": []
     },
     {
@@ -148,6 +150,7 @@
       "text": "Prologue Octobre 2008 (33 ans après la disparition)",
       "breakAt": null,
       "isLeader": true,
+      "isChapter": true,
       "audioEvents": []
     },
     {
@@ -401,6 +404,7 @@
       "text": "PREMIÈRE PARTIE La maladie des écrivains (8 mois avant la sortie du livre)",
       "breakAt": null,
       "isLeader": true,
+      "isChapter": true,
       "audioEvents": []
     },
     {
