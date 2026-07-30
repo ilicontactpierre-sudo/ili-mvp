@@ -2863,9 +2863,18 @@ function AdminPage() {
             </div>
           </div>
 
-          {/* 4. OrchestrationPanel */}
+          {/* 4. FormattingPanel — avant l'orchestration, comme décidé */}
+          {activeSegments.length > 0 && (
+            <FormattingPanel
+              segments={activeSegments}
+              onSegmentsChange={setActiveSegments}
+              onSaveToHistory={() => saveToHistory(segments, soundTracks, vfxTracks)}
+            />
+          )}
+          {/* 5. OrchestrationPanel */}
           <div ref={refOrchestration} style={{ scrollMarginTop: `${stickyHeight + 12}px` }} />
           {activeSegments.length > 0 && (
+            <OrchestrationPanel
             <OrchestrationPanel
               segments={activeSegments}
               soundLibrary={soundLibrary}
