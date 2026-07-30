@@ -145,6 +145,16 @@ function buildExportPrompt(segments, soundLibrary) {
   lines.push('')
   lines.push('Le texte est découpé en segments numérotés lus séquentiellement, comme des plans au cinéma. Certains segments portent des marqueurs structurels (chapitre, pause) qui te sont signalés directement dans le texte à orchestrer — utilise-les, ils sont une ressource, pas juste une information.')
   lines.push('')
+  lines.push('IMPORTANT — Tags de mise en forme déjà présents dans le texte :')
+  lines.push('Certains segments contiennent des tags du type </nom:paramètres|texte/> ou')
+  lines.push('</nom:paramètres/> (ex : </pulse:moyen;normal|Nola/>, </couleur:#a13d3d|les restes/>).')
+  lines.push('Ce sont des effets visuels déjà appliqués par une passe de mise en forme automatique,')
+  lines.push('indépendante de ton travail. Ignore entièrement leur syntaxe technique : lis uniquement')
+  lines.push('le texte narratif qu\'ils contiennent ou entourent, comme s\'il n\'y avait pas de tag.')
+  lines.push('Ne recopie jamais un tag dans tes notes ou ton script. Surtout : ne déduis AUCUNE')
+  lines.push('intention sonore du nom du tag lui-même — un tag </pulse:.../> ne signifie pas "ajoute')
+  lines.push('un son de battement de cœur", c\'est un effet purement visuel, sans lien avec le son à poser.')
+  lines.push('')
 
   // ── SECTION 2 — Passe 1 obligatoire ──────────────────────────────────────
   lines.push('## PASSE 1 OBLIGATOIRE — Le script dramaturgique')
