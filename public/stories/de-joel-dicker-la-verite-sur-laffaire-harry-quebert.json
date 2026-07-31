@@ -63,48 +63,8 @@
       "loop": false
     },
     {
-      "id": "suno_the_last_farewell_-_cello_rubato_funeral",
-      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/suno_the_last_farewell_-_cello_rubato_funeral.mp3",
-      "loop": false
-    },
-    {
-      "id": "qp02_0184_wind_deciduous_forest_breeze_gentle_insects_2_",
-      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/qp02_0184_wind_deciduous_forest_breeze_gentle_insects_2_.mp3",
-      "loop": false
-    },
-    {
-      "id": "dsgndron_radioactive_drone_03_jse_cd",
-      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/dsgndron_radioactive_drone_03_jse_cd.mp3",
-      "loop": false
-    },
-    {
-      "id": "dsgnerie_horrific_unknown_01_b00m_one_2_",
-      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/dsgnerie_horrific_unknown_01_b00m_one_2_.mp3",
-      "loop": false
-    },
-    {
-      "id": "sound-effect-hd",
-      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/sound-effect-hd.mp3",
-      "loop": false
-    },
-    {
-      "id": "radio_fre_quence_search",
-      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/radio_fre_quence_search.mp3",
-      "loop": false
-    },
-    {
-      "id": "radio",
-      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/radio.mp3",
-      "loop": false
-    },
-    {
-      "id": "dsgndron_space_choir_01_jse_cd",
-      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/dsgndron_space_choir_01_jse_cd.mp3",
-      "loop": false
-    },
-    {
-      "id": "m_bulle_part1",
-      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/m_bulle_part1.mp3",
+      "id": "17_s01_pendule",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/17_s01_pendule.mp3",
       "loop": false
     },
     {
@@ -113,23 +73,13 @@
       "loop": false
     },
     {
+      "id": "772_s16_machine_ecrire_retour_1_rev",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/772_s16_machine_ecrire_retour_1_rev.mp3",
+      "loop": false
+    },
+    {
       "id": "ambrest_restaurant_bar_staged_clock_01_b00m_one_5_",
       "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/ambrest_restaurant_bar_staged_clock_01_b00m_one_5_.mp3",
-      "loop": false
-    },
-    {
-      "id": "elevator_old_style_1",
-      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/elevator_old_style_1.mp3",
-      "loop": false
-    },
-    {
-      "id": "drame_die_stem_wind",
-      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/drame_die_stem_wind.mp3",
-      "loop": false
-    },
-    {
-      "id": "groupe_de_jazz",
-      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/groupe_de_jazz.mp3",
       "loop": false
     },
     {
@@ -138,13 +88,38 @@
       "loop": false
     },
     {
+      "id": "drame_die_stem_wind",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/drame_die_stem_wind.mp3",
+      "loop": false
+    },
+    {
+      "id": "dsgndron_radioactive_drone_03_jse_cd",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/dsgndron_radioactive_drone_03_jse_cd.mp3",
+      "loop": false
+    },
+    {
+      "id": "dsgndron_space_choir_01_jse_cd",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/dsgndron_space_choir_01_jse_cd.mp3",
+      "loop": false
+    },
+    {
+      "id": "dsgnerie_horrific_unknown_01_b00m_one_2_",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/dsgnerie_horrific_unknown_01_b00m_one_2_.mp3",
+      "loop": false
+    },
+    {
+      "id": "elevator_old_style_1",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/elevator_old_style_1.mp3",
+      "loop": false
+    },
+    {
       "id": "ferrum_-_sub_punch_04",
       "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/ferrum_-_sub_punch_04.mp3",
       "loop": false
     },
     {
-      "id": "772_s16_machine_ecrire_retour_1_rev",
-      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/772_s16_machine_ecrire_retour_1_rev.mp3",
+      "id": "groupe_de_jazz",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/groupe_de_jazz.mp3",
       "loop": false
     },
     {
@@ -153,13 +128,8 @@
       "loop": false
     },
     {
-      "id": "17_s01_pendule",
-      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/17_s01_pendule.mp3",
-      "loop": false
-    },
-    {
-      "id": "the_sound_ambience_of_an_office_reception_hall_2_",
-      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/the_sound_ambience_of_an_office_reception_hall_2_.mp3",
+      "id": "m_bulle_part1",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/m_bulle_part1.mp3",
       "loop": false
     },
     {
@@ -168,8 +138,43 @@
       "loop": false
     },
     {
+      "id": "qp02_0184_wind_deciduous_forest_breeze_gentle_insects_2_",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/qp02_0184_wind_deciduous_forest_breeze_gentle_insects_2_.mp3",
+      "loop": false
+    },
+    {
+      "id": "radio",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/radio.mp3",
+      "loop": false
+    },
+    {
+      "id": "radio_fre_quence_search",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/radio_fre_quence_search.mp3",
+      "loop": false
+    },
+    {
+      "id": "sound-effect-hd",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/sound-effect-hd.mp3",
+      "loop": false
+    },
+    {
       "id": "suno_music_e_lectro_soft",
       "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/suno_music_e_lectro_soft.mp3",
+      "loop": false
+    },
+    {
+      "id": "suno_the_last_farewell_-_cello_rubato_funeral",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/suno_the_last_farewell_-_cello_rubato_funeral.mp3",
+      "loop": false
+    },
+    {
+      "id": "the_sound_ambience_of_an_office_reception_hall_2_",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/the_sound_ambience_of_an_office_reception_hall_2_.mp3",
+      "loop": false
+    },
+    {
+      "id": "apocalyptic_impact_radio_signal_boom",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/apocalyptic_impact_radio_signal_boom.mp3",
       "loop": false
     }
   ],
@@ -372,6 +377,26 @@
           "action": "fadeOut",
           "soundId": "dsgndron_radioactive_drone_03_jse_cd",
           "duration": 1000
+        },
+        {
+          "action": "fadeOut",
+          "soundId": "radio",
+          "duration": 300
+        }
+      ]
+    },
+    {
+      "id": "seg_pause_1785508046161_4573n",
+      "text": "",
+      "pause": 1000,
+      "audioEvents": [
+        {
+          "action": "play",
+          "soundId": "apocalyptic_impact_radio_signal_boom",
+          "volume": 0.5,
+          "gainDb": 0,
+          "delay": 0,
+          "loop": false
         }
       ]
     },
@@ -2786,7 +2811,7 @@
       "column": 4,
       "volume": 0.5,
       "fadeIn": 0,
-      "fadeOut": 0,
+      "fadeOut": 300,
       "delay": 0,
       "loop": false,
       "muted": false,
@@ -2805,6 +2830,20 @@
           "_isAnchor": true
         }
       ]
+    },
+    {
+      "id": "st_1785508027792_jtoba9oaq",
+      "soundId": "apocalyptic_impact_radio_signal_boom",
+      "startSegmentId": "seg_pause_1785508046161_4573n",
+      "endSegmentId": "seg_pause_1785508046161_4573n",
+      "column": 4,
+      "volume": 0.5,
+      "fadeIn": 0,
+      "fadeOut": 0,
+      "delay": 0,
+      "loop": false,
+      "muted": false,
+      "broken": false
     }
   ],
   "vfxTracks": []
