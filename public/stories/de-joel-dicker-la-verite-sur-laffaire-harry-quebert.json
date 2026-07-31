@@ -6,7 +6,183 @@
   "genre": "Thriller, Mystère, Suspense, Romance",
   "description": "Ne commence pas cette histoire si tu ne veux pas annuler tout ce que tu avais prévu.",
   "published": true,
-  "sounds": [],
+  "sounds": [
+    {
+      "id": "ambind_storage_hall_daytime_activity_front_distant_plane_01_b00m_one",
+      "url": "/sounds/AMBInd_Storage Hall Daytime Activity Front Distant Plane 01_B00M_ONE.mp3",
+      "loop": false
+    },
+    {
+      "id": "ambpark_park_children_traffic_siren_01_b00m_one",
+      "url": "/sounds/AMBPark_Park Children Traffic Siren 01_B00M_ONE.mp3",
+      "loop": false
+    },
+    {
+      "id": "ambtown_pedestrian_walking_in_the_city_at_night_01_b00m_one",
+      "url": "/sounds/AMBTown_Pedestrian Walking In The City At Night 01_B00M_ONE.mp3",
+      "loop": false
+    },
+    {
+      "id": "ambtran_city_bus_ride_german_slow_01_b00m_one",
+      "url": "/sounds/AMBTran_City Bus Ride German Slow 01_B00M_ONE.mp3",
+      "loop": false
+    },
+    {
+      "id": "clockmisc_soviet_desk_table_clock_bell_ring_01_b00m_one",
+      "url": "/sounds/CLOCKMisc_Soviet Desk Table Clock Bell Ring 01_B00M_ONE.mp3",
+      "loop": false
+    },
+    {
+      "id": "clockmisc_soviet_desk_table_clock_bell_ring_light_01_b00m_one",
+      "url": "/sounds/CLOCKMisc_Soviet Desk Table Clock Bell Ring Light 01_B00M_ONE.mp3",
+      "loop": false
+    },
+    {
+      "id": "comradio_radio_turn_on_and_off_short_01_b00m_one",
+      "url": "/sounds/COMRadio_Radio Turn On And Off Short 01_B00M_ONE.mp3",
+      "loop": false
+    },
+    {
+      "id": "comtype_vintage_typewriter_paper_bail_open_and_close_01_b00m_one",
+      "url": "/sounds/COMType_Vintage Typewriter Paper Bail Open And Close 01_B00M_ONE.mp3",
+      "loop": false
+    },
+    {
+      "id": "comtype_vintage_typewriter_paper_bail_open_and_close_01_b00m_one_3",
+      "url": "/sounds/COMType_Vintage Typewriter Paper Bail Open And Close 01_B00M_ONE_3.mp3",
+      "loop": false
+    },
+    {
+      "id": "crwdsprt_football_match_ambience_crowd_chant_walla_01_b00m_one",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/crwdsprt_football_match_ambience_crowd_chant_walla_01_b00m_one.mp3",
+      "loop": false
+    },
+    {
+      "id": "dsgnerie_musical_pad_dark_space_horror_02_b00m_one",
+      "url": "/sounds/DSGNErie_Musical Pad Dark Space Horror 02_B00M_ONE.mp3",
+      "loop": false
+    },
+    {
+      "id": "doormetl_basement_door_handle_down_01_b00m_one",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/doormetl_basement_door_handle_down_01_b00m_one.mp3",
+      "loop": false
+    },
+    {
+      "id": "foodtware_plate_lift_soft_03_b00m_one",
+      "url": "/sounds/FOODTware_Plate Lift Soft 03_B00M_ONE.mp3",
+      "loop": false
+    },
+    {
+      "id": "mechswtch_elevator_push_button_01_b00m_one",
+      "url": "/sounds/MECHSwtch_Elevator Push Button 01_B00M_ONE.mp3",
+      "loop": false
+    },
+    {
+      "id": "metlimpt_big_impact_low_dull_01_b00m_one",
+      "url": "/sounds/METLImpt_Big Impact Low Dull 01_B00M_ONE.mp3",
+      "loop": false
+    },
+    {
+      "id": "metltonl_impact_piano_string_damped_hard_03_b00m_one",
+      "url": "/sounds/METLTonl_Impact Piano String Damped Hard 03_B00M_ONE.mp3",
+      "loop": false
+    },
+    {
+      "id": "metltonl_impact_piano_string_damped_hard_04_b00m_one",
+      "url": "/sounds/METLTonl_Impact Piano String Damped Hard 04_B00M_ONE.mp3",
+      "loop": false
+    },
+    {
+      "id": "muscsong_tenor_saxophone_jazz_lick_03_b00m_one",
+      "url": "/sounds/MUSCSong_Tenor Saxophone Jazz Lick 03_B00M_ONE.mp3",
+      "loop": false
+    },
+    {
+      "id": "muscstr_old_violin_dramatic_scratch_tonal_change_medium_low_01_b00m_one",
+      "url": "/sounds/MUSCStr_Old Violin Dramatic Scratch Tonal Change Medium Low 01_B00M_ONE.mp3",
+      "loop": false
+    },
+    {
+      "id": "muscstr_oriental_strings_chord_minor_02_b00m_one",
+      "url": "/sounds/MUSCStr_Oriental Strings Chord Minor 02_B00M_ONE.mp3",
+      "loop": false
+    },
+    {
+      "id": "muscstr_piano_play_on_strings_mid_01_b00m_one",
+      "url": "/sounds/MUSCStr_Piano Play On Strings Mid 01_B00M_ONE.mp3",
+      "loop": false
+    },
+    {
+      "id": "objwhled_chair_wheel_roll_on_floor_soft_01_b00m_one",
+      "url": "/sounds/OBJWhled_Chair Wheel Roll On Floor Soft 01_B00M_ONE.mp3",
+      "loop": false
+    },
+    {
+      "id": "organic_paper_book_open_01",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/organic_paper_book_open_01.mp3",
+      "loop": false
+    },
+    {
+      "id": "uiclick_high_modern_double_click_02_b00m_one",
+      "url": "/sounds/UIClick_High Modern Double Click 02_B00M_ONE.mp3",
+      "loop": false
+    },
+    {
+      "id": "voxreac_male_sigh_03_b00m_one",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/voxreac_male_sigh_03_b00m_one.mp3",
+      "loop": false
+    },
+    {
+      "id": "watrplmb_modern_shower_running_01_b00m_one",
+      "url": "/sounds/WATRPlmb_Modern Shower Running 01_B00M_ONE.mp3",
+      "loop": false
+    },
+    {
+      "id": "36_s08_cafe_",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/36_s08_cafe_.mp3",
+      "loop": false
+    },
+    {
+      "id": "atmo_eerie_cave_water_drips_emptyness_howling_interior_wind_oppressive_loop",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/atmo_eerie_cave_water_drips_emptyness_howling_interior_wind_oppressive_loop.mp3",
+      "loop": false
+    },
+    {
+      "id": "suno_the_last_farewell_-_cello_rubato_funeral",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/suno_the_last_farewell_-_cello_rubato_funeral.mp3",
+      "loop": false
+    },
+    {
+      "id": "qp02_0184_wind_deciduous_forest_breeze_gentle_insects_2_",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/qp02_0184_wind_deciduous_forest_breeze_gentle_insects_2_.mp3",
+      "loop": false
+    },
+    {
+      "id": "dsgndron_radioactive_drone_03_jse_cd",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/dsgndron_radioactive_drone_03_jse_cd.mp3",
+      "loop": false
+    },
+    {
+      "id": "dsgnerie_horrific_unknown_01_b00m_one_2_",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/dsgnerie_horrific_unknown_01_b00m_one_2_.mp3",
+      "loop": false
+    },
+    {
+      "id": "sound-effect-hd",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/sound-effect-hd.mp3",
+      "loop": false
+    },
+    {
+      "id": "radio_fre_quence_search",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/radio_fre_quence_search.mp3",
+      "loop": false
+    },
+    {
+      "id": "radio",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/radio.mp3",
+      "loop": false
+    }
+  ],
   "segments": [
     {
       "id": "seg_1785400977416_0_6oahb",
@@ -17,7 +193,16 @@
       "breakAt": null,
       "isLeader": true,
       "isChapter": false,
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "play",
+          "soundId": "organic_paper_book_open_01",
+          "volume": 0.42,
+          "gainDb": 3.4,
+          "delay": 0,
+          "loop": false
+        }
+      ]
     },
     {
       "id": "seg_1785400977416_1_k2p4m",
@@ -40,7 +225,40 @@
       "breakAt": null,
       "isLeader": true,
       "isChapter": true,
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "play",
+          "soundId": "dsgnerie_horrific_unknown_01_b00m_one_2_",
+          "volume": 0.4,
+          "gainDb": 0,
+          "delay": 0,
+          "loop": false
+        }
+      ]
+    },
+    {
+      "id": "seg_pause_1785498846420_trl95",
+      "text": "",
+      "pause": 600,
+      "audioEvents": [
+        {
+          "action": "fadeIn",
+          "soundId": "qp02_0184_wind_deciduous_forest_breeze_gentle_insects_2_",
+          "volume": 0.29,
+          "gainDb": 10,
+          "duration": 5000,
+          "delay": 2,
+          "loop": true
+        },
+        {
+          "action": "play",
+          "soundId": "sound-effect-hd",
+          "volume": 0.62,
+          "gainDb": 0,
+          "delay": 0,
+          "loop": false
+        }
+      ]
     },
     {
       "id": "seg_1785400977416_3_1fwqd",
@@ -50,7 +268,25 @@
       "text": "- Centrale de la police, quelle est votre urgence ?",
       "breakAt": null,
       "isLeader": true,
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "fadeIn",
+          "soundId": "dsgndron_radioactive_drone_03_jse_cd",
+          "volume": 0.18,
+          "gainDb": 0,
+          "duration": 1000,
+          "delay": 0,
+          "loop": true
+        },
+        {
+          "action": "play",
+          "soundId": "radio_fre_quence_search",
+          "volume": 0.5,
+          "gainDb": 0,
+          "delay": 0,
+          "loop": false
+        }
+      ]
     },
     {
       "id": "seg_1785403481859_a_lrz90",
@@ -70,7 +306,16 @@
       "text": "Je crois que je viens de voir une jeune fille poursuivie par un homme",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": [],
+      "audioEvents": [
+        {
+          "action": "play",
+          "soundId": "radio",
+          "volume": 0.5,
+          "gainDb": 0,
+          "delay": 0,
+          "loop": false
+        }
+      ],
       "dialogueOverride": "continue"
     },
     {
@@ -132,7 +377,13 @@
       "text": "- Je vous envoie immédiatement une patrouille, Madame.",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "fadeOut",
+          "soundId": "dsgndron_radioactive_drone_03_jse_cd",
+          "duration": 1000
+        }
+      ]
     },
     {
       "id": "seg_1785400977417_10_kt7gi",
@@ -142,7 +393,17 @@
       "text": "C’est par cet appel que débuta le fait divers qui secoua la ville d’Aurora, dans le New Hampshire. Ce jour-là, </couleur:#a13d3d|Nola Kellergan/>, quinze ans,",
       "breakAt": 99,
       "isLeader": false,
-      "audioEvents": [],
+      "audioEvents": [
+        {
+          "action": "fadeIn",
+          "soundId": "voxreac_male_sigh_03_b00m_one",
+          "volume": 0.1,
+          "gainDb": 0,
+          "duration": 4000,
+          "delay": 0,
+          "loop": true
+        }
+      ],
       "bold": false,
       "italic": false,
       "underline": false,
@@ -181,7 +442,18 @@
         "holdDuration": 800,
         "fadeOutDuration": 600
       },
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "fadeOut",
+          "soundId": "voxreac_male_sigh_03_b00m_one",
+          "duration": 4000
+        },
+        {
+          "action": "fadeOut",
+          "soundId": "qp02_0184_wind_deciduous_forest_breeze_gentle_insects_2_",
+          "duration": 6000
+        }
+      ]
     },
     {
       "id": "seg_1785400977417_13_d810z",
@@ -203,7 +475,17 @@
       "text": "Tout le monde parlait du livre. Dans les rues de New York, je ne pouvais plus déambuler en paix, je ne pouvais plus faire mon jogging dans les allées de Central Park sans que des promeneurs me reconnaissent et s’exclament : « Hé, c’est Goldman !",
       "breakAt": null,
       "isLeader": true,
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "fadeIn",
+          "soundId": "crwdsprt_football_match_ambience_crowd_chant_walla_01_b00m_one",
+          "volume": 0.32,
+          "gainDb": 0,
+          "duration": 1000,
+          "delay": 0,
+          "loop": true
+        }
+      ]
     },
     {
       "id": "seg_1785400977417_15_s8ggp",
@@ -243,7 +525,13 @@
       "text": "Harry Quebert a vraiment fait ça ? »",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "fadeOut",
+          "soundId": "crwdsprt_football_match_ambience_crowd_chant_walla_01_b00m_one",
+          "duration": 1000
+        }
+      ]
     },
     {
       "id": "seg_1785403581125_a_gthnr",
@@ -253,7 +541,17 @@
       "text": "Dans le café de West Village où j’avais mes habitudes, certains clients n’hésitaient plus à s’asseoir à ma table pour me parler :",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "fadeIn",
+          "soundId": "36_s08_cafe_",
+          "volume": 0.17,
+          "gainDb": 0,
+          "duration": 2000,
+          "delay": 0,
+          "loop": true
+        }
+      ]
     },
     {
       "id": "seg_1785403581125_b_7jrp4",
@@ -319,7 +617,13 @@
       "text": "Trente ans ! Et vous avez déjà amassé tellement de pognon ! »",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": [],
+      "audioEvents": [
+        {
+          "action": "fadeOut",
+          "soundId": "36_s08_cafe_",
+          "duration": 2000
+        }
+      ],
       "dialogueOverride": "continue"
     },
     {
@@ -340,7 +644,16 @@
       "text": "avait fini par me coincer longuement devant l’ascenseur, une fois le livre terminé, pour me confier ce qu’il avait sur le cœur : « Alors, voilà ce qui est arrivé à Nola Kellergan ?",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "play",
+          "soundId": "doormetl_basement_door_handle_down_01_b00m_one",
+          "volume": 0.55,
+          "gainDb": 0,
+          "delay": 0,
+          "loop": false
+        }
+      ]
     },
     {
       "id": "seg_1785400977417_27_qk51r",
@@ -455,7 +768,17 @@
       "text": "avait éclaté quelques mois plus tôt, au début de l’été, lorsqu’on avait retrouvé </pulse:faible;lent|les restes/> d’une jeune fille disparue depuis trente-trois ans.",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": [],
+      "audioEvents": [
+        {
+          "action": "fadeIn",
+          "soundId": "suno_the_last_farewell_-_cello_rubato_funeral",
+          "volume": 0.24,
+          "gainDb": 0,
+          "duration": 1000,
+          "delay": 0,
+          "loop": false
+        }
+      ],
       "bold": false,
       "italic": false,
       "underline": false,
@@ -480,7 +803,13 @@
       "text": "et sans lesquels la petite ville d’Aurora serait certainement demeurée inconnue du reste de l’Amérique.",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "fadeOut",
+          "soundId": "suno_the_last_farewell_-_cello_rubato_funeral",
+          "duration": 4000
+        }
+      ]
     },
     {
       "id": "seg_pause_1785403393446_1_om06y",
@@ -590,7 +919,17 @@
       "text": "Au début de l’année 2008, soit environ un an et demi après être devenu, grâce à mon premier roman, la nouvelle coqueluche des lettres américaines,",
       "breakAt": null,
       "isLeader": true,
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "fadeIn",
+          "soundId": "atmo_eerie_cave_water_drips_emptyness_howling_interior_wind_oppressive_loop",
+          "volume": 0.15,
+          "gainDb": 0,
+          "duration": 5000,
+          "delay": 0,
+          "loop": true
+        }
+      ]
     },
     {
       "id": "seg_1785400977417_45_ek5if",
@@ -1215,6 +1554,995 @@
       "fontFamily": null
     }
   ],
-  "soundTracks": [],
+  "soundTracks": [
+    {
+      "id": "st_1785496634092_bjqy8t5qy_0",
+      "soundId": "organic_paper_book_open_01",
+      "startSegmentId": "seg_1785400977416_0_6oahb",
+      "endSegmentId": "seg_1785400977416_0_6oahb",
+      "column": 0,
+      "volume": 0.42,
+      "loop": false,
+      "fadeIn": 0,
+      "fadeOut": 0,
+      "delay": 0,
+      "pan": 0,
+      "panMode": "static",
+      "muted": false,
+      "_orchestrationNote": "Frottement de papier bref, sans réverbération ajoutée, attaque franche puis coupure nette. Premier plan, seul son actif à ce moment. Marque physiquement l'ouverture du livre avant tout texte narratif.",
+      "_orchestrationKeyword": "paper",
+      "_orchestrationLayer": "diegetic",
+      "_orchestrationLeitmotiv": "",
+      "_orchestrationDiegeticMode": "ponctuel",
+      "_orchestrationSunoPrompt": null,
+      "_orchestrationSunoMode": null,
+      "_orchestrationPlan": "premier",
+      "trimStart": 0,
+      "trimEnd": 1392,
+      "gainDb": 3.4
+    },
+    {
+      "id": "st_1785496634092_7peniok5s_1",
+      "soundId": "voxreac_male_sigh_03_b00m_one",
+      "startSegmentId": "seg_1785400977417_10_kt7gi",
+      "endSegmentId": "seg_pause_1785403393446_2_1gtk4",
+      "column": 0,
+      "volume": 0.1,
+      "loop": true,
+      "loopCrossfade": "long",
+      "fadeIn": 4000,
+      "fadeOut": 4000,
+      "delay": 0,
+      "pan": 0,
+      "panMode": "static",
+      "muted": false,
+      "_orchestrationNote": "Texture basse, sans attaque, quasi statique, remplace la tension précédente. Arrière-plan sous le fragment de cordes, seul élément restant après la chute du bed. Maintient une présence minimale pendant le silence actif plutôt qu'un vrai néant.",
+      "_orchestrationKeyword": "melancholic",
+      "_orchestrationLayer": "atmosphere",
+      "_orchestrationLeitmotiv": "",
+      "_orchestrationDiegeticMode": null,
+      "_orchestrationSunoPrompt": null,
+      "_orchestrationSunoMode": null,
+      "_orchestrationPlan": "arriere"
+    },
+    {
+      "id": "st_1785496634092_k48nlp9z2_2",
+      "soundId": "crwdsprt_football_match_ambience_crowd_chant_walla_01_b00m_one",
+      "startSegmentId": "seg_1785400977417_14_ff3yl",
+      "endSegmentId": "seg_1785400977417_18_zfmxy",
+      "column": 0,
+      "volume": 0.32,
+      "loop": true,
+      "loopCrossfade": "medium",
+      "fadeIn": 1000,
+      "fadeOut": 1000,
+      "delay": 0,
+      "pan": 0,
+      "panMode": "static",
+      "muted": false,
+      "_orchestrationNote": "Murmure de voix multiples indistinctes, pas de mot isolé, dynamique stable. Plan intermédiaire, coexiste avec le bed city. Rend audible la reconnaissance publique du personnage sans dialogue synthétique ajouté.",
+      "_orchestrationKeyword": "crowd",
+      "_orchestrationLayer": "diegetic",
+      "_orchestrationLeitmotiv": "",
+      "_orchestrationDiegeticMode": "sequence",
+      "_orchestrationSunoPrompt": null,
+      "_orchestrationSunoMode": null,
+      "_orchestrationPlan": "intermediaire"
+    },
+    {
+      "id": "st_1785496634092_yvi5ld2qd_3",
+      "soundId": "36_s08_cafe_",
+      "startSegmentId": "seg_1785403581125_a_gthnr",
+      "endSegmentId": "seg_1785400977417_24_7g1z7",
+      "column": 0,
+      "volume": 0.17,
+      "loop": true,
+      "loopCrossfade": "medium",
+      "fadeIn": 2000,
+      "fadeOut": 2000,
+      "delay": 0,
+      "pan": 0,
+      "panMode": "static",
+      "muted": false,
+      "_orchestrationNote": "Ambiance de café generique, conversations basses non distinctes, pas de musique de fond. Arrière-plan sous les répliques des clients. Remplace le bed city par crossfade au changement de lieu.",
+      "_orchestrationKeyword": "cafe",
+      "_orchestrationLayer": "bed",
+      "_orchestrationLeitmotiv": "",
+      "_orchestrationDiegeticMode": null,
+      "_orchestrationSunoPrompt": null,
+      "_orchestrationSunoMode": null,
+      "_orchestrationPlan": "arriere"
+    },
+    {
+      "id": "st_1785496634092_ly9qwa81w_4",
+      "soundId": "doormetl_basement_door_handle_down_01_b00m_one",
+      "startSegmentId": "seg_1785400977417_26_lg9yi",
+      "endSegmentId": "seg_1785400977417_26_lg9yi",
+      "column": 0,
+      "volume": 0.55,
+      "loop": false,
+      "fadeIn": 0,
+      "fadeOut": 0,
+      "delay": 0,
+      "pan": 0,
+      "panMode": "static",
+      "muted": false,
+      "_orchestrationNote": "Ouverture de porte lourde, mécanisme distinct, coupure nette. Premier plan, synchronisé sur le moment où le portier intercepte le narrateur. Rend l'action physique concrète plutôt que seulement racontée.",
+      "_orchestrationKeyword": "door",
+      "_orchestrationLayer": "diegetic",
+      "_orchestrationLeitmotiv": "",
+      "_orchestrationDiegeticMode": "ponctuel",
+      "_orchestrationSunoPrompt": null,
+      "_orchestrationSunoMode": null,
+      "_orchestrationPlan": "premier"
+    },
+    {
+      "id": "st_1785496634092_gd8jkhaqn_5",
+      "soundId": "suno_the_last_farewell_-_cello_rubato_funeral",
+      "startSegmentId": "seg_1785400977417_36_krjq4",
+      "endSegmentId": "seg_1785403686860_b_wgzns",
+      "column": 0,
+      "volume": 0.24,
+      "loop": false,
+      "fadeIn": 1000,
+      "fadeOut": 4000,
+      "delay": 0,
+      "pan": 0,
+      "panMode": "static",
+      "muted": false,
+      "automationPoints": [
+        {
+          "segmentId": "seg_1785403686860_b_wgzns",
+          "volume": 0.14,
+          "fadeMs": 2500
+        }
+      ],
+      "_orchestrationNote": "Version grave du motif, registre bas, légèrement désaccordé par rapport à la version aiguë initiale, sans mélodie développée. Premier plan puis recul progressif. Transformation du thème pour signaler que la vérité découverte est définitive, contrairement à l'espoir implicite de la première apparition.",
+      "_orchestrationKeyword": "cello",
+      "_orchestrationLayer": "music",
+      "_orchestrationLeitmotiv": "thème de Nola",
+      "_orchestrationDiegeticMode": null,
+      "_orchestrationSunoPrompt": null,
+      "_orchestrationSunoMode": null,
+      "_orchestrationPlan": "premier"
+    },
+    {
+      "id": "st_1785496634093_70yzk2sbx_6",
+      "soundId": "atmo_eerie_cave_water_drips_emptyness_howling_interior_wind_oppressive_loop",
+      "startSegmentId": "seg_1785400977417_44_6pzia",
+      "endSegmentId": "seg_1785400977417_48_8nwqd",
+      "column": 0,
+      "volume": 0.15,
+      "loop": true,
+      "loopCrossfade": "long",
+      "fadeIn": 5000,
+      "fadeOut": 0,
+      "delay": 0,
+      "pan": 0,
+      "panMode": "static",
+      "muted": false,
+      "automationPoints": [
+        {
+          "segmentId": "seg_1785400977417_45_ek5if",
+          "volume": 0.18,
+          "fadeMs": 2500
+        },
+        {
+          "segmentId": "seg_1785400977417_46_w30v8",
+          "volume": 0.21,
+          "fadeMs": 2500
+        },
+        {
+          "segmentId": "seg_1785400977417_47_v96a6",
+          "volume": 0.24,
+          "fadeMs": 2500
+        },
+        {
+          "segmentId": "seg_1785400977417_48_8nwqd",
+          "volume": 0.27,
+          "fadeMs": 5000
+        }
+      ],
+      "_orchestrationNote": "Drone grave qui s'épaissit progressivement, sans motif mélodique, densité qui augmente par ajout de couches granuleuses. Plan intermédiaire puis quasi premier plan en fin de segment. Traduit l'installation lente du blocage d'écriture, sans résolution ni retour au calme à la fin de l'extrait.",
+      "_orchestrationKeyword": "oppressive",
+      "_orchestrationLayer": "atmosphere",
+      "_orchestrationLeitmotiv": "",
+      "_orchestrationDiegeticMode": null,
+      "_orchestrationSunoPrompt": "drone-based textural bed, no melody, no lead instrument, non-melodic, granular sustained clusters, slowly thickening density, sound-design hybrid score, no percussion, no hook",
+      "_orchestrationSunoMode": "texture",
+      "_orchestrationPlan": "intermediaire"
+    },
+    {
+      "id": "st_1785496634093_l30oovcpj_8",
+      "soundId": "qp02_0184_wind_deciduous_forest_breeze_gentle_insects_2_",
+      "startSegmentId": "seg_pause_1785498846420_trl95",
+      "endSegmentId": "seg_pause_1785403393446_2_1gtk4",
+      "column": 1,
+      "volume": 0.29,
+      "loop": true,
+      "loopCrossfade": "medium",
+      "fadeIn": 5000,
+      "fadeOut": 6000,
+      "delay": 2,
+      "pan": 0,
+      "panMode": "static",
+      "muted": false,
+      "automationPoints": [
+        {
+          "segmentId": "seg_1785400977416_2_w3e0y",
+          "volume": 0.29,
+          "fadeMs": 0,
+          "_isAnchor": true
+        },
+        {
+          "segmentId": "seg_1785403507975_a_xz0of",
+          "volume": 0.4062500000000002,
+          "fadeMs": 2500
+        },
+        {
+          "segmentId": "seg_1785400977417_10_kt7gi",
+          "volume": 0.3124999999999998,
+          "fadeMs": 2500
+        }
+      ],
+      "_orchestrationNote": "Nappe de petite ville nocturne, grave, sans détail identifiable, non rythmique. Arrière-plan constant sous le dialogue téléphonique et la narration qui suit. Situe géographiquement la scène sans jamais capter l'attention.",
+      "_orchestrationKeyword": "rural",
+      "_orchestrationLayer": "bed",
+      "_orchestrationLeitmotiv": "",
+      "_orchestrationDiegeticMode": null,
+      "_orchestrationSunoPrompt": null,
+      "_orchestrationSunoMode": null,
+      "_orchestrationPlan": "arriere",
+      "trimStart": 0,
+      "trimEnd": 22104,
+      "gainDb": 10
+    },
+    {
+      "id": "st_1785496634093_m8ezko1ot_9",
+      "soundId": "sound-effect-hd",
+      "startSegmentId": "seg_pause_1785498846420_trl95",
+      "endSegmentId": "seg_pause_1785498846420_trl95",
+      "column": 0,
+      "volume": 0.62,
+      "loop": false,
+      "fadeIn": 0,
+      "fadeOut": 0,
+      "delay": 0,
+      "pan": 0,
+      "panMode": "static",
+      "muted": false,
+      "automationPoints": [
+        {
+          "segmentId": "seg_pause_1785498846420_trl95",
+          "volume": 0.62,
+          "fadeMs": 0,
+          "_isAnchor": true
+        }
+      ],
+      "_orchestrationNote": "Sonnerie puis décroché, attaque nette, pas de traitement. Premier plan, isolé avant que le bed ne redevienne dominant. Ancre l'appel comme événement déclencheur concret.",
+      "_orchestrationKeyword": "phone",
+      "_orchestrationLayer": "diegetic",
+      "_orchestrationLeitmotiv": "",
+      "_orchestrationDiegeticMode": "ponctuel",
+      "_orchestrationSunoPrompt": null,
+      "_orchestrationSunoMode": null,
+      "_orchestrationPlan": "premier",
+      "trimStart": 0,
+      "trimEnd": 7896,
+      "gainDb": 0
+    },
+    {
+      "id": "st_1785496634093_yicgitkvi_10",
+      "soundId": "dsgndron_radioactive_drone_03_jse_cd",
+      "startSegmentId": "seg_1785400977416_3_1fwqd",
+      "endSegmentId": "seg_1785400977417_9_kdpdf",
+      "column": 2,
+      "volume": 0.18,
+      "loop": true,
+      "loopCrossfade": "medium",
+      "fadeIn": 1000,
+      "fadeOut": 1000,
+      "delay": 0,
+      "pan": 0,
+      "panMode": "static",
+      "muted": false,
+      "automationPoints": [
+        {
+          "segmentId": "seg_1785400977416_3_1fwqd",
+          "volume": 0.55,
+          "fadeMs": 0,
+          "_isAnchor": true
+        }
+      ],
+      "_orchestrationNote": "Léger souffle continu de ligne téléphonique, sans variation de hauteur, texture granuleuse basse. Arrière-plan sous le dialogue, coexiste avec le bed rural. Donne la texture physique de l'appel sans jamais dominer les voix.",
+      "_orchestrationKeyword": "hiss",
+      "_orchestrationLayer": "diegetic",
+      "_orchestrationLeitmotiv": "",
+      "_orchestrationDiegeticMode": "sequence",
+      "_orchestrationSunoPrompt": null,
+      "_orchestrationSunoMode": null,
+      "_orchestrationPlan": "arriere"
+    },
+    {
+      "id": "st_1785496634093_i6hwe71ha_11",
+      "soundId": "dsgnerie_horrific_unknown_01_b00m_one_2_",
+      "startSegmentId": "seg_1785400977416_2_w3e0y",
+      "endSegmentId": "seg_1785400977416_2_w3e0y",
+      "column": 0,
+      "volume": 0.4,
+      "loop": false,
+      "loopCrossfade": "medium",
+      "fadeIn": 0,
+      "fadeOut": 0,
+      "delay": 0,
+      "pan": 0,
+      "panMode": "static",
+      "muted": false,
+      "automationPoints": [
+        {
+          "segmentId": "seg_1785400977416_2_w3e0y",
+          "volume": 0.4,
+          "fadeMs": 0,
+          "_isAnchor": true
+        },
+        {
+          "segmentId": "seg_1785403507975_a_xz0of",
+          "volume": 1,
+          "fadeMs": 0,
+          "_isAnchor": true
+        },
+        {
+          "segmentId": "seg_1785400977416_5_oe0qq",
+          "volume": 1,
+          "fadeMs": 1500
+        },
+        {
+          "segmentId": "seg_1785400977417_8_cxl8l",
+          "volume": 1,
+          "fadeMs": 1500
+        }
+      ],
+      "_orchestrationNote": "Drone médium continu, sans pulsation, montée progressive de volume uniquement (pas de changement de timbre). Plan intermédiaire, sous le bed et sous la voix de Deborah Cooper. Traduit l'urgence croissante du témoignage sans musique ni effet dramatique ajouté.",
+      "_orchestrationKeyword": "tension",
+      "_orchestrationLayer": "atmosphere",
+      "_orchestrationLeitmotiv": "",
+      "_orchestrationDiegeticMode": null,
+      "_orchestrationSunoPrompt": null,
+      "_orchestrationSunoMode": null,
+      "_orchestrationPlan": "intermediaire"
+    },
+    {
+      "id": "st_1785496634093_sp7j41k0f_12",
+      "soundId": "uiclick_high_modern_double_click_02_b00m_one",
+      "startSegmentId": "seg_1785400977417_9_kdpdf",
+      "endSegmentId": "seg_1785400977417_9_kdpdf",
+      "column": 3,
+      "volume": 0.5,
+      "loop": false,
+      "fadeIn": 0,
+      "fadeOut": 0,
+      "delay": 0,
+      "pan": 0,
+      "panMode": "static",
+      "muted": true,
+      "broken": true,
+      "_orchestrationNote": "Raccroché de combiné, attaque sèche et brève. Premier plan, marque la fin physique de l'appel avant la bascule narrative. Referme concrètement la scène du 911 avant le récit omniscient qui suit.",
+      "_orchestrationKeyword": "click",
+      "_orchestrationLayer": "diegetic",
+      "_orchestrationLeitmotiv": "",
+      "_orchestrationDiegeticMode": "ponctuel",
+      "_orchestrationSunoPrompt": null,
+      "_orchestrationSunoMode": null,
+      "_orchestrationPlan": "premier"
+    },
+    {
+      "id": "st_1785496634093_rwh7xpk4s_13",
+      "soundId": "muscstr_piano_play_on_strings_mid_01_b00m_one",
+      "startSegmentId": "seg_1785400977417_10_kt7gi",
+      "endSegmentId": "seg_pause_1785403393446_2_1gtk4",
+      "column": 2,
+      "volume": 0.22,
+      "loop": false,
+      "fadeIn": 3000,
+      "fadeOut": 5000,
+      "delay": 0,
+      "pan": 0,
+      "panMode": "static",
+      "muted": true,
+      "broken": true,
+      "automationPoints": [
+        {
+          "segmentId": "seg_1785400977417_12_zi530",
+          "volume": 0.12,
+          "fadeMs": 2500
+        }
+      ],
+      "_orchestrationNote": "Cordes aiguës tenues, sans vibrato marqué, entrée quasi immédiate sur le nom prononcé. Premier plan bref puis recul en fondu long. Première apparition du motif associé à la disparue, introduit au moment exact où son nom est cité.",
+      "_orchestrationKeyword": "strings",
+      "_orchestrationLayer": "music",
+      "_orchestrationLeitmotiv": "thème de Nola",
+      "_orchestrationDiegeticMode": null,
+      "_orchestrationSunoPrompt": "solo violin, high register, fragile and sparse, long sustained notes, minimal vibrato, minor key, intimate close mic, no orchestra, tempo free",
+      "_orchestrationSunoMode": "theme",
+      "_orchestrationPlan": "premier"
+    },
+    {
+      "id": "st_1785496634093_c8len5mjf_14",
+      "soundId": "clockmisc_soviet_desk_table_clock_bell_ring_light_01_b00m_one",
+      "startSegmentId": "seg_1785400977417_13_d810z",
+      "endSegmentId": "seg_1785400977417_13_d810z",
+      "column": 0,
+      "volume": 0.55,
+      "loop": false,
+      "fadeIn": 0,
+      "fadeOut": 0,
+      "delay": 0,
+      "pan": 0,
+      "panMode": "static",
+      "muted": true,
+      "broken": true,
+      "_orchestrationNote": "Un seul tic d'horloge mécanique, sec, sans réverbération longue. Premier plan, isolé, aucune autre couche active au même instant. Marque le saut de 33 ans par un objet concret plutôt que par un effet abstrait.",
+      "_orchestrationKeyword": "clock",
+      "_orchestrationLayer": "transition",
+      "_orchestrationLeitmotiv": "",
+      "_orchestrationDiegeticMode": null,
+      "_orchestrationSunoPrompt": null,
+      "_orchestrationSunoMode": null,
+      "_orchestrationPlan": "premier"
+    },
+    {
+      "id": "st_1785496634093_4f3all57z_15",
+      "soundId": "ambtran_city_bus_ride_german_slow_01_b00m_one",
+      "startSegmentId": "seg_1785400977417_13_d810z",
+      "endSegmentId": "seg_1785400977417_18_zfmxy",
+      "column": 1,
+      "volume": 0.18,
+      "loop": true,
+      "loopCrossfade": "medium",
+      "fadeIn": 3000,
+      "fadeOut": 3000,
+      "delay": 0,
+      "pan": 0,
+      "panMode": "static",
+      "muted": true,
+      "broken": true,
+      "_orchestrationNote": "Nappe urbaine générique, circulation lointaine, pas de voix distincte. Arrière-plan constant sous le jogging et la foule. Situe New York sans détail spécifique.",
+      "_orchestrationKeyword": "city",
+      "_orchestrationLayer": "bed",
+      "_orchestrationLeitmotiv": "",
+      "_orchestrationDiegeticMode": null,
+      "_orchestrationSunoPrompt": null,
+      "_orchestrationSunoMode": null,
+      "_orchestrationPlan": "arriere"
+    },
+    {
+      "id": "st_1785496634093_gzjprz6pv_16",
+      "soundId": "watrplmb_modern_shower_running_01_b00m_one",
+      "startSegmentId": "seg_1785400977417_14_ff3yl",
+      "endSegmentId": "seg_1785400977417_15_s8ggp",
+      "column": 2,
+      "volume": 0.4,
+      "loop": true,
+      "loopCrossfade": "none",
+      "fadeIn": 500,
+      "fadeOut": 500,
+      "delay": 0,
+      "pan": 0,
+      "panMode": "static",
+      "muted": true,
+      "broken": true,
+      "_orchestrationNote": "Foulées régulières sur surface dure, cadence modérée, pas de souffle audible. Plan intermédiaire, sous la foule. Illustre concrètement le jogging mentionné dans Central Park.",
+      "_orchestrationKeyword": "running",
+      "_orchestrationLayer": "diegetic",
+      "_orchestrationLeitmotiv": "",
+      "_orchestrationDiegeticMode": "sequence",
+      "_orchestrationSunoPrompt": null,
+      "_orchestrationSunoMode": null,
+      "_orchestrationPlan": "intermediaire"
+    },
+    {
+      "id": "st_1785496634093_3skcemkde_17",
+      "soundId": "foodtware_plate_lift_soft_03_b00m_one",
+      "startSegmentId": "seg_1785403581125_a_gthnr",
+      "endSegmentId": "seg_1785400977417_24_7g1z7",
+      "column": 1,
+      "volume": 0.28,
+      "loop": true,
+      "loopCrossfade": "medium",
+      "fadeIn": 1000,
+      "fadeOut": 1000,
+      "delay": 0,
+      "pan": 0,
+      "panMode": "static",
+      "muted": true,
+      "broken": true,
+      "_orchestrationNote": "Tintements de tasses et couverts espacés, irréguliers, pas de rythme régulier. Plan intermédiaire, sous les dialogues des clients. Détail concret sans portée narrative, donne de la texture physique au café.",
+      "_orchestrationKeyword": "tableware",
+      "_orchestrationLayer": "diegetic",
+      "_orchestrationLeitmotiv": "",
+      "_orchestrationDiegeticMode": "sequence",
+      "_orchestrationSunoPrompt": null,
+      "_orchestrationSunoMode": null,
+      "_orchestrationPlan": "intermediaire"
+    },
+    {
+      "id": "st_1785496634093_rxkf9f02g_18",
+      "soundId": "ambind_storage_hall_daytime_activity_front_distant_plane_01_b00m_one",
+      "startSegmentId": "seg_1785400977417_25_j67p5",
+      "endSegmentId": "seg_1785400977417_29_vvo9j",
+      "column": 1,
+      "volume": 0.15,
+      "loop": true,
+      "loopCrossfade": "medium",
+      "fadeIn": 2000,
+      "fadeOut": 2000,
+      "delay": 0,
+      "pan": 0,
+      "panMode": "static",
+      "muted": true,
+      "broken": true,
+      "_orchestrationNote": "Résonance de hall d'immeuble, plafond haut, pas de voix. Arrière-plan sous la scène du portier. Remplace le bed cafe, marque le passage à un espace plus sec acoustiquement.",
+      "_orchestrationKeyword": "hall",
+      "_orchestrationLayer": "bed",
+      "_orchestrationLeitmotiv": "",
+      "_orchestrationDiegeticMode": null,
+      "_orchestrationSunoPrompt": null,
+      "_orchestrationSunoMode": null,
+      "_orchestrationPlan": "arriere"
+    },
+    {
+      "id": "st_1785496634093_lgxs692at_19",
+      "soundId": "mechswtch_elevator_push_button_01_b00m_one",
+      "startSegmentId": "seg_1785400977417_25_j67p5",
+      "endSegmentId": "seg_1785400977417_25_j67p5",
+      "column": 0,
+      "volume": 0.5,
+      "loop": false,
+      "fadeIn": 0,
+      "fadeOut": 300,
+      "delay": 0,
+      "pan": 0,
+      "panMode": "static",
+      "muted": true,
+      "broken": true,
+      "_orchestrationNote": "Signal d'arrivée d'ascenseur, timbre métallique bref. Premier plan isolé. Détail neutre qui situe physiquement la scène devant l'ascenseur avant la réplique du portier.",
+      "_orchestrationKeyword": "elevator",
+      "_orchestrationLayer": "diegetic",
+      "_orchestrationLeitmotiv": "",
+      "_orchestrationDiegeticMode": "ponctuel",
+      "_orchestrationSunoPrompt": null,
+      "_orchestrationSunoMode": null,
+      "_orchestrationPlan": "premier"
+    },
+    {
+      "id": "st_1785496634093_s55pdqd4v_20",
+      "soundId": "muscstr_old_violin_dramatic_scratch_tonal_change_medium_low_01_b00m_one",
+      "startSegmentId": "seg_1785400977417_26_lg9yi",
+      "endSegmentId": "seg_1785400977417_26_lg9yi",
+      "column": 2,
+      "volume": 0.2,
+      "loop": false,
+      "fadeIn": 500,
+      "fadeOut": 1500,
+      "delay": 0,
+      "pan": 0,
+      "panMode": "static",
+      "muted": true,
+      "broken": true,
+      "_orchestrationNote": "Fragment très court du motif aigu déjà entendu, deux ou trois notes seulement, pas de développement. Plan intermédiaire, sous la réplique du portier. Rappel discret du thème sans nouvelle citation complète, traitement en écho.",
+      "_orchestrationKeyword": "violin",
+      "_orchestrationLayer": "music",
+      "_orchestrationLeitmotiv": "thème de Nola",
+      "_orchestrationDiegeticMode": null,
+      "_orchestrationSunoPrompt": null,
+      "_orchestrationSunoMode": null,
+      "_orchestrationPlan": "intermediaire"
+    },
+    {
+      "id": "st_1785496634093_y27lil11n_21",
+      "soundId": "ambtown_pedestrian_walking_in_the_city_at_night_01_b00m_one",
+      "startSegmentId": "seg_1785403655914_a_u8zlh",
+      "endSegmentId": "seg_1785400977417_35_eudnv",
+      "column": 0,
+      "volume": 0.16,
+      "loop": true,
+      "loopCrossfade": "medium",
+      "fadeIn": 2000,
+      "fadeOut": 2500,
+      "delay": 0,
+      "pan": 0,
+      "panMode": "static",
+      "muted": true,
+      "broken": true,
+      "_orchestrationNote": "Retour de la nappe urbaine générique, identique au début de la scène. Arrière-plan sous la musique et les détails diégétiques. Referme la boucle géographique avant la rupture du segment 42.",
+      "_orchestrationKeyword": "city",
+      "_orchestrationLayer": "bed",
+      "_orchestrationLeitmotiv": "",
+      "_orchestrationDiegeticMode": null,
+      "_orchestrationSunoPrompt": null,
+      "_orchestrationSunoMode": null,
+      "_orchestrationPlan": "arriere"
+    },
+    {
+      "id": "st_1785496634093_avic9cfhz_22",
+      "soundId": "muscsong_tenor_saxophone_jazz_lick_03_b00m_one",
+      "startSegmentId": "seg_1785403655914_a_u8zlh",
+      "endSegmentId": "seg_1785400977417_35_eudnv",
+      "column": 1,
+      "volume": 0.3,
+      "loop": true,
+      "loopCrossfade": "medium",
+      "fadeIn": 2000,
+      "fadeOut": 1000,
+      "delay": 0,
+      "pan": 0,
+      "panMode": "static",
+      "muted": true,
+      "broken": true,
+      "automationPoints": [
+        {
+          "segmentId": "seg_1785400977417_32_08u8h",
+          "volume": 0.14,
+          "fadeMs": 1500
+        },
+        {
+          "segmentId": "seg_1785400977417_34_y2ph6",
+          "volume": 0.28,
+          "fadeMs": 1500
+        }
+      ],
+      "_orchestrationNote": "Trio jazz léger, basse en walking, batterie balai, dynamique enjouée sans excès. Plan intermédiaire, sous le bed city, descend pendant la mention des médias puis remonte sur le chiffre d'affaires évoqué. Crée un contrepoint ironique entre l'euphorie du succès et le sujet réel du livre, une disparition non résolue.",
+      "_orchestrationKeyword": "jazz",
+      "_orchestrationLayer": "music",
+      "_orchestrationLeitmotiv": "",
+      "_orchestrationDiegeticMode": null,
+      "_orchestrationSunoPrompt": "light jazz trio, upright bass and brushed drums, playful walking bass line, upbeat but restrained, mid tempo 100bpm, warm vintage recording, no vocals",
+      "_orchestrationSunoMode": "theme",
+      "_orchestrationPlan": "intermediaire"
+    },
+    {
+      "id": "st_1785496634093_54v3li76o_23",
+      "soundId": "ambpark_park_children_traffic_siren_01_b00m_one",
+      "startSegmentId": "seg_1785400977417_31_umwrc",
+      "endSegmentId": "seg_1785400977417_31_umwrc",
+      "column": 2,
+      "volume": 0.3,
+      "loop": false,
+      "fadeIn": 0,
+      "fadeOut": 500,
+      "delay": 0,
+      "pan": -0.15,
+      "panMode": "static",
+      "muted": true,
+      "broken": true,
+      "_orchestrationNote": "Klaxon isolé, lointain, sans écho prononcé. Arrière-plan, sous la musique jazz. Détail urbain neutre qui n'appuie aucune intention dramatique, simple texture de vraisemblance.",
+      "_orchestrationKeyword": "traffic",
+      "_orchestrationLayer": "diegetic",
+      "_orchestrationLeitmotiv": "",
+      "_orchestrationDiegeticMode": "ponctuel",
+      "_orchestrationSunoPrompt": null,
+      "_orchestrationSunoMode": null,
+      "_orchestrationPlan": "arriere"
+    },
+    {
+      "id": "st_1785496634093_y5uy944eh_24",
+      "soundId": "comradio_radio_turn_on_and_off_short_01_b00m_one",
+      "startSegmentId": "seg_1785400977417_32_08u8h",
+      "endSegmentId": "seg_1785400977417_32_08u8h",
+      "column": 2,
+      "volume": 0.32,
+      "loop": false,
+      "fadeIn": 300,
+      "fadeOut": 500,
+      "delay": 0,
+      "pan": 0,
+      "panMode": "static",
+      "muted": true,
+      "broken": true,
+      "_orchestrationNote": "Bribe de voix radiophonique traitée, basse fidélité, coupée rapidement. Plan intermédiaire, sous la musique. Illustre concrètement la saturation médiatique évoquée dans la phrase, sans citation intelligible.",
+      "_orchestrationKeyword": "radio",
+      "_orchestrationLayer": "diegetic",
+      "_orchestrationLeitmotiv": "",
+      "_orchestrationDiegeticMode": "ponctuel",
+      "_orchestrationSunoPrompt": null,
+      "_orchestrationSunoMode": null,
+      "_orchestrationPlan": "intermediaire"
+    },
+    {
+      "id": "st_1785496634093_s6h9puq40_25",
+      "soundId": "metlimpt_big_impact_low_dull_01_b00m_one",
+      "startSegmentId": "seg_1785400977417_36_krjq4",
+      "endSegmentId": "seg_1785400977417_36_krjq4",
+      "column": 1,
+      "volume": 0.65,
+      "loop": false,
+      "fadeIn": 0,
+      "fadeOut": 0,
+      "delay": 0,
+      "pan": 0,
+      "panMode": "static",
+      "muted": true,
+      "broken": true,
+      "_orchestrationNote": "Impact grave unique, sub-bass, sans traînée ni réverbération longue, pas un stinger d'horreur générique. Premier plan, seul son au moment exact du mot. Marque la bascule vers la gravité réelle du récit par une coupure franche du paysage sonore précédent.",
+      "_orchestrationKeyword": "impact",
+      "_orchestrationLayer": "transition",
+      "_orchestrationLeitmotiv": "",
+      "_orchestrationDiegeticMode": null,
+      "_orchestrationSunoPrompt": null,
+      "_orchestrationSunoMode": null,
+      "_orchestrationPlan": "premier"
+    },
+    {
+      "id": "st_1785496634094_m14319egu_26",
+      "soundId": "dsgnerie_musical_pad_dark_space_horror_02_b00m_one",
+      "startSegmentId": "seg_1785403686860_a_a9wyf",
+      "endSegmentId": "seg_pause_1785403393446_1_om06y",
+      "column": 1,
+      "volume": 0.16,
+      "loop": true,
+      "loopCrossfade": "long",
+      "fadeIn": 3000,
+      "fadeOut": 4000,
+      "delay": 0,
+      "pan": 0,
+      "panMode": "static",
+      "muted": true,
+      "broken": true,
+      "_orchestrationNote": "Drone grave continu, texture granuleuse, sans pulsation. Plan intermédiaire, seul élément actif après le retrait du cello. Maintient la gravité pendant la pause existante du segment 45 sans reprendre le bed urbain.",
+      "_orchestrationKeyword": "ominous",
+      "_orchestrationLayer": "atmosphere",
+      "_orchestrationLeitmotiv": "",
+      "_orchestrationDiegeticMode": null,
+      "_orchestrationSunoPrompt": null,
+      "_orchestrationSunoMode": null,
+      "_orchestrationPlan": "intermediaire"
+    },
+    {
+      "id": "st_1785496634094_he3r13ft6_27",
+      "soundId": "comtype_vintage_typewriter_paper_bail_open_and_close_01_b00m_one_3",
+      "startSegmentId": "seg_1785400977417_38_6pgtt",
+      "endSegmentId": "seg_1785400977417_38_6pgtt",
+      "column": 0,
+      "volume": 0.28,
+      "loop": false,
+      "fadeIn": 500,
+      "fadeOut": 1000,
+      "delay": 0,
+      "pan": 0,
+      "panMode": "static",
+      "muted": true,
+      "broken": true,
+      "_orchestrationNote": "Quelques frappes espacées de machine à écrire, dynamique faible, avant fondu. Plan intermédiaire, seul élément présent. S'installe légèrement avant que le titre de partie ne soit énoncé, pré-lap vers le monde de l'écriture.",
+      "_orchestrationKeyword": "typewriter",
+      "_orchestrationLayer": "transition",
+      "_orchestrationLeitmotiv": "",
+      "_orchestrationDiegeticMode": null,
+      "_orchestrationSunoPrompt": null,
+      "_orchestrationSunoMode": null,
+      "_orchestrationPlan": "intermediaire"
+    },
+    {
+      "id": "st_1785496634094_9y18eyc6g_28",
+      "soundId": "metltonl_impact_piano_string_damped_hard_03_b00m_one",
+      "startSegmentId": "seg_1785400977417_38_6pgtt",
+      "endSegmentId": "seg_1785400977417_38_6pgtt",
+      "column": 1,
+      "volume": 0.2,
+      "loop": false,
+      "fadeIn": 1000,
+      "fadeOut": 2000,
+      "delay": 0,
+      "pan": 0,
+      "panMode": "static",
+      "muted": true,
+      "broken": true,
+      "_orchestrationNote": "Un seul accord de piano tenu, sans suite mélodique, dissonance légère non résolue. Plan intermédiaire, bref. Annonce le malaise du romancier avant même le titre du chapitre, sans reprendre un motif déjà entendu.",
+      "_orchestrationKeyword": "piano",
+      "_orchestrationLayer": "music",
+      "_orchestrationLeitmotiv": "",
+      "_orchestrationDiegeticMode": null,
+      "_orchestrationSunoPrompt": "solo piano, single sustained chord, minor tonality, uneasy resolution, no melody progression, short duration, intimate recording",
+      "_orchestrationSunoMode": "theme",
+      "_orchestrationPlan": "intermediaire"
+    },
+    {
+      "id": "st_1785496634094_3jwbbpqc6_29",
+      "soundId": "muscstr_oriental_strings_chord_minor_02_b00m_one",
+      "startSegmentId": "seg_1785400977417_39_19owc",
+      "endSegmentId": "seg_1785400977417_39_19owc",
+      "column": 0,
+      "volume": 0.12,
+      "loop": false,
+      "fadeIn": 500,
+      "fadeOut": 2000,
+      "delay": 0,
+      "pan": 0,
+      "panMode": "static",
+      "muted": true,
+      "broken": true,
+      "_orchestrationNote": "Note tenue unique, très basse en volume, sans développement mélodique. Plan intermédiaire, quasi imperceptible. Écho ténu du motif sur le titre 'Dans les abîmes de la mémoire', suggère que la mémoire de l'affaire innerve tout le récit à venir.",
+      "_orchestrationKeyword": "strings",
+      "_orchestrationLayer": "music",
+      "_orchestrationLeitmotiv": "thème de Nola",
+      "_orchestrationDiegeticMode": null,
+      "_orchestrationSunoPrompt": null,
+      "_orchestrationSunoMode": null,
+      "_orchestrationPlan": "intermediaire"
+    },
+    {
+      "id": "st_1785496634094_dhmcdpfpf_30",
+      "soundId": "objwhled_chair_wheel_roll_on_floor_soft_01_b00m_one",
+      "startSegmentId": "seg_1785400977417_40_gytgi",
+      "endSegmentId": "seg_1785400977417_48_8nwqd",
+      "column": 1,
+      "volume": 0.14,
+      "loop": true,
+      "loopCrossfade": "medium",
+      "fadeIn": 4000,
+      "fadeOut": 5000,
+      "delay": 0,
+      "pan": 0,
+      "panMode": "static",
+      "muted": true,
+      "broken": true,
+      "_orchestrationNote": "Résonance de bureau fermé, silence de fond, aucun élément extérieur audible. Arrière-plan constant du dialogue jusqu'à la fin de l'extrait. Isole le lieu d'écriture du reste du monde, cohérent avec l'enfermement progressif du personnage.",
+      "_orchestrationKeyword": "office",
+      "_orchestrationLayer": "bed",
+      "_orchestrationLeitmotiv": "",
+      "_orchestrationDiegeticMode": null,
+      "_orchestrationSunoPrompt": null,
+      "_orchestrationSunoMode": null,
+      "_orchestrationPlan": "arriere"
+    },
+    {
+      "id": "st_1785496634094_ocjruuxsj_31",
+      "soundId": "clockmisc_soviet_desk_table_clock_bell_ring_01_b00m_one",
+      "startSegmentId": "seg_1785400977417_40_gytgi",
+      "endSegmentId": "seg_pause_1785403393446_0_4gdou",
+      "column": 0,
+      "volume": 0.22,
+      "loop": true,
+      "loopCrossfade": "medium",
+      "fadeIn": 1000,
+      "fadeOut": 1000,
+      "delay": 0,
+      "pan": 0,
+      "panMode": "static",
+      "muted": true,
+      "broken": true,
+      "_orchestrationNote": "Tic-tac régulier, tempo lent, mécanique et non électronique. Plan intermédiaire, sous le dialogue et sous la pause qui suit. Rend sensible le temps qui passe pendant l'échange entre Harry et Marcus.",
+      "_orchestrationKeyword": "clock",
+      "_orchestrationLayer": "diegetic",
+      "_orchestrationLeitmotiv": "",
+      "_orchestrationDiegeticMode": "sequence",
+      "_orchestrationSunoPrompt": null,
+      "_orchestrationSunoMode": null,
+      "_orchestrationPlan": "intermediaire"
+    },
+    {
+      "id": "st_1785496634094_sg95l3syo_32",
+      "soundId": "metltonl_impact_piano_string_damped_hard_04_b00m_one",
+      "startSegmentId": "seg_1785400977417_40_gytgi",
+      "endSegmentId": "seg_1785400977417_43_lnfxu",
+      "column": 2,
+      "volume": 0.22,
+      "loop": true,
+      "loopCrossfade": "long",
+      "fadeIn": 3000,
+      "fadeOut": 3000,
+      "delay": 0,
+      "pan": 0,
+      "panMode": "static",
+      "muted": true,
+      "broken": true,
+      "automationPoints": [
+        {
+          "segmentId": "seg_1785400977417_40_gytgi",
+          "volume": 0.1,
+          "fadeMs": 1500
+        },
+        {
+          "segmentId": "seg_1785400977417_41_biwt2",
+          "volume": 0.18,
+          "fadeMs": 1500
+        },
+        {
+          "segmentId": "seg_1785400977417_42_h1m3t",
+          "volume": 0.1,
+          "fadeMs": 1500
+        },
+        {
+          "segmentId": "seg_1785400977417_43_lnfxu",
+          "volume": 0.2,
+          "fadeMs": 1500
+        }
+      ],
+      "_orchestrationNote": "Piano très épars, notes isolées, chaleur discrète sans emphase. Plan intermédiaire, descend sur les répliques de Harry, remonte légèrement sur les hésitations de Marcus. Porte le doute de l'apprenti écrivain sans rattacher la musique à un personnage précis.",
+      "_orchestrationKeyword": "piano",
+      "_orchestrationLayer": "music",
+      "_orchestrationLeitmotiv": "",
+      "_orchestrationDiegeticMode": null,
+      "_orchestrationSunoPrompt": "sparse solo piano, warm but uncertain mood, minor key, slow tempo 58bpm, close intimate recording, no percussion, gentle dynamics",
+      "_orchestrationSunoMode": "theme",
+      "_orchestrationPlan": "intermediaire"
+    },
+    {
+      "id": "st_1785496634094_n208klqg2_33",
+      "soundId": "comtype_vintage_typewriter_paper_bail_open_and_close_01_b00m_one",
+      "startSegmentId": "seg_1785400977417_44_6pzia",
+      "endSegmentId": "seg_1785400977417_44_6pzia",
+      "column": 2,
+      "volume": 0.35,
+      "loop": false,
+      "fadeIn": 0,
+      "fadeOut": 500,
+      "delay": 0,
+      "pan": 0,
+      "panMode": "static",
+      "muted": true,
+      "broken": true,
+      "_orchestrationNote": "Deux ou trois frappes isolées puis arrêt net, pas de reprise. Premier plan, unique événement diégétique de cette section. Signale une tentative d'écriture qui s'interrompt, plutôt que de décrire verbalement le blocage.",
+      "_orchestrationKeyword": "typewriter",
+      "_orchestrationLayer": "diegetic",
+      "_orchestrationLeitmotiv": "",
+      "_orchestrationDiegeticMode": "ponctuel",
+      "_orchestrationSunoPrompt": null,
+      "_orchestrationSunoMode": null,
+      "_orchestrationPlan": "premier"
+    },
+    {
+      "id": "st_1785500496392_bqyhfvhdm",
+      "soundId": "radio_fre_quence_search",
+      "startSegmentId": "seg_1785400977416_3_1fwqd",
+      "endSegmentId": "seg_1785400977416_3_1fwqd",
+      "column": 3,
+      "volume": 0.5,
+      "fadeIn": 0,
+      "fadeOut": 0,
+      "delay": 0,
+      "loop": false,
+      "muted": false,
+      "broken": false,
+      "automationPoints": [
+        {
+          "segmentId": "seg_1785400977416_3_1fwqd",
+          "volume": 0.5,
+          "fadeMs": 0,
+          "_isAnchor": true
+        }
+      ],
+      "trimStart": 0,
+      "trimEnd": 7848,
+      "gainDb": 0
+    },
+    {
+      "id": "st_1785500505295_x77ax3rlb",
+      "soundId": "radio",
+      "startSegmentId": "seg_1785403507975_a_xz0of",
+      "endSegmentId": "seg_1785400977417_9_kdpdf",
+      "column": 4,
+      "volume": 0.5,
+      "fadeIn": 0,
+      "fadeOut": 0,
+      "delay": 0,
+      "loop": false,
+      "muted": false,
+      "broken": false,
+      "automationPoints": [
+        {
+          "segmentId": "seg_1785400977416_3_1fwqd",
+          "volume": 0.3,
+          "fadeMs": 0,
+          "_isAnchor": true
+        },
+        {
+          "segmentId": "seg_pause_1785498846420_trl95",
+          "volume": 0.3000000000000001,
+          "fadeMs": 0,
+          "_isAnchor": true
+        }
+      ]
+    }
+  ],
   "vfxTracks": []
 }
