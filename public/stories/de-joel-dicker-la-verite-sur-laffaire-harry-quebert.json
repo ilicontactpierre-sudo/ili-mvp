@@ -388,7 +388,7 @@
     {
       "id": "seg_pause_1785508046161_4573n",
       "text": "",
-      "pause": 1000,
+      "pause": 2000,
       "audioEvents": [
         {
           "action": "play",
@@ -505,7 +505,7 @@
         {
           "action": "fadeIn",
           "soundId": "13_s03_ville",
-          "volume": 0.18,
+          "volume": 0.25,
           "gainDb": 0,
           "duration": 3000,
           "delay": 0,
@@ -526,7 +526,7 @@
         {
           "action": "fadeIn",
           "soundId": "crwdconv_crowd_medium_talking_small_room_02_b00m_one",
-          "volume": 0.32,
+          "volume": 0.2,
           "gainDb": 0,
           "duration": 1000,
           "delay": 0,
@@ -576,7 +576,7 @@
         {
           "action": "fadeOut",
           "soundId": "crwdconv_crowd_medium_talking_small_room_02_b00m_one",
-          "duration": 1000
+          "duration": 3261
         },
         {
           "action": "fadeOut",
@@ -1877,11 +1877,11 @@
       "startSegmentId": "seg_1785400977417_14_ff3yl",
       "endSegmentId": "seg_1785400977417_18_zfmxy",
       "column": 0,
-      "volume": 0.32,
+      "volume": 0.2,
       "loop": true,
       "loopCrossfade": "medium",
       "fadeIn": 1000,
-      "fadeOut": 1000,
+      "fadeOut": 3261,
       "delay": 0,
       "pan": 0,
       "panMode": "static",
@@ -1893,7 +1893,15 @@
       "_orchestrationDiegeticMode": "sequence",
       "_orchestrationSunoPrompt": null,
       "_orchestrationSunoMode": null,
-      "_orchestrationPlan": "intermediaire"
+      "_orchestrationPlan": "intermediaire",
+      "automationPoints": [
+        {
+          "segmentId": "seg_1785400977417_14_ff3yl",
+          "volume": 0.2,
+          "fadeMs": 0,
+          "_isAnchor": true
+        }
+      ]
     },
     {
       "id": "st_1785496634092_yvi5ld2qd_3",
@@ -2270,7 +2278,7 @@
       "startSegmentId": "seg_1785400977417_13_d810z",
       "endSegmentId": "seg_1785400977417_18_zfmxy",
       "column": 1,
-      "volume": 0.18,
+      "volume": 0.25,
       "loop": true,
       "loopCrossfade": "medium",
       "fadeIn": 3000,
@@ -2282,8 +2290,9 @@
       "automationPoints": [
         {
           "segmentId": "seg_1785400977417_13_d810z",
-          "volume": 0.36,
-          "fadeMs": 600
+          "volume": 0.25,
+          "fadeMs": 0,
+          "_isAnchor": true
         }
       ],
       "_orchestrationNote": "Nappe urbaine générique, circulation lointaine, pas de voix distincte. Arrière-plan constant sous le jogging et la foule. Situe New York sans détail spécifique.",
@@ -2317,7 +2326,15 @@
       "_orchestrationDiegeticMode": "sequence",
       "_orchestrationSunoPrompt": null,
       "_orchestrationSunoMode": null,
-      "_orchestrationPlan": "intermediaire"
+      "_orchestrationPlan": "intermediaire",
+      "automationPoints": [
+        {
+          "segmentId": "seg_1785403581125_a_gthnr",
+          "volume": 0.15,
+          "fadeMs": 0,
+          "_isAnchor": true
+        }
+      ]
     },
     {
       "id": "st_1785496634093_rxkf9f02g_18",
