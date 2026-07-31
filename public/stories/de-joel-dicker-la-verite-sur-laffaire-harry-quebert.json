@@ -14,12 +14,7 @@
     },
     {
       "id": "ambpark_park_children_traffic_siren_01_b00m_one",
-      "url": "/sounds/AMBPark_Park Children Traffic Siren 01_B00M_ONE.mp3",
-      "loop": false
-    },
-    {
-      "id": "ambtown_pedestrian_walking_in_the_city_at_night_01_b00m_one",
-      "url": "/sounds/AMBTown_Pedestrian Walking In The City At Night 01_B00M_ONE.mp3",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/ambpark_park_children_traffic_siren_01_b00m_one.mp3",
       "loop": false
     },
     {
@@ -30,11 +25,6 @@
     {
       "id": "clockmisc_soviet_desk_table_clock_bell_ring_quiet_01_b00m_one",
       "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/clockmisc_soviet_desk_table_clock_bell_ring_quiet_01_b00m_one.mp3",
-      "loop": false
-    },
-    {
-      "id": "comradio_radio_turn_on_and_off_short_01_b00m_one",
-      "url": "/sounds/COMRadio_Radio Turn On And Off Short 01_B00M_ONE.mp3",
       "loop": false
     },
     {
@@ -75,11 +65,6 @@
     {
       "id": "metltonl_impact_piano_string_damped_hard_04_b00m_one",
       "url": "/sounds/METLTonl_Impact Piano String Damped Hard 04_B00M_ONE.mp3",
-      "loop": false
-    },
-    {
-      "id": "muscsong_tenor_saxophone_jazz_lick_03_b00m_one",
-      "url": "/sounds/MUSCSong_Tenor Saxophone Jazz Lick 03_B00M_ONE.mp3",
       "loop": false
     },
     {
@@ -175,6 +160,16 @@
     {
       "id": "drame_die_stem_wind",
       "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/drame_die_stem_wind.mp3",
+      "loop": false
+    },
+    {
+      "id": "groupe_de_jazz",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/groupe_de_jazz.mp3",
+      "loop": false
+    },
+    {
+      "id": "bienvenue_4",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/bienvenue_4.mp3",
       "loop": false
     }
   ],
@@ -787,7 +782,26 @@
       "text": "Le Tout-New York se passionnait pour mon livre; il y avait deux semaines qu’il était paru",
       "breakAt": null,
       "isLeader": true,
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "fadeIn",
+          "soundId": "13_s03_ville",
+          "volume": 0.16,
+          "gainDb": 0,
+          "duration": 2000,
+          "delay": 0,
+          "loop": true
+        },
+        {
+          "action": "fadeIn",
+          "soundId": "groupe_de_jazz",
+          "volume": 0.3,
+          "gainDb": 0,
+          "duration": 2000,
+          "delay": 0,
+          "loop": true
+        }
+      ]
     },
     {
       "id": "seg_1785403655914_b_ltikd",
@@ -807,7 +821,17 @@
       "text": "Tout le monde voulait savoir ce qui s’était passé à Aurora en 1975.",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "fadeIn",
+          "soundId": "ambpark_park_children_traffic_siren_01_b00m_one",
+          "volume": 0.3,
+          "gainDb": 0,
+          "duration": 1500,
+          "delay": 0,
+          "loop": false
+        }
+      ]
     },
     {
       "id": "seg_1785400977417_32_08u8h",
@@ -817,7 +841,16 @@
       "text": "On en parlait partout : à la télévision, à la radio, dans les journaux.",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "play",
+          "soundId": "bienvenue_4",
+          "volume": 0.32,
+          "gainDb": 0,
+          "delay": 0,
+          "loop": false
+        }
+      ]
     },
     {
       "id": "seg_1785400977417_33_9io6h",
@@ -847,7 +880,18 @@
       "text": "L’affaire qui agitait l’Amérique, et dont j’avais tiré l’essence de mon récit,",
       "breakAt": null,
       "isLeader": true,
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "fadeOut",
+          "soundId": "13_s03_ville",
+          "duration": 2500
+        },
+        {
+          "action": "fadeOut",
+          "soundId": "groupe_de_jazz",
+          "duration": 1000
+        }
+      ]
     },
     {
       "id": "seg_1785400977417_36_krjq4",
@@ -2165,7 +2209,6 @@
       "pan": 0,
       "panMode": "static",
       "muted": false,
-      "broken": true,
       "_orchestrationNote": "Résonance de hall d'immeuble, plafond haut, pas de voix. Arrière-plan sous la scène du portier. Remplace le bed cafe, marque le passage à un espace plus sec acoustiquement.",
       "_orchestrationKeyword": "hall",
       "_orchestrationLayer": "bed",
@@ -2237,7 +2280,7 @@
     },
     {
       "id": "st_1785496634093_y27lil11n_21",
-      "soundId": "ambtown_pedestrian_walking_in_the_city_at_night_01_b00m_one",
+      "soundId": "13_s03_ville",
       "startSegmentId": "seg_1785403655914_a_u8zlh",
       "endSegmentId": "seg_1785400977417_35_eudnv",
       "column": 0,
@@ -2249,8 +2292,7 @@
       "delay": 0,
       "pan": 0,
       "panMode": "static",
-      "muted": true,
-      "broken": true,
+      "muted": false,
       "_orchestrationNote": "Retour de la nappe urbaine générique, identique au début de la scène. Arrière-plan sous la musique et les détails diégétiques. Referme la boucle géographique avant la rupture du segment 42.",
       "_orchestrationKeyword": "city",
       "_orchestrationLayer": "bed",
@@ -2262,7 +2304,7 @@
     },
     {
       "id": "st_1785496634093_avic9cfhz_22",
-      "soundId": "muscsong_tenor_saxophone_jazz_lick_03_b00m_one",
+      "soundId": "groupe_de_jazz",
       "startSegmentId": "seg_1785403655914_a_u8zlh",
       "endSegmentId": "seg_1785400977417_35_eudnv",
       "column": 1,
@@ -2274,8 +2316,7 @@
       "delay": 0,
       "pan": 0,
       "panMode": "static",
-      "muted": true,
-      "broken": true,
+      "muted": false,
       "automationPoints": [
         {
           "segmentId": "seg_1785400977417_32_08u8h",
@@ -2295,7 +2336,10 @@
       "_orchestrationDiegeticMode": null,
       "_orchestrationSunoPrompt": "light jazz trio, upright bass and brushed drums, playful walking bass line, upbeat but restrained, mid tempo 100bpm, warm vintage recording, no vocals",
       "_orchestrationSunoMode": "theme",
-      "_orchestrationPlan": "intermediaire"
+      "_orchestrationPlan": "intermediaire",
+      "trimStart": 1950,
+      "trimEnd": 63555.91666666667,
+      "gainDb": 0
     },
     {
       "id": "st_1785496634093_54v3li76o_23",
@@ -2305,13 +2349,12 @@
       "column": 2,
       "volume": 0.3,
       "loop": false,
-      "fadeIn": 0,
-      "fadeOut": 500,
+      "fadeIn": 1500,
+      "fadeOut": 0,
       "delay": 0,
       "pan": -0.15,
       "panMode": "static",
-      "muted": true,
-      "broken": true,
+      "muted": false,
       "_orchestrationNote": "Klaxon isolé, lointain, sans écho prononcé. Arrière-plan, sous la musique jazz. Détail urbain neutre qui n'appuie aucune intention dramatique, simple texture de vraisemblance.",
       "_orchestrationKeyword": "traffic",
       "_orchestrationLayer": "diegetic",
@@ -2323,18 +2366,18 @@
     },
     {
       "id": "st_1785496634093_y5uy944eh_24",
-      "soundId": "comradio_radio_turn_on_and_off_short_01_b00m_one",
+      "soundId": "bienvenue_4",
       "startSegmentId": "seg_1785400977417_32_08u8h",
       "endSegmentId": "seg_1785400977417_32_08u8h",
       "column": 2,
       "volume": 0.32,
       "loop": false,
-      "fadeIn": 300,
-      "fadeOut": 500,
+      "fadeIn": 0,
+      "fadeOut": 0,
       "delay": 0,
       "pan": 0,
       "panMode": "static",
-      "muted": true,
+      "muted": false,
       "broken": true,
       "_orchestrationNote": "Bribe de voix radiophonique traitée, basse fidélité, coupée rapidement. Plan intermédiaire, sous la musique. Illustre concrètement la saturation médiatique évoquée dans la phrase, sans citation intelligible.",
       "_orchestrationKeyword": "radio",
