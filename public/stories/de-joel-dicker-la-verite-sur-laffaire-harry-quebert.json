@@ -239,7 +239,7 @@
     {
       "id": "seg_pause_1785498846420_trl95",
       "text": "",
-      "pause": 600,
+      "pause": 6000,
       "audioEvents": [
         {
           "action": "fadeIn",
