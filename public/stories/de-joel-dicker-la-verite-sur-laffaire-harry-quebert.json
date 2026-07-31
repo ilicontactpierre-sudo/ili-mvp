@@ -9,7 +9,7 @@
   "sounds": [
     {
       "id": "ambind_storage_hall_daytime_activity_front_distant_plane_01_b00m_one",
-      "url": "/sounds/AMBInd_Storage Hall Daytime Activity Front Distant Plane 01_B00M_ONE.mp3",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/ambind_storage_hall_daytime_activity_front_distant_plane_01_b00m_one.mp3",
       "loop": false
     },
     {
@@ -23,18 +23,13 @@
       "loop": false
     },
     {
-      "id": "ambtran_city_bus_ride_german_slow_01_b00m_one",
-      "url": "/sounds/AMBTran_City Bus Ride German Slow 01_B00M_ONE.mp3",
-      "loop": false
-    },
-    {
       "id": "clockmisc_soviet_desk_table_clock_bell_ring_01_b00m_one",
       "url": "/sounds/CLOCKMisc_Soviet Desk Table Clock Bell Ring 01_B00M_ONE.mp3",
       "loop": false
     },
     {
-      "id": "clockmisc_soviet_desk_table_clock_bell_ring_light_01_b00m_one",
-      "url": "/sounds/CLOCKMisc_Soviet Desk Table Clock Bell Ring Light 01_B00M_ONE.mp3",
+      "id": "clockmisc_soviet_desk_table_clock_bell_ring_quiet_01_b00m_one",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/clockmisc_soviet_desk_table_clock_bell_ring_quiet_01_b00m_one.mp3",
       "loop": false
     },
     {
@@ -53,8 +48,8 @@
       "loop": false
     },
     {
-      "id": "crwdsprt_football_match_ambience_crowd_chant_walla_01_b00m_one",
-      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/crwdsprt_football_match_ambience_crowd_chant_walla_01_b00m_one.mp3",
+      "id": "crwdconv_crowd_medium_talking_small_room_02_b00m_one",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/crwdconv_crowd_medium_talking_small_room_02_b00m_one.mp3",
       "loop": false
     },
     {
@@ -65,16 +60,6 @@
     {
       "id": "doormetl_basement_door_handle_down_01_b00m_one",
       "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/doormetl_basement_door_handle_down_01_b00m_one.mp3",
-      "loop": false
-    },
-    {
-      "id": "foodtware_plate_lift_soft_03_b00m_one",
-      "url": "/sounds/FOODTware_Plate Lift Soft 03_B00M_ONE.mp3",
-      "loop": false
-    },
-    {
-      "id": "mechswtch_elevator_push_button_01_b00m_one",
-      "url": "/sounds/MECHSwtch_Elevator Push Button 01_B00M_ONE.mp3",
       "loop": false
     },
     {
@@ -98,11 +83,6 @@
       "loop": false
     },
     {
-      "id": "muscstr_old_violin_dramatic_scratch_tonal_change_medium_low_01_b00m_one",
-      "url": "/sounds/MUSCStr_Old Violin Dramatic Scratch Tonal Change Medium Low 01_B00M_ONE.mp3",
-      "loop": false
-    },
-    {
       "id": "muscstr_oriental_strings_chord_minor_02_b00m_one",
       "url": "/sounds/MUSCStr_Oriental Strings Chord Minor 02_B00M_ONE.mp3",
       "loop": false
@@ -123,13 +103,8 @@
       "loop": false
     },
     {
-      "id": "watrplmb_modern_shower_running_01_b00m_one",
-      "url": "/sounds/WATRPlmb_Modern Shower Running 01_B00M_ONE.mp3",
-      "loop": false
-    },
-    {
-      "id": "36_s08_cafe_",
-      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/36_s08_cafe_.mp3",
+      "id": "13_s03_ville",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/13_s03_ville.mp3",
       "loop": false
     },
     {
@@ -180,6 +155,26 @@
     {
       "id": "m_bulle_part1",
       "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/m_bulle_part1.mp3",
+      "loop": false
+    },
+    {
+      "id": "59_s02a_repas_2_",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/59_s02a_repas_2_.mp3",
+      "loop": false
+    },
+    {
+      "id": "ambrest_restaurant_bar_staged_clock_01_b00m_one_5_",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/ambrest_restaurant_bar_staged_clock_01_b00m_one_5_.mp3",
+      "loop": false
+    },
+    {
+      "id": "elevator_old_style_1",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/elevator_old_style_1.mp3",
+      "loop": false
+    },
+    {
+      "id": "drame_die_stem_wind",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/drame_die_stem_wind.mp3",
       "loop": false
     }
   ],
@@ -478,7 +473,25 @@
       "breakAt": null,
       "isLeader": true,
       "isChapter": true,
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "play",
+          "soundId": "clockmisc_soviet_desk_table_clock_bell_ring_quiet_01_b00m_one",
+          "volume": 0.55,
+          "gainDb": 0,
+          "delay": 0,
+          "loop": false
+        },
+        {
+          "action": "fadeIn",
+          "soundId": "13_s03_ville",
+          "volume": 0.18,
+          "gainDb": 0,
+          "duration": 3000,
+          "delay": 0,
+          "loop": true
+        }
+      ]
     },
     {
       "id": "seg_1785400977417_14_ff3yl",
@@ -492,7 +505,7 @@
       "audioEvents": [
         {
           "action": "fadeIn",
-          "soundId": "crwdsprt_football_match_ambience_crowd_chant_walla_01_b00m_one",
+          "soundId": "crwdconv_crowd_medium_talking_small_room_02_b00m_one",
           "volume": 0.32,
           "gainDb": 0,
           "duration": 1000,
@@ -542,8 +555,13 @@
       "audioEvents": [
         {
           "action": "fadeOut",
-          "soundId": "crwdsprt_football_match_ambience_crowd_chant_walla_01_b00m_one",
+          "soundId": "crwdconv_crowd_medium_talking_small_room_02_b00m_one",
           "duration": 1000
+        },
+        {
+          "action": "fadeOut",
+          "soundId": "13_s03_ville",
+          "duration": 3000
         }
       ]
     },
@@ -558,10 +576,19 @@
       "audioEvents": [
         {
           "action": "fadeIn",
-          "soundId": "36_s08_cafe_",
+          "soundId": "ambrest_restaurant_bar_staged_clock_01_b00m_one_5_",
           "volume": 0.17,
           "gainDb": 0,
           "duration": 2000,
+          "delay": 0,
+          "loop": true
+        },
+        {
+          "action": "fadeIn",
+          "soundId": "59_s02a_repas_2_",
+          "volume": 0.28,
+          "gainDb": 0,
+          "duration": 1000,
           "delay": 0,
           "loop": true
         }
@@ -634,8 +661,13 @@
       "audioEvents": [
         {
           "action": "fadeOut",
-          "soundId": "36_s08_cafe_",
-          "duration": 2000
+          "soundId": "ambrest_restaurant_bar_staged_clock_01_b00m_one_5_",
+          "duration": 3300
+        },
+        {
+          "action": "fadeOut",
+          "soundId": "59_s02a_repas_2_",
+          "duration": 1000
         }
       ],
       "dialogueOverride": "continue"
@@ -648,7 +680,25 @@
       "text": "Même le portier de mon immeuble, que je voyais avancer dans sa lecture entre deux ouvertures de portes,",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "fadeIn",
+          "soundId": "ambind_storage_hall_daytime_activity_front_distant_plane_01_b00m_one",
+          "volume": 0.15,
+          "gainDb": 0,
+          "duration": 2000,
+          "delay": 0,
+          "loop": true
+        },
+        {
+          "action": "play",
+          "soundId": "elevator_old_style_1",
+          "volume": 0.5,
+          "gainDb": 0,
+          "delay": 0,
+          "loop": false
+        }
+      ]
     },
     {
       "id": "seg_1785400977417_26_lg9yi",
@@ -666,6 +716,25 @@
           "gainDb": 0,
           "delay": 0,
           "loop": false
+        },
+        {
+          "action": "fadeOut",
+          "soundId": "elevator_old_style_1",
+          "duration": 2600
+        },
+        {
+          "action": "fadeIn",
+          "soundId": "drame_die_stem_wind",
+          "volume": 0.2,
+          "gainDb": 0,
+          "duration": 500,
+          "delay": 0,
+          "loop": false
+        },
+        {
+          "action": "fadeOut",
+          "soundId": "drame_die_stem_wind",
+          "duration": 1500
         }
       ]
     },
@@ -702,7 +771,13 @@
       "text": "Hein, Monsieur Goldman, comment est-ce possible ? »",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "fadeOut",
+          "soundId": "ambind_storage_hall_daytime_activity_front_distant_plane_01_b00m_one",
+          "duration": 2700
+        }
+      ]
     },
     {
       "id": "seg_1785403655914_a_u8zlh",
@@ -1629,7 +1704,7 @@
     },
     {
       "id": "st_1785496634092_k48nlp9z2_2",
-      "soundId": "crwdsprt_football_match_ambience_crowd_chant_walla_01_b00m_one",
+      "soundId": "crwdconv_crowd_medium_talking_small_room_02_b00m_one",
       "startSegmentId": "seg_1785400977417_14_ff3yl",
       "endSegmentId": "seg_1785400977417_18_zfmxy",
       "column": 0,
@@ -1653,7 +1728,7 @@
     },
     {
       "id": "st_1785496634092_yvi5ld2qd_3",
-      "soundId": "36_s08_cafe_",
+      "soundId": "ambrest_restaurant_bar_staged_clock_01_b00m_one_5_",
       "startSegmentId": "seg_1785403581125_a_gthnr",
       "endSegmentId": "seg_1785400977417_24_7g1z7",
       "column": 0,
@@ -1661,7 +1736,7 @@
       "loop": true,
       "loopCrossfade": "medium",
       "fadeIn": 2000,
-      "fadeOut": 2000,
+      "fadeOut": 3300,
       "delay": 0,
       "pan": 0,
       "panMode": "static",
@@ -1680,7 +1755,7 @@
       "soundId": "doormetl_basement_door_handle_down_01_b00m_one",
       "startSegmentId": "seg_1785400977417_26_lg9yi",
       "endSegmentId": "seg_1785400977417_26_lg9yi",
-      "column": 0,
+      "column": 3,
       "volume": 0.55,
       "loop": false,
       "fadeIn": 0,
@@ -1999,7 +2074,7 @@
     },
     {
       "id": "st_1785496634093_c8len5mjf_14",
-      "soundId": "clockmisc_soviet_desk_table_clock_bell_ring_light_01_b00m_one",
+      "soundId": "clockmisc_soviet_desk_table_clock_bell_ring_quiet_01_b00m_one",
       "startSegmentId": "seg_1785400977417_13_d810z",
       "endSegmentId": "seg_1785400977417_13_d810z",
       "column": 0,
@@ -2010,8 +2085,7 @@
       "delay": 0,
       "pan": 0,
       "panMode": "static",
-      "muted": true,
-      "broken": true,
+      "muted": false,
       "_orchestrationNote": "Un seul tic d'horloge mécanique, sec, sans réverbération longue. Premier plan, isolé, aucune autre couche active au même instant. Marque le saut de 33 ans par un objet concret plutôt que par un effet abstrait.",
       "_orchestrationKeyword": "clock",
       "_orchestrationLayer": "transition",
@@ -2023,7 +2097,7 @@
     },
     {
       "id": "st_1785496634093_4f3all57z_15",
-      "soundId": "ambtran_city_bus_ride_german_slow_01_b00m_one",
+      "soundId": "13_s03_ville",
       "startSegmentId": "seg_1785400977417_13_d810z",
       "endSegmentId": "seg_1785400977417_18_zfmxy",
       "column": 1,
@@ -2035,8 +2109,14 @@
       "delay": 0,
       "pan": 0,
       "panMode": "static",
-      "muted": true,
-      "broken": true,
+      "muted": false,
+      "automationPoints": [
+        {
+          "segmentId": "seg_1785400977417_13_d810z",
+          "volume": 0.36,
+          "fadeMs": 600
+        }
+      ],
       "_orchestrationNote": "Nappe urbaine générique, circulation lointaine, pas de voix distincte. Arrière-plan constant sous le jogging et la foule. Situe New York sans détail spécifique.",
       "_orchestrationKeyword": "city",
       "_orchestrationLayer": "bed",
@@ -2047,33 +2127,8 @@
       "_orchestrationPlan": "arriere"
     },
     {
-      "id": "st_1785496634093_gzjprz6pv_16",
-      "soundId": "watrplmb_modern_shower_running_01_b00m_one",
-      "startSegmentId": "seg_1785400977417_14_ff3yl",
-      "endSegmentId": "seg_1785400977417_15_s8ggp",
-      "column": 2,
-      "volume": 0.4,
-      "loop": true,
-      "loopCrossfade": "none",
-      "fadeIn": 500,
-      "fadeOut": 500,
-      "delay": 0,
-      "pan": 0,
-      "panMode": "static",
-      "muted": true,
-      "broken": true,
-      "_orchestrationNote": "Foulées régulières sur surface dure, cadence modérée, pas de souffle audible. Plan intermédiaire, sous la foule. Illustre concrètement le jogging mentionné dans Central Park.",
-      "_orchestrationKeyword": "running",
-      "_orchestrationLayer": "diegetic",
-      "_orchestrationLeitmotiv": "",
-      "_orchestrationDiegeticMode": "sequence",
-      "_orchestrationSunoPrompt": null,
-      "_orchestrationSunoMode": null,
-      "_orchestrationPlan": "intermediaire"
-    },
-    {
       "id": "st_1785496634093_3skcemkde_17",
-      "soundId": "foodtware_plate_lift_soft_03_b00m_one",
+      "soundId": "59_s02a_repas_2_",
       "startSegmentId": "seg_1785403581125_a_gthnr",
       "endSegmentId": "seg_1785400977417_24_7g1z7",
       "column": 1,
@@ -2085,8 +2140,7 @@
       "delay": 0,
       "pan": 0,
       "panMode": "static",
-      "muted": true,
-      "broken": true,
+      "muted": false,
       "_orchestrationNote": "Tintements de tasses et couverts espacés, irréguliers, pas de rythme régulier. Plan intermédiaire, sous les dialogues des clients. Détail concret sans portée narrative, donne de la texture physique au café.",
       "_orchestrationKeyword": "tableware",
       "_orchestrationLayer": "diegetic",
@@ -2106,11 +2160,11 @@
       "loop": true,
       "loopCrossfade": "medium",
       "fadeIn": 2000,
-      "fadeOut": 2000,
+      "fadeOut": 2700,
       "delay": 0,
       "pan": 0,
       "panMode": "static",
-      "muted": true,
+      "muted": false,
       "broken": true,
       "_orchestrationNote": "Résonance de hall d'immeuble, plafond haut, pas de voix. Arrière-plan sous la scène du portier. Remplace le bed cafe, marque le passage à un espace plus sec acoustiquement.",
       "_orchestrationKeyword": "hall",
@@ -2123,19 +2177,26 @@
     },
     {
       "id": "st_1785496634093_lgxs692at_19",
-      "soundId": "mechswtch_elevator_push_button_01_b00m_one",
+      "soundId": "elevator_old_style_1",
       "startSegmentId": "seg_1785400977417_25_j67p5",
-      "endSegmentId": "seg_1785400977417_25_j67p5",
+      "endSegmentId": "seg_1785400977417_26_lg9yi",
       "column": 0,
       "volume": 0.5,
       "loop": false,
       "fadeIn": 0,
-      "fadeOut": 300,
+      "fadeOut": 2600,
       "delay": 0,
       "pan": 0,
       "panMode": "static",
-      "muted": true,
-      "broken": true,
+      "muted": false,
+      "automationPoints": [
+        {
+          "segmentId": "seg_1785400977417_25_j67p5",
+          "volume": 0.5,
+          "fadeMs": 0,
+          "_isAnchor": true
+        }
+      ],
       "_orchestrationNote": "Signal d'arrivée d'ascenseur, timbre métallique bref. Premier plan isolé. Détail neutre qui situe physiquement la scène devant l'ascenseur avant la réplique du portier.",
       "_orchestrationKeyword": "elevator",
       "_orchestrationLayer": "diegetic",
@@ -2143,11 +2204,14 @@
       "_orchestrationDiegeticMode": "ponctuel",
       "_orchestrationSunoPrompt": null,
       "_orchestrationSunoMode": null,
-      "_orchestrationPlan": "premier"
+      "_orchestrationPlan": "premier",
+      "trimStart": 0,
+      "trimEnd": 2472,
+      "gainDb": 0
     },
     {
       "id": "st_1785496634093_s55pdqd4v_20",
-      "soundId": "muscstr_old_violin_dramatic_scratch_tonal_change_medium_low_01_b00m_one",
+      "soundId": "drame_die_stem_wind",
       "startSegmentId": "seg_1785400977417_26_lg9yi",
       "endSegmentId": "seg_1785400977417_26_lg9yi",
       "column": 2,
@@ -2158,8 +2222,7 @@
       "delay": 0,
       "pan": 0,
       "panMode": "static",
-      "muted": true,
-      "broken": true,
+      "muted": false,
       "_orchestrationNote": "Fragment très court du motif aigu déjà entendu, deux ou trois notes seulement, pas de développement. Plan intermédiaire, sous la réplique du portier. Rappel discret du thème sans nouvelle citation complète, traitement en écho.",
       "_orchestrationKeyword": "violin",
       "_orchestrationLayer": "music",
@@ -2167,7 +2230,10 @@
       "_orchestrationDiegeticMode": null,
       "_orchestrationSunoPrompt": null,
       "_orchestrationSunoMode": null,
-      "_orchestrationPlan": "intermediaire"
+      "_orchestrationPlan": "intermediaire",
+      "trimStart": 6919,
+      "trimEnd": 19656,
+      "gainDb": 0
     },
     {
       "id": "st_1785496634093_y27lil11n_21",
