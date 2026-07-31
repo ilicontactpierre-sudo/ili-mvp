@@ -397,7 +397,7 @@
         {
           "action": "fadeIn",
           "soundId": "dsgndron_space_choir_01_jse_cd",
-          "volume": 0.1,
+          "volume": 0.29,
           "gainDb": 0,
           "duration": 4000,
           "delay": 0,
@@ -406,9 +406,9 @@
         {
           "action": "fadeIn",
           "soundId": "m_bulle_part1",
-          "volume": 0.22,
+          "volume": 0.38,
           "gainDb": 0,
-          "duration": 3000,
+          "duration": 3600,
           "delay": 0,
           "loop": false
         }
@@ -1601,7 +1601,7 @@
       "startSegmentId": "seg_1785400977417_10_kt7gi",
       "endSegmentId": "seg_pause_1785403393446_2_1gtk4",
       "column": 0,
-      "volume": 0.1,
+      "volume": 0.29,
       "loop": true,
       "loopCrossfade": "long",
       "fadeIn": 4000,
@@ -1613,7 +1613,7 @@
       "automationPoints": [
         {
           "segmentId": "seg_1785400977417_10_kt7gi",
-          "volume": 0.45,
+          "volume": 0.29,
           "fadeMs": 0,
           "_isAnchor": true
         }
@@ -1791,6 +1791,12 @@
       "muted": false,
       "automationPoints": [
         {
+          "segmentId": "seg_pause_1785498846420_trl95",
+          "volume": 0.29,
+          "fadeMs": 0,
+          "_isAnchor": true
+        },
+        {
           "segmentId": "seg_1785400977416_2_w3e0y",
           "volume": 0.29,
           "fadeMs": 0,
@@ -1798,13 +1804,13 @@
         },
         {
           "segmentId": "seg_1785403507975_a_xz0of",
-          "volume": 0.4062500000000002,
-          "fadeMs": 2500
+          "volume": 0.35,
+          "fadeMs": 5000
         },
         {
           "segmentId": "seg_1785400977417_10_kt7gi",
-          "volume": 0.3124999999999998,
-          "fadeMs": 2500
+          "volume": 0.26,
+          "fadeMs": 5000
         }
       ],
       "_orchestrationNote": "Nappe de petite ville nocturne, grave, sans détail identifiable, non rythmique. Arrière-plan constant sous le dialogue téléphonique et la narration qui suit. Situe géographiquement la scène sans jamais capter l'attention.",
@@ -1963,9 +1969,9 @@
       "startSegmentId": "seg_1785400977417_10_kt7gi",
       "endSegmentId": "seg_pause_1785403393446_2_1gtk4",
       "column": 2,
-      "volume": 0.22,
+      "volume": 0.38,
       "loop": false,
-      "fadeIn": 3000,
+      "fadeIn": 3600,
       "fadeOut": 5000,
       "delay": 0,
       "pan": 0,
@@ -1974,14 +1980,9 @@
       "automationPoints": [
         {
           "segmentId": "seg_1785400977417_10_kt7gi",
-          "volume": 0.35,
+          "volume": 0.38,
           "fadeMs": 0,
           "_isAnchor": true
-        },
-        {
-          "segmentId": "seg_1785400977417_12_zi530",
-          "volume": 0.1909090909090909,
-          "fadeMs": 2500
         }
       ],
       "_orchestrationNote": "Cordes aiguës tenues, sans vibrato marqué, entrée quasi immédiate sur le nom prononcé. Premier plan bref puis recul en fondu long. Première apparition du motif associé à la disparue, introduit au moment exact où son nom est cité.",
@@ -1991,7 +1992,10 @@
       "_orchestrationDiegeticMode": null,
       "_orchestrationSunoPrompt": "solo violin, high register, fragile and sparse, long sustained notes, minimal vibrato, minor key, intimate close mic, no orchestra, tempo free",
       "_orchestrationSunoMode": "theme",
-      "_orchestrationPlan": "premier"
+      "_orchestrationPlan": "premier",
+      "trimStart": 54816,
+      "trimEnd": 264071.8333333334,
+      "gainDb": 0
     },
     {
       "id": "st_1785496634093_c8len5mjf_14",
