@@ -92,6 +92,7 @@ function SoundBlockPanel({
     // une modif en cours (volume, pan, gain importé, etc.) avant que
     // l'utilisateur ait pu cliquer sur "Fermer" pour la sauvegarder.
     if (syncedTrackIdRef.current === soundTrack.id) return
+    console.warn('⚠️ RESYNC editedTrack — ancien id:', syncedTrackIdRef.current, '→ nouveau id:', soundTrack.id)
     syncedTrackIdRef.current = soundTrack.id
     stopPreview()
     setEditedTrack({ ...soundTrack })
