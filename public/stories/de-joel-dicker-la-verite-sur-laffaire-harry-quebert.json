@@ -108,11 +108,6 @@
       "loop": false
     },
     {
-      "id": "muscstr_piano_play_on_strings_mid_01_b00m_one",
-      "url": "/sounds/MUSCStr_Piano Play On Strings Mid 01_B00M_ONE.mp3",
-      "loop": false
-    },
-    {
       "id": "objwhled_chair_wheel_roll_on_floor_soft_01_b00m_one",
       "url": "/sounds/OBJWhled_Chair Wheel Roll On Floor Soft 01_B00M_ONE.mp3",
       "loop": false
@@ -125,11 +120,6 @@
     {
       "id": "uiclick_high_modern_double_click_02_b00m_one",
       "url": "/sounds/UIClick_High Modern Double Click 02_B00M_ONE.mp3",
-      "loop": false
-    },
-    {
-      "id": "voxreac_male_sigh_03_b00m_one",
-      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/voxreac_male_sigh_03_b00m_one.mp3",
       "loop": false
     },
     {
@@ -180,6 +170,16 @@
     {
       "id": "radio",
       "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/radio.mp3",
+      "loop": false
+    },
+    {
+      "id": "dsgndron_space_choir_01_jse_cd",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/dsgndron_space_choir_01_jse_cd.mp3",
+      "loop": false
+    },
+    {
+      "id": "m_bulle_part1",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/m_bulle_part1.mp3",
       "loop": false
     }
   ],
@@ -396,12 +396,21 @@
       "audioEvents": [
         {
           "action": "fadeIn",
-          "soundId": "voxreac_male_sigh_03_b00m_one",
+          "soundId": "dsgndron_space_choir_01_jse_cd",
           "volume": 0.1,
           "gainDb": 0,
           "duration": 4000,
           "delay": 0,
           "loop": true
+        },
+        {
+          "action": "fadeIn",
+          "soundId": "m_bulle_part1",
+          "volume": 0.22,
+          "gainDb": 0,
+          "duration": 3000,
+          "delay": 0,
+          "loop": false
         }
       ],
       "bold": false,
@@ -445,13 +454,18 @@
       "audioEvents": [
         {
           "action": "fadeOut",
-          "soundId": "voxreac_male_sigh_03_b00m_one",
+          "soundId": "dsgndron_space_choir_01_jse_cd",
           "duration": 4000
         },
         {
           "action": "fadeOut",
           "soundId": "qp02_0184_wind_deciduous_forest_breeze_gentle_insects_2_",
           "duration": 6000
+        },
+        {
+          "action": "fadeOut",
+          "soundId": "m_bulle_part1",
+          "duration": 5000
         }
       ]
     },
@@ -1583,7 +1597,7 @@
     },
     {
       "id": "st_1785496634092_7peniok5s_1",
-      "soundId": "voxreac_male_sigh_03_b00m_one",
+      "soundId": "dsgndron_space_choir_01_jse_cd",
       "startSegmentId": "seg_1785400977417_10_kt7gi",
       "endSegmentId": "seg_pause_1785403393446_2_1gtk4",
       "column": 0,
@@ -1596,6 +1610,14 @@
       "pan": 0,
       "panMode": "static",
       "muted": false,
+      "automationPoints": [
+        {
+          "segmentId": "seg_1785400977417_10_kt7gi",
+          "volume": 0.45,
+          "fadeMs": 0,
+          "_isAnchor": true
+        }
+      ],
       "_orchestrationNote": "Texture basse, sans attaque, quasi statique, remplace la tension précédente. Arrière-plan sous le fragment de cordes, seul élément restant après la chute du bed. Maintient une présence minimale pendant le silence actif plutôt qu'un vrai néant.",
       "_orchestrationKeyword": "melancholic",
       "_orchestrationLayer": "atmosphere",
@@ -1937,7 +1959,7 @@
     },
     {
       "id": "st_1785496634093_rwh7xpk4s_13",
-      "soundId": "muscstr_piano_play_on_strings_mid_01_b00m_one",
+      "soundId": "m_bulle_part1",
       "startSegmentId": "seg_1785400977417_10_kt7gi",
       "endSegmentId": "seg_pause_1785403393446_2_1gtk4",
       "column": 2,
@@ -1948,12 +1970,17 @@
       "delay": 0,
       "pan": 0,
       "panMode": "static",
-      "muted": true,
-      "broken": true,
+      "muted": false,
       "automationPoints": [
         {
+          "segmentId": "seg_1785400977417_10_kt7gi",
+          "volume": 0.35,
+          "fadeMs": 0,
+          "_isAnchor": true
+        },
+        {
           "segmentId": "seg_1785400977417_12_zi530",
-          "volume": 0.12,
+          "volume": 0.1909090909090909,
           "fadeMs": 2500
         }
       ],
