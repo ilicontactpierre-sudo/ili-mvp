@@ -18,11 +18,6 @@
       "loop": false
     },
     {
-      "id": "clockmisc_soviet_desk_table_clock_bell_ring_01_b00m_one",
-      "url": "/sounds/CLOCKMisc_Soviet Desk Table Clock Bell Ring 01_B00M_ONE.mp3",
-      "loop": false
-    },
-    {
       "id": "clockmisc_soviet_desk_table_clock_bell_ring_quiet_01_b00m_one",
       "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/clockmisc_soviet_desk_table_clock_bell_ring_quiet_01_b00m_one.mp3",
       "loop": false
@@ -33,18 +28,13 @@
       "loop": false
     },
     {
-      "id": "comtype_vintage_typewriter_paper_bail_open_and_close_01_b00m_one_3",
-      "url": "/sounds/COMType_Vintage Typewriter Paper Bail Open And Close 01_B00M_ONE_3.mp3",
-      "loop": false
-    },
-    {
       "id": "crwdconv_crowd_medium_talking_small_room_02_b00m_one",
       "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/crwdconv_crowd_medium_talking_small_room_02_b00m_one.mp3",
       "loop": false
     },
     {
       "id": "dsgnerie_musical_pad_dark_space_horror_02_b00m_one",
-      "url": "/sounds/DSGNErie_Musical Pad Dark Space Horror 02_B00M_ONE.mp3",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/dsgnerie_musical_pad_dark_space_horror_02_b00m_one.mp3",
       "loop": false
     },
     {
@@ -53,28 +43,8 @@
       "loop": false
     },
     {
-      "id": "metlimpt_big_impact_low_dull_01_b00m_one",
-      "url": "/sounds/METLImpt_Big Impact Low Dull 01_B00M_ONE.mp3",
-      "loop": false
-    },
-    {
-      "id": "metltonl_impact_piano_string_damped_hard_03_b00m_one",
-      "url": "/sounds/METLTonl_Impact Piano String Damped Hard 03_B00M_ONE.mp3",
-      "loop": false
-    },
-    {
-      "id": "metltonl_impact_piano_string_damped_hard_04_b00m_one",
-      "url": "/sounds/METLTonl_Impact Piano String Damped Hard 04_B00M_ONE.mp3",
-      "loop": false
-    },
-    {
       "id": "muscstr_oriental_strings_chord_minor_02_b00m_one",
-      "url": "/sounds/MUSCStr_Oriental Strings Chord Minor 02_B00M_ONE.mp3",
-      "loop": false
-    },
-    {
-      "id": "objwhled_chair_wheel_roll_on_floor_soft_01_b00m_one",
-      "url": "/sounds/OBJWhled_Chair Wheel Roll On Floor Soft 01_B00M_ONE.mp3",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/muscstr_oriental_strings_chord_minor_02_b00m_one.mp3",
       "loop": false
     },
     {
@@ -90,11 +60,6 @@
     {
       "id": "13_s03_ville",
       "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/13_s03_ville.mp3",
-      "loop": false
-    },
-    {
-      "id": "atmo_eerie_cave_water_drips_emptyness_howling_interior_wind_oppressive_loop",
-      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/atmo_eerie_cave_water_drips_emptyness_howling_interior_wind_oppressive_loop.mp3",
       "loop": false
     },
     {
@@ -170,6 +135,41 @@
     {
       "id": "bienvenue_4",
       "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/bienvenue_4.mp3",
+      "loop": false
+    },
+    {
+      "id": "ferrum_-_sub_punch_04",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/ferrum_-_sub_punch_04.mp3",
+      "loop": false
+    },
+    {
+      "id": "772_s16_machine_ecrire_retour_1_rev",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/772_s16_machine_ecrire_retour_1_rev.mp3",
+      "loop": false
+    },
+    {
+      "id": "hrck_instrument_-_piano_hits_strings_2_",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/hrck_instrument_-_piano_hits_strings_2_.mp3",
+      "loop": false
+    },
+    {
+      "id": "17_s01_pendule",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/17_s01_pendule.mp3",
+      "loop": false
+    },
+    {
+      "id": "the_sound_ambience_of_an_office_reception_hall_2_",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/the_sound_ambience_of_an_office_reception_hall_2_.mp3",
+      "loop": false
+    },
+    {
+      "id": "music_a_la_radio",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/music_a_la_radio.mp3",
+      "loop": false
+    },
+    {
+      "id": "suno_music_e_lectro_soft",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/suno_music_e_lectro_soft.mp3",
       "loop": false
     }
   ],
@@ -910,6 +910,14 @@
           "duration": 1000,
           "delay": 0,
           "loop": false
+        },
+        {
+          "action": "play",
+          "soundId": "ferrum_-_sub_punch_04",
+          "volume": 0.65,
+          "gainDb": 0,
+          "delay": 0,
+          "loop": false
         }
       ],
       "bold": false,
@@ -926,7 +934,17 @@
       "text": "C’est ainsi que débutèrent les événements du New Hampshire qui vont être rapportés ici,",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "fadeIn",
+          "soundId": "dsgnerie_musical_pad_dark_space_horror_02_b00m_one",
+          "volume": 0.51,
+          "gainDb": 0,
+          "duration": 3000,
+          "delay": 0,
+          "loop": true
+        }
+      ]
     },
     {
       "id": "seg_1785403686860_b_wgzns",
@@ -956,7 +974,13 @@
         "holdDuration": 900,
         "fadeOutDuration": 700
       },
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "fadeOut",
+          "soundId": "dsgnerie_musical_pad_dark_space_horror_02_b00m_one",
+          "duration": 4000
+        }
+      ]
     },
     {
       "id": "seg_1785400977417_38_6pgtt",
@@ -967,7 +991,24 @@
       "breakAt": null,
       "isLeader": true,
       "isChapter": false,
-      "audioEvents": [],
+      "audioEvents": [
+        {
+          "action": "play",
+          "soundId": "772_s16_machine_ecrire_retour_1_rev",
+          "volume": 0.28,
+          "gainDb": 0,
+          "delay": 0,
+          "loop": false
+        },
+        {
+          "action": "play",
+          "soundId": "hrck_instrument_-_piano_hits_strings_2_",
+          "volume": 0.4,
+          "gainDb": 0,
+          "delay": 0,
+          "loop": false
+        }
+      ],
       "bold": true,
       "underline": false
     },
@@ -979,7 +1020,22 @@
       "text": "31. Dans les abîmes de la mémoire",
       "breakAt": null,
       "isLeader": true,
-      "audioEvents": [],
+      "audioEvents": [
+        {
+          "action": "fadeIn",
+          "soundId": "muscstr_oriental_strings_chord_minor_02_b00m_one",
+          "volume": 0.37,
+          "gainDb": 0,
+          "duration": 500,
+          "delay": 0,
+          "loop": false
+        },
+        {
+          "action": "fadeOut",
+          "soundId": "muscstr_oriental_strings_chord_minor_02_b00m_one",
+          "duration": 2000
+        }
+      ],
       "strikethrough": false,
       "italic": false,
       "bold": false,
@@ -993,7 +1049,33 @@
       "text": "- Le premier chapitre, Marcus, est essentiel. Si les lecteurs ne l’aiment pas, ils ne liront pas le reste de votre livre. Par quoi comptez-vous commencer le vôtre ?",
       "breakAt": 45,
       "isLeader": true,
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "fadeIn",
+          "soundId": "the_sound_ambience_of_an_office_reception_hall_2_",
+          "volume": 0.63,
+          "gainDb": 0,
+          "duration": 4000,
+          "delay": 0,
+          "loop": true
+        },
+        {
+          "action": "play",
+          "soundId": "17_s01_pendule",
+          "volume": 0.22,
+          "gainDb": 0,
+          "delay": 0,
+          "loop": true
+        },
+        {
+          "action": "play",
+          "soundId": "music_a_la_radio",
+          "volume": 0.22,
+          "gainDb": 0,
+          "delay": 0,
+          "loop": true
+        }
+      ]
     },
     {
       "id": "seg_1785400977417_41_biwt2",
@@ -1023,7 +1105,13 @@
       "text": "- J’en suis certain.”",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": [],
+      "audioEvents": [
+        {
+          "action": "fadeOut",
+          "soundId": "music_a_la_radio",
+          "duration": 4000
+        }
+      ],
       "bold": false,
       "italic": true,
       "underline": false,
@@ -1042,7 +1130,13 @@
         "holdDuration": 200,
         "fadeOutDuration": 300
       },
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "fadeOut",
+          "soundId": "17_s01_pendule",
+          "duration": 1800
+        }
+      ]
     },
     {
       "id": "seg_1785400977417_44_6pzia",
@@ -1055,7 +1149,7 @@
       "audioEvents": [
         {
           "action": "fadeIn",
-          "soundId": "atmo_eerie_cave_water_drips_emptyness_howling_interior_wind_oppressive_loop",
+          "soundId": "suno_music_e_lectro_soft",
           "volume": 0.15,
           "gainDb": 0,
           "duration": 5000,
@@ -1102,7 +1196,13 @@
       "text": "C’était comme si mon cerveau, atteint, s’était figé peu à peu.",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": []
+      "audioEvents": [
+        {
+          "action": "fadeOut",
+          "soundId": "the_sound_ambience_of_an_office_reception_hall_2_",
+          "duration": 5000
+        }
+      ]
     },
     {
       "id": "seg_1785400977417_49_ikr4p",
@@ -1849,7 +1949,7 @@
     },
     {
       "id": "st_1785496634093_70yzk2sbx_6",
-      "soundId": "atmo_eerie_cave_water_drips_emptyness_howling_interior_wind_oppressive_loop",
+      "soundId": "suno_music_e_lectro_soft",
       "startSegmentId": "seg_1785400977417_44_6pzia",
       "endSegmentId": "seg_1785400977417_48_8nwqd",
       "column": 0,
@@ -2378,7 +2478,6 @@
       "pan": 0,
       "panMode": "static",
       "muted": false,
-      "broken": true,
       "_orchestrationNote": "Bribe de voix radiophonique traitée, basse fidélité, coupée rapidement. Plan intermédiaire, sous la musique. Illustre concrètement la saturation médiatique évoquée dans la phrase, sans citation intelligible.",
       "_orchestrationKeyword": "radio",
       "_orchestrationLayer": "diegetic",
@@ -2390,7 +2489,7 @@
     },
     {
       "id": "st_1785496634093_s6h9puq40_25",
-      "soundId": "metlimpt_big_impact_low_dull_01_b00m_one",
+      "soundId": "ferrum_-_sub_punch_04",
       "startSegmentId": "seg_1785400977417_36_krjq4",
       "endSegmentId": "seg_1785400977417_36_krjq4",
       "column": 1,
@@ -2401,8 +2500,7 @@
       "delay": 0,
       "pan": 0,
       "panMode": "static",
-      "muted": true,
-      "broken": true,
+      "muted": false,
       "_orchestrationNote": "Impact grave unique, sub-bass, sans traînée ni réverbération longue, pas un stinger d'horreur générique. Premier plan, seul son au moment exact du mot. Marque la bascule vers la gravité réelle du récit par une coupure franche du paysage sonore précédent.",
       "_orchestrationKeyword": "impact",
       "_orchestrationLayer": "transition",
@@ -2418,7 +2516,7 @@
       "startSegmentId": "seg_1785403686860_a_a9wyf",
       "endSegmentId": "seg_pause_1785403393446_1_om06y",
       "column": 1,
-      "volume": 0.16,
+      "volume": 0.51,
       "loop": true,
       "loopCrossfade": "long",
       "fadeIn": 3000,
@@ -2426,8 +2524,15 @@
       "delay": 0,
       "pan": 0,
       "panMode": "static",
-      "muted": true,
-      "broken": true,
+      "muted": false,
+      "automationPoints": [
+        {
+          "segmentId": "seg_1785403686860_a_a9wyf",
+          "volume": 0.51,
+          "fadeMs": 0,
+          "_isAnchor": true
+        }
+      ],
       "_orchestrationNote": "Drone grave continu, texture granuleuse, sans pulsation. Plan intermédiaire, seul élément actif après le retrait du cello. Maintient la gravité pendant la pause existante du segment 45 sans reprendre le bed urbain.",
       "_orchestrationKeyword": "ominous",
       "_orchestrationLayer": "atmosphere",
@@ -2439,19 +2544,18 @@
     },
     {
       "id": "st_1785496634094_he3r13ft6_27",
-      "soundId": "comtype_vintage_typewriter_paper_bail_open_and_close_01_b00m_one_3",
+      "soundId": "772_s16_machine_ecrire_retour_1_rev",
       "startSegmentId": "seg_1785400977417_38_6pgtt",
       "endSegmentId": "seg_1785400977417_38_6pgtt",
       "column": 0,
       "volume": 0.28,
       "loop": false,
-      "fadeIn": 500,
-      "fadeOut": 1000,
+      "fadeIn": 0,
+      "fadeOut": 0,
       "delay": 0,
       "pan": 0,
       "panMode": "static",
-      "muted": true,
-      "broken": true,
+      "muted": false,
       "_orchestrationNote": "Quelques frappes espacées de machine à écrire, dynamique faible, avant fondu. Plan intermédiaire, seul élément présent. S'installe légèrement avant que le titre de partie ne soit énoncé, pré-lap vers le monde de l'écriture.",
       "_orchestrationKeyword": "typewriter",
       "_orchestrationLayer": "transition",
@@ -2463,19 +2567,26 @@
     },
     {
       "id": "st_1785496634094_9y18eyc6g_28",
-      "soundId": "metltonl_impact_piano_string_damped_hard_03_b00m_one",
+      "soundId": "hrck_instrument_-_piano_hits_strings_2_",
       "startSegmentId": "seg_1785400977417_38_6pgtt",
       "endSegmentId": "seg_1785400977417_38_6pgtt",
       "column": 1,
-      "volume": 0.2,
+      "volume": 0.4,
       "loop": false,
-      "fadeIn": 1000,
-      "fadeOut": 2000,
+      "fadeIn": 0,
+      "fadeOut": 0,
       "delay": 0,
       "pan": 0,
       "panMode": "static",
-      "muted": true,
-      "broken": true,
+      "muted": false,
+      "automationPoints": [
+        {
+          "segmentId": "seg_1785400977417_38_6pgtt",
+          "volume": 0.4,
+          "fadeMs": 0,
+          "_isAnchor": true
+        }
+      ],
       "_orchestrationNote": "Un seul accord de piano tenu, sans suite mélodique, dissonance légère non résolue. Plan intermédiaire, bref. Annonce le malaise du romancier avant même le titre du chapitre, sans reprendre un motif déjà entendu.",
       "_orchestrationKeyword": "piano",
       "_orchestrationLayer": "music",
@@ -2491,15 +2602,22 @@
       "startSegmentId": "seg_1785400977417_39_19owc",
       "endSegmentId": "seg_1785400977417_39_19owc",
       "column": 0,
-      "volume": 0.12,
+      "volume": 0.37,
       "loop": false,
       "fadeIn": 500,
       "fadeOut": 2000,
       "delay": 0,
       "pan": 0,
       "panMode": "static",
-      "muted": true,
-      "broken": true,
+      "muted": false,
+      "automationPoints": [
+        {
+          "segmentId": "seg_1785400977417_39_19owc",
+          "volume": 0.37,
+          "fadeMs": 0,
+          "_isAnchor": true
+        }
+      ],
       "_orchestrationNote": "Note tenue unique, très basse en volume, sans développement mélodique. Plan intermédiaire, quasi imperceptible. Écho ténu du motif sur le titre 'Dans les abîmes de la mémoire', suggère que la mémoire de l'affaire innerve tout le récit à venir.",
       "_orchestrationKeyword": "strings",
       "_orchestrationLayer": "music",
@@ -2511,11 +2629,11 @@
     },
     {
       "id": "st_1785496634094_dhmcdpfpf_30",
-      "soundId": "objwhled_chair_wheel_roll_on_floor_soft_01_b00m_one",
+      "soundId": "the_sound_ambience_of_an_office_reception_hall_2_",
       "startSegmentId": "seg_1785400977417_40_gytgi",
       "endSegmentId": "seg_1785400977417_48_8nwqd",
       "column": 1,
-      "volume": 0.14,
+      "volume": 0.63,
       "loop": true,
       "loopCrossfade": "medium",
       "fadeIn": 4000,
@@ -2523,8 +2641,15 @@
       "delay": 0,
       "pan": 0,
       "panMode": "static",
-      "muted": true,
-      "broken": true,
+      "muted": false,
+      "automationPoints": [
+        {
+          "segmentId": "seg_1785400977417_40_gytgi",
+          "volume": 0.63,
+          "fadeMs": 0,
+          "_isAnchor": true
+        }
+      ],
       "_orchestrationNote": "Résonance de bureau fermé, silence de fond, aucun élément extérieur audible. Arrière-plan constant du dialogue jusqu'à la fin de l'extrait. Isole le lieu d'écriture du reste du monde, cohérent avec l'enfermement progressif du personnage.",
       "_orchestrationKeyword": "office",
       "_orchestrationLayer": "bed",
@@ -2536,20 +2661,19 @@
     },
     {
       "id": "st_1785496634094_ocjruuxsj_31",
-      "soundId": "clockmisc_soviet_desk_table_clock_bell_ring_01_b00m_one",
+      "soundId": "17_s01_pendule",
       "startSegmentId": "seg_1785400977417_40_gytgi",
       "endSegmentId": "seg_pause_1785403393446_0_4gdou",
       "column": 0,
       "volume": 0.22,
       "loop": true,
       "loopCrossfade": "medium",
-      "fadeIn": 1000,
-      "fadeOut": 1000,
+      "fadeIn": 0,
+      "fadeOut": 1800,
       "delay": 0,
       "pan": 0,
       "panMode": "static",
-      "muted": true,
-      "broken": true,
+      "muted": false,
       "_orchestrationNote": "Tic-tac régulier, tempo lent, mécanique et non électronique. Plan intermédiaire, sous le dialogue et sous la pause qui suit. Rend sensible le temps qui passe pendant l'échange entre Harry et Marcus.",
       "_orchestrationKeyword": "clock",
       "_orchestrationLayer": "diegetic",
@@ -2561,20 +2685,19 @@
     },
     {
       "id": "st_1785496634094_sg95l3syo_32",
-      "soundId": "metltonl_impact_piano_string_damped_hard_04_b00m_one",
+      "soundId": "music_a_la_radio",
       "startSegmentId": "seg_1785400977417_40_gytgi",
       "endSegmentId": "seg_1785400977417_43_lnfxu",
       "column": 2,
       "volume": 0.22,
       "loop": true,
       "loopCrossfade": "long",
-      "fadeIn": 3000,
-      "fadeOut": 3000,
+      "fadeIn": 0,
+      "fadeOut": 4000,
       "delay": 0,
       "pan": 0,
       "panMode": "static",
-      "muted": true,
-      "broken": true,
+      "muted": false,
       "automationPoints": [
         {
           "segmentId": "seg_1785400977417_40_gytgi",
