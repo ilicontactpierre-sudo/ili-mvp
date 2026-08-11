@@ -83,6 +83,11 @@
       "loop": false
     },
     {
+      "id": "apocalyptic_impact_radio_signal_boom",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/apocalyptic_impact_radio_signal_boom.mp3",
+      "loop": false
+    },
+    {
       "id": "bienvenue_4",
       "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/bienvenue_4.mp3",
       "loop": false
@@ -171,11 +176,6 @@
       "id": "the_sound_ambience_of_an_office_reception_hall_2_",
       "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/the_sound_ambience_of_an_office_reception_hall_2_.mp3",
       "loop": false
-    },
-    {
-      "id": "apocalyptic_impact_radio_signal_boom",
-      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/apocalyptic_impact_radio_signal_boom.mp3",
-      "loop": false
     }
   ],
   "segments": [
@@ -184,7 +184,7 @@
       "lines": [
         "La vérité sur l’affaire Harry Quebert de Joël Dicker"
       ],
-      "text": "</apparition:0;lent|La vérité sur l’affaire Harry Quebert de Joël Dicker/>",
+      "text": "</apparition:0;lent|La vérité sur l’affaire Harry Quebert\nde Joël Dicker/>",
       "breakAt": null,
       "isLeader": true,
       "isChapter": false,
@@ -197,7 +197,8 @@
           "delay": 0,
           "loop": false
         }
-      ]
+      ],
+      "bold": true
     },
     {
       "id": "seg_1785400977416_1_k2p4m",
@@ -216,7 +217,7 @@
       "lines": [
         "Le jour de la disparition (samedi 30 août 1975)"
       ],
-      "text": "Le jour de la disparition (samedi 30 août 1975)",
+      "text": "Le jour de la disparition \n(samedi 30 août 1975)",
       "breakAt": null,
       "isLeader": true,
       "isChapter": true,
@@ -234,7 +235,7 @@
     {
       "id": "seg_pause_1785498846420_trl95",
       "text": "",
-      "pause": 6000,
+      "pause": 3000,
       "audioEvents": [
         {
           "action": "fadeIn",
@@ -1996,6 +1997,12 @@
       "panMode": "static",
       "muted": false,
       "automationPoints": [
+        {
+          "segmentId": "seg_1785400977417_44_6pzia",
+          "volume": 0.15,
+          "fadeMs": 0,
+          "_isAnchor": true
+        },
         {
           "segmentId": "seg_1785400977417_45_ek5if",
           "volume": 0.18,
