@@ -504,9 +504,12 @@ function StoryPage() {
 
   // ── Clavier ────────────────────────────────────────────────────────────────
   useEffect(() => {
-    function handleKeyDown(event) {
+        function handleKeyDown(event) {
       if (event.key === 'ArrowRight' || event.key === 'ArrowDown') {
-        event.preventDefault(); goToNext()
+        event.preventDefault()
+        // Une pause avance automatiquement toute seule — jamais la sauter au clavier.
+        if (segments[currentIndex]?.pause > 0) return
+        goToNext()
       }
       if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') {
         event.preventDefault(); goToPrevious()
