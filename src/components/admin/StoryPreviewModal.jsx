@@ -93,7 +93,7 @@ function StoryPreviewModal({ isOpen, storyData, onClose, startSegmentIndex = nul
       }
       if (event.key === 'ArrowRight' || event.key === 'ArrowDown') {
         event.preventDefault()
-        goToNext()
+        handleManualNext()
       }
       if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') {
         event.preventDefault()
