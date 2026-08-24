@@ -719,7 +719,8 @@
           "delay": 0,
           "loop": false
         }
-      ]
+      ],
+      "dialogueOverride": "off"
     },
     {
       "id": "seg_1785400977417_26_lg9yi",
@@ -757,7 +758,8 @@
           "soundId": "drame_die_stem_wind",
           "duration": 1500
         }
-      ]
+      ],
+      "dialogueOverride": "off"
     },
     {
       "id": "seg_1785400977417_27_qk51r",
@@ -772,7 +774,8 @@
       "italic": false,
       "underline": false,
       "strikethrough": false,
-      "fontFamily": null
+      "fontFamily": null,
+      "dialogueOverride": "start"
     },
     {
       "id": "seg_1785400977417_28_tf7d1",
@@ -782,7 +785,8 @@
       "text": "Mais comment en arrive-t-on là ?",
       "breakAt": null,
       "isLeader": false,
-      "audioEvents": []
+      "audioEvents": [],
+      "dialogueOverride": "continue"
     },
     {
       "id": "seg_1785400977417_29_vvo9j",
@@ -798,7 +802,8 @@
           "soundId": "ambind_storage_hall_daytime_activity_front_distant_plane_01_b00m_one",
           "duration": 2700
         }
-      ]
+      ],
+      "dialogueOverride": "continue"
     },
     {
       "id": "seg_1785403655914_a_u8zlh",
@@ -827,7 +832,8 @@
           "delay": 0,
           "loop": true
         }
-      ]
+      ],
+      "dialogueOverride": "off"
     },
     {
       "id": "seg_1785403655914_b_ltikd",
