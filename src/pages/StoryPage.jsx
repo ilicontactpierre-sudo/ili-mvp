@@ -517,13 +517,15 @@ function StoryPage() {
   }, [goToNext, goToPrevious])
 
   // ── Interactions écran ─────────────────────────────────────────────────────
-  function handleScreenClick(event) {
+    function handleScreenClick(event) {
     if (Date.now() < ignoreAdvanceUntilRef.current) return
     if (event.target.closest('a, button, input, textarea, select, summary, [role="button"]')) return
     const x = event.clientX
     const width = window.innerWidth
-    if (x / width < 0.40) goToPrevious()
-    else goToNext()
+    if (x / width < 0.40) { goToPrevious(); return }
+    // Une pause avance automatiquement toute seule — jamais la sauter au clic.
+    if (segments[currentIndex]?.pause > 0) return
+    goToNext()
   }
 
   function handleTouchStart(event) {
