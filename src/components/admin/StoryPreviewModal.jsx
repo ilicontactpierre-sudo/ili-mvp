@@ -159,7 +159,7 @@ function StoryPreviewModal({ isOpen, storyData, onClose, startSegmentIndex = nul
   const activeGameMode = segments[currentIndex]?.gameMode ?? null
 
   // Gestion du clic sur l'écran
-    const handleScreenClick = (event) => {
+  const handleScreenClick = (event) => {
     if (activeGameMode) return
     if (Date.now() < ignoreAdvanceUntilRef.current) return
     if (event.target.closest('a, button, input, textarea, select, summary, [role="button"]')) return
@@ -181,7 +181,7 @@ function StoryPreviewModal({ isOpen, storyData, onClose, startSegmentIndex = nul
     const deltaY = touchEndY - touchStartYRef.current
     touchStartYRef.current = null
     if (Math.abs(deltaY) < 50) return
-    if (deltaY < 0) { goToNext(); return }
+    if (deltaY < 0) { handleManualNext(); return }
     goToPrevious()
   }
 
