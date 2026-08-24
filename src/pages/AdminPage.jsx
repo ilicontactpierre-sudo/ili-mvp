@@ -266,8 +266,8 @@ const SplitPreviewPane = forwardRef(function SplitPreviewPane({ storyData, sound
           onMouseEnter={e => { if (isStarted) e.currentTarget.style.background = 'rgba(255,255,255,0.1)' }}
           onMouseLeave={e => e.currentTarget.style.background = 'none'}
         >←</button>
-        <button
-          onClick={goNext}
+                <button
+          onClick={handleManualNext}
           disabled={!isStarted || isFinished}
           title="Segment suivant (→)"
           style={{
