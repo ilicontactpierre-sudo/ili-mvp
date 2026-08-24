@@ -46,7 +46,7 @@ function StoryPreviewModal({ isOpen, storyData, onClose, startSegmentIndex = nul
     if (onClose) onClose()
   }, [onClose])
 
-  // Navigation suivante
+    // Navigation suivante
   const goToNext = useCallback(() => {
     if (!isStarted || !segments.length || isFinished) return
     setCurrentIndex((prevIndex) => {
@@ -57,6 +57,20 @@ function StoryPreviewModal({ isOpen, storyData, onClose, startSegmentIndex = nul
       return prevIndex + 1
     })
   }, [isFinished, isStarted, lastIndex, segments.length])
+  // Avance manuelle — bloquée pendant une pause, contrairement à l'avance
+  // automatique interne (déclenchée par le useEffect juste en dessous).
+  const handleManualNext = useCallback(() => {
+    if (segments[currentIndex]?.pause > 0) return
+    goToNext()
+  }, [segments, currentIndex, goToNext])
+  // ── Auto-avance pour les segments "pause" — même comportement que le Player ──
+  useEffect(() => {
+    if (!isStarted || isFinished) return
+    const seg = segments[currentIndex]
+    if (!seg?.pause || seg.pause <= 0) return
+    const t = setTimeout(() => { goToNext() }, seg.pause)
+    return () => clearTimeout(t)
+  }, [currentIndex, isStarted, isFinished, segments, goToNext])
 
   // Navigation précédente
   const goToPrevious = useCallback(() => {
