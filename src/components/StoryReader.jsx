@@ -307,11 +307,16 @@ useEffect(() => {
     chapterMode = 'sticky'
   }
 
-  // ── Calcul des segments cachés ──
+    // ── Calcul des segments cachés ──
   const hiddenFromView = new Set()
-
-  // Chapitre actif → tout masquer sauf lui (Leader + Finisher)
-  if (chapterMode === 'focused') {
+  const currentIsPause = finalSegments[currentIndex]?.pause > 0
+  // Pause active → écran vide, rien d'autre ne doit être visible (ni les
+  // segments précédents ni les suivants, contrairement au comportement normal)
+  if (currentIsPause) {
+    for (let i = 0; i < finalSegments.length; i++) {
+      if (i !== currentIndex) hiddenFromView.add(i)
+    }
+  } else if (chapterMode === 'focused') {
     for (let i = 0; i < finalSegments.length; i++) {
       if (i !== currentIndex) hiddenFromView.add(i)
     }
