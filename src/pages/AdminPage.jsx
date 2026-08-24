@@ -71,7 +71,7 @@ const SplitPreviewPane = forwardRef(function SplitPreviewPane({ storyData, sound
   }, [])
 
   // Navigation
-  const goNext = useCallback(() => {
+    const goNext = useCallback(() => {
     if (!isStarted || isFinished) return
     if (Date.now() < ignoreUntilRef.current) return
     setCurrentIndex(prev => {
@@ -79,6 +79,20 @@ const SplitPreviewPane = forwardRef(function SplitPreviewPane({ storyData, sound
       return prev + 1
     })
   }, [isStarted, isFinished, lastIndex])
+  // Avance manuelle (clic, bouton →) — bloquée pendant une pause, contrairement
+  // à l'avance automatique interne (déclenchée par le useEffect ci-dessous).
+  const handleManualNext = useCallback(() => {
+    if (segments[currentIndex]?.pause > 0) return
+    goNext()
+  }, [segments, currentIndex, goNext])
+  // ── Auto-avance pour les segments "pause" — même comportement que le Player ──
+  useEffect(() => {
+    if (!isStarted || isFinished) return
+    const seg = segments[currentIndex]
+    if (!seg?.pause || seg.pause <= 0) return
+    const t = setTimeout(() => { goNext() }, seg.pause)
+    return () => clearTimeout(t)
+  }, [currentIndex, isStarted, isFinished, segments, goNext])
 
   const goPrev = useCallback(() => {
     if (!isStarted) return
