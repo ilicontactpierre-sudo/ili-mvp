@@ -517,7 +517,7 @@ function StoryPage() {
   }, [goToNext, goToPrevious])
 
   // ── Interactions écran ─────────────────────────────────────────────────────
-    function handleScreenClick(event) {
+  function handleScreenClick(event) {
     if (Date.now() < ignoreAdvanceUntilRef.current) return
     if (event.target.closest('a, button, input, textarea, select, summary, [role="button"]')) return
     const x = event.clientX
@@ -558,9 +558,14 @@ function StoryPage() {
     touchStartX.current = null
     touchDidScrollRef.current = false
     if (didScroll) return
-    if (Math.abs(deltaY) >= 50) {
-      if (deltaY < 0) goToNext()
-      else goToPrevious()
+        if (Math.abs(deltaY) >= 50) {
+      if (deltaY < 0) {
+        // Une pause avance automatiquement toute seule — jamais la sauter au swipe.
+        if (segments[currentIndex]?.pause > 0) return
+        goToNext()
+      } else {
+        goToPrevious()
+      }
       return
     }
   }
