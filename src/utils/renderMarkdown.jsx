@@ -22,10 +22,24 @@ export function renderMarkdown(text, segment, isDysMode = false, options = {}) {
       return '…'
     }
   })
+    // Convertit les \n internes d'un morceau de texte brut (jamais à l'intérieur
+  // d'un tag, puisque ce renderer n'est appelé que sur du texte déjà isolé
+  // par le parseur de fonctions inline) en vrais retours à la ligne visuels.
+  let fbCounter = 0
   const fallbackRenderer = (chunk) => {
-    if (emojiMode) return applyEmojiMode(chunk)
-    if (isDysMode) return applyBionicReading(chunk)
-    return chunk
+    const transform = (s) => {
+      if (emojiMode) return applyEmojiMode(s)
+      if (isDysMode) return applyBionicReading(s)
+      return s
+    }
+    if (!chunk.includes('\n')) return transform(chunk)
+    const parts = chunk.split('\n')
+    return parts.map((part, i) => (
+      <span key={`${keyPrefix}fb${fbCounter++}`}>
+        {transform(part)}
+        {i < parts.length - 1 && <br />}
+      </span>
+    ))
   }
   let content = renderTextWithInlineFunctions(resolvedText, fallbackRenderer, { isFocused, keyPrefix })
   if (segment?.strikethrough) content = <s>{content}</s>
