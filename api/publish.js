@@ -11,7 +11,7 @@ export default async function handler(req, res) {
     return res.status(401).json({ error: 'Non autorisé' });
   }
 
-    // 3. Validation des données (uniquement pour l'action de publication —
+  // 3. Validation des données (uniquement pour l'action de publication —
   // les actions "history" et "version" ci-dessous n'ont pas besoin de storyData)
   if (!action && (!slug || !storyData || !storyData.title)) {
     return res.status(400).json({ 
