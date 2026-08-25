@@ -872,15 +872,9 @@ useEffect(() => {
                     </>
                   )
                 }
-                const lines = segment.text.split('\n')
-                if (lines.length > 1) {
-                  return lines.map((line, li) => (
-                    <span key={li}>
-                     {renderMarkdown(line, segment, dys1, { isFocused, keyPrefix: `s${index}_l${li}_t${themeKey}_`, emojiMode })}
-                      {li < lines.length - 1 && <br />}
-                    </span>
-                  ))
-                }
+                // Un seul appel sur le texte complet : renderMarkdown reconnaît les tags
+                // même s'ils contiennent un \n interne, et gère lui-même la conversion
+                // des \n restants en <br/> — jamais de découpe naïve avant analyse.
                 return renderMarkdown(segment.text, segment, dys1, { isFocused, keyPrefix: `s${index}_t${themeKey}_`, emojiMode })
               })()}
               </span>
