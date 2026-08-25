@@ -6,7 +6,7 @@ export default async function handler(req, res) {
   }
 
   // 2. Validation du mot de passe côté serveur
-  const { password, slug, storyData } = req.body;
+  const { password, slug, storyData, action, sha } = req.body;const { password, slug, storyData } = req.body;
   if (!password || password !== process.env.ADMIN_PASSWORD) {
     return res.status(401).json({ error: 'Non autorisé' });
   }
