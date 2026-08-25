@@ -266,7 +266,7 @@ const SplitPreviewPane = forwardRef(function SplitPreviewPane({ storyData, sound
           onMouseEnter={e => { if (isStarted) e.currentTarget.style.background = 'rgba(255,255,255,0.1)' }}
           onMouseLeave={e => e.currentTarget.style.background = 'none'}
         >←</button>
-                <button
+        <button
           onClick={handleManualNext}
           disabled={!isStarted || isFinished}
           title="Segment suivant (→)"
@@ -1654,6 +1654,30 @@ function AdminPage() {
   setPreviewStartIndex(null)
   setIsPreviewOpen(true)
 }
+  // Restaurer une ancienne version publiée : republie son contenu tel quel
+  // (nouveau commit GitHub — la version actuelle n'est jamais perdue, elle
+  // reste elle-même consultable dans l'historique juste après) puis
+  // synchronise l'éditeur avec le contenu restauré.
+  const handleRestoreVersion = async (storyData) => {
+    const adminPassword = sessionStorage.getItem('ili_admin_password')
+    if (!adminPassword) {
+      alert('Session expirée — reconnecte-toi à l\'admin.')
+      return
+    }
+    const response = await fetch('/api/publish', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        password: adminPassword,
+        slug: storyData.id || storySlug,
+        storyData
+      })
+    })
+    const data = await response.json()
+    if (!response.ok) throw new Error(data.error || 'Erreur inconnue lors de la restauration')
+    handleLoadStory(storyData)
+    alert('Version restaurée et republiée avec succès.')
+  }
   // Ouvrir l'aperçu directement depuis un segment de l'éditeur en cours
   const handlePreviewFromSegment = (index) => {
     if (isSplitView) {
