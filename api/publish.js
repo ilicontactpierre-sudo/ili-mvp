@@ -74,8 +74,62 @@ export default async function handler(req, res) {
     return response.json();
   };
 
-  try {
+    // ── Action : lister l'historique des publications d'une histoire ──
+  // (fusionné ici avec /api/publish pour rester sous la limite de 12
+  // fonctions serverless du plan Vercel Hobby)
+  if (action === 'history') {
+    if (!slug) return res.status(400).json({ error: 'Donnée manquante : slug requis' });
+    try {
+      const path = `public/stories/${slug}.json`;
+      const url = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/commits?path=${encodeURIComponent(path)}&sha=${GITHUB_BRANCH}&per_page=30`;
+      const response = await fetch(url, {
+        headers: {
+          Authorization: `token ${GITHUB_TOKEN}`,
+          Accept: 'application/vnd.github.v3+json'
+        }
+      });
+      if (!response.ok) {
+        const error = await response.json().catch(() => ({}));
+        throw new Error(`GitHub API : ${response.status} — ${error.message || 'erreur inconnue'}`);
+      }
+      const commits = await response.json();
+      const history = (Array.isArray(commits) ? commits : []).map(c => ({
+        sha:     c.sha,
+        date:    c.commit?.author?.date || c.commit?.committer?.date || null,
+        message: c.commit?.message || '',
+      }));
+      return res.status(200).json({ success: true, history });
+    } catch (error) {
+      console.error('Erreur story-history:', error);
+      return res.status(500).json({ error: error.message || 'Erreur interne' });
+    }
+  }
+  // ── Action : récupérer le contenu publié à un commit donné ──
+  if (action === 'version') {
+    if (!slug || !sha) return res.status(400).json({ error: 'Données manquantes : slug et sha requis' });
+    try {
+      const path = `public/stories/${slug}.json`;
+      const url = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${path}?ref=${sha}`;
+      const response = await fetch(url, {
+        headers: {
+          Authorization: `token ${GITHUB_TOKEN}`,
+          Accept: 'application/vnd.github.v3+json'
+        }
+      });
+      if (!response.ok) {
+        const error = await response.json().catch(() => ({}));
+        throw new Error(`GitHub API : ${response.status} — ${error.message || 'erreur inconnue'}`);
+      }
+      const data = await response.json();
+      const content = JSON.parse(Buffer.from(data.content, 'base64').toString('utf-8'));
+      return res.status(200).json({ success: true, storyData: content });
+    } catch (error) {
+      console.error('Erreur story-version:', error);
+      return res.status(500).json({ error: error.message || 'Erreur interne' });
+    }
+  }
 
+  try {
     // 6. ÉTAPE 1 : Écrire le fichier de l'histoire
     const storyPath = `public/stories/${slug}.json`;
     const { sha: storySha } = await readGitHubFile(storyPath);
