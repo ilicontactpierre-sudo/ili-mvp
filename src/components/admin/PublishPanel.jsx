@@ -17,7 +17,7 @@ function PublishPanel({
   isSerial = false,
   parts = [],
   seuil = [],
-    soundLibrary,
+  soundLibrary,
   onNewStory,
   onSaveDraft,
   onPreviewVersion,
