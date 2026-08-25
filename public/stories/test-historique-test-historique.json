@@ -1,0 +1,32 @@
+{
+  "id": "test-historique-test-historique",
+  "title": "test historique",
+  "author": "test historique",
+  "description": "test historique",
+  "published": true,
+  "sounds": [],
+  "segments": [
+    {
+      "id": "seg_1787680507168_a_ouhv0",
+      "lines": [
+        "test historiquetest historiquetest historiquetest historiquetest historiquetest historique"
+      ],
+      "text": "test historiquetest historiquetest historiquetest histor",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1787680507168_b_ry34c",
+      "lines": [
+        "test historiquetest historiquetest historiquetest historiquetest historiquetest historique"
+      ],
+      "text": "iquetest historiquetest historique",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    }
+  ],
+  "soundTracks": [],
+  "vfxTracks": []
+}
