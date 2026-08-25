@@ -2939,8 +2939,10 @@ function AdminPage() {
             parts={isSerial ? parts : []}
             seuil={isSerial ? [] : (storyExtraMeta.seuil ?? [])}
             soundLibrary={soundLibrary}
-            onNewStory={handleNewStory}
+                        onNewStory={handleNewStory}
             onSaveDraft={handleSaveDraft}
+            onPreviewVersion={handlePreviewStory}
+            onRestoreVersion={handleRestoreVersion}
           />
         </div>
       </div>
