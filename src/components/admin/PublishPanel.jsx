@@ -17,9 +17,11 @@ function PublishPanel({
   isSerial = false,
   parts = [],
   seuil = [],
-  soundLibrary,
+    soundLibrary,
   onNewStory,
-  onSaveDraft
+  onSaveDraft,
+  onPreviewVersion,
+  onRestoreVersion
 }) {
   const [generatedJson, setGeneratedJson] = useState('')
   const [copyButtonText, setCopyButtonText] = useState('📋 Copier le JSON')
