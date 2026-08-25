@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import PublishAnimation from './PublishAnimation'
+import PublishHistoryPanel from './PublishHistoryPanel'
 
 function PublishPanel({
   title,
