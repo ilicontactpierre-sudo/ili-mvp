@@ -596,6 +596,15 @@ function PublishPanel({
           {publishStatus === 'update' && '◦ Mise à jour — remplacera la version publiée'}
         </span>
       </div>
+      {/* Historique des publications — rollback possible dans les deux sens */}
+      {publishStatus === 'update' && (
+        <PublishHistoryPanel
+          slug={slug}
+          disabled={!slug}
+          onPreviewVersion={onPreviewVersion}
+          onRestoreVersion={onRestoreVersion}
+        />
+      )}
 
       {/* Message pour développement local */}
       {showLocalMessage && (
