@@ -1279,15 +1279,24 @@ function AdminPage() {
     setShowSoundPicker(null)
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    if (password === import.meta.env.VITE_ADMIN_PASSWORD) {
-      setIsAuthenticated(true)
-      // Stocker le mot de passe en sessionStorage pour la publication automatique
-      sessionStorage.setItem('ili_admin_password', password)
-      setError('')
-    } else {
-      setError('Mot de passe incorrect')
+    setError('')
+    try {
+      const response = await fetch('/api/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password })
+      })
+      if (response.ok) {
+        setIsAuthenticated(true)
+        // Stocker le mot de passe en sessionStorage pour la publication automatique
+        sessionStorage.setItem('ili_admin_password', password)
+      } else {
+        setError('Mot de passe incorrect')
+      }
+    } catch (err) {
+      setError('Erreur de connexion — réessaie')
     }
   }
 
@@ -2939,7 +2948,7 @@ function AdminPage() {
             parts={isSerial ? parts : []}
             seuil={isSerial ? [] : (storyExtraMeta.seuil ?? [])}
             soundLibrary={soundLibrary}
-                        onNewStory={handleNewStory}
+            onNewStory={handleNewStory}
             onSaveDraft={handleSaveDraft}
             onPreviewVersion={handlePreviewStory}
             onRestoreVersion={handleRestoreVersion}
