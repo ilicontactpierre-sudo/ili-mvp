@@ -748,11 +748,7 @@ export default function ReaderSettings({
           </div>
 
           {/* Taille de police + options DYS */}
-<<<<<<< Updated upstream
           <div className="rs-section" ref={fontSectionRef}>
-=======
-          <div className="rs-section">
->>>>>>> Stashed changes
             <span className="rs-label">Police</span>
             <div className="rs-row">
               <button
