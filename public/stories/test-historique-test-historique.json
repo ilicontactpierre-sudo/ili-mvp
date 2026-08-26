@@ -7,11 +7,41 @@
   "sounds": [],
   "segments": [
     {
-      "id": "seg_1787680507168_a_ouhv0",
+      "id": "seg_1787734120629_a_j8mnh",
       "lines": [
         "test historiquetest historiquetest historiquetest historiquetest historiquetest historique"
       ],
-      "text": "test historiquetest historiquetest historiquetest histor",
+      "text": "test historiquetest historiquetest historique",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1787734120629_b_6fhfw",
+      "lines": [
+        "test historiquetest historiquetest historiquetest historiquetest historiquetest historique"
+      ],
+      "text": "test",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1787734106165_b_43a7f",
+      "lines": [
+        "test historiquetest historiquetest historiquetest historiquetest historiquetest historique"
+      ],
+      "text": "h",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    },
+    {
+      "id": "seg_1787734105467_b_nxuui",
+      "lines": [
+        "test historiquetest historiquetest historiquetest historiquetest historiquetest historique"
+      ],
+      "text": "istor",
       "breakAt": null,
       "isLeader": false,
       "audioEvents": []
