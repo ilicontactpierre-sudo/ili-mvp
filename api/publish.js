@@ -128,6 +128,39 @@ const { password, slug, storyData, action, sha } = req.body;
       return res.status(500).json({ error: error.message || 'Erreur interne' });
     }
   }
+  // ── Action : réinitialiser les statistiques de lecture d'une histoire ──
+  // Utilise la clé de service Supabase (jamais exposée côté client) pour
+  // contourner les policies RLS et supprimer les lignes reading_events.
+  if (action === 'reset-analytics') {
+    const { storyId } = req.body;
+    if (!storyId) {
+      return res.status(400).json({ error: 'Donnée manquante : storyId requis' });
+    }
+    const SUPABASE_URL_ENV = process.env.VITE_SUPABASE_URL;
+    const SUPABASE_SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
+    if (!SUPABASE_URL_ENV || !SUPABASE_SERVICE_ROLE_KEY) {
+      return res.status(500).json({ error: 'Variables Supabase manquantes (SUPABASE_SERVICE_ROLE_KEY) dans la configuration' });
+    }
+    try {
+      const url = `${SUPABASE_URL_ENV}/rest/v1/reading_events?story_id=eq.${encodeURIComponent(storyId)}`;
+      const response = await fetch(url, {
+        method: 'DELETE',
+        headers: {
+          apikey: SUPABASE_SERVICE_ROLE_KEY,
+          Authorization: `Bearer ${SUPABASE_SERVICE_ROLE_KEY}`,
+          Prefer: 'return=minimal',
+        }
+      });
+      if (!response.ok) {
+        const text = await response.text();
+        throw new Error(`Supabase : ${response.status} — ${text}`);
+      }
+      return res.status(200).json({ success: true, message: `Statistiques de "${storyId}" réinitialisées.` });
+    } catch (error) {
+      console.error('Erreur reset-analytics:', error);
+      return res.status(500).json({ error: error.message || 'Erreur interne' });
+    }
+  }
 
   try {
     // 6. ÉTAPE 1 : Écrire le fichier de l'histoire
