@@ -673,6 +673,34 @@ export default function ReaderSettings({
           border-color: ${isDark ? 'rgba(255,255,255,0.35)' : 'rgba(26,26,24,0.35)'};
           color: ${isDark ? '#fff' : '#1a1a18'};
         }
+        .rs-dys-row {
+          display: flex;
+          align-items: center;
+          gap: 6px;
+          padding: 2px 4px 4px;
+        }
+        .rs-dys-btn {
+          flex: 1;
+          height: 34px;
+          border-radius: 8px;
+          border: 1px solid ${border};
+          background: transparent;
+          color: ${fg};
+          font-size: 11px;
+          font-weight: 700;
+          letter-spacing: 0.06em;
+          cursor: pointer;
+          transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+          -webkit-tap-highlight-color: transparent;
+        }
+        .rs-dys-btn:hover {
+          background: ${hoverBg};
+        }
+        .rs-dys-btn.active {
+          background: ${isDark ? 'rgba(255,255,255,0.12)' : 'rgba(26,26,24,0.1)'};
+          border-color: ${isDark ? 'rgba(255,255,255,0.35)' : 'rgba(26,26,24,0.35)'};
+          color: ${isDark ? '#fff' : '#1a1a18'};
+        }
       `}</style>
 
       {/* ── Overlay fond Synthwave animé ── */}
