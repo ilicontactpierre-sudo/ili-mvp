@@ -143,7 +143,14 @@ app.post('/api/upload-sound', express.json(), async (req, res) => {
     return res.status(500).json({ error: err.message })
   }
 })
-
+// ── /api/login ───────────────────────────────────────────────────────────────
+app.post('/api/login', express.json(), async (req, res) => {
+  const { password } = req.body ?? {}
+  if (!password || password !== process.env.ADMIN_PASSWORD) {
+    return res.status(401).json({ error: 'Mot de passe incorrect' })
+  }
+  return res.status(200).json({ ok: true })
+})
 // ── /api/publish ─────────────────────────────────────────────────────────────
 app.post('/api/publish', express.json(), async (req, res) => {
   const { password, slug, storyData } = req.body ?? {}
