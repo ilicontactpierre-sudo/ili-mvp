@@ -33,20 +33,12 @@ function DraftManager({
     title, author, slug, bookUrl, mood, genre, description,
     segments, soundTracks, vfxTracks, seuil, isSerial, parts
   }
-  // Clés localStorage — le brouillon de secours (silencieux, écrasé à
-  // chaque auto-save) est séparé des versions nommées (créées explicitement
-  // par l'utilisateur via "Sauvegarder", jamais écrasées ni limitées en
-  // nombre — seul l'utilisateur peut les supprimer).
   const draftKey    = slug ? `ili_draft_${slug}`   : 'ili_draft_unsaved'
   const versionsKey = slug ? `ili_history_${slug}` : 'ili_history_unsaved'
-  // Charger les versions et vérifier le brouillon de secours au montage
   useEffect(() => {
     try {
       const savedVersions = localStorage.getItem(versionsKey)
       if (savedVersions) {
-        // Migration douce : les anciennes entrées (avant cette mise à jour)
-        // n'ont pas d'id/name — on leur en attribue un à la volée, sans
-        // rien perdre de ce qui existait déjà.
         const parsed = JSON.parse(savedVersions)
         const migrated = parsed.map((v, i) => ({
           ...v,
@@ -73,7 +65,6 @@ function DraftManager({
       if (autoSaveTimerRef.current) clearTimeout(autoSaveTimerRef.current)
     }
   }, [draftKey, versionsKey])
-  // Fermer le dropdown versions quand on clique en dehors
   useEffect(() => {
     function handleClickOutside(event) {
       if (versionsRef.current && !versionsRef.current.contains(event.target)) {
@@ -85,7 +76,6 @@ function DraftManager({
       return () => document.removeEventListener('mousedown', handleClickOutside)
     }
   }, [showVersions])
-  // Créer un snapshot des données courantes
   const createSnapshot = useCallback(() => {
     const d = snapshotDataRef.current
     return {
@@ -105,9 +95,10 @@ function DraftManager({
       parts:       d.isSerial ? d.parts : [],
     }
   }, [])
-  // Brouillon de secours — silencieux, écrasé à chaque fois, jamais listé
-  // dans les versions. Sert uniquement à la bannière de récupération après
-  // une fermeture accidentelle de l'onglet.
+  const isQuotaError = (err) => err && (err.name === 'QuotaExceededError' || err.code === 22 || err.code === 1014)
+  // Brouillon de secours — silencieux, écrasé à chaque fois. Si le quota est
+  // dépassé, on échoue proprement sans casser l'app (juste un log console) :
+  // ce n'est qu'un filet de sécurité, pas une action demandée par l'utilisateur.
   const saveAutoDraft = useCallback(() => {
     const snapshot = createSnapshot()
     const dKey = snapshot.slug ? `ili_draft_${snapshot.slug}` : 'ili_draft_unsaved'
@@ -115,12 +106,12 @@ function DraftManager({
       localStorage.setItem(dKey, JSON.stringify(snapshot))
       setLastSavedAt(new Date())
     } catch (err) {
-      console.error('Erreur auto-save:', err)
+      console.error('Erreur auto-save (non bloquant) :', err)
     }
   }, [createSnapshot])
-  // Créer une nouvelle version NOMMÉE — jamais écrasée, jamais limitée en
-  // nombre. Ne touche jamais à ce qui est publié : reste 100% locale tant
-  // que le bouton "Publier" n'a pas été utilisé.
+  // Créer une nouvelle version NOMMÉE. Renvoie l'entrée créée, ou la chaîne
+  // 'quota_exceeded' si le stockage local est plein, ou null pour toute
+  // autre erreur — handleManualSave adapte son message selon le cas.
   const saveNewVersion = useCallback(() => {
     const snapshot = createSnapshot()
     const vKey = snapshot.slug ? `ili_history_${snapshot.slug}` : 'ili_history_unsaved'
@@ -140,10 +131,9 @@ function DraftManager({
       return entry
     } catch (err) {
       console.error('Erreur sauvegarde version:', err)
-      return null
+      return isQuotaError(err) ? 'quota_exceeded' : null
     }
   }, [createSnapshot])
-  // Auto-save silencieux 30 secondes après la dernière modification
   useEffect(() => {
     if (autoSaveTimerRef.current) clearTimeout(autoSaveTimerRef.current)
     autoSaveTimerRef.current = setTimeout(() => { saveAutoDraft() }, 30000)
@@ -151,13 +141,11 @@ function DraftManager({
       if (autoSaveTimerRef.current) clearTimeout(autoSaveTimerRef.current)
     }
   }, [segments, soundTracks, vfxTracks, seuil, parts, isSerial, title, author, slug, saveAutoDraft])
-  // Sauvegarde de secours avant fermeture de la page
   useEffect(() => {
     function handleBeforeUnload() { saveAutoDraft() }
     window.addEventListener('beforeunload', handleBeforeUnload)
     return () => window.removeEventListener('beforeunload', handleBeforeUnload)
   }, [saveAutoDraft])
-  // Formater le temps écoulé depuis la dernière sauvegarde
   const formatTimeAgo = (date) => {
     if (!date) return ''
     const diff = Math.floor((new Date() - date) / 1000)
@@ -165,16 +153,27 @@ function DraftManager({
     if (diff < 3600) return `il y a ${Math.floor(diff / 60)} min`
     return `il y a ${Math.floor(diff / 3600)}h ${Math.floor((diff % 3600) / 60)}min`
   }
-  // Bouton "Sauvegarder" — crée une nouvelle version nommée automatiquement
-  // ("Version N"), renommable ensuite depuis la liste.
   const handleManualSave = () => {
-    const entry = saveNewVersion()
-    if (entry) {
-      setSaveFeedback('✓ Version enregistrée')
+    const result = saveNewVersion()
+    if (result === 'quota_exceeded') {
+      setSaveFeedback('❌ Stockage plein')
+      setTimeout(() => setSaveFeedback(''), 3000)
+      alert(
+        "Impossible de sauvegarder : le stockage local de ton navigateur est plein.\n\n" +
+        "Utilise le bouton 🧹 à côté de \"Versions\" pour libérer de l'espace " +
+        "(supprime les brouillons des autres histoires — celle-ci n'est pas touchée), " +
+        "ou supprime quelques versions existantes dans la liste."
+      )
+      return
+    }
+    if (result) {
+      setSaveFeedback('✓ Sauvegardé')
       setTimeout(() => setSaveFeedback(''), 2000)
+    } else {
+      setSaveFeedback('❌ Erreur')
+      setTimeout(() => setSaveFeedback(''), 2500)
     }
   }
-  // Charger une version dans l'éditeur
   const handleLoadVersion = (snapshot) => {
     if (!window.confirm(`Charger "${snapshot.name}" dans l'éditeur ?\n\nLes modifications non sauvegardées seront perdues.`)) {
       return
@@ -182,7 +181,6 @@ function DraftManager({
     if (onRestore) onRestore(snapshot)
     setShowVersions(false)
   }
-  // Renommer une version
   const startRename = (v) => {
     setRenamingId(v.id)
     setRenameValue(v.name)
@@ -192,20 +190,49 @@ function DraftManager({
     if (!trimmed) { setRenamingId(null); return }
     const next = versions.map(v => v.id === id ? { ...v, name: trimmed } : v)
     setVersions(next)
-    try { localStorage.setItem(versionsKey, JSON.stringify(next)) } catch {}
+    try { localStorage.setItem(versionsKey, JSON.stringify(next)) } catch (err) { console.error(err) }
     setRenamingId(null)
   }
-  // Supprimer une version — n'affecte que le brouillon local, jamais le
-  // contenu publié.
   const handleDeleteVersion = (v) => {
     if (!window.confirm(`Supprimer définitivement la version "${v.name}" ?\n\nCette action est irréversible (mais n'affecte que ton brouillon local — rien de publié n'est touché).`)) {
       return
     }
     const next = versions.filter(x => x.id !== v.id)
     setVersions(next)
-    try { localStorage.setItem(versionsKey, JSON.stringify(next)) } catch {}
+    try { localStorage.setItem(versionsKey, JSON.stringify(next)) } catch (err) { console.error(err) }
   }
-  // Restaurer le brouillon de secours
+  // Libère de l'espace en supprimant les brouillons/versions des AUTRES
+  // histoires (jamais celle en cours d'édition) — corrige le
+  // QuotaExceededError causé par l'accumulation de tests précédents.
+  const handleCleanupOtherStories = () => {
+    try {
+      const keysToRemove = []
+      let bytesFreed = 0
+      for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i)
+        if (!key) continue
+        const isOurs = key.startsWith('ili_draft_') || key.startsWith('ili_history_')
+        if (!isOurs) continue
+        if (key === draftKey || key === versionsKey) continue
+        const value = localStorage.getItem(key) || ''
+        bytesFreed += value.length
+        keysToRemove.push(key)
+      }
+      if (keysToRemove.length === 0) {
+        alert("Aucune donnée d'autres histoires à nettoyer.")
+        return
+      }
+      const approxKB = Math.round(bytesFreed / 1024)
+      if (!window.confirm(
+        `Supprimer les brouillons/versions locaux de ${keysToRemove.length} autre(s) histoire(s) (~${approxKB} Ko) ?\n\n` +
+        `Cette histoire-ci n'est pas touchée. Action irréversible, mais rien de publié n'est affecté.`
+      )) return
+      keysToRemove.forEach(k => localStorage.removeItem(k))
+      alert(`${keysToRemove.length} entrée(s) supprimée(s) (~${approxKB} Ko libérés). Tu peux réessayer de sauvegarder.`)
+    } catch (err) {
+      alert('Erreur lors du nettoyage : ' + err.message)
+    }
+  }
   const handleRestoreDraft = () => {
     if (!draftInfo) return
     if (!window.confirm(`Restaurer le brouillon de secours (sauvegardé automatiquement) ?\n\nLes modifications non sauvegardées seront perdues.`)) {
@@ -227,10 +254,9 @@ function DraftManager({
   }
   return (
     <>
-      {/* Bannière de brouillon de secours */}
       {showDraftBanner && draftInfo && (
         <div data-sticky="draftbanner" style={{
-          position: 'sticky', top: 0, zIndex: 100,
+          position: 'sticky', top: 0, zIndex: 700,
           padding: '0.75rem 1rem',
           backgroundColor: 'var(--color-bg-accent)',
           borderBottom: '1px solid var(--color-border)',
@@ -251,9 +277,11 @@ function DraftManager({
           }}>Ignorer</button>
         </div>
       )}
-      {/* Barre de statut */}
+      {/* Barre de statut — zIndex 600 : volontairement au-dessus de la barre
+          flottante de navigation (zIndex 500 dans AdminPage) pour que le
+          menu déroulant Versions ne passe jamais derrière elle. */}
       <div data-sticky="draftbar" style={{
-        position: 'sticky', top: showDraftBanner ? 52 : 0, zIndex: 99,
+        position: 'sticky', top: showDraftBanner ? 52 : 0, zIndex: 600,
         display: 'flex', alignItems: 'center', justifyContent: 'space-between',
         padding: '0.5rem 1rem', backgroundColor: 'var(--color-bg-secondary)',
         borderBottom: '1px solid var(--color-border)', fontSize: '0.875rem'
@@ -285,13 +313,21 @@ function DraftManager({
               display: 'flex', alignItems: 'center', gap: '0.25rem'
             }}>👁 Aperçu</button>
           )}
-          {/* Bouton Sauvegarder — crée une nouvelle version nommée */}
           <button onClick={handleManualSave} style={{
             padding: '0.25rem 0.75rem',
-            backgroundColor: saveFeedback ? '#28a745' : 'var(--color-primary)',
+            backgroundColor: saveFeedback ? (saveFeedback.startsWith('❌') ? '#dc3545' : '#28a745') : 'var(--color-primary)',
             color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer', fontSize: '0.875rem'
-          }}>{saveFeedback || '💾 Sauvegarder une version'}</button>
-          {/* Dropdown Versions */}
+          }}>{saveFeedback || '💾 Sauvegarder'}</button>
+          {/* Nettoyage rapide du stockage — corrige les QuotaExceededError */}
+          <button
+            onClick={handleCleanupOtherStories}
+            title="Libérer de l'espace de stockage (supprime les brouillons des AUTRES histoires uniquement)"
+            style={{
+              padding: '0.25rem 0.5rem', backgroundColor: 'var(--color-bg)',
+              color: 'var(--color-text-secondary)', border: '1px solid var(--color-border)',
+              borderRadius: '4px', cursor: 'pointer', fontSize: '0.875rem'
+            }}
+          >🧹</button>
           <div style={{ position: 'relative' }} ref={versionsRef}>
             <button onClick={() => setShowVersions(!showVersions)} style={{
               padding: '0.25rem 0.75rem', backgroundColor: 'var(--color-bg)',
@@ -299,8 +335,11 @@ function DraftManager({
               borderRadius: '4px', cursor: 'pointer', fontSize: '0.875rem'
             }}>Versions ({versions.length}) {showVersions ? '▲' : '▾'}</button>
             {showVersions && (
+              // right: 150px — décalé pour ne jamais chevaucher la barre
+              // flottante de navigation (Haut/Timeline/Publication/undo-redo),
+              // qui occupe la colonne tout à droite de l'écran.
               <div style={{
-                position: 'absolute', top: '100%', right: 0, marginTop: '0.25rem',
+                position: 'absolute', top: '100%', right: '150px', marginTop: '0.25rem',
                 backgroundColor: 'var(--color-bg)', border: '1px solid var(--color-border)',
                 borderRadius: '4px', boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
                 minWidth: '320px', maxHeight: '420px', overflow: 'auto', zIndex: 1000
@@ -321,7 +360,7 @@ function DraftManager({
                 )}
                 {versions.length === 0 && (
                   <div style={{ padding: '1rem', textAlign: 'center', color: 'var(--color-text-secondary)', fontSize: '0.875rem' }}>
-                    Aucune version enregistrée. Clique sur "💾 Sauvegarder une version".
+                    Aucune version enregistrée. Clique sur "💾 Sauvegarder".
                   </div>
                 )}
                 {versions.map((v) => (
