@@ -213,6 +213,16 @@
       "loop": false
     },
     {
+      "id": "iphone_apple_notification_sound",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/iphone_apple_notification_sound.mp3",
+      "loop": false
+    },
+    {
+      "id": "iphone_notification_sound_spam",
+      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/iphone_notification_sound_spam.mp3",
+      "loop": false
+    },
+    {
       "id": "la_valle_e_du_okuno",
       "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/la_valle_e_du_okuno.mp3",
       "loop": false
@@ -235,16 +245,6 @@
     {
       "id": "tuba_skinny_-_jubilee_stomp_-_royal_street_ii_1_",
       "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/tuba_skinny_-_jubilee_stomp_-_royal_street_ii_1_.mp3",
-      "loop": false
-    },
-    {
-      "id": "iphone_notification_sound_spam",
-      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/iphone_notification_sound_spam.mp3",
-      "loop": false
-    },
-    {
-      "id": "iphone_apple_notification_sound",
-      "url": "https://bdwliagkmdofyuuysppg.supabase.co/storage/v1/object/public/sounds/iphone_apple_notification_sound.mp3",
       "loop": false
     }
   ],
@@ -638,23 +638,17 @@
       "delay": 1800
     },
     {
-      "id": "seg_1781326327990_37_24l4g",
-      "lines": [
-        "Machinalement Rim s’empresse de regarder son poignet."
-      ],
-      "text": "Machinalement Rim s’empresse de regarder son poignet. Sur sa peau, un léger bronzage laisse deviner une montre longtemps portée. Elle se fige et pose lentement son regard sur Rob : il a lui aussi les yeux braqués sur son poignet, plus précisément sur sa montre connectée qui orne son poignet…  ",
-      "breakAt": null,
-      "isLeader": false,
+      "id": "seg_pause_1787818604989_jwotj",
+      "text": "",
+      "pause": 1900,
       "audioEvents": [
         {
-          "action": "fadeOut",
-          "soundId": "ambrest_restaurant_german_crowd_bar_01_b00m_one",
-          "duration": 182
-        },
-        {
-          "action": "fadeOut",
-          "soundId": "best_drum_solo_ever",
-          "duration": 1700
+          "action": "play",
+          "soundId": "notification_futuristic_beep_05",
+          "volume": 0.65,
+          "gainDb": 0,
+          "delay": 0,
+          "loop": false
         },
         {
           "action": "play",
@@ -679,6 +673,27 @@
           "gainDb": 8,
           "delay": 0,
           "loop": false
+        }
+      ]
+    },
+    {
+      "id": "seg_1781326327990_37_24l4g",
+      "lines": [
+        "Machinalement Rim s’empresse de regarder son poignet."
+      ],
+      "text": "Machinalement Rim s’empresse de regarder son poignet. Sur sa peau, un léger bronzage laisse deviner une montre longtemps portée. Elle se fige et pose lentement son regard sur Rob : il a lui aussi les yeux braqués sur son poignet, plus précisément sur sa montre connectée qui orne son poignet…  ",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": [
+        {
+          "action": "fadeOut",
+          "soundId": "ambrest_restaurant_german_crowd_bar_01_b00m_one",
+          "duration": 182
+        },
+        {
+          "action": "fadeOut",
+          "soundId": "best_drum_solo_ever",
+          "duration": 1700
         }
       ],
       "delay": 10200
@@ -1723,7 +1738,25 @@
       "panMode": "static",
       "trimStart": 0,
       "trimEnd": 25391.020408163266,
-      "gainDb": 0
+      "gainDb": 0,
+      "automationPoints": [
+        {
+          "segmentId": "seg_1781326327990_35_revw1",
+          "volume": 0.55,
+          "fadeMs": 0,
+          "_isAnchor": true
+        },
+        {
+          "segmentId": "seg_pause_1787818604989_jwotj",
+          "volume": 0.17,
+          "fadeMs": 300
+        },
+        {
+          "segmentId": "seg_1781326327990_37_24l4g",
+          "volume": 0.55,
+          "fadeMs": 300
+        }
+      ]
     },
     {
       "id": "st_1781707137938_nj9rxp3vc",
@@ -2337,15 +2370,15 @@
     {
       "id": "st_1781801366635_2byxxzuoo",
       "soundId": "notification_futuristic_beep_05",
-      "startSegmentId": "seg_1781326327990_37_24l4g",
-      "endSegmentId": "seg_1781326327990_37_24l4g",
+      "startSegmentId": "seg_pause_1787818604989_jwotj",
+      "endSegmentId": "seg_pause_1787818604989_jwotj",
       "column": 3,
       "volume": 0.65,
       "fadeIn": 0,
       "fadeOut": 0,
       "delay": 0,
       "loop": false,
-      "muted": true,
+      "muted": false,
       "pan": -0.58,
       "automationPoints": [
         {
@@ -2359,8 +2392,8 @@
     {
       "id": "st_1781801526277_9szkdtyfm",
       "soundId": "machappl_razor_smooth_double_01_b00m_one",
-      "startSegmentId": "seg_1781326327990_37_24l4g",
-      "endSegmentId": "seg_1781326327990_37_24l4g",
+      "startSegmentId": "seg_pause_1787818604989_jwotj",
+      "endSegmentId": "seg_pause_1787818604989_jwotj",
       "column": 4,
       "volume": 0.9,
       "fadeIn": 0,
@@ -2418,8 +2451,8 @@
     {
       "id": "st_1784539217897_0h95y0617",
       "soundId": "iphone_notification_sound_spam",
-      "startSegmentId": "seg_1781326327990_37_24l4g",
-      "endSegmentId": "seg_1781326327990_37_24l4g",
+      "startSegmentId": "seg_pause_1787818604989_jwotj",
+      "endSegmentId": "seg_pause_1787818604989_jwotj",
       "column": 5,
       "volume": 0.4,
       "fadeIn": 0,
@@ -2445,8 +2478,8 @@
     {
       "id": "st_1784539275036_61hw5l45b",
       "soundId": "iphone_apple_notification_sound",
-      "startSegmentId": "seg_1781326327990_37_24l4g",
-      "endSegmentId": "seg_1781326327990_37_24l4g",
+      "startSegmentId": "seg_pause_1787818604989_jwotj",
+      "endSegmentId": "seg_pause_1787818604989_jwotj",
       "column": 6,
       "volume": 0.7,
       "fadeIn": 0,
