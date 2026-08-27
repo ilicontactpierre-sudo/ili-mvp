@@ -67,6 +67,7 @@
     "id": "test-historique-test-historique",
     "title": "test historique",
     "author": "test historique",
-    "description": "test historique"
+    "description": "test historique",
+    "hidden": true
   }
 ]
