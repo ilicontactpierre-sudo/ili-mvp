@@ -300,7 +300,7 @@ npm run sync             # Sync Git multi-branches (git-sync.sh)
 | `GITHUB_OWNER` | Propriétaire du repo GitHub | Publication histoires |
 | `GITHUB_REPO` | Nom du repo GitHub | Publication histoires |
 | `GITHUB_BRANCH` | Branche cible (défaut: `main`) | Publication histoires |
-| `VITE_ADMIN_PASSWORD` | Version frontend de ADMIN_PASSWORD (pour UI admin) | Interface admin |
+| ~~`VITE_ADMIN_PASSWORD`~~ | Supprimée (faille de sécurité corrigée le 26/08/2026) — l'auth admin passe désormais uniquement par `/api/login`, qui vérifie `ADMIN_PASSWORD` côté serveur | Interface admin |
 
 ---
 
