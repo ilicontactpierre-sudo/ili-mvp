@@ -93,7 +93,7 @@ Après avoir ajouté les variables d'environnement, tu dois redéployer manuelle
 C'est normal ! La publication automatique ne fonctionne qu'en production (sur Vercel). En local, utilise le bouton **📋 Générer le JSON (export manuel)**.
 
 ### Erreur "Non autorisé"
-Vérifie que `ADMIN_PASSWORD` dans Vercel correspond à `VITE_ADMIN_PASSWORD` dans ton `.env`.
+Vérifie que `ADMIN_PASSWORD` est bien définie à la fois dans Vercel et dans ton `.env` local (avec la même valeur). `VITE_ADMIN_PASSWORD` n'existe plus — c'était une faille de sécurité, supprimée le 26/08/2026.
 
 ### Erreur "Variables GitHub manquantes"
 Une ou plusieurs variables GitHub ne sont pas configurées dans Vercel. Retourne à l'étape 2.
