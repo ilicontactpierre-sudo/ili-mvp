@@ -69,5 +69,10 @@
     "author": "test historique",
     "description": "test historique",
     "hidden": true
+  },
+  {
+    "id": "histoire-test-histoire-test",
+    "title": "Histoire test",
+    "author": "Histoire test"
   }
 ]
