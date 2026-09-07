@@ -1,0 +1,22 @@
+{
+  "id": "histoire-test-histoire-test",
+  "title": "Histoire test",
+  "author": "Histoire test",
+  "description": "Histoire test",
+  "published": true,
+  "sounds": [],
+  "segments": [
+    {
+      "id": "seg_1788771655153_0_b6aza",
+      "lines": [
+        "Histoire test"
+      ],
+      "text": "Histoire test",
+      "breakAt": null,
+      "isLeader": false,
+      "audioEvents": []
+    }
+  ],
+  "soundTracks": [],
+  "vfxTracks": []
+}
