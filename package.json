@@ -7,6 +7,7 @@
     "dev": "concurrently \"node scripts/dev-api-server.js\" \"vite\"",
     "dev:clean": "pkill -f 'node scripts/dev-api-server.js'; pkill -f vite; sleep 1 && concurrently \"node scripts/dev-api-server.js\" \"vite\"",
     "build": "vite build",
+    "test": "vitest",
     "lint": "eslint .",
     "preview": "vite preview",
     "add-sound": "node scripts/addSound.js",
