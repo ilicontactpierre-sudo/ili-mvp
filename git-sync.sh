@@ -1,29 +1,41 @@
 #!/bin/bash
-
+set -e
 echo "🔄 Synchronisation Git..."
 
-# 1. Stash les changements locaux
-git stash
-
-# 2. Si un merge est en cours, le finaliser
-if [ -f .git/MERGE_HEAD ]; then
-  echo "⚠️  Merge en cours détecté — finalisation..."
-  git commit --no-edit
+# 1. Mettre de côté les modifications locales, seulement s'il y en a
+STASHED=false
+if [ -n "$(git status --porcelain)" ]; then
+  echo "📦 Mise de côté des modifications locales non commitées..."
+  git stash
+  STASHED=true
 fi
 
-# 3. Pull sans rebase
-git pull --no-rebase
-
-# 4. Résoudre automatiquement les conflits en faveur du local
-git checkout --ours -- . 2>/dev/null
-
-# 5. Finaliser si conflit
-if [ -f .git/MERGE_HEAD ]; then
-  git add .
-  git commit --no-edit
+# 2. Pull sans rebase
+echo "⬇️  Récupération des changements distants..."
+if ! git pull --no-rebase; then
+  echo "❌ Le pull a échoué (probablement un conflit)."
+  echo "   Résous-le manuellement : git status, puis git add . && git commit"
+  if [ "$STASHED" = true ]; then
+    echo "⚠️  Tes modifications locales sont en sécurité dans le stash (git stash list)."
+    echo "   Récupère-les avec 'git stash pop' une fois le conflit résolu."
+  fi
+  exit 1
 fi
 
-# 6. Récupérer les changements stashés
-git stash pop 2>/dev/null
+# 3. Réappliquer les modifications mises de côté, si besoin
+if [ "$STASHED" = true ]; then
+  echo "📤 Réapplication de tes modifications locales..."
+  if ! git stash pop; then
+    echo ""
+    echo "⚠️  CONFLIT lors de la réapplication de tes modifications locales."
+    echo "   Rien n'a été résolu automatiquement — tes modifications sont toujours en sécurité dans le stash."
+    echo "   Pour résoudre :"
+    echo "     git status              # voir les fichiers en conflit"
+    echo "     (édite les fichiers, cherche <<<<<<< / ======= / >>>>>>>)"
+    echo "     git add ."
+    echo "     git stash drop          # une fois résolu, pour nettoyer le stash"
+    exit 1
+  fi
+fi
 
 echo "✅ Synchronisation terminée."
