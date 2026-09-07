@@ -1,11 +1,13 @@
-import { useState, useEffect } from 'react'
-
+import { useState, useEffect, useMemo, useRef } from 'react'
 const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL
 const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY
-
+// order=created_at.desc — important : on veut les événements les plus RÉCENTS
+// en priorité. Avec .asc, une fois plus de 5000 événements au total, les plus
+// récents seraient tronqués par le limit, cassant silencieusement tout filtre
+// par période (7j/30j) une fois ce seuil dépassé.
 async function fetchEvents() {
   const res = await fetch(
-    `${SUPABASE_URL}/rest/v1/reading_events?select=*&order=created_at.asc&limit=5000`,
+    `${SUPABASE_URL}/rest/v1/reading_events?select=*&order=created_at.desc&limit=5000`,
     {
       headers: {
         apikey: SUPABASE_ANON_KEY,
@@ -16,14 +18,12 @@ async function fetchEvents() {
   if (!res.ok) throw new Error('Erreur chargement analytics')
   return res.json()
 }
-
 function computeStats(events) {
   const byStory = {}
   events.forEach(e => {
     if (!byStory[e.story_id]) byStory[e.story_id] = []
     byStory[e.story_id].push(e)
   })
-
   return Object.entries(byStory).map(([storyId, evts]) => {
     const starts = evts.filter(e => e.event === 'start')
     const uniqueReaders = new Set(starts.map(e => e.reader_id)).size
@@ -45,11 +45,30 @@ function computeStats(events) {
     const lastSeen = lastEvent
       ? new Date(lastEvent.created_at).toLocaleDateString('fr-FR', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' })
       : '—'
-
     return { storyId, uniqueReaders, finishers, completionRate, m25, m50, m75, avgAbandonPct, returners, totalSegments, lastSeen }
   }).sort((a, b) => b.uniqueReaders - a.uniqueReaders)
 }
-
+// ── Export CSV ─────────────────────────────────────────────────────────────
+function toCSV(rows, columns) {
+  const escape = (v) => {
+    const s = v === null || v === undefined ? '' : String(v)
+    return /[",\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s
+  }
+  const header = columns.map(c => escape(c.label)).join(',')
+  const lines = rows.map(r => columns.map(c => escape(r[c.key])).join(','))
+  return [header, ...lines].join('\n')
+}
+function downloadCSV(filename, csvString) {
+  const blob = new Blob(['\uFEFF' + csvString], { type: 'text/csv;charset=utf-8;' })
+  const url = URL.createObjectURL(blob)
+  const a = document.createElement('a')
+  a.href = url
+  a.download = filename
+  document.body.appendChild(a)
+  a.click()
+  document.body.removeChild(a)
+  URL.revokeObjectURL(url)
+}
 // ── Barre de funnel ───────────────────────────────────────────────────────────
 function FunnelRow({ label, value, max, color }) {
   const pct = max > 0 ? (value / max) * 100 : 0
@@ -67,7 +86,6 @@ function FunnelRow({ label, value, max, color }) {
     </div>
   )
 }
-
 // ── Arc SVG de complétion ─────────────────────────────────────────────────────
 function CompletionArc({ pct }) {
   const r = 28
@@ -90,11 +108,116 @@ function CompletionArc({ pct }) {
     </div>
   )
 }
-
+// ── Sélecteur de période ──────────────────────────────────────────────────────
+function RangeSelector({ rangeDays, onChange }) {
+  const options = [
+    { value: 7, label: '7 jours' },
+    { value: 30, label: '30 jours' },
+    { value: 90, label: '90 jours' },
+    { value: null, label: 'Tout' },
+  ]
+  return (
+    <div style={{ display: 'flex', gap: '4px', background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '8px', padding: '3px' }}>
+      {options.map(o => (
+        <button
+          key={o.label}
+          onClick={() => onChange(o.value)}
+          style={{
+            padding: '5px 12px', fontSize: '0.75rem', fontWeight: 600,
+            background: rangeDays === o.value ? 'rgba(96,165,250,0.18)' : 'transparent',
+            color: rangeDays === o.value ? '#93c5fd' : 'rgba(255,255,255,0.55)',
+            border: 'none', borderRadius: '6px', cursor: 'pointer',
+            transition: 'all 0.15s ease',
+          }}
+        >{o.label}</button>
+      ))}
+    </div>
+  )
+}
+// ── Menu de filtre multi-histoires ────────────────────────────────────────────
+function FilterDropdown({ allStoryIds, selectedIds, onToggle, onSelectAll, onSelectNone }) {
+  const [isOpen, setIsOpen] = useState(false)
+  const [search, setSearch] = useState('')
+  const ref = useRef(null)
+  useEffect(() => {
+    function handleClickOutside(e) {
+      if (ref.current && !ref.current.contains(e.target)) setIsOpen(false)
+    }
+    if (isOpen) {
+      document.addEventListener('mousedown', handleClickOutside)
+      return () => document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [isOpen])
+  const filtered = allStoryIds.filter(id => id.toLowerCase().includes(search.toLowerCase()))
+  const activeCount = selectedIds.size === 0 ? allStoryIds.length : selectedIds.size
+  return (
+    <div style={{ position: 'relative' }} ref={ref}>
+      <button
+        onClick={() => setIsOpen(o => !o)}
+        style={{
+          padding: '8px 16px', fontSize: '0.78rem', fontWeight: 600,
+          background: selectedIds.size > 0 ? 'rgba(96,165,250,0.15)' : 'rgba(255,255,255,0.08)',
+          color: selectedIds.size > 0 ? '#93c5fd' : 'rgba(255,255,255,0.7)',
+          border: `1px solid ${selectedIds.size > 0 ? 'rgba(96,165,250,0.35)' : 'rgba(255,255,255,0.1)'}`,
+          borderRadius: '8px', cursor: 'pointer',
+        }}
+      >
+        🔍 Filtrer ({activeCount}/{allStoryIds.length}) {isOpen ? '▲' : '▾'}
+      </button>
+      {isOpen && (
+        <div style={{
+          position: 'absolute', top: '100%', left: 0, marginTop: '6px',
+          background: '#18181b', border: '1px solid rgba(255,255,255,0.12)',
+          borderRadius: '10px', boxShadow: '0 8px 24px rgba(0,0,0,0.5)',
+          minWidth: '280px', maxHeight: '360px', display: 'flex', flexDirection: 'column',
+          zIndex: 1000,
+        }}>
+          <div style={{ padding: '10px', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
+            <input
+              type="text"
+              placeholder="Rechercher une histoire…"
+              value={search}
+              onChange={e => setSearch(e.target.value)}
+              style={{
+                width: '100%', padding: '6px 10px', fontSize: '0.8rem',
+                background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)',
+                borderRadius: '6px', color: '#eee', boxSizing: 'border-box',
+              }}
+            />
+            <div style={{ display: 'flex', gap: '6px', marginTop: '8px' }}>
+              <button onClick={onSelectAll} style={{ flex: 1, padding: '4px', fontSize: '0.7rem', background: 'rgba(255,255,255,0.06)', color: 'rgba(255,255,255,0.6)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '4px', cursor: 'pointer' }}>Tout afficher</button>
+              <button onClick={onSelectNone} style={{ flex: 1, padding: '4px', fontSize: '0.7rem', background: 'rgba(255,255,255,0.06)', color: 'rgba(255,255,255,0.6)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '4px', cursor: 'pointer' }}>Tout masquer</button>
+            </div>
+          </div>
+          <div style={{ overflowY: 'auto', padding: '6px' }}>
+            {filtered.length === 0 && (
+              <div style={{ padding: '12px', textAlign: 'center', fontSize: '0.78rem', color: 'rgba(255,255,255,0.3)' }}>Aucun résultat</div>
+            )}
+            {filtered.map(id => {
+              const checked = selectedIds.size === 0 || selectedIds.has(id)
+              return (
+                <label key={id} style={{
+                  display: 'flex', alignItems: 'center', gap: '8px',
+                  padding: '6px 8px', fontSize: '0.8rem', color: '#ddd',
+                  cursor: 'pointer', borderRadius: '5px',
+                }}
+                  onMouseEnter={e => e.currentTarget.style.background = 'rgba(255,255,255,0.04)'}
+                  onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
+                >
+                  <input type="checkbox" checked={checked} onChange={() => onToggle(id)} />
+                  <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{id}</span>
+                </label>
+              )
+            })}
+          </div>
+        </div>
+      )}
+    </div>
+  )
+}
 // ── Carte histoire ────────────────────────────────────────────────────────────
-function StoryCard({ stat, index }) {
+function StoryCard({ stat, index, onReset, isResetting }) {
   const [open, setOpen] = useState(false)
-
   return (
     <div style={{
       background: 'rgba(255,255,255,0.03)',
@@ -107,7 +230,6 @@ function StoryCard({ stat, index }) {
       onMouseEnter={e => e.currentTarget.style.borderColor = 'rgba(255,255,255,0.14)'}
       onMouseLeave={e => e.currentTarget.style.borderColor = 'rgba(255,255,255,0.07)'}
     >
-      {/* ── Header ── */}
       <div
         onClick={() => setOpen(o => !o)}
         style={{
@@ -115,16 +237,13 @@ function StoryCard({ stat, index }) {
           padding: '16px 20px', cursor: 'pointer',
         }}
       >
-        {/* Numéro */}
         <span style={{
           fontSize: '0.65rem', fontWeight: 700, color: 'rgba(255,255,255,0.2)',
           minWidth: '18px', fontVariantNumeric: 'tabular-nums',
         }}>
           {String(index + 1).padStart(2, '0')}
         </span>
-
         <CompletionArc pct={stat.completionRate} />
-
         <div style={{ flex: 1, minWidth: 0 }}>
           <div style={{
             fontWeight: 700, fontSize: '0.95rem', color: '#f0f0f0', letterSpacing: '-0.01em',
@@ -133,11 +252,9 @@ function StoryCard({ stat, index }) {
             {stat.storyId}
           </div>
           <div style={{ fontSize: '0.7rem', color: 'rgba(255,255,255,0.3)', marginTop: '3px' }}>
-            Dernière lecture : {stat.lastSeen}
+            Dernière lecture (période) : {stat.lastSeen}
           </div>
         </div>
-
-        {/* Pills métriques */}
         <div style={{ display: 'flex', gap: '8px', flexShrink: 0 }}>
           {[
             { v: stat.uniqueReaders, label: 'lecteurs', color: '#a5b4fc' },
@@ -150,15 +267,12 @@ function StoryCard({ stat, index }) {
             </div>
           ))}
         </div>
-
         <span style={{
           fontSize: '0.65rem', color: 'rgba(255,255,255,0.25)',
           transform: open ? 'rotate(180deg)' : 'none',
           transition: 'transform 0.25s ease', flexShrink: 0, marginLeft: '4px',
         }}>▼</span>
       </div>
-
-      {/* ── Détail ── */}
       {open && (
         <div style={{
           borderTop: '1px solid rgba(255,255,255,0.06)',
@@ -176,7 +290,6 @@ function StoryCard({ stat, index }) {
           <FunnelRow label="50% atteints" value={stat.m50}           max={stat.uniqueReaders} color="#fbbf24" />
           <FunnelRow label="75% atteints" value={stat.m75}           max={stat.uniqueReaders} color="#fb923c" />
           <FunnelRow label="Ont terminé"  value={stat.finishers}     max={stat.uniqueReaders} color="#4ade80" />
-
           <div style={{ display: 'flex', gap: '10px', marginTop: '16px', flexWrap: 'wrap' }}>
             {stat.avgAbandonPct !== null && (
               <div style={{
@@ -202,25 +315,45 @@ function StoryCard({ stat, index }) {
               </div>
             )}
           </div>
+          <div style={{
+            marginTop: '18px', paddingTop: '14px',
+            borderTop: '1px solid rgba(255,255,255,0.06)',
+            display: 'flex', justifyContent: 'flex-end',
+          }}>
+            <button
+              onClick={(e) => { e.stopPropagation(); onReset(stat.storyId) }}
+              disabled={isResetting}
+              title="Supprime définitivement les données de lecture de cette histoire (l'histoire elle-même n'est pas touchée)"
+              style={{
+                padding: '6px 12px', fontSize: '0.72rem',
+                background: 'rgba(220,53,69,0.1)', color: '#f87171',
+                border: '1px solid rgba(220,53,69,0.25)', borderRadius: '6px',
+                cursor: isResetting ? 'wait' : 'pointer',
+              }}
+            >
+              {isResetting ? '…' : '🗑 Réinitialiser les stats de cette histoire'}
+            </button>
+          </div>
         </div>
       )}
     </div>
   )
 }
-
 // ── Dashboard ─────────────────────────────────────────────────────────────────
 function AnalyticsDashboard() {
-  const [stats, setStats] = useState([])
+  const [rawEvents, setRawEvents] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [lastRefresh, setLastRefresh] = useState(null)
-
+  const [selectedIds, setSelectedIds] = useState(new Set())
+  const [resettingId, setResettingId] = useState(null)
+  const [rangeDays, setRangeDays] = useState(null) // null = "Tout"
   const load = async () => {
     setLoading(true)
     setError(null)
     try {
       const events = await fetchEvents()
-      setStats(computeStats(events))
+      setRawEvents(events)
       setLastRefresh(new Date().toLocaleTimeString('fr-FR'))
     } catch (e) {
       setError(e.message)
@@ -228,16 +361,99 @@ function AnalyticsDashboard() {
       setLoading(false)
     }
   }
-
   useEffect(() => { load() }, [])
-
-  const totalReaders = stats.reduce((s, r) => s + r.uniqueReaders, 0)
-  const totalFinishers = stats.reduce((s, r) => s + r.finishers, 0)
-  const avgCompletion = stats.length > 0
-    ? Math.round(stats.reduce((s, r) => s + r.completionRate, 0) / stats.length)
+  // Événements bornés à la période sélectionnée — tout le reste (stats,
+  // export brut) découle de cet ensemble filtré.
+  const rangeFilteredEvents = useMemo(() => {
+    if (!rangeDays) return rawEvents
+    const cutoff = Date.now() - rangeDays * 24 * 60 * 60 * 1000
+    return rawEvents.filter(e => new Date(e.created_at).getTime() >= cutoff)
+  }, [rawEvents, rangeDays])
+  const stats = useMemo(() => computeStats(rangeFilteredEvents), [rangeFilteredEvents])
+  const allStoryIds = useMemo(() => stats.map(s => s.storyId), [stats])
+  const visibleStats = useMemo(() => {
+    if (selectedIds.size === 0) return stats
+    return stats.filter(s => selectedIds.has(s.storyId))
+  }, [stats, selectedIds])
+  const visibleIdSet = useMemo(() => new Set(visibleStats.map(s => s.storyId)), [visibleStats])
+  const visibleRawEvents = useMemo(
+    () => rangeFilteredEvents.filter(e => visibleIdSet.has(e.story_id)),
+    [rangeFilteredEvents, visibleIdSet]
+  )
+  const toggleStoryFilter = (id) => {
+    setSelectedIds(prev => {
+      const next = new Set(prev)
+      if (next.size === 0) {
+        allStoryIds.forEach(sid => { if (sid !== id) next.add(sid) })
+        return next
+      }
+      if (next.has(id)) next.delete(id)
+      else next.add(id)
+      if (next.size === allStoryIds.length) return new Set()
+      return next
+    })
+  }
+  const handleReset = async (storyId) => {
+    const typed = window.prompt(
+      `⚠️ Cette action supprime DÉFINITIVEMENT les statistiques de lecture de "${storyId}" (l'histoire elle-même n'est pas touchée).\n\n` +
+      `Pense à exporter le CSV avant si tu veux garder une trace.\n\n` +
+      `Pour confirmer, tape exactement l'identifiant de l'histoire :\n${storyId}`
+    )
+    if (typed !== storyId) {
+      if (typed !== null) alert("L'identifiant tapé ne correspond pas — rien n'a été supprimé.")
+      return
+    }
+    const adminPassword = sessionStorage.getItem('ili_admin_password')
+    if (!adminPassword) { alert("Session expirée — reconnecte-toi à l'admin."); return }
+    setResettingId(storyId)
+    try {
+      const response = await fetch('/api/publish', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password: adminPassword, action: 'reset-analytics', storyId })
+      })
+      const data = await response.json()
+      if (!response.ok) throw new Error(data.error || 'Erreur inconnue')
+      alert(`Statistiques de "${storyId}" réinitialisées.`)
+      await load()
+    } catch (err) {
+      alert('Erreur lors de la réinitialisation : ' + err.message)
+    } finally {
+      setResettingId(null)
+    }
+  }
+  const handleDownloadSummary = () => {
+    if (visibleStats.length === 0) { alert('Aucune donnée à exporter.'); return }
+    const columns = [
+      { key: 'storyId', label: 'Histoire' },
+      { key: 'uniqueReaders', label: 'Lecteurs uniques' },
+      { key: 'finishers', label: 'Ont terminé' },
+      { key: 'completionRate', label: 'Taux de complétion (%)' },
+      { key: 'm25', label: '25% atteints' },
+      { key: 'm50', label: '50% atteints' },
+      { key: 'm75', label: '75% atteints' },
+      { key: 'avgAbandonPct', label: 'Abandon moyen (%)' },
+      { key: 'returners', label: 'Lecteurs revenus' },
+      { key: 'totalSegments', label: 'Nombre de segments' },
+      { key: 'lastSeen', label: 'Dernière lecture (période)' },
+    ]
+    const suffix = rangeDays ? `-${rangeDays}j` : '-tout'
+    downloadCSV(`ili-analytics-resume${suffix}-${new Date().toISOString().slice(0, 10)}.csv`, toCSV(visibleStats, columns))
+  }
+  const handleDownloadRaw = () => {
+    if (visibleRawEvents.length === 0) { alert('Aucun événement à exporter.'); return }
+    const keySet = new Set()
+    visibleRawEvents.forEach(e => Object.keys(e).forEach(k => keySet.add(k)))
+    const columns = Array.from(keySet).map(k => ({ key: k, label: k }))
+    const suffix = rangeDays ? `-${rangeDays}j` : '-tout'
+    downloadCSV(`ili-analytics-evenements-bruts${suffix}-${new Date().toISOString().slice(0, 10)}.csv`, toCSV(visibleRawEvents, columns))
+  }
+  const totalReaders = visibleStats.reduce((s, r) => s + r.uniqueReaders, 0)
+  const totalFinishers = visibleStats.reduce((s, r) => s + r.finishers, 0)
+  const avgCompletion = visibleStats.length > 0
+    ? Math.round(visibleStats.reduce((s, r) => s + r.completionRate, 0) / visibleStats.length)
     : 0
-  const totalReturners = stats.reduce((s, r) => s + r.returners, 0)
-
+  const totalReturners = visibleStats.reduce((s, r) => s + r.returners, 0)
   return (
     <div style={{
       minHeight: '100vh',
@@ -246,9 +462,7 @@ function AnalyticsDashboard() {
       fontFamily: "'DM Sans', 'Helvetica Neue', sans-serif",
     }}>
       <div style={{ maxWidth: '780px', margin: '0 auto' }}>
-
-        {/* ── Header ── */}
-        <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: '32px' }}>
+        <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: '20px', flexWrap: 'wrap', gap: '12px' }}>
           <div>
             <h2 style={{
               margin: 0, fontSize: '1.5rem', fontWeight: 800,
@@ -275,9 +489,30 @@ function AnalyticsDashboard() {
             {loading ? '…' : '↻ Actualiser'}
           </button>
         </div>
-
-        {/* ── Métriques globales ── */}
-        {!loading && stats.length > 0 && (
+        {/* ── Barre d'outils : période + filtre + export ── */}
+        {!loading && rawEvents.length > 0 && (
+          <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: '20px', alignItems: 'center' }}>
+            <RangeSelector rangeDays={rangeDays} onChange={setRangeDays} />
+            <FilterDropdown
+              allStoryIds={allStoryIds}
+              selectedIds={selectedIds}
+              onToggle={toggleStoryFilter}
+              onSelectAll={() => setSelectedIds(new Set())}
+              onSelectNone={() => setSelectedIds(new Set(['__none__']))}
+            />
+            <button onClick={handleDownloadSummary} style={{
+              padding: '8px 16px', fontSize: '0.78rem', fontWeight: 600,
+              background: 'rgba(255,255,255,0.08)', color: 'rgba(255,255,255,0.7)',
+              border: '1px solid rgba(255,255,255,0.1)', borderRadius: '8px', cursor: 'pointer',
+            }}>📥 Résumé (CSV)</button>
+            <button onClick={handleDownloadRaw} style={{
+              padding: '8px 16px', fontSize: '0.78rem', fontWeight: 600,
+              background: 'rgba(255,255,255,0.08)', color: 'rgba(255,255,255,0.7)',
+              border: '1px solid rgba(255,255,255,0.1)', borderRadius: '8px', cursor: 'pointer',
+            }}>📥 Événements bruts (CSV)</button>
+          </div>
+        )}
+        {!loading && visibleStats.length > 0 && (
           <div style={{
             display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '10px',
             marginBottom: '28px',
@@ -305,8 +540,6 @@ function AnalyticsDashboard() {
             ))}
           </div>
         )}
-
-        {/* ── États ── */}
         {error && (
           <div style={{
             padding: '14px 16px', background: 'rgba(248,113,113,0.08)',
@@ -316,14 +549,12 @@ function AnalyticsDashboard() {
             Erreur : {error}
           </div>
         )}
-
         {loading && (
           <div style={{ textAlign: 'center', padding: '60px 0', color: 'rgba(255,255,255,0.2)', fontSize: '0.85rem' }}>
             Chargement des données…
           </div>
         )}
-
-        {!loading && !error && stats.length === 0 && (
+        {!loading && !error && rawEvents.length === 0 && (
           <div style={{
             padding: '60px 24px', textAlign: 'center',
             border: '1px dashed rgba(255,255,255,0.08)', borderRadius: '14px',
@@ -335,19 +566,32 @@ function AnalyticsDashboard() {
             </p>
           </div>
         )}
-
-        {/* ── Cartes ── */}
-        {!loading && stats.length > 0 && (
+        {!loading && !error && rawEvents.length > 0 && visibleStats.length === 0 && (
+          <div style={{
+            padding: '40px 24px', textAlign: 'center',
+            border: '1px dashed rgba(255,255,255,0.08)', borderRadius: '14px',
+            color: 'rgba(255,255,255,0.3)', fontSize: '0.85rem',
+          }}>
+            Aucune donnée pour cette combinaison période / filtre.
+          </div>
+        )}
+        {!loading && visibleStats.length > 0 && (
           <>
             <p style={{
               fontSize: '0.62rem', fontWeight: 700, color: 'rgba(255,255,255,0.2)',
               textTransform: 'uppercase', letterSpacing: '0.1em',
               margin: '0 0 12px',
             }}>
-              {stats.length} histoire{stats.length > 1 ? 's' : ''} · cliquer pour le détail
+              {visibleStats.length} histoire{visibleStats.length > 1 ? 's' : ''} · cliquer pour le détail
             </p>
-            {stats.map((stat, i) => (
-              <StoryCard key={stat.storyId} stat={stat} index={i} />
+            {visibleStats.map((stat, i) => (
+              <StoryCard
+                key={stat.storyId}
+                stat={stat}
+                index={i}
+                onReset={handleReset}
+                isResetting={resettingId === stat.storyId}
+              />
             ))}
           </>
         )}
@@ -355,5 +599,4 @@ function AnalyticsDashboard() {
     </div>
   )
 }
-
 export default AnalyticsDashboard
