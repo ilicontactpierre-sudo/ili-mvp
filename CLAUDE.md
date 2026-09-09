@@ -19,6 +19,8 @@ Ce fichier donne le contexte nécessaire pour travailler sur ce repo. Lis-le ava
 - `npm run publish` — publication manuelle via `publish.sh` (commit + push) — **ne jamais lancer sans confirmation explicite de l'utilisateur**
 - `npm run checkpoint` — snapshot + relance Vite en écoute réseau (0.0.0.0)
 - `npm run add-sound` — script d'ajout de son à la bibliothèque
+- `npm test` — lance les tests (Vitest, mode watch) ; `npm test -- --run` pour un passage unique sans watch (utile en CI ou avant un commit)
+- `node scripts/validate-story.mjs public/stories/` — valide le format de toutes les stories JSON (références cassées, champs manquants...) ; ajouter `--check-urls` pour vérifier aussi que les URLs de sons Supabase répondent (plus lent, nécessite une connexion réseau) ; peut aussi cibler un seul fichier (`node scripts/validate-story.mjs public/stories/nom-de-la-story.json`)
 
 ## Structure du repo
 
