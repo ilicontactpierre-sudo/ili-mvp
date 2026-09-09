@@ -46,12 +46,13 @@ src/
 │   └── HapticEngine.js                  # Vibrations sur segments
 ├── utils/
 │   ├── segmentAlgorithm.js              # ⚠️ ZONE SENSIBLE — voir ci-dessous
+│   ├── segmentAlgorithm.test.js         # Tests de non-régression (30 tests) — npm test
 │   ├── renderMarkdown.jsx / inlineFunctions.jsx / bionicReading.jsx
 │   ├── emojiDict.jsx / soundSearch.js (Web Worker) / analytics.js
 ├── assets/ et styles/
-
 api/                                     # Endpoints Vercel Serverless (prod)
 scripts/dev-api-server.js                # Serveur Express (dev local) — voir ⚠️ ci-dessous
+scripts/validate-story.mjs               # Validateur de schéma pour public/stories/*.json — voir ⚠️ ci-dessous
 public/stories/*.json                    # ⚠️ ZONE SENSIBLE — format story, voir ci-dessous
 public/sounds/
 ```
