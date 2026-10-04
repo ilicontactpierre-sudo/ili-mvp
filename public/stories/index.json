@@ -73,7 +73,8 @@
   {
     "id": "histoire-test-histoire-test",
     "title": "Histoire test",
-    "author": "Histoire test"
+    "author": "Histoire test",
+    "hidden": true
   },
   {
     "id": "test-3-test-3",
