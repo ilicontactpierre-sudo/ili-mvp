@@ -285,7 +285,7 @@ app.delete('/api/delete-sound', express.json(), async (req, res) => {
 })
 
 // ── Démarrage ────────────────────────────────────────────────────────────────
-app.listen(3001, () => {
+app.listen(3001, '127.0.0.1', () => {
   console.log('\n🔧 Serveur API local prêt sur http://localhost:3001')
   console.log('   GET  /api/preview-sound    → lecture fichiers locaux')
   console.log('   POST /api/get-upload-url   → URL signée Supabase')
