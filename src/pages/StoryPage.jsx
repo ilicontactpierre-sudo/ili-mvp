@@ -709,7 +709,7 @@ function StoryPage() {
           author={activeStory?.author ?? storyRaw?.author ?? ''}
           segmentCount={segments.length}
           segments={segments}
-          soundsToPreload={activeStory?.sounds ?? []}
+          soundsToPreload={getSoundsToPreload(activeStory)}
           savedProgress={progressKey ? loadProgress(progressKey) : null}
           onStart={(preloadedHowlMap, resume) => {
             // Preload audio commence ici (StartScreen l'a déjà lancé)
