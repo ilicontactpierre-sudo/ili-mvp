@@ -132,7 +132,9 @@ function StartScreen({ title, author, segmentCount = 0, segments = [], soundsToP
           howlMap.set(sound.id, howl)
           howl.once('load', settle)
           howl.once('loaderror', settle)
-          howl.load()
+          // preload: true lance déjà le chargement : ne pas rappeler howl.load() (2e téléchargement).
+          // Si le son est déjà décodé (cache Howler), l'événement 'load' est parti avant nos écouteurs.
+          if (howl.state() === 'loaded') settle()
         })
       })
 
