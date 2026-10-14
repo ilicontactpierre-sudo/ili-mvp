@@ -143,6 +143,11 @@ export class SoundLoader {
   // Ajoute des sons à la file, dans l'ordre donné. Les sons déjà connus sont ignorés.
   start(sounds) {
     if (this._disposed) return
+    // Une seule fois par chargeur : supprime les caches audio des anciennes versions.
+    if (!this._cleaned && this._caches) {
+      this._cleaned = true
+      cleanOldAudioCaches(this._caches, this._opt.cacheName)
+    }
     for (const s of sounds) {
       if (!s || this._status.has(s.id)) continue
       this._sounds.set(s.id, s)
