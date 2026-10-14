@@ -323,6 +323,45 @@ class AudioEngine {
     }
     return targetVolume
   }
+  // Appelé par la page quand un son vient d'être chargé EN RETARD (réseau lent), pendant que le
+  // lecteur est au segment `currentIndex`. Démarre les blocs de ce son qui sont actifs à ce
+  // segment et ne jouent pas encore :
+  //  - bloc de plus d'un segment (boucle ou non) : démarrage tardif, avec son fadeIn d'origine,
+  //    au volume voulu à CE segment (automation comprise) ;
+  //  - effet ponctuel (un seul segment, sans boucle) : annulé, jamais joué en retard.
+  // Si le lecteur a déjà dépassé la fin du bloc, rien ne démarre.
+  onSoundReady(soundId, currentIndex, soundTracks = [], segments = []) {
+    if (!soundId || !this.howlMap.get(soundId)) return
+    const getIndex = (segmentId) =>
+      segments.findIndex(s => s.id === segmentId || s._id === segmentId)
+    for (const track of soundTracks) {
+      if (track.soundId !== soundId || track.muted || track.broken) continue
+      const key = track.id || track.soundId
+      if (this.playingSounds.has(key)) continue
+      const startIdx = getIndex(track.startSegmentId)
+      if (startIdx === -1) continue
+      const endIdx = getIndex(track.endSegmentId)
+      const end = endIdx !== -1 ? endIdx : startIdx
+      if (currentIndex < startIdx || currentIndex > end) continue
+      if (end === startIdx && !track.loop) continue
+      const params = {
+        trackId: track.id,
+        soundId: track.soundId,
+        volume: this._getAutomatedVolumeAtIndex(track, currentIndex, getIndex),
+        gainDb: track.gainDb ?? 0,
+        loop: track.loop ?? false,
+        loopCrossfade: track.loopCrossfade,
+        trimStart: track.trimStart,
+        trimEnd: track.trimEnd,
+        pan: track.pan ?? 0,
+        panMode: track.panMode ?? 'static',
+        panSpeedMs: track.panSpeedMs,
+      }
+      if ((track.fadeIn || 0) > 0) this.fadeInSound({ ...params, duration: track.fadeIn })
+      else this.playSound(params)
+    }
+  }
+
   onSegmentChange(currentIndex, soundTracks = [], segments = []) {
     const getIndex = (segmentId) =>
       segments.findIndex(s => s.id === segmentId || s._id === segmentId)
