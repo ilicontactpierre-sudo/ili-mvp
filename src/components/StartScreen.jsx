@@ -1,5 +1,8 @@
 import { useState, useEffect, useRef } from 'react'
 import { Howl } from 'howler'
+import { SoundLoader } from '../engine/SoundLoader.js'
+import { orderSoundsByNeed, getStartSoundIds } from '../utils/soundOrder.js'
+import { waitForSounds } from '../utils/startGate.js'
 
 // ── Détection plateforme ──────────────────────────────────────────────────────
 const isIOS = () => /iPad|iPhone|iPod/.test(navigator.userAgent)
@@ -7,10 +10,26 @@ const isStandalone = () =>
   window.navigator.standalone === true ||
   window.matchMedia('(display-mode: standalone)').matches
 
-function StartScreen({ title, author, segmentCount = 0, segments = [], soundsToPreload = [], savedProgress, onStart, autoStart = false }) {
+function StartScreen({ title, author, segmentCount = 0, segments = [], soundsToPreload = [], story = null, savedProgress, onStart, autoStart = false }) {
   const [phase, setPhase] = useState('idle') // idle | loading | exiting
   const [loadProgress, setLoadProgress] = useState(0) // 0–100
   const loadProgressRef = useRef(0)
+  const [isSlow, setIsSlow] = useState(false) // chargement lent : propose de commencer sans tout le son
+  const loaderRef = useRef(null)
+  const gateRef = useRef(null)
+  const aliveRef = useRef(true)
+  const handedOverRef = useRef(false)
+
+  // Écran quitté pendant le chargement : arrêter l'attente et libérer le chargeur
+  // (sauf s'il a déjà été confié à la page par onStart).
+  useEffect(() => {
+    aliveRef.current = true
+    return () => {
+      aliveRef.current = false
+      gateRef.current?.cancel()
+      if (!handedOverRef.current) loaderRef.current?.dispose()
+    }
+  }, [])
 
   // ── PWA install prompt ────────────────────────────────────────────────────
   const deferredPromptRef = useRef(null)
@@ -99,53 +118,51 @@ function StartScreen({ title, author, segmentCount = 0, segments = [], soundsToP
     setPhase('loading')
     setLoadProgress(0)
     loadProgressRef.current = 0
+    setIsSlow(false)
 
-    const howlMap = new Map()
-    const total = soundsToPreload.length
+    // Débloque l'audio (iOS/Android) PENDANT le tap : Howler enregistre son déblocage à la
+    // création d'un Howl, et le chargeur ne crée les siens qu'après le téléchargement, donc
+    // hors du geste. Ce Howl factice ne charge rien (preload: false).
+    try { new Howl({ src: ['data:audio/mpeg;base64,'], preload: false, html5: false }).unload() } catch { /* rien */ }
 
-    if (total > 0) {
-      let loaded = 0
+    // Position de départ : celle de la reprise, sinon le début
+    const startIndex = resume ? (savedProgress?.segmentIndex ?? 0) : 0
+    const audioStory = story ?? { segments, sounds: soundsToPreload, soundTracks: [] }
+    const loader = new SoundLoader({ createHowl: (options) => new Howl(options) })
+    loaderRef.current = loader
+    const ordered = orderSoundsByNeed(audioStory, startIndex)
+    loader.start(ordered)
 
-      const onOneLoaded = () => {
-        loaded++
-        const pct = Math.round((loaded / total) * 100)
-        loadProgressRef.current = pct
-        setLoadProgress(pct)
-      }
-
-      const preloadTasks = soundsToPreload.map((sound) => {
-        return new Promise((resolve) => {
-          const howl = new Howl({
-            src: [sound.url],
-            preload: true,
-            loop: Boolean(sound.loop),
-          })
-          let isSettled = false
-          const settle = () => {
-            if (isSettled) return
-            isSettled = true
-            window.clearTimeout(fallbackTimer)
-            onOneLoaded()
-            resolve()
-          }
-          const fallbackTimer = window.setTimeout(settle, 8000)
-          howlMap.set(sound.id, howl)
-          howl.once('load', settle)
-          howl.once('loaderror', settle)
-          // preload: true lance déjà le chargement : ne pas rappeler howl.load() (2e téléchargement).
-          // Si le son est déjà décodé (cache Howler), l'événement 'load' est parti avant nos écouteurs.
-          if (howl.state() === 'loaded') settle()
-        })
+    if (ordered.length > 0) {
+      // On n'attend que les sons du DÉBUT (actifs à la position de départ + ceux des 3
+      // segments suivants). Les autres continuent de se télécharger pendant la lecture.
+      const gate = waitForSounds(loader, getStartSoundIds(audioStory, startIndex, 3), {
+        onProgress: (done, total) => {
+          const pct = total === 0 ? 100 : Math.round((done / total) * 100)
+          loadProgressRef.current = pct
+          setLoadProgress(pct)
+        },
+        onSlow: () => setIsSlow(true),
       })
-
-      await Promise.all(preloadTasks)
+      gateRef.current = gate
+      await gate.done
+      gateRef.current = null
+      if (!aliveRef.current) return
     }
+    setIsSlow(false)
+    loadProgressRef.current = 100
+    setLoadProgress(100)
 
     // Pause courte à 100% — laisse l'animation de la barre se terminer
     await new Promise(r => window.setTimeout(r, 280))
+    if (!aliveRef.current) return
 
     setPhase('exiting')
-    window.setTimeout(() => onStart(howlMap, resume), 500)
+    window.setTimeout(() => {
+      if (!aliveRef.current) return
+      handedOverRef.current = true // le chargeur appartient désormais à la page
+      onStart(loader.howlMap, resume, loader)
+    }, 500)
   }
 
   // ── Courbe S pour la barre de progression ─────────────────────────────────
