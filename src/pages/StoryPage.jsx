@@ -740,6 +740,7 @@ function StoryPage() {
           segmentCount={segments.length}
           segments={segments}
           soundsToPreload={getSoundsToPreload(activeStory)}
+          story={activeStory}
           savedProgress={progressKey ? loadProgress(progressKey) : null}
           onStart={(preloadedHowlMap, resume) => {
             // Preload audio commence ici (StartScreen l'a déjà lancé)
