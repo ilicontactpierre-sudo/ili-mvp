@@ -376,6 +376,9 @@ function StoryPage() {
       setActivePartIndex(null)
       audioEngineRef.current?.stopAll()
       audioEngineRef.current = null
+      audioSyncRef.current = null
+      soundLoaderRef.current?.dispose()
+      soundLoaderRef.current = null
       preloadedSoundsRef.current = new Map()
 
       try {
