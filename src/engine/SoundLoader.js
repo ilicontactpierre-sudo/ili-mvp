@@ -11,8 +11,10 @@
 //
 // Ce module n'importe pas Howler : `createHowl` est fourni par l'appelant (facilite les tests).
 
+import { AUDIO_CACHE_NAME, cleanOldAudioCaches, putWithEviction } from './audioCache.js'
+
 export const DEFAULT_OPTIONS = {
-  cacheName: 'ili-audio-v1',
+  cacheName: AUDIO_CACHE_NAME, // pour changer de version : voir audioCache.js
   stallMs: 30000,            // abandon d'un essai si AUCUN octet n'arrive pendant ce délai
   attempts: 3,               // nombre d'essais de téléchargement par son
   retryDelaysMs: [1000, 3000],
