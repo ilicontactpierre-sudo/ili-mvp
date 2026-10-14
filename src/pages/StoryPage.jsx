@@ -473,6 +473,9 @@ function StoryPage() {
     abandonSentRef.current = false
     return () => {
       audioEngineRef.current?.stopAll()
+      audioSyncRef.current = null
+      soundLoaderRef.current?.dispose()
+      soundLoaderRef.current = null
       if (
         isStartedRef.current &&
         !isFinishedRef.current &&
