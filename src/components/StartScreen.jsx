@@ -421,6 +421,43 @@ function StartScreen({ title, author, segmentCount = 0, segments = [], soundsToP
               </div>
             )}
 
+            {/* ── Connexion lente : proposer de commencer sans attendre tous les sons ── */}
+            {isLoading && isSlow && (
+              <div style={{
+                marginTop: '1.8rem',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                gap: '1.1rem',
+                maxWidth: '22rem',
+                textAlign: 'center',
+                animation: 'ss-rise 400ms cubic-bezier(0.16, 1, 0.3, 1) both',
+              }}>
+                <p style={{
+                  margin: 0,
+                  opacity: 0.55,
+                  fontSize: 'clamp(0.8rem, 2.8vw, 0.9rem)',
+                  fontFamily: 'var(--font-primary)',
+                  lineHeight: 1.55,
+                }}>
+                  Connexion lente. Vous pouvez commencer maintenant : les sons se joindront
+                  à la lecture dès qu'ils seront prêts.
+                </p>
+                <button
+                  className="ss-btn-primary"
+                  onPointerUp={(e) => { e.stopPropagation(); gateRef.current?.continueNow() }}
+                >
+                  Commencer maintenant
+                </button>
+                <button
+                  className="ss-btn-secondary"
+                  onPointerUp={(e) => { e.stopPropagation(); gateRef.current?.waitMore(); setIsSlow(false) }}
+                >
+                  Attendre encore
+                </button>
+              </div>
+            )}
+
             {/* ── État reprise de progression ── */}
             {phase === 'idle' && hasProgress && (
               <div style={{
