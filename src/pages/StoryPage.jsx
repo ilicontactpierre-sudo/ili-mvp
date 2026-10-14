@@ -742,7 +742,8 @@ function StoryPage() {
           soundsToPreload={getSoundsToPreload(activeStory)}
           story={activeStory}
           savedProgress={progressKey ? loadProgress(progressKey) : null}
-          onStart={(preloadedHowlMap, resume) => {
+          onStart={(preloadedHowlMap, resume, soundLoader) => {
+            adoptSoundLoader(soundLoader)
             // Preload audio commence ici (StartScreen l'a déjà lancé)
             // Si seuil → afficher les questions pendant ce temps
             if (seuilQuestions.length > 0 && !seuilDone) {
