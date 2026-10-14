@@ -492,12 +492,14 @@ function StoryPage() {
   // Cas particulier "sound_check" : le son du segment n'est déclenché qu'une fois
   // que l'overlay a fini d'afficher son texte et signale via onAudioReady.
   useEffect(() => {
+    audioSyncRef.current = null
     if (!isStarted || !audioEngineRef.current || !segments[currentIndex]) return
     const seg = segments[currentIndex]
     const isGatedSoundCheck = seg?.gameMode?.type === 'sound_check'
     if (isGatedSoundCheck && audioGateOpenIndex !== currentIndex) return
     if (activeStory?.soundTracks?.length) {
       audioEngineRef.current.onSegmentChange(currentIndex, activeStory.soundTracks, segments)
+      audioSyncRef.current = { index: currentIndex, soundTracks: activeStory.soundTracks, segments }
     } else {
       audioEngineRef.current.executeEvents(segments[currentIndex].audioEvents ?? [])
     }
