@@ -333,6 +333,9 @@ function StoryPage() {
     // Stopper l'audio en cours
     audioEngineRef.current?.stopAll()
     audioEngineRef.current = null
+    audioSyncRef.current = null
+    soundLoaderRef.current?.dispose()
+    soundLoaderRef.current = null
     preloadedSoundsRef.current = new Map()
     // Construire l'objet "story active" à partir de la partie
     const partStory = {
