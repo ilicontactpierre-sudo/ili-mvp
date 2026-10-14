@@ -353,7 +353,16 @@ export class SoundLoader {
   async _writeCache(url, bytes) {
     try {
       const cache = await this._openCache()
-      if (cache) await cache.put(url, new Response(bytes, { headers: { 'Content-Type': 'audio/mpeg' } }))
+      if (cache) {
+        // Plus de place sur le téléphone : on supprime les plus anciens fichiers du cache,
+        // jamais ceux de l'histoire en cours.
+        const protectedUrls = [...this._sounds.values()].map((s) => s.url)
+        await putWithEviction(
+          cache, url,
+          () => new Response(bytes, { headers: { 'Content-Type': 'audio/mpeg' } }),
+          protectedUrls
+        )
+      }
     } catch { /* espace insuffisant ou cache indisponible : on continue sans cache */ }
   }
   async _deleteCache(url) {
