@@ -5,6 +5,7 @@ import StartScreen from '../components/StartScreen.jsx'
 import StoryReader from '../components/StoryReader.jsx'
 import AudioEngine from '../engine/AudioEngine.js'
 import { getSoundsToPreload } from '../utils/soundsToPreload.js'
+import { startLateSound } from '../utils/startLateSound.js'
 import ReaderSettings, { saveProgress, loadProgress, clearProgress } from '../components/ReaderSettings.jsx'
 import GameOverlay from '../components/GameOverlay.jsx'
 import SeuilScreen from '../components/SeuilScreen.jsx'
@@ -283,6 +284,24 @@ function StoryPage() {
   const touchDidScrollRef = useRef(false)
   const preloadedSoundsRef = useRef(new Map())
   const audioEngineRef    = useRef(null)
+  // Chargeur de sons : appartient à la page (StartScreen le lui confie au démarrage).
+  const soundLoaderRef    = useRef(null)
+  // Dernier état envoyé au moteur audio : sert à démarrer un son arrivé en retard.
+  const audioSyncRef      = useRef(null)
+  const adoptSoundLoader = useCallback((loader) => {
+    soundLoaderRef.current?.dispose()
+    soundLoaderRef.current = loader ?? null
+    if (!loader) return
+    loader.on((e) => {
+      if (e.type === 'loaded') startLateSound(audioEngineRef.current, audioSyncRef.current, e.id)
+    })
+  }, [])
+  // Le réseau revient : relancer les sons qui avaient échoué.
+  useEffect(() => {
+    const retry = () => soundLoaderRef.current?.retryFailed()
+    window.addEventListener('online', retry)
+    return () => window.removeEventListener('online', retry)
+  }, [])
   const ignoreAdvanceUntilRef = useRef(0)
 
   // La story "active" détermine les segments affichés
