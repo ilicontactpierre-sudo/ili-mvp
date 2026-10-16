@@ -1,5 +1,7 @@
 # ILi — Lecture Immersive — Contexte Projet
 
+_Dernière mise à jour : 15/10/2026, après le chantier « ILi sans bug avec un réseau faible » (chargement des sons par `SoundLoader`, cache audio, démarrage tardif des sons en retard) — voir sections 3.1, 4.4 et 7._
+
 ## 1. Stack Technique
 
 | Couche | Technologie | Version | Rôle / Détails |
@@ -11,10 +13,11 @@
 | **Backend prod** | Vercel Serverless Functions | — | API routes dans `/api/*.js` déployées sur Vercel |
 | **Base de données** | Supabase | 2.106.1 | Storage (bucket `sounds`) + table `sounds` pour métadonnées audio |
 | **Déploiement** | Vercel | — | SPA statique + serverless functions |
-| **Audio** | Howler.js | 2.2.4 | Moteur audio (play, fade, loop, spatialisation) |
+| **Audio** | Howler.js | 2.2.4 | Moteur audio (play, fade, loop, spatialisation stéréo). **Mode `html5` interdit** (le pan stéréo ne marche plus) ; les fichiers sont téléchargés par `SoundLoader`, pas par Howler |
 | | @ffmpeg/ffmpeg | 0.12.15 | Compression audio côté client (upload) |
 | **Recherche** | Fuse.js | 7.3.0 | Recherche floue dans la bibliothèque de sons |
 | **UI** | CSS natif | — | Variables CSS, Flexbox/Grid, animations custom |
+| **Tests** | Vitest | 5.0.0 | 163 tests (`npx vitest run`) : segmentAlgorithm, AudioEngine, chargement des sons |
 
 ---
 
@@ -22,7 +25,7 @@
 
 ```
 /
-├── package.json                    # Dépendances, scripts (dev, build, lint, publish)
+├── package.json                    # Dépendances, scripts (dev, build, test, lint, publish)
 ├── vite.config.js                  # Config Vite : proxy API → localhost:3001, headers COOP/COEP
 ├── vercel.json                     # Rewrites SPA : toutes routes → index.html
 ├── index.html                      # Point d'entrée HTML (root div + scripts)
@@ -54,7 +57,7 @@
 │   │
 │   ├── pages/
 │   │   ├── HomePage.jsx            # Accueil : logo animé, liste histoires, onboarding
-│   │   ├── StoryPage.jsx           # Lecteur : chargement story, navigation segments, audio, game modes
+│   │   ├── StoryPage.jsx           # Lecteur : chargement story, navigation segments, audio, game modes ; garde le SoundLoader (soundLoaderRef) et le libère à la sortie
 │   │   ├── AdminPage.jsx           # Éditeur complet : segmentation, timeline audio, vfx, publication
 │   │   ├── TutorialPage.jsx        # Page tutoriel interactive
 │   │   ├── NewsletterPage.jsx      # Page inscription newsletter
@@ -65,7 +68,7 @@
 │   │   ├── StoryReader.css         # Styles lecteur (animations, transitions, effets)
 │   │   ├── StoryMenu.jsx           # Liste déroulante des histoires (accueil)
 │   │   ├── ReaderSettings.jsx      # Paramètres lecture (taille police, interligne, thème, progression)
-│   │   ├── StartScreen.jsx         # Écran démarrage (titre, preload sons)
+│   │   ├── StartScreen.jsx         # Écran démarrage (titre, chargement des sons du début via SoundLoader, écran « connexion lente » à 15 s)
 │   │   ├── EndScreen.jsx           # Écran fin (liens livre/form, partie suivante)
 │   │   ├── SeuilScreen.jsx         # Questions avant lecture (seuil)
 │   │   ├── GameOverlay.jsx         # Overlay modes de jeu (sound_check, choix, journal)
@@ -96,8 +99,11 @@
 │   │       └── constants.js                 # Constantes UI admin
 │   │
 │   ├── engine/
-│   │   ├── AudioEngine.js          # Moteur audio : play, fade, loop crossfade, pan, automation volume
-│   │   └── HapticEngine.js         # Moteur haptique (vibrations sur segments)
+│   │   ├── AudioEngine.js          # Moteur audio : play, fade, loop crossfade, pan, automation volume, démarrage tardif d'un son (onSoundReady)
+│   │   ├── SoundLoader.js          # Chargeur de sons : téléchargement (délai d'inactivité, 3 essais), cache téléphone, Howl via blob: (stéréo garantie)
+│   │   ├── audioCache.js           # Cache audio : version (AUDIO_CACHE_VERSION), nettoyage des anciennes versions, éviction si plein
+│   │   ├── HapticEngine.js         # Moteur haptique (vibrations sur segments)
+│   │   └── *.test.js               # Tests : AudioEngine (31), AudioEngine.lateJoin (13), lateSound.integration (8), SoundLoader (27), SoundLoader.cache (8), audioCache (18)
 │   │
 │   ├── utils/
 │   │   ├── segmentAlgorithm.js     # Algo découpage narratif heuristique (8 phases)
@@ -106,7 +112,12 @@
 │   │   ├── bionicReading.jsx       # Mode lecture bionique (gras sur premières lettres)
 │   │   ├── emojiDict.jsx           # Mapping émojis → unicode
 │   │   ├── soundSearch.js          # Recherche sons (Fuse.js + Web Worker)
-│   │   └── analytics.js            # Tracking événements (start, progress, finish, abandon)
+│   │   ├── soundOrder.js           # Ordre de téléchargement des sons (par besoin) + sons à attendre au départ
+│   │   ├── soundsToPreload.js      # Sons utiles d'une histoire (exclut les blocs muets ou cassés)
+│   │   ├── startGate.js            # Attente des sons du début + alerte « connexion lente » (15 s)
+│   │   ├── startLateSound.js       # Colle chargeur → moteur (son arrivé en retard)
+│   │   ├── analytics.js            # Tracking événements (start, progress, finish, abandon)
+│   │   └── *.test.js               # Tests : segmentAlgorithm (30), soundOrder (9), soundsToPreload (6), startGate (13)
 │   │
 │   ├── assets/
 │   │   ├── hero.png                # Image hero
@@ -147,9 +158,12 @@
 │   ├── checkpoint.js               # Snapshot projet
 │   ├── update-story-urls.js        # Mise à jour URLs stories
 │   ├── git-sync.sh                 # Sync Git multi-branches
+│   ├── validate-story.mjs          # Validateur de schéma des stories JSON (--check-urls : vérifie aussi les URLs Supabase)
 │   └── README.md                   # Documentation scripts
 │
 ├── .gitignore                      # Fichiers ignorés (.env, node_modules, dist, etc.)
+├── CLAUDE.md                       # Instructions de travail pour l'agent IA (commandes, structure, zones sensibles)
+├── PROJECT_CONTEXT.md              # Ce fichier
 ├── PUBLISH_SETUP.md                # Guide configuration publication (Vercel + GitHub)
 ├── BUGFIX_ECRAN_NOIR.md            # Notes debug écran noir
 ├── CHECKPOINTS.md                  # Liste checkpoints projet
@@ -172,10 +186,13 @@
 1. Homepage charge `/stories/index.json` → liste histoires
 2. Utilisateur clique sur une histoire → navigation `/lire/:storyId`
 3. StoryPage fetch `/stories/${storyId}.json` → données story complètes
-4. StartScreen précharge les sons (Howl instances) → AudioEngine créé
+4. StartScreen télécharge les sons du DÉBUT via SoundLoader (cache téléphone, nouvelles tentatives) ;
+   après 15 s sans eux : écran « connexion lente » → AudioEngine créé avec `loader.howlMap`
+   (uniquement des sons chargés) ; le reste des sons continue de se télécharger pendant la lecture
 5. Lecture segment par segment :
    - StoryReader affiche le texte du segment courant
    - AudioEngine exécute les audioEvents du segment (play, fade, stop)
+   - Un son qui arrive en retard est démarré par AudioEngine.onSoundReady (voir section 7)
    - Navigation : swipe/click gauche → précédent, droite → suivant
 6. Fin de l'histoire → EndScreen (liens livre/form, partie suivante)
 ```
@@ -234,7 +251,7 @@
 | **Upload audio** | Compression FFmpeg → upload Supabase via serveur local | Même flux, via serverless |
 | **Publication** | Commit GitHub via API (même mécanisme) | Identique |
 | **Stories** | Fichiers JSON dans `public/stories/` (servis statiquement) | Même structure, fichiers sur Vercel CDN |
-| **CORS** | Headers COOP/COEP dans vite.config.js | Headers gérés par Vercel |
+| **CORS** | Headers COOP/COEP dans vite.config.js | `vercel.json` ne définit aucun en-tête (seulement des rewrites SPA) |
 
 ### 4.3. Assets Statiques
 
@@ -259,6 +276,8 @@
 - **Stockage** : Supabase Storage (bucket public `sounds`)
 - **CDN** : URLs Supabase directes (ex: `https://xxx.supabase.co/storage/v1/object/public/sounds/filename.mp3`)
 - **Métadonnées** : Table Supabase `sounds` avec champs : id, filename, label, url, local_path, description, tags, categories, boom_category, boom_subcategory, cat_id, library, mood, loop, duration, intensity, tempo, search_string
+- **Lecture (côté lecteur)** : les MP3 sont téléchargés par `SoundLoader` (`fetch`), gardés sur le téléphone dans la Cache API (cache `ili-audio-v1`), puis donnés à Howler sous forme d'URL `blob:` (`html5:false` : stéréo et pan garantis). Détails : section 7.
+- **Remplacer un fichier audio** : `api/get-upload-url.js` supprime l'ancien fichier puis recrée le nouveau **à la même adresse publique** ; un téléphone qui a gardé l'ancien l'entendrait encore. Il faut alors augmenter `AUDIO_CACHE_VERSION` dans `src/engine/audioCache.js` et publier. Changer le volume, le pan, les fades, le trim ou la boucle d'un bloc n'a **pas** besoin de cela (réglages dans le JSON de l'histoire).
 
 #### Images / Vidéos
 - **Non utilisés** dans le lecteur (texte uniquement)
@@ -278,7 +297,11 @@ npm run build            # Build Vite → dossier dist/
 npm run preview          # Preview build local
 
 # ── Lint ───────────────────────────────────────────────────────────────────────
-npm run lint             # ESLint avec règles React hooks + refresh
+npm run lint             # ESLint (345 problèmes préexistants connus ; à lancer AVANT build : dist/ fausse le compte)
+
+# ── Tests ──────────────────────────────────────────────────────────────────────
+npx vitest run           # Tests (163), exécution unique — PAS `npm test` (mode surveillance qui reste ouvert)
+node scripts/validate-story.mjs public/stories/   # Valide le schéma des stories (--check-urls : vérifie aussi les URLs)
 
 # ── Utilitaires ────────────────────────────────────────────────────────────────
 npm run add-sound        # CLI : ajout son à la bibliothèque (scripts/addSound.js)
@@ -308,7 +331,7 @@ npm run sync             # Sync Git multi-branches (git-sync.sh)
 
 L'`AudioEngine` (`src/engine/AudioEngine.js`) est le cœur du système audio :
 
-- **HowlMap** : Map<soundId, Howl instance> — toutes les instances audio préchargées
+- **HowlMap** : Map<soundId, Howl instance> — uniquement les sons **déjà chargés** (fournie par `SoundLoader.howlMap`, remplie au fil des téléchargements) ; un son absent est simplement ignoré
 - **Actions** : `play`, `stop`, `fadeIn`, `fadeOut`, `volume`
 - **Fonctionnalités avancées** :
   - **Loop crossfade** : transition fluide entre instances pour éviter les clicks
@@ -317,6 +340,7 @@ L'`AudioEngine` (`src/engine/AudioEngine.js`) est le cœur du système audio :
   - **Trim** : découpage début/fin de son (`trimStart`, `trimEnd` en ms)
   - **Courbes de fade** : `natural` (linéaire en dB), `equal-power` (crossfade loop), `ease-out`, `sigmoid`, `cubic`, `log`
   - **Master volume** : contrôle global avec courbe perceptuelle quadratique
+  - **Démarrage tardif** (`onSoundReady`) : démarre un son arrivé en retard, avec son fadeIn d'origine, au volume voulu au segment courant. Règle : bloc de plusieurs segments (boucle ou non) → démarre tant que le lecteur est dans le bloc ; un seul segment sans boucle → annulé ; bloc déjà dépassé → pas joué
 
 ### SoundTracks vs AudioEvents
 
@@ -329,6 +353,17 @@ Deux modèles coexistent :
 2. **SoundTracks** (nouveau) : tracks continus sur plusieurs segments
    - Chaque track a : `id`, `soundId`, `startSegmentId`, `endSegmentId`, `volume`, `fadeIn`, `fadeOut`, `delay`, `loop`, `loopCrossfade`, `trimStart`, `trimEnd`, `pan`, `panMode`, `panSpeedMs`, `automationPoints[]`
    - Géré par `AudioEngine.onSegmentChange()` qui calcule l'état actif à chaque segment
+
+### Chargement des sons et réseau faible (depuis le 15/10/2026)
+
+- **Flux** : `StartScreen` (reçoit la prop `story`) → `SoundLoader` → `loader.howlMap` → `AudioEngine`. La page garde le chargeur (`soundLoaderRef`) et le libère par `dispose()` à la sortie de l'histoire et au changement de partie.
+- **Stéréo garantie** : Howler ne télécharge plus rien lui-même (sur une coupure réseau, il basculait en silence en mode HTML5, où le pan stéréo ne marche plus). `html5:false` est écrit en dur dans `SoundLoader`, avec un garde-fou qui refuse un Howl en HTML5. **Ne jamais passer en mono ni en mode `html5`.**
+- **Démarrage** : on n'attend que les sons du début (actifs à la position de départ ou de reprise + les 3 segments suivants). Après 15 s sans eux : écran « connexion lente » (« Commencer maintenant » / « Attendre encore »). Les autres sons se téléchargent pendant la lecture, dans l'ordre du besoin (`soundOrder.js`).
+- **Réseau** : délai d'inactivité de 30 s, 3 essais (pauses 1 s puis 3 s), 3 téléchargements en parallèle, pas de réessai sur un 404 ; les sons en échec sont relancés quand le réseau revient (événement `online`).
+- **Cache** : Cache API `ili-audio-v1` (version dans `audioCache.js`) ; anciennes versions supprimées ; si le téléphone est plein, les plus anciens fichiers sont supprimés, jamais ceux de l'histoire en cours.
+- **Déblocage audio mobile** : un Howl factice est créé pendant le tap de démarrage (Howler enregistre le déblocage à la création du premier Howl, alors que le chargeur crée les siens plus tard).
+- **Mémoire** : tous les sons restent décodés en mémoire (la « fenêtre glissante » a été mise de côté ; mesures dans le fichier maître du projet, Annexe A).
+- **Paramètres** : `DEFAULT_OPTIONS` dans `SoundLoader.js` ; seuils d'alerte `SLOW_MS` / `SLOW_AGAIN_MS` dans `startGate.js` ; version du cache `AUDIO_CACHE_VERSION` dans `audioCache.js`.
 
 ---
 
