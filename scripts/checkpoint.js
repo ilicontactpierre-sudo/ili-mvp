@@ -60,7 +60,7 @@ if (!currentBranch) {
 const today = formatDate(new Date())
 const prefix = `ili-checkpoint-${today}`
 
-rl.question(`Nom du checkpoint (sans le préfixe '${prefix}-') : `, (answer) => {
+rl.question(`Nom du checkpoint (sans le préfixe '${prefix}-') : `, async (answer) => {
   rl.close()
 
   const label = sanitizeLabel(answer)
@@ -72,6 +72,17 @@ rl.question(`Nom du checkpoint (sans le préfixe '${prefix}-') : `, (answer) => 
   const tagName = `${prefix}-${label}`
   const commitMessage = `checkpoint: ${label}`
   const tagMessage = `ILi checkpoint: ${tagName}`
+
+  // Rapport des fichiers, tests, build et confirmation AVANT toute écriture
+  // (voir scripts/lib/safePublish.js). Options : --dry-run (simulation), --skip-checks.
+  const gate = await prepare({
+    title: `Checkpoint ${tagName}`,
+    extraLines: [`Étiquette qui sera créée puis envoyée : ${tagName}`],
+    allowNothing: true,
+    dryRun: process.argv.includes('--dry-run'),
+    skipChecks: process.argv.includes('--skip-checks'),
+  })
+  if (gate.status !== 'confirmed') process.exit(gate.status === 'dry-run' ? 0 : 1)
 
   try {
     console.log('\nÉtape 0/5 : vérification et sauvegarde des modifications en cours')
