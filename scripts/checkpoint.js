@@ -3,6 +3,7 @@
 import { execSync } from 'node:child_process'
 import readline from 'node:readline'
 import { stdin as input, stdout as output } from 'node:process'
+import { prepare } from './lib/safePublish.js'
 
 process.env.GIT_EDITOR = 'true'
 process.env.GIT_MERGE_AUTOEDIT = 'no'
