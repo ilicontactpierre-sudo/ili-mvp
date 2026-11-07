@@ -1,6 +1,53 @@
 # ILi — Lecture Immersive — Contexte Projet
 
-_Dernière mise à jour : 07/11/2026 (section commandes ; le reste date du 16/10/2026), après le chantier « ILi sans bug avec un réseau faible » (chargement des sons par `SoundLoader`, cache audio, démarrage tardif des sons en retard) — voir sections 3.1, 4.4 et 7._
+_Dernière mise à jour : 07/11/2026 (section 0 « Démarrage rapide », arbre des fichiers, commandes ; le reste date du 16/10/2026), après le chantier « ILi sans bug avec un réseau faible » (chargement des sons par `SoundLoader`, cache audio, démarrage tardif des sons en retard) — voir sections 3.1, 4.4 et 7._
+
+## 0. Démarrage rapide (lire en premier, environ 2 minutes)
+
+**Projet.** ILi : application web de lecture immersive (texte découpé en segments courts, sons, effets visuels, vibrations). Dépôt PUBLIC : https://github.com/ilicontactpierre-sudo/ili-mvp — site : https://ili-mvp.vercel.app. Pierre est créatif, pas développeur : français simple, une seule question à la fois, vérifier par exécution avant de livrer, dire ses doutes.
+
+**Règles à ne jamais oublier** (détail : le fichier maître `ILi_Plan_Directeur_Statut_*.md`, que Pierre fournit — il n'est pas dans le dépôt — et `CLAUDE.md`) :
+- Claude ne pousse jamais et ne lance jamais `npm run publish`, `npm run checkpoint` ni `git push` : il donne les commandes, Pierre les tape. Mise en ligne en deux phases avec accord entre les deux.
+- Dépôt public : jamais de clé, de `.env`, ni de texte protégé dans un diff.
+- Audio : stéréo et pan sacrés. Jamais de mono, jamais le mode `html5` de Howler. `AudioEngine.js` : plan validé d'abord, test de non-régression, écoute réelle par Pierre.
+- Modifier un fichier existant : blocs « à trouver / à remplacer », chacun vérifié comme existant une seule fois. Contrôles : `npx eslint .` avant `npm run build` (345 problèmes préexistants, ne pas les « corriger »), `npx vitest run` (183 tests).
+
+**Économiser les tokens.**
+1. Ne pas tout lire : cette section, puis la ligne du tableau ci-dessous qui correspond à la demande, puis seulement le nécessaire.
+2. Fichiers de plus de 1 000 lignes (`UnifiedSegmentsTimeline.jsx`, `AdminPage.jsx`, `GameModePanel.jsx`, `GameOverlay.jsx`, `segmentAlgorithm.js`, `SoundBlockPanel.jsx`, `OrchestrationPanel.jsx`) : jamais en entier. Chercher avec `grep -n`, puis lire l'extrait par plage de lignes.
+3. `public/stories/*.json` et `public/sounds/` sont volumineux : ouvrir au plus un fichier d'exemple, jamais le dossier.
+4. Les `.md` de la racine (hors `CLAUDE.md`) sont des notes anciennes : à lire seulement si la demande les concerne.
+5. Le style de l'interface est surtout écrit dans chaque composant (`style={{…}}` et une balise `<style>`). Seuls `styles/global.css` (variables de couleurs et polices), `styles/vfx.css` et `components/StoryReader.css` sont de vrais fichiers CSS : pour changer l'UI d'un écran, tout est dans le `.jsx` de cet écran.
+
+**Où regarder selon la demande** (nombres = lignes au 07/11/2026 ; § = sections de ce fichier) :
+
+| Demande | Lire d'abord | Puis si besoin |
+|---|---|---|
+| Lecteur : affichage du texte, transitions, effets typographiques | `components/StoryReader.jsx` (890) + `StoryReader.css` | `pages/StoryPage.jsx` (824 : charge l'histoire, pilote audio et modes de jeu), `utils/renderMarkdown.jsx`, §3.1, §10 |
+| Accueil, liste des histoires | `pages/HomePage.jsx` (282), `components/StoryMenu.jsx` (300) | `styles/global.css`, `public/stories/index.json` |
+| Écran de début, de fin, questions avant lecture | `StartScreen.jsx` (527), `EndScreen.jsx` (383), `SeuilScreen.jsx` (260) | `utils/startGate.js` |
+| Réglages de lecture (police, thème…) | `components/ReaderSettings.jsx` (963) | `styles/global.css` |
+| Tutoriel | `pages/TutorialPage.jsx` (779) | |
+| Son pendant la lecture (moteur) | `engine/AudioEngine.js` (702), §7 | `AudioEngine*.test.js` |
+| Chargement des sons, réseau faible, cache | `engine/SoundLoader.js` (374), `engine/audioCache.js`, §4.4 et §7 | `utils/soundOrder.js`, `soundsToPreload.js`, `startGate.js`, `startLateSound.js` ; Annexe B du fichier maître |
+| **Orchestration automatique** (une IA propose les sons d'une histoire) | `ORCHESTRATION_PROMPT.md` (le prompt donné à l'IA, qui répond en JSON) + `components/admin/OrchestrationPanel.jsx` (bouton « Générer & copier le prompt », puis « Coller le JSON de Claude » ; vocabulaire curé en tête de fichier) | `SoundBlockPanel.jsx`, `utils/soundSearch.js`, `public/sounds/soundq-keywords.json`, `scripts/validate-story.mjs` (format `soundTracks`) |
+| Découpage automatique du texte en segments | `utils/segmentAlgorithm.js` (1434), §8 | `segmentAlgorithm.test.js`, `PROMPT_Avant DÉCOUPAGE AUTO` |
+| Éditeur admin (`/admin`) | `pages/AdminPage.jsx` (3312) et `components/admin/UnifiedSegmentsTimeline.jsx` (3877) : chercher, jamais en entier | les panneaux de `components/admin/` |
+| Modes de jeu | `components/GameOverlay.jsx` (1765, côté lecteur), `admin/GameModePanel.jsx` (1880), §9 | |
+| Effets visuels (VFX) | `components/VfxOverlay.jsx` (882), `styles/vfx.css` | `admin/VfxBlock.jsx`, `VfxBlockPanel.jsx` |
+| Texte enrichi (couleurs, polices, fonctions inline) | `utils/inlineFunctions.jsx` (730), `renderMarkdown.jsx`, §10 | `bionicReading.jsx`, `admin/FormattingPanel.jsx`, `InlineFunctionMenu.jsx` |
+| Vibrations | `engine/HapticEngine.js` | |
+| Bibliothèque de sons (Supabase) | `api/upload-sound.js`, `get-upload-url.js`, `delete-sound.js`, `admin/SoundLibraryPicker.jsx`, `SoundImporter.jsx`, §3.2 | `utils/soundSearch.js`, `public/sounds/sounds-index.json`, §6 |
+| Publier une histoire depuis l'admin | `api/publish.js` (220), `admin/PublishPanel.jsx`, `PublishHistoryPanel.jsx`, §3.3 | Ne pas confondre avec la publication du code du site (`npm run publish`, §5) |
+| Accès admin | `api/login.js` (10 lignes : mot de passe vérifié côté serveur), §3.4, §6 | |
+| Statistiques | `utils/analytics.js`, `admin/AnalyticsDashboard.jsx` | utilisé par `StoryPage.jsx` |
+| Format d'une histoire (JSON) | un seul fichier de `public/stories/`, §3.1 | `scripts/validate-story.mjs` (liste des champs) |
+| Newsletter | `pages/NewsletterPage.jsx` (affichée dans l'admin), `api/subscribe.js`, `api/send-newsletter.js` | MIS DE CÔTÉ jusqu'au lancement (voir fichier maître) |
+| Déploiement, Git, publication du code | §5, `scripts/publish.js` | fichier maître (règles, Statut 22 et 23) |
+
+**Routes publiques** (`src/App.jsx`) : `/` (accueil), `/lire/:storyId` (lecteur), `/tutoriel`, `/admin`.
+
+---
 
 ## 1. Stack Technique
 
@@ -17,7 +64,7 @@ _Dernière mise à jour : 07/11/2026 (section commandes ; le reste date du 16/10
 | | @ffmpeg/ffmpeg | 0.12.15 | Compression audio côté client (upload) |
 | **Recherche** | Fuse.js | 7.3.0 | Recherche floue dans la bibliothèque de sons |
 | **UI** | CSS natif | — | Variables CSS, Flexbox/Grid, animations custom |
-| **Tests** | Vitest | 5.0.0 | 163 tests (`npx vitest run`) : segmentAlgorithm, AudioEngine, chargement des sons |
+| **Tests** | Vitest | 5.0.0 | 183 tests (`npx vitest run`) : segmentAlgorithm, AudioEngine, chargement des sons, outil de publication |
 
 ---
 
@@ -60,8 +107,7 @@ _Dernière mise à jour : 07/11/2026 (section commandes ; le reste date du 16/10
 │   │   ├── StoryPage.jsx           # Lecteur : chargement story, navigation segments, audio, game modes ; garde le SoundLoader (soundLoaderRef) et le libère à la sortie
 │   │   ├── AdminPage.jsx           # Éditeur complet : segmentation, timeline audio, vfx, publication
 │   │   ├── TutorialPage.jsx        # Page tutoriel interactive
-│   │   ├── NewsletterPage.jsx      # Page inscription newsletter
-│   │   └── AnalyticsDashboard.jsx  # Dashboard analytics (vues, progression, abandons)
+│   │   └── NewsletterPage.jsx      # Inscription / envoi newsletter (affichée dans l'admin, pas une route publique)
 │   │
 │   ├── components/
 │   │   ├── StoryReader.jsx         # Cœur lecteur : rendu segments, effets typographiques, transitions
@@ -92,6 +138,7 @@ _Dernière mise à jour : 07/11/2026 (section commandes ; le reste date du 16/10
 │   │       ├── StoryLoader.jsx              # Chargement histoire existante
 │   │       ├── StoryPreviewModal.jsx        # Modal aperçu avant publication
 │   │       ├── PublishPanel.jsx             # Publication (slug, métadonnées)
+│   │       ├── PublishHistoryPanel.jsx      # Historique des versions publiées (aperçu, restauration)
 │   │       ├── PublishAnimation.jsx         # Animation publication
 │   │       ├── MenuManagerPage.jsx          # Gestion menu histoires (ordre, hidden)
 │   │       ├── AnalyticsDashboard.jsx       # Stats lectures
@@ -129,7 +176,7 @@ _Dernière mise à jour : 07/11/2026 (section commandes ; le reste date du 16/10
 │       └── vfx.css                 # Styles effets visuels (particles, glitches, etc.)
 │
 ├── api/                            # Serverless Functions Vercel (backend prod)
-│   ├── upload-audio.js             # POST : compression + upload fichier audio → Supabase Storage
+│   ├── upload-audio.js             # OBSOLÈTE (répond 410) : l'upload passe par get-upload-url.js (URL signée)
 │   ├── upload-sound.js             # POST : upsert métadonnées son → table Supabase `sounds`
 │   ├── get-upload-url.js           # POST : génération URL signée upload (Supabase)
 │   ├── preview-sound.js            # GET : streaming fichier audio local (dev uniquement)
@@ -138,7 +185,9 @@ _Dernière mise à jour : 07/11/2026 (section commandes ; le reste date du 16/10
 │   ├── delete.js                   # DELETE : suppression histoire (GitHub)
 │   ├── toggle-visibility.js        # POST : bascule visibilité histoire (published/draft/hidden)
 │   ├── manage-menu.js              # POST : réordonnancement menu histoires
-│   └── send-newsletter.js          # POST : envoi newsletter (intégration externe)
+│   ├── send-newsletter.js          # POST : envoi newsletter (intégration externe) — mis de côté
+│   ├── subscribe.js                # POST : inscription d'un e-mail (Supabase)
+│   └── login.js                    # POST : vérifie le mot de passe admin côté serveur (ADMIN_PASSWORD)
 │
 ├── scripts/                        # Scripts utilitaires (dev uniquement)
 │   ├── dev-api-server.js           # Serveur Express local (port 3001) — routes API pour dev
