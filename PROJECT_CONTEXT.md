@@ -1,6 +1,6 @@
 # ILi — Lecture Immersive — Contexte Projet
 
-_Dernière mise à jour : 15/10/2026, après le chantier « ILi sans bug avec un réseau faible » (chargement des sons par `SoundLoader`, cache audio, démarrage tardif des sons en retard) — voir sections 3.1, 4.4 et 7._
+_Dernière mise à jour : 07/11/2026 (section commandes ; le reste date du 16/10/2026), après le chantier « ILi sans bug avec un réseau faible » (chargement des sons par `SoundLoader`, cache audio, démarrage tardif des sons en retard) — voir sections 3.1, 4.4 et 7._
 
 ## 1. Stack Technique
 
@@ -155,7 +155,10 @@ _Dernière mise à jour : 15/10/2026, après le chantier « ILi sans bug avec un
 │   ├── stats-sounds.cjs            # Stats bibliothèque sons
 │   ├── debug-key-mismatch.cjs      # Debug mismatch clés
 │   ├── debug-soundq-row.cjs        # Debug ligne SoundQ
-│   ├── checkpoint.js               # Snapshot projet
+│   ├── checkpoint.js               # Snapshot projet (même rapport/confirmation que publish.js)
+│   ├── publish.js                  # Publication sûre (npm run publish)
+│   ├── lib/safePublish.js          # Module partagé : rapport, tests, build, confirmation
+│   ├── lib/safePublish.test.js     # Tests unitaires du module (20)
 │   ├── update-story-urls.js        # Mise à jour URLs stories
 │   ├── git-sync.sh                 # Sync Git multi-branches
 │   ├── validate-story.mjs          # Validateur de schéma des stories JSON (--check-urls : vérifie aussi les URLs Supabase)
@@ -172,7 +175,7 @@ _Dernière mise à jour : 15/10/2026, après le chantier « ILi sans bug avec un
 ├── ORCHESTRATION_PROMPT.md         # Guide orchestration audio
 ├── PROMPT_Avant DÉCOUPAGE AUTO     # Prompt découpage auto
 ├── REFACTORING_SUMMARY.md          # Résumé refactorings
-├── publish.sh                      # Script publication CLI
+├── publish.sh                      # Ancien script de publication (plus branché sur npm run publish depuis le 23/10/2026)
 └── git-sync.sh                     # Script sync Git
 ```
 
@@ -300,13 +303,15 @@ npm run preview          # Preview build local
 npm run lint             # ESLint (345 problèmes préexistants connus ; à lancer AVANT build : dist/ fausse le compte)
 
 # ── Tests ──────────────────────────────────────────────────────────────────────
-npx vitest run           # Tests (163), exécution unique — PAS `npm test` (mode surveillance qui reste ouvert)
+npx vitest run           # Tests (183), exécution unique — PAS `npm test` (mode surveillance qui reste ouvert)
 node scripts/validate-story.mjs public/stories/   # Valide le schéma des stories (--check-urls : vérifie aussi les URLs)
 
 # ── Utilitaires ────────────────────────────────────────────────────────────────
 npm run add-sound        # CLI : ajout son à la bibliothèque (scripts/addSound.js)
-npm run checkpoint       # Snapshot projet + redémarre Vite
-npm run publish          # Publication via publish.sh (build + deploy Vercel)
+npm run checkpoint       # Snapshot projet + redémarre Vite (branche de travail seulement ; simulation : node scripts/checkpoint.js --dry-run)
+npm run publish          # Publication sûre (scripts/publish.js) : rapport des fichiers, tests, build, puis mot à taper (« main » sur main, « o » ailleurs ; « risque » / « forcer » si alerte ou échec)
+                         #   options : --dry-run (simulation) | --skip-checks | message de commit : npm run publish -- "message"
+                         #   jamais de rebase ni de fusion automatique ; refuse de tourner sans vrai terminal
 npm run sync             # Sync Git multi-branches (git-sync.sh)
 ```
 
