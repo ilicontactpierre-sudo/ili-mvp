@@ -1,6 +1,6 @@
 # ILi — Lecture Immersive
 
-Ce fichier donne le contexte nécessaire pour travailler sur ce repo. Lis-le avant toute modification.
+Ce fichier donne le contexte nécessaire pour travailler sur ce repo. Lis-le avant toute modification. Pour savoir où regarder selon la demande (et économiser des tokens), lis d'abord la section 0 de `PROJECT_CONTEXT.md`.
 
 ## Stack
 
@@ -13,13 +13,13 @@ Ce fichier donne le contexte nécessaire pour travailler sur ce repo. Lis-le ava
 
 - `npm run dev` — lance le serveur API local (Express, port 3001) + Vite (port 5173) en parallèle
 - `npm run build` — build de production
-- `npm run lint` — ESLint
+- `npm run lint` — ESLint (345 problèmes préexistants : ne pas chercher à les « corriger » ; le lancer AVANT `npm run build`, car le dossier `dist/` fausse le compte)
 - `npm run preview` — prévisualise le build de production
 - `npm run sync` — synchronisation Git manuelle (`git-sync.sh`) — **ne tourne plus automatiquement**, à lancer volontairement uniquement
-- `npm run publish` — publication manuelle via `publish.sh` (commit + push) — **ne jamais lancer sans confirmation explicite de l'utilisateur**
-- `npm run checkpoint` — snapshot + relance Vite en écoute réseau (0.0.0.0)
+- `npm run publish` — publication sûre (`scripts/publish.js`) : rapport des fichiers, tests, build, puis un mot à taper (« main » sur `main`, « o » sur une autre branche). Options : `--dry-run` (simulation), `--skip-checks` ; message de commit : `npm run publish -- "message"`. **Un agent IA ne le lance jamais : c'est Pierre qui le tape.** `publish.sh` est l'ancien script, plus branché.
+- `npm run checkpoint` — snapshot (même rapport et même confirmation que `publish`) + étiquette + relance Vite en écoute réseau (0.0.0.0) ; sur une branche de travail seulement. Simulation : `node scripts/checkpoint.js --dry-run` (et non `npm run checkpoint -- --dry-run`)
 - `npm run add-sound` — script d'ajout de son à la bibliothèque
-- `npm test` — lance les tests (Vitest, mode watch) ; `npm test -- --run` pour un passage unique sans watch (utile en CI ou avant un commit)
+- `npx vitest run` — lance les tests une seule fois (183 tests). Ne pas utiliser `npm test` : il lance Vitest en mode surveillance et reste ouvert
 - `node scripts/validate-story.mjs public/stories/` — valide le format de toutes les stories JSON (références cassées, champs manquants...) ; ajouter `--check-urls` pour vérifier aussi que les URLs de sons Supabase répondent (plus lent, nécessite une connexion réseau) ; peut aussi cibler un seul fichier (`node scripts/validate-story.mjs public/stories/nom-de-la-story.json`)
 
 ## Structure du repo
@@ -32,8 +32,7 @@ src/
 │   ├── StoryPage.jsx                    # Lecteur d'histoire
 │   ├── AdminPage.jsx                    # Éditeur complet (segmentation, timeline, publication)
 │   ├── TutorialPage.jsx
-│   ├── NewsletterPage.jsx
-│   └── AnalyticsDashboard.jsx
+│   └── NewsletterPage.jsx               # Affichée dans l'admin (l'analytics est dans components/admin/)
 ├── components/
 │   ├── StoryReader.jsx                  # Cœur du rendu de lecture
 │   ├── StoryMenu.jsx / StartScreen.jsx / EndScreen.jsx / SeuilScreen.jsx
@@ -43,7 +42,8 @@ src/
 │        game modes, gestion brouillons, publication, menu, analytics...)
 ├── engine/
 │   ├── AudioEngine.js                   # ⚠️ ZONE SENSIBLE — voir ci-dessous
-│   └── HapticEngine.js                  # Vibrations sur segments
+│   ├── HapticEngine.js                  # Vibrations sur segments
+│   └── SoundLoader.js / audioCache.js   # Chargement des sons (téléchargement, cache téléphone) — voir PROJECT_CONTEXT.md §7
 ├── utils/
 │   ├── segmentAlgorithm.js              # ⚠️ ZONE SENSIBLE — voir ci-dessous
 │   ├── segmentAlgorithm.test.js         # Tests de non-régression (30 tests) — npm test
@@ -76,12 +76,12 @@ public/sounds/
 
 5. **`git-sync.sh`** — ne tourne plus automatiquement (retiré du script `npm run dev`). Disponible uniquement via `npm run sync`, à la demande. En cas de conflit, il s'arrête et prévient plutôt que de résoudre automatiquement en faveur du local.
 
-6. **`scripts/checkpoint.js`** (via `npm run checkpoint`) — le script npm ne contient plus de chemin en dur ; fonctionne quel que soit l'emplacement du repo.
+6. **`scripts/checkpoint.js`** (via `npm run checkpoint`) — le script npm ne contient plus de chemin en dur ; fonctionne quel que soit l'emplacement du repo. Depuis le 23/10/2026, il affiche un rapport et demande une confirmation avant d'écrire, et ne fusionne plus automatiquement. À lancer sur une branche de travail seulement.
 
 ## Règles de travail
 
 - Toujours proposer un plan avant d'éditer du code — ne jamais éditer directement sans validation préalable, surtout sur les zones sensibles ci-dessus.
 - Branche dédiée dès qu'une tâche touche plus d'1-2 fichiers ou une zone sensible.
-- Après implémentation : `npm run lint` + `npm run build` (+ tests quand ils existent) avant de considérer une tâche terminée.
+- Après implémentation : `npx eslint .` (doit rester à 345), puis `npm run build`, et `npx vitest run` (183 tests) avant de considérer une tâche terminée.
 - Ne jamais exécuter sans confirmation explicite : `git push --force`, rebase, réécriture d'historique, toute commande touchant `.env`/secrets/clés, suppression de fichiers dans `public/stories/` ou `public/sounds/`, modification des credentials admin ou du script de publication, installation de package non demandée.
-- `npm run publish` (déploiement) : jamais automatisé sans confirmation explicite de l'utilisateur.
+- Un agent IA ne lance jamais `npm run publish`, `npm run checkpoint` ni `git push` : il donne la commande, Pierre la tape (règles complètes : section 0 de `PROJECT_CONTEXT.md`).
