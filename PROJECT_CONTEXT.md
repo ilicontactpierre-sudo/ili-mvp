@@ -415,3 +415,5 @@ Le moteur de rendu (`src/utils/renderMarkdown.jsx` + `src/utils/inlineFunctions.
 | `</gras:texte/>` | Texte en gras |
 | `</italic:texte/>` | Texte en italique |
 | `</chiffres_up:start;end/>` | Animation chiffres qui montent |
+
+---
