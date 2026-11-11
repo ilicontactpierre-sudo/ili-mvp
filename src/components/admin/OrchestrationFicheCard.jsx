@@ -43,7 +43,12 @@ function OrchestrationFicheCard({ track, anchorRef, onSearchLibrary }) {
       const el = anchorRef && anchorRef.current
       if (!el) return
       const rect = el.getBoundingClientRect()
-      setPlacement(computeFichePlacement({ panelLeft: rect.left, viewportWidth: window.innerWidth }))
+      setPlacement(computeFichePlacement({
+        panelLeft: rect.left,
+        panelTop: rect.top,
+        viewportWidth: window.innerWidth,
+        viewportHeight: window.innerHeight,
+      }))
     }
     update()
     window.addEventListener('resize', update)
@@ -116,7 +121,6 @@ function OrchestrationFicheCard({ track, anchorRef, onSearchLibrary }) {
               aria-pressed={i === selected}
               onClick={() => setSelected(i)}
               style={{
-                display: 'block',
                 width: '100%',
                 textAlign: 'left',
                 margin: '0 0 0.35rem',
@@ -126,9 +130,12 @@ function OrchestrationFicheCard({ track, anchorRef, onSearchLibrary }) {
                 color: '#ececec',
                 borderRadius: '6px',
                 fontSize: '0.75rem',
-                whiteSpace: 'nowrap',
+                display: '-webkit-box',
+                WebkitLineClamp: 2,
+                WebkitBoxOrient: 'vertical',
                 overflow: 'hidden',
-                textOverflow: 'ellipsis',
+                overflowWrap: 'anywhere',
+                lineHeight: 1.35,
                 cursor: 'pointer',
                 fontFamily: FONT,
               }}
@@ -221,11 +228,10 @@ function OrchestrationFicheCard({ track, anchorRef, onSearchLibrary }) {
       style={{
         ...cardStyle,
         position: 'fixed',
-        top: '50%',
-        transform: 'translateY(-50%)',
+        top: placement ? `${placement.top}px` : '0px',
         right: placement ? `${placement.right}px` : undefined,
         width: placement ? `${placement.width}px` : '300px',
-        maxHeight: '92vh',
+        maxHeight: placement ? `${placement.maxHeight}px` : '92vh',
         visibility: placement ? 'visible' : 'hidden',
       }}
     >

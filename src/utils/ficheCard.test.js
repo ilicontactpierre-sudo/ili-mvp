@@ -19,23 +19,38 @@ describe('hasOrchestrationFiche', () => {
 
 describe('computeFichePlacement', () => {
   it('écran large : la carte se place à gauche du panneau, largeur 300', () => {
-    const p = computeFichePlacement({ panelLeft: 570, viewportWidth: 1480 })
-    expect(p).toEqual({ mode: 'side', width: FICHE_WIDTH, right: 1480 - 570 + 12 })
+    const p = computeFichePlacement({ panelLeft: 570, panelTop: 192, viewportWidth: 1480, viewportHeight: 1000 })
+    expect(p).toEqual({ mode: 'side', width: FICHE_WIDTH, right: 1480 - 570 + 12, top: 192, maxHeight: 1000 - 192 - 12 })
+  })
+  it('le haut de la carte suit le haut du panneau, sans jamais sortir de l\'écran', () => {
+    expect(computeFichePlacement({ panelLeft: 570, panelTop: 4, viewportWidth: 1480, viewportHeight: 700 }).top).toBe(12)
+    const low = computeFichePlacement({ panelLeft: 570, panelTop: 600, viewportWidth: 1480, viewportHeight: 700 })
+    expect(low.top + low.maxHeight).toBeLessThanOrEqual(700 - 12)
+    expect(low.maxHeight).toBeGreaterThanOrEqual(200)
+  })
+  it('écran très bas : la carte reste entièrement visible (jamais au-dessus du bord haut)', () => {
+    const p = computeFichePlacement({ panelLeft: 570, panelTop: 40, viewportWidth: 1480, viewportHeight: 150 })
+    expect(p.top).toBe(12)
+    expect(p.maxHeight).toBeGreaterThan(0)
   })
   it('place juste suffisante : la carte se rétrécit au lieu de déborder', () => {
-    const p = computeFichePlacement({ panelLeft: 300, viewportWidth: 940 })
+    const p = computeFichePlacement({ panelLeft: 300, panelTop: 100, viewportWidth: 940, viewportHeight: 800 })
     expect(p.mode).toBe('side')
     expect(p.width).toBe(300 - 12 - 12)
   })
   it('écran étroit : surimpression sur demande, jamais hors de l\'écran', () => {
-    const p = computeFichePlacement({ panelLeft: 180, viewportWidth: 700 })
+    const p = computeFichePlacement({ panelLeft: 180, panelTop: 100, viewportWidth: 700, viewportHeight: 800 })
     expect(p.mode).toBe('overlay')
     expect(p.width).toBeLessThanOrEqual(700 - 24)
-    expect(computeFichePlacement({ panelLeft: 20, viewportWidth: 360 }).width).toBeGreaterThanOrEqual(220)
+    expect(computeFichePlacement({ panelLeft: 20, panelTop: 100, viewportWidth: 360, viewportHeight: 800 }).width).toBeGreaterThanOrEqual(220)
   })
-  it('valeurs invalides : surimpression, sans erreur', () => {
+  it('valeurs invalides : surimpression (ou valeurs de repli), sans erreur', () => {
     expect(computeFichePlacement({ panelLeft: NaN, viewportWidth: 1000 }).mode).toBe('overlay')
     expect(computeFichePlacement({ panelLeft: undefined, viewportWidth: 1000 }).mode).toBe('overlay')
+    const p = computeFichePlacement({ panelLeft: 570, viewportWidth: 1480 })
+    expect(p.mode).toBe('side')
+    expect(p.top).toBe(12)
+    expect(p.maxHeight).toBeGreaterThanOrEqual(200)
   })
 })
 

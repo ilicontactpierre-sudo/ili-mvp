@@ -3,6 +3,7 @@ export const FICHE_WIDTH = 300
 const GAP = 12
 const MARGIN = 12
 const MIN_SIDE_WIDTH = 240
+const MIN_HEIGHT = 200
 
 const hasText = (v) => typeof v === 'string' && v.trim() !== ''
 
@@ -12,13 +13,23 @@ export function hasOrchestrationFiche(track) {
   return hasText(track._orchestrationBrief) || hasQueries || hasText(track._orchestrationAlt) || hasText(track._orchestrationReprise)
 }
 
-// À gauche du panneau si la place suffit ; sinon la carte s'ouvre en surimpression, sur demande.
-export function computeFichePlacement({ panelLeft, viewportWidth }) {
+// À gauche du panneau (haut aligné sur le sien) si la place suffit ; sinon la carte s'ouvre en surimpression, sur demande.
+export function computeFichePlacement({ panelLeft, panelTop, viewportWidth, viewportHeight }) {
   const available = panelLeft - GAP - MARGIN
   if (!(available >= MIN_SIDE_WIDTH)) {
     return { mode: 'overlay', width: Math.max(220, Math.min(FICHE_WIDTH + 20, viewportWidth - 2 * MARGIN)) }
   }
-  return { mode: 'side', width: Math.min(FICHE_WIDTH, available), right: viewportWidth - panelLeft + GAP }
+  const height = Number.isFinite(viewportHeight) ? viewportHeight : 800
+  const wantedTop = Number.isFinite(panelTop) ? Math.max(MARGIN, panelTop) : MARGIN
+  // Si le panneau est très bas, la carte remonte pour garder une hauteur utile et ne jamais sortir de l'écran.
+  const top = Math.max(MARGIN, Math.min(wantedTop, height - MIN_HEIGHT - MARGIN))
+  return {
+    mode: 'side',
+    width: Math.min(FICHE_WIDTH, available),
+    right: viewportWidth - panelLeft + GAP,
+    top,
+    maxHeight: Math.max(100, height - top - MARGIN),
+  }
 }
 
 export function webSearchUrl(query) {

@@ -609,6 +609,7 @@ function OrchestrationPanel({
   const [applyStatus, setApplyStatus] = useState('idle')
   const [copyStatus, setCopyStatus] = useState('idle')
   const [importError, setImportError] = useState('')
+  const [analyzing, setAnalyzing] = useState(false)
 
   // ── Export ────────────────────────────────────────────────────────────────
   const handleExport = useCallback(() => {
@@ -759,6 +760,18 @@ function OrchestrationPanel({
   }, [importJson, soundLibrary, segments, soundLibraryReady])
 
   // ── Application ───────────────────────────────────────────────────────────
+  // Laisse le navigateur afficher « Analyse en cours… » AVANT le calcul, qui occupe la page quelques secondes.
+  const handleAnalyzeClick = useCallback(() => {
+    setAnalyzing(true)
+    setTimeout(() => {
+      try {
+        handleDiagnose()
+      } finally {
+        setAnalyzing(false)
+      }
+    }, 50)
+  }, [handleDiagnose])
+
   const handleApply = useCallback(() => {
     if (!diagnosis) return
 
@@ -1056,11 +1069,32 @@ function OrchestrationPanel({
             {importError && <div style={s.error}>{importError}</div>}
             <div style={s.row}>
               <button
-                onClick={handleDiagnose}
-                disabled={!importJson.trim() || !soundLibraryReady}
+                onClick={handleAnalyzeClick}
+                aria-busy={analyzing}
+                disabled={!importJson.trim() || !soundLibraryReady || analyzing}
                 style={{ ...s.btn('primary'), opacity: (importJson.trim() && soundLibraryReady) ? 1 : 0.4, cursor: (importJson.trim() && soundLibraryReady) ? 'pointer' : 'not-allowed' }}
               >
-                🔍 Analyser
+                {analyzing ? (
+                  <>
+                    <style>{'@keyframes ili-spin { to { transform: rotate(360deg) } }'}</style>
+                    <span
+                      aria-hidden="true"
+                      style={{
+                        display: 'inline-block',
+                        width: '0.8em',
+                        height: '0.8em',
+                        marginRight: '0.5em',
+                        border: '2px solid currentColor',
+                        borderRightColor: 'transparent',
+                        borderRadius: '50%',
+                        animation: 'ili-spin 0.8s linear infinite',
+                        willChange: 'transform',
+                        verticalAlign: '-0.1em',
+                      }}
+                    />
+                    Analyse en cours…
+                  </>
+                ) : '🔍 Analyser'}
               </button>
               <button onClick={handleReset} style={s.btn()}>Annuler</button>
             </div>

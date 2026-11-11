@@ -53,6 +53,14 @@ describe('OrchestrationFicheCard', () => {
 
 describe('branchement des boutons de la carte (gardes)', () => {
   const card = fs.readFileSync('src/components/admin/OrchestrationFicheCard.jsx', 'utf8')
+  it('les requêtes s\'affichent sur 2 lignes au lieu d\'être coupées', () => {
+    expect(card).toContain('WebkitLineClamp: 2')
+    expect(card).not.toContain("textOverflow: 'ellipsis'")
+  })
+  it('la carte s\'aligne sur le haut du panneau', () => {
+    expect(card).toContain('panelTop: rect.top')
+    expect(card).not.toContain("top: '50%'")
+  })
   it('« Ma bibliothèque » lance la recherche avec la requête choisie', () => {
     expect(card).toContain('onSearchLibrary && onSearchLibrary(query)')
   })
@@ -84,5 +92,25 @@ describe('branchement dans le panneau du bloc (gardes)', () => {
     const admin = fs.readFileSync('src/pages/AdminPage.jsx', 'utf8')
     expect(admin).toContain('workInfo={{ genre: storyGenre, mood: storyMood }}')
     expect(admin).not.toMatch(/workInfo=\{\{[^}]*description/)
+  })
+})
+
+describe('indicateur « Analyse en cours » (gardes)', () => {
+  const panel = fs.readFileSync('src/components/admin/OrchestrationPanel.jsx', 'utf8')
+  it('le bouton Analyser passe par un gestionnaire qui laisse la page s\'afficher avant le calcul', () => {
+    expect(panel).toContain('onClick={handleAnalyzeClick}')
+    expect(panel).toContain('setAnalyzing(true)')
+    expect(panel).toContain('setTimeout(() => {')
+    expect(panel).toContain('setAnalyzing(false)')
+  })
+  it('l\'indicateur est affiché, le bouton est inactif et signalé occupé pendant l\'analyse', () => {
+    expect(panel).toMatch(/^\s+Analyse en cours…\s*$/m)
+    expect(panel).toContain('|| analyzing}')
+    expect(panel).toContain('aria-busy={analyzing}')
+    expect(panel).toContain("'ili-spin")
+  })
+  it('l\'analyse elle-même n\'est pas modifiée : le diagnostic reste handleDiagnose', () => {
+    expect(panel).toContain('handleDiagnose()')
+    expect(panel).toContain('const handleDiagnose = useCallback(() => {')
   })
 })
