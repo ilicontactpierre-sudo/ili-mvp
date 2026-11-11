@@ -1,5 +1,6 @@
 import { useState, useCallback } from 'react'
 import { filterAndScoreSounds } from '../../utils/soundSearch'
+import { readOrchestrationAids } from '../../utils/orchestrationAids'
 
 // ─────────────────────────────────────────────────────────────────────────────
 // VOCABULAIRE CURÉ — groupé par intention narrative
@@ -124,7 +125,7 @@ const CURATED_VOCABULARY = {
 // GÉNÉRATEUR DE PROMPT COMPLET
 // Le prompt est intégré à l'export — plus de fichier .md séparé
 // ─────────────────────────────────────────────────────────────────────────────
-function buildExportPrompt(segments, soundLibrary) {
+export function buildExportPrompt(segments, soundLibrary, workInfo = {}) {
   const getSegmentText = (seg) => {
     if (typeof seg === 'string') return seg
     if (seg && typeof seg.text === 'string') return seg.text
@@ -143,6 +144,17 @@ function buildExportPrompt(segments, soundLibrary) {
   lines.push('Ton objectif : produire une orchestration de niveau cinématographique professionnel.')
   lines.push('Pas une liste de sons mécaniquement placés — une partition vivante qui épouse chaque inflexion narrative, avec de la variation, du rythme, et une vraie intention artistique derrière chaque choix.')
   lines.push('')
+  const asText = (v) => (Array.isArray(v) ? v.join(', ') : String(v || '')).replace(/\s+/g, ' ').trim()
+  const infoLines = []
+  if (asText(workInfo.genre)) infoLines.push(`Forme : ${asText(workInfo.genre)}`)
+  if (asText(workInfo.mood)) infoLines.push(`Humeur dominante : ${asText(workInfo.mood)}`)
+  if (asText(workInfo.description)) infoLines.push(`Description : ${asText(workInfo.description)}`)
+  if (infoLines.length > 0) {
+    lines.push('## Fiche de l\'œuvre (contexte général — SECONDAIRE)')
+    lines.push(infoLines.join(' · '))
+    lines.push('Ces informations donnent la couleur générale de l\'œuvre. Elles passent TOUJOURS après le texte : le ton de chaque scène prime. Une œuvre d\'un genre peut contenir des scènes d\'un tout autre ton (légèreté dans un récit sombre, danger dans une comédie). N\'applique jamais un genre uniformément, et n\'hésite pas à contraster.')
+    lines.push('')
+  }
   lines.push('Le texte est découpé en segments numérotés lus séquentiellement, comme des plans au cinéma. Certains segments portent des marqueurs structurels (chapitre, pause) qui te sont signalés directement dans le texte à orchestrer — utilise-les, ils sont une ressource, pas juste une information.')
   lines.push('')
   lines.push('IMPORTANT — Tags de mise en forme déjà présents dans le texte :')
@@ -268,6 +280,7 @@ function buildExportPrompt(segments, soundLibrary) {
   lines.push('## Leitmotivs')
   lines.push('')
   lines.push('Un leitmotiv est un son ou une texture associée à un personnage, un lieu récurrent, ou un concept narratif. Il revient à chaque apparition de l\'élément, transformé mais reconnaissable.')
+  lines.push('Un leitmotiv est rare : une œuvre peut très bien n\'en avoir aucun. N\'en crée un que si le texte l\'exige clairement, jamais pour remplir.')
   lines.push('Nom précis et cohérent dans toute l\'orchestration. Traitements possibles à préciser dans `note` : "citation", "contrepoint", "écho", "transformation". `leitmotiv: null` si aucun (y compris pour une musique à l\'image) — ne jamais omettre le champ.')
   lines.push('')
   lines.push('---')
@@ -286,6 +299,14 @@ function buildExportPrompt(segments, soundLibrary) {
   lines.push('')
   lines.push('Exemple correct : "Drone grave continu, sans attaque ni pulsation rythmique, texture granuleuse, pas un synthé propre. Plan intermédiaire, sous le bed portuaire. Traduit un malaise diffus dont la cause n\'est pas encore nommée."')
   lines.push('Exemple incorrect, à ne jamais produire : "Texture de pressentiment qui monte avec la lenteur suspecte du navire."')
+  lines.push('')
+  lines.push('---')
+  lines.push('')
+
+  // ── SECTION 6b — Variété et reprises ─────────────────────────────────────
+  lines.push('## Variété et reprises')
+  lines.push('')
+  lines.push('La redite d\'un même son est anti-immersive : ne réutilise jamais un son ou une ambiance par habitude ou par commodité ; en cas de doute, propose un son différent. Un son ne revient que lorsque cela sert l\'histoire (retour à un lieu, liant d\'une longue scène, écho d\'un moment passé…). Dans ce cas, ajoute `reprise` : une phrase qui dit pourquoi ce retour est voulu et où le son est apparu avant. Sinon, omets ce champ.')
   lines.push('')
   lines.push('---')
   lines.push('')
@@ -396,6 +417,18 @@ function buildExportPrompt(segments, soundLibrary) {
     lines.push('')
   })
 
+  // ── SECTION 12b — Fiche de recherche ─────────────────────────────────────
+  lines.push('---')
+  lines.push('')
+  lines.push('## Fiche de recherche — pour chaque son (hors musique)')
+  lines.push('')
+  lines.push('L\'auteur ne retrouvera pas toujours le son exact dans sa bibliothèque : il le cherchera lui-même, dans sa banque de sons ou sur Internet (Freesound, YouTube). Pour chaque son, ajoute donc :')
+  lines.push('- `brief` : ce qu\'on doit ENTENDRE, en 1 à 2 phrases concrètes — source, texture, distance, intensité, évolution. Décris le son lui-même, jamais une ambiance abstraite ("tendu", "mystérieux" seuls sont interdits).')
+  lines.push('- `search` : tableau de 3 requêtes en anglais, de la plus précise à la plus large, prêtes à coller dans un moteur de recherche de sons (ex. ["rain on tin roof distant thunder night loop", "rain tin roof", "rain ambience"]).')
+  lines.push('- `alt` (facultatif) : UNE alternative réellement différente (autre source ou autre effet), avec son effet en quelques mots. Omets le champ s\'il n\'y en a pas de pertinente.')
+  lines.push('Le `keyword` reste obligatoire : il ne sert qu\'à préremplir automatiquement.')
+  lines.push('')
+
   // ── SECTION 13 — Format JSON de sortie ───────────────────────────────────
   lines.push('---')
   lines.push('')
@@ -437,6 +470,8 @@ function buildExportPrompt(segments, soundLibrary) {
   lines.push('    "leitmotiv": null,')
   lines.push('    "type": "diegetique",')
   lines.push('    "plan": "premier",')
+  lines.push('    "brief": "Pas d\'une seule personne sur du gravier humide, réguliers et lents, au premier plan, sans voix ni musique.",')
+  lines.push('    "search": ["single person walking wet gravel slow", "footsteps gravel", "walking on gravel"],')
   lines.push('    "note": "Pas granuleux et régulier, sans percussion identifiable. Plan premier — accompagne la marche au premier plan sonore. Ancre le personnage dans l\'espace physique."')
   lines.push('  },')
   lines.push('  {')
@@ -469,6 +504,7 @@ function buildExportPrompt(segments, soundLibrary) {
   lines.push('**Règles de production impératives :**')
   lines.push('- Ordre toujours : `<script>`, JSON pauses, JSON sons — sans texte ni balises markdown autour des blocs JSON')
   lines.push('- `loopCrossfade: "none"` sur tous les `loop: false` ; `"medium"` par défaut sur tous les `loop: true`')
+  lines.push('- `brief` et `search` obligatoires pour tout son hors musique ; `alt` et `reprise` facultatifs (champ omis s\'il est sans objet)')
   lines.push('- `automationPoints: []` et `leitmotiv: null` si absents — ne jamais omettre ces champs')
   lines.push('- `diegeticMode` obligatoire sur toute couche `"diegetic"` ("ponctuel" ou "sequence")')
   lines.push('- `plan` obligatoire sur chaque bloc son ("premier" | "intermediaire" | "arriere")')
@@ -564,6 +600,7 @@ function OrchestrationPanel({
   onSoundTracksChange,
   onSegmentsChange,
   onSaveToHistory,
+  workInfo,
 }) {
   const [exportText, setExportText] = useState('')
   const [importJson, setImportJson] = useState('')
@@ -580,7 +617,7 @@ function OrchestrationPanel({
       return
     }
 
-    const text = buildExportPrompt(segments, soundLibrary)
+    const text = buildExportPrompt(segments, soundLibrary, workInfo)
     setExportText(text)
 
     navigator.clipboard.writeText(text).then(() => {
@@ -597,7 +634,7 @@ function OrchestrationPanel({
       setCopyStatus('copied')
       setTimeout(() => setCopyStatus('idle'), 2500)
     })
-  }, [segments, soundLibrary])
+  }, [segments, soundLibrary, workInfo])
 
   // ── Diagnostic ───────────────────────────────────────────────────────────
   const handleDiagnose = useCallback(() => {
@@ -860,6 +897,7 @@ function OrchestrationPanel({
         _orchestrationSunoPrompt: block.sunoPrompt || null,
         _orchestrationSunoMode: block.sunoMode || null,
         _orchestrationPlan: block.plan || null,
+        ...readOrchestrationAids(block),
       }
     }
     diagnosis.found.forEach(({ block, sound }) => {

@@ -5,6 +5,8 @@ import { CATEGORY_COLORS, SOUND_BLOCK_COLORS, getVolumeColor } from './constants
 import WaveformTrimmer from './WaveformTrimmer'
 import SoundLibraryPicker from './SoundLibraryPicker'
 import AudioEngine from '../../engine/AudioEngine'
+import OrchestrationFicheCard from './OrchestrationFicheCard'
+import { hasOrchestrationFiche } from '../../utils/ficheCard'
 // ── Conversion gain linéaire (ce qu'utilise Howler) ↔ position perceptuelle ──
 // L'oreille perçoit le volume de façon logarithmique, pas linéaire (c'est
 // pourquoi les faders de consoles de mixage sont calibrés en dB). On mappe
@@ -132,10 +134,19 @@ function SoundBlockPanel({
     }
   }, [editedTrack.loop])
 
+  const handleClose = useCallback(() => {
+    // Sauvegarde finale si nécessaire
+    if (onSave) {
+      onSave(editedTrack)
+    }
+    onClose()
+  }, [editedTrack, onSave, onClose])
+
   // Fermer si clic en dehors
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (showSoundPicker) return
+      if (e.target && e.target.closest && e.target.closest('[data-fiche-card]')) return
       if (panelRef.current && !panelRef.current.contains(e.target)) {
         handleClose()
       }
@@ -206,13 +217,6 @@ function SoundBlockPanel({
     volumeDragBaseRef.current = null
   }, [])
 
-  const handleClose = useCallback(() => {
-    // Sauvegarde finale si nécessaire
-    if (onSave) {
-      onSave(editedTrack)
-    }
-    onClose()
-  }, [editedTrack, onSave, onClose])
 
   const handleDelete = useCallback(() => {
     if (showDeleteConfirm) {
@@ -1223,6 +1227,16 @@ function SoundBlockPanel({
           to { transform: rotate(360deg); }
         }
       `}</style>
+
+      {/* Carte « Fiche de Claude » : rendue via portail, à côté du panneau */}
+      {hasOrchestrationFiche(editedTrack) && createPortal(
+        <OrchestrationFicheCard
+          track={editedTrack}
+          anchorRef={panelRef}
+          onSearchLibrary={(query) => { setPickerInitialSearch(query); setShowSoundPicker(true) }}
+        />,
+        document.body
+      )}
 
       {/* Picker de remplacement de son — rendu via portail hors du panel */}
       {showSoundPicker && soundLibrary && createPortal(

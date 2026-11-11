@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import PublishAnimation from './PublishAnimation'
+import { stripOrchestrationAids } from '../../utils/orchestrationAids'
 import PublishHistoryPanel from './PublishHistoryPanel'
 
 function PublishPanel({
@@ -181,7 +182,7 @@ function PublishPanel({
           ...(part.masterVolume != null && part.masterVolume !== 1.0 ? { masterVolume: part.masterVolume } : {}),
           sounds:      partUsedSounds,
           segments:    partSegmentsWithAudio,
-          soundTracks: part.soundTracks || [],
+          soundTracks: stripOrchestrationAids(part.soundTracks || []),
           vfxTracks:   part.vfxTracks   || [],
         }
       })
@@ -216,7 +217,7 @@ function PublishPanel({
       ...(masterVolume !== 1.0 ? { masterVolume } : {}),
       sounds:      usedSounds,
       segments:    segmentsWithAudio,
-      soundTracks: soundTracks,
+      soundTracks: stripOrchestrationAids(soundTracks),
       vfxTracks:   vfxTracks || [],
     }
   }

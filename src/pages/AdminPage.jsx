@@ -2925,6 +2925,7 @@ function AdminPage() {
               segments={activeSegments}
               soundLibrary={soundLibrary}
               soundLibraryReady={soundLibraryReady}
+              workInfo={{ genre: storyGenre, mood: storyMood }}
               soundTracks={activeSoundTracks}
               onSoundTracksChange={setActiveSoundTracks}
               onSaveToHistory={() => saveToHistory(segments, soundTracks, vfxTracks)}
