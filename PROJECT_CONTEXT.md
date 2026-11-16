@@ -1,6 +1,6 @@
 # ILi — Lecture Immersive — Contexte Projet
 
-_Dernière mise à jour : 07/11/2026 (section 0 « Démarrage rapide », arbre des fichiers, commandes ; le reste date du 16/10/2026), après le chantier « ILi sans bug avec un réseau faible » (chargement des sons par `SoundLoader`, cache audio, démarrage tardif des sons en retard) — voir sections 3.1, 4.4 et 7._
+_Dernière mise à jour : 07/11/2026 (11/11/2026 : section 0 — process et règle de fluidité —, orchestration et fiche de Claude, arbre des fichiers, commandes ; le reste date du 16/10/2026), après le chantier « ILi sans bug avec un réseau faible » (chargement des sons par `SoundLoader`, cache audio, démarrage tardif des sons en retard) — voir sections 3.1, 4.4 et 7._
 
 ## 0. Démarrage rapide (lire en premier, environ 2 minutes)
 
@@ -10,7 +10,23 @@ _Dernière mise à jour : 07/11/2026 (section 0 « Démarrage rapide », arbre d
 - Claude ne pousse jamais et ne lance jamais `npm run publish`, `npm run checkpoint` ni `git push` : il donne les commandes, Pierre les tape. Mise en ligne en deux phases avec accord entre les deux.
 - Dépôt public : jamais de clé, de `.env`, ni de texte protégé dans un diff.
 - Audio : stéréo et pan sacrés. Jamais de mono, jamais le mode `html5` de Howler. `AudioEngine.js` : plan validé d'abord, test de non-régression, écoute réelle par Pierre.
-- Modifier un fichier existant : blocs « à trouver / à remplacer », chacun vérifié comme existant une seule fois. Contrôles : `npx eslint .` avant `npm run build` (345 problèmes préexistants, ne pas les « corriger »), `npx vitest run` (183 tests).
+- Modifier un fichier existant : blocs « à trouver / à remplacer », chacun vérifié comme existant une seule fois. Contrôles : `npx eslint .` avant `npm run build` (343 problèmes préexistants, ne pas les « corriger »), `npx vitest run` (231 tests).
+
+**Comment on travaille ensemble (process, à respecter).**
+- Pierre pose une demande ; Claude explique en français simple, **donne son avis et ses doutes**, et ne demande pas de trancher un point technique que Pierre ne peut pas évaluer. Une seule question à la fois, en conséquences concrètes (pour le site, les visiteurs, les données).
+- **Ajouter, ne pas modifier** : si Pierre demande une nouvelle fonction dans une zone existante, on n'y change rien d'autre (UI, réglages, comportement) sans son accord. Une amélioration de l'existant se propose à part, avec un avis motivé. Avant de dire « rien n'a changé », **montrer le diff**.
+- **Plan et maquette avant le code** pour tout ce qui se voit (maquette interactive, dimensions réelles) ; Pierre valide, puis Claude code.
+- **Livraison** : tout ce qui dépasse une dizaine de lignes est un **fichier à télécharger** (un collage long est abîmé par le terminal) avec son **empreinte** `shasum -a 256`. Pierre contrôle l'empreinte avant de s'en servir et ne prend que les fichiers **à la racine de `~/Downloads`** (un dossier `files (N)` peut contenir des versions périmées). Les petites corrections se donnent en bloc « à trouver / à remplacer ».
+- **Vérifier avant de livrer** : copie neuve de la version exacte de Pierre, `npx eslint .` (343) **avant** `npm run build`, `npx vitest run` (231), build ; **test de mutation** (casser volontairement le code, les tests doivent échouer) pour tout code sensible. **Ne jamais annoncer un chiffre sans l'avoir mesuré dans le même état.** Si un message est coupé avant la fin des vérifications, le dire et ne livrer qu'après.
+- **Mise en ligne** : phase 0 = commit sur la branche avec une **liste explicite de fichiers** (jamais `git add .`) ; phase 1 = lecture seule (`git diff main --stat`, scan de secrets, comparaison du site construit avant/après) ; accord de Pierre ; phase 2 = `git merge --ff-only`, puis `npm run publish` sur `main` : **Claude lit le rapport avant que Pierre tape `main`**. Après envoi, Claude revérifie GitHub sur un clone neuf.
+- **Limites de Claude** : il ne peut ni écouter, ni utiliser un vrai navigateur ou un iPhone, ni joindre Supabase ou Vercel. Les tests de rendu (`renderToString`) ne simulent pas les clics (pas de jsdom installé) : placement, clics et ressenti se valident **visuellement par Pierre**, avec un JSON de test fourni en fichier si besoin. Les tests « gardes » (qui lisent le code source) protègent les branchements, mais sont stricts.
+- **Pièges vécus** : deux serveurs de dev (le 2e prend le port 5174 et le brouillon, stocké par navigateur et par adresse, n'y est pas : utiliser `npm run dev:clean` puis `localhost:5173/admin`) ; ne jamais coller une console qui montre un champ mot de passe.
+
+**Fluidité de l'admin (règle permanente).** Une histoire complète = beaucoup de segments, de blocs son et d'effets : l'admin doit rester fluide (défilement, ouverture et fermeture d'un bloc, curseurs). Pierre l'anticipe (pas de problème observé à ce jour). En pratique :
+- Rien qui coûte proportionnellement au nombre de segments ou de blocs **dans le rendu** ; garder la mémoïsation existante (`SegmentTimelineRow`, `SegmentSeparator`, comparateur en fin de `UnifiedSegmentsTimeline`) et ne pas la contourner (props instables, objets recréés à chaque rendu).
+- Ne jamais scanner les **109 507 sons** à chaque frappe ou pour chaque bloc sans mémoire : une recherche de mot-clé a été mesurée à ~650 ms dans le bac à sable de Claude, d'où « Analyser » qui fige la page.
+- Toute opération de plus de ~300 ms affiche un indicateur (comme « Analyse en cours… »).
+- Toute nouvelle fonction de l'admin s'accompagne d'une réflexion sur son coût avec une grande histoire. **Chantier prévu** : mesurer avec une histoire de test chargée (≈ 300 segments, 150 blocs, 80 effets) avant de corriger quoi que ce soit.
 
 **Économiser les tokens.**
 1. Ne pas tout lire : cette section, puis la ligne du tableau ci-dessous qui correspond à la demande, puis seulement le nécessaire.
@@ -30,7 +46,8 @@ _Dernière mise à jour : 07/11/2026 (section 0 « Démarrage rapide », arbre d
 | Tutoriel | `pages/TutorialPage.jsx` (779) | |
 | Son pendant la lecture (moteur) | `engine/AudioEngine.js` (702), §7 | `AudioEngine*.test.js` |
 | Chargement des sons, réseau faible, cache | `engine/SoundLoader.js` (374), `engine/audioCache.js`, §4.4 et §7 | `utils/soundOrder.js`, `soundsToPreload.js`, `startGate.js`, `startLateSound.js` ; Annexe B du fichier maître |
-| **Orchestration automatique** (une IA propose les sons d'une histoire) | `ORCHESTRATION_PROMPT.md` (le prompt donné à l'IA, qui répond en JSON) + `components/admin/OrchestrationPanel.jsx` (bouton « Générer & copier le prompt », puis « Coller le JSON de Claude » ; vocabulaire curé en tête de fichier) | `SoundBlockPanel.jsx`, `utils/soundSearch.js`, `public/sounds/soundq-keywords.json`, `scripts/validate-story.mjs` (format `soundTracks`) |
+| **Orchestration automatique** (une IA propose les sons d'une histoire) | `components/admin/OrchestrationPanel.jsx` : le **vrai prompt** est la fonction `buildExportPrompt` (l.128 à 536). Flux : « Générer & copier le prompt » → Claude → « Coller le JSON de Claude » → « 🔍 Analyser » → « ✦ Appliquer ». `ORCHESTRATION_PROMPT.md` est l'**ancien** prompt (03/06/2026), non utilisé | `utils/soundSearch.js` (recherche dans 109 507 sons), `public/sounds/soundq-keywords.json`, `scripts/validate-story.mjs` (format `soundTracks`, champs `_orchestration*` libres) ; limites connues : Statut 24 du fichier maître |
+| **Fiche de Claude à côté d'un bloc son** (ce qu'il faut entendre, requêtes de recherche) | `components/admin/OrchestrationFicheCard.jsx` + `utils/ficheCard.js` (placement, recherche web) ; branchée dans `SoundBlockPanel.jsx` par un portail ; champs `_orchestrationBrief`, `_orchestrationSearch`, `_orchestrationAlt`, `_orchestrationReprise` (`utils/orchestrationAids.js`) | retirés à la publication par `stripOrchestrationAids` dans `PublishPanel.jsx` |
 | Découpage automatique du texte en segments | `utils/segmentAlgorithm.js` (1434), §8 | `segmentAlgorithm.test.js`, `PROMPT_Avant DÉCOUPAGE AUTO` |
 | Éditeur admin (`/admin`) | `pages/AdminPage.jsx` (3312) et `components/admin/UnifiedSegmentsTimeline.jsx` (3877) : chercher, jamais en entier | les panneaux de `components/admin/` |
 | Modes de jeu | `components/GameOverlay.jsx` (1765, côté lecteur), `admin/GameModePanel.jsx` (1880), §9 | |
@@ -64,7 +81,7 @@ _Dernière mise à jour : 07/11/2026 (section 0 « Démarrage rapide », arbre d
 | | @ffmpeg/ffmpeg | 0.12.15 | Compression audio côté client (upload) |
 | **Recherche** | Fuse.js | 7.3.0 | Recherche floue dans la bibliothèque de sons |
 | **UI** | CSS natif | — | Variables CSS, Flexbox/Grid, animations custom |
-| **Tests** | Vitest | 5.0.0 | 183 tests (`npx vitest run`) : segmentAlgorithm, AudioEngine, chargement des sons, outil de publication |
+| **Tests** | Vitest | 5.0.0 | 231 tests (`npx vitest run`) : segmentAlgorithm, AudioEngine, chargement des sons, outil de publication, fiche de Claude |
 
 ---
 
@@ -123,6 +140,7 @@ _Dernière mise à jour : 07/11/2026 (section 0 « Démarrage rapide », arbre d
 │   │       ├── UnifiedSegmentsTimeline.jsx  # Timeline unifiée segments + sons + vfx
 │   │       ├── OrchestrationPanel.jsx       # Panneau orchestration audio (soundTracks)
 │   │       ├── SoundBlockPanel.jsx          # Édition bloc son (volume, fade, pan, trim)
+│   │       ├── OrchestrationFicheCard.jsx   # Carte « Fiche de Claude » à côté du bloc son (brief, requêtes, boutons)
 │   │       ├── SoundBlock.jsx               # Représentation visuelle bloc son
 │   │       ├── VfxBlock.jsx                 # Représentation visuelle bloc VFX
 │   │       ├── VfxBlockPanel.jsx            # Édition bloc VFX
@@ -159,6 +177,8 @@ _Dernière mise à jour : 07/11/2026 (section 0 « Démarrage rapide », arbre d
 │   │   ├── bionicReading.jsx       # Mode lecture bionique (gras sur premières lettres)
 │   │   ├── emojiDict.jsx           # Mapping émojis → unicode
 │   │   ├── soundSearch.js          # Recherche sons (Fuse.js + Web Worker)
+│   │   ├── orchestrationAids.js    # Fiches d'aide de l'orchestration : lecture dans le JSON de Claude, retrait à la publication
+│   │   ├── ficheCard.js            # Carte « Fiche de Claude » : placement, URL de recherche web
 │   │   ├── soundOrder.js           # Ordre de téléchargement des sons (par besoin) + sons à attendre au départ
 │   │   ├── soundsToPreload.js      # Sons utiles d'une histoire (exclut les blocs muets ou cassés)
 │   │   ├── startGate.js            # Attente des sons du début + alerte « connexion lente » (15 s)
@@ -221,7 +241,7 @@ _Dernière mise à jour : 07/11/2026 (section 0 « Démarrage rapide », arbre d
 ├── CHECKPOINTS.md                  # Liste checkpoints projet
 ├── HOMEPAGE_IMPROVEMENTS.md        # Idées améliorations homepage
 ├── IMPLEMENTATION_SUMMARY.md       # Résumé implémentations
-├── ORCHESTRATION_PROMPT.md         # Guide orchestration audio
+├── ORCHESTRATION_PROMPT.md         # ANCIEN prompt d'orchestration (03/06/2026) : le vrai est dans OrchestrationPanel.jsx
 ├── PROMPT_Avant DÉCOUPAGE AUTO     # Prompt découpage auto
 ├── REFACTORING_SUMMARY.md          # Résumé refactorings
 ├── publish.sh                      # Ancien script de publication (plus branché sur npm run publish depuis le 23/10/2026)
@@ -305,6 +325,8 @@ _Dernière mise à jour : 07/11/2026 (section 0 « Démarrage rapide », arbre d
 | **Stories** | Fichiers JSON dans `public/stories/` (servis statiquement) | Même structure, fichiers sur Vercel CDN |
 | **CORS** | Headers COOP/COEP dans vite.config.js | `vercel.json` ne définit aucun en-tête (seulement des rewrites SPA) |
 
+**Piège** : si le port 5173 est déjà pris, Vite démarre sur 5174, et le brouillon de l'admin (stocké par navigateur **et par adresse**) n'y apparaît pas. Utiliser `npm run dev:clean` puis `localhost:5173/admin`.
+
 ### 4.3. Assets Statiques
 
 | Type | Chemin | Servis depuis |
@@ -349,15 +371,15 @@ npm run build            # Build Vite → dossier dist/
 npm run preview          # Preview build local
 
 # ── Lint ───────────────────────────────────────────────────────────────────────
-npm run lint             # ESLint (345 problèmes préexistants connus ; à lancer AVANT build : dist/ fausse le compte)
+npm run lint             # ESLint (343 problèmes préexistants connus ; à lancer AVANT build : dist/ fausse le compte)
 
 # ── Tests ──────────────────────────────────────────────────────────────────────
-npx vitest run           # Tests (183), exécution unique — PAS `npm test` (mode surveillance qui reste ouvert)
+npx vitest run           # Tests (231), exécution unique — PAS `npm test` (mode surveillance qui reste ouvert)
 node scripts/validate-story.mjs public/stories/   # Valide le schéma des stories (--check-urls : vérifie aussi les URLs)
 
 # ── Utilitaires ────────────────────────────────────────────────────────────────
 npm run add-sound        # CLI : ajout son à la bibliothèque (scripts/addSound.js)
-npm run checkpoint       # Snapshot projet + redémarre Vite (branche de travail seulement ; simulation : node scripts/checkpoint.js --dry-run)
+npm run checkpoint       # Snapshot projet + redémarre Vite (branche de travail seulement ; essayé en vrai le 11/11/2026 : OK ; simulation : node scripts/checkpoint.js --dry-run)
 npm run publish          # Publication sûre (scripts/publish.js) : rapport des fichiers, tests, build, puis mot à taper (« main » sur main, « o » ailleurs ; « risque » / « forcer » si alerte ou échec)
                          #   options : --dry-run (simulation) | --skip-checks | message de commit : npm run publish -- "message"
                          #   jamais de rebase ni de fusion automatique ; refuse de tourner sans vrai terminal
