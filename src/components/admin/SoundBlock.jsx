@@ -17,6 +17,7 @@ function SoundBlock({
   soundTrack,
   segments,
   soundLibrary,
+  soundLookup,
   rowHeights,
   isSelected,
   onSelect,
@@ -128,7 +129,8 @@ function SoundBlock({
   })
 
   // ── Couleurs ─────────────────────────────────────────────
-  const sound = soundLibrary.find(s => s.id === soundTrack.soundId)
+  // soundLookup (table des sons, timeline unifiée) : même résultat que la recherche dans toute la bibliothèque
+  const sound = soundLookup ? soundLookup.get(soundTrack.soundId) : soundLibrary.find(s => s.id === soundTrack.soundId)
   const getColor = useCallback(() => {
     if (soundTrack.colorOverride && soundTrack.color) return soundTrack.color
     return getVolumeColor(soundTrack.volume)
@@ -807,9 +809,12 @@ function SoundBlock({
             }} />
           )
         }
-        // Avec points : SVG qui couvre tout le bloc
-        const segs = segmentsRef.current
-        const rh = rowHeightsRef.current || []
+        // Avec points : SVG qui couvre tout le bloc.
+        // Les valeurs du rendu en cours (et non les refs, mises à jour un rendu plus tard) :
+        // sinon les points restaient placés avec les anciennes hauteurs de lignes tant que
+        // le bloc n'était pas redessiné une 2e fois.
+        const segs = segments
+        const rh = rowHeights || []
         const svgW = width
         const svgH = blockHeight
         const centerX = svgW / 2

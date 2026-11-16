@@ -10,6 +10,7 @@ import FormatToolbar from './FormatToolbar'
 import GameModePanel from './GameModePanel'
 import { renderMarkdown } from '../../utils/renderMarkdown'
 import InlineFunctionMenu from './InlineFunctionMenu'
+import { buildSegmentIndex, buildRowLayout, buildSoundLookup, selectionMask, sameItems } from '../../utils/timelineRows'
 import { INLINE_FUNCTIONS, getCaretCoordinates } from '../../utils/inlineFunctions'
 
 const DIALOGUE_OVERRIDE_META = (v) => {
@@ -258,11 +259,13 @@ const SegmentTimelineRow = memo(function SegmentTimelineRow({
   isLeader,
   isFinisher,
   onToggleIsLeader,
-  soundTracks,
+  rowSoundTracks,
+  soundOccupancy,
+  soundSelection,
+  soundDragColumn,
   segments,
   soundLibrary,
-  selectedSoundIds,
-  editingSoundTrack,
+  soundLookup,
   onSoundSelect,
   onSoundDoubleClick,
   onSoundColumnChange,
@@ -278,21 +281,18 @@ const SegmentTimelineRow = memo(function SegmentTimelineRow({
   isDraggingDivider,
   onDividerMouseDown,
   rowRef,
-  isAnyBlockDragging,
-  dragTargetCell,
   onDragStart,
   onDragEnd,
   onDragTargetChange,
-  vfxTracks,
-  selectedVfxIds,
-  editingVfxTrack,
+  rowVfxTracks,
+  vfxOccupancy,
+  vfxSelection,
+  vfxDragColumn,
   onVfxSelect,
   onVfxDoubleClick,
   onVfxColumnChange,
   onVfxResize,
   onAddVfxToCell,
-  isAnyVfxDragging,
-  vfxDragTarget,
   onVfxDragStart,
   onVfxDragEnd,
   onVfxUpdate,
@@ -574,26 +574,8 @@ const SegmentTimelineRow = memo(function SegmentTimelineRow({
     onEdit(index)
   }
 
-  // Trouver les sons qui commencent à ce segment
-  const getSegmentIndexFromId = useCallback((segmentId) => {
-    // D'abord, chercher par id ou _id
-    const idx = segments.findIndex(s => s.id === segmentId || s._id === segmentId)
-    if (idx !== -1) return idx
-    
-    // Fallback: si segmentId est au format "segment_N", utiliser N comme index
-    const match = segmentId?.match(/^seg(?:ment)?_(\d+)$/)
-    if (match) {
-      const index = parseInt(match[1], 10)
-      if (index >= 0 && index < segments.length) return index
-    }
-    
-    return -1
-  }, [segments])
-
-  const rowSoundTracks = soundTracks.filter(track => {
-    const startIdx = getSegmentIndexFromId(track.startSegmentId)
-    return startIdx === index
-  })
+  // Blocs qui commencent sur cette ligne (rowSoundTracks, rowVfxTracks) et colonnes occupées
+  // (soundOccupancy, vfxOccupancy) : calculés une fois pour toute la timeline (utils/timelineRows.js).
 
   // ── Rendu compact pause : partie texte remplacée, timeline intacte ────────
   if (isPause) {
@@ -712,15 +694,8 @@ const SegmentTimelineRow = memo(function SegmentTimelineRow({
           }}
         >
           {Array.from({ length: COLUMN_COUNT }).map((_, colIndex) => {
-            const hasSound = soundTracks.some(track => {
-              const startIdx = getSegmentIndexFromId(track.startSegmentId)
-              const endIdx = getSegmentIndexFromId(track.endSegmentId)
-              const trackEnd = endIdx !== -1 ? endIdx : startIdx
-              return track.column === colIndex && startIdx <= index && trackEnd >= index
-            })
-            const isDragTarget = isAnyBlockDragging &&
-              dragTargetCell.segmentIndex === index &&
-              dragTargetCell.column === colIndex
+            const hasSound = soundOccupancy[colIndex] === '1'
+            const isDragTarget = soundDragColumn === colIndex
             return (
               <div
                 key={colIndex}
@@ -752,14 +727,15 @@ const SegmentTimelineRow = memo(function SegmentTimelineRow({
               </div>
             )
           })}
-          {rowSoundTracks.map(track => (
+          {rowSoundTracks.map((track, k) => (
             <SoundBlock
               key={track.id}
               soundTrack={track}
               segments={segments}
               soundLibrary={soundLibrary}
+              soundLookup={soundLookup}
               rowHeights={rowHeights}
-              isSelected={selectedSoundIds.has(track.id) || track.id === editingSoundTrack?.id}
+              isSelected={soundSelection[k] === '1'}
               onSelect={onSoundSelect}
               onDoubleClick={onSoundDoubleClick}
               onColumnChange={onSoundColumnChange}
@@ -1303,15 +1279,8 @@ const SegmentTimelineRow = memo(function SegmentTimelineRow({
       >
         {/* Grille de la timeline audio */}
         {Array.from({ length: COLUMN_COUNT }).map((_, colIndex) => {
-          const hasSound = soundTracks.some(track => {
-            const startIdx = getSegmentIndexFromId(track.startSegmentId)
-            const endIdx = getSegmentIndexFromId(track.endSegmentId)
-            const trackEnd = endIdx !== -1 ? endIdx : startIdx
-            return track.column === colIndex && startIdx <= index && trackEnd >= index
-          })
-          const isDragTarget = isAnyBlockDragging &&
-            dragTargetCell.segmentIndex === index &&
-            dragTargetCell.column === colIndex
+          const hasSound = soundOccupancy[colIndex] === '1'
+          const isDragTarget = soundDragColumn === colIndex
           return (
             <div
               key={colIndex}
@@ -1344,14 +1313,15 @@ const SegmentTimelineRow = memo(function SegmentTimelineRow({
         })}
 
         {/* Blocs sonores pour cette ligne */}
-        {rowSoundTracks.map(track => (
+        {rowSoundTracks.map((track, k) => (
           <SoundBlock
               key={track.id}
               soundTrack={track}
               segments={segments}
               soundLibrary={soundLibrary}
+              soundLookup={soundLookup}
               rowHeights={rowHeights}
-              isSelected={selectedSoundIds.has(track.id) || track.id === editingSoundTrack?.id}
+              isSelected={soundSelection[k] === '1'}
               onSelect={onSoundSelect}
               onDoubleClick={onSoundDoubleClick}
               onColumnChange={onSoundColumnChange}
@@ -1382,15 +1352,8 @@ const SegmentTimelineRow = memo(function SegmentTimelineRow({
       >
         {/* Grille VFX */}
         {Array.from({ length: VFX_COLUMN_COUNT }).map((_, colIndex) => {
-          const hasVfx = (vfxTracks || []).some(track => {
-            const si = getSegmentIndexFromId(track.startSegmentId)
-            const ei = getSegmentIndexFromId(track.endSegmentId)
-            const te = ei !== -1 ? ei : si
-            return track.column === colIndex && si <= index && te >= index
-          })
-          const isVfxDragTarget = isAnyVfxDragging &&
-            vfxDragTarget.segmentIndex === index &&
-            vfxDragTarget.column === colIndex
+          const hasVfx = vfxOccupancy[colIndex] === '1'
+          const isVfxDragTarget = vfxDragColumn === colIndex
           return (
             <div
               key={colIndex}
@@ -1424,18 +1387,14 @@ const SegmentTimelineRow = memo(function SegmentTimelineRow({
         })}
 
         {/* Blocs VFX pour cette ligne */}
-        {(vfxTracks || [])
-          .filter(track => {
-            const si = getSegmentIndexFromId(track.startSegmentId)
-            return si === index
-          })
-          .map(track => (
+        {rowVfxTracks
+          .map((track, k) => (
             <VfxBlock
               key={track.id}
               vfxTrack={track}
               segments={segments}
               rowHeights={rowHeights}
-              isSelected={selectedVfxIds.has(track.id) || track.id === editingVfxTrack?.id}
+              isSelected={vfxSelection[k] === '1'}
               onSelect={onVfxSelect}
               onDoubleClick={onVfxDoubleClick}
               onColumnChange={onVfxColumnChange}
@@ -1469,22 +1428,23 @@ const SegmentTimelineRow = memo(function SegmentTimelineRow({
     prevProps.rowHeights === nextProps.rowHeights &&
     prevProps.dividerPosition === nextProps.dividerPosition &&
     prevProps.isDraggingDivider === nextProps.isDraggingDivider &&
-    prevProps.isAnyBlockDragging === nextProps.isAnyBlockDragging &&
-    prevProps.isAnyVfxDragging === nextProps.isAnyVfxDragging &&
-    prevProps.dragTargetCell === nextProps.dragTargetCell &&
-    prevProps.vfxDragTarget === nextProps.vfxDragTarget &&
-    prevProps.selectedSoundIds === nextProps.selectedSoundIds &&
-    prevProps.selectedVfxIds === nextProps.selectedVfxIds &&
-    prevProps.editingSoundTrack === nextProps.editingSoundTrack &&
-    prevProps.editingVfxTrack === nextProps.editingVfxTrack &&
-    prevProps.soundTracks === nextProps.soundTracks &&
-    prevProps.vfxTracks === nextProps.vfxTracks &&
+    prevProps.soundDragColumn === nextProps.soundDragColumn &&
+    prevProps.vfxDragColumn === nextProps.vfxDragColumn &&
+    prevProps.soundSelection === nextProps.soundSelection &&
+    prevProps.vfxSelection === nextProps.vfxSelection &&
+    sameItems(prevProps.rowSoundTracks, nextProps.rowSoundTracks) &&
+    sameItems(prevProps.rowVfxTracks, nextProps.rowVfxTracks) &&
+    prevProps.soundOccupancy === nextProps.soundOccupancy &&
+    prevProps.vfxOccupancy === nextProps.vfxOccupancy &&
     prevProps.segments === nextProps.segments &&
     prevProps.seuilKeys === nextProps.seuilKeys &&
     prevProps.isPause === nextProps.isPause &&
     prevProps.pauseDuration === nextProps.pauseDuration
   )
 })
+
+// Fonctions passées à chaque ligne de la timeline (voir stableRowHandlers).
+const ROW_HANDLER_NAMES = ['onSelect', 'onEdit', 'onEditChange', 'onEditBlur', 'onEditKeyDown', 'onSplitAtPosition', 'onAdd', 'onDelete', 'onSoundSelect', 'onSoundDoubleClick', 'onSoundColumnChange', 'onSoundResize', 'onSoundMove', 'onSoundUpdate', 'onShowSoundTooltip', 'onHideSoundTooltip', 'onAddSoundToCell', 'onDividerMouseDown', 'onDragStart', 'onDragEnd', 'onDragTargetChange', 'onTextSelection', 'onVfxSelect', 'onVfxDoubleClick', 'onVfxColumnChange', 'onVfxResize', 'onAddVfxToCell', 'onVfxDragStart', 'onVfxDragEnd', 'onVfxDragTargetChange', 'onToggleChapter', 'onToggleIsChapter', 'onToggleIsLeader', 'onToggleDialogueOverride', 'onVfxUpdate']
 
 // Composant pour le séparateur entre segments (double-clic pour fusionner, clic ⏱ pour pause)
 const SegmentSeparator = memo(function SegmentSeparator({ index, onMerge, onInsertPause, isHovered, onHover }) {
@@ -2593,6 +2553,57 @@ const handleTextSelection = useCallback(() => {
     setSelectedSoundIds(new Set())
   }
 
+  // ── Fluidité (16/11/2026) : ce que chaque ligne doit savoir est calculé UNE fois ici ──
+  // (avant, chaque ligne relisait tous les blocs et cherchait chacun parmi tous les segments).
+  const segmentIndex = useMemo(() => buildSegmentIndex(segments), [segments])
+  const soundRows = useMemo(() => buildRowLayout(soundTracks, segments, segmentIndex, COLUMN_COUNT), [soundTracks, segments, segmentIndex])
+  const vfxRows = useMemo(() => buildRowLayout(vfxTracks || [], segments, segmentIndex, VFX_COLUMN_COUNT), [vfxTracks, segments, segmentIndex])
+  const soundLookup = useMemo(() => buildSoundLookup(soundLibrary), [soundLibrary])
+  // Une ligne n'est redessinée que si ce qui la concerne change. Elle reçoit donc des fonctions
+  // stables qui appellent toujours la version à jour (sinon elle garderait une ancienne liste de blocs).
+  const rowHandlers = {
+    onSelect: handleSelectSegment,
+    onEdit: handleStartEdit,
+    onEditChange: handleEditChange,
+    onEditBlur: handleEditBlur,
+    onEditKeyDown: handleEditKeyDown,
+    onSplitAtPosition: handleSplitSegment,
+    onAdd: handleAddSegment,
+    onDelete: handleDeleteSegment,
+    onSoundSelect: handleSelectSound,
+    onSoundDoubleClick: handleDoubleClickSound,
+    onSoundColumnChange: handleColumnChange,
+    onSoundResize: handleResizeSound,
+    onSoundMove: handleMoveSound,
+    onSoundUpdate: handleUpdateSoundTrack,
+    onShowSoundTooltip: handleShowSoundTooltip,
+    onHideSoundTooltip: handleHideSoundTooltip,
+    onAddSoundToCell: handleDoubleClickEmptyCell,
+    onDividerMouseDown: handleDividerMouseDown,
+    onDragStart: handleSoundDragStart,
+    onDragEnd: handleSoundDragEnd,
+    onDragTargetChange: handleDragTargetChange,
+    onTextSelection: handleTextSelection,
+    onVfxSelect: handleSelectVfx,
+    onVfxDoubleClick: handleDoubleClickVfx,
+    onVfxColumnChange: handleVfxColumnChange,
+    onVfxResize: handleVfxResize,
+    onAddVfxToCell: handleAddVfxToCell,
+    onVfxDragStart: handleVfxDragStart,
+    onVfxDragEnd: handleVfxDragEnd,
+    onVfxDragTargetChange: handleVfxDragTargetChange,
+    onToggleChapter: handleToggleChapter,
+    onToggleIsChapter: handleToggleIsChapter,
+    onToggleIsLeader: handleToggleIsLeader,
+    onToggleDialogueOverride: handleToggleDialogueOverride,
+    onVfxUpdate: handleVfxUpdate,
+  }
+  const latestRowHandlersRef = useRef(rowHandlers)
+  useLayoutEffect(() => { latestRowHandlersRef.current = rowHandlers })
+  const stableRowHandlers = useMemo(() => Object.fromEntries(
+    ROW_HANDLER_NAMES.map((name) => [name, (...args) => latestRowHandlersRef.current[name](...args)])
+  ), [])
+
   // Calculer une estimation initiale rapide de la hauteur des lignes
   // En tenant compte de la largeur de la colonne de texte pour un calcul plus précis
   const estimatedRowHeights = useMemo(() => {
@@ -3187,16 +3198,12 @@ const handleTextSelection = useCallback(() => {
               }}>
                 <SegmentTimelineRow
                   {...{
+                    ...stableRowHandlers,
                     segment, index,
                     rowRef: (el) => { rowRefs.current[index] = el },
                     rowHeight: rowHeights[index],
                     rowHeights,
                     isSelected,
-                    onSelect: handleSelectSegment,
-                    onEdit: handleStartEdit,
-                    onEditChange: handleEditChange,
-                    onEditBlur: handleEditBlur,
-                    onEditKeyDown: handleEditKeyDown,
                     isPause: segment?.pause != null,
                     pauseDuration: segment?.pause ?? null,
                     onPauseDurationChange: (idx, ms, transition) => {
@@ -3213,56 +3220,26 @@ const handleTextSelection = useCallback(() => {
                     },
                     isEditing: editingSegmentIndex === index,
                     editText: editTexts[index] || '',
-                    onSplitAtPosition: handleSplitSegment,
-                    onAdd: handleAddSegment,
-                    onDelete: handleDeleteSegment,
                     isCmdPressed,
                     hovered: hoveredRow === index,
                     onHover: setHoveredRow,
-                    soundTracks,
+                    rowSoundTracks: soundRows[index].tracks,
+                    soundOccupancy: soundRows[index].occupancy,
+                    soundSelection: selectionMask(soundRows[index].tracks, selectedSoundIds, editingSoundTrack),
+                    soundDragColumn: isAnyBlockDragging && dragTargetCell.segmentIndex === index ? dragTargetCell.column : -1,
                     segments,
                     soundLibrary,
-                    selectedSoundIds,
-                    editingSoundTrack,
-                    onSoundSelect: handleSelectSound,
-                    onSoundDoubleClick: handleDoubleClickSound,
-                    onSoundColumnChange: handleColumnChange,
-                    onSoundResize: handleResizeSound,
-                    onSoundMove: handleMoveSound,
-                    onSoundUpdate: handleUpdateSoundTrack,
-                    onShowSoundTooltip: handleShowSoundTooltip,
-                    onHideSoundTooltip: handleHideSoundTooltip,
-                    onAddSoundToCell: handleDoubleClickEmptyCell,
+                    soundLookup,
                     dividerPosition,
                     isDraggingDivider,
-                    onDividerMouseDown: handleDividerMouseDown,                    isAnyBlockDragging,
-                    dragTargetCell,
-                    onDragStart: handleSoundDragStart,
-                    onDragEnd: handleSoundDragEnd,
-                    onDragTargetChange: handleDragTargetChange,
-                    onTextSelection: handleTextSelection,
-                    vfxTracks,
-                    selectedVfxIds,
-                    editingVfxTrack,
-                    onVfxSelect: handleSelectVfx,
-                    onVfxDoubleClick: handleDoubleClickVfx,
-                    onVfxColumnChange: handleVfxColumnChange,
-                    onVfxResize: handleVfxResize,
-                    onAddVfxToCell: handleAddVfxToCell,
-                    isAnyVfxDragging,
-                    vfxDragTarget,
-                    onVfxDragStart: handleVfxDragStart,
-                    onVfxDragEnd: handleVfxDragEnd,
-                    onVfxDragTargetChange: handleVfxDragTargetChange,
+                    rowVfxTracks: vfxRows[index].tracks,
+                    vfxOccupancy: vfxRows[index].occupancy,
+                    vfxSelection: selectionMask(vfxRows[index].tracks, selectedVfxIds, editingVfxTrack),
+                    vfxDragColumn: isAnyVfxDragging && vfxDragTarget.segmentIndex === index ? vfxDragTarget.column : -1,
                     isChapter: segment?.isChapter === true,
                     isCollapsed: collapsedChapters.has(index),
-                    onToggleChapter: handleToggleChapter,
-                    onToggleIsChapter: handleToggleIsChapter,
                     isLeader: segment?.isLeader === true,
                     isFinisher: finisherSegments.has(index),
-                    onToggleIsLeader: handleToggleIsLeader,
-                    onToggleDialogueOverride: handleToggleDialogueOverride,
-                    onVfxUpdate: handleVfxUpdate,
                     // Handle drag
                     onDragHandleMouseDown: dragHandleMouseDownHandlers[index],
                     isDragging: isBeingDragged,
