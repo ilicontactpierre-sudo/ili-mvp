@@ -1,6 +1,11 @@
 import { useState, useCallback } from 'react'
 import { filterAndScoreSounds } from '../../utils/soundSearch'
 import { readOrchestrationAids } from '../../utils/orchestrationAids'
+import {
+  rangePromptLines, rangeFingerprint, fingerprintChanged, blockInRange, pauseInRange,
+  rangeAfterApply, defaultRange, clampRange, contextBounds,
+} from '../../utils/orchestrationRange'
+import OrchestrationRangePicker from './OrchestrationRangePicker'
 
 // ─────────────────────────────────────────────────────────────────────────────
 // VOCABULAIRE CURÉ — groupé par intention narrative
@@ -125,7 +130,7 @@ const CURATED_VOCABULARY = {
 // GÉNÉRATEUR DE PROMPT COMPLET
 // Le prompt est intégré à l'export — plus de fichier .md séparé
 // ─────────────────────────────────────────────────────────────────────────────
-export function buildExportPrompt(segments, soundLibrary, workInfo = {}) {
+export function buildExportPrompt(segments, soundLibrary, workInfo = {}, range = null) {
   const getSegmentText = (seg) => {
     if (typeof seg === 'string') return seg
     if (seg && typeof seg.text === 'string') return seg.text
@@ -513,6 +518,10 @@ export function buildExportPrompt(segments, soundLibrary, workInfo = {}) {
   lines.push('- Volumes de référence : bed 0.12–0.28 | atmosphere 0.10–0.22 | music 0.20–0.45 | diegetic ponctuel 0.55–0.82 | diegetic séquence 0.35–0.55 | transition 0.45–0.70')
   lines.push('')
   lines.push('---')
+  if (range) {
+    // Tranche : numérotation d'origine, contexte, sons déjà en place (utils/orchestrationRange.js)
+    lines.push(...rangePromptLines(segments, range, range.soundTracks, soundLibrary))
+  } else {
   lines.push(`## Texte à orchestrer (${segments.length} segments)`)
   lines.push('')
   segments.forEach((seg, i) => {
@@ -525,6 +534,7 @@ export function buildExportPrompt(segments, soundLibrary, workInfo = {}) {
     const text = getSegmentText(seg).trim()
     if (text) lines.push(`[${i + 1}]${isChapter ? ' (chapitre)' : ''} ${text}`)
   })
+  }
   lines.push('')
   lines.push('---')
   lines.push('Commence par le bloc `<script>`, puis `### PAUSES` avec son tableau JSON (même vide), puis `### SONS` avec son tableau JSON. Rien d\'autre.')
@@ -610,6 +620,18 @@ function OrchestrationPanel({
   const [copyStatus, setCopyStatus] = useState('idle')
   const [importError, setImportError] = useState('')
   const [analyzing, setAnalyzing] = useState(false)
+  // ── Tranche (Statut 24, étape 2) — ajouté après les états existants ─────────
+  const [rangeMode, setRangeMode] = useState('all') // 'all' = tout le texte (comme avant) | 'range'
+  const [rangeSel, setRangeSel] = useState(null) // { from, to } choisi ; null = 1 → 50
+  const [generatedRange, setGeneratedRange] = useState(null) // tranche du dernier prompt généré
+  const [nextAfterApply, setNextAfterApply] = useState(null) // tranche proposée après « Appliquer »
+  const totalSegments = segments?.length || 0
+  const currentRange = rangeSel
+    ? clampRange(rangeSel.from, rangeSel.to, totalSegments)
+    : defaultRange(totalSegments)
+  const rangeFrom = currentRange.from
+  const rangeTo = currentRange.to
+  const rangeCtx = contextBounds(currentRange, totalSegments)
 
   // ── Export ────────────────────────────────────────────────────────────────
   const handleExport = useCallback(() => {
@@ -618,8 +640,14 @@ function OrchestrationPanel({
       return
     }
 
-    const text = buildExportPrompt(segments, soundLibrary, workInfo)
+    const isRange = rangeMode === 'range'
+    const text = isRange
+      ? buildExportPrompt(segments, soundLibrary, workInfo, { from: rangeFrom, to: rangeTo, soundTracks })
+      : buildExportPrompt(segments, soundLibrary, workInfo)
     setExportText(text)
+    setGeneratedRange(isRange
+      ? { from: rangeFrom, to: rangeTo, fingerprint: rangeFingerprint(segments, { from: rangeFrom, to: rangeTo }), at: new Date() }
+      : null)
 
     navigator.clipboard.writeText(text).then(() => {
       setCopyStatus('copied')
@@ -635,7 +663,7 @@ function OrchestrationPanel({
       setCopyStatus('copied')
       setTimeout(() => setCopyStatus('idle'), 2500)
     })
-  }, [segments, soundLibrary, workInfo])
+  }, [segments, soundLibrary, workInfo, rangeMode, rangeFrom, rangeTo, soundTracks])
 
   // ── Diagnostic ───────────────────────────────────────────────────────────
   const handleDiagnose = useCallback(() => {
@@ -679,7 +707,9 @@ function OrchestrationPanel({
       const durationMs = Number(p.durationMs)
       const inRange = Number.isInteger(afterSegment) && afterSegment >= 1 && afterSegment <= segments.length
       const validDuration = Number.isFinite(durationMs) && durationMs > 0
-      if (inRange && validDuration) {
+      if (inRange && validDuration && generatedRange && !pauseInRange(afterSegment, generatedRange)) {
+        invalidPauses.push({ index: idx, reason: `après segment ${afterSegment} : hors de la tranche ${generatedRange.from}→${generatedRange.to}`, raw: p })
+      } else if (inRange && validDuration) {
         validPauses.push({
           afterSegment,
           durationMs,
@@ -693,7 +723,13 @@ function OrchestrationPanel({
     // ── Diagnostic des sons (logique inchangée) ──────────────────────────
     const found = []
     const missing = []
+    const outOfRange = []
     soundsRaw.forEach((block, idx) => {
+      // Tranche : un bloc qui sort de la tranche (contexte compris) n'est pas appliqué.
+      if (generatedRange && !blockInRange(block, generatedRange)) {
+        outOfRange.push({ index: idx, block, keyword: block.soundId || block.keyword || '(manquant)' })
+        return
+      }
       if (block.soundId) {
         const sound = findSoundById(block.soundId, soundLibrary)
         if (!sound) {
@@ -756,8 +792,8 @@ function OrchestrationPanel({
         })
       }
     })
-    setDiagnosis({ found, missing, pauses: validPauses, invalidPauses, parsed: soundsRaw })
-  }, [importJson, soundLibrary, segments, soundLibraryReady])
+    setDiagnosis({ found, missing, pauses: validPauses, invalidPauses, parsed: soundsRaw, outOfRange, range: generatedRange })
+  }, [importJson, soundLibrary, segments, soundLibraryReady, generatedRange])
 
   // ── Application ───────────────────────────────────────────────────────────
   // Laisse le navigateur afficher « Analyse en cours… » AVANT le calcul, qui occupe la page quelques secondes.
@@ -774,6 +810,8 @@ function OrchestrationPanel({
 
   const handleApply = useCallback(() => {
     if (!diagnosis) return
+    // Tranche : si le texte a changé depuis le prompt, les numéros de Claude sont faux.
+    if (diagnosis.range && fingerprintChanged(diagnosis.range.fingerprint, segments)) return
 
     // ── 1. Insérer les pauses proposées AVANT toute résolution de son ──────
     // On construit une nouvelle liste de segments en insérant les pauses,
@@ -926,6 +964,13 @@ function OrchestrationPanel({
     onSoundTracksChange([...soundTracks, ...newTracks])
     if (onSaveToHistory) onSaveToHistory()
     setApplyStatus('success')
+    // Tranche : proposer la suivante, décalée des pauses réellement insérées.
+    if (diagnosis.range) {
+      const inserted = workingSegments !== segments ? pausesToInsert.length : 0
+      setNextAfterApply(rangeAfterApply(diagnosis.range, inserted, workingSegments.length))
+    } else {
+      setNextAfterApply(null)
+    }
   }, [diagnosis, segments, soundTracks, onSoundTracksChange, onSegmentsChange, onSaveToHistory])
 
   // ── Reset ─────────────────────────────────────────────────────────────────
@@ -936,6 +981,20 @@ function OrchestrationPanel({
     setImportError('')
     setShowImport(false)
   }
+
+  // ── Tranche suivante (après « Appliquer ») ────────────────────────────────
+  const handlePrepareNext = () => {
+    if (!nextAfterApply) return
+    setRangeSel(nextAfterApply)
+    setRangeMode('range')
+    setNextAfterApply(null)
+    setExportText('')
+    handleReset()
+    const target = typeof document !== 'undefined' ? document.getElementById('ili-orchestration-tranche') : null
+    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }
+  const diagnosisStale = !!(diagnosis?.range && fingerprintChanged(diagnosis.range.fingerprint, segments))
+  const hasNextRange = !!(nextAfterApply && diagnosis?.range && nextAfterApply.from > diagnosis.range.to)
 
   // ── Styles ────────────────────────────────────────────────────────────────
   const s = {
@@ -1018,6 +1077,15 @@ function OrchestrationPanel({
           <strong style={s.labelStrong}>Étape 1</strong> — Exporte le prompt complet et colle-le directement dans une nouvelle conversation Claude.
           Le prompt contient déjà toutes les instructions + le vocabulaire + le texte.
         </div>
+        <OrchestrationRangePicker
+          segments={segments}
+          soundTracks={soundTracks}
+          soundLibrary={soundLibrary}
+          mode={rangeMode}
+          onModeChange={setRangeMode}
+          range={currentRange}
+          onRangeChange={setRangeSel}
+        />
         <div style={s.row}>
           <button
             onClick={handleExport}
@@ -1030,6 +1098,12 @@ function OrchestrationPanel({
             <button onClick={() => setExportText('')} style={s.btn()}>Masquer</button>
           )}
         </div>
+        {rangeMode === 'range' && (
+          <div style={{ fontSize: '0.75rem', color: 'rgba(165,180,252,0.8)', margin: '-0.5rem 0 0.75rem' }}>
+            Tranche {rangeFrom} → {rangeTo} · {rangeTo - rangeFrom + 1} segments, plus {rangeFrom - rangeCtx.ctxFrom} avant
+            et {rangeCtx.ctxTo - rangeTo} après en contexte. Applique-la avant de générer la suivante.
+          </div>
+        )}
 
         {exportText && (
           <>
@@ -1104,6 +1178,24 @@ function OrchestrationPanel({
         {/* ── Diagnostic ── */}
         {diagnosis && applyStatus !== 'success' && (
           <div style={{ marginTop: '0.75rem' }}>
+            {/* Tranche : rappel, et blocage si le texte a changé depuis le prompt */}
+            {diagnosis.range && (
+              <div style={{ fontSize: '0.75rem', color: 'rgba(199,210,254,0.85)', padding: '0.5rem 0.75rem', borderRadius: '6px', backgroundColor: 'rgba(79,70,229,0.08)', border: '1px solid rgba(129,140,248,0.25)' }}>
+                Analyse de la tranche {diagnosis.range.from} → {diagnosis.range.to}
+                {diagnosis.range.at ? ` (prompt généré à ${diagnosis.range.at.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })})` : ''}.
+                {' '}Ce qui tombe hors de la tranche n'est pas appliqué.
+              </div>
+            )}
+            {diagnosisStale && (
+              <div style={{ ...s.diagBox('error'), marginTop: '0.5rem' }}>
+                <div style={s.diagTitle('error')}>✕ Le texte a changé depuis que ce prompt a été généré</div>
+                <div style={s.diagItem}>
+                  Un segment a été ajouté, supprimé ou déplacé (par exemple une pause insérée) avant la fin de la tranche ou dans son contexte.
+                  Les numéros donnés par Claude ne tombent plus sur les bons segments.
+                </div>
+                <div style={s.diagItem}>→ Régénère le prompt de cette tranche à l'étape 1, puis recolle la nouvelle réponse de Claude.</div>
+              </div>
+            )}
             {/* Pauses proposées */}
             {diagnosis.pauses && diagnosis.pauses.length > 0 && (
               <div style={s.diagBox('ok')}>
@@ -1181,10 +1273,35 @@ function OrchestrationPanel({
               </div>
             )}
 
+            {/* Tranche : blocs hors de la tranche, non appliqués */}
+            {diagnosis.outOfRange && diagnosis.outOfRange.length > 0 && (
+              <div style={{ ...s.diagBox('warn'), marginTop: '0.5rem' }}>
+                <div style={s.diagTitle('warn')}>
+                  ⚠ {diagnosis.outOfRange.length} bloc(s) hors de la tranche {diagnosis.range.from}→{diagnosis.range.to} — non appliqués
+                </div>
+                {diagnosis.outOfRange.map((item, i) => (
+                  <div key={i} style={s.diagItem}>
+                    <strong style={{ color: 'rgba(255,255,255,0.75)' }}>
+                      [{item.block.startSegment}→{item.block.endSegment ?? item.block.startSegment}]
+                    </strong>{' '}
+                    <code style={{ fontSize: '0.7rem', opacity: 0.8 }}>{item.keyword}</code>
+                    {item.block.note && <span style={{ opacity: 0.5 }}> — {item.block.note}</span>}
+                  </div>
+                ))}
+                <div style={{ marginTop: '0.5rem', fontSize: '0.75rem', color: 'rgba(255,193,7,0.7)', fontStyle: 'italic' }}>
+                  → Pose-les à la main sur la timeline si tu les veux, ou garde-les pour la tranche voisine.
+                </div>
+              </div>
+            )}
+
             {/* Bouton appliquer */}
             {(diagnosis.found.length > 0 || diagnosis.missing.some(m => m.ghostSound)) && (
               <div style={{ ...s.row, marginTop: '1rem' }}>
-                <button onClick={handleApply} style={s.btn('success')}>
+                <button
+                  onClick={handleApply}
+                  disabled={diagnosisStale}
+                  style={diagnosisStale ? { ...s.btn('success'), opacity: 0.35, cursor: 'not-allowed' } : s.btn('success')}
+                >
                   ✦ Appliquer{diagnosis.found.length > 0 ? ` ${diagnosis.found.length} bloc(s)` : ''}
                   {diagnosis.missing.some(m => m.ghostSound) ? ` + ${diagnosis.missing.filter(m => m.ghostSound).length} grisé(s)` : ''} sur la timeline
                 </button>
@@ -1203,6 +1320,11 @@ function OrchestrationPanel({
             <button onClick={handleReset} style={{ ...s.btn(), marginTop: '0.75rem' }}>
               Nouvelle orchestration
             </button>
+            {hasNextRange && (
+              <button onClick={handlePrepareNext} style={{ ...s.btn('primary'), marginTop: '0.75rem', backgroundColor: 'rgba(79,70,229,0.35)' }}>
+                Préparer la tranche suivante ({nextAfterApply.from} → {nextAfterApply.to}) ↑
+              </button>
+            )}
           </div>
         )}
       </div>
