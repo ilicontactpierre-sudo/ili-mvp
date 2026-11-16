@@ -19,7 +19,7 @@ Ce fichier donne le contexte nécessaire pour travailler sur ce repo. Lis-le ava
 - `npm run publish` — publication sûre (`scripts/publish.js`) : rapport des fichiers, tests, build, puis un mot à taper (« main » sur `main`, « o » sur une autre branche). Options : `--dry-run` (simulation), `--skip-checks` ; message de commit : `npm run publish -- "message"`. **Un agent IA ne le lance jamais : c'est Pierre qui le tape.** `publish.sh` est l'ancien script, plus branché.
 - `npm run checkpoint` — snapshot (même rapport et même confirmation que `publish`) + étiquette + relance Vite en écoute réseau (0.0.0.0) ; sur une branche de travail seulement. Simulation : `node scripts/checkpoint.js --dry-run` (et non `npm run checkpoint -- --dry-run`)
 - `npm run add-sound` — script d'ajout de son à la bibliothèque
-- `npx vitest run` — lance les tests une seule fois (231 tests). Ne pas utiliser `npm test` : il lance Vitest en mode surveillance et reste ouvert
+- `npx vitest run` — lance les tests une seule fois (288 tests). Ne pas utiliser `npm test` : il lance Vitest en mode surveillance et reste ouvert
 - `node scripts/validate-story.mjs public/stories/` — valide le format de toutes les stories JSON (références cassées, champs manquants...) ; ajouter `--check-urls` pour vérifier aussi que les URLs de sons Supabase répondent (plus lent, nécessite une connexion réseau) ; peut aussi cibler un seul fichier (`node scripts/validate-story.mjs public/stories/nom-de-la-story.json`)
 
 ## Structure du repo
@@ -46,7 +46,7 @@ src/
 │   └── SoundLoader.js / audioCache.js   # Chargement des sons (téléchargement, cache téléphone) — voir PROJECT_CONTEXT.md §7
 ├── utils/
 │   ├── segmentAlgorithm.js              # ⚠️ ZONE SENSIBLE — voir ci-dessous
-│   ├── segmentAlgorithm.test.js         # Tests de non-régression (30 tests) — npm test
+│   ├── segmentAlgorithm.test.js         # Tests de non-régression (30 tests) — `npx vitest run`
 │   ├── renderMarkdown.jsx / inlineFunctions.jsx / bionicReading.jsx
 │   ├── emojiDict.jsx / soundSearch.js (Web Worker) / analytics.js
 ├── assets/ et styles/
@@ -68,7 +68,7 @@ public/sounds/
 
 1. **`src/engine/AudioEngine.js`** — coexistence de deux systèmes : ancien système `AudioEvents` (actions `play`/`stop`/`fadeIn`/`fadeOut`/`volume` déclenchées par segment) et nouveau système `SoundTracks` (blocs continus multi-segments : fade, crossfade de loop, panoramique animé, automation de volume point par point). `onSegmentChange()` gère les deux en même temps, avec une logique fine pour démarrer un son "à froid" en milieu de bloc au volume exact attendu (sans fondu parasite). Risque : régression silencieuse, aucun test/lint ne l'attrape à ce jour.
 
-2. **`src/utils/segmentAlgorithm.js`** — pipeline heuristique en plusieurs phases dépendantes les unes des autres : normalisation → découpe en phrases → parsing en unités typées → fusion des fragments → scoring narratif (isolation/tension/continuité) → détection de "beats" dramatiques → composition des segments → coupe sur ponctuation faible → lissage anti-monotonie → sérialisation → anti-blocs longs consécutifs → limite d'affichage. Modifier une phase a des effets en cascade sur les suivantes. **30 tests de non-régression existent** (`src/utils/segmentAlgorithm.test.js`, lancer `npm test`) — toute modification de ce fichier doit les faire passer avant merge, et une modification de comportement volontaire doit s'accompagner d'une mise à jour des tests concernés, jamais l'inverse.
+2. **`src/utils/segmentAlgorithm.js`** — pipeline heuristique en plusieurs phases dépendantes les unes des autres : normalisation → découpe en phrases → parsing en unités typées → fusion des fragments → scoring narratif (isolation/tension/continuité) → détection de "beats" dramatiques → composition des segments → coupe sur ponctuation faible → lissage anti-monotonie → sérialisation → anti-blocs longs consécutifs → limite d'affichage. Modifier une phase a des effets en cascade sur les suivantes. **30 tests de non-régression existent** (`src/utils/segmentAlgorithm.test.js`, lancer `npx vitest run`) — toute modification de ce fichier doit les faire passer avant merge, et une modification de comportement volontaire doit s'accompagner d'une mise à jour des tests concernés, jamais l'inverse.
 
 3. **Format JSON des stories (`public/stories/*.json`)** — contrat implicite entre l'éditeur admin et le lecteur. **Un validateur existe** (`node scripts/validate-story.mjs public/stories/`) qui détecte les références cassées (`soundId`/`startSegmentId`/`endSegmentId`), IDs dupliqués et champs mal typés — mais il ne bloque rien automatiquement (pas de build/CI branché dessus à ce jour) : à lancer manuellement après toute modification du format ou avant une publication importante.
 
@@ -82,7 +82,7 @@ public/sounds/
 
 - Toujours proposer un plan avant d'éditer du code — ne jamais éditer directement sans validation préalable, surtout sur les zones sensibles ci-dessus.
 - Branche dédiée dès qu'une tâche touche plus d'1-2 fichiers ou une zone sensible.
-- Après implémentation : `npx eslint .` (doit rester à 343), puis `npm run build`, et `npx vitest run` (231 tests) avant de considérer une tâche terminée.
+- Après implémentation : `npx eslint .` (doit rester à 343), puis `npm run build`, et `npx vitest run` (288 tests) avant de considérer une tâche terminée.
 - **Ajouter, ne pas modifier** : une nouvelle fonction dans une zone existante ne touche à rien d'autre (UI, réglages, comportement) sans l'accord explicite de Pierre. Avant d'affirmer « rien n'a changé », montrer le diff.
 - **Fluidité de l'admin** : beaucoup de segments, de blocs son et d'effets ne doivent jamais faire ramer l'interface. Pas de travail proportionnel au nombre de blocs dans le rendu ; garder la mémoïsation de la timeline ; ne pas scanner les 109 507 sons à chaque frappe ou pour chaque bloc sans mémoire ; indicateur de chargement au-delà de ~300 ms. Détails : `PROJECT_CONTEXT.md`, section 0.
 - **Livraison et process de travail** (fichier + empreinte, copie neuve, mutation, mise en ligne en deux phases, limites de Claude) : `PROJECT_CONTEXT.md`, section 0, « Comment on travaille ensemble ».
