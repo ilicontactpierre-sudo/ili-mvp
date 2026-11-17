@@ -416,8 +416,9 @@ function buildVirtualSearchField(sound) {
  * Score un son par rapport à un ensemble de termes (directs + expanded)
  * Retourne un score numérique (0 = non pertinent)
  */
-function scoreSound(sound, termSets, isAmbienceSearch) {
-  // Construire les champs de recherche du son
+// Champs de recherche d'un son (texte nettoyé). Utilisés par le score ET par l'index de
+// recherche (buildSearchIndex) : un champ ajouté ici est automatiquement cherché par l'index.
+function buildSoundFields(sound) {
   const label        = normalizeSoft(sound.label || '')
   const labelNorm    = normalize(sound.label || '')
   const labelWords   = labelNorm.split(/[\s_\-]+/).filter(Boolean)
@@ -434,6 +435,12 @@ function scoreSound(sound, termSets, isAmbienceSearch) {
   // La source la plus fiable quand elle existe : poids volontairement le
   // plus élevé de tout le scoring.
   const soundQKeywords = (sound.soundQKeywords || []).map(k => normalize(k))
+  return { label, labelNorm, labelWords, tags, tagsNorm, searchStr, searchStrN, description, boomCat, boomSub, catId, virtual, soundQKeywords }
+}
+
+function scoreSound(sound, termSets, isAmbienceSearch) {
+  // Construire les champs de recherche du son
+  const { label, labelNorm, labelWords, tags, tagsNorm, searchStr, searchStrN, description, boomCat, boomSub, catId, virtual, soundQKeywords } = buildSoundFields(sound)
   let score = 0
   let termsCovered = 0
 
@@ -573,6 +580,107 @@ export function filterAndScoreSounds(sounds, searchQuery, activeTags = [], onlyU
     score: scoreSound(sound, termSets, isAmbienceSearch),
   }))
 
+  return scored
+    .filter(({ score }) => score > 0)
+    .sort((a, b) => b.score - a.score)
+    .map(({ sound }) => sound)
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// 7. INDEX DE RECHERCHE — pour « Analyser » (orchestration), 17/11/2026
+// ─────────────────────────────────────────────────────────────────────────────
+// filterAndScoreSounds recalcule le texte nettoyé des 109 507 sons à CHAQUE recherche
+// (≈ 0,7 s par mot-clé, d'où « Analyser » figé ≈ 38 s). L'index prépare une fois, pour une
+// bibliothèque donnée, le texte cherchable de chaque son. Une recherche ne note ensuite que les
+// sons dont le texte contient au moins un des mots cherchés : tous les tests du score sont des
+// « égal à » ou « contient », donc un son qui ne contient aucun mot aurait de toute façon 0.
+// Résultat identique à filterAndScoreSounds(sounds, requête) (mêmes sons, même ordre).
+
+const FIELD_SEP = '\u0000'
+const SOUND_SEP = '\u0001'
+const INDEX_CHUNK = 2048 // par paquets : un paquet sans caractère spécial prend 2 fois moins de mémoire
+
+// Tout le texte cherchable d'un son : toutes les valeurs de buildSoundFields.
+function searchableText(fields) {
+  const all = []
+  for (const v of Object.values(fields)) {
+    if (Array.isArray(v)) all.push(...v)
+    else all.push(v)
+  }
+  return [...new Set(all.filter(x => typeof x === 'string' && x !== ''))].join(FIELD_SEP)
+}
+
+export function buildSearchIndex(sounds, chunkSize = INDEX_CHUNK) {
+  const chunks = []
+  for (let base = 0; base < sounds.length; base += chunkSize) {
+    const n = Math.min(chunkSize, sounds.length - base)
+    const starts = new Int32Array(n)
+    const parts = new Array(n)
+    let pos = 0
+    for (let k = 0; k < n; k++) {
+      parts[k] = searchableText(buildSoundFields(sounds[base + k]))
+      starts[k] = pos
+      pos += parts[k].length + 1
+    }
+    chunks.push({ base, starts, text: parts.join(SOUND_SEP) })
+  }
+  return { sounds, chunks }
+}
+
+// Un index par bibliothèque (la même liste de sons garde le même index ; une nouvelle liste
+// — sons ajoutés, URL mises à jour — en reconstruit un).
+const indexCache = new WeakMap()
+export function getSearchIndex(sounds) {
+  let index = indexCache.get(sounds)
+  if (!index) {
+    index = buildSearchIndex(sounds)
+    indexCache.set(sounds, index)
+  }
+  return index
+}
+
+function lastStartAtOrBefore(starts, pos) {
+  let lo = 0, hi = starts.length - 1
+  while (lo < hi) {
+    const mid = (lo + hi + 1) >> 1
+    if (starts[mid] <= pos) lo = mid
+    else hi = mid - 1
+  }
+  return lo
+}
+
+// Même résultat que filterAndScoreSounds(index.sounds, searchQuery) (sans filtre de tags ni « uploadés »).
+export function filterAndScoreIndexed(index, searchQuery) {
+  const { sounds, chunks } = index
+  if (!searchQuery.trim()) return sounds
+  const rawTerms = searchQuery.trim().split(/[\s,;]+/).filter(t => t.length > 1)
+  if (rawTerms.length === 0) return sounds
+  const isAmbienceSearch = rawTerms.some(t =>
+    AMBIENCE_TRIGGERS.has(normalize(t)) || AMBIENCE_TRIGGERS.has(normalizeSoft(t))
+  )
+  const termSets = rawTerms.map(expandTerm)
+  const terms = new Set()
+  termSets.forEach(({ direct, expanded }) => { direct.forEach(t => t && terms.add(t)); expanded.forEach(t => t && terms.add(t)) })
+  // Un mot qui contiendrait un séparateur de l'index : on note tous les sons, comme avant.
+  const fullScan = [...terms].some(t => t.includes(FIELD_SEP) || t.includes(SOUND_SEP))
+  const candidate = new Uint8Array(sounds.length)
+  if (fullScan) candidate.fill(1)
+  else {
+    for (const { base, starts, text } of chunks) {
+      for (const t of terms) {
+        let p = text.indexOf(t)
+        while (p !== -1) {
+          const k = lastStartAtOrBefore(starts, p)
+          candidate[base + k] = 1
+          p = k + 1 < starts.length ? text.indexOf(t, starts[k + 1]) : -1
+        }
+      }
+    }
+  }
+  const scored = []
+  for (let i = 0; i < sounds.length; i++) {
+    if (candidate[i]) scored.push({ sound: sounds[i], score: scoreSound(sounds[i], termSets, isAmbienceSearch) })
+  }
   return scored
     .filter(({ score }) => score > 0)
     .sort((a, b) => b.score - a.score)

@@ -19,7 +19,7 @@ Ce fichier donne le contexte nécessaire pour travailler sur ce repo. Lis-le ava
 - `npm run publish` — publication sûre (`scripts/publish.js`) : rapport des fichiers, tests, build, puis un mot à taper (« main » sur `main`, « o » sur une autre branche). Options : `--dry-run` (simulation), `--skip-checks` ; message de commit : `npm run publish -- "message"`. **Un agent IA ne le lance jamais : c'est Pierre qui le tape.** `publish.sh` est l'ancien script, plus branché.
 - `npm run checkpoint` — snapshot (même rapport et même confirmation que `publish`) + étiquette + relance Vite en écoute réseau (0.0.0.0) ; sur une branche de travail seulement. Simulation : `node scripts/checkpoint.js --dry-run` (et non `npm run checkpoint -- --dry-run`)
 - `npm run add-sound` — script d'ajout de son à la bibliothèque
-- `npx vitest run` — lance les tests une seule fois (300 tests). Ne pas utiliser `npm test` : il lance Vitest en mode surveillance et reste ouvert
+- `npx vitest run` — lance les tests une seule fois (305 tests). Ne pas utiliser `npm test` : il lance Vitest en mode surveillance et reste ouvert
 - `node scripts/validate-story.mjs public/stories/` — valide le format de toutes les stories JSON (références cassées, champs manquants...) ; ajouter `--check-urls` pour vérifier aussi que les URLs de sons Supabase répondent (plus lent, nécessite une connexion réseau) ; peut aussi cibler un seul fichier (`node scripts/validate-story.mjs public/stories/nom-de-la-story.json`)
 
 ## Structure du repo
@@ -82,7 +82,7 @@ public/sounds/
 
 - Toujours proposer un plan avant d'éditer du code — ne jamais éditer directement sans validation préalable, surtout sur les zones sensibles ci-dessus.
 - Branche dédiée dès qu'une tâche touche plus d'1-2 fichiers ou une zone sensible.
-- Après implémentation : `npx eslint .` (doit rester à 341), puis `npm run build`, et `npx vitest run` (300 tests) avant de considérer une tâche terminée.
+- Après implémentation : `npx eslint .` (doit rester à 341), puis `npm run build`, et `npx vitest run` (305 tests) avant de considérer une tâche terminée.
 - **Ajouter, ne pas modifier** : une nouvelle fonction dans une zone existante ne touche à rien d'autre (UI, réglages, comportement) sans l'accord explicite de Pierre. Avant d'affirmer « rien n'a changé », montrer le diff.
 - **Fluidité de l'admin** : beaucoup de segments, de blocs son et d'effets ne doivent jamais faire ramer l'interface. Pas de travail proportionnel au nombre de blocs dans le rendu ; garder la mémoïsation de la timeline ; ne pas scanner les 109 507 sons à chaque frappe ou pour chaque bloc sans mémoire ; indicateur de chargement au-delà de ~300 ms. Détails : `PROJECT_CONTEXT.md`, section 0.
 - **Livraison et process de travail** (fichier + empreinte, copie neuve, mutation, mise en ligne en deux phases, limites de Claude) : `PROJECT_CONTEXT.md`, section 0, « Comment on travaille ensemble ».

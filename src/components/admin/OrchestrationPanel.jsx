@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react'
-import { filterAndScoreSounds } from '../../utils/soundSearch'
+import { filterAndScoreIndexed, getSearchIndex } from '../../utils/soundSearch'
 import { readOrchestrationAids } from '../../utils/orchestrationAids'
 import {
   rangePromptLines, rangeFingerprint, fingerprintChanged, blockInRange, pauseInRange,
@@ -544,11 +544,16 @@ export function buildExportPrompt(segments, soundLibrary, workInfo = {}, range =
 // RECHERCHE AMÉLIORÉE pour le diagnostic import
 // Utilise filterAndScoreSounds au lieu du simple .includes()
 // ─────────────────────────────────────────────────────────────────────────────
-function findSoundsByKeyword(keyword, soundLibrary) {
+function findSoundsByKeyword(keyword, soundLibrary, memo = null) {
   if (!keyword) return []
-  // Utilise le moteur enrichi (synonymes FR↔EN, virtual field, etc.)
-  const results = filterAndScoreSounds(soundLibrary, keyword, [], false)
-  return results.slice(0, 20) // limiter pour les perfs
+  // Même mot-clé dans la même analyse : même résultat, on ne le recalcule pas (17/11/2026).
+  if (memo && memo.has(keyword)) return memo.get(keyword)
+  // Utilise le moteur enrichi (synonymes FR↔EN, virtual field, etc.), par un index préparé une
+  // fois par bibliothèque : mêmes sons, même ordre que filterAndScoreSounds, beaucoup plus vite.
+  const results = filterAndScoreIndexed(getSearchIndex(soundLibrary), keyword)
+  const top = results.slice(0, 20) // limiter pour les perfs
+  if (memo) memo.set(keyword, top)
+  return top
 }
 
 function findSoundById(soundId, soundLibrary) {
@@ -724,6 +729,7 @@ function OrchestrationPanel({
     const found = []
     const missing = []
     const outOfRange = []
+    const keywordMemo = new Map()
     soundsRaw.forEach((block, idx) => {
       // Tranche : un bloc qui sort de la tranche (contexte compris) n'est pas appliqué.
       if (generatedRange && !blockInRange(block, generatedRange)) {
@@ -762,7 +768,7 @@ function OrchestrationPanel({
         missing.push({ index: idx, keyword: '(manquant)', reason: 'Pas de champ keyword ni soundId', type: block.type, block })
         return
       }
-      const matches = findSoundsByKeyword(block.keyword, soundLibrary)
+      const matches = findSoundsByKeyword(block.keyword, soundLibrary, keywordMemo)
       const uploaded = matches.filter(s => s.url && s.url.startsWith('http'))
       if (matches.length === 0) {
         missing.push({
