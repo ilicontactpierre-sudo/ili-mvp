@@ -24,5 +24,17 @@
     }
   ],
   "soundTracks": [],
-  "vfxTracks": []
+  "vfxTracks": [
+    {
+      "id": "vfx_1794921949660_37se9i4gh",
+      "type": "shake",
+      "mode": "normal",
+      "loop": true,
+      "color": "rgba(200, 0, 0, 0.12)",
+      "column": 0,
+      "startSegmentId": "seg_1788771655153_0_b6aza",
+      "endSegmentId": "seg_1788771655153_0_b6aza",
+      "hapticPattern": "heartbeat"
+    }
+  ]
 }
