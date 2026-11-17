@@ -318,7 +318,7 @@ export default function ReaderSettings({
       
     } else if (isDark) {
       root.style.setProperty('--color-bg', '#080809')
-      root.style.setProperty('--color-text-focus', '#ffffff')
+      root.style.setProperty('--color-text-focus', '#f0ede8')
       root.style.setProperty('--color-text-blur', 'rgba(255, 255, 255, 0.22)')
       root.style.setProperty('--color-bg-secondary',   '#1a1a1e')
       root.style.setProperty('--color-bg-accent',      '#242428')

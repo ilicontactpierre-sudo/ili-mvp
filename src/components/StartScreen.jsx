@@ -81,6 +81,20 @@ function StartScreen({ title, author, segmentCount = 0, segments = [], soundsToP
   // Histoire lue jusqu'au bout : on propose de la relire, pas de « continuer » vers la dernière ligne
   const isFinishedStory = Boolean(hasProgress && savedProgress.finished === true)
 
+  // Indice si le lecteur ne fait rien (histoire jamais lue) : trait sous le titre (0,8 s),
+  // titre qui se trouble puis redevient net (4,7 s), puis le mot (8,1 s). Une seule fois.
+  const showStartHint = !hasProgress && phase === 'idle' && !autoStart
+  const [hintStage, setHintStage] = useState(0)
+  useEffect(() => {
+    if (!showStartHint) return
+    const timers = [
+      setTimeout(() => setHintStage(s => Math.max(s, 1)), 800),
+      setTimeout(() => setHintStage(s => Math.max(s, 2)), 4700),
+      setTimeout(() => setHintStage(3), 8100),
+    ]
+    return () => timers.forEach(clearTimeout)
+  }, [showStartHint])
+
   const minutes = Math.ceil(segmentCount * 3 / 60)
   const durationLabel = segmentCount === 0
     ? null
@@ -178,6 +192,31 @@ function StartScreen({ title, author, segmentCount = 0, segments = [], soundsToP
           from { opacity: 0; transform: translateY(16px); }
           to   { opacity: 1; transform: translateY(0); }
         }
+        @keyframes ss-hint-line {
+          from { width: 0; }
+          to   { width: 90px; }
+        }
+        @keyframes ss-hint-blur {
+          0%   { filter: blur(0);     opacity: 1; }
+          50%  { filter: blur(2.5px); opacity: 0.55; }
+          100% { filter: blur(0);     opacity: 1; }
+        }
+        .ss-hint-line {
+          position: absolute;
+          left: 50%;
+          bottom: -2px;
+          height: 1px;
+          width: 0;
+          transform: translateX(-50%);
+          background: color-mix(in srgb, var(--color-text-focus) 50%, transparent);
+          pointer-events: none;
+        }
+        .ss-hint-line--on { animation: ss-hint-line 1400ms cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        .ss-hint-blur { animation: ss-hint-blur 2400ms cubic-bezier(0.45, 0, 0.2, 1) both; }
+        @media (prefers-reduced-motion: reduce) {
+          .ss-hint-line--on { animation: none; width: 90px; }
+          .ss-hint-blur { animation: none; }
+        }
         @keyframes ss-bar-pulse {
           0%, 100% { opacity: 1; }
           50%       { opacity: 0.6; }
@@ -257,13 +296,23 @@ function StartScreen({ title, author, segmentCount = 0, segments = [], soundsToP
         }}>
 
           {/* ── Titre ── */}
-          <h1 style={{
-            fontSize: 'clamp(2.4rem, 9vw, 4rem)',
-            fontWeight: 600,
-            lineHeight: 1.2,
-            margin: 0,
-          }}>
+          <h1
+            className={showStartHint && hintStage === 2 ? 'ss-hint-blur' : undefined}
+            style={{
+              fontSize: 'clamp(2.4rem, 9vw, 4rem)',
+              fontWeight: 600,
+              lineHeight: 1.2,
+              margin: 0,
+              position: 'relative',
+            }}
+          >
             {title}
+            {showStartHint && (
+              <span
+                aria-hidden="true"
+                className={`ss-hint-line${hintStage >= 1 ? ' ss-hint-line--on' : ''}`}
+              />
+            )}
           </h1>
 
           {/* ── Auteur ── */}
@@ -366,6 +415,27 @@ function StartScreen({ title, author, segmentCount = 0, segments = [], soundsToP
             alignItems: 'center',
             width: '100%',
           }}>
+
+            {/* ── Indice : le mot apparaît en dernier (8,1 s) ── */}
+            {showStartHint && (
+              <p style={{
+                margin: 0,
+                fontFamily: 'var(--font-logo)',
+                fontSize: '11px',
+                fontWeight: 500,
+                letterSpacing: '0.3em',
+                textTransform: 'uppercase',
+                color: 'color-mix(in srgb, var(--color-text-focus) 65%, transparent)',
+                userSelect: 'none',
+                pointerEvents: 'none',
+                opacity: hintStage >= 3 ? undefined : 0,
+                animation: hintStage >= 3
+                  ? 'ss-rise 900ms cubic-bezier(0.16, 1, 0.3, 1) both'
+                  : 'none',
+              }}>
+                Touche pour commencer
+              </p>
+            )}
 
             {/* ── État chargement ── */}
             {(isLoading || isExiting) && (

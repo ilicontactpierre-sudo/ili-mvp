@@ -81,3 +81,48 @@ describe('Garde : menu des chapitres sans balises', () => {
     expect(src).not.toContain('item.text?.slice(0, 60)')
   })
 })
+
+describe('StartScreen — indice si le lecteur ne fait rien', () => {
+  it('histoire jamais lue : trait prêt sous le titre, mot présent mais encore invisible', () => {
+    const html = render(null)
+    expect(html).toContain('Touche pour commencer')
+    expect(html).toMatch(/<span aria-hidden="true" class="ss-hint-line"><\/span>/)
+    expect(html).not.toMatch(/class="[^"]*ss-hint-line--on/)
+    expect(html).not.toMatch(/class="ss-hint-blur"/)
+    // le mot n'apparaît qu'à la fin de la séquence
+    expect(html).toMatch(/opacity:0[^"]*"[^>]*>Touche pour commencer/)
+  })
+
+  it('histoire en cours ou terminée : pas d\'indice', () => {
+    for (const saved of [{ segmentIndex: 2 }, { segmentIndex: 3, finished: true }]) {
+      const html = render(saved)
+      expect(html).not.toContain('Touche pour commencer')
+      expect(html).not.toMatch(/class="[^"]*ss-hint-line/)
+    }
+  })
+
+  it('démarrage automatique : pas d\'indice', () => {
+    const html = renderToString(
+      <StartScreen title="T" author="A" segmentCount={1} segments={segments} savedProgress={null} onStart={() => {}} autoStart />
+    )
+    expect(html).not.toContain('Touche pour commencer')
+  })
+})
+
+describe('Garde : blanc cassé du thème sombre', () => {
+  it('global.css et ReaderSettings utilisent #f0ede8 pour le texte du thème sombre', () => {
+    const css = readFileSync(new URL('../styles/global.css', import.meta.url), 'utf8')
+    expect(css).toContain('--color-text-focus: #f0ede8;')
+    const rs = readFileSync(new URL('./ReaderSettings.jsx', import.meta.url), 'utf8')
+    expect(rs).toContain("root.style.setProperty('--color-bg', '#080809')\n      root.style.setProperty('--color-text-focus', '#f0ede8')")
+  })
+})
+
+describe('Garde : rythme de l\'indice de l\'écran titre', () => {
+  it('trait (0,8 s) → flou (4,7 s) → mot (8,1 s), comme l\'accueil', () => {
+    const src = readFileSync(new URL('./StartScreen.jsx', import.meta.url), 'utf8')
+    expect(src).toContain('setHintStage(s => Math.max(s, 1)), 800)')
+    expect(src).toContain('setHintStage(s => Math.max(s, 2)), 4700)')
+    expect(src).toContain('setHintStage(3), 8100)')
+  })
+})

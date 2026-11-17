@@ -18,7 +18,7 @@
 
 :root {
   --color-bg: #080809;
-  --color-text-focus: #ffffff;
+  --color-text-focus: #f0ede8;
   --color-text-blur: rgba(255, 255, 255, 0.22);
   --font-primary: 'Lora', Georgia, 'Times New Roman', serif;
   --font-logo: 'Roboto', sans-serif;

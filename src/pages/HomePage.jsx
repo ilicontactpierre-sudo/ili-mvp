@@ -105,10 +105,22 @@ function HomePage() {
   const [phase, setPhase] = useState('idle');// idle | bumping | transitioning | open
   const [stories, setStories] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  // Onboarding : afficher "Appuie pour commencer" une seule fois
+  // Onboarding : mémorise que le lecteur est déjà entré une fois (l'indice, lui, revient à chaque visite)
   const [showOnboarding, setShowOnboarding] = useState(() => {
     try { return !localStorage.getItem('ili_onboarding_done') } catch { return true }
   })
+  // Indice si le lecteur ne fait rien (à chaque visite) : trait sous le logo (0,8 s),
+  // logo qui se trouble puis redevient net (4,7 s), puis le mot (8,1 s). Une seule fois.
+  const [hintStage, setHintStage] = useState(0)
+  useEffect(() => {
+    if (phase !== 'idle') return
+    const timers = [
+      setTimeout(() => setHintStage(s => Math.max(s, 1)), 800),
+      setTimeout(() => setHintStage(s => Math.max(s, 2)), 4700),
+      setTimeout(() => setHintStage(3), 8100),
+    ]
+    return () => timers.forEach(clearTimeout)
+  }, [phase])
 
   // ── Retour depuis le tutoriel : déclenche l'animation d'entrée automatiquement ──
   useEffect(() => {
@@ -163,7 +175,7 @@ function HomePage() {
     setTimeout(() => setPhase('open'), 900);
   };
 
-  const handleClose = () => setPhase('idle');
+  const handleClose = () => { setHintStage(0); setPhase('idle'); };
 
   const handleDeleteStory = async (storyId, password) => {
     if (isLocalDev) throw new Error('Suppression non disponible en local.');
@@ -205,38 +217,69 @@ function HomePage() {
           from { opacity: 0; transform: translateY(6px); }
           to   { opacity: 1; transform: translateY(0); }
         }
+        @keyframes hp-hint-line {
+          from { width: 0; }
+          to   { width: 64px; }
+        }
+        @keyframes hp-hint-blur {
+          0%   { filter: blur(0);     opacity: 1; }
+          50%  { filter: blur(2.5px); opacity: 0.55; }
+          100% { filter: blur(0);     opacity: 1; }
+        }
+        .hp-hint-line {
+          position: absolute;
+          left: calc(50% - 0.075em);
+          bottom: -4px;
+          height: 1px;
+          width: 0;
+          transform: translateX(-50%);
+          background: color-mix(in srgb, var(--color-text-focus) 50%, transparent);
+          pointer-events: none;
+        }
+        .hp-hint-line--on { animation: hp-hint-line 1400ms cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        .hp-hint-blur { animation: hp-hint-blur 2400ms cubic-bezier(0.45, 0, 0.2, 1) both; }
+        @media (prefers-reduced-motion: reduce) {
+          .hp-hint-line--on { animation: none; width: 64px; }
+          .hp-hint-blur { animation: none; }
+        }
       `}</style>
 
       <div className="home-page">
         <div className={`logo-container ${isMoving ? 'logo-open' : ''}`}>
           <h1
-            className={`logo ${isBumping ? 'logo-bump' : ''}`}
+            className={`logo ${isBumping ? 'logo-bump' : ''}${phase === 'idle' && hintStage === 2 ? ' hp-hint-blur' : ''}`}
             onClick={handleLogoClick}
+            style={{ position: 'relative' }}
           >
             ILi
+            {phase === 'idle' && (
+              <span
+                aria-hidden="true"
+                className={`hp-hint-line${hintStage >= 1 ? ' hp-hint-line--on' : ''}`}
+              />
+            )}
           </h1>
           <p className="logo-tagline">lecture immersive</p>
 
-          {/* ── Onboarding première visite ── */}
-          {/* Visible uniquement si l'utilisateur n'a jamais interagi avec le logo.
-              Disparaît dès le premier tap. Pulse doux pour attirer l'attention
-              sans agressivité. Délai de 1.2s pour apparaître après le logo. */}
-          {showOnboarding && phase === 'idle' && (
+          {/* ── Indice : le mot apparaît en dernier (8,1 s), à chaque visite ── */}
+          {/* Toujours présent à l'état idle (place réservée), invisible jusqu'au moment venu. */}
+          {phase === 'idle' && (
             <p style={{
               fontFamily: 'var(--font-logo)',
-              fontSize: '10px',
+              fontSize: '11px',
               fontWeight: 500,
-              letterSpacing: '0.32em',
+              letterSpacing: '0.3em',
               textTransform: 'uppercase',
-              color: 'color-mix(in srgb, var(--color-text-focus) 38%, transparent)',
+              color: 'color-mix(in srgb, var(--color-text-focus) 65%, transparent)',
               marginTop: '1.4rem',
               userSelect: 'none',
               pointerEvents: 'none',
-              animation:
-                'hp-onboarding-in 800ms cubic-bezier(0.16, 1, 0.3, 1) 1200ms both, ' +
-                'hp-onboarding-pulse 2.8s ease-in-out 2000ms infinite',
+              opacity: hintStage >= 3 ? undefined : 0,
+              animation: hintStage >= 3
+                ? 'hp-onboarding-in 900ms cubic-bezier(0.16, 1, 0.3, 1) both'
+                : 'none',
             }}>
-              Appuie pour commencer
+              Touche pour entrer
             </p>
           )}
 
