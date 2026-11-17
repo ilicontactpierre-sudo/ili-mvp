@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useLayoutEffect, useRef } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import StoryMenu from '../components/StoryMenu';
 import ReaderSettings from '../components/ReaderSettings.jsx'
@@ -102,7 +102,12 @@ function HomePage() {
   const location = useLocation();
   // Icône du tutoriel : blanche en thème sombre, noire en thème clair
   const isLightTheme = useIsLightTheme();
-  const [phase, setPhase] = useState('idle');// idle | bumping | transitioning | open
+  // Arrivée depuis l'écran de fin : l'accueil s'ouvre directement sur la liste,
+  // et le « ILi » du bas de l'écran de fin vient prendre la place du logo.
+  const [fromEnd] = useState(() => Boolean(location.state?.fromEnd))
+  const [logoFrom] = useState(() => location.state?.logoFrom ?? null)
+  const logoRef = useRef(null)
+  const [phase, setPhase] = useState(() => (location.state?.fromEnd ? 'open' : 'idle'));// idle | bumping | transitioning | open
   const [stories, setStories] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   // Onboarding : mémorise que le lecteur est déjà entré une fois (l'indice, lui, revient à chaque visite)
@@ -121,6 +126,42 @@ function HomePage() {
     ]
     return () => timers.forEach(clearTimeout)
   }, [phase])
+
+  // ── Vol du logo depuis l'écran de fin (technique « FLIP ») ──
+  // On part de la position et de la taille du « ILi » de l'écran de fin, puis on glisse
+  // jusqu'à la vraie place du logo. Rien ne bouge si le téléphone demande moins d'animations.
+  useLayoutEffect(() => {
+    const from = logoFrom
+    const el = logoRef.current
+    if (!from || !el) return undefined
+    const to = el.getBoundingClientRect()
+    const toFont = parseFloat(getComputedStyle(el).fontSize) || 1
+    const scale = from.fontSize / toFont
+    const dx = (from.x + from.w / 2) - (to.left + to.width / 2)
+    const dy = (from.y + from.h / 2) - (to.top + to.height / 2)
+    el.style.transition = 'none'
+    el.style.transformOrigin = 'center center'
+    el.style.transform = `translate(${dx}px, ${dy}px) scale(${scale})`
+    el.style.opacity = '0.55'
+    el.getBoundingClientRect() // applique la position de départ avant de lancer le vol
+    const raf = requestAnimationFrame(() => {
+      el.style.transition = 'transform 1100ms cubic-bezier(0.65, 0, 0.35, 1), opacity 1100ms ease'
+      el.style.transform = ''
+      el.style.opacity = ''
+    })
+    const reset = () => {
+      el.style.transition = ''
+      el.style.transformOrigin = ''
+      el.style.transform = ''
+      el.style.opacity = ''
+    }
+    const done = setTimeout(() => {
+      reset()
+      // Oublie l'arrivée : un rechargement de la page ne rejoue pas le vol
+      try { window.history.replaceState({ ...window.history.state, usr: null }, '') } catch { /* rien */ }
+    }, 1200)
+    return () => { cancelAnimationFrame(raf); clearTimeout(done); reset() }
+  }, [logoFrom])
 
   // ── Retour depuis le tutoriel : déclenche l'animation d'entrée automatiquement ──
   useEffect(() => {
@@ -238,15 +279,17 @@ function HomePage() {
         }
         .hp-hint-line--on { animation: hp-hint-line 1400ms cubic-bezier(0.16, 1, 0.3, 1) forwards; }
         .hp-hint-blur { animation: hp-hint-blur 2400ms cubic-bezier(0.45, 0, 0.2, 1) both; }
+        .home-page--from-end .story-menu-container { animation-delay: 1000ms; }
         @media (prefers-reduced-motion: reduce) {
           .hp-hint-line--on { animation: none; width: 64px; }
           .hp-hint-blur { animation: none; }
         }
       `}</style>
 
-      <div className="home-page">
+      <div className={`home-page${fromEnd ? ' home-page--from-end' : ''}`}>
         <div className={`logo-container ${isMoving ? 'logo-open' : ''}`}>
           <h1
+            ref={logoRef}
             className={`logo ${isBumping ? 'logo-bump' : ''}${phase === 'idle' && hintStage === 2 ? ' hp-hint-blur' : ''}`}
             onClick={handleLogoClick}
             style={{ position: 'relative' }}
