@@ -3,6 +3,7 @@ import { Howl } from 'howler'
 import { SoundLoader } from '../engine/SoundLoader.js'
 import { orderSoundsByNeed, getStartSoundIds } from '../utils/soundOrder.js'
 import { waitForSounds } from '../utils/startGate.js'
+import { truncatePlain } from '../utils/plainText.js'
 
 // ── Détection plateforme ──────────────────────────────────────────────────────
 const isIOS = () => /iPad|iPhone|iPod/.test(navigator.userAgent)
@@ -77,6 +78,8 @@ function StartScreen({ title, author, segmentCount = 0, segments = [], soundsToP
 
   // ── Dérivés ───────────────────────────────────────────────────────────────
   const hasProgress = savedProgress && savedProgress.segmentIndex > 0
+  // Histoire lue jusqu'au bout : on propose de la relire, pas de « continuer » vers la dernière ligne
+  const isFinishedStory = Boolean(hasProgress && savedProgress.finished === true)
 
   const minutes = Math.ceil(segmentCount * 3 / 60)
   const durationLabel = segmentCount === 0
@@ -90,26 +93,21 @@ function StartScreen({ title, author, segmentCount = 0, segments = [], soundsToP
     : null
 
   // "Tu as déjà lu ~X min" — chaleureux, minuscules, lisible
-  const dontLabel = minutesRead !== null
+  const dontLabel = isFinishedStory
+    ? 'Lu jusqu’au bout ✓'
+    : minutesRead !== null
     ? minutesRead < 1
       ? 'Tu as déjà lu quelques instants'
       : `Tu as déjà lu ~ ${minutesRead} min`
     : null
 
-  const lastSegmentText = hasProgress && segments.length > 0
-    ? (() => {
-        const seg = segments[savedProgress.segmentIndex]
-        const text = seg?.text ?? ''
-        return text.length > 80 ? text.slice(0, 80).trimEnd() + '…' : text
-      })()
+  // Aperçu de reprise : texte lisible, sans les balises de texte enrichi
+  const lastSegmentText = hasProgress && !isFinishedStory && segments.length > 0
+    ? truncatePlain(segments[savedProgress.segmentIndex]?.text ?? '', 80)
     : null
 
-  const prevSegmentText = hasProgress && segments.length > 0 && savedProgress.segmentIndex > 1
-    ? (() => {
-        const seg = segments[savedProgress.segmentIndex - 1]
-        const text = seg?.text ?? ''
-        return text.length > 60 ? '… ' + text.slice(-60).trimStart() : text
-      })()
+  const prevSegmentText = hasProgress && !isFinishedStory && segments.length > 0 && savedProgress.segmentIndex > 1
+    ? truncatePlain(segments[savedProgress.segmentIndex - 1]?.text ?? '', 60, { fromEnd: true })
     : null
 
   // ── Chargement audio avec progression réelle ──────────────────────────────
@@ -281,7 +279,7 @@ function StartScreen({ title, author, segmentCount = 0, segments = [], soundsToP
           {/* ── Durée ── */}
           {durationLabel && (
             <p style={{
-              opacity: 0.35,
+              opacity: 0.65,
               fontSize: 'clamp(0.62rem, 2.2vw, 0.74rem)',
               letterSpacing: '0.18em',
               textTransform: 'uppercase',
@@ -296,7 +294,7 @@ function StartScreen({ title, author, segmentCount = 0, segments = [], soundsToP
           {/* ── Tu as déjà lu — chaleureux, lisible ── */}
           {dontLabel && (
             <p style={{
-              opacity: 0.45,
+              opacity: 0.65,
               fontSize: 'clamp(0.72rem, 2.4vw, 0.82rem)',
               fontFamily: 'var(--font-primary)',
               fontStyle: 'italic',
@@ -440,7 +438,7 @@ function StartScreen({ title, author, segmentCount = 0, segments = [], soundsToP
                   fontFamily: 'var(--font-primary)',
                   lineHeight: 1.55,
                 }}>
-                  Connexion lente. Vous pouvez commencer maintenant : les sons se joindront
+                  Connexion lente. Tu peux commencer maintenant : les sons se joindront
                   à la lecture dès qu'ils seront prêts.
                 </p>
                 <button
@@ -499,21 +497,32 @@ function StartScreen({ title, author, segmentCount = 0, segments = [], soundsToP
                   </p>
                 )}
 
-                <button
-                  className="ss-btn-primary"
-                  onPointerUp={(e) => { e.stopPropagation(); handleStart(true) }}
-                >
-                  Continuer
-                </button>
+                {isFinishedStory ? (
+                  <button
+                    className="ss-btn-primary"
+                    onPointerUp={(e) => { e.stopPropagation(); handleStart(false) }}
+                  >
+                    Relire depuis le début
+                  </button>
+                ) : (
+                  <>
+                    <button
+                      className="ss-btn-primary"
+                      onPointerUp={(e) => { e.stopPropagation(); handleStart(true) }}
+                    >
+                      Continuer
+                    </button>
 
-                <div style={{ height: '1.4rem' }} />
+                    <div style={{ height: '1.4rem' }} />
 
-                <button
-                  className="ss-btn-secondary"
-                  onPointerUp={(e) => { e.stopPropagation(); handleStart(false) }}
-                >
-                  Recommencer
-                </button>
+                    <button
+                      className="ss-btn-secondary"
+                      onPointerUp={(e) => { e.stopPropagation(); handleStart(false) }}
+                    >
+                      Recommencer
+                    </button>
+                  </>
+                )}
               </div>
             )}
 

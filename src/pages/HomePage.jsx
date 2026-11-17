@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import StoryMenu from '../components/StoryMenu';
 import ReaderSettings from '../components/ReaderSettings.jsx'
 import { playClicILi } from '../App.jsx'
+import { useIsLightTheme } from '../utils/theme.js'
 
 // ── Composant ligne d'histoire enrichie ──────────────────────────────────────
 function StoryRow({ story, onNavigate }) {
@@ -99,6 +100,8 @@ function StoryRow({ story, onNavigate }) {
 function HomePage() {
   const navigate = useNavigate();
   const location = useLocation();
+  // Icône du tutoriel : blanche en thème sombre, noire en thème clair
+  const isLightTheme = useIsLightTheme();
   const [phase, setPhase] = useState('idle');// idle | bumping | transitioning | open
   const [stories, setStories] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -258,7 +261,7 @@ function HomePage() {
             <img
               src="/tutoriel-icon.png"
               alt="Tutoriel"
-              style={{ width: '100%', height: '100%', objectFit: 'contain', filter: 'brightness(0) invert(1)' }}
+              style={{ width: '100%', height: '100%', objectFit: 'contain', filter: isLightTheme ? 'brightness(0)' : 'brightness(0) invert(1)' }}
             />
           </div>
         </div>

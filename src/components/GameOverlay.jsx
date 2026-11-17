@@ -1398,7 +1398,7 @@ function GameRiddle({ data, onResolved }) {
   return (
     <AnimatedWrapper style={{ gap: '1.8rem' }}>
       {data.question && <p style={{ fontSize: 'clamp(0.95rem, 2.3vw, 1.1rem)', color: 'var(--color-text-focus, #222)', textAlign: 'center', lineHeight: 1.7, opacity: 0.85, margin: 0, fontStyle: 'italic' }}>{data.question}</p>}
-      <input autoFocus type="text" value={input} onChange={e => { setInput(e.target.value); setStatus('idle'); setFeedback('') }} onKeyDown={e => { if (e.key === 'Enter') validate() }} disabled={status === 'success'} placeholder={data.placeholder || 'votre réponse…'}
+      <input autoFocus type="text" value={input} onChange={e => { setInput(e.target.value); setStatus('idle'); setFeedback('') }} onKeyDown={e => { if (e.key === 'Enter') validate() }} disabled={status === 'success'} placeholder={data.placeholder || 'ta réponse…'}
         style={{ width: '100%', maxWidth: '320px', padding: '0.8rem 1rem', border: `1px solid ${borderColor}`, borderRadius: '2px', background: status === 'success' ? 'rgba(39,174,96,0.04)' : 'none', fontFamily: 'var(--font-primary, Georgia, serif)', fontSize: '1rem', color: 'var(--color-text-focus, #222)', textAlign: 'center', outline: 'none', boxSizing: 'border-box', animation: status === 'error' ? `game-shake 0.4s ${EASE.inOut}` : 'none', transition: `border-color 300ms ${EASE.inOut}, background-color 300ms ${EASE.inOut}` }} />
       {data.hint && status === 'idle' && <Hint delay={800}>{data.hint}</Hint>}
       {feedback && status !== 'idle' && <p style={{ fontSize: '0.82rem', color: status === 'close' ? '#d4820a' : '#c0392b', opacity: 0.85, textAlign: 'center', margin: 0, fontStyle: 'italic', transition: `opacity 250ms ${EASE.out}` }}>{feedback}</p>}

@@ -6,6 +6,7 @@ import { getVfxClass } from './admin/constants'
 import hapticEngine from '../engine/HapticEngine'
 import VfxOverlay from './VfxOverlay'
 import { NarrativeMemoryContext } from '../utils/inlineFunctions'
+import { useIsLightTheme } from '../utils/theme.js'
 
 // ── Flash plein écran ──
 const FLASH_SPEED = { lent: 2000, moyen: 1000, rapide: 400 }
@@ -217,6 +218,8 @@ function StoryReader({ storyId, storyData, currentIndex = 0, jumpPhase = 'idle',
     try { return localStorage.getItem('ili_show_progress') !== 'false' } catch { return true }
   })
   const [themeKey, setThemeKey] = useState(0)
+  // Barre de progression : couleur du texte du thème (elle était blanche, donc invisible en thème clair)
+  const isLightTheme = useIsLightTheme()
   // ── Lire les options DYS depuis window (mis à jour par ReaderSettings) ──
   const [dys1, setDys1] = useState(() => {
     try { return localStorage.getItem('ili_dys1') === 'true' } catch { return false }
@@ -678,7 +681,7 @@ useEffect(() => {
           height: '100vh',
           zIndex: 200,
           pointerEvents: 'none',
-          backgroundColor: 'rgba(255,255,255,0.07)',
+          backgroundColor: 'color-mix(in srgb, var(--color-text-focus) 7%, transparent)',
         }}
       >
         {(() => {
@@ -696,7 +699,7 @@ useEffect(() => {
                 width: '100%',
                 minHeight: '6px',
                 height: `${progress}%`,
-                backgroundColor: 'rgba(255,255,255,0.22)',
+                backgroundColor: `color-mix(in srgb, var(--color-text-focus) ${isLightTheme ? 30 : 22}%, transparent)`,
                 transition: 'height 400ms cubic-bezier(0.1, 0.0, 0.1, 1.0)',
               }}
             />

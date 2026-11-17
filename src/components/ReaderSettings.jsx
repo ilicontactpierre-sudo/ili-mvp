@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { playClicSettings } from '../App.jsx'
+import { truncatePlain } from '../utils/plainText.js'
 
 // ── Émet un CustomEvent pour propager les settings en temps réel vers StoryReader et VfxOverlay ──
 function emitSettingsChange(detail) {
@@ -890,7 +891,7 @@ export default function ReaderSettings({
                     >
                       <span className="rs-chapter-num">{item.index + 1}</span>
                       <span className={`rs-chapter-text${item.type === 'chapter' ? ' chapter-type' : ''}`}>
-                        {item.text?.slice(0, 60)}{item.text?.length > 60 ? '…' : ''}
+                        {truncatePlain(item.text ?? '', 60)}
                       </span>
                     </button>
                   ))}

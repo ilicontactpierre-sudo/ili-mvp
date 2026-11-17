@@ -1,5 +1,6 @@
 import { useState, useRef, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useIsLightTheme } from '../utils/theme.js';
 
 // ── Ligne d'histoire avec accordéon description ───────────────────────────
 function StoryRow({ story, onNavigate }) {
@@ -7,7 +8,7 @@ function StoryRow({ story, onNavigate }) {
   const hasInfo = story.mood || story.genre || story.description
   const descRef = useRef(null)
   return (
-    <div data-story-row style={{ borderBottom: '1px solid rgba(255,255,255,0.07)' }}>
+    <div data-story-row style={{ borderBottom: '1px solid color-mix(in srgb, var(--color-text-focus) 7%, transparent)' }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '0.75rem 0' }}>
         {/* Zone titre + méta — cliquable pour naviguer */}
         <div
@@ -23,7 +24,7 @@ function StoryRow({ story, onNavigate }) {
             </span>
             {(story.mood || story.genre) && (
               <span style={{
-                color: 'rgba(255,255,255,0.28)',
+                color: 'color-mix(in srgb, var(--color-text-focus) 65%, transparent)',
                 fontSize: '0.62rem',
                 letterSpacing: '0.12em',
                 textTransform: 'uppercase',
@@ -43,8 +44,8 @@ function StoryRow({ story, onNavigate }) {
                   style={{
                     fontSize: '0.6rem',
                     letterSpacing: '0.04em',
-                    color: 'rgba(255,255,255,0.32)',
-                    border: '1px solid rgba(255,255,255,0.12)',
+                    color: 'color-mix(in srgb, var(--color-text-focus) 65%, transparent)',
+                    border: '1px solid color-mix(in srgb, var(--color-text-focus) 14%, transparent)',
                     borderRadius: '999px',
                     padding: '0.1rem 0.5rem',
                   }}
@@ -73,7 +74,7 @@ function StoryRow({ story, onNavigate }) {
               background: 'none',
               border: 'none',
               cursor: 'pointer',
-              color: open ? 'rgba(255,255,255,0.65)' : 'rgba(255,255,255,0.22)',
+              color: open ? 'color-mix(in srgb, var(--color-text-focus) 75%, transparent)' : 'color-mix(in srgb, var(--color-text-focus) 50%, transparent)',
               fontSize: '1rem',
               padding: '0 0.25rem',
               lineHeight: 1,
@@ -96,8 +97,8 @@ function StoryRow({ story, onNavigate }) {
             style={{
               margin: '0 0 0.75rem 0',
               paddingLeft: '0.75rem',
-              borderLeft: '2px solid rgba(255,255,255,0.1)',
-              color: 'rgba(255,255,255,0.5)',
+              borderLeft: '2px solid color-mix(in srgb, var(--color-text-focus) 12%, transparent)',
+              color: 'color-mix(in srgb, var(--color-text-focus) 65%, transparent)',
               fontSize: '0.8rem',
               lineHeight: '1.55',
               fontStyle: 'italic',
@@ -142,9 +143,9 @@ function FilterChips({ allTags, activeTags, onToggle }) {
               letterSpacing: '0.03em',
               whiteSpace: 'nowrap',
               cursor: 'pointer',
-              border: active ? '1px solid rgba(255,255,255,0.55)' : '1px solid rgba(255,255,255,0.15)',
-              backgroundColor: active ? 'rgba(255,255,255,0.14)' : 'transparent',
-              color: active ? '#fff' : 'rgba(255,255,255,0.55)',
+              border: active ? '1px solid color-mix(in srgb, var(--color-text-focus) 55%, transparent)' : '1px solid color-mix(in srgb, var(--color-text-focus) 18%, transparent)',
+              backgroundColor: active ? 'color-mix(in srgb, var(--color-text-focus) 14%, transparent)' : 'transparent',
+              color: active ? 'var(--color-text-focus)' : 'color-mix(in srgb, var(--color-text-focus) 65%, transparent)',
               transition: 'background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease',
             }}
           >
@@ -158,6 +159,8 @@ function FilterChips({ allTags, activeTags, onToggle }) {
 
 function StoryMenu({ isOpen, stories, isLoading, onClose, onDeleteStory }) {
   const navigate = useNavigate();
+  // Icône du tutoriel : blanche en thème sombre, noire en thème clair
+  const isLightTheme = useIsLightTheme();
   const [exiting, setExiting] = useState(false);
   const [activeTags, setActiveTags] = useState([]);
   const handleTutorial = (e) => {
@@ -242,7 +245,7 @@ function StoryMenu({ isOpen, stories, isLoading, onClose, onDeleteStory }) {
             width: '100%',
             height: '100%',
             objectFit: 'contain',
-            filter: 'brightness(0) invert(1)',
+            filter: isLightTheme ? 'brightness(0)' : 'brightness(0) invert(1)',
           }}
         />
       </button>

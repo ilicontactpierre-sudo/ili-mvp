@@ -321,7 +321,7 @@ body {
   font-size: 12px;
   font-weight: 400;
   letter-spacing: 0.15em;
-  color: color-mix(in srgb, var(--color-text-focus) 55%, transparent);
+  color: color-mix(in srgb, var(--color-text-focus) 65%, transparent);
   margin-top: 5px;
 }
 

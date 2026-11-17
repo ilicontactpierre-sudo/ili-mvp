@@ -235,7 +235,7 @@ function EndScreen({ title, author, formUrl, bookUrl, nextPart = null, onNextPar
         {/* Newsletter */}
         {subscribeStatus === 'success' ? (
           <p style={{ fontSize: '0.85rem', color: subtleColor, letterSpacing: '0.02em', marginBottom: '1.2rem' }}>
-            À bientôt dans votre boîte mail.
+            À bientôt dans ta boîte mail.
           </p>
         ) : (
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem', width: '100%', marginBottom: '1.2rem' }}>
@@ -245,7 +245,7 @@ function EndScreen({ title, author, formUrl, bookUrl, nextPart = null, onNextPar
             <div style={{ display: 'flex', gap: '0.5rem', width: '100%' }}>
               <input
                 type="email"
-                placeholder="votre@email.com"
+                placeholder="ton@email.com"
                 value={email}
                 className="es-input"
                 onChange={e => setEmail(e.target.value)}
@@ -289,7 +289,7 @@ function EndScreen({ title, author, formUrl, bookUrl, nextPart = null, onNextPar
             </div>
             {subscribeStatus === 'error' && (
               <p style={{ margin: 0, fontSize: '0.75rem', color: subtleColor }}>
-                Une erreur est survenue, réessayez.
+                Une erreur est survenue, réessaie.
               </p>
             )}
           </div>
