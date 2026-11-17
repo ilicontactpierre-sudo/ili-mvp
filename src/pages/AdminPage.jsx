@@ -1451,7 +1451,32 @@ function AdminPage() {
     }
     return nextSegments !== activeSegments || nextSoundTracks !== activeSoundTracks || nextVfxTracks !== activeVfxTracks
   }
+  // La dernière modification n'entre dans l'historique que 300 ms après coup (capture ci-dessus).
+  // Un Cmd+Z plus rapide ne faisait alors rien, ou défaisait la modification d'AVANT (17/11/2026).
+  // On regarde donc si l'état affiché est en avance sur l'historique, et si oui on le capture d'abord.
+  const isAheadOfHistory = () => {
+    const saved = historyRef.current[historyIndexRef.current]
+    if (!saved) return false
+    return reuseUnchanged(saved.segments, activeSegments) !== activeSegments
+      || reuseUnchanged(saved.soundTracks, activeSoundTracks) !== activeSoundTracks
+      || reuseUnchanged(saved.vfxTracks, activeVfxTracks) !== activeVfxTracks
+  }
+  const captureNow = () => {
+    const snapshot = {
+      segments:    JSON.parse(JSON.stringify(activeSegments)),
+      soundTracks: JSON.parse(JSON.stringify(activeSoundTracks)),
+      vfxTracks:   JSON.parse(JSON.stringify(activeVfxTracks)),
+    }
+    const trimmed = historyRef.current.slice(0, historyIndexRef.current + 1)
+    trimmed.push(snapshot)
+    if (trimmed.length > MAX_HISTORY) trimmed.shift()
+    historyRef.current = trimmed
+    historyIndexRef.current = trimmed.length - 1
+    setHistory(trimmed)
+    setHistoryIndex(trimmed.length - 1)
+  }
   const handleUndo = () => {
+    if (isAheadOfHistory()) captureNow()
     if (historyIndexRef.current <= 0) return
     const newIndex = historyIndexRef.current - 1
     const snapshot = historyRef.current[newIndex]
@@ -1462,6 +1487,8 @@ function AdminPage() {
     if (!applyHistorySnapshot(snapshot)) skipNextHistorySnapshotRef.current = false
   }
   const handleRedo = () => {
+    // Une modification pas encore capturée : il n'y a rien à rétablir (la capture effacera la suite).
+    if (isAheadOfHistory()) return
     if (historyIndexRef.current >= historyRef.current.length - 1) return
     const newIndex = historyIndexRef.current + 1
     const snapshot = historyRef.current[newIndex]

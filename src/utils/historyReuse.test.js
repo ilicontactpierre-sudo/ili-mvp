@@ -91,6 +91,14 @@ describe('branchements (tests « garde »)', () => {
     }
     expect(admin.match(/if \(!applyHistorySnapshot\(snapshot\)\) skipNextHistorySnapshotRef\.current = false/g)).toHaveLength(2)
   })
+  it('Cmd+Z juste après une modification (avant la capture à 300 ms) : capture d’abord, puis annule', () => {
+    expect(admin).toMatch(/const handleUndo = \(\) => \{\n\s+if \(isAheadOfHistory\(\)\) captureNow\(\)\n\s+if \(historyIndexRef\.current <= 0\) return/)
+    expect(admin).toMatch(/const handleRedo = \(\) => \{\n(\s+\/\/.*\n)?\s+if \(isAheadOfHistory\(\)\) return/)
+    for (const k of ['segments', 'soundTracks', 'vfxTracks']) {
+      const cap = k[0].toUpperCase() + k.slice(1)
+      expect(admin).toContain(`reuseUnchanged(saved.${k}, active${cap}) !== active${cap}`)
+    }
+  })
   it('Cmd : seule la ligne survolée le reçoit ; le Cmd+clic lit aussi la touche', () => {
     expect(timeline).toContain('isCmdPressed: isCmdPressed && hoveredRow === index,')
     expect(timeline).toContain('if ((isCmdPressed || e.metaKey || e.ctrlKey) && !isEditing) {')
