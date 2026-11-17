@@ -1,6 +1,6 @@
 # ILi — Lecture Immersive — Contexte Projet
 
-_Dernière mise à jour : 07/11/2026 (16/11/2026 : orchestration par tranches et correctif des pauses, nombre de tests ; 11/11/2026 : section 0 — process et règle de fluidité —, orchestration et fiche de Claude, arbre des fichiers, commandes ; le reste date du 16/10/2026), après le chantier « ILi sans bug avec un réseau faible » (chargement des sons par `SoundLoader`, cache audio, démarrage tardif des sons en retard) — voir sections 3.1, 4.4 et 7._
+_Dernière mise à jour : 07/11/2026 (17/11/2026 : fluidité de l'admin — timeline, « Analyser », Cmd+Z —, nombre de tests ; 16/11/2026 : orchestration par tranches et correctif des pauses, nombre de tests ; 11/11/2026 : section 0 — process et règle de fluidité —, orchestration et fiche de Claude, arbre des fichiers, commandes ; le reste date du 16/10/2026), après le chantier « ILi sans bug avec un réseau faible » (chargement des sons par `SoundLoader`, cache audio, démarrage tardif des sons en retard) — voir sections 3.1, 4.4 et 7._
 
 ## 0. Démarrage rapide (lire en premier, environ 2 minutes)
 
@@ -10,24 +10,26 @@ _Dernière mise à jour : 07/11/2026 (16/11/2026 : orchestration par tranches et
 - Claude ne pousse jamais et ne lance jamais `npm run publish`, `npm run checkpoint` ni `git push` : il donne les commandes, Pierre les tape. Mise en ligne en deux phases avec accord entre les deux.
 - Dépôt public : jamais de clé, de `.env`, ni de texte protégé dans un diff.
 - Audio : stéréo et pan sacrés. Jamais de mono, jamais le mode `html5` de Howler. `AudioEngine.js` : plan validé d'abord, test de non-régression, écoute réelle par Pierre.
-- Modifier un fichier existant : blocs « à trouver / à remplacer », chacun vérifié comme existant une seule fois. Contrôles : `npx eslint .` avant `npm run build` (341 problèmes préexistants, ne pas les « corriger »), `npx vitest run` (305 tests).
+- Modifier un fichier existant : blocs « à trouver / à remplacer », chacun vérifié comme existant une seule fois. Contrôles : `npx eslint .` avant `npm run build` (341 problèmes préexistants, ne pas les « corriger »), `npx vitest run` (314 tests).
 
 **Comment on travaille ensemble (process, à respecter).**
 - Pierre pose une demande ; Claude explique en français simple, **donne son avis et ses doutes**, et ne demande pas de trancher un point technique que Pierre ne peut pas évaluer. Une seule question à la fois, en conséquences concrètes (pour le site, les visiteurs, les données).
 - **Ajouter, ne pas modifier** : si Pierre demande une nouvelle fonction dans une zone existante, on n'y change rien d'autre (UI, réglages, comportement) sans son accord. Une amélioration de l'existant se propose à part, avec un avis motivé. Avant de dire « rien n'a changé », **montrer le diff**.
 - **Plan et maquette avant le code** pour tout ce qui se voit (maquette interactive, dimensions réelles) ; Pierre valide, puis Claude code.
 - **Livraison** : tout ce qui dépasse une dizaine de lignes est un **fichier à télécharger** (un collage long est abîmé par le terminal) avec son **empreinte** `shasum -a 256`. Pierre contrôle l'empreinte avant de s'en servir et ne prend que les fichiers **à la racine de `~/Downloads`** (un dossier `files (N)` peut contenir des versions périmées). Les petites corrections se donnent en bloc « à trouver / à remplacer ».
-- **Vérifier avant de livrer** : copie neuve de la version exacte de Pierre, `npx eslint .` (341) **avant** `npm run build`, `npx vitest run` (305), build ; **test de mutation** (casser volontairement le code, les tests doivent échouer) pour tout code sensible. **Ne jamais annoncer un chiffre sans l'avoir mesuré dans le même état.** Si un message est coupé avant la fin des vérifications, le dire et ne livrer qu'après.
+- **Vérifier avant de livrer** : copie neuve de la version exacte de Pierre, `npx eslint .` (341) **avant** `npm run build`, `npx vitest run` (314), build ; **test de mutation** (casser volontairement le code, les tests doivent échouer) pour tout code sensible. **Ne jamais annoncer un chiffre sans l'avoir mesuré dans le même état.** Si un message est coupé avant la fin des vérifications, le dire et ne livrer qu'après.
 - **Mise en ligne** : phase 0 = commit sur la branche avec une **liste explicite de fichiers** (jamais `git add .`) ; phase 1 = lecture seule (`git diff main --stat`, scan de secrets, comparaison du site construit avant/après) ; accord de Pierre ; phase 2 = `git merge --ff-only`, puis `npm run publish` sur `main` : **Claude lit le rapport avant que Pierre tape `main`**. Après envoi, Claude revérifie GitHub sur un clone neuf.
 - **Limites de Claude** : il ne peut ni écouter, ni utiliser un vrai navigateur ou un iPhone, ni joindre Supabase ou Vercel. Les tests de rendu (`renderToString`) ne simulent pas les clics (pas de jsdom installé) : placement, clics et ressenti se valident **visuellement par Pierre**, avec un JSON de test fourni en fichier si besoin. Les tests « gardes » (qui lisent le code source) protègent les branchements, mais sont stricts.
-- **Pièges vécus** : deux serveurs de dev (le 2e prend le port 5174 et le brouillon, stocké par navigateur et par adresse, n'y est pas : utiliser `npm run dev:clean` puis `localhost:5173/admin`) ; ne jamais coller une console qui montre un champ mot de passe.
+- **Pièges vécus** : deux serveurs de dev (le 2e prend le port 5174 et le brouillon, stocké par navigateur et par adresse, n'y est pas : utiliser `npm run dev:clean` puis `localhost:5173/admin`) ; ne jamais coller une console qui montre un champ mot de passe ; les mesures en local (`npm run dev`) sont plus lentes que sur l'admin en ligne (React en mode développement, affichage fait deux fois par le mode « strict ») : comparer avec l'admin en ligne avant de conclure.
 
-**Fluidité de l'admin (règle permanente).** Une histoire complète = beaucoup de segments, de blocs son et d'effets : l'admin doit rester fluide (défilement, ouverture et fermeture d'un bloc, curseurs). Pierre l'anticipe (pas de problème observé à ce jour). En pratique :
+**Fluidité de l'admin (règle permanente).** Une histoire complète = beaucoup de segments, de blocs son et d'effets : l'admin doit rester fluide (défilement, ouverture et fermeture d'un bloc, curseurs). Mesuré les 16 et 17/11/2026 avec une grande histoire de test, puis corrigé et publié (fichier maître, Statut 26). En pratique :
 - Rien qui coûte proportionnellement au nombre de segments ou de blocs **dans le rendu** ; garder la mémoïsation existante (`SegmentTimelineRow`, `SegmentSeparator`, comparateur en fin de `UnifiedSegmentsTimeline`) et ne pas la contourner (props instables, objets recréés à chaque rendu).
-- Une ligne de la timeline ne reçoit que ce qui la concerne (`utils/timelineRows.js`) : jamais la liste complète des blocs, la sélection globale ou la case visée. Ses fonctions passent par `stableRowHandlers` (liste `ROW_HANDLER_NAMES`, protégée par un test « garde ») : une nouvelle fonction de ligne s'ajoute aux deux.
+- Une ligne de la timeline ne reçoit que ce qui la concerne (`utils/timelineRows.js`) : jamais la liste complète des blocs, la sélection globale ou la case visée. Ses fonctions passent par `stableRowHandlers` (liste `ROW_HANDLER_NAMES`, protégée par un test « garde ») : une nouvelle fonction de ligne s'ajoute aux deux. La touche Cmd n'est transmise qu'à la ligne survolée (le curseur de coupe ne se voit que sous la souris) ; le Cmd+clic lit aussi la touche sur le clic.
 - Ne jamais scanner les **109 507 sons** à chaque frappe ou pour chaque bloc sans mémoire : une recherche de mot-clé coûtait ~0,7 s, d'où « Analyser » figé ~38 s. Depuis le 17/11/2026, « Analyser » passe par un index préparé une fois par bibliothèque (`getSearchIndex` / `filterAndScoreIndexed` dans `utils/soundSearch.js`, mêmes résultats que `filterAndScoreSounds`) et une mémoire par mot-clé : ~5 s pour une tranche de 50 blocs. Un champ ajouté à `buildSoundFields` est cherché automatiquement par l'index.
+- Annuler / rétablir (Cmd+Z, Cmd+Maj+Z) : on garde les segments, blocs et effets affichés identiques à ceux de l'historique (`utils/historyReuse.js`) ; si l'écran est en avance sur l'historique (capture à 300 ms), on capture d'abord. L'historique lui-même n'est jamais modifié.
+- Reste lent (constat du 17/11/2026, non corrigé) : couper, fusionner, insérer une pause, ou annuler l'un d'eux, redessine toutes les lignes (≈ 1,4 s en local avec 300 segments). Piste : n'afficher que les lignes visibles, chantier délicat (blocs sur plusieurs lignes, glisser-déposer), avec plan à part.
 - Toute opération de plus de ~300 ms affiche un indicateur (comme « Analyse en cours… »).
-- Toute nouvelle fonction de l'admin s'accompagne d'une réflexion sur son coût avec une grande histoire. **Chantier prévu** : mesurer avec une histoire de test chargée (≈ 300 segments, 150 blocs, 80 effets) avant de corriger quoi que ce soit.
+- Toute nouvelle fonction de l'admin s'accompagne d'une réflexion sur son coût avec une grande histoire. **Outils de mesure** (fournis par Claude, hors dépôt) : l'histoire `test-fluidite` (300 segments, 150 blocs, 80 effets, à charger comme brouillon, jamais publiée) et le script console `mesure-admin.js` (panneau en bas à gauche, choisir l'histoire, résumé à copier). Les bancs de Claude rendent la vraie timeline ou la vraie page d'admin dans un faux navigateur (jsdom installé sans `--save` dans ses copies, jamais dans `package.json`) et comparent HTML et données avant/après.
 
 **Économiser les tokens.**
 1. Ne pas tout lire : cette section, puis la ligne du tableau ci-dessous qui correspond à la demande, puis seulement le nécessaire.
@@ -50,7 +52,7 @@ _Dernière mise à jour : 07/11/2026 (16/11/2026 : orchestration par tranches et
 | **Orchestration automatique** (une IA propose les sons d'une histoire) | `components/admin/OrchestrationPanel.jsx` : le **vrai prompt** est la fonction `buildExportPrompt` (l.133 à 541). Choix « Tout le texte » (par défaut, prompt inchangé) ou « Une tranche » (numérotation d'origine, 5 segments de contexte, résumé des sons) : `components/admin/OrchestrationRangePicker.jsx` + `utils/orchestrationRange.js` (bornes, résumé, empreinte « texte changé », hors tranche). Flux : « Générer & copier le prompt » → Claude → « Coller le JSON de Claude » → « 🔍 Analyser » → « ✦ Appliquer ». `ORCHESTRATION_PROMPT.md` est l'**ancien** prompt (03/06/2026), non utilisé | `utils/soundSearch.js` (recherche dans 109 507 sons ; index pour « Analyser »), `public/sounds/soundq-keywords.json`, `scripts/validate-story.mjs` (format `soundTracks`, champs `_orchestration*` libres) ; limites connues : Statuts 24 et 25 du fichier maître |
 | **Fiche de Claude à côté d'un bloc son** (ce qu'il faut entendre, requêtes de recherche) | `components/admin/OrchestrationFicheCard.jsx` + `utils/ficheCard.js` (placement, recherche web) ; branchée dans `SoundBlockPanel.jsx` par un portail ; champs `_orchestrationBrief`, `_orchestrationSearch`, `_orchestrationAlt`, `_orchestrationReprise` (`utils/orchestrationAids.js`) | retirés à la publication par `stripOrchestrationAids` dans `PublishPanel.jsx` |
 | Découpage automatique du texte en segments | `utils/segmentAlgorithm.js` (1434), §8 | `segmentAlgorithm.test.js`, `PROMPT_Avant DÉCOUPAGE AUTO` |
-| Éditeur admin (`/admin`) | `pages/AdminPage.jsx` (3312) et `components/admin/UnifiedSegmentsTimeline.jsx` (3877) : chercher, jamais en entier | les panneaux de `components/admin/` ; ce que chaque ligne de la timeline reçoit (ses blocs, colonnes occupées, sélection) est calculé une fois dans `utils/timelineRows.js` (fluidité, 16/11/2026) |
+| Éditeur admin (`/admin`) | `pages/AdminPage.jsx` (3312) et `components/admin/UnifiedSegmentsTimeline.jsx` (3877) : chercher, jamais en entier | les panneaux de `components/admin/` ; ce que chaque ligne de la timeline reçoit (ses blocs, colonnes occupées, sélection) est calculé une fois dans `utils/timelineRows.js` ; annulation : `applyHistorySnapshot` d'`AdminPage.jsx` + `utils/historyReuse.js` (fluidité, 16-17/11/2026) |
 | Modes de jeu | `components/GameOverlay.jsx` (1765, côté lecteur), `admin/GameModePanel.jsx` (1880), §9 | |
 | Effets visuels (VFX) | `components/VfxOverlay.jsx` (882), `styles/vfx.css` | `admin/VfxBlock.jsx`, `VfxBlockPanel.jsx` |
 | Texte enrichi (couleurs, polices, fonctions inline) | `utils/inlineFunctions.jsx` (730), `renderMarkdown.jsx`, §10 | `bionicReading.jsx`, `admin/FormattingPanel.jsx`, `InlineFunctionMenu.jsx` |
@@ -82,7 +84,7 @@ _Dernière mise à jour : 07/11/2026 (16/11/2026 : orchestration par tranches et
 | | @ffmpeg/ffmpeg | 0.12.15 | Compression audio côté client (upload) |
 | **Recherche** | Fuse.js | 7.3.0 | Recherche floue dans la bibliothèque de sons |
 | **UI** | CSS natif | — | Variables CSS, Flexbox/Grid, animations custom |
-| **Tests** | Vitest | 5.0.0 | 305 tests (`npx vitest run`) : segmentAlgorithm, AudioEngine, chargement des sons, outil de publication, fiche de Claude, orchestration (pauses, tranches), lignes de la timeline (`timelineRows`), index de recherche des sons |
+| **Tests** | Vitest | 5.0.0 | 314 tests (`npx vitest run`) : segmentAlgorithm, AudioEngine, chargement des sons, outil de publication, fiche de Claude, orchestration (pauses, tranches), lignes de la timeline (`timelineRows`), index de recherche des sons, annulation (`historyReuse`) |
 
 ---
 
@@ -178,7 +180,9 @@ _Dernière mise à jour : 07/11/2026 (16/11/2026 : orchestration par tranches et
 │   │   ├── inlineFunctions.jsx     # Fonctions inline (`</couleur:|/>`, `{{journal:}}`, etc.)
 │   │   ├── bionicReading.jsx       # Mode lecture bionique (gras sur premières lettres)
 │   │   ├── emojiDict.jsx           # Mapping émojis → unicode
-│   │   ├── soundSearch.js          # Recherche sons (Fuse.js + Web Worker)
+│   │   ├── soundSearch.js          # Recherche sons (Fuse.js + Web Worker) ; index pour « Analyser » (getSearchIndex)
+│   │   ├── timelineRows.js         # Ce que chaque ligne de la timeline reçoit (ses blocs, colonnes occupées, sélection)
+│   │   ├── historyReuse.js         # Annuler/rétablir : garde les objets inchangés (ne redessine que ce qui change)
 │   │   ├── orchestrationAids.js    # Fiches d'aide de l'orchestration : lecture dans le JSON de Claude, retrait à la publication
 │   │   ├── orchestrationRange.js   # Tranche d'orchestration : bornes, contexte, résumé des sons, fin du prompt, « texte changé »
 │   │   ├── ficheCard.js            # Carte « Fiche de Claude » : placement, URL de recherche web
@@ -377,7 +381,7 @@ npm run preview          # Preview build local
 npm run lint             # ESLint (341 problèmes préexistants connus ; à lancer AVANT build : dist/ fausse le compte)
 
 # ── Tests ──────────────────────────────────────────────────────────────────────
-npx vitest run           # Tests (305), exécution unique — PAS `npm test` (mode surveillance qui reste ouvert)
+npx vitest run           # Tests (314), exécution unique — PAS `npm test` (mode surveillance qui reste ouvert)
 node scripts/validate-story.mjs public/stories/   # Valide le schéma des stories (--check-urls : vérifie aussi les URLs)
 
 # ── Utilitaires ────────────────────────────────────────────────────────────────
