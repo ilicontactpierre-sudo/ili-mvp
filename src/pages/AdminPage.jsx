@@ -46,6 +46,7 @@ function healSoundTracksAgainstLibrary(tracks, soundLibrary) {
 }
 // ── Composant SplitPreviewPane ────────────────────────────────────────────────
 import { forwardRef, useImperativeHandle } from 'react'
+import { reuseUnchanged } from '../utils/historyReuse'
 
 const SplitPreviewPane = forwardRef(function SplitPreviewPane({ storyData, soundLibrary = [], onClose, topOffset = 89, leftOffset = null }, ref) {
   const [currentIndex, setCurrentIndex] = useState(0)
@@ -1432,16 +1433,23 @@ function AdminPage() {
 
   // Fonctions undo/redo — lisent l'historique via des refs toujours à jour
   // (jamais périmées, même juste après un changement de partie en mode Série)
+  // Fluidité (17/11/2026) : on garde les segments, blocs et effets affichés qui sont identiques
+  // à ceux de l'historique (utils/historyReuse.js), pour ne redessiner que ce qui change.
+  // Renvoie false si rien ne change (l'état affiché est déjà celui de l'historique).
   const applyHistorySnapshot = (snapshot) => {
+    const nextSegments    = reuseUnchanged(snapshot.segments, activeSegments)
+    const nextSoundTracks = reuseUnchanged(snapshot.soundTracks, activeSoundTracks)
+    const nextVfxTracks   = reuseUnchanged(snapshot.vfxTracks, activeVfxTracks)
     if (isSerial) {
-      setActiveSegments(snapshot.segments)
-      setActiveSoundTracks(snapshot.soundTracks)
-      setActiveVfxTracks(snapshot.vfxTracks)
+      setActiveSegments(nextSegments)
+      setActiveSoundTracks(nextSoundTracks)
+      setActiveVfxTracks(nextVfxTracks)
     } else {
-      setSegments(snapshot.segments)
-      setSoundTracks(snapshot.soundTracks)
-      setVfxTracks(snapshot.vfxTracks)
+      setSegments(nextSegments)
+      setSoundTracks(nextSoundTracks)
+      setVfxTracks(nextVfxTracks)
     }
+    return nextSegments !== activeSegments || nextSoundTracks !== activeSoundTracks || nextVfxTracks !== activeVfxTracks
   }
   const handleUndo = () => {
     if (historyIndexRef.current <= 0) return
@@ -1450,7 +1458,8 @@ function AdminPage() {
     skipNextHistorySnapshotRef.current = true
     historyIndexRef.current = newIndex
     setHistoryIndex(newIndex)
-    applyHistorySnapshot(snapshot)
+    // Rien n'a changé : aucune capture ne va se déclencher, il ne faut donc pas en sauter une.
+    if (!applyHistorySnapshot(snapshot)) skipNextHistorySnapshotRef.current = false
   }
   const handleRedo = () => {
     if (historyIndexRef.current >= historyRef.current.length - 1) return
@@ -1459,7 +1468,7 @@ function AdminPage() {
     skipNextHistorySnapshotRef.current = true
     historyIndexRef.current = newIndex
     setHistoryIndex(newIndex)
-    applyHistorySnapshot(snapshot)
+    if (!applyHistorySnapshot(snapshot)) skipNextHistorySnapshotRef.current = false
   }
   undoRedoRefs.current.undo = handleUndo
   undoRedoRefs.current.redo = handleRedo

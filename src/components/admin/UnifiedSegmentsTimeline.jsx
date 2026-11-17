@@ -516,8 +516,8 @@ const SegmentTimelineRow = memo(function SegmentTimelineRow({
   }, [isEditing, text, dividerPosition])
 
   const handleClick = (e) => {
-    // Mode coupe : couper exactement à la position du clic
-    if (isCmdPressed && !isEditing) {
+    // Mode coupe : couper exactement à la position du clic (la touche est aussi lue sur le clic lui-même)
+    if ((isCmdPressed || e.metaKey || e.ctrlKey) && !isEditing) {
       e.stopPropagation()
       
       // Utiliser caretRangeFromPoint pour une précision parfaite
@@ -3220,7 +3220,8 @@ const handleTextSelection = useCallback(() => {
                     },
                     isEditing: editingSegmentIndex === index,
                     editText: editTexts[index] || '',
-                    isCmdPressed,
+                    // Cmd : seule la ligne sous la souris en a besoin (curseur de coupe) ; les autres ne sont pas redessinées.
+                    isCmdPressed: isCmdPressed && hoveredRow === index,
                     hovered: hoveredRow === index,
                     onHover: setHoveredRow,
                     rowSoundTracks: soundRows[index].tracks,
