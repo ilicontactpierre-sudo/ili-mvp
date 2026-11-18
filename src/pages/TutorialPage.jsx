@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 import ReaderSettings from '../components/ReaderSettings.jsx'
+import { BACK_ZONE_RATIO } from '../utils/tapZone.js'
 
 // ── Courbes d'animation (cohérentes avec le reste de l'app) ─────────────────
 const EASE = {
@@ -110,6 +111,19 @@ function ProgressDots({ count, current }) {
   )
 }
 
+// ── Flèche fine (écran 1), à la couleur du texte ───────────────────────────
+function NavArrow({ direction }) {
+  return (
+    <svg
+      width="1.1em" height="1.1em" viewBox="0 0 24 24" fill="none"
+      stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <path d={direction === 'left' ? 'M15 5l-7 7 7 7' : 'M9 5l7 7-7 7'} />
+    </svg>
+  )
+}
+
 // ══════════════════════════════════════════════════════════════════════════
 // ÉCRAN 1 — Navigation tactile (next / previous)
 // ══════════════════════════════════════════════════════════════════════════
@@ -144,8 +158,9 @@ function ScreenNavigation({ onUnlock }) {
     <div style={{ position: 'fixed', inset: 0, display: 'flex' }}>
       <div
         onClick={() => handleTap('left')}
+        aria-label="Précédent"
         style={{
-          flex: 1,
+          flex: `0 0 ${BACK_ZONE_RATIO * 100}%`,
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
@@ -161,8 +176,9 @@ function ScreenNavigation({ onUnlock }) {
           opacity: leftDone ? 0.35 : 0.85,
           transition: `color 150ms ease, opacity 400ms ${EASE.out}`,
           userSelect: 'none',
+          display: 'flex',
         }}>
-          Previous
+          <NavArrow direction="left" />
         </span>
       </div>
       <div style={{
@@ -177,7 +193,7 @@ function ScreenNavigation({ onUnlock }) {
         <div style={{
           position: 'absolute',
           top: 0,
-          left: '50%',
+          left: `${BACK_ZONE_RATIO * 100}%`,
           transform: 'translateX(-50%)',
           width: '1px',
           height: 'calc(38% - 1.4rem)',
@@ -187,7 +203,7 @@ function ScreenNavigation({ onUnlock }) {
         <div style={{
           position: 'absolute',
           top: 'calc(38% + 3rem + 1.4rem)',
-          left: '50%',
+          left: `${BACK_ZONE_RATIO * 100}%`,
           transform: 'translateX(-50%)',
           width: '1px',
           bottom: 0,
@@ -196,6 +212,7 @@ function ScreenNavigation({ onUnlock }) {
       </div>
       <div
         onClick={() => handleTap('right')}
+        aria-label="Suivant"
         style={{
           flex: 1,
           display: 'flex',
@@ -213,8 +230,9 @@ function ScreenNavigation({ onUnlock }) {
           opacity: rightDone ? 0.35 : 0.85,
           transition: `color 150ms ease, opacity 400ms ${EASE.out}`,
           userSelect: 'none',
+          display: 'flex',
         }}>
-          Next
+          <NavArrow direction="right" />
         </span>
       </div>
       {/* Texte d'instruction, au-dessus, ne capte pas le tap */}
