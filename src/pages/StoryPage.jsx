@@ -7,6 +7,7 @@ import AudioEngine from '../engine/AudioEngine.js'
 import { getSoundsToPreload } from '../utils/soundsToPreload.js'
 import { startLateSound } from '../utils/startLateSound.js'
 import { isBackTap } from '../utils/tapZone.js'
+import { watchBackgroundMute } from '../utils/backgroundMute.js'
 import ReaderSettings, { saveProgress, loadProgress, clearProgress } from '../components/ReaderSettings.jsx'
 import GameOverlay from '../components/GameOverlay.jsx'
 import SeuilScreen from '../components/SeuilScreen.jsx'
@@ -533,6 +534,9 @@ function StoryPage() {
       engine?.stopAll(0)
     }
   }, [isFading])
+
+  // ── Son coupé quand l'app passe en arrière-plan, remis au retour ──────────
+  useEffect(() => watchBackgroundMute(), [])
 
   // ── Clavier ────────────────────────────────────────────────────────────────
   useEffect(() => {
