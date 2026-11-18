@@ -1,28 +1,30 @@
-import { useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
 import HomePage from './pages/HomePage.jsx'
 import StoryPage from './pages/StoryPage.jsx'
 import AdminPage from './pages/AdminPage.jsx'
 import TutorialPage from './pages/TutorialPage.jsx'
+import { createUiSound } from './utils/uiSounds.js'
 
-// Instance audio globale, créée une seule fois
-const clicAudio = new Audio('/sounds/Clic ILi.mp3')
-clicAudio.volume = 0.6
-
-const clicSettingsAudio = new Audio('/sounds/Clic-Settings.mp3')
-clicSettingsAudio.volume = 0.1
+// Sons d'interface, créés une seule fois (par Howler : volume respecté sur iPhone)
+const clicILi = createUiSound('/sounds/Clic ILi.mp3', 0.6)
+const clicSettings = createUiSound('/sounds/Clic-Settings.mp3', 0.1)
 
 export function playClicILi() {
-  clicAudio.currentTime = 0
-  clicAudio.play().catch(() => {})
+  clicILi.play()
 }
 
 export function playClicSettings() {
-  clicSettingsAudio.currentTime = 0
-  clicSettingsAudio.play().catch(() => {})
+  clicSettings.play()
 }
 
 function App() {
+  // Les deux clics sont téléchargés dès l'ouverture du site (~200 Ko)
+  useEffect(() => {
+    clicILi.prepare()
+    clicSettings.prepare()
+  }, [])
+
   return (
     <Routes>
       <Route path="/" element={<HomePage />} />

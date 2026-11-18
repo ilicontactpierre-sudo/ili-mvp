@@ -3,12 +3,16 @@ import { useNavigate } from 'react-router-dom'
 import { playClicSettings } from '../App.jsx'
 import { safeInset } from '../utils/safeArea.js'
 import { loadMoinsEffets, saveMoinsEffets, applyMoinsEffets } from '../utils/moinsEffets.js'
+import { createUiSound } from '../utils/uiSounds.js'
 import { truncatePlain } from '../utils/plainText.js'
 
 // ── Émet un CustomEvent pour propager les settings en temps réel vers StoryReader et VfxOverlay ──
 function emitSettingsChange(detail) {
   window.dispatchEvent(new CustomEvent('ili:settings', { detail }))
 }
+
+// ── Whooshes de navigation (Howler : volume respecté sur iPhone) ─────────────
+const WHOOSHES = [1, 2, 3, 4, 5, 6].map(n => createUiSound(`/sounds/Whoosh-${n}.mp3`, 0.15))
 
 // ── localStorage helpers ──────────────────────────────────────────────────────
 const PROGRESS_KEY = (storyId) => `ili_progress_${storyId}`
@@ -199,15 +203,15 @@ export default function ReaderSettings({
     do { next = Math.floor(Math.random() * WHOOSH_COUNT) }
     while (next === lastWhooshRef.current)
     lastWhooshRef.current = next
-    try {
-      const audio = new Audio(`/sounds/Whoosh-${next + 1}.mp3`)
-      audio.volume = 0.15
-      audio.play().catch(() => {})
-    } catch {}
+    WHOOSHES[next].play()
   }
 
 
   const [isOpen, setIsOpen]         = useState(false)
+  // Whooshes téléchargés à la première ouverture du menu seulement (~530 Ko)
+  useEffect(() => {
+    if (isOpen) WHOOSHES.forEach(w => w.prepare())
+  }, [isOpen])
   const [isClosing, setIsClosing]   = useState(false)
   const [showChapters, setShowChapters] = useState(false)
   const [showSynthwaveBg, setShowSynthwaveBg] = useState(() => loadTheme().isSynthwave)
