@@ -6,6 +6,7 @@ import StoryReader from '../components/StoryReader.jsx'
 import AudioEngine from '../engine/AudioEngine.js'
 import { getSoundsToPreload } from '../utils/soundsToPreload.js'
 import { startLateSound } from '../utils/startLateSound.js'
+import { isBackTap } from '../utils/tapZone.js'
 import ReaderSettings, { saveProgress, loadProgress, clearProgress } from '../components/ReaderSettings.jsx'
 import GameOverlay from '../components/GameOverlay.jsx'
 import SeuilScreen from '../components/SeuilScreen.jsx'
@@ -554,9 +555,7 @@ function StoryPage() {
   function handleScreenClick(event) {
     if (Date.now() < ignoreAdvanceUntilRef.current) return
     if (event.target.closest('a, button, input, textarea, select, summary, [role="button"]')) return
-    const x = event.clientX
-    const width = window.innerWidth
-    if (x / width < 0.40) { goToPrevious(); return }
+    if (isBackTap(event.clientX, window.innerWidth)) { goToPrevious(); return }
     // Une pause avance automatiquement toute seule — jamais la sauter au clic.
     if (segments[currentIndex]?.pause > 0) return
     goToNext()
