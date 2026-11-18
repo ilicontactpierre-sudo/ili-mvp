@@ -7,6 +7,7 @@ import hapticEngine from '../engine/HapticEngine'
 import VfxOverlay from './VfxOverlay'
 import { NarrativeMemoryContext } from '../utils/inlineFunctions'
 import { useIsLightTheme } from '../utils/theme.js'
+import { isMoinsEffets } from '../utils/moinsEffets.js'
 
 // ── Flash plein écran ──
 const FLASH_SPEED = { lent: 2000, moyen: 1000, rapide: 400 }
@@ -426,6 +427,7 @@ useEffect(() => {
     const TICK = 80
 
     staticIntervalRef.current = setInterval(() => {
+      if (isMoinsEffets()) return // « Moins d'effets » : pas de parasites
       const focusedNode = segmentRefs.current[currentIndex]
       if (!focusedNode) return
       const letters = focusedNode.querySelectorAll('.vfx-static-letter')

@@ -308,7 +308,7 @@ function PulseSpan({ children, intensité, vitesse }) {
           50%     { transform: scale(${scale.toFixed(3)}); }
         }
       `}</style>
-      <span style={{ display: 'inline-block', animation: `${id.current} ${speed}ms ease-in-out infinite` }}>
+      <span className="ili-fx-agite" style={{ display: 'inline-block', animation: `${id.current} ${speed}ms ease-in-out infinite` }}>
         {children}
       </span>
     </>
@@ -331,7 +331,7 @@ function TrembleSpan({ children, intensité }) {
           80%     { transform: translate(${px}px,${px}px); }
         }
       `}</style>
-      <span style={{ display: 'inline-block', animation: `${id.current} ${dur}ms linear infinite` }}>
+      <span className="ili-fx-agite" style={{ display: 'inline-block', animation: `${id.current} ${dur}ms linear infinite` }}>
         {children}
       </span>
     </>
@@ -387,7 +387,7 @@ function GlitchSpan({ children, intensité, mode, isFocused }) {
   return (
     <>
       <style>{isLoop ? loopKeyframes : onceKeyframes}</style>
-      <span style={{
+      <span className="ili-fx-agite" style={{
         display: 'inline-block',
         animation: isLoop
           ? `${id.current} ${totalCycle}ms steps(1) infinite`

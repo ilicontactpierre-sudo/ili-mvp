@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { playClicSettings } from '../App.jsx'
 import { safeInset } from '../utils/safeArea.js'
+import { loadMoinsEffets, saveMoinsEffets, applyMoinsEffets } from '../utils/moinsEffets.js'
 import { truncatePlain } from '../utils/plainText.js'
 
 // ── Émet un CustomEvent pour propager les settings en temps réel vers StoryReader et VfxOverlay ──
@@ -250,6 +251,14 @@ export default function ReaderSettings({
   const [showProgress, setShowProgress] = useState(() => {
     try { return localStorage.getItem('ili_show_progress') !== 'false' } catch { return true }
   })
+  // « Moins d'effets » (lecteur sensible ou fatigué) : classe sur <html>, retirée en quittant
+  // les réglages pour ne jamais toucher l'aperçu de l'admin
+  const [moinsEffets, setMoinsEffets] = useState(loadMoinsEffets)
+  useEffect(() => {
+    applyMoinsEffets(moinsEffets)
+    saveMoinsEffets(moinsEffets)
+    return () => applyMoinsEffets(false)
+  }, [moinsEffets])
   const menuRef     = useRef(null)
   const gearRef     = useRef(null)
   const chaptersRef = useRef(null)
@@ -822,6 +831,48 @@ export default function ReaderSettings({
                 title="Mode visuel : remplace les mots courants par des emojis"
               >
                 😊
+              </button>
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 10px 2px' }}>
+              <span style={{
+                fontFamily: 'var(--font-logo, sans-serif)',
+                fontSize: '9px',
+                letterSpacing: '0.18em',
+                textTransform: 'uppercase',
+                color: fgDim,
+              }}>
+                Moins d’effets
+              </span>
+              <button
+                onClick={() => { playClicSettings(); setMoinsEffets(v => !v) }}
+                role="switch"
+                aria-checked={moinsEffets}
+                aria-label="Moins d’effets"
+                style={{
+                  width: '36px',
+                  height: '20px',
+                  borderRadius: '10px',
+                  border: 'none',
+                  background: moinsEffets
+                    ? (isDark ? 'rgba(255,255,255,0.55)' : 'rgba(26,26,24,0.45)')
+                    : (isDark ? 'rgba(255,255,255,0.12)' : 'rgba(26,26,24,0.12)'),
+                  cursor: 'pointer',
+                  position: 'relative',
+                  transition: 'background 0.2s ease',
+                  flexShrink: 0,
+                  WebkitTapHighlightColor: 'transparent',
+                }}
+              >
+                <span style={{
+                  position: 'absolute',
+                  top: '2px',
+                  left: moinsEffets ? '18px' : '2px',
+                  width: '16px',
+                  height: '16px',
+                  borderRadius: '50%',
+                  background: isDark ? '#fff' : '#1a1a18',
+                  transition: 'left 0.2s ease',
+                }} />
               </button>
             </div>
           </div>

@@ -316,3 +316,39 @@
   95%  { opacity: 0.32; transform: scale(0.95); }
   100% { opacity: 0.70; transform: scale(1); }
 }
+/* ----------------------------------------------------------
+   « MOINS D'EFFETS » — réglage du lecteur (utils/moinsEffets.js)
+   Classe posée sur <html> par les réglages de lecture.
+   ---------------------------------------------------------- */
+
+/* Secousses et clignotements : retirés (le texte reste immobile et lisible) */
+html.ili-moins-effets .vfx-shake-normal,
+html.ili-moins-effets .vfx-shake-normal-loop,
+html.ili-moins-effets .vfx-shake-intense,
+html.ili-moins-effets .vfx-shake-intense-loop,
+html.ili-moins-effets .vfx-tremble-slow,
+html.ili-moins-effets .vfx-tremble-medium,
+html.ili-moins-effets .vfx-tremble-fast,
+html.ili-moins-effets .vfx-flicker,
+html.ili-moins-effets .vfx-static,
+html.ili-moins-effets .ili-fx-agite {
+  animation: none !important;
+}
+html.ili-moins-effets .vfx-glitch-weak::before,
+html.ili-moins-effets .vfx-glitch-normal::before,
+html.ili-moins-effets .vfx-glitch-intense::before,
+html.ili-moins-effets .vfx-glitch-weak::after,
+html.ili-moins-effets .vfx-glitch-normal::after,
+html.ili-moins-effets .vfx-glitch-intense::after {
+  animation: none !important;
+  content: none !important;
+}
+html.ili-moins-effets .vfx-flash-overlay {
+  animation: none !important;
+  display: none !important;
+}
+
+/* Ambiances : atténuées (toujours là, en arrière-plan discret) */
+html.ili-moins-effets .vfx-ambiance > * {
+  opacity: 0.35;
+}

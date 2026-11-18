@@ -606,7 +606,7 @@ useEffect(() => {
       {/* ══════════════════════════════════════
           BROUILLARD
       ══════════════════════════════════════ */}
-      <div ref={fogRef} style={{
+      <div ref={fogRef} className="vfx-ambiance" style={{
         display: 'none', position: 'fixed', inset: 0,
         zIndex: 9500, pointerEvents: 'none', opacity: 0, overflow: 'hidden',
       }}>
@@ -639,7 +639,7 @@ useEffect(() => {
       {/* ══════════════════════════════════════
           FEU
       ══════════════════════════════════════ */}
-      <div ref={fireRef} style={{
+      <div ref={fireRef} className="vfx-ambiance" style={{
         display: 'none', position: 'fixed', inset: 0,
         zIndex: 9400, pointerEvents: 'none', opacity: 0, overflow: 'hidden',
       }}>
@@ -697,7 +697,7 @@ useEffect(() => {
       {/* ══════════════════════════════════════
           PLUIE — Canvas 2D
       ══════════════════════════════════════ */}
-      <div ref={rainRef} style={{
+      <div ref={rainRef} className="vfx-ambiance" style={{
         display: 'none', position: 'fixed', inset: 0,
         zIndex: 9300, pointerEvents: 'none', opacity: 0,
       }}>
@@ -707,7 +707,7 @@ useEffect(() => {
       {/* ══════════════════════════════════════
           NEIGE — Canvas 2D
       ══════════════════════════════════════ */}
-      <div ref={snowRef} style={{
+      <div ref={snowRef} className="vfx-ambiance" style={{
         display: 'none', position: 'fixed', inset: 0,
         zIndex: 9200, pointerEvents: 'none', opacity: 0,
       }}>
@@ -717,7 +717,7 @@ useEffect(() => {
       {/* ══════════════════════════════════════
           SOUS-MARIN — feTurbulence + caustiques
       ══════════════════════════════════════ */}
-      <div ref={uwRef} style={{
+      <div ref={uwRef} className="vfx-ambiance" style={{
         display: 'none', position: 'fixed', inset: 0,
         zIndex: 9100, pointerEvents: 'none', opacity: 0, overflow: 'hidden',
       }}>
@@ -821,7 +821,7 @@ useEffect(() => {
       {/* ══════════════════════════════════════
           SOLEIL — SVG + RAF premium
       ══════════════════════════════════════ */}
-      <div ref={sunRef} style={{
+      <div ref={sunRef} className="vfx-ambiance" style={{
         display: 'none', position: 'fixed', inset: 0,
         zIndex: 9000, pointerEvents: 'none', opacity: 0, overflow: 'hidden',
       }}>
