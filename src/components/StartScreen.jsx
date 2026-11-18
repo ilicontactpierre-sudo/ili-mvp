@@ -4,6 +4,7 @@ import { SoundLoader } from '../engine/SoundLoader.js'
 import { orderSoundsByNeed, getStartSoundIds } from '../utils/soundOrder.js'
 import { waitForSounds } from '../utils/startGate.js'
 import { truncatePlain } from '../utils/plainText.js'
+import { keyboardClick, isStartKey } from '../utils/keyboard.js'
 
 // ── Détection plateforme ──────────────────────────────────────────────────────
 const isIOS = () => /iPad|iPhone|iPod/.test(navigator.userAgent)
@@ -94,6 +95,18 @@ function StartScreen({ title, author, segmentCount = 0, segments = [], soundsToP
     ]
     return () => timers.forEach(clearTimeout)
   }, [showStartHint])
+
+  // Clavier : Entrée ou Espace lance l'histoire, comme un toucher sur l'écran
+  useEffect(() => {
+    if (!showStartHint) return
+    function onKey(event) {
+      if (!isStartKey(event)) return
+      event.preventDefault()
+      handleStart(false)
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  })
 
   const minutes = Math.ceil(segmentCount * 3 / 60)
   const durationLabel = segmentCount === 0
@@ -514,12 +527,14 @@ function StartScreen({ title, author, segmentCount = 0, segments = [], soundsToP
                 <button
                   className="ss-btn-primary"
                   onPointerUp={(e) => { e.stopPropagation(); gateRef.current?.continueNow() }}
+                  onClick={keyboardClick(() => gateRef.current?.continueNow())}
                 >
                   Commencer maintenant
                 </button>
                 <button
                   className="ss-btn-secondary"
                   onPointerUp={(e) => { e.stopPropagation(); gateRef.current?.waitMore(); setIsSlow(false) }}
+                  onClick={keyboardClick(() => { gateRef.current?.waitMore(); setIsSlow(false) })}
                 >
                   Attendre encore
                 </button>
@@ -571,6 +586,7 @@ function StartScreen({ title, author, segmentCount = 0, segments = [], soundsToP
                   <button
                     className="ss-btn-primary"
                     onPointerUp={(e) => { e.stopPropagation(); handleStart(false) }}
+                    onClick={keyboardClick(() => handleStart(false))}
                   >
                     Relire depuis le début
                   </button>
@@ -579,6 +595,7 @@ function StartScreen({ title, author, segmentCount = 0, segments = [], soundsToP
                     <button
                       className="ss-btn-primary"
                       onPointerUp={(e) => { e.stopPropagation(); handleStart(true) }}
+                      onClick={keyboardClick(() => handleStart(true))}
                     >
                       Continuer
                     </button>
@@ -588,6 +605,7 @@ function StartScreen({ title, author, segmentCount = 0, segments = [], soundsToP
                     <button
                       className="ss-btn-secondary"
                       onPointerUp={(e) => { e.stopPropagation(); handleStart(false) }}
+                      onClick={keyboardClick(() => handleStart(false))}
                     >
                       Recommencer
                     </button>
