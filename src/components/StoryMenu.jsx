@@ -1,4 +1,5 @@
 import { useState, useRef, useMemo } from 'react';
+import { safeInset } from '../utils/safeArea.js'
 import { useNavigate } from 'react-router-dom';
 import { useIsLightTheme } from '../utils/theme.js';
 
@@ -220,8 +221,8 @@ function StoryMenu({ isOpen, stories, isLoading, onClose, onDeleteStory }) {
         title="Comment ça marche ?"
         style={{
           position: 'fixed',
-          top: '4px',
-          left: '4px',
+          top: safeInset('top', '4px'),
+          left: safeInset('left', '4px'),
           zIndex: 8001,
           width: '52px',
           height: '52px',

@@ -2,6 +2,7 @@ import { useState, useEffect, useRef, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 import ReaderSettings from '../components/ReaderSettings.jsx'
 import { BACK_ZONE_RATIO } from '../utils/tapZone.js'
+import { safeInset } from '../utils/safeArea.js'
 
 // ── Courbes d'animation (cohérentes avec le reste de l'app) ─────────────────
 const EASE = {
@@ -55,8 +56,8 @@ function ExitButton({ onExit }) {
       aria-label="Quitter le tutoriel"
       style={{
         position: 'fixed',
-        top: '1.5rem',
-        left: '1.5rem',
+        top: safeInset('top', '1.5rem'),
+        left: safeInset('left', '1.5rem'),
         zIndex: 9999,
         background: 'none',
         border: 'none',
@@ -84,7 +85,7 @@ function ProgressDots({ count, current }) {
       aria-hidden="true"
       style={{
         position: 'fixed',
-        top: '1.8rem',
+        top: safeInset('top', '1.8rem'),
         left: 0,
         right: 0,
         display: 'flex',

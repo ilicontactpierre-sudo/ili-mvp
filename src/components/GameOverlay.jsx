@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
+import { safeInset } from '../utils/safeArea.js'
 import { Howl } from 'howler'
 
 // ── Lecture des préférences sons feedback ─────────────────────────────────────
@@ -223,7 +224,7 @@ function BackArrow({ onBack }) {
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       style={{
-        position: 'fixed', top: '1.5rem', left: '1.5rem', zIndex: 9999,
+        position: 'fixed', top: safeInset('top', '1.5rem'), left: safeInset('left', '1.5rem'), zIndex: 9999,
         background: 'none', border: 'none', cursor: 'pointer', padding: '0.5rem',
         opacity: hovered ? 0.7 : 0.3, transition: 'opacity 300ms ease', lineHeight: 1,
       }}

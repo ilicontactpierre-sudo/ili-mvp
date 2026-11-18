@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { playClicSettings } from '../App.jsx'
+import { safeInset } from '../utils/safeArea.js'
 import { truncatePlain } from '../utils/plainText.js'
 
 // ── Émet un CustomEvent pour propager les settings en temps réel vers StoryReader et VfxOverlay ──
@@ -469,8 +470,8 @@ export default function ReaderSettings({
         }
         .rs-gear-btn {
           position: fixed;
-          top: 8px;
-          right: 8px;
+          top: ${safeInset('top', '8px')};
+          right: ${safeInset('right', '8px')};
           z-index: 8000;
           width: 48px;
           height: 48px;
@@ -502,8 +503,8 @@ export default function ReaderSettings({
         }
         .rs-menu {
           position: fixed;
-          top: 58px;
-          right: 12px;
+          top: ${safeInset('top', '58px')};
+          right: ${safeInset('right', '12px')};
           z-index: 7999;
           width: 200px;
           background: ${bg};
