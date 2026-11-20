@@ -70,14 +70,18 @@ describe('menu des réglages : ordre et noms des blocs', () => {
     expect(menu).toContain('setIsToutdoux(true); setIsSynthwave(false); setIsDark(false)')
   })
 
-  it('le tutoriel retrouve ses blocs (repères branchés)', () => {
-    for (const r of ['themeSectionRef', 'fontSectionRef', 'progressSectionRef', 'fullscreenSectionRef']) {
-      expect(menu).toContain(`ref={${r}}`)
+  it('le tutoriel retrouve ses blocs : un repère par élément, mesuré et envoyé', () => {
+    const noms = { theme: 'themeSectionRef', taille: 'tailleSectionRef', polices: 'policesSectionRef', doux: 'douxSectionRef', prog: 'progressSectionRef', plein: 'fullscreenSectionRef', aller: 'allerSectionRef' }
+    for (const [cle, r] of Object.entries(noms)) {
+      expect(menu.split(`ref={${r}}`).length - 1, r).toBe(1)
+      expect(src).toContain(`${cle}: ${r}.current?.getBoundingClientRect() ?? null,`)
     }
+    expect(src).not.toContain('fontSectionRef')
   })
 
-  it('Aller à et Quitter restent réservés à une histoire', () => {
-    expect(menu).toContain('{storyId && navItems.length > 0 && (')
+  it('Aller à : dans une histoire avec chapitres, ou dans le tutoriel (faux chapitres) ; Quitter : dans une histoire', () => {
+    expect(menu).toContain('{((storyId && navItems.length > 0) || demoChapters) && (')
+    expect(menu).toContain('onClick={() => (demoChapters ? playWhoosh() : handleJump(item.index))}')
     expect(menu).toContain('{storyId && (\n            <div className="rs-section">\n              <button className="rs-quit-btn" onClick={handleQuit}>')
   })
 })
@@ -86,8 +90,9 @@ describe('menu des réglages : ordre et noms des blocs', () => {
 describe('menu des réglages : dépliants', () => {
   it('un seul dépliant ouvert à la fois, par une seule mémoire', () => {
     expect(src).toContain('const [openFold, setOpenFold] = useState(null)')
-    expect(src).toContain("const showChapters = openFold === 'aller'")
-    expect(src).toContain('const toggleFold = (name) => setOpenFold(f => (f === name ? null : name))')
+    expect(src).toContain("const showChapters = currentFold === 'aller'")
+    expect(src).toContain("const showImmersion = currentFold === 'immersion'")
+    expect(src).toContain('else setOpenFold(f => (f === name ? null : name))')
     expect(menu).toContain("onClick={() => toggleFold('immersion')}")
     expect(menu).toContain("onClick={() => toggleFold('aller')}")
     expect(src).not.toContain('setShowChapters')
@@ -113,9 +118,12 @@ describe('menu des réglages : dépliants', () => {
     expect(bloc.indexOf('{showImmersion && (')).toBeLessThan(bloc.indexOf('ref={fullscreenSectionRef}'))
   })
 
-  it('tutoriel : Immersion reste ouvert, sans animation, pour que ses blocs se mesurent', () => {
-    expect(src).toContain("const showImmersion = openFold === 'immersion' || forceOpen")
-    expect(menu).toContain("<div className={forceOpen ? undefined : 'rs-fold'}>")
+  it('tutoriel : c’est lui qui ouvre les dépliants, et les blocs sont remesurés après l’animation', () => {
+    expect(src).toContain('const currentFold = forceOpen ? tutorialFold : openFold')
+    expect(src).toContain('if (forceOpen) onTutorialFold?.(name)')
+    expect(menu).toContain('<div className="rs-fold">')
+    expect(src).toContain('const apresDepliant = setTimeout(measure, 300)')
+    expect(src).toContain('  }, [forceOpen, onSectionRects, isOpen, currentFold])')
   })
 
   it('le menu ne dépasse jamais du bas de l’écran : il défile', () => {

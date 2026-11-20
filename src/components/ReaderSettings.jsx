@@ -191,6 +191,11 @@ export default function ReaderSettings({
   onJumpTo,
   forceOpen = false,
   onSectionRects,
+  // Tutoriel seulement : dépliant ouvert (piloté par le tutoriel), action quand on touche
+  // un en-tête de dépliant, et faux chapitres pour essayer « Aller à »
+  tutorialFold = null,
+  onTutorialFold,
+  demoChapters = null,
 }) {
   const navigate = useNavigate()
 
@@ -215,8 +220,13 @@ export default function ReaderSettings({
   // Dépliants du menu : un seul ouvert à la fois ('immersion' | 'aller' | null),
   // tous refermés à chaque ouverture et fermeture du menu
   const [openFold, setOpenFold] = useState(null)
-  const showChapters = openFold === 'aller'
-  const toggleFold = (name) => setOpenFold(f => (f === name ? null : name))
+  // Dans le tutoriel (forceOpen), c'est lui qui décide du dépliant ouvert
+  const currentFold = forceOpen ? tutorialFold : openFold
+  const showChapters = currentFold === 'aller'
+  const toggleFold = (name) => {
+    if (forceOpen) onTutorialFold?.(name)
+    else setOpenFold(f => (f === name ? null : name))
+  }
   const [showSynthwaveBg, setShowSynthwaveBg] = useState(() => loadTheme().isSynthwave)
 
   // ── Plein écran ─────────────────────────────────────────────────────────────
@@ -271,9 +281,12 @@ export default function ReaderSettings({
   const chaptersRef = useRef(null)
   // ── Refs sections (uniquement utilisées par le spotlight du tutoriel) ──────
   const themeSectionRef    = useRef(null)
-  const fontSectionRef     = useRef(null)
+  const tailleSectionRef   = useRef(null)
+  const policesSectionRef  = useRef(null)
+  const douxSectionRef     = useRef(null)
   const progressSectionRef = useRef(null)
   const fullscreenSectionRef = useRef(null)
+  const allerSectionRef    = useRef(null)
   // ── forceOpen : ouverture pilotée depuis l'extérieur (tutoriel) ────────────
   useEffect(() => {
     if (forceOpen) {
@@ -287,18 +300,24 @@ export default function ReaderSettings({
     const measure = () => {
       onSectionRects({
         theme: themeSectionRef.current?.getBoundingClientRect() ?? null,
-        font: fontSectionRef.current?.getBoundingClientRect() ?? null,
-        progress: progressSectionRef.current?.getBoundingClientRect() ?? null,
-        fullscreen: fullscreenSectionRef.current?.getBoundingClientRect() ?? null,
+        taille: tailleSectionRef.current?.getBoundingClientRect() ?? null,
+        polices: policesSectionRef.current?.getBoundingClientRect() ?? null,
+        doux: douxSectionRef.current?.getBoundingClientRect() ?? null,
+        prog: progressSectionRef.current?.getBoundingClientRect() ?? null,
+        plein: fullscreenSectionRef.current?.getBoundingClientRect() ?? null,
+        aller: allerSectionRef.current?.getBoundingClientRect() ?? null,
       })
     }
     const raf = requestAnimationFrame(measure)
+    // un dépliant s'anime 0,25 s : on remesure une fois l'animation finie
+    const apresDepliant = setTimeout(measure, 300)
     window.addEventListener('resize', measure)
     return () => {
       cancelAnimationFrame(raf)
+      clearTimeout(apresDepliant)
       window.removeEventListener('resize', measure)
     }
-  }, [forceOpen, onSectionRects, isOpen])
+  }, [forceOpen, onSectionRects, isOpen, currentFold])
 
   // ── Appliquer le thème (+ sauvegarde) ──────────────────────────────────────
   useEffect(() => {
@@ -463,8 +482,7 @@ export default function ReaderSettings({
   const fgMid   = isDark ? 'rgba(255,255,255,0.6)' : 'rgba(26,26,24,0.62)'
   const border  = isDark ? 'rgba(255,255,255,0.08)' : 'rgba(26,26,24,0.1)'
   const hoverBg = isDark ? 'rgba(255,255,255,0.06)' : 'rgba(26,26,24,0.06)'
-  // Le tutoriel (forceOpen) garde Immersion ouvert, sans animation, pour mesurer ses blocs
-  const showImmersion = openFold === 'immersion' || forceOpen
+  const showImmersion = currentFold === 'immersion'
 
   return (
     <>
@@ -830,7 +848,8 @@ export default function ReaderSettings({
           </div>
 
           {/* Taille, polices adaptées et Moins d’effets */}
-          <div className="rs-section" ref={fontSectionRef}>
+          <div className="rs-section">
+            <div ref={tailleSectionRef}>
             <span className="rs-label">Taille</span>
             <div className="rs-row">
               <button
@@ -853,6 +872,8 @@ export default function ReaderSettings({
                 +
               </button>
             </div>
+            </div>
+            <div ref={policesSectionRef}>
             <span className="rs-sublabel">Polices adaptées</span>
             <div className="rs-dys-row">
               <button
@@ -882,7 +903,8 @@ export default function ReaderSettings({
                 <IconSmiley />
               </button>
             </div>
-            <div className="rs-switch-row">
+            </div>
+            <div className="rs-switch-row" ref={douxSectionRef}>
               <span className="rs-switch-label">
                 Moins d’effets
               </span>
@@ -906,7 +928,7 @@ export default function ReaderSettings({
               <span style={{ fontSize: 9, color: fgDim }}>{showImmersion ? '▲' : '▼'}</span>
             </button>
             {showImmersion && (
-            <div className={forceOpen ? undefined : 'rs-fold'}>
+            <div className="rs-fold">
             {/* Barre de progression */}
             <div className="rs-switch-row" ref={progressSectionRef}>
               <span className="rs-switch-label">Barre de progression</span>
@@ -934,8 +956,8 @@ export default function ReaderSettings({
           </div>
 
           {/* Aller à (chapitres) — uniquement dans une histoire */}
-          {storyId && navItems.length > 0 && (
-            <div className="rs-section">
+          {((storyId && navItems.length > 0) || demoChapters) && (
+            <div className="rs-section" ref={allerSectionRef}>
               <button
                 className="rs-chapters-btn"
                 onClick={() => toggleFold('aller')}
@@ -946,11 +968,11 @@ export default function ReaderSettings({
               </button>
               {showChapters && (
                 <div ref={chaptersRef} className="rs-chapters-list">
-                  {navItems.map((item) => (
+                  {(demoChapters ?? navItems).map((item) => (
                     <button
                       key={item.index}
                       className={`rs-chapter-item${item.index === currentIndex ? ' current' : ''}`}
-                      onClick={() => handleJump(item.index)}
+                      onClick={() => (demoChapters ? playWhoosh() : handleJump(item.index))}
                     >
                       <span className="rs-chapter-num">{item.index + 1}</span>
                       <span className={`rs-chapter-text${item.type === 'chapter' ? ' chapter-type' : ''}`}>

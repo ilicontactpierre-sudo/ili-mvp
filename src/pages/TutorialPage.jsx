@@ -3,6 +3,9 @@ import { useNavigate } from 'react-router-dom'
 import ReaderSettings from '../components/ReaderSettings.jsx'
 import { BACK_ZONE_RATIO } from '../utils/tapZone.js'
 import { safeInset } from '../utils/safeArea.js'
+import { isBackTap } from '../utils/tapZone.js'
+import { applyEmojiMode } from '../utils/emojiDict.jsx'
+import { applyBionicReading } from '../utils/bionicReading.jsx'
 
 // ── Courbes d'animation (cohérentes avec le reste de l'app) ─────────────────
 const EASE = {
@@ -414,56 +417,146 @@ function ScreenHeadphones({ onUnlock, fadeOutRef }) {
 // ══════════════════════════════════════════════════════════════════════════
 // ÉCRAN 3 — Roue crantée (spotlight sur le vrai ReaderSettings)
 // ══════════════════════════════════════════════════════════════════════════
+// Un élément du menu par étape (maquette validée le 20/11/2026, textes de Pierre).
+// Toucher l'élément éclairé l'essaie pour de vrai ; toucher ailleurs passe au suivant,
+// la zone de gauche (même règle que le lecteur) revient au précédent.
 const SETTINGS_STEPS = [
-  { key: 'theme',      text: 'Choisis l\u2019ambiance : sombre, clair, et quelques variantes cachées.' },
-  { key: 'font',       text: 'Adapte la taille du texte et les options de lecture facilitée (DYS).' },
-  { key: 'progress',   text: 'Affiche ou masque la barre de progression sur le côté.' },
-  { key: 'fullscreen', text: 'Passe en plein écran pour une immersion totale.' },
+  { key: 'theme',   text: 'Pour ton confort,\ntu peux utiliser deux modes\u00a0:\nsombre ou clair.' },
+  { key: 'taille',  text: 'Ici, tu peux changer\nla taille des lettres.' },
+  { key: 'polices', text: 'Essaie d’autres façons d’écrire\ngrâce aux typos pensées spécialement\npour les personnes dys.\nMais pas que\u00a0!' },
+  { key: 'doux',    text: 'Trop secoué\u00a0?\nAvec ce mode,\ntu calmes les effets.' },
+  { key: 'prog',    text: 'Regarde sur le côté\u00a0:\nune fine barre te montre\noù tu en es dans l’histoire.' },
+  { key: 'plein',   text: 'Le plein écran,\ntout simplement.' },
+  { key: 'aller',   text: 'Si tu as envie de relire un passage,\nva au chapitre de ton choix.' },
 ]
-function ScreenSettings({ onUnlock }) {
+// Faux chapitres pour essayer « Aller à » (le tutoriel n'a pas d'histoire)
+const DEMO_CHAPTERS = [
+  { index: 0,  type: 'chapter', text: 'Chapitre I' },
+  { index: 11, type: 'chapter', text: 'Chapitre II' },
+]
+// Dépliant ouvert d'office selon l'élément présenté
+const defaultFold = (key) => (key === 'prog' || key === 'plein' ? 'immersion' : null)
+// Même règle que le menu : pas de plein écran sur iPhone / iPad
+const canFullscreen = () => !/iPad|iPhone|iPod/.test(navigator.userAgent) && document.fullscreenEnabled
+
+function readReading() {
+  const get = (k) => { try { return localStorage.getItem(k) } catch { return null } }
+  return {
+    dys1: get('ili_dys1') === 'true',
+    dys2: get('ili_dys2') === 'true',
+    emoji: get('ili_emoji') === 'true',
+    showProgress: get('ili_show_progress') !== 'false',
+  }
+}
+
+// Texte de l'étape « polices » : mêmes fonctions que le texte des histoires (renderMarkdown)
+function policesLine(line, r) {
+  if (r.emoji) return applyEmojiMode(line)
+  if (r.dys1) return applyBionicReading(line)
+  return line
+}
+
+function ScreenSettings({ onPrev, onNext }) {
   const [rects, setRects] = useState(null)
   const [stepIndex, setStepIndex] = useState(0)
-  const [stepsDone, setStepsDone] = useState(false)
-  const isLastStep = stepIndex >= SETTINGS_STEPS.length - 1
+  const [foldChoice, setFoldChoice] = useState(undefined) // undefined : dépliant prévu pour l'étape
+  const [reading, setReading] = useState(readReading)
 
-  const handleScreenClick = useCallback((e) => {
-    if (stepsDone) return
-    e.stopPropagation() // empêche le clic de remonter vers goNext dans TutorialPage
-    if (isLastStep) {
-      setStepsDone(true)
-      onUnlock?.(400)
-    } else {
-      setStepIndex(i => i + 1)
+  // Suit les réglages touchés dans le menu (DYS, emoji, barre)
+  useEffect(() => {
+    const onSettings = (e) => {
+      const d = e.detail
+      if (d?.type === 'reading') setReading({ dys1: d.dys1, dys2: d.dys2, emoji: d.emojiMode, showProgress: d.showProgress })
     }
-  }, [isLastStep, stepsDone, onUnlock])
+    window.addEventListener('ili:settings', onSettings)
+    return () => window.removeEventListener('ili:settings', onSettings)
+  }, [])
+
+  const steps = canFullscreen() ? SETTINGS_STEPS : SETTINGS_STEPS.filter(st => st.key !== 'plein')
+  const current = steps[stepIndex]
+  const fold = foldChoice !== undefined ? foldChoice : defaultFold(current.key)
+
+  const go = (dir) => {
+    const next = stepIndex + dir
+    if (next < 0) { onPrev?.(); return }
+    if (next >= steps.length) { onNext?.(); return }
+    setStepIndex(next)
+    setFoldChoice(undefined)
+  }
+
+  const handleClick = (e) => {
+    e.stopPropagation() // la page ne gère pas cet écran
+    if (e.target.closest('.rs-menu')) return // on essaie l'élément éclairé
+    go(isBackTap(e.clientX, window.innerWidth) ? -1 : 1)
+  }
 
   const handleSectionRects = useCallback((r) => setRects(r), [])
+  const handleTutorialFold = useCallback((name) => {
+    setFoldChoice(f => {
+      const open = f !== undefined ? f : defaultFold(current.key)
+      return open === name ? null : name
+    })
+  }, [current.key])
 
-  const currentKey = SETTINGS_STEPS[stepIndex]?.key
-  const targetRect = rects?.[currentKey] ?? null
+  const targetRect = rects?.[current.key] ?? null
+  const w = window.innerWidth
+  const h = window.innerHeight
+  const hole = targetRect
+    ? ` M${targetRect.left - 10},${targetRect.top - 8} H${targetRect.right + 10} V${targetRect.bottom + 8} H${targetRect.left - 10} Z`
+    : ''
+
+  // Effets appliqués au texte seulement quand ils parlent de lui
+  const key = current.key
+  const anyPolice = reading.dys1 || reading.dys2 || reading.emoji
+  const textStyle = {
+    fontFamily: key === 'polices' && reading.dys2 ? "'Lexend', sans-serif" : 'var(--font-primary)',
+    fontSize: key === 'taille' ? 'calc(var(--font-size-focus) * 0.72)' : 'clamp(0.88rem, 3vw, 1rem)',
+    fontStyle: key === 'polices' && anyPolice ? 'normal' : 'italic',
+  }
+  const lines = current.text.split('\n')
 
   return (
     <div
       style={{ position: 'fixed', inset: 0 }}
-      onClick={stepsDone ? undefined : handleScreenClick}
+      onClick={handleClick}
     >
-      <ReaderSettings forceOpen onSectionRects={handleSectionRects} />
-      {/* ── Voile sombre avec trou spotlight ── */}
-      {targetRect && (
-        <div
-          aria-hidden="true"
-          style={{
-            position: 'fixed',
-            inset: 0,
-            zIndex: 7998,
-            pointerEvents: 'none',
-            transition: `clip-path 600ms ${EASE.inOut}`,
-            background: 'rgba(0,0,0,0.55)',
-            clipPath: `path('M0,0 H${window.innerWidth} V${window.innerHeight} H0 Z M${targetRect.left - 10},${targetRect.top - 8} H${targetRect.right + 10} V${targetRect.bottom + 8} H${targetRect.left - 10} Z')`,
-          }}
-        />
-      )}
-      {/* ── Halo de contour autour de la section ciblée ── */}
+      <style>{`
+        @keyframes tut-agite {
+          0%, 100% { transform: translate(0, 0) rotate(0deg); }
+          20% { transform: translate(-1.5px, 1px) rotate(-0.4deg); }
+          40% { transform: translate(1.5px, -1px) rotate(0.4deg); }
+          60% { transform: translate(-1px, -1px) rotate(0deg); }
+          80% { transform: translate(1px, 1px) rotate(0.3deg); }
+        }
+        @keyframes tut-barre {
+          0% { height: 0%; }
+          70%, 100% { height: 100%; }
+        }
+        @keyframes tut-fleche {
+          0%, 100% { transform: translateX(0); opacity: 0.6; }
+          50% { transform: translateX(-6px); opacity: 0.95; }
+        }
+      `}</style>
+      <ReaderSettings
+        forceOpen
+        onSectionRects={handleSectionRects}
+        tutorialFold={fold}
+        onTutorialFold={handleTutorialFold}
+        demoChapters={DEMO_CHAPTERS}
+      />
+      {/* ── Voile : tout est assombri sauf l'élément présenté (seul à répondre au toucher) ── */}
+      <div
+        aria-hidden="true"
+        style={{
+          position: 'fixed',
+          inset: 0,
+          zIndex: 8000,
+          background: 'rgba(0,0,0,0.55)',
+          clipPath: `path(evenodd, 'M0,0 H${w} V${h} H0 Z${hole}')`,
+          transition: `clip-path 600ms ${EASE.inOut}`,
+        }}
+      />
+      {/* ── Halo de contour autour de l'élément présenté ── */}
       {targetRect && (
         <div
           aria-hidden="true"
@@ -481,6 +574,20 @@ function ScreenSettings({ onUnlock }) {
             transition: `all 600ms ${EASE.inOut}`,
           }}
         />
+      )}
+      {/* ── Barre de progression : elle se remplit sur le côté gauche ── */}
+      {key === 'prog' && reading.showProgress && (
+        <>
+          <div aria-hidden="true" style={{ position: 'fixed', top: 0, left: 0, width: '4px', height: '100vh', zIndex: 8001, backgroundColor: 'rgba(255,255,255,0.12)', pointerEvents: 'none' }}>
+            <div style={{ width: '100%', backgroundColor: 'rgba(255,255,255,0.6)', animation: `tut-barre 2400ms ${EASE.inOut} infinite` }} />
+          </div>
+          <div aria-hidden="true" style={{ position: 'fixed', left: '14px', top: '50%', zIndex: 8001, color: '#fff', pointerEvents: 'none', animation: 'tut-fleche 1000ms ease-in-out infinite' }}>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
+              <line x1="20" y1="12" x2="5" y2="12" />
+              <polyline points="11 6 5 12 11 18" />
+            </svg>
+          </div>
+        </>
       )}
       {/* ── Texte d'explication : centré verticalement à gauche du menu ── */}
       {(() => {
@@ -503,17 +610,25 @@ function ScreenSettings({ onUnlock }) {
             <p
               key={stepIndex}
               style={{
-                fontFamily: 'var(--font-primary)',
-                fontSize: 'clamp(0.88rem, 3vw, 1rem)',
+                ...textStyle,
                 color: '#fff',
                 opacity: 0.9,
                 lineHeight: 1.6,
                 margin: 0,
-                fontStyle: 'italic',
                 animation: `tut-rise 500ms ${EASE.out} both`,
+                transition: 'font-size 200ms ease',
               }}
             >
-              {SETTINGS_STEPS[stepIndex]?.text}
+              <span
+                className={key === 'doux' ? 'ili-fx-agite' : undefined}
+                style={key === 'doux' ? { display: 'inline-block', animation: 'tut-agite 0.5s linear infinite' } : undefined}
+              >
+                {lines.map((line, i) => (
+                  <span key={i} style={{ display: 'block' }}>
+                    {key === 'polices' ? policesLine(line, reading) : line}
+                  </span>
+                ))}
+              </span>
             </p>
           </div>
         )
@@ -711,6 +826,17 @@ function TutorialPage() {
     }
   }, [canAdvance, transitioning, screenIndex, screen, navigate])
 
+  // Sortie de l'écran réglages par son dernier élément (il gère lui-même ses touchers)
+  const goNextFromSettings = useCallback(() => {
+    if (transitioning) return
+    setTransitioning(true)
+    setTimeout(() => {
+      setScreenIndex(i => i + 1)
+      setCanAdvance(false)
+      setTransitioning(false)
+    }, 350)
+  }, [transitioning])
+
   const goPrev = useCallback(() => {
     if (transitioning) return
     if (screenIndex === 0) return // première page : on ignore
@@ -783,7 +909,7 @@ function TutorialPage() {
 
         {screen === 'navigation' && <ScreenNavigation onUnlock={handleUnlockNavigation} />}
         {screen === 'headphones' && <ScreenHeadphones onUnlock={handleUnlockNavigation} fadeOutRef={headphonesFadeRef} />}
-        {screen === 'settings'   && <ScreenSettings onUnlock={handleUnlockNavigation} />}
+        {screen === 'settings'   && <ScreenSettings onPrev={goPrev} onNext={goNextFromSettings} />}
         {screen === 'progress'   && <ScreenProgress />}
         {screen === 'outro'      && <ScreenOutro />}
 
