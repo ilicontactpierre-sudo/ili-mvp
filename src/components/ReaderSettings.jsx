@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { playClicSettings } from '../App.jsx'
 import { safeInset } from '../utils/safeArea.js'
 import { loadMoinsEffets, saveMoinsEffets, applyMoinsEffets } from '../utils/moinsEffets.js'
+import ReaderSwitch from './ReaderSwitch.jsx'
 import { createUiSound } from '../utils/uiSounds.js'
 import { truncatePlain } from '../utils/plainText.js'
 
@@ -77,14 +78,12 @@ const IconFontLarge = () => (
     <text x="14" y="13" fontSize="10" fontFamily="serif" fill="currentColor" stroke="none">A</text>
   </svg>
 )
-const IconList = () => (
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-    <line x1="8" y1="6" x2="21" y2="6"/>
-    <line x1="8" y1="12" x2="21" y2="12"/>
-    <line x1="8" y1="18" x2="21" y2="18"/>
-    <line x1="3" y1="6" x2="3.01" y2="6"/>
-    <line x1="3" y1="12" x2="3.01" y2="12"/>
-    <line x1="3" y1="18" x2="3.01" y2="18"/>
+// Visage dessiné du bouton « mode emoji » (à la place de 😊, maquette du 20/11/2026)
+const IconSmiley = () => (
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" aria-hidden="true">
+    <circle cx="12" cy="12" r="9"/>
+    <path d="M8.5 14.5c1 1.2 2.1 1.8 3.5 1.8s2.5-.6 3.5-1.8"/>
+    <path d="M9 9.5h.01M15 9.5h.01"/>
   </svg>
 )
 const IconGear = () => (
@@ -457,6 +456,7 @@ export default function ReaderSettings({
   const bg      = isDark ? 'rgba(12,12,14,0.96)' : 'rgba(245,240,232,0.97)'
   const fg      = isDark ? 'rgba(255,255,255,0.85)' : 'rgba(26,26,24,0.85)'
   const fgDim   = isDark ? 'rgba(255,255,255,0.35)' : 'rgba(26,26,24,0.35)'
+  const fgMid   = isDark ? 'rgba(255,255,255,0.6)' : 'rgba(26,26,24,0.62)'
   const border  = isDark ? 'rgba(255,255,255,0.08)' : 'rgba(26,26,24,0.1)'
   const hoverBg = isDark ? 'rgba(255,255,255,0.06)' : 'rgba(26,26,24,0.06)'
 
@@ -574,6 +574,27 @@ export default function ReaderSettings({
           font-weight: 500;
           min-width: 22px;
           text-align: center;
+        }
+        .rs-sublabel {
+          font-family: var(--font-logo, sans-serif);
+          font-size: 10.5px;
+          text-transform: uppercase;
+          color: ${fgMid};
+          padding: 6px 10px 4px;
+          display: block;
+        }
+        .rs-switch-row {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 8px;
+          padding: 6px 10px;
+        }
+        .rs-switch-label {
+          font-family: var(--font-logo, sans-serif);
+          font-size: 12px;
+          letter-spacing: 0.03em;
+          color: ${fg};
         }
         .rs-chapters-btn {
           width: 100%;
@@ -747,9 +768,9 @@ export default function ReaderSettings({
       {(isOpen || isClosing) && (
         <div ref={menuRef} className="rs-menu">
 
-          {/* Thème */}
+          {/* Affichage */}
           <div className="rs-section" ref={themeSectionRef}>
-            <span className="rs-label">Thème</span>
+            <span className="rs-label">Affichage</span>
             <div className="rs-row">
               <button
                 className={`rs-btn${isDark && !isToutdoux && !isSynthwave ? ' active' : ''}${isSynthwave ? ' active' : ''}`}
@@ -766,6 +787,7 @@ export default function ReaderSettings({
                   }
                 }}
                 title="Mode sombre — recliquer pour mode années 80"
+                aria-label="Mode sombre"
               >
                 <IconMoon />
               </button>
@@ -784,15 +806,16 @@ export default function ReaderSettings({
                   }
                 }}
                 title="Mode clair — recliquer pour mode Miyazaki"
+                aria-label="Mode clair"
               >
                 <IconSun />
               </button>
             </div>
           </div>
 
-          {/* Taille de police + options DYS */}
+          {/* Taille, polices adaptées et Moins d’effets */}
           <div className="rs-section" ref={fontSectionRef}>
-            <span className="rs-label">Police</span>
+            <span className="rs-label">Taille</span>
             <div className="rs-row">
               <button
                 className="rs-btn"
@@ -814,10 +837,12 @@ export default function ReaderSettings({
                 +
               </button>
             </div>
+            <span className="rs-sublabel">Polices adaptées</span>
             <div className="rs-dys-row">
               <button
                 className={`rs-dys-btn${dys1 ? ' active' : ''}`}
                 onClick={() => { playClicSettings(); setDys1(v => !v) }}
+                aria-pressed={dys1}
                 title="Lecture assistée : met en gras les premières lettres de chaque mot"
               >
                 DYS 1
@@ -825,6 +850,7 @@ export default function ReaderSettings({
               <button
                 className={`rs-dys-btn${dys2 ? ' active' : ''}`}
                 onClick={() => { playClicSettings(); setDys2(v => !v) }}
+                aria-pressed={dys2}
                 title="Police Lexend, conçue pour la dyslexie"
               >
                 DYS 2
@@ -832,110 +858,64 @@ export default function ReaderSettings({
               <button
                 className={`rs-dys-btn${emojiMode ? ' active' : ''}`}
                 onClick={() => { playClicSettings(); setEmojiMode(v => !v) }}
+                aria-pressed={emojiMode}
+                aria-label="Mode emoji"
                 title="Mode visuel : remplace les mots courants par des emojis"
+                style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
               >
-                😊
+                <IconSmiley />
               </button>
             </div>
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 10px 2px' }}>
-              <span style={{
-                fontFamily: 'var(--font-logo, sans-serif)',
-                fontSize: '9px',
-                letterSpacing: '0.18em',
-                textTransform: 'uppercase',
-                color: fgDim,
-              }}>
+            <div className="rs-switch-row">
+              <span className="rs-switch-label">
                 Moins d’effets
               </span>
-              <button
+              <ReaderSwitch
+                isDark={isDark}
                 onClick={() => { playClicSettings(); setMoinsEffets(v => !v) }}
-                role="switch"
                 aria-checked={moinsEffets}
                 aria-label="Moins d’effets"
-                style={{
-                  width: '36px',
-                  height: '20px',
-                  borderRadius: '10px',
-                  border: 'none',
-                  background: moinsEffets
-                    ? (isDark ? 'rgba(255,255,255,0.55)' : 'rgba(26,26,24,0.45)')
-                    : (isDark ? 'rgba(255,255,255,0.12)' : 'rgba(26,26,24,0.12)'),
-                  cursor: 'pointer',
-                  position: 'relative',
-                  transition: 'background 0.2s ease',
-                  flexShrink: 0,
-                  WebkitTapHighlightColor: 'transparent',
-                }}
-              >
-                <span style={{
-                  position: 'absolute',
-                  top: '2px',
-                  left: moinsEffets ? '18px' : '2px',
-                  width: '16px',
-                  height: '16px',
-                  borderRadius: '50%',
-                  background: isDark ? '#fff' : '#1a1a18',
-                  transition: 'left 0.2s ease',
-                }} />
-              </button>
-            </div>
-          </div>
-          {/* Barre de progression */}
-          <div className="rs-section" ref={progressSectionRef}>
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '6px 10px' }}>
-              <span style={{
-                fontFamily: 'var(--font-logo, sans-serif)',
-                fontSize: '9px',
-                letterSpacing: '0.18em',
-                textTransform: 'uppercase',
-                color: fgDim,
-              }}>
-                Progression
-              </span>
-              <button
-                onClick={() => { playClicSettings(); setShowProgress(v => !v) }}
-                style={{
-                  width: '36px',
-                  height: '20px',
-                  borderRadius: '10px',
-                  border: 'none',
-                  background: showProgress
-                    ? (isDark ? 'rgba(255,255,255,0.55)' : 'rgba(26,26,24,0.45)')
-                    : (isDark ? 'rgba(255,255,255,0.12)' : 'rgba(26,26,24,0.12)'),
-                  cursor: 'pointer',
-                  position: 'relative',
-                  transition: 'background 0.2s ease',
-                  flexShrink: 0,
-                  WebkitTapHighlightColor: 'transparent',
-                }}
-                aria-label={showProgress ? 'Désactiver la barre de progression' : 'Activer la barre de progression'}
-              >
-                <span style={{
-                  position: 'absolute',
-                  top: '2px',
-                  left: showProgress ? '18px' : '2px',
-                  width: '16px',
-                  height: '16px',
-                  borderRadius: '50%',
-                  background: isDark ? '#fff' : '#1a1a18',
-                  transition: 'left 0.2s ease',
-                }} />
-              </button>
+              />
             </div>
           </div>
 
-          {/* Navigation chapitres — uniquement dans une histoire */}
+          {/* Immersion : Barre de progression, Plein écran (plus tard Musique et Bruitages) */}
+          <div className="rs-section">
+            <span className="rs-label">Immersion</span>
+            {/* Barre de progression */}
+            <div className="rs-switch-row" ref={progressSectionRef}>
+              <span className="rs-switch-label">Barre de progression</span>
+              <ReaderSwitch
+                isDark={isDark}
+                onClick={() => { playClicSettings(); setShowProgress(v => !v) }}
+                aria-checked={showProgress}
+                aria-label={showProgress ? 'Désactiver la barre de progression' : 'Activer la barre de progression'}
+              />
+            </div>
+            {/* Plein écran — Android uniquement (iOS gère ça via PWA standalone) */}
+            {!isIOSDevice && document.fullscreenEnabled && (
+              <div className="rs-switch-row" ref={fullscreenSectionRef}>
+                <span className="rs-switch-label">Plein écran</span>
+                <ReaderSwitch
+                  isDark={isDark}
+                  onClick={() => { playClicSettings(); toggleFullscreen() }}
+                  aria-checked={isFullscreen}
+                  aria-label={isFullscreen ? 'Quitter le plein écran' : 'Activer le plein écran'}
+                />
+              </div>
+            )}
+          </div>
+
+          {/* Aller à (chapitres) — uniquement dans une histoire */}
           {storyId && navItems.length > 0 && (
             <div className="rs-section">
               <button
                 className="rs-chapters-btn"
                 onClick={() => setShowChapters(v => !v)}
+                aria-expanded={showChapters}
               >
-                <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                  <IconList />
-                  <span>Navigation</span>
-                </span>
-                <span style={{ fontSize: 10, opacity: 0.5 }}>{showChapters ? '▲' : '▼'}</span>
+                <span>Aller à</span>
+                <span style={{ fontSize: 9, color: fgDim }}>{showChapters ? '▲' : '▼'}</span>
               </button>
               {showChapters && (
                 <div ref={chaptersRef} className="rs-chapters-list">
@@ -953,53 +933,6 @@ export default function ReaderSettings({
                   ))}
                 </div>
               )}
-            </div>
-          )}
-
-          
-          {/* Plein écran — Android uniquement (iOS gère ça via PWA standalone) */}
-          {!isIOSDevice && document.fullscreenEnabled && (
-            <div className="rs-section" ref={fullscreenSectionRef}>
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '6px 10px' }}>
-                <span style={{
-                  fontFamily: 'var(--font-logo, sans-serif)',
-                  fontSize: '9px',
-                  letterSpacing: '0.18em',
-                  textTransform: 'uppercase',
-                  color: fgDim,
-                }}>
-                  Plein écran
-                </span>
-                <button
-                  onClick={() => { playClicSettings(); toggleFullscreen() }}
-                  style={{
-                    width: '36px',
-                    height: '20px',
-                    borderRadius: '10px',
-                    border: 'none',
-                    background: isFullscreen
-                      ? (isDark ? 'rgba(255,255,255,0.55)' : 'rgba(26,26,24,0.45)')
-                      : (isDark ? 'rgba(255,255,255,0.12)' : 'rgba(26,26,24,0.12)'),
-                    cursor: 'pointer',
-                    position: 'relative',
-                    transition: 'background 0.2s ease',
-                    flexShrink: 0,
-                    WebkitTapHighlightColor: 'transparent',
-                  }}
-                  aria-label={isFullscreen ? 'Quitter le plein écran' : 'Activer le plein écran'}
-                >
-                  <span style={{
-                    position: 'absolute',
-                    top: '2px',
-                    left: isFullscreen ? '18px' : '2px',
-                    width: '16px',
-                    height: '16px',
-                    borderRadius: '50%',
-                    background: isDark ? '#fff' : '#1a1a18',
-                    transition: 'left 0.2s ease',
-                  }} />
-                </button>
-              </div>
             </div>
           )}
 
