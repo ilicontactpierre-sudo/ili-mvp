@@ -212,7 +212,11 @@ export default function ReaderSettings({
     if (isOpen) WHOOSHES.forEach(w => w.prepare())
   }, [isOpen])
   const [isClosing, setIsClosing]   = useState(false)
-  const [showChapters, setShowChapters] = useState(false)
+  // Dépliants du menu : un seul ouvert à la fois ('immersion' | 'aller' | null),
+  // tous refermés à chaque ouverture et fermeture du menu
+  const [openFold, setOpenFold] = useState(null)
+  const showChapters = openFold === 'aller'
+  const toggleFold = (name) => setOpenFold(f => (f === name ? null : name))
   const [showSynthwaveBg, setShowSynthwaveBg] = useState(() => loadTheme().isSynthwave)
 
   // ── Plein écran ─────────────────────────────────────────────────────────────
@@ -409,7 +413,7 @@ export default function ReaderSettings({
         document.addEventListener('click', blockNext, true)
         document.addEventListener('touchend', blockNext, true)
         setIsClosing(true)
-        setShowChapters(false)
+        setOpenFold(null)
         setTimeout(() => {
           setIsOpen(false)
           setIsClosing(false)
@@ -437,7 +441,7 @@ export default function ReaderSettings({
     playWhoosh()
     onJumpTo(index)
     setIsOpen(false)
-    setShowChapters(false)
+    setOpenFold(null)
   }
 
   const handleQuit = () => {
@@ -459,6 +463,8 @@ export default function ReaderSettings({
   const fgMid   = isDark ? 'rgba(255,255,255,0.6)' : 'rgba(26,26,24,0.62)'
   const border  = isDark ? 'rgba(255,255,255,0.08)' : 'rgba(26,26,24,0.1)'
   const hoverBg = isDark ? 'rgba(255,255,255,0.06)' : 'rgba(26,26,24,0.06)'
+  // Le tutoriel (forceOpen) garde Immersion ouvert, sans animation, pour mesurer ses blocs
+  const showImmersion = openFold === 'immersion' || forceOpen
 
   return (
     <>
@@ -525,7 +531,12 @@ export default function ReaderSettings({
           border-radius: 14px;
           box-shadow: 0 8px 32px rgba(0,0,0,0.3);
           animation: ${isClosing ? 'settings-out 0.18s cubic-bezier(0.16,1,0.3,1) forwards' : 'settings-in 0.18s cubic-bezier(0.16,1,0.3,1) both'};
-          overflow: hidden;
+          max-height: calc(100vh - ${safeInset('top', '58px')} - ${safeInset('bottom', '12px')});
+          max-height: calc(100dvh - ${safeInset('top', '58px')} - ${safeInset('bottom', '12px')});
+          overflow-x: hidden;
+          overflow-y: auto;
+          overscroll-behavior: contain;
+          scrollbar-width: none;
         }
         .rs-section {
           padding: 8px 6px;
@@ -614,6 +625,10 @@ export default function ReaderSettings({
           -webkit-tap-highlight-color: transparent;
         }
         .rs-chapters-btn:hover { background: ${hoverBg}; }
+        .rs-fold {
+          animation: chapters-in 0.25s cubic-bezier(0.16,1,0.3,1) both;
+          overflow: hidden;
+        }
         .rs-chapters-list {
           animation: chapters-in 0.25s cubic-bezier(0.16,1,0.3,1) both;
           overflow: hidden;
@@ -622,6 +637,7 @@ export default function ReaderSettings({
           scrollbar-width: none;
         }
         .rs-chapters-list::-webkit-scrollbar { display: none; }
+        .rs-menu::-webkit-scrollbar { display: none; }
         .rs-chapter-item {
           display: flex;
           align-items: baseline;
@@ -749,7 +765,7 @@ export default function ReaderSettings({
         playClicSettings()
         if (isOpen) {
           setIsClosing(true)
-          setShowChapters(false)
+          setOpenFold(null)
           setTimeout(() => {
             setIsOpen(false)
             setIsClosing(false)
@@ -757,7 +773,7 @@ export default function ReaderSettings({
         } else {
           setIsOpen(true)
           setIsClosing(false)
-          setShowChapters(false)
+          setOpenFold(null)
         }
       }}        aria-label="Paramètres de lecture"
       >
@@ -881,7 +897,16 @@ export default function ReaderSettings({
 
           {/* Immersion : Barre de progression, Plein écran (plus tard Musique et Bruitages) */}
           <div className="rs-section">
-            <span className="rs-label">Immersion</span>
+            <button
+              className="rs-chapters-btn"
+              onClick={() => toggleFold('immersion')}
+              aria-expanded={showImmersion}
+            >
+              <span>Immersion</span>
+              <span style={{ fontSize: 9, color: fgDim }}>{showImmersion ? '▲' : '▼'}</span>
+            </button>
+            {showImmersion && (
+            <div className={forceOpen ? undefined : 'rs-fold'}>
             {/* Barre de progression */}
             <div className="rs-switch-row" ref={progressSectionRef}>
               <span className="rs-switch-label">Barre de progression</span>
@@ -904,6 +929,8 @@ export default function ReaderSettings({
                 />
               </div>
             )}
+            </div>
+            )}
           </div>
 
           {/* Aller à (chapitres) — uniquement dans une histoire */}
@@ -911,7 +938,7 @@ export default function ReaderSettings({
             <div className="rs-section">
               <button
                 className="rs-chapters-btn"
-                onClick={() => setShowChapters(v => !v)}
+                onClick={() => toggleFold('aller')}
                 aria-expanded={showChapters}
               >
                 <span>Aller à</span>

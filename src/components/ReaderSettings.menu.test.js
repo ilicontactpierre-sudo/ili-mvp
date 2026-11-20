@@ -13,7 +13,7 @@ describe('menu des réglages : ordre et noms des blocs', () => {
       '<span className="rs-label">Taille</span>',
       '<span className="rs-sublabel">Polices adaptées</span>',
       '                Moins d’effets\n',
-      '<span className="rs-label">Immersion</span>',
+      '<span>Immersion</span>',
       '<span className="rs-switch-label">Barre de progression</span>',
       '<span className="rs-switch-label">Plein écran</span>',
       '<span>Aller à</span>',
@@ -79,5 +79,49 @@ describe('menu des réglages : ordre et noms des blocs', () => {
   it('Aller à et Quitter restent réservés à une histoire', () => {
     expect(menu).toContain('{storyId && navItems.length > 0 && (')
     expect(menu).toContain('{storyId && (\n            <div className="rs-section">\n              <button className="rs-quit-btn" onClick={handleQuit}>')
+  })
+})
+
+// Étape 2 (20/11/2026) : dépliants Immersion et Aller à
+describe('menu des réglages : dépliants', () => {
+  it('un seul dépliant ouvert à la fois, par une seule mémoire', () => {
+    expect(src).toContain('const [openFold, setOpenFold] = useState(null)')
+    expect(src).toContain("const showChapters = openFold === 'aller'")
+    expect(src).toContain('const toggleFold = (name) => setOpenFold(f => (f === name ? null : name))')
+    expect(menu).toContain("onClick={() => toggleFold('immersion')}")
+    expect(menu).toContain("onClick={() => toggleFold('aller')}")
+    expect(src).not.toContain('setShowChapters')
+  })
+
+  it('tous les dépliants refermés à l’ouverture et à la fermeture du menu, et après un saut', () => {
+    expect(src.split('setOpenFold(null)').length - 1).toBe(4)
+    const engrenage = src.slice(src.indexOf('ref={gearRef}'), src.indexOf('<IconGear />'))
+    expect(engrenage.split('setOpenFold(null)').length - 1).toBe(2)
+    const saut = src.slice(src.indexOf('const handleJump'), src.indexOf('const handleQuit'))
+    expect(saut).toContain('setOpenFold(null)')
+    const dehors = src.slice(src.indexOf('// ── Fermer si clic en dehors'), src.indexOf('// ── Navigation chapitres'))
+    expect(dehors).toContain('setOpenFold(null)')
+  })
+
+  it('Immersion : en-tête qui déplie Barre de progression et Plein écran', () => {
+    const debut = menu.indexOf("onClick={() => toggleFold('immersion')}")
+    const fin = menu.indexOf("{/* Aller à (chapitres)")
+    const bloc = menu.slice(debut, fin)
+    expect(bloc).toContain('aria-expanded={showImmersion}')
+    expect(bloc).toContain("{showImmersion ? '▲' : '▼'}")
+    expect(bloc.indexOf('{showImmersion && (')).toBeLessThan(bloc.indexOf('ref={progressSectionRef}'))
+    expect(bloc.indexOf('{showImmersion && (')).toBeLessThan(bloc.indexOf('ref={fullscreenSectionRef}'))
+  })
+
+  it('tutoriel : Immersion reste ouvert, sans animation, pour que ses blocs se mesurent', () => {
+    expect(src).toContain("const showImmersion = openFold === 'immersion' || forceOpen")
+    expect(menu).toContain("<div className={forceOpen ? undefined : 'rs-fold'}>")
+  })
+
+  it('le menu ne dépasse jamais du bas de l’écran : il défile', () => {
+    const bloc = src.slice(src.indexOf('.rs-menu {'), src.indexOf('.rs-section {'))
+    expect(bloc).toContain("max-height: calc(100dvh - ${safeInset('top', '58px')} - ${safeInset('bottom', '12px')});")
+    expect(bloc).toContain('overflow-y: auto;')
+    expect(bloc).not.toContain('overflow: hidden;')
   })
 })
