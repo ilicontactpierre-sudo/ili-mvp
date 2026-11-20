@@ -1,6 +1,6 @@
 # ILi — Lecture Immersive — Contexte Projet
 
-_Dernière mise à jour : 07/11/2026 (17/11/2026 : fluidité de l'admin — timeline, « Analyser », Cmd+Z —, nombre de tests ; 16/11/2026 : orchestration par tranches et correctif des pauses, nombre de tests ; 11/11/2026 : section 0 — process et règle de fluidité —, orchestration et fiche de Claude, arbre des fichiers, commandes ; le reste date du 16/10/2026), après le chantier « ILi sans bug avec un réseau faible » (chargement des sons par `SoundLoader`, cache audio, démarrage tardif des sons en retard) — voir sections 3.1, 4.4 et 7._
+_Dernière mise à jour : 07/11/2026 (20/11/2026 : chiffres du lint et des tests après le lot « invisible » du lecteur, ses nouveaux fichiers, livraison par script ; 17/11/2026 : fluidité de l'admin — timeline, « Analyser », Cmd+Z —, nombre de tests ; 16/11/2026 : orchestration par tranches et correctif des pauses, nombre de tests ; 11/11/2026 : section 0 — process et règle de fluidité —, orchestration et fiche de Claude, arbre des fichiers, commandes ; le reste date du 16/10/2026), après le chantier « ILi sans bug avec un réseau faible » (chargement des sons par `SoundLoader`, cache audio, démarrage tardif des sons en retard) — voir sections 3.1, 4.4 et 7._
 
 ## 0. Démarrage rapide (lire en premier, environ 2 minutes)
 
@@ -10,14 +10,14 @@ _Dernière mise à jour : 07/11/2026 (17/11/2026 : fluidité de l'admin — time
 - Claude ne pousse jamais et ne lance jamais `npm run publish`, `npm run checkpoint` ni `git push` : il donne les commandes, Pierre les tape. Mise en ligne en deux phases avec accord entre les deux.
 - Dépôt public : jamais de clé, de `.env`, ni de texte protégé dans un diff.
 - Audio : stéréo et pan sacrés. Jamais de mono, jamais le mode `html5` de Howler. `AudioEngine.js` : plan validé d'abord, test de non-régression, écoute réelle par Pierre.
-- Modifier un fichier existant : blocs « à trouver / à remplacer », chacun vérifié comme existant une seule fois. Contrôles : `npx eslint .` avant `npm run build` (341 problèmes préexistants, ne pas les « corriger »), `npx vitest run` (314 tests).
+- Modifier un fichier existant : blocs « à trouver / à remplacer », chacun vérifié comme existant une seule fois. Contrôles : `npx eslint .` avant `npm run build` (340 problèmes préexistants, ne pas les « corriger »), `npx vitest run` (432 tests).
 
 **Comment on travaille ensemble (process, à respecter).**
 - Pierre pose une demande ; Claude explique en français simple, **donne son avis et ses doutes**, et ne demande pas de trancher un point technique que Pierre ne peut pas évaluer. Une seule question à la fois, en conséquences concrètes (pour le site, les visiteurs, les données).
 - **Ajouter, ne pas modifier** : si Pierre demande une nouvelle fonction dans une zone existante, on n'y change rien d'autre (UI, réglages, comportement) sans son accord. Une amélioration de l'existant se propose à part, avec un avis motivé. Avant de dire « rien n'a changé », **montrer le diff**.
 - **Plan et maquette avant le code** pour tout ce qui se voit (maquette interactive, dimensions réelles) ; Pierre valide, puis Claude code.
-- **Livraison** : tout ce qui dépasse une dizaine de lignes est un **fichier à télécharger** (un collage long est abîmé par le terminal) avec son **empreinte** `shasum -a 256`. Pierre contrôle l'empreinte avant de s'en servir et ne prend que les fichiers **à la racine de `~/Downloads`** (un dossier `files (N)` peut contenir des versions périmées). Les petites corrections se donnent en bloc « à trouver / à remplacer ».
-- **Vérifier avant de livrer** : copie neuve de la version exacte de Pierre, `npx eslint .` (341) **avant** `npm run build`, `npx vitest run` (314), build ; **test de mutation** (casser volontairement le code, les tests doivent échouer) pour tout code sensible. **Ne jamais annoncer un chiffre sans l'avoir mesuré dans le même état.** Si un message est coupé avant la fin des vérifications, le dire et ne livrer qu'après.
+- **Livraison** : tout ce qui dépasse une dizaine de lignes est un **fichier à télécharger** (un collage long est abîmé par le terminal) avec son **empreinte** `shasum -a 256`. Pierre contrôle l'empreinte avant de s'en servir et ne prend que les fichiers **à la racine de `~/Downloads`** (un dossier `files (N)` peut contenir des versions périmées). Les petites corrections se donnent en bloc « à trouver / à remplacer ». Au-delà de quelques lignes (depuis le 18/11/2026) : un **script garde-fou** `ili-…-etapeN.sh` qui contient le patch et vérifie tout (contenu de départ, `git am`, fichiers touchés, lint, tests, build) et s'arrête au moindre écart ; détail dans le fichier maître (règles du 18/11/2026).
+- **Vérifier avant de livrer** : copie neuve de la version exacte de Pierre, `npx eslint .` (340) **avant** `npm run build`, `npx vitest run` (432), build ; **test de mutation** (casser volontairement le code, les tests doivent échouer) pour tout code sensible. **Ne jamais annoncer un chiffre sans l'avoir mesuré dans le même état.** Si un message est coupé avant la fin des vérifications, le dire et ne livrer qu'après.
 - **Mise en ligne** : phase 0 = commit sur la branche avec une **liste explicite de fichiers** (jamais `git add .`) ; phase 1 = lecture seule (`git diff main --stat`, scan de secrets, comparaison du site construit avant/après) ; accord de Pierre ; phase 2 = `git merge --ff-only`, puis `npm run publish` sur `main` : **Claude lit le rapport avant que Pierre tape `main`**. Après envoi, Claude revérifie GitHub sur un clone neuf.
 - **Limites de Claude** : il ne peut ni écouter, ni utiliser un vrai navigateur ou un iPhone, ni joindre Supabase ou Vercel. Les tests de rendu (`renderToString`) ne simulent pas les clics (pas de jsdom installé) : placement, clics et ressenti se valident **visuellement par Pierre**, avec un JSON de test fourni en fichier si besoin. Les tests « gardes » (qui lisent le code source) protègent les branchements, mais sont stricts.
 - **Pièges vécus** : deux serveurs de dev (le 2e prend le port 5174 et le brouillon, stocké par navigateur et par adresse, n'y est pas : utiliser `npm run dev:clean` puis `localhost:5173/admin`) ; ne jamais coller une console qui montre un champ mot de passe ; les mesures en local (`npm run dev`) sont plus lentes que sur l'admin en ligne (React en mode développement, affichage fait deux fois par le mode « strict ») : comparer avec l'admin en ligne avant de conclure.
@@ -42,10 +42,10 @@ _Dernière mise à jour : 07/11/2026 (17/11/2026 : fluidité de l'admin — time
 
 | Demande | Lire d'abord | Puis si besoin |
 |---|---|---|
-| Lecteur : affichage du texte, transitions, effets typographiques | `components/StoryReader.jsx` (890) + `StoryReader.css` | `pages/StoryPage.jsx` (824 : charge l'histoire, pilote audio et modes de jeu), `utils/renderMarkdown.jsx`, §3.1, §10 |
+| Lecteur : affichage du texte, transitions, effets typographiques | `components/StoryReader.jsx` (890) + `StoryReader.css` | `pages/StoryPage.jsx` (824 : charge l'histoire, pilote audio et modes de jeu), `utils/renderMarkdown.jsx`, §3.1, §10 ; zone « retour » 25 % `utils/tapZone.js`, son coupé en arrière-plan `utils/backgroundMute.js`, marges d'encoche `utils/safeArea.js`, clavier de l'écran titre `utils/keyboard.js` |
 | Accueil, liste des histoires | `pages/HomePage.jsx` (282), `components/StoryMenu.jsx` (300) | `styles/global.css`, `public/stories/index.json` |
 | Écran de début, de fin, questions avant lecture | `StartScreen.jsx` (527), `EndScreen.jsx` (383), `SeuilScreen.jsx` (260) | `utils/startGate.js` |
-| Réglages de lecture (police, thème…) | `components/ReaderSettings.jsx` (963) | `styles/global.css` |
+| Réglages de lecture (police, thème…) | `components/ReaderSettings.jsx` (963) | `styles/global.css` ; « Moins d'effets » `utils/moinsEffets.js` + fin de `styles/vfx.css` ; clics et whooshes `utils/uiSounds.js` (Howler) |
 | Tutoriel | `pages/TutorialPage.jsx` (779) | |
 | Son pendant la lecture (moteur) | `engine/AudioEngine.js` (702), §7 | `AudioEngine*.test.js` |
 | Chargement des sons, réseau faible, cache | `engine/SoundLoader.js` (374), `engine/audioCache.js`, §4.4 et §7 | `utils/soundOrder.js`, `soundsToPreload.js`, `startGate.js`, `startLateSound.js` ; Annexe B du fichier maître |
@@ -84,7 +84,7 @@ _Dernière mise à jour : 07/11/2026 (17/11/2026 : fluidité de l'admin — time
 | | @ffmpeg/ffmpeg | 0.12.15 | Compression audio côté client (upload) |
 | **Recherche** | Fuse.js | 7.3.0 | Recherche floue dans la bibliothèque de sons |
 | **UI** | CSS natif | — | Variables CSS, Flexbox/Grid, animations custom |
-| **Tests** | Vitest | 5.0.0 | 314 tests (`npx vitest run`) : segmentAlgorithm, AudioEngine, chargement des sons, outil de publication, fiche de Claude, orchestration (pauses, tranches), lignes de la timeline (`timelineRows`), index de recherche des sons, annulation (`historyReuse`) |
+| **Tests** | Vitest | 5.0.0 | 432 tests (`npx vitest run`) : segmentAlgorithm, AudioEngine, chargement des sons, outil de publication, fiche de Claude, orchestration (pauses, tranches), lignes de la timeline (`timelineRows`), index de recherche des sons, annulation (`historyReuse`) |
 
 ---
 
@@ -378,10 +378,10 @@ npm run build            # Build Vite → dossier dist/
 npm run preview          # Preview build local
 
 # ── Lint ───────────────────────────────────────────────────────────────────────
-npm run lint             # ESLint (341 problèmes préexistants connus ; à lancer AVANT build : dist/ fausse le compte)
+npm run lint             # ESLint (340 problèmes préexistants connus ; à lancer AVANT build : dist/ fausse le compte)
 
 # ── Tests ──────────────────────────────────────────────────────────────────────
-npx vitest run           # Tests (314), exécution unique — PAS `npm test` (mode surveillance qui reste ouvert)
+npx vitest run           # Tests (432), exécution unique — PAS `npm test` (mode surveillance qui reste ouvert)
 node scripts/validate-story.mjs public/stories/   # Valide le schéma des stories (--check-urls : vérifie aussi les URLs)
 
 # ── Utilitaires ────────────────────────────────────────────────────────────────
