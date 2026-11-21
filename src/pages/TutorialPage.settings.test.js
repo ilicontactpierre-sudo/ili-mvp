@@ -66,6 +66,38 @@ describe('tutoriel, écran réglages', () => {
     expect(ecran).toContain('  if (r.emoji) return applyEmojiMode(line)\n  if (r.dys1) return applyBionicReading(line)')
     // le tremblement est coupé par « Moins d’effets » (classe de vfx.css)
     expect(ecran).toContain("className={key === 'doux' ? 'ili-fx-agite' : undefined}")
-    expect(ecran).toContain("{key === 'prog' && reading.showProgress && (")
+    expect(ecran).toContain("{key === 'prog' && reading.showProgress && <ProgressDemo />}")
+  })
+})
+
+// Étape 4 (21/11/2026) : écran « progression » retiré, flash B, sortie de l'écran « écoute »
+describe('tutoriel, finitions', () => {
+  it('l’écran « progression » est retiré ; sa barre pas à pas sert aux réglages', () => {
+    expect(src).toContain("const SCREENS = ['navigation', 'headphones', 'settings', 'outro']")
+    expect(src).toContain('const MIN_DELAY = { navigation: 0, headphones: 4500, settings: 99999, outro: 1800 }')
+    expect(src).not.toContain('ScreenProgress')
+    expect(src).not.toContain("'progress'")
+    const demo = src.slice(src.indexOf('function ProgressDemo'), src.indexOf('// ÉCRAN 5'))
+    for (const pas of ['{ val: 20,  delay: 300  }', '{ val: 45,  delay: 900  }', '{ val: 65,  delay: 1600 }', '{ val: 82,  delay: 2400 }']) expect(demo).toContain(pas)
+    expect(demo).toContain('transition: `height 700ms ${EASE.inOut}`,')
+    expect(demo.split('zIndex: 8001,').length - 1).toBe(2) // barre et flèche au-dessus du voile
+    expect(src).not.toContain('tut-barre') // plus de barre en boucle
+  })
+
+  it('écran navigation : flash B (voile léger de la couleur du texte), visible dans les deux thèmes', () => {
+    const ecran1 = src.slice(src.indexOf('function ScreenNavigation'), src.indexOf('// ÉCRAN 2'))
+    expect(ecran1.split("'color-mix(in srgb, var(--color-text-focus) 13%, transparent)'").length - 1).toBe(2)
+    expect(ecran1).not.toContain('20,20,22')
+    expect(ecran1).not.toContain("'#fff'")
+  })
+
+  it('écran « écoute » : le fondu finit avant le changement d’écran, puis un whoosh enchaîne', () => {
+    const casque = src.slice(src.indexOf('function ScreenHeadphones'), src.indexOf('// ÉCRAN 3'))
+    expect(casque).toContain('const duration = 900')
+    const sortie = src.slice(src.indexOf("if (screen === 'headphones' && headphonesFadeRef.current)"), src.indexOf('} else {', src.indexOf("if (screen === 'headphones' && headphonesFadeRef.current)")))
+    expect(sortie).toContain('setTimeout(() => WHOOSH.play(), 600)')
+    expect(sortie).toContain('}, 1000)')
+    expect(src).toContain("const WHOOSH = createUiSound('/sounds/Whoosh-3.mp3', 0.15)")
+    expect(src).toContain('useEffect(() => { WHOOSH.prepare() }, [])')
   })
 })

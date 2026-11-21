@@ -6,6 +6,10 @@ import { safeInset } from '../utils/safeArea.js'
 import { isBackTap } from '../utils/tapZone.js'
 import { applyEmojiMode } from '../utils/emojiDict.jsx'
 import { applyBionicReading } from '../utils/bionicReading.jsx'
+import { createUiSound } from '../utils/uiSounds.js'
+
+// Whoosh de passage entre écrans (Howler, même son et même volume que ceux du menu)
+const WHOOSH = createUiSound('/sounds/Whoosh-3.mp3', 0.15)
 
 // ── Courbes d'animation (cohérentes avec le reste de l'app) ─────────────────
 const EASE = {
@@ -15,9 +19,10 @@ const EASE = {
   spring: 'cubic-bezier(0.34, 1.56, 0.64, 1)',
 }
 
-const SCREENS = ['navigation', 'headphones', 'settings', 'progress', 'outro']
+// L'écran « progression » est retiré : la barre est présentée dans les réglages (20/11/2026)
+const SCREENS = ['navigation', 'headphones', 'settings', 'outro']
 // Délai minimum (ms) avant de pouvoir taper "suivant" sur chaque écran
-const MIN_DELAY = { navigation: 0, headphones: 4500, settings: 99999, progress: 2200, outro: 1800 }
+const MIN_DELAY = { navigation: 0, headphones: 4500, settings: 99999, outro: 1800 }
 
 // ── Bouton "suivant" discret, façon ContinueBtn de GameOverlay ──────────────
 function NextHint({ visible, label = 'continuer' }) {
@@ -169,15 +174,15 @@ function ScreenNavigation({ onUnlock }) {
           alignItems: 'center',
           justifyContent: 'center',
           cursor: 'pointer',
-          backgroundColor: flashSide === 'left' ? 'rgba(20,20,22,0.94)' : 'transparent',
+          backgroundColor: flashSide === 'left' ? 'color-mix(in srgb, var(--color-text-focus) 13%, transparent)' : 'transparent',
           transition: flashSide === 'left' ? 'background-color 80ms ease' : `background-color 400ms ${EASE.out}`,
         }}
       >
         <span style={{
           fontFamily: 'var(--font-primary)',
           fontSize: 'clamp(1.3rem, 5vw, 1.8rem)',
-          color: flashSide === 'left' ? '#fff' : 'var(--color-text-focus)',
-          opacity: leftDone ? 0.35 : 0.85,
+          color: 'var(--color-text-focus)',
+          opacity: flashSide === 'left' ? 1 : leftDone ? 0.35 : 0.85,
           transition: `color 150ms ease, opacity 400ms ${EASE.out}`,
           userSelect: 'none',
           display: 'flex',
@@ -223,15 +228,15 @@ function ScreenNavigation({ onUnlock }) {
           alignItems: 'center',
           justifyContent: 'center',
           cursor: 'pointer',
-          backgroundColor: flashSide === 'right' ? 'rgba(20,20,22,0.94)' : 'transparent',
+          backgroundColor: flashSide === 'right' ? 'color-mix(in srgb, var(--color-text-focus) 13%, transparent)' : 'transparent',
           transition: flashSide === 'right' ? 'background-color 80ms ease' : `background-color 400ms ${EASE.out}`,
         }}
       >
         <span style={{
           fontFamily: 'var(--font-primary)',
           fontSize: 'clamp(1.3rem, 5vw, 1.8rem)',
-          color: flashSide === 'right' ? '#fff' : 'var(--color-text-focus)',
-          opacity: rightDone ? 0.35 : 0.85,
+          color: 'var(--color-text-focus)',
+          opacity: flashSide === 'right' ? 1 : rightDone ? 0.35 : 0.85,
           transition: `color 150ms ease, opacity 400ms ${EASE.out}`,
           userSelect: 'none',
           display: 'flex',
@@ -275,8 +280,9 @@ function ScreenHeadphones({ onUnlock, fadeOutRef }) {
   const fadeOutAndStop = useCallback(() => {
     const audio = audioRef.current
     if (!audio || audio.paused) return
-    const duration = 2500
-    const steps = 60
+    // fondu fini avant le changement d'écran (1 s) : plus de coupure en plein fondu
+    const duration = 900
+    const steps = 30
     const interval = duration / steps
     let step = 0
     const startVol = audio.volume
@@ -528,14 +534,6 @@ function ScreenSettings({ onPrev, onNext }) {
           60% { transform: translate(-1px, -1px) rotate(0deg); }
           80% { transform: translate(1px, 1px) rotate(0.3deg); }
         }
-        @keyframes tut-barre {
-          0% { height: 0%; }
-          70%, 100% { height: 100%; }
-        }
-        @keyframes tut-fleche {
-          0%, 100% { transform: translateX(0); opacity: 0.6; }
-          50% { transform: translateX(-6px); opacity: 0.95; }
-        }
       `}</style>
       <ReaderSettings
         forceOpen
@@ -576,19 +574,7 @@ function ScreenSettings({ onPrev, onNext }) {
         />
       )}
       {/* ── Barre de progression : elle se remplit sur le côté gauche ── */}
-      {key === 'prog' && reading.showProgress && (
-        <>
-          <div aria-hidden="true" style={{ position: 'fixed', top: 0, left: 0, width: '4px', height: '100vh', zIndex: 8001, backgroundColor: 'rgba(255,255,255,0.12)', pointerEvents: 'none' }}>
-            <div style={{ width: '100%', backgroundColor: 'rgba(255,255,255,0.6)', animation: `tut-barre 2400ms ${EASE.inOut} infinite` }} />
-          </div>
-          <div aria-hidden="true" style={{ position: 'fixed', left: '14px', top: '50%', zIndex: 8001, color: '#fff', pointerEvents: 'none', animation: 'tut-fleche 1000ms ease-in-out infinite' }}>
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
-              <line x1="20" y1="12" x2="5" y2="12" />
-              <polyline points="11 6 5 12 11 18" />
-            </svg>
-          </div>
-        </>
-      )}
+      {key === 'prog' && reading.showProgress && <ProgressDemo />}
       {/* ── Texte d'explication : centré verticalement à gauche du menu ── */}
       {(() => {
         const menuWidth = 212 // 200px menu + 12px margin droite
@@ -638,9 +624,11 @@ function ScreenSettings({ onPrev, onNext }) {
 }
 
 // ══════════════════════════════════════════════════════════════════════════
-// ÉCRAN 4 — Ligne de progression latérale
+// Démonstration de la barre de progression (étape « barre » des réglages) :
+// la même animation que l'ancien écran « progression », pas à pas, comme en lisant
+// segment par segment. Au-dessus du voile sombre : en clair dans les deux thèmes.
 // ══════════════════════════════════════════════════════════════════════════
-function ScreenProgress() {
+function ProgressDemo() {
   const [fill, setFill] = useState(0)
   const [arrowVisible, setArrowVisible] = useState(false)
   useEffect(() => {
@@ -657,39 +645,39 @@ function ScreenProgress() {
     return () => { timers.forEach(clearTimeout); clearTimeout(t2) }
   }, [])
   return (
-    <div style={{ position: 'fixed', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '2rem' }}>
+    <>
       <style>{`
         @keyframes arrow-breathe {
           0%, 100% { transform: translateX(0px); opacity: 0.55; }
           50%       { transform: translateX(5px); opacity: 0.9; }
         }
       `}</style>
-      {/* ── Barre de progression ── */}
       <div
+        aria-hidden="true"
         style={{
           position: 'fixed',
           top: 0, left: 0,
           width: '4px',
           height: '100vh',
-          backgroundColor: 'rgba(255,255,255,0.07)',
+          zIndex: 8001,
+          pointerEvents: 'none',
+          backgroundColor: 'rgba(255,255,255,0.12)',
         }}
       >
         <div style={{
           width: '100%',
           height: `${fill}%`,
-          backgroundColor: 'rgba(255,255,255,0.5)',
+          backgroundColor: 'rgba(255,255,255,0.6)',
           transition: `height 700ms ${EASE.inOut}`,
         }} />
       </div>
-      {/* ── Flèche pointant vers la barre ── */}
-      <div style={{
+      <div aria-hidden="true" style={{
         position: 'fixed',
         left: '18px',
         top: '50%',
         transform: 'translateY(-50%)',
+        zIndex: 8001,
         display: 'flex',
-        alignItems: 'center',
-        gap: '6px',
         opacity: arrowVisible ? 1 : 0,
         transition: `opacity 600ms ${EASE.out}`,
         pointerEvents: 'none',
@@ -698,7 +686,7 @@ function ScreenProgress() {
           width="20" height="20"
           viewBox="0 0 24 24"
           fill="none"
-          stroke="var(--color-text-focus)"
+          stroke="#fff"
           strokeWidth="1.5"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -711,20 +699,7 @@ function ScreenProgress() {
           <polyline points="12 5 5 12 12 19" />
         </svg>
       </div>
-      <p style={{
-        fontFamily: 'var(--font-primary)',
-        fontSize: 'clamp(0.95rem, 3.5vw, 1.15rem)',
-        color: 'var(--color-text-focus)',
-        opacity: 0.85,
-        lineHeight: 1.7,
-        textAlign: 'center',
-        maxWidth: '22rem',
-        fontStyle: 'italic',
-        animation: `tut-rise 700ms ${EASE.out} both`,
-      }}>
-        Ce trait, sur le côté,<br />te montre où tu en es dans l'histoire.
-      </p>
-    </div>
+    </>
   )
 }
 
@@ -811,6 +786,7 @@ function TutorialPage() {
       // (le composant reste monté pendant le fade)
       headphonesFadeRef.current()
       setTransitioning(true)
+      setTimeout(() => WHOOSH.play(), 600) // le whoosh enchaîne vers l'écran suivant
       setTimeout(() => {
         setScreenIndex(i => i + 1)
         setCanAdvance(false)
@@ -873,6 +849,7 @@ function TutorialPage() {
   }, [screen, goNext, goPrev])
 
   const headphonesFadeRef = useRef(null)
+  useEffect(() => { WHOOSH.prepare() }, [])
   const handleExit = () => navigate('/')
   const handleUnlockNavigation = useCallback((delay = 0) => {
     if (delay > 0) {
@@ -910,7 +887,6 @@ function TutorialPage() {
         {screen === 'navigation' && <ScreenNavigation onUnlock={handleUnlockNavigation} />}
         {screen === 'headphones' && <ScreenHeadphones onUnlock={handleUnlockNavigation} fadeOutRef={headphonesFadeRef} />}
         {screen === 'settings'   && <ScreenSettings onPrev={goPrev} onNext={goNextFromSettings} />}
-        {screen === 'progress'   && <ScreenProgress />}
         {screen === 'outro'      && <ScreenOutro />}
 
         {screen !== 'navigation' && screen !== 'settings' && screen !== 'outro' && (

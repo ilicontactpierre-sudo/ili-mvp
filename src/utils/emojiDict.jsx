@@ -369,7 +369,8 @@ export function applyEmojiMode(text) {
   if (!text) return text
 
   // Découpe en tokens : mots + ponctuation + espaces
-  const tokens = text.split(/(\s+|[.,!?;:«»"'()[\]{}\-–—…])/)
+  // (apostrophe droite ' et courbes ’ ‘ : dans « d’écrire », « écrire » est bien reconnu, 21/11/2026)
+  const tokens = text.split(/(\s+|[.,!?;:«»"'’‘()[\]{}\-–—…])/)
 
   return tokens.map((token, i) => {
     // Espaces et ponctuations : passer tels quels
