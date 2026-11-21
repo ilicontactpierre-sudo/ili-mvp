@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import ReaderSettings from '../components/ReaderSettings.jsx'
 import { BACK_ZONE_RATIO } from '../utils/tapZone.js'
 import { safeInset } from '../utils/safeArea.js'
@@ -61,6 +61,7 @@ function ExitButton({ onExit }) {
   return (
     <button
       onClick={onExit}
+      className="tut-a-croix"
       aria-label="Quitter le tutoriel"
       style={{
         position: 'fixed',
@@ -90,6 +91,7 @@ function ExitButton({ onExit }) {
 function ProgressDots({ count, current }) {
   return (
     <div
+      className="tut-a-points"
       aria-hidden="true"
       style={{
         position: 'fixed',
@@ -178,7 +180,7 @@ function ScreenNavigation({ onUnlock }) {
           transition: flashSide === 'left' ? 'background-color 80ms ease' : `background-color 400ms ${EASE.out}`,
         }}
       >
-        <span style={{
+        <span className="tut-a-fleche-g" style={{
           fontFamily: 'var(--font-primary)',
           fontSize: 'clamp(1.3rem, 5vw, 1.8rem)',
           color: 'var(--color-text-focus)',
@@ -199,7 +201,7 @@ function ScreenNavigation({ onUnlock }) {
         pointerEvents: 'none',
       }}>
         {/* Segment haut : s'arrête 1.4rem au-dessus du texte */}
-        <div style={{
+        <div className="tut-a-trait-haut" style={{
           position: 'absolute',
           top: 0,
           left: `${BACK_ZONE_RATIO * 100}%`,
@@ -209,7 +211,7 @@ function ScreenNavigation({ onUnlock }) {
           background: 'color-mix(in srgb, var(--color-text-focus) 15%, transparent)',
         }} />
         {/* Segment bas : reprend 1.4rem sous la fin du texte (texte ~3rem de haut) */}
-        <div style={{
+        <div className="tut-a-trait-bas" style={{
           position: 'absolute',
           top: 'calc(38% + 3rem + 1.4rem)',
           left: `${BACK_ZONE_RATIO * 100}%`,
@@ -232,7 +234,7 @@ function ScreenNavigation({ onUnlock }) {
           transition: flashSide === 'right' ? 'background-color 80ms ease' : `background-color 400ms ${EASE.out}`,
         }}
       >
-        <span style={{
+        <span className="tut-a-fleche-d" style={{
           fontFamily: 'var(--font-primary)',
           fontSize: 'clamp(1.3rem, 5vw, 1.8rem)',
           color: 'var(--color-text-focus)',
@@ -253,7 +255,7 @@ function ScreenNavigation({ onUnlock }) {
         textAlign: 'center',
         pointerEvents: 'none',
       }}>
-        <p style={{
+        <p className="tut-a-consigne" style={{
           fontFamily: 'var(--font-primary)',
           fontSize: 'clamp(0.92rem, 3vw, 1.08rem)',
           color: 'var(--color-text-focus)',
@@ -749,6 +751,9 @@ function ScreenOutro() {
 // ══════════════════════════════════════════════════════════════════════════
 function TutorialPage() {
   const navigate = useNavigate()
+  const location = useLocation()
+  // Arrivée par l'icône animée de l'accueil : le premier écran se dessine (une seule fois)
+  const [arrivee, setArrivee] = useState(() => Boolean(location.state?.fromIcon))
   const [screenIndex, setScreenIndex] = useState(0)
   const [transitioning, setTransitioning] = useState(false)
   const [canAdvance, setCanAdvance] = useState(false)
@@ -772,6 +777,7 @@ function TutorialPage() {
         setScreenIndex(i => i + 1)
         setCanAdvance(false)
         setTransitioning(false)
+        setArrivee(false)
       }, 350)
     }
   }, [canAdvance, screen, transitioning])
@@ -867,8 +873,20 @@ function TutorialPage() {
           from { opacity: 0; transform: translateY(16px); }
           to   { opacity: 1; transform: translateY(0); }
         }
+        /* ── Arrivée par l'icône : les traits poussent, puis le reste monte (maquette v2) ── */
+        @keyframes tut-a-trait { from { transform: translateX(-50%) scaleY(0); } }
+        @keyframes tut-a-monte { from { opacity: 0; transform: translateY(14px); } }
+        @keyframes tut-a-apparait { from { opacity: 0; } }
+        .tut-arrivee .tut-a-trait-haut { transform-origin: top; animation: tut-a-trait 1000ms ${EASE.out} both; }
+        .tut-arrivee .tut-a-trait-bas { transform-origin: bottom; animation: tut-a-trait 1000ms ${EASE.out} both; }
+        .tut-arrivee .tut-a-points { animation: tut-a-apparait 800ms ${EASE.out} 50ms backwards; }
+        .tut-arrivee .tut-a-consigne { animation: tut-a-monte 900ms ${EASE.out} 130ms backwards; }
+        .tut-arrivee .tut-a-fleche-g { animation: tut-a-monte 900ms ${EASE.out} 210ms backwards; }
+        .tut-arrivee .tut-a-fleche-d { animation: tut-a-monte 900ms ${EASE.out} 260ms backwards; }
+        .tut-arrivee .tut-a-croix { animation: tut-a-apparait 800ms ${EASE.out} 340ms backwards; }
       `}</style>
       <div
+        className={arrivee && screenIndex === 0 ? 'tut-arrivee' : undefined}
         onClick={handleTap}
         style={{
           position: 'fixed',

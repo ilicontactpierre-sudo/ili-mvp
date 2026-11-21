@@ -1,7 +1,7 @@
 import { useState, useRef, useMemo } from 'react';
 import { safeInset } from '../utils/safeArea.js'
 import { useNavigate } from 'react-router-dom';
-import { useIsLightTheme } from '../utils/theme.js';
+import TutorialIcon from './TutorialIcon.jsx';
 
 // ── Ligne d'histoire avec accordéon description ───────────────────────────
 function StoryRow({ story, onNavigate }) {
@@ -158,15 +158,15 @@ function FilterChips({ allTags, activeTags, onToggle }) {
   )
 }
 
-function StoryMenu({ isOpen, stories, isLoading, onClose, onDeleteStory }) {
+function StoryMenu({ isOpen, stories, isLoading, onClose, onDeleteStory, onTutorial }) {
   const navigate = useNavigate();
-  // Icône du tutoriel : blanche en thème sombre, noire en thème clair
-  const isLightTheme = useIsLightTheme();
   const [exiting, setExiting] = useState(false);
   const [activeTags, setActiveTags] = useState([]);
   const handleTutorial = (e) => {
     e.stopPropagation()
-    navigate('/tutoriel')
+    // Entrée animée gérée par l'accueil ; sans elle, passage direct au tutoriel
+    if (onTutorial) onTutorial(e.currentTarget)
+    else navigate('/tutoriel')
   }
 
   // Tags disponibles : déduits des histoires visibles, triés par fréquence puis alpha
@@ -217,7 +217,9 @@ function StoryMenu({ isOpen, stories, isLoading, onClose, onDeleteStory }) {
       `}</style>
       {/* ── Bouton tutoriel : HORS du backdrop pour ne pas être bloqué ── */}
       <button
+        className="sm-tuto-btn"
         onClick={handleTutorial}
+        aria-label="Tutoriel"
         title="Comment ça marche ?"
         style={{
           position: 'fixed',
@@ -233,22 +235,14 @@ function StoryMenu({ isOpen, stories, isLoading, onClose, onDeleteStory }) {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
+          color: 'var(--color-text-focus)',
           opacity: 0,
           animation: 'tut-btn-appear 700ms cubic-bezier(0.16, 1, 0.3, 1) 1300ms forwards',
         }}
         onMouseEnter={(e) => { e.currentTarget.style.opacity = '0.95' }}
         onMouseLeave={(e) => { e.currentTarget.style.animation = 'none'; e.currentTarget.style.opacity = '0.65' }}
       >
-        <img
-          src="/tutoriel-icon.png"
-          alt="Tutoriel"
-          style={{
-            width: '100%',
-            height: '100%',
-            objectFit: 'contain',
-            filter: isLightTheme ? 'brightness(0)' : 'brightness(0) invert(1)',
-          }}
-        />
+        <TutorialIcon />
       </button>
       <div
         className="story-menu-backdrop"

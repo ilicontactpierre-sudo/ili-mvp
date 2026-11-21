@@ -1,9 +1,11 @@
-import { useState, useEffect, useLayoutEffect, useRef } from 'react';
+import { useState, useEffect, useLayoutEffect, useRef, useCallback } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import StoryMenu from '../components/StoryMenu';
 import ReaderSettings from '../components/ReaderSettings.jsx'
 import { playClicILi } from '../App.jsx'
-import { useIsLightTheme } from '../utils/theme.js'
+import TutorialIcon from '../components/TutorialIcon.jsx'
+import TutorialLaunch from '../components/TutorialLaunch.jsx'
+import { LAUNCH_WHOOSH } from '../utils/tutorialLaunch.js'
 
 // ── Composant ligne d'histoire enrichie ──────────────────────────────────────
 function StoryRow({ story, onNavigate }) {
@@ -100,8 +102,21 @@ function StoryRow({ story, onNavigate }) {
 function HomePage() {
   const navigate = useNavigate();
   const location = useLocation();
-  // Icône du tutoriel : blanche en thème sombre, noire en thème clair
-  const isLightTheme = useIsLightTheme();
+  // ── Entrée animée dans le tutoriel (maquette v2, 21/11/2026) ──
+  // { variant: 'accueil' | 'liste', from: position, taille et opacité de l'icône touchée }
+  const [launch, setLaunch] = useState(null)
+  useEffect(() => { LAUNCH_WHOOSH.prepare() }, []) // ~45 Ko, prêt avant le toucher
+  const startLaunch = (variant, target) => {
+    if (launch) return
+    const icon = target.querySelector('svg') ?? target
+    const r = icon.getBoundingClientRect()
+    if (!r.width) { navigate('/tutoriel'); return } // icône non mesurable : passage direct
+    const opacity = parseFloat(getComputedStyle(target).opacity) || 0.62
+    setLaunch({ variant, from: { left: r.left, top: r.top, width: r.width, height: r.height, opacity } })
+  }
+  const handleLaunchDone = useCallback(() => {
+    navigate('/tutoriel', { state: { fromIcon: true } })
+  }, [navigate])
   // Arrivée depuis l'écran de fin : l'accueil s'ouvre directement sur la liste,
   // et le « ILi » du bas de l'écran de fin vient prendre la place du logo.
   const [fromEnd] = useState(() => Boolean(location.state?.fromEnd))
@@ -280,13 +295,40 @@ function HomePage() {
         .hp-hint-line--on { animation: hp-hint-line 1400ms cubic-bezier(0.16, 1, 0.3, 1) forwards; }
         .hp-hint-blur { animation: hp-hint-blur 2400ms cubic-bezier(0.45, 0, 0.2, 1) both; }
         .home-page--from-end .story-menu-container { animation-delay: 1000ms; }
+        /* ── Entrée dans le tutoriel : le reste de l'écran s'efface en fondu flou ── */
+        @keyframes hp-sortie-carte {
+          from { opacity: 1; filter: blur(0); transform: translateY(0); }
+          to   { opacity: 0; filter: blur(6px); transform: translateY(8px); }
+        }
+        .hp-launch .logo-container > * {
+          opacity: 0 !important;
+          filter: blur(8px);
+          transform: translateY(-10px);
+          transition: opacity 800ms cubic-bezier(0.65, 0, 0.35, 1), filter 800ms cubic-bezier(0.65, 0, 0.35, 1), transform 900ms cubic-bezier(0.16, 1, 0.3, 1) !important;
+          transition-delay: 180ms !important;
+        }
+        .hp-launch--accueil .logo-container > .logo { transition-delay: 80ms !important; }
+        .hp-launch--accueil .logo-container > .logo-tagline { transition-delay: 140ms !important; }
+        .hp-launch--liste .logo-container > * { transition-delay: 40ms !important; }
+        .hp-launch .logo-container > .hp-tuto { opacity: 0 !important; transition: none !important; }
+        .hp-launch .story-card {
+          animation: hp-sortie-carte 650ms cubic-bezier(0.65, 0, 0.35, 1) calc(100ms + var(--delay, 0ms)) both !important;
+        }
+        .hp-launch .story-menu-filters,
+        .hp-launch .empty-state,
+        .hp-launch .rs-gear-btn {
+          opacity: 0 !important;
+          transition: opacity 600ms cubic-bezier(0.65, 0, 0.35, 1) 60ms !important;
+          pointer-events: none !important;
+        }
+        .hp-launch .sm-tuto-btn { opacity: 0 !important; animation: none !important; transition: none !important; }
         @media (prefers-reduced-motion: reduce) {
           .hp-hint-line--on { animation: none; width: 64px; }
           .hp-hint-blur { animation: none; }
         }
       `}</style>
 
-      <div className={`home-page${fromEnd ? ' home-page--from-end' : ''}`}>
+      <div className={`home-page${fromEnd ? ' home-page--from-end' : ''}${launch ? ` hp-launch hp-launch--${launch.variant}` : ''}`}>
         <div className={`logo-container ${isMoving ? 'logo-open' : ''}`}>
           <h1
             ref={logoRef}
@@ -330,8 +372,11 @@ function HomePage() {
           {/* ── Accès tutoriel ── */}
           {/* Visible uniquement à l'état idle, discret, sous la tagline */}
           <div
-            onClick={(e) => { if (phase !== 'idle') return; e.stopPropagation(); navigate('/tutoriel') }}
+            className="hp-tuto"
+            aria-label="Tutoriel"
+            onClick={(e) => { if (phase !== 'idle') return; e.stopPropagation(); startLaunch('accueil', e.currentTarget) }}
             style={{
+              color: 'var(--color-text-focus)',
               marginTop: '2.4rem',
               cursor: phase === 'idle' ? 'pointer' : 'default',
               width: '132px',
@@ -344,11 +389,7 @@ function HomePage() {
             onMouseLeave={(e) => { if (phase === 'idle') e.currentTarget.style.opacity = '0.32' }}
             title="Comment ça marche ?"
           >
-            <img
-              src="/tutoriel-icon.png"
-              alt="Tutoriel"
-              style={{ width: '100%', height: '100%', objectFit: 'contain', filter: isLightTheme ? 'brightness(0)' : 'brightness(0) invert(1)' }}
-            />
+            <TutorialIcon />
           </div>
         </div>
 
@@ -359,10 +400,13 @@ function HomePage() {
             isLoading={isLoading}
             onClose={handleClose}
             onDeleteStory={handleDeleteStory}
+            onTutorial={(target) => startLaunch('liste', target)}
           />
         )}
 
         {isOpen && <ReaderSettings />}
+
+        {launch && <TutorialLaunch from={launch.from} variant={launch.variant} onDone={handleLaunchDone} />}
       </div>
     </>
   );
