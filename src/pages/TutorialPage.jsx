@@ -516,7 +516,8 @@ function ScreenSettings({ onPrev, onNext }) {
   const anyPolice = reading.dys1 || reading.dys2 || reading.emoji
   const textStyle = {
     fontFamily: key === 'polices' && reading.dys2 ? "'Lexend', sans-serif" : 'var(--font-primary)',
-    fontSize: key === 'taille' ? 'calc(var(--font-size-focus) * 0.72)' : 'clamp(0.88rem, 3vw, 1rem)',
+    // taille choisie gardée pour toutes les explications (en S, comme avant : ~14 px)
+    fontSize: 'calc(var(--font-size-focus) * 0.72)',
     fontStyle: key === 'polices' && anyPolice ? 'normal' : 'italic',
   }
   const lines = current.text.split('\n')

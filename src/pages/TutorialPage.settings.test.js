@@ -59,7 +59,9 @@ describe('tutoriel, écran réglages', () => {
   })
 
   it('effets sur le texte seulement quand ils parlent de lui', () => {
-    expect(ecran).toContain("fontSize: key === 'taille' ? 'calc(var(--font-size-focus) * 0.72)'")
+    // la taille choisie reste pour toutes les explications (demande de Pierre, 21/11/2026)
+    expect(ecran).toContain("    fontSize: 'calc(var(--font-size-focus) * 0.72)',\n")
+    expect(ecran).not.toContain("key === 'taille' ?")
     expect(ecran).toContain("fontFamily: key === 'polices' && reading.dys2 ? \"'Lexend', sans-serif\"")
     expect(ecran).toContain("{key === 'polices' ? policesLine(line, reading) : line}")
     // mêmes fonctions et même ordre que le texte des histoires (renderMarkdown)
