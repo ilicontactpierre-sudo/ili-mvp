@@ -226,10 +226,6 @@ function StartScreen({ title, author, segmentCount = 0, segments = [], soundsToP
         }
         .ss-hint-line--on { animation: ss-hint-line 1400ms cubic-bezier(0.16, 1, 0.3, 1) forwards; }
         .ss-hint-blur { animation: ss-hint-blur 2400ms cubic-bezier(0.45, 0, 0.2, 1) both; }
-        @media (prefers-reduced-motion: reduce) {
-          .ss-hint-line--on { animation: none; width: 90px; }
-          .ss-hint-blur { animation: none; }
-        }
         @keyframes ss-bar-pulse {
           0%, 100% { opacity: 1; }
           50%       { opacity: 0.6; }

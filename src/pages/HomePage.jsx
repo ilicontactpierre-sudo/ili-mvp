@@ -144,7 +144,7 @@ function HomePage() {
 
   // ── Vol du logo depuis l'écran de fin (technique « FLIP ») ──
   // On part de la position et de la taille du « ILi » de l'écran de fin, puis on glisse
-  // jusqu'à la vraie place du logo. Rien ne bouge si le téléphone demande moins d'animations.
+  // jusqu'à la vraie place du logo. Pour tous les lecteurs : seul « Moins d'effets » compte (22/11/2026).
   useLayoutEffect(() => {
     const from = logoFrom
     const el = logoRef.current
@@ -322,10 +322,6 @@ function HomePage() {
           pointer-events: none !important;
         }
         .hp-launch .sm-tuto-btn { opacity: 0 !important; animation: none !important; transition: none !important; }
-        @media (prefers-reduced-motion: reduce) {
-          .hp-hint-line--on { animation: none; width: 64px; }
-          .hp-hint-blur { animation: none; }
-        }
       `}</style>
 
       <div className={`home-page${fromEnd ? ' home-page--from-end' : ''}${launch ? ` hp-launch hp-launch--${launch.variant}` : ''}`}>

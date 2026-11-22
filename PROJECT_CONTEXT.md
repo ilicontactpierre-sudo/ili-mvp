@@ -9,15 +9,17 @@ _Dernière mise à jour : 07/11/2026 (20/11/2026 : chiffres du lint et des tests
 **Règles à ne jamais oublier** (détail : le fichier maître `ILi_Plan_Directeur_Statut_*.md`, que Pierre fournit — il n'est pas dans le dépôt — et `CLAUDE.md`) :
 - Claude ne pousse jamais et ne lance jamais `npm run publish`, `npm run checkpoint` ni `git push` : il donne les commandes, Pierre les tape. Mise en ligne en deux phases avec accord entre les deux.
 - Dépôt public : jamais de clé, de `.env`, ni de texte protégé dans un diff.
+- Animations : seul le réglage « Moins d'effets » d'ILi compte ; le réglage « Réduire les animations » du téléphone n'est suivi nulle part (décision de Pierre, 18 et 22/11/2026 ; test `utils/animations.test.js`).
+- **Chantiers à venir** : la liste est dans le fichier maître (section « Chantiers à venir »). En début de conversation, on choisit ensemble lequel lancer ; un gros chantier = une conversation dédiée.
 - Audio : stéréo et pan sacrés. Jamais de mono, jamais le mode `html5` de Howler. `AudioEngine.js` : plan validé d'abord, test de non-régression, écoute réelle par Pierre.
-- Modifier un fichier existant : blocs « à trouver / à remplacer », chacun vérifié comme existant une seule fois. Contrôles : `npx eslint .` avant `npm run build` (340 problèmes préexistants, ne pas les « corriger »), `npx vitest run` (472 tests).
+- Modifier un fichier existant : blocs « à trouver / à remplacer », chacun vérifié comme existant une seule fois. Contrôles : `npx eslint .` avant `npm run build` (340 problèmes préexistants, ne pas les « corriger »), `npx vitest run` (481 tests).
 
 **Comment on travaille ensemble (process, à respecter).**
 - Pierre pose une demande ; Claude explique en français simple, **donne son avis et ses doutes**, et ne demande pas de trancher un point technique que Pierre ne peut pas évaluer. Une seule question à la fois, en conséquences concrètes (pour le site, les visiteurs, les données).
 - **Ajouter, ne pas modifier** : si Pierre demande une nouvelle fonction dans une zone existante, on n'y change rien d'autre (UI, réglages, comportement) sans son accord. Une amélioration de l'existant se propose à part, avec un avis motivé. Avant de dire « rien n'a changé », **montrer le diff**.
 - **Plan et maquette avant le code** pour tout ce qui se voit (maquette interactive, dimensions réelles) ; Pierre valide, puis Claude code.
 - **Livraison** : tout ce qui dépasse une dizaine de lignes est un **fichier à télécharger** (un collage long est abîmé par le terminal) avec son **empreinte** `shasum -a 256`. Pierre contrôle l'empreinte avant de s'en servir et ne prend que les fichiers **à la racine de `~/Downloads`** (un dossier `files (N)` peut contenir des versions périmées). Les petites corrections se donnent en bloc « à trouver / à remplacer ». Au-delà de quelques lignes (depuis le 18/11/2026) : un **script garde-fou** `ili-…-etapeN.sh` qui contient le patch et vérifie tout (contenu de départ, `git am`, fichiers touchés, lint, tests, build) et s'arrête au moindre écart ; détail dans le fichier maître (règles du 18/11/2026).
-- **Vérifier avant de livrer** : copie neuve de la version exacte de Pierre, `npx eslint .` (340) **avant** `npm run build`, `npx vitest run` (472), build ; **test de mutation** (casser volontairement le code, les tests doivent échouer) pour tout code sensible. **Ne jamais annoncer un chiffre sans l'avoir mesuré dans le même état.** Si un message est coupé avant la fin des vérifications, le dire et ne livrer qu'après.
+- **Vérifier avant de livrer** : copie neuve de la version exacte de Pierre, `npx eslint .` (340) **avant** `npm run build`, `npx vitest run` (481), build ; **test de mutation** (casser volontairement le code, les tests doivent échouer) pour tout code sensible. **Ne jamais annoncer un chiffre sans l'avoir mesuré dans le même état.** Si un message est coupé avant la fin des vérifications, le dire et ne livrer qu'après.
 - **Mise en ligne** : phase 0 = commit sur la branche avec une **liste explicite de fichiers** (jamais `git add .`) ; phase 1 = lecture seule (`git diff main --stat`, scan de secrets, comparaison du site construit avant/après) ; accord de Pierre ; phase 2 = `git merge --ff-only`, puis `npm run publish` sur `main` : **Claude lit le rapport avant que Pierre tape `main`**. Après envoi, Claude revérifie GitHub sur un clone neuf.
 - **Limites de Claude** : il ne peut ni écouter, ni utiliser un vrai navigateur ou un iPhone, ni joindre Supabase ou Vercel. Les tests de rendu (`renderToString`) ne simulent pas les clics (pas de jsdom installé) : placement, clics et ressenti se valident **visuellement par Pierre**, avec un JSON de test fourni en fichier si besoin. Les tests « gardes » (qui lisent le code source) protègent les branchements, mais sont stricts.
 - **Pièges vécus** : deux serveurs de dev (le 2e prend le port 5174 et le brouillon, stocké par navigateur et par adresse, n'y est pas : utiliser `npm run dev:clean` puis `localhost:5173/admin`) ; ne jamais coller une console qui montre un champ mot de passe ; les mesures en local (`npm run dev`) sont plus lentes que sur l'admin en ligne (React en mode développement, affichage fait deux fois par le mode « strict ») : comparer avec l'admin en ligne avant de conclure.
@@ -84,7 +86,7 @@ _Dernière mise à jour : 07/11/2026 (20/11/2026 : chiffres du lint et des tests
 | | @ffmpeg/ffmpeg | 0.12.15 | Compression audio côté client (upload) |
 | **Recherche** | Fuse.js | 7.3.0 | Recherche floue dans la bibliothèque de sons |
 | **UI** | CSS natif | — | Variables CSS, Flexbox/Grid, animations custom |
-| **Tests** | Vitest | 5.0.0 | 472 tests (`npx vitest run`) : segmentAlgorithm, AudioEngine, chargement des sons, outil de publication, fiche de Claude, orchestration (pauses, tranches), lignes de la timeline (`timelineRows`), index de recherche des sons, annulation (`historyReuse`), menu des réglages, tutoriel, entrée animée, mode emoji |
+| **Tests** | Vitest | 5.0.0 | 481 tests (`npx vitest run`) : segmentAlgorithm, AudioEngine, chargement des sons, outil de publication, fiche de Claude, orchestration (pauses, tranches), lignes de la timeline (`timelineRows`), index de recherche des sons, annulation (`historyReuse`), menu des réglages, tutoriel, entrée animée, mode emoji, sons de l'interface, règle des animations |
 
 ---
 
@@ -384,7 +386,7 @@ npm run preview          # Preview build local
 npm run lint             # ESLint (340 problèmes préexistants connus ; à lancer AVANT build : dist/ fausse le compte)
 
 # ── Tests ──────────────────────────────────────────────────────────────────────
-npx vitest run           # Tests (472), exécution unique — PAS `npm test` (mode surveillance qui reste ouvert)
+npx vitest run           # Tests (481), exécution unique — PAS `npm test` (mode surveillance qui reste ouvert)
 node scripts/validate-story.mjs public/stories/   # Valide le schéma des stories (--check-urls : vérifie aussi les URLs)
 
 # ── Utilitaires ────────────────────────────────────────────────────────────────

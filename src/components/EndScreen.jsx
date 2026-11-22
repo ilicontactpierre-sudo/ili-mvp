@@ -42,8 +42,7 @@ function EndScreen({ title, author, formUrl, bookUrl, nextPart = null, onNextPar
       const el = signatureRef.current
       let logoFrom = null
       try {
-        const reduce = window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches
-        if (el && !reduce) {
+        if (el) {
           const r = el.getBoundingClientRect()
           logoFrom = {
             x: r.left, y: r.top, w: r.width, h: r.height,
@@ -93,9 +92,6 @@ function EndScreen({ title, author, formUrl, bookUrl, nextPart = null, onNextPar
         @keyframes es-in {
           from { opacity: 0; transform: translateY(10px); filter: blur(6px); }
           to   { opacity: 1; transform: translateY(0);    filter: blur(0); }
-        }
-        @media (prefers-reduced-motion: reduce) {
-          .es-in-anim { animation-duration: 1ms !important; }
         }
         @keyframes es-line-grow {
           from { transform: scaleX(0); opacity: 0; }
