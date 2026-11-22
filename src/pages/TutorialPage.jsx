@@ -7,6 +7,7 @@ import { isBackTap } from '../utils/tapZone.js'
 import { applyEmojiMode } from '../utils/emojiDict.jsx'
 import { applyBionicReading } from '../utils/bionicReading.jsx'
 import { createUiSound } from '../utils/uiSounds.js'
+import { playClicSettings } from '../App.jsx'
 
 // Whoosh de passage entre écrans (Howler, même son et même volume que ceux du menu)
 const WHOOSH = createUiSound('/sounds/Whoosh-3.mp3', 0.15)
@@ -151,6 +152,7 @@ function ScreenNavigation({ onUnlock }) {
   }, [leftDone, rightDone, onUnlock])
 
   const handleTap = (side) => {
+    playClicSettings() // chaque action du tutoriel a son son (22/11/2026)
     setFlashSide(side)
     setTimeout(() => setFlashSide(null), 220)
     if (side === 'left') setLeftDone(true)
@@ -326,6 +328,7 @@ function ScreenHeadphones({ onUnlock, fadeOutRef }) {
 
   const replay = (e) => {
     e.stopPropagation()
+    playClicSettings()
     const audio = audioRef.current
     if (!audio) return
     audio.volume = 0.85
@@ -488,6 +491,7 @@ function ScreenSettings({ onPrev, onNext }) {
     const next = stepIndex + dir
     if (next < 0) { onPrev?.(); return }
     if (next >= steps.length) { onNext?.(); return }
+    playClicSettings() // les sorties d'écran ont leur clic dans la page
     setStepIndex(next)
     setFoldChoice(undefined)
   }
@@ -784,6 +788,7 @@ function TutorialPage() {
 
   const goNext = useCallback(() => {
     if (!canAdvance || transitioning) return
+    playClicSettings()
     if (screenIndex >= SCREENS.length - 1) {
       navigate('/', { state: { fromTutorial: true } })
       return
@@ -812,6 +817,7 @@ function TutorialPage() {
   // Sortie de l'écran réglages par son dernier élément (il gère lui-même ses touchers)
   const goNextFromSettings = useCallback(() => {
     if (transitioning) return
+    playClicSettings()
     setTransitioning(true)
     setTimeout(() => {
       setScreenIndex(i => i + 1)
@@ -823,6 +829,7 @@ function TutorialPage() {
   const goPrev = useCallback(() => {
     if (transitioning) return
     if (screenIndex === 0) return // première page : on ignore
+    playClicSettings()
     setTransitioning(true)
     setTimeout(() => {
       setScreenIndex(i => i - 1)
@@ -857,7 +864,7 @@ function TutorialPage() {
 
   const headphonesFadeRef = useRef(null)
   useEffect(() => { WHOOSH.prepare() }, [])
-  const handleExit = () => navigate('/')
+  const handleExit = () => { playClicSettings(); navigate('/') }
   const handleUnlockNavigation = useCallback((delay = 0) => {
     if (delay > 0) {
       setTimeout(() => setCanAdvance(true), delay)

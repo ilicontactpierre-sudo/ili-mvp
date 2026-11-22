@@ -15,6 +15,16 @@ function emitSettingsChange(detail) {
 // ── Whooshes de navigation (Howler : volume respecté sur iPhone) ─────────────
 const WHOOSHES = [1, 2, 3, 4, 5, 6].map(n => createUiSound(`/sounds/Whoosh-${n}.mp3`, 0.15))
 
+// ── Sons « active / désactive » des boutons à deux états (sons de Pierre, 22/11/2026) ──
+// Volumes réglés pour sonner comme le clic des réglages (0,1) : mesurés à l'attaque,
+// « active » est 3,6 dB plus doux, « désactive » 1,3 dB plus fort.
+const SON_ACTIVE = createUiSound('/sounds/Active.mp3', 0.15)
+const SON_DESACTIVE = createUiSound('/sounds/Desactive.mp3', 0.09)
+// on : l'état APRÈS le toucher (true = le réglage s'allume)
+function playToggle(on) {
+  (on ? SON_ACTIVE : SON_DESACTIVE).play()
+}
+
 // ── localStorage helpers ──────────────────────────────────────────────────────
 const PROGRESS_KEY = (storyId) => `ili_progress_${storyId}`
 export function saveProgress(storyId, segmentIndex, finished = false) {
@@ -216,6 +226,8 @@ export default function ReaderSettings({
   useEffect(() => {
     if (isOpen) WHOOSHES.forEach(w => w.prepare())
   }, [isOpen])
+  // Sons active / désactive : 2 × 8 Ko, prêts dès que les réglages existent
+  useEffect(() => { SON_ACTIVE.prepare(); SON_DESACTIVE.prepare() }, [])
   const [isClosing, setIsClosing]   = useState(false)
   // Dépliants du menu : un seul ouvert à la fois ('immersion' | 'aller' | null),
   // tous refermés à chaque ouverture et fermeture du menu
@@ -224,6 +236,7 @@ export default function ReaderSettings({
   const currentFold = forceOpen ? tutorialFold : openFold
   const showChapters = currentFold === 'aller'
   const toggleFold = (name) => {
+    playClicSettings()
     if (forceOpen) onTutorialFold?.(name)
     else setOpenFold(f => (f === name ? null : name))
   }
@@ -809,6 +822,7 @@ export default function ReaderSettings({
               <button
                 className={`rs-btn${isDark && !isToutdoux && !isSynthwave ? ' active' : ''}${isSynthwave ? ' active' : ''}`}
                 onClick={() => {
+                  playClicSettings()
                   if (isSynthwave) {
                     // 3e clic lune → retour mode sombre base
                     setIsSynthwave(false); setIsToutdoux(false); setIsDark(true)
@@ -828,6 +842,7 @@ export default function ReaderSettings({
               <button
                 className={`rs-btn${!isDark && !isToutdoux && !isSynthwave ? ' active' : ''}${isToutdoux ? ' active' : ''}`}
                 onClick={() => {
+                  playClicSettings()
                   if (isToutdoux) {
                     // 3e clic soleil → retour mode clair base
                     setIsToutdoux(false); setIsSynthwave(false); setIsDark(false)
@@ -854,7 +869,7 @@ export default function ReaderSettings({
             <div className="rs-row">
               <button
                 className="rs-btn"
-                onClick={() => setFontSizeIndex(i => Math.max(0, i - 1))}
+                onClick={() => { playClicSettings(); setFontSizeIndex(i => Math.max(0, i - 1)) }}
                 disabled={fontSizeIndex === 0}
                 style={{ opacity: fontSizeIndex === 0 ? 0.3 : 1, fontSize: '1.2rem', fontWeight: 300 }}
                 title="Réduire"
@@ -864,7 +879,7 @@ export default function ReaderSettings({
               <span className="rs-font-label">{FONT_SIZES[fontSizeIndex].label}</span>
               <button
                 className="rs-btn"
-                onClick={() => setFontSizeIndex(i => Math.min(FONT_SIZES.length - 1, i + 1))}
+                onClick={() => { playClicSettings(); setFontSizeIndex(i => Math.min(FONT_SIZES.length - 1, i + 1)) }}
                 disabled={fontSizeIndex === FONT_SIZES.length - 1}
                 style={{ opacity: fontSizeIndex === FONT_SIZES.length - 1 ? 0.3 : 1, fontSize: '1.2rem', fontWeight: 300 }}
                 title="Agrandir"
@@ -878,7 +893,7 @@ export default function ReaderSettings({
             <div className="rs-dys-row">
               <button
                 className={`rs-dys-btn${dys1 ? ' active' : ''}`}
-                onClick={() => { playClicSettings(); setDys1(v => !v) }}
+                onClick={() => { playToggle(!dys1); setDys1(v => !v) }}
                 aria-pressed={dys1}
                 title="Lecture assistée : met en gras les premières lettres de chaque mot"
               >
@@ -886,7 +901,7 @@ export default function ReaderSettings({
               </button>
               <button
                 className={`rs-dys-btn${dys2 ? ' active' : ''}`}
-                onClick={() => { playClicSettings(); setDys2(v => !v) }}
+                onClick={() => { playToggle(!dys2); setDys2(v => !v) }}
                 aria-pressed={dys2}
                 title="Police Lexend, conçue pour la dyslexie"
               >
@@ -894,7 +909,7 @@ export default function ReaderSettings({
               </button>
               <button
                 className={`rs-dys-btn${emojiMode ? ' active' : ''}`}
-                onClick={() => { playClicSettings(); setEmojiMode(v => !v) }}
+                onClick={() => { playToggle(!emojiMode); setEmojiMode(v => !v) }}
                 aria-pressed={emojiMode}
                 aria-label="Mode emoji"
                 title="Mode visuel : remplace les mots courants par des emojis"
@@ -910,7 +925,7 @@ export default function ReaderSettings({
               </span>
               <ReaderSwitch
                 isDark={isDark}
-                onClick={() => { playClicSettings(); setMoinsEffets(v => !v) }}
+                onClick={() => { playToggle(!moinsEffets); setMoinsEffets(v => !v) }}
                 aria-checked={moinsEffets}
                 aria-label="Moins d’effets"
               />
@@ -934,7 +949,7 @@ export default function ReaderSettings({
               <span className="rs-switch-label">Barre de progression</span>
               <ReaderSwitch
                 isDark={isDark}
-                onClick={() => { playClicSettings(); setShowProgress(v => !v) }}
+                onClick={() => { playToggle(!showProgress); setShowProgress(v => !v) }}
                 aria-checked={showProgress}
                 aria-label={showProgress ? 'Désactiver la barre de progression' : 'Activer la barre de progression'}
               />
@@ -945,7 +960,7 @@ export default function ReaderSettings({
                 <span className="rs-switch-label">Plein écran</span>
                 <ReaderSwitch
                   isDark={isDark}
-                  onClick={() => { playClicSettings(); toggleFullscreen() }}
+                  onClick={() => { playToggle(!isFullscreen); toggleFullscreen() }}
                   aria-checked={isFullscreen}
                   aria-label={isFullscreen ? 'Quitter le plein écran' : 'Activer le plein écran'}
                 />

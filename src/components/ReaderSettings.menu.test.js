@@ -37,18 +37,18 @@ describe('menu des réglages : ordre et noms des blocs', () => {
 
   it('chaque bouton de police garde son action', () => {
     const bloc = (texte) => menu.slice(menu.lastIndexOf('<button', menu.indexOf(texte)), menu.indexOf(texte))
-    expect(bloc('                DYS 1\n')).toContain('onClick={() => { playClicSettings(); setDys1(v => !v) }}')
-    expect(bloc('                DYS 2\n')).toContain('onClick={() => { playClicSettings(); setDys2(v => !v) }}')
-    expect(bloc('<IconSmiley />')).toContain('onClick={() => { playClicSettings(); setEmojiMode(v => !v) }}')
-    expect(bloc('                −\n')).toContain('onClick={() => setFontSizeIndex(i => Math.max(0, i - 1))}')
-    expect(bloc('                +\n')).toContain('onClick={() => setFontSizeIndex(i => Math.min(FONT_SIZES.length - 1, i + 1))}')
+    expect(bloc('                DYS 1\n')).toContain('onClick={() => { playToggle(!dys1); setDys1(v => !v) }}')
+    expect(bloc('                DYS 2\n')).toContain('onClick={() => { playToggle(!dys2); setDys2(v => !v) }}')
+    expect(bloc('<IconSmiley />')).toContain('onClick={() => { playToggle(!emojiMode); setEmojiMode(v => !v) }}')
+    expect(bloc('                −\n')).toContain('onClick={() => { playClicSettings(); setFontSizeIndex(i => Math.max(0, i - 1)) }}')
+    expect(bloc('                +\n')).toContain('onClick={() => { playClicSettings(); setFontSizeIndex(i => Math.min(FONT_SIZES.length - 1, i + 1)) }}')
   })
 
   it('le bouton emoji est le visage dessiné, nommé pour les lecteurs d’écran', () => {
     expect(menu).not.toContain('😊')
     expect(menu).toContain('aria-label="Mode emoji"')
     expect(menu).toContain('<IconSmiley />')
-    expect(menu).toContain('onClick={() => { playClicSettings(); setEmojiMode(v => !v) }}')
+    expect(menu).toContain('onClick={() => { playToggle(!emojiMode); setEmojiMode(v => !v) }}')
   })
 
   it('les trois interrupteurs passent par la même pièce, avec leur action d’avant', () => {
@@ -58,8 +58,8 @@ describe('menu des réglages : ordre et noms des blocs', () => {
     expect(menu).toContain('aria-checked={moinsEffets}')
     expect(menu).toContain('aria-checked={showProgress}')
     expect(menu).toContain('aria-checked={isFullscreen}')
-    expect(menu).toContain('onClick={() => { playClicSettings(); setShowProgress(v => !v) }}')
-    expect(menu).toContain('onClick={() => { playClicSettings(); toggleFullscreen() }}')
+    expect(menu).toContain('onClick={() => { playToggle(!showProgress); setShowProgress(v => !v) }}')
+    expect(menu).toContain('onClick={() => { playToggle(!isFullscreen); toggleFullscreen() }}')
     expect(menu).toContain('{!isIOSDevice && document.fullscreenEnabled && (')
   })
 
